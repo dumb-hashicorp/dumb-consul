@@ -1,16 +1,16 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 {{#if @item}}
   {{#let (service/external-source @item) as |externalSource|}}
-  {{#if (and @withInfo (eq externalSource 'consul-api-gateway'))}}
+  {{#if (and @withInfo (eq externalSource 'dumb-consul-api-gateway'))}}
         <dl class="tooltip-panel">
           <dt>
             <span
               data-test-external-source={{externalSource}}
-              class="consul-external-source"
+              class="dumb-consul-external-source"
               ...attributes
             >
               <Hds::Icon @name={{icon-mapping externalSource}} class="mr-1.5 w-4 h-4"  />
@@ -38,10 +38,10 @@
   {{else if externalSource}}
     <span
       data-test-external-source={{externalSource}}
-      class="consul-external-source"
+      class="dumb-consul-external-source"
       ...attributes
     >
-      <Hds::Icon @name={{icon-mapping externalSource}} @color="var(--token-color-hashicorp-brand)" class="mr-1.5 h-4 w-4" />
+      <Hds::Icon @name={{icon-mapping externalSource}} @color="var(--token-color-dumb-hashicorp-brand)" class="mr-1.5 h-4 w-4" />
       {{#if @label}}
         {{@label}}
       {{else}}

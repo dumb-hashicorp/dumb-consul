@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/coordinate';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/coordinate';
 
 export default class CoordinateSerializer extends Serializer {
   primaryKey = PRIMARY_KEY;

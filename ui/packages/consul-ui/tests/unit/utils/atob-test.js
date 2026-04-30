@@ -4,7 +4,7 @@
  */
 
 import { module, skip, test } from 'qunit';
-import atob from 'consul-ui/utils/atob';
+import atob from 'dumb-consul-ui/utils/atob';
 
 module('Unit | Utils | atob', function () {
   skip('it decodes non-strings properly', function (assert) {

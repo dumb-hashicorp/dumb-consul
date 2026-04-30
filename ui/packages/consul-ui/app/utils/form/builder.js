@@ -5,12 +5,12 @@
 
 import { get, set } from '@ember/object';
 import { Changeset as createChangeset } from 'ember-changeset';
-import Changeset from 'consul-ui/utils/form/changeset';
+import Changeset from 'dumb-consul-ui/utils/form/changeset';
 import lookupValidator from 'ember-changeset-validations';
 
 // Keep these here for now so forms are easy to make
 // TODO: Probably move this to utils/form/parse-element-name
-import parseElementName from 'consul-ui/utils/get-form-name-property';
+import parseElementName from 'dumb-consul-ui/utils/get-form-name-property';
 export const defaultChangeset = function (data, validators) {
   return createChangeset(data, lookupValidator(validators), validators, { changeset: Changeset });
 };

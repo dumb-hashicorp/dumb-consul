@@ -32,7 +32,7 @@ func (r *registry) Build(target resolver.Target, cc resolver.ClientConn, opts re
 }
 
 func (r *registry) Scheme() string {
-	return "consul"
+	return "dumb-consul"
 }
 
 var _ resolver.Builder = (*registry)(nil)

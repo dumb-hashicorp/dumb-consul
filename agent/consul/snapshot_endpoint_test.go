@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"bytes"
@@ -10,16 +10,16 @@ import (
 	"testing"
 	"time"
 
-	autopilot "github.com/hashicorp/raft-autopilot"
+	autopilot "github.com/dumb-hashicorp/raft-autopilot"
 	"github.com/stretchr/testify/require"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 // verifySnapshot is a helper that does a snapshot and restore.
@@ -174,7 +174,7 @@ func TestSnapshot(t *testing.T) {
 	verifySnapshot(t, s1, "dc1", "")
 
 	// ensure autopilot is still running
-	// https://github.com/hashicorp/consul/issues/9626
+	// https://github.com/dumb-hashicorp/dumb-consul/issues/9626
 	apstatus, _ := s1.autopilot.IsRunning()
 	require.Equal(t, autopilot.Running, apstatus)
 }

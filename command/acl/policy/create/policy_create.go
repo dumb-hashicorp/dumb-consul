@@ -11,10 +11,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl/policy"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/policy"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -78,7 +78,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -129,7 +129,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Create an ACL policy"
 	help     = `
-Usage: consul acl policy create -name NAME [options]
+Usage: dumb-consul acl policy create -name NAME [options]
 
     The -rules option values allows loading the value from stdin, a file 
     or the raw value. To use stdin pass '-' as the value. To load the value 
@@ -138,7 +138,7 @@ Usage: consul acl policy create -name NAME [options]
 
     Create a new policy:
 
-        $ consul acl policy create -name "new-policy" \
+        $ dumb-consul acl policy create -name "new-policy" \
                                    -description "This is an example policy" \
                                    -datacenter "dc1" \
                                    -datacenter "dc2" \

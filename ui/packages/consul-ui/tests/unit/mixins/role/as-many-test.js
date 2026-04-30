@@ -4,7 +4,7 @@
  */
 
 import EmberObject from '@ember/object';
-import RoleAsManyMixin from 'consul-ui/mixins/role/as-many';
+import RoleAsManyMixin from 'dumb-consul-ui/mixins/role/as-many';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | role/as many', function () {

@@ -8,14 +8,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 var (
@@ -1943,7 +1943,7 @@ func TestStore_IntentionDecision(t *testing.T) {
 		&structs.ServiceIntentionsConfigEntry{
 			Kind: structs.ServiceIntentions,
 			Name: "web",
-			Meta: map[string]string{structs.MetaExternalSource: "nomad"},
+			Meta: map[string]string{structs.MetaExternalSource: "dumb-nomad"},
 			Sources: []*structs.SourceIntention{
 				{
 					Name:   "api",
@@ -2041,7 +2041,7 @@ func TestStore_IntentionDecision(t *testing.T) {
 			expect: structs.IntentionDecisionSummary{
 				Allowed:        true,
 				HasPermissions: false,
-				ExternalSource: "nomad",
+				ExternalSource: "dumb-nomad",
 				HasExact:       true,
 			},
 		},

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -9,15 +9,15 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/raft"
-	autopilot "github.com/hashicorp/raft-autopilot"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/raft"
+	autopilot "github.com/dumb-hashicorp/raft-autopilot"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/consul/autopilotevents"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/autopilotevents"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 var AutopilotGauges = []prometheus.GaugeDefinition{
@@ -31,7 +31,7 @@ var AutopilotGauges = []prometheus.GaugeDefinition{
 	},
 }
 
-// AutopilotDelegate is a Consul delegate for autopilot operations.
+// AutopilotDelegate is a Dumb Consul delegate for autopilot operations.
 type AutopilotDelegate struct {
 	server                *Server
 	readyServersPublisher *autopilotevents.ReadyServersEventPublisher

@@ -31,9 +31,9 @@ repository {
       vulnerabilities = [
       ]
       paths = [
-        "internal/tools/proto-gen-rpc-glue/e2e/consul/*",
+        "internal/tools/proto-gen-rpc-glue/e2e/dumb-consul/*",
         "test/integration/connect/envoy/test-sds-server/*",
-        "test/integration/consul-container/*",
+        "test/integration/dumb-consul-container/*",
         "testing/deployer/*",
         "test-integ/*",
         "agent/uiserver/dist/assets/vendor-*.js",

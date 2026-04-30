@@ -1,21 +1,21 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
 	"path/filepath"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/internal/gossip/libserf"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/libserf"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // setupSerf is used to setup and initialize a Serf
@@ -166,8 +166,8 @@ func (c *Client) nodeFail(me serf.MemberEvent) {
 
 // localEvent is called when we receive an event on the local Serf
 func (c *Client) localEvent(event serf.UserEvent) {
-	// Handle only consul events
-	if !strings.HasPrefix(event.Name, "consul:") {
+	// Handle only dumb-consul events
+	if !strings.HasPrefix(event.Name, "dumb-consul:") {
 		return
 	}
 

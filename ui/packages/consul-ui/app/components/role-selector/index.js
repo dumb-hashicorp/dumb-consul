@@ -8,7 +8,7 @@ import { inject as service } from '@ember/service';
 import { set } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
-import { CallableEventSource as EventSource } from 'consul-ui/utils/dom/event-source';
+import { CallableEventSource as EventSource } from 'dumb-consul-ui/utils/dom/event-source';
 
 export default ChildSelectorComponent.extend({
   repo: service('repository/role'),

@@ -17,10 +17,10 @@ import (
 	"sync/atomic"
 	"text/template"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 const (
@@ -30,7 +30,7 @@ const (
 //go:embed dist
 var dist embed.FS
 
-// Handler is the http.Handler that serves the Consul UI. It may serve from the
+// Handler is the http.Handler that serves the Dumb Consul UI. It may serve from the
 // embedded fs.FS or from an external directory. It provides a few important
 // transformations on the index.html file and includes a proxy for metrics
 // backends.

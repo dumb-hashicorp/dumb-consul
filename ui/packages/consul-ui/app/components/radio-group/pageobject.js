@@ -4,7 +4,7 @@
  */
 
 import { property, clickable } from 'ember-cli-page-object';
-import ucfirst from 'consul-ui/utils/ucfirst';
+import ucfirst from 'dumb-consul-ui/utils/ucfirst';
 // TODO: We no longer need to use name here
 // remove the arg in all objects
 export default function (name, items, blankKey = 'all') {

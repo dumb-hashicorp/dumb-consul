@@ -3,10 +3,10 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
-	"github.com/hashicorp/consul/internal/gossip/libserf"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/libserf"
 )
 
 func updateSerfTags(s *Server, key, value string) {

@@ -26,10 +26,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ForwardingService_Write_FullMethodName  = "/hashicorp.consul.internal.storage.raft.ForwardingService/Write"
-	ForwardingService_Delete_FullMethodName = "/hashicorp.consul.internal.storage.raft.ForwardingService/Delete"
-	ForwardingService_Read_FullMethodName   = "/hashicorp.consul.internal.storage.raft.ForwardingService/Read"
-	ForwardingService_List_FullMethodName   = "/hashicorp.consul.internal.storage.raft.ForwardingService/List"
+	ForwardingService_Write_FullMethodName  = "/dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService/Write"
+	ForwardingService_Delete_FullMethodName = "/dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService/Delete"
+	ForwardingService_Read_FullMethodName   = "/dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService/Read"
+	ForwardingService_List_FullMethodName   = "/dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService/List"
 )
 
 // ForwardingServiceClient is the client API for ForwardingService service.
@@ -37,7 +37,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
 // Forwarding service is used for forwarding write and consistent read
-// operations to the Raft leader. It is served on Consul's multiplexed
+// operations to the Raft leader. It is served on Dumb Consul's multiplexed
 // server port, which is the same port used for regular Raft traffic.
 type ForwardingServiceClient interface {
 	// Write handles a forwarded write operation.
@@ -103,7 +103,7 @@ func (c *forwardingServiceClient) List(ctx context.Context, in *ListRequest, opt
 // for forward compatibility.
 //
 // Forwarding service is used for forwarding write and consistent read
-// operations to the Raft leader. It is served on Consul's multiplexed
+// operations to the Raft leader. It is served on Dumb Consul's multiplexed
 // server port, which is the same port used for regular Raft traffic.
 type ForwardingServiceServer interface {
 	// Write handles a forwarded write operation.
@@ -231,7 +231,7 @@ func _ForwardingService_List_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ForwardingService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "hashicorp.consul.internal.storage.raft.ForwardingService",
+	ServiceName: "dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService",
 	HandlerType: (*ForwardingServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

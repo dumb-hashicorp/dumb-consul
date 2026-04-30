@@ -3,7 +3,7 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -13,11 +13,11 @@ import (
 	"github.com/stretchr/testify/require"
 	gogrpc "google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestPeeringBackend_RejectsPartition(t *testing.T) {
@@ -61,7 +61,7 @@ func TestPeeringBackend_RejectsPartition(t *testing.T) {
 	}
 	_, err = peeringClient.GenerateToken(ctx, &req)
 	require.Error(t, err)
-	require.Contains(t, err.Error(), "Partitions are a Consul Enterprise feature")
+	require.Contains(t, err.Error(), "Partitions are a Dumb Consul Enterprise feature")
 }
 
 func TestPeeringBackend_IgnoresDefaultPartition(t *testing.T) {

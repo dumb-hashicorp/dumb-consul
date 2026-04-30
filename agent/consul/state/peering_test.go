@@ -7,17 +7,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 const (
@@ -1788,7 +1788,7 @@ func TestStateStore_ExportedServicesForAllPeersByName(t *testing.T) {
 
 	lastIdx++
 	require.NoError(t, s.CASetConfig(lastIdx, &structs.CAConfiguration{
-		Provider:  "consul",
+		Provider:  "dumb-consul",
 		ClusterID: connect.TestClusterID,
 	}))
 
@@ -1874,7 +1874,7 @@ func TestStateStore_ExportedServicesForPeer(t *testing.T) {
 	var lastIdx uint64
 
 	ca := &structs.CAConfiguration{
-		Provider:  "consul",
+		Provider:  "dumb-consul",
 		ClusterID: connect.TestClusterID,
 	}
 	lastIdx++
@@ -1941,7 +1941,7 @@ func TestStateStore_ExportedServicesForPeer(t *testing.T) {
 			Name: "default",
 			Services: []structs.ExportedService{
 				{
-					// The "consul" service should never be exported.
+					// The "dumb-consul" service should never be exported.
 					Name: structs.ConsulServiceName,
 					Consumers: []structs.ServiceConsumer{
 						{Peer: "my-peering"},
@@ -2051,7 +2051,7 @@ func TestStateStore_ExportedServicesForPeer(t *testing.T) {
 			ID: "billing", Service: "billing", Port: 5000,
 		}))
 		lastIdx++
-		// The consul service should never be exported.
+		// The dumb-consul service should never be exported.
 		require.NoError(t, s.EnsureService(lastIdx, "foo", &structs.NodeService{
 			ID: structs.ConsulServiceID, Service: structs.ConsulServiceName, Port: 8000,
 		}))
@@ -2074,7 +2074,7 @@ func TestStateStore_ExportedServicesForPeer(t *testing.T) {
 
 		expect := &structs.ExportedServiceList{
 			// Only "billing" shows up, because there are no other service instances running,
-			// and "consul" is never exported.
+			// and "dumb-consul" is never exported.
 			Services: []structs.ServiceName{
 				{
 					Name:           "billing",
@@ -2117,7 +2117,7 @@ func TestStateStore_ExportedServicesForPeer(t *testing.T) {
 			},
 		}))
 		lastIdx++
-		// The consul service should never be exported.
+		// The dumb-consul service should never be exported.
 		require.NoError(t, s.EnsureService(lastIdx, "foo", &structs.NodeService{
 			Kind:    structs.ServiceKindConnectProxy,
 			ID:      structs.ConsulServiceID + "-2",
@@ -2154,10 +2154,10 @@ func TestStateStore_ExportedServicesForPeer(t *testing.T) {
 			EnterpriseMeta: *defaultEntMeta,
 		})
 
-		// Consul should still never be exported, even if a resolver references it.
+		// Dumb Consul should still never be exported, even if a resolver references it.
 		ensureConfigEntry(t, &structs.ServiceResolverConfigEntry{
 			Kind: structs.ServiceResolver,
-			Name: "consul-redirect",
+			Name: "dumb-consul-redirect",
 			Redirect: &structs.ServiceResolverRedirect{
 				Service: structs.ConsulServiceName,
 			},
@@ -2178,10 +2178,10 @@ func TestStateStore_ExportedServicesForPeer(t *testing.T) {
 					EnterpriseMeta: *defaultEntMeta,
 				},
 				// NOTE: no payments-proxy here
-				// NOTE: no consul here
+				// NOTE: no dumb-consul here
 			},
 			DiscoChains: map[structs.ServiceName]structs.ExportedDiscoveryChainInfo{
-				// NOTE: no consul-redirect here
+				// NOTE: no dumb-consul-redirect here
 				// NOTE: no billing here, because it does not have a proxy.
 				newSN("payments"): {
 					Protocol: "http",
@@ -2226,10 +2226,10 @@ func TestStateStore_ExportedServicesForPeer(t *testing.T) {
 					EnterpriseMeta: *defaultEntMeta,
 				},
 				// NOTE: no payments-proxy here
-				// NOTE: no consul here
+				// NOTE: no dumb-consul here
 			},
 			DiscoChains: map[structs.ServiceName]structs.ExportedDiscoveryChainInfo{
-				// NOTE: no consul-redirect here
+				// NOTE: no dumb-consul-redirect here
 				newSN("payments"): {
 					Protocol: "http",
 				},
@@ -2798,7 +2798,7 @@ func TestStore_TrustBundleListByService(t *testing.T) {
 	var lastIdx uint64
 
 	ca := &structs.CAConfiguration{
-		Provider:  "consul",
+		Provider:  "dumb-consul",
 		ClusterID: connect.TestClusterID,
 	}
 	lastIdx++

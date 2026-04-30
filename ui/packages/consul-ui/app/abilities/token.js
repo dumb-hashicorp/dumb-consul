@@ -6,8 +6,8 @@
 import BaseAbility from './base';
 import { inject as service } from '@ember/service';
 
-import { isLegacy } from 'consul-ui/helpers/token/is-legacy';
-import { isAnonymous } from 'consul-ui/helpers/token/is-anonymous';
+import { isLegacy } from 'dumb-consul-ui/helpers/token/is-legacy';
+import { isAnonymous } from 'dumb-consul-ui/helpers/token/is-anonymous';
 
 export default class TokenAbility extends BaseAbility {
   @service('env') env;

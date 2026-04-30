@@ -7,8 +7,8 @@ import Service, { inject as service } from '@ember/service';
 import { schedule } from '@ember/runloop';
 import { get } from '@ember/object';
 
-import wildcard from 'consul-ui/utils/routing/wildcard';
-import { routes } from 'consul-ui/router';
+import wildcard from 'dumb-consul-ui/utils/routing/wildcard';
+import { routes } from 'dumb-consul-ui/router';
 
 const isWildcard = wildcard(routes);
 

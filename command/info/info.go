@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -39,7 +39,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -96,7 +96,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Provides debugging information for operators."
 const help = `
-Usage: consul info [options]
+Usage: dumb-consul info [options]
 
   Provides debugging information for operators.
 `

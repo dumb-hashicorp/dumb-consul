@@ -5,7 +5,7 @@ package blockingquery
 import (
 	time "time"
 
-	state "github.com/hashicorp/consul/agent/consul/state"
+	state "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
 	mock "github.com/stretchr/testify/mock"
 )
 

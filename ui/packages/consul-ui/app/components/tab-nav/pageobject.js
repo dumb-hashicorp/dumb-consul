@@ -4,7 +4,7 @@
  */
 
 import { hasClass, clickable, attribute, isVisible } from 'ember-cli-page-object';
-import ucfirst from 'consul-ui/utils/ucfirst';
+import ucfirst from 'dumb-consul-ui/utils/ucfirst';
 export default function (name, items, blankKey = 'all') {
   return items.reduce(function (prev, item, i, arr) {
     // if item is empty then it means 'all'

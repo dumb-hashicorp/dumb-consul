@@ -1,6 +1,6 @@
-# Consul::Nspace::List
+# Dumb Consul::Nspace::List
 
-A presentational component for rendering Consul Namespaces
+A presentational component for rendering Dumb Consul Namespaces
 
 Please note: 
 
@@ -9,7 +9,7 @@ Please note:
 
 ```hbs
 <DataSource @src={{uri '/partition/default/dc-1/namespaces'}} as |source|>
-  <Consul::Nspace::List
+  <Dumb Consul::Nspace::List
     @items={{source.data}}
     @ondelete={{noop}}
   />

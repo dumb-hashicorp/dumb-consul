@@ -10,17 +10,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-raftchunking"
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-raftchunking"
+	"github.com/dumb-hashicorp/raft"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
 
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	raftstorage "github.com/hashicorp/consul/internal/storage/raft"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	raftstorage "github.com/dumb-hashicorp/dumb-consul/internal/storage/raft"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 // command is a command method on the FSM.
@@ -272,7 +272,7 @@ func (c *FSM) Restore(old io.ReadCloser) error {
 				var ignore interface{}
 				return dec.Decode(&ignore)
 			} else if msg >= 64 {
-				return fmt.Errorf("msg type <%d> is a Consul Enterprise log entry. Consul CE cannot restore it", msg)
+				return fmt.Errorf("msg type <%d> is a Dumb Consul Enterprise log entry. Dumb Consul CE cannot restore it", msg)
 			} else {
 				return fmt.Errorf("Unrecognized msg type %d", msg)
 			}

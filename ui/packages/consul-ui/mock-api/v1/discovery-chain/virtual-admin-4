@@ -108,8 +108,8 @@
           "Datacenter": "dc1",
           "MeshGateway": {},
           "Subset": {},
-          "SNI": "admin.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.consul",
-          "Name": "admin.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.consul"
+          "SNI": "admin.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.dumb-consul",
+          "Name": "admin.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.dumb-consul"
         },
         "admin.default.default.dc2": {
           "ID": "admin.default.default.dc2",
@@ -121,8 +121,8 @@
             "Mode": "local"
           },
           "Subset": {},
-          "SNI": "admin.default.default.dc2.internal.6818c189-1048-8114-7d9f-ae248864b349.consul",
-          "Name": "admin.default.default.dc2.internal.6818c189-1048-8114-7d9f-ae248864b349.consul"
+          "SNI": "admin.default.default.dc2.internal.6818c189-1048-8114-7d9f-ae248864b349.dumb-consul",
+          "Name": "admin.default.default.dc2.internal.6818c189-1048-8114-7d9f-ae248864b349.dumb-consul"
         },
         "login.default.default.dc1": {
           "ID": "login.default.default.dc1",
@@ -132,8 +132,8 @@
           "Datacenter": "dc1",
           "MeshGateway": {},
           "Subset": {},
-          "SNI": "login.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.consul",
-          "Name": "login.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.consul"
+          "SNI": "login.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.dumb-consul",
+          "Name": "login.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.dumb-consul"
         },
         "virtual-admin-4.default.default.dc1": {
           "ID": "virtual-admin-4.default.default.dc1",
@@ -143,8 +143,8 @@
           "Datacenter": "dc1",
           "MeshGateway": {},
           "Subset": {},
-          "SNI": "virtual-admin-4.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.consul",
-          "Name": "virtual-admin-4.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.consul"
+          "SNI": "virtual-admin-4.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.dumb-consul",
+          "Name": "virtual-admin-4.default.default.dc1.internal.6818c189-1048-8114-7d9f-ae248864b349.dumb-consul"
         }
       }
     }

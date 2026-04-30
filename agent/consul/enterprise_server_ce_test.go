@@ -3,11 +3,11 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
-	"github.com/hashicorp/consul/sdk/testutil"
-	hclog "github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	hclog "github.com/dumb-hashicorp/go-hclog"
 )
 
 func newDefaultDepsEnterprise(t testutil.TestingTB, _ hclog.Logger, _ *Config) EnterpriseDeps {

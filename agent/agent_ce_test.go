@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestAgent_consulConfig_Reporting(t *testing.T) {
@@ -63,7 +63,7 @@ func TestValidateEnterpriseMeshPortConfig(t *testing.T) {
 			Ports:   structs.ServicePorts{{Name: "http", Port: 8080, Default: true}},
 			Connect: structs.ServiceConnect{SidecarService: &structs.ServiceDefinition{}},
 		})
-		require.ErrorContains(t, err, "named service ports in the service mesh require Consul Enterprise")
+		require.ErrorContains(t, err, "named service ports in the service mesh require Dumb Consul Enterprise")
 	})
 
 	t.Run("destination port upstreams are rejected", func(t *testing.T) {
@@ -77,6 +77,6 @@ func TestValidateEnterpriseMeshPortConfig(t *testing.T) {
 				}},
 			},
 		})
-		require.ErrorContains(t, err, "destination port routing requires Consul Enterprise")
+		require.ErrorContains(t, err, "destination port routing requires Dumb Consul Enterprise")
 	})
 }

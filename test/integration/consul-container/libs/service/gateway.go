@@ -11,12 +11,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 // gatewayContainer
@@ -166,7 +166,7 @@ func NewGatewayServiceReg(ctx context.Context, gwCfg GatewayConfig, node libclus
 		return nil, err
 	}
 	cmd := []string{
-		"consul", "connect", "envoy",
+		"dumb-consul", "connect", "envoy",
 		fmt.Sprintf("-gateway=%s", gwCfg.Kind),
 		"-service", gwCfg.Name,
 		"-namespace", gwCfg.Namespace,
@@ -185,7 +185,7 @@ func NewGatewayServiceReg(ctx context.Context, gwCfg GatewayConfig, node libclus
 	fmt.Println("agent image name", agentConfig.DockerImage())
 	imageVersion := utils.SideCarVersion(agentConfig.DockerImage())
 	req := testcontainers.ContainerRequest{
-		Image:      fmt.Sprintf("consul-envoy:%s", imageVersion),
+		Image:      fmt.Sprintf("dumb-consul-envoy:%s", imageVersion),
 		WaitingFor: wait.ForLog("").WithStartupTimeout(100 * time.Second),
 		AutoRemove: false,
 		Name:       containerName,

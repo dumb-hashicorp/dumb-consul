@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"crypto/rand"
@@ -15,19 +15,19 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestInternal_NodeInfo(t *testing.T) {
@@ -845,7 +845,7 @@ func TestInternal_ServiceDump(t *testing.T) {
 	// Run the tests against the test server
 	t.Run("No Filter", func(t *testing.T) {
 		nodes := doRequest(t, "")
-		// redis (3), web (3), critical (1), warning (1) and consul (1)
+		// redis (3), web (3), critical (1), warning (1) and dumb-consul (1)
 		require.Len(t, nodes.Nodes, 9)
 
 	})
@@ -897,7 +897,7 @@ func TestInternal_ServiceDump_Kind(t *testing.T) {
 	// Run the tests against the test server
 	t.Run("Typical", func(t *testing.T) {
 		nodes := doRequest(t, structs.ServiceKindTypical)
-		// redis (3), web (3), critical (1), warning (1) and consul (1)
+		// redis (3), web (3), critical (1), warning (1) and dumb-consul (1)
 		require.Len(t, nodes, 9)
 	})
 
@@ -1969,7 +1969,7 @@ func TestInternal_ServiceDump_Peering(t *testing.T) {
 
 	t.Run("No peerings", func(t *testing.T) {
 		nodes := doRequest(t, "", false)
-		// redis (3), web (3), critical (1), warning (1) and consul (1)
+		// redis (3), web (3), critical (1), warning (1) and dumb-consul (1)
 		require.Len(t, nodes.Nodes, 9)
 		require.Len(t, nodes.ImportedNodes, 0)
 	})
@@ -1986,7 +1986,7 @@ func TestInternal_ServiceDump_Peering(t *testing.T) {
 
 	t.Run("peerings", func(t *testing.T) {
 		nodes := doRequest(t, "", false)
-		// redis (3), web (3), critical (1), warning (1) and consul (1)
+		// redis (3), web (3), critical (1), warning (1) and dumb-consul (1)
 		require.Len(t, nodes.Nodes, 9)
 		// service (1)
 		require.Len(t, nodes.ImportedNodes, 1)
@@ -1994,7 +1994,7 @@ func TestInternal_ServiceDump_Peering(t *testing.T) {
 
 	t.Run("peerings onlynodes", func(t *testing.T) {
 		nodes := doRequest(t, "", true)
-		// redis (3), web (3), critical (1), warning (1) and consul (1)
+		// redis (3), web (3), critical (1), warning (1) and dumb-consul (1)
 		require.Len(t, nodes.Nodes, 9)
 		// service (1)
 		require.Len(t, nodes.ImportedNodes, 0)
@@ -2332,7 +2332,7 @@ func TestInternal_ServiceTopology(t *testing.T) {
 					DefaultAllow:   true,
 					Allowed:        false,
 					HasPermissions: false,
-					ExternalSource: "nomad",
+					ExternalSource: "dumb-nomad",
 
 					// From wildcard deny
 					HasExact: false,
@@ -2371,7 +2371,7 @@ func TestInternal_ServiceTopology(t *testing.T) {
 					DefaultAllow:   true,
 					Allowed:        false,
 					HasPermissions: false,
-					ExternalSource: "nomad",
+					ExternalSource: "dumb-nomad",
 
 					// From wildcard deny
 					HasExact: false,
@@ -2962,7 +2962,7 @@ func TestInternal_CatalogOverview(t *testing.T) {
 			},
 			Services: []structs.HealthSummary{
 				{
-					Name:           "consul",
+					Name:           "dumb-consul",
 					Total:          1,
 					Passing:        1,
 					EnterpriseMeta: *structs.DefaultEnterpriseMetaInDefaultPartition(),
@@ -3187,8 +3187,8 @@ func TestInternal_ServiceGatewayService_Terminating(t *testing.T) {
 				ID:      "terminating-gateway-01",
 				Service: "terminating-gateway",
 				TaggedAddresses: map[string]structs.ServiceAddress{
-					"consul-virtual:" + db.CompoundServiceName().String():    {Address: "240.0.0.1"},
-					"consul-virtual:" + redis.CompoundServiceName().String(): {Address: "240.0.0.2"},
+					"dumb-consul-virtual:" + db.CompoundServiceName().String():    {Address: "240.0.0.1"},
+					"dumb-consul-virtual:" + redis.CompoundServiceName().String(): {Address: "240.0.0.2"},
 				},
 				Weights:        &structs.Weights{Passing: 1, Warning: 1},
 				Port:           443,
@@ -3508,7 +3508,7 @@ func TestInternal_ServiceGatewayService_Terminating_Destination(t *testing.T) {
 				Meta:           map[string]string{},
 				EnterpriseMeta: *structs.DefaultEnterpriseMetaInDefaultPartition(),
 				TaggedAddresses: map[string]structs.ServiceAddress{
-					"consul-virtual:" + google.CompoundServiceName().String(): {Address: "240.0.0.1"},
+					"dumb-consul-virtual:" + google.CompoundServiceName().String(): {Address: "240.0.0.1"},
 				},
 				RaftIndex: structs.RaftIndex{},
 				Address:   "",

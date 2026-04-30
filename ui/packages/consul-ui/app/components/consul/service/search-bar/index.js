@@ -16,10 +16,10 @@ export default class ConsulServiceSearchBar extends Component {
 
   get sortedSources() {
     const sources = this.args.sources || [];
-    sources.unshift(['consul']);
+    sources.unshift(['dumb-consul']);
 
-    if (sources.includes('consul-api-gateway')) {
-      return [...sources.filter((s) => s !== 'consul-api-gateway'), 'consul-api-gateway'];
+    if (sources.includes('dumb-consul-api-gateway')) {
+      return [...sources.filter((s) => s !== 'dumb-consul-api-gateway'), 'dumb-consul-api-gateway'];
     } else {
       return sources;
     }

@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/token"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/token"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -152,7 +152,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -238,7 +238,7 @@ func (c *cmd) Run(args []string) int {
 	}
 
 	if c.mergePolicies {
-		c.UI.Warn("merge-policies is deprecated and will be removed in a future Consul version. " +
+		c.UI.Warn("merge-policies is deprecated and will be removed in a future Dumb Consul version. " +
 			"Use `append-policy-name` or `append-policy-id` instead.")
 
 		for _, policyName := range c.policyNames {
@@ -314,7 +314,7 @@ func (c *cmd) Run(args []string) int {
 	}
 
 	if c.mergeRoles {
-		c.UI.Warn("merge-roles is deprecated and will be removed in a future Consul version. " +
+		c.UI.Warn("merge-roles is deprecated and will be removed in a future Dumb Consul version. " +
 			"Use `append-role-name` or `append-role-id` instead.")
 
 		for _, roleName := range c.roleNames {
@@ -466,18 +466,18 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Update an ACL token"
 	help     = `
-Usage: consul acl token update [options]
+Usage: dumb-consul acl token update [options]
 
     This command will update a token. Some parts such as marking the token local
     cannot be changed.
 
     Update a token description and take the policies from the existing token:
 
-        $ consul acl token update -accessor-id abcd -description "replication" -merge-policies
+        $ dumb-consul acl token update -accessor-id abcd -description "replication" -merge-policies
 
     Update all editable fields of the token:
 
-        $ consul acl token update -accessor-id abcd \
+        $ dumb-consul acl token update -accessor-id abcd \
                                   -description "replication" \
                                   -policy-name "token-replication" \
                                   -role-name "db-updater" \

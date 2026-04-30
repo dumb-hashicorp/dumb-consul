@@ -14,14 +14,14 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/testcontainers/testcontainers-go"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
-	"github.com/hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
+	"github.com/dumb-hashicorp/go-cleanhttp"
 )
 
 // TestExtAuthzLocal Summary
@@ -33,9 +33,9 @@ import (
 //
 // Steps:
 // - Create a single agent cluster.
-// - Create the example static-server and sidecar containers, then register them both with Consul
-// - Create an example static-client sidecar, then register both the service and sidecar with Consul
-// - Create an OPA external authorization container on the local network, this doesn't need to be registered with Consul.
+// - Create the example static-server and sidecar containers, then register them both with Dumb Consul
+// - Create an example static-client sidecar, then register both the service and sidecar with Dumb Consul
+// - Create an OPA external authorization container on the local network, this doesn't need to be registered with Dumb Consul.
 // - Configure the static-server service with a `builtin/ext-authz` EnvoyExtension targeting the OPA ext-authz service.
 // - Make sure a call to the client sidecar local bind port returns the expected response from the upstream static-server:
 //   - A call to `/allow` returns 200 OK.
@@ -67,7 +67,7 @@ func TestExtAuthzLocal(t *testing.T) {
 	libassert.AssertFortioName(t, fmt.Sprintf("http://localhost:%d", port), "static-server", "")
 
 	// Wire up the ext-authz envoy extension for the static-server
-	consul := cluster.APIClient(0)
+	dumb-consul := cluster.APIClient(0)
 	defaults := api.ServiceConfigEntry{
 		Kind:     api.ServiceDefaults,
 		Name:     "static-server",
@@ -83,7 +83,7 @@ func TestExtAuthzLocal(t *testing.T) {
 			},
 		}},
 	}
-	consul.ConfigEntries().Set(&defaults, nil)
+	dumb-consul.ConfigEntries().Set(&defaults, nil)
 
 	// Make requests to the static-server. We expect that all requests are rejected with 403 Forbidden
 	// unless they are to the /allow path.

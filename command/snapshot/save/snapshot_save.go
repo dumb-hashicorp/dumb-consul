@@ -14,9 +14,9 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/rboyer/safeio"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/snapshot"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/snapshot"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -80,7 +80,7 @@ func (c *cmd) Run(args []string) int {
 		if slices.Contains(appendFileNameFlags, "version") {
 			operatorHealthResponse, err := client.Operator().AutopilotServerHealth(nil)
 			if err != nil {
-				c.UI.Error(fmt.Sprintf("Error fetching version of Consul agent Leader: %s", err))
+				c.UI.Error(fmt.Sprintf("Error fetching version of Dumb Consul agent Leader: %s", err))
 				return 1
 			}
 			var version string
@@ -96,7 +96,7 @@ func (c *cmd) Run(args []string) int {
 		if slices.Contains(appendFileNameFlags, "dc") {
 			agentSelfResponse, err := client.Agent().Self()
 			if err != nil {
-				c.UI.Error(fmt.Sprintf("Error connecting to Consul agent and fetching datacenter/version: %s", err))
+				c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent and fetching datacenter/version: %s", err))
 				return 1
 			}
 
@@ -112,7 +112,7 @@ func (c *cmd) Run(args []string) int {
 	}
 
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -167,11 +167,11 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Saves snapshot of Consul server state"
+const synopsis = "Saves snapshot of Dumb Consul server state"
 const help = `
-Usage: consul snapshot save [options] FILE
+Usage: dumb-consul snapshot save [options] FILE
 
-  Retrieves an atomic, point-in-time snapshot of the state of the Consul servers
+  Retrieves an atomic, point-in-time snapshot of the state of the Dumb Consul servers
   which includes key/value entries, service catalog, prepared queries, sessions,
   and ACLs.
 
@@ -180,12 +180,12 @@ Usage: consul snapshot save [options] FILE
 
   To create a snapshot from the leader server and save it to "backup.snap":
 
-    $ consul snapshot save backup.snap
+    $ dumb-consul snapshot save backup.snap
 
   To create a potentially stale snapshot from any available server (useful if no
   leader is available):
 
-    $ consul snapshot save -stale backup.snap
+    $ dumb-consul snapshot save -stale backup.snap
 
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `

@@ -1,20 +1,20 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 {{#let @list as |SNL|}}
   {{#if (gt @dcs.length 1)}}
-    <SNL.Title class='consul-side-nav__selector-title'>{{t "components.hashicorp-consul.side-nav.datacenters.title"}}</SNL.Title>
+    <SNL.Title class='dumb-consul-side-nav__selector-title'>{{t "components.dumb-hashicorp-dumb-consul.side-nav.datacenters.title"}}</SNL.Title>
     <NavSelector
       @list={{SNL}}
       @items={{sort-by 'Primary:desc' 'Local:desc' 'Name:asc' @dcs}}
       @item={{@dc}}
       @key='Name'
       @icon='server-cluster'
-      @placeholder={{t "components.hashicorp-consul.side-nav.datacenters.placeholder"}}
-      @description={{t "components.hashicorp-consul.side-nav.datacenters.description"}}
-      class='consul-datacenter-selector'
+      @placeholder={{t "components.dumb-hashicorp-dumb-consul.side-nav.datacenters.placeholder"}}
+      @description={{t "components.dumb-hashicorp-dumb-consul.side-nav.datacenters.description"}}
+      class='dumb-consul-datacenter-selector'
       data-test-datacenter-menu
       as |Selector|
     >
@@ -27,14 +27,14 @@
           )
         }}
         @isHrefExternal={{false}}
-        class='consul-datacenter-selector__item'
+        class='dumb-consul-datacenter-selector__item'
         data-test-dc-item
       >
-        <span class='consul-datacenter-selector__dc-name'>
+        <span class='dumb-consul-datacenter-selector__dc-name'>
           {{Selector.item.Name}}
 
           {{#if (or Selector.item.Local Selector.item.Primary)}}
-            <span class='consul-datacenter-selector__badges'>
+            <span class='dumb-consul-datacenter-selector__badges'>
               {{#if Selector.item.Primary}}
                 <Hds::Badge @text='Primary' />
               {{/if}}
@@ -47,7 +47,7 @@
       </Selector.Dropdown.Checkmark>
     </NavSelector>
   {{else}}
-    <SNL.Item class='consul-side-nav__datacenter' data-test-datacenter-single>
+    <SNL.Item class='dumb-consul-side-nav__datacenter' data-test-datacenter-single>
       <Hds::Icon
         @name='server-cluster'
         @color='var(--token-form-control-disabled-foreground-color)'

@@ -12,8 +12,8 @@ import (
 	"github.com/armon/go-metrics"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func newStateStore() (*state.Store, error) {
@@ -24,7 +24,7 @@ func TestUsageReporter_CE(t *testing.T) {
 	getMetricsReporter := func(tc testCase) (*UsageMetricsReporter, *metrics.InmemSink, error) {
 		// Only have a single interval for the test
 		sink := metrics.NewInmemSink(1*time.Minute, 1*time.Minute)
-		cfg := metrics.DefaultConfig("consul.usage.test")
+		cfg := metrics.DefaultConfig("dumb-consul.usage.test")
 		cfg.EnableHostname = false
 		metrics.NewGlobal(cfg, sink)
 

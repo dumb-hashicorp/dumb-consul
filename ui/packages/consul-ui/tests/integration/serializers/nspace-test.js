@@ -6,11 +6,11 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import { get } from 'consul-ui/tests/helpers/api';
+import { get } from 'dumb-consul-ui/tests/helpers/api';
 import {
   HEADERS_DATACENTER as DC,
   HEADERS_PARTITION as PARTITION,
-} from 'consul-ui/utils/http/consul';
+} from 'dumb-consul-ui/utils/http/dumb-consul';
 // Nspaces don't need any nspace
 module('Integration | Serializer | nspace', function (hooks) {
   setupTest(hooks);

@@ -8,7 +8,7 @@ Feature: dc / acls / policies / create
     ---
   Scenario: Visiting the page without error and the title is correct
     Then the url should be /datacenter/acls/policies/create
-    And the title should be "New Policy - Consul"
+    And the title should be "New Policy - Dumb Consul"
 
   Scenario: Creating a simple ACL policy with description [Description]
     Then I fill in the policy form with yaml

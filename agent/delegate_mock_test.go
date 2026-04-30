@@ -7,15 +7,15 @@ import (
 	"context"
 	"io"
 
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/mock"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 type delegateMock struct {
@@ -35,7 +35,7 @@ func (m *delegateMock) LANMembersInAgentPartition() []serf.Member {
 	return m.Called().Get(0).([]serf.Member)
 }
 
-func (m *delegateMock) LANMembers(f consul.LANMemberFilter) ([]serf.Member, error) {
+func (m *delegateMock) LANMembers(f dumb-consul.LANMemberFilter) ([]serf.Member, error) {
 	ret := m.Called(f)
 	return ret.Get(0).([]serf.Member), ret.Error(1)
 }
@@ -74,7 +74,7 @@ func (m *delegateMock) Stats() map[string]map[string]string {
 	return m.Called().Get(0).(map[string]map[string]string)
 }
 
-func (m *delegateMock) ReloadConfig(config consul.ReloadableConfig) error {
+func (m *delegateMock) ReloadConfig(config dumb-consul.ReloadableConfig) error {
 	return m.Called(config).Error(0)
 }
 

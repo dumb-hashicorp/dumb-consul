@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <SearchBar
-  class="consul-healthcheck-search-bar"
+  class="dumb-consul-healthcheck-search-bar"
   ...attributes
   @filter={{@filter}}
 >
@@ -12,17 +12,17 @@
 
 {{#let
 
-  (t (concat "components.consul.health-check.search-bar." search.status.key ".name")
+  (t (concat "components.dumb-consul.health-check.search-bar." search.status.key ".name")
       default=(array
         (concat "common.search." search.status.key)
-        (concat "common.consul." search.status.key)
+        (concat "common.dumb-consul." search.status.key)
       )
   )
 
-  (t (concat "components.consul.health-check.search-bar." search.status.key ".options." search.status.value)
+  (t (concat "components.dumb-consul.health-check.search-bar." search.status.key ".options." search.status.value)
       default=(array
         (concat "common.search." search.status.value)
-        (concat "common.consul." search.status.value)
+        (concat "common.dumb-consul." search.status.value)
       )
   )
 
@@ -61,7 +61,7 @@ as |key value|}}
     {{#let components.Optgroup components.Option as |Optgroup Option|}}
             {{#each @filter.searchproperty.default as |prop|}}
               <Option @value={{prop}} @selected={{includes prop @filter.searchproperty.value}}>
-                {{t (concat "common.consul." (lowercase prop))}}
+                {{t (concat "common.dumb-consul." (lowercase prop))}}
               </Option>
             {{/each}}
     {{/let}}
@@ -79,14 +79,14 @@ as |key value|}}
       as |components|>
         <BlockSlot @name="selected">
           <span>
-            {{t "common.consul.status"}}
+            {{t "common.dumb-consul.status"}}
           </span>
         </BlockSlot>
         <BlockSlot @name="options">
   {{#let components.Optgroup components.Option as |Optgroup Option|}}
     {{#each (array "passing" "warning" "critical" "empty") as |state|}}
           <Option class="value-{{state}}" @value={{state}} @selected={{includes state @filter.status.value}}>
-            {{t (concat "common.consul." state)
+            {{t (concat "common.dumb-consul." state)
                 default=(array
                   (concat "common.search." state)
                 )
@@ -105,14 +105,14 @@ as |key value|}}
       as |components|>
         <BlockSlot @name="selected">
           <span>
-            {{t "components.consul.health-check.search-bar.kind.name"}}
+            {{t "components.dumb-consul.health-check.search-bar.kind.name"}}
           </span>
         </BlockSlot>
         <BlockSlot @name="options">
   {{#let components.Optgroup components.Option as |Optgroup Option|}}
     {{#each (array "service" "node") as |item|}}
           <Option @value={{item}} @selected={{includes item @filter.kind.value}}>
-            {{t (concat "components.consul.health-check.search-bar.kind.options." item)
+            {{t (concat "components.dumb-consul.health-check.search-bar.kind.options." item)
                 default=(array
                   (concat "common.search." item)
                 )
@@ -131,14 +131,14 @@ as |key value|}}
       as |components|>
         <BlockSlot @name="selected">
           <span>
-            {{t "components.consul.health-check.search-bar.check.name"}}
+            {{t "components.dumb-consul.health-check.search-bar.check.name"}}
           </span>
         </BlockSlot>
         <BlockSlot @name="options">
   {{#let components.Optgroup components.Option as |Optgroup Option|}}
     {{#each (array "alias" "docker" "grpc" "http" "script" "serf" "tcp" "ttl") as |item|}}
           <Option @value={{item}} @selected={{includes item @filter.check.value}}>
-            {{t (concat "components.consul.health-check.search-bar.check.options." item)
+            {{t (concat "components.dumb-consul.health-check.search-bar.check.options." item)
                 default=(array
                   (concat "common.search." item)
                 )
@@ -165,8 +165,8 @@ as |key value|}}
                 (array "Name:desc" (t "common.sort.alpha.desc"))
                 (array "Status:asc" (t "common.sort.status.asc"))
                 (array "Status:desc" (t "common.sort.status.desc"))
-                (array "Kind:asc" (t "components.consul.health-check.search-bar.sort.kind.asc"))
-                (array "Kind:desc" (t "components.consul.health-check.search-bar.sort.kind.desc"))
+                (array "Kind:asc" (t "components.dumb-consul.health-check.search-bar.sort.kind.asc"))
+                (array "Kind:desc" (t "components.dumb-consul.health-check.search-bar.sort.kind.desc"))
                 ))
               as |selectable|
             }}
@@ -176,15 +176,15 @@ as |key value|}}
         </BlockSlot>
         <BlockSlot @name="options">
 {{#let components.Optgroup components.Option as |Optgroup Option|}}
-        <Optgroup @label={{t "common.consul.status"}}>
+        <Optgroup @label={{t "common.dumb-consul.status"}}>
             <Option @value="Status:asc" @selected={{eq "Status:asc" @sort.value}}>{{t "common.sort.status.asc"}}</Option>
             <Option @value="Status:desc" @selected={{eq "Status:desc" @sort.value}}>{{t "common.sort.status.desc"}}</Option>
         </Optgroup>
-        <Optgroup @label={{t "components.consul.health-check.search-bar.sort.name.name"}}>
+        <Optgroup @label={{t "components.dumb-consul.health-check.search-bar.sort.name.name"}}>
             <Option @value="Name:asc" @selected={{eq "Name:asc" @sort.value}}>{{t "common.sort.alpha.asc"}}</Option>
             <Option @value="Name:desc" @selected={{eq "Name:desc" @sort.value}}>{{t "common.sort.alpha.desc"}}</Option>
         </Optgroup>
-        <Optgroup @label={{t "components.consul.health-check.search-bar.sort.kind.name"}}>
+        <Optgroup @label={{t "components.dumb-consul.health-check.search-bar.sort.kind.name"}}>
           <Option @value="Kind:asc" @selected={{eq "Kind:asc" @sort}}>Service to Node</Option>
           <Option @value="Kind:desc" @selected={{eq "Kind:desc" @sort}}>Node to Service</Option>
         </Optgroup>

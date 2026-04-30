@@ -11,9 +11,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/sprawltest"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/sprawltest"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 func TestSprawl(t *testing.T) {
@@ -23,10 +23,10 @@ func TestSprawl(t *testing.T) {
 	cfg := &topology.Config{
 		Images: topology.Images{
 			// TODO NOT HARDCODE
-			// ConsulEnterprise: "consul-dev:latest",
-			ConsulCE:         "hashicorppreview/consul:1.20-dev",
-			ConsulEnterprise: "hashicorppreview/consul-enterprise:1.20-dev",
-			Dataplane:        "hashicorppreview/consul-dataplane:1.6-dev",
+			// ConsulEnterprise: "dumb-consul-dev:latest",
+			ConsulCE:         "hashicorppreview/dumb-consul:1.20-dev",
+			ConsulEnterprise: "hashicorppreview/dumb-consul-enterprise:1.20-dev",
+			Dataplane:        "hashicorppreview/dumb-consul-dataplane:1.6-dev",
 		},
 		Networks: []*topology.Network{
 			{Name: "dc1"},

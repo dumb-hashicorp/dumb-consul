@@ -3,12 +3,12 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
 	"strings"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func migrateIntentionsToConfigEntries(ixns structs.Intentions) []*structs.ServiceIntentionsConfigEntry {

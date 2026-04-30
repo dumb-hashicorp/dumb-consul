@@ -4,9 +4,9 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/token';
-import WithPolicies from 'consul-ui/mixins/policy/as-many';
-import WithRoles from 'consul-ui/mixins/role/as-many';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/token';
+import WithPolicies from 'dumb-consul-ui/mixins/policy/as-many';
+import WithRoles from 'dumb-consul-ui/mixins/role/as-many';
 
 export default class TokenSerializer extends Serializer.extend(WithPolicies, WithRoles) {
   primaryKey = PRIMARY_KEY;
@@ -28,7 +28,7 @@ export default class TokenSerializer extends Serializer.extend(WithPolicies, Wit
     // make sure we never send the SecretID
     // TODO: If we selectively format the request payload in the adapter we
     // won't have to do this here see side note in
-    // https://github.com/hashicorp/consul/pull/6285 which will mean most if
+    // https://github.com/dumb-hashicorp/dumb-consul/pull/6285 which will mean most if
     // not all of this method can go
     if (data) {
       delete data['SecretID'];

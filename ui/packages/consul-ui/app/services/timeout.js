@@ -4,7 +4,7 @@
  */
 
 import Service from '@ember/service';
-import promisedTimeoutFactory from 'consul-ui/utils/promisedTimeout';
+import promisedTimeoutFactory from 'dumb-consul-ui/utils/promisedTimeout';
 import { next } from '@ember/runloop';
 
 const promisedTimeout = promisedTimeoutFactory(Promise);

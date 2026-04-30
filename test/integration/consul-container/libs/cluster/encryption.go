@@ -8,16 +8,16 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"fmt"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 	"io"
 	"path/filepath"
 	"testing"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 const (
@@ -80,7 +80,7 @@ func (c *BuildContext) createTLSCAFiles(t *testing.T) {
 			"-w", "/data",
 			"--entrypoint", "",
 			c.DockerImage(),
-			"consul", "tls", "ca", "create",
+			"dumb-consul", "tls", "ca", "create",
 		}, io.Discard)
 		require.NoError(r, err, "could not create TLS certificate authority in docker volume: %s", c.certVolume)
 	})
@@ -115,12 +115,12 @@ func (c *BuildContext) createTLSCertFiles(t *testing.T, dc string) (keyFileName,
 			"-w", "/data",
 			"--entrypoint", "",
 			c.DockerImage(),
-			"consul", "tls", "cert", "create", "-server", "-dc", dc,
+			"dumb-consul", "tls", "cert", "create", "-server", "-dc", dc,
 		}, io.Discard)
 		require.NoError(r, err, "could not create TLS server certificate dc=%q in docker volume: %s", dc, c.certVolume)
 	})
 
-	prefix := fmt.Sprintf("%s-server-%s", dc, "consul")
+	prefix := fmt.Sprintf("%s-server-%s", dc, "dumb-consul")
 	certFileName = fmt.Sprintf("%s-%d.pem", prefix, c.tlsCertIndex)
 	keyFileName = fmt.Sprintf("%s-%d-key.pem", prefix, c.tlsCertIndex)
 

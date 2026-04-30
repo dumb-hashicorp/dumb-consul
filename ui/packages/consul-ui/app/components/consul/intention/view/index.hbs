@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <div
-  class="consul-intention-view"
+  class="dumb-consul-intention-view"
   ...attributes
 >
 
@@ -12,7 +12,7 @@
       <dl>
         <dt>Destination</dt>
         <dd>
-          <Consul::Bucket::List
+          <Dumb Consul::Bucket::List
             @item={{hash
               Namespace=@item.DestinationNS
               Partition=@item.DestinationPartition
@@ -25,7 +25,7 @@
         </dd>
         <dt>Source</dt>
         <dd>
-          <Consul::Bucket::List
+          <Dumb Consul::Bucket::List
             @item={{hash
               Namespace=@item.SourceNS
               Partition=@item.SourcePartition
@@ -52,8 +52,8 @@
 
 {{#if (gt @item.Permissions.length 0) }}
   <h2>Permissions</h2>
-  <Consul::Intention::Notice::Permissions />
-  <Consul::Intention::Permission::List
+  <Dumb Consul::Intention::Notice::Permissions />
+  <Dumb Consul::Intention::Permission::List
     @items={{@item.Permissions}}
   />
 {{/if}}

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { datacenters } from 'consul-ui/helpers/policy/datacenters';
+import { datacenters } from 'dumb-consul-ui/helpers/policy/datacenters';
 import { module, test } from 'qunit';
 
 module('Unit | Helper | policy/datacenters', function () {

@@ -8,7 +8,7 @@ Feature: dc / tokens / navigation
       dc: dc-1
     ---
     Then the url should be /dc-1/acls/tokens
-    And the title should be "Tokens - Consul"
+    And the title should be "Tokens - Dumb Consul"
     Then I see 3 token models
     When I click token on the tokens
     And I click "[data-test-back] a"

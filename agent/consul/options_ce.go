@@ -3,6 +3,6 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 type EnterpriseDeps struct{}

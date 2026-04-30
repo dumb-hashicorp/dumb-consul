@@ -4,7 +4,7 @@
  */
 
 import Adapter from './application';
-import { SLUG_KEY } from 'consul-ui/models/nspace';
+import { SLUG_KEY } from 'dumb-consul-ui/models/nspace';
 
 // namespaces aren't categorized by datacenter, therefore no dc
 export default class NspaceAdapter extends Adapter {

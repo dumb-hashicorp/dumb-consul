@@ -5,8 +5,8 @@
 
 import { module, skip, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import repo from 'consul-ui/tests/helpers/repo';
-import { createPolicies } from 'consul-ui/tests/helpers/normalizers';
+import repo from 'dumb-consul-ui/tests/helpers/repo';
+import { createPolicies } from 'dumb-consul-ui/tests/helpers/normalizers';
 
 module(`Integration | Service | role`, function (hooks) {
   setupTest(hooks);

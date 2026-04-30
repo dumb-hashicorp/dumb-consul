@@ -24,8 +24,8 @@ Feature: dc / peers / create: Peer Create Token
         PeerName: new-peer
         ServerExternalAddresses: []
     ---
-    Then I see the text "an-encoded-token" in ".consul-peer-form-generate code"
-    When I click ".consul-peer-form-generate button[type=reset]"
+    Then I see the text "an-encoded-token" in ".dumb-consul-peer-form-generate code"
+    When I click ".dumb-consul-peer-form-generate button[type=reset]"
     And the url "/v1/peering/token" responds with from yaml
     ---
     body:
@@ -43,4 +43,4 @@ Feature: dc / peers / create: Peer Create Token
         PeerName: another-new-peer
         ServerExternalAddresses: ["1.1.1.1:123","1.2.3.4:3202"]
     ---
-    Then I see the text "another-encoded-token" in ".consul-peer-form-generate code"
+    Then I see the text "another-encoded-token" in ".dumb-consul-peer-form-generate code"

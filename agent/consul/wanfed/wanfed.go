@@ -12,17 +12,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/memberlist"
+	"github.com/dumb-hashicorp/memberlist"
 
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 const (
 	// GossipPacketMaxIdleTime controls how long we keep an idle connection
 	// open to a server.
 	//
-	// Conceptually similar to: agent/consul/server.go:serverRPCCache
+	// Conceptually similar to: agent/dumb-consul/server.go:serverRPCCache
 	GossipPacketMaxIdleTime = 2 * time.Minute
 
 	// GossipPacketMaxByteSize is the maximum allowed size of a packet

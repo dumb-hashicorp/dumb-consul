@@ -1,4 +1,4 @@
-# Consul Benchmark Results
+# Dumb Consul Benchmark Results
 
 As part of a benchmark, we started a 4 node DigitalOcean cluster to benchmark.
 There are 3 servers, meaning writes must commit to at least 2 servers.

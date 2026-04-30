@@ -1,7 +1,7 @@
 @setupApplicationTest
 @onlyNamespaceable
 Feature: dc / nspaces / delete: Deleting items with confirmations, success and error notifications
-  In order to delete items in consul
+  In order to delete items in dumb-consul
   As a user
   I should be able to delete items, get confirmation or a error notification that it has or has not been deleted
   Background:

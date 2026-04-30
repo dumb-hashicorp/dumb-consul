@@ -1,11 +1,11 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <div
   {{on-resize this.calculate}}
-  class="topology-container consul-topology-metrics"
+  class="topology-container dumb-consul-topology-metrics"
 >
 {{#if (gt this.downstreams.length 0)}}
   <div
@@ -49,7 +49,7 @@
     <div class="metrics-header">
       {{@service.Service.Service}}
     </div>
-  {{#if (not (and (eq @service.Service.Meta.external-source 'consul-api-gateway') (eq @service.Service.Kind 'ingress-gateway'))) }}
+  {{#if (not (and (eq @service.Service.Meta.external-source 'dumb-consul-api-gateway') (eq @service.Service.Kind 'ingress-gateway'))) }}
     {{#if @hasMetricsProvider}}
       <TopologyMetrics::Series
         @nspace={{or @service.Service.Namespace 'default'}}

@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -9,7 +9,7 @@
 
 as |proxies|}}
 <ListCollection
-  class="consul-service-instance-list"
+  class="dumb-consul-service-instance-list"
   ...attributes
   @items={{@items}}
 as |item index|>
@@ -42,27 +42,27 @@ as |proxy|}}
   as |checks|}}
 
   {{#if @node}}
-    <Consul::ExternalSource
+    <Dumb Consul::ExternalSource
       @item={{item.Service}}
     />
-    <Consul::InstanceChecks
+    <Dumb Consul::InstanceChecks
       @type="service"
       @items={{filter-by 'ServiceID' '' checks}}
     />
   {{else}}
     {{#unless this.areAllExternalSourcesMatching}}
-      <Consul::ExternalSource
+      <Dumb Consul::ExternalSource
         @item={{item.Service}}
       />
     {{/unless}}
 
-    <Consul::InstanceChecks
+    <Dumb Consul::InstanceChecks
       @type="service"
       @items={{filter-by 'ServiceID' '' checks}}
     />
 
     {{#unless item.Node.Meta.synthetic-node}}
-      <Consul::InstanceChecks
+      <Dumb Consul::InstanceChecks
         @type="node"
         @items={{reject-by 'ServiceID' '' checks}}
         data-test-node-health-checks
@@ -71,7 +71,7 @@ as |proxy|}}
   {{/if}}
 {{#if proxy}}
     <dl class="mesh">
-      <dt {{hds-tooltip "This service uses a proxy for the Consul service mesh" options=(detached-tooltip-options)}}></dt>
+      <dt {{hds-tooltip "This service uses a proxy for the Dumb Consul service mesh" options=(detached-tooltip-options)}}></dt>
       <dd data-test-mesh>
         in service mesh with proxy
       </dd>

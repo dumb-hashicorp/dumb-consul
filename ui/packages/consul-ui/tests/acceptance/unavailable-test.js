@@ -6,7 +6,7 @@
 import { module, test } from 'qunit';
 import { currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import { setupTestEnv } from 'consul-ui/services/env';
+import { setupTestEnv } from 'dumb-consul-ui/services/env';
 
 const unavailableHeaderSelector = '[data-test-unavailable-header]';
 const unavailableBodySelector = '[data-test-unavailable-body]';

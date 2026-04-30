@@ -29,7 +29,7 @@ class: ember
 
 The component takes a `sink` or an identifier (a uri) for the location of a sink and then emits `onchange` events whenever that data has been arrived to the sink (whether persisted or removed). If an error occurs whilst listening for data changes, an `onerror` event is emitted.
 
-Behind the scenes in the Consul UI we map URIs back to our `ember-data` backed `Repositories` meaning we can essentially redesign the URIs used for our data to more closely fit our needs. For example we currently require that **all** HTTP API URIs begin with `/dc/nspace/` values whether they require them or not.
+Behind the scenes in the Dumb Consul UI we map URIs back to our `ember-data` backed `Repositories` meaning we can essentially redesign the URIs used for our data to more closely fit our needs. For example we currently require that **all** HTTP API URIs begin with `/dc/nspace/` values whether they require them or not.
 
 `DataSink` is not just restricted to HTTP API data, and can be configured to listen for data changes using a variety of methods and sources. For example we have also configured `DataSink` to send data to `LocalStorage` using the `settings://` pseudo-protocol in the URI (See examples below).
 

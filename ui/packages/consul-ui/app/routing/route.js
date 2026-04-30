@@ -6,9 +6,9 @@
 import Route from '@ember/routing/route';
 import { get, setProperties, action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import resolve from 'consul-ui/utils/path/resolve';
+import resolve from 'dumb-consul-ui/utils/path/resolve';
 
-import { routes } from 'consul-ui/router';
+import { routes } from 'dumb-consul-ui/router';
 
 export default class BaseRoute extends Route {
   @service('container') container;

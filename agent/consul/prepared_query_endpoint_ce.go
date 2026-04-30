@@ -3,13 +3,13 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func parseSameness(svc *structs.ServiceQuery) error {

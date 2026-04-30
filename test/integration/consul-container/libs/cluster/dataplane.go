@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 )
@@ -65,7 +65,7 @@ func (g ConsulDataplaneContainer) GetStatus() (string, error) {
 
 func NewConsulDataplane(ctx context.Context, proxyID string, serverAddresses string, grpcPort int, serviceBindPorts []int,
 	node Agent, tproxy bool, bootstrapToken string, containerArgs ...string) (*ConsulDataplaneContainer, error) {
-	namePrefix := fmt.Sprintf("%s-consul-dataplane-%s", node.GetDatacenter(), proxyID)
+	namePrefix := fmt.Sprintf("%s-dumb-consul-dataplane-%s", node.GetDatacenter(), proxyID)
 	containerName := utils.RandName(namePrefix)
 
 	internalAdminPort, err := node.ClaimAdminPort()
@@ -93,7 +93,7 @@ func NewConsulDataplane(ctx context.Context, proxyID string, serverAddresses str
 	exposedPorts = append(exposedPorts, adminPortStr)
 
 	req := testcontainers.ContainerRequest{
-		Image:      "consul-dataplane:local",
+		Image:      "dumb-consul-dataplane:local",
 		WaitingFor: wait.ForLog("").WithStartupTimeout(60 * time.Second),
 		AutoRemove: false,
 		Name:       containerName,
@@ -106,7 +106,7 @@ func NewConsulDataplane(ctx context.Context, proxyID string, serverAddresses str
 		req.Entrypoint = []string{"sh", "/bin/tproxy-startup.sh"}
 		req.Env["REDIRECT_TRAFFIC_ARGS"] = strings.Join(
 			[]string{
-				// TODO once we run this on a different pod from Consul agents, we can eliminate most of this.
+				// TODO once we run this on a different pod from Dumb Consul agents, we can eliminate most of this.
 				"-exclude-inbound-port", fmt.Sprint(internalAdminPort),
 				"-exclude-inbound-port", "8300",
 				"-exclude-inbound-port", "8301",
@@ -115,13 +115,13 @@ func NewConsulDataplane(ctx context.Context, proxyID string, serverAddresses str
 				"-exclude-inbound-port", "8502",
 				"-exclude-inbound-port", "8600",
 				"-proxy-inbound-port", "20000",
-				"-consul-dns-ip", "127.0.0.1",
-				"-consul-dns-port", "8600",
+				"-dumb-consul-dns-ip", "127.0.0.1",
+				"-dumb-consul-dns-port", "8600",
 			},
 			" ",
 		)
 		req.CapAdd = append(req.CapAdd, "NET_ADMIN")
-		command = append(command, "consul-dataplane")
+		command = append(command, "dumb-consul-dataplane")
 	}
 
 	command = append(command,

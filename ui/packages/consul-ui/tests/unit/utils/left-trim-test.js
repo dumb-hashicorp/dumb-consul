@@ -4,7 +4,7 @@
  */
 
 import { module, test } from 'qunit';
-import leftTrim from 'consul-ui/utils/left-trim';
+import leftTrim from 'dumb-consul-ui/utils/left-trim';
 
 module('Unit | Utility | left trim', function () {
   test('it trims characters from the left hand side', function (assert) {

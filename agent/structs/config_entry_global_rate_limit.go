@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 // GlobalRateLimitConfigEntry defines a global rate limit that applies across
-// all Consul servers in the cluster. This configuration is stored in Raft and
+// all Dumb Consul servers in the cluster. This configuration is stored in Raft and
 // automatically replicated to all servers.
 type GlobalRateLimitConfigEntry struct {
 	// Kind must be "rate-limit"

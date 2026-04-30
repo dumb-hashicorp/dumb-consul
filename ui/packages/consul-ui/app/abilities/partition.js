@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import BaseAbility from 'consul-ui/abilities/base';
+import BaseAbility from 'dumb-consul-ui/abilities/base';
 import { inject as service } from '@ember/service';
 
 export default class PartitionAbility extends BaseAbility {

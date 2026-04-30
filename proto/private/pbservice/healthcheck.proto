@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.service;
+package dumb-hashicorp.dumb-consul.internal.service;
 
 import "google/protobuf/duration.proto";
 import "private/pbcommon/common.proto";
@@ -12,7 +12,7 @@ import "private/pbcommon/common.proto";
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HealthCheck
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HealthCheck
 // output=healthcheck.gen.go
 // name=Structs
 message HealthCheck {
@@ -52,7 +52,7 @@ message HeaderValue {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HealthCheckDefinition
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HealthCheckDefinition
 // output=healthcheck.gen.go
 // name=Structs
 message HealthCheckDefinition {
@@ -101,7 +101,7 @@ message HealthCheckDefinition {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.CheckType
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.CheckType
 // output=healthcheck.gen.go
 // name=Structs
 message CheckType {

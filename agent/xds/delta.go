@@ -23,20 +23,20 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/go-hclog"
-	goversion "github.com/hashicorp/go-version"
+	"github.com/dumb-hashicorp/go-hclog"
+	goversion "github.com/dumb-hashicorp/go-version"
 
-	"github.com/hashicorp/consul/agent/envoyextensions"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/grpc-external/limiter"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/configfetcher"
-	"github.com/hashicorp/consul/agent/xds/extensionruntime"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/configfetcher"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/extensionruntime"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 var errOverwhelmed = status.Error(codes.ResourceExhausted, "this server has too many xDS streams open, please try another")
@@ -146,7 +146,7 @@ func (s *Server) processDelta(stream ADSDeltaStream, reqCh <-chan *envoy_discove
 
 		// currentVersions is the xDS versioning represented by Resources.
 		//
-		// type => name => version (as consul knows right now)
+		// type => name => version (as dumb-consul knows right now)
 		currentVersions = make(map[string]map[string]string)
 	)
 
@@ -419,7 +419,7 @@ func (s *Server) applyEnvoyExtensions(resources *xdscommon.IndexedResources, sna
 	consulVersion, err := goversion.NewVersion(version.Version)
 
 	if err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "failed to parse Consul version")
+		return nil, status.Errorf(codes.InvalidArgument, "failed to parse Dumb Consul version")
 	}
 
 	serviceConfigs := extensionruntime.GetRuntimeConfigurations(snapshot)
@@ -484,16 +484,16 @@ func validateAndApplyEnvoyExtension(logger hclog.Logger, cfgSnap *proxycfg.Confi
 	if v := ext.ConsulVersion; v != "" {
 		c, err := goversion.NewConstraint(v)
 		if err != nil {
-			logFn("failed to parse Consul extension version constraint", errorParams...)
+			logFn("failed to parse Dumb Consul extension version constraint", errorParams...)
 
 			if ext.Required {
-				return nil, status.Errorf(codes.InvalidArgument, "failed to parse Consul version constraint for extension %q for service %q", ext.Name, svc.Name)
+				return nil, status.Errorf(codes.InvalidArgument, "failed to parse Dumb Consul version constraint for extension %q for service %q", ext.Name, svc.Name)
 			}
 			return resources, nil
 		}
 
 		if !c.Check(consulVersion) {
-			logger.Info("skipping envoy extension due to Consul version constraint violation", errorParams...)
+			logger.Info("skipping envoy extension due to Dumb Consul version constraint violation", errorParams...)
 			return resources, nil
 		}
 	}
@@ -861,7 +861,7 @@ func (t *xDSDeltaType) nack(nonce string) {
 }
 
 func (t *xDSDeltaType) SendIfNew(
-	currentVersions map[string]string, // type => name => version (as consul knows right now)
+	currentVersions map[string]string, // type => name => version (as dumb-consul knows right now)
 	resourceMap *xdscommon.IndexedResources,
 	nonce *uint64,
 	upsert, remove bool,
@@ -936,7 +936,7 @@ func (t *xDSDeltaType) SendIfNew(
 }
 
 func (t *xDSDeltaType) createDeltaResponse(
-	currentVersions map[string]string, // name => version (as consul knows right now)
+	currentVersions map[string]string, // name => version (as dumb-consul knows right now)
 	resourceMap *xdscommon.IndexedResources,
 	upsert, remove bool,
 ) (*envoy_discovery_v3.DeltaDiscoveryResponse, map[string]PendingUpdate, error) {

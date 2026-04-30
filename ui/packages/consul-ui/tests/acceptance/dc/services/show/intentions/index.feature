@@ -37,7 +37,7 @@ Feature: dc / services / show / intentions / index: Intentions per service
       dc: dc1
       service: service-0
     ---
-    And the title should be "service-0 - Consul"
+    And the title should be "service-0 - Dumb Consul"
     And I see intentionsIsVisible on the tabs
     When I click intentions on the tabs
     And I see intentionsIsSelected on the tabs

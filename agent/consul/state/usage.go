@@ -6,9 +6,9 @@ package state
 import (
 	"fmt"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 const (
@@ -270,16 +270,16 @@ func connectDeltas(change memdb.Change, usageDeltas map[string]int, delta int) {
 }
 
 // billableServiceInstancesDeltas calculates deltas for the billable services. Billable services
-// are of "typical" service kind (i.e. non-connect or connect-native), excluding the "consul" service.
+// are of "typical" service kind (i.e. non-connect or connect-native), excluding the "dumb-consul" service.
 func billableServiceInstancesDeltas(change memdb.Change, usageDeltas map[string]int, delta int) {
 	// Billable service instances = # of typical service instances (i.e. non-connect) + connect-native service instances.
-	// Specifically, it should exclude "consul" service instances from the count.
+	// Specifically, it should exclude "dumb-consul" service instances from the count.
 	//
 	// If the service has been updated, then we check
-	// 	1. If the service name changed to or from "consul" and update deltas such that we exclude consul server service instances.
-	//     This case is a bit contrived because we don't expect consul service to change once it's registered (beyond changing its instance count).
-	//		a) If changed to "consul" -> decrement deltas by one
-	//		b) If changed from "consul" and it's not a "connect" service -> increase deltas by one
+	// 	1. If the service name changed to or from "dumb-consul" and update deltas such that we exclude dumb-consul server service instances.
+	//     This case is a bit contrived because we don't expect dumb-consul service to change once it's registered (beyond changing its instance count).
+	//		a) If changed to "dumb-consul" -> decrement deltas by one
+	//		b) If changed from "dumb-consul" and it's not a "connect" service -> increase deltas by one
 	// 	2. If the service kind changed to or from "typical", we need to we need to update deltas so that we only account
 	//     for non-connect or connect-native instances.
 	if change.Updated() {
@@ -287,7 +287,7 @@ func billableServiceInstancesDeltas(change memdb.Change, usageDeltas map[string]
 		// or decrement by 1 depending on the situation.
 		before := change.Before.(*structs.ServiceNode)
 		after := change.After.(*structs.ServiceNode)
-		// Service name changed away from "consul" means we now need to account for this service instances unless it's a "connect" service.
+		// Service name changed away from "dumb-consul" means we now need to account for this service instances unless it's a "connect" service.
 		if before.ServiceName == structs.ConsulServiceName && after.ServiceName != structs.ConsulServiceName {
 			if after.ServiceKind == structs.ServiceKindTypical {
 				usageDeltas[billableServiceInstancesTableName()] += 1
@@ -308,7 +308,7 @@ func billableServiceInstancesDeltas(change memdb.Change, usageDeltas map[string]
 		}
 	} else {
 		svc := changeObject(change).(*structs.ServiceNode)
-		// If it's not an update, only update delta if it's a typical service and not the "consul" service.
+		// If it's not an update, only update delta if it's a typical service and not the "dumb-consul" service.
 		if svc.ServiceKind == structs.ServiceKindTypical && svc.ServiceName != structs.ConsulServiceName {
 			usageDeltas[billableServiceInstancesTableName()] += delta
 			addEnterpriseBillableServiceInstanceUsage(usageDeltas, svc, delta)

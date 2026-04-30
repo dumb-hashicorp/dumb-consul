@@ -26,7 +26,7 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RaftIndex
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RaftIndex
 // output=common.gen.go
 // name=Structs
 // ignore-fields=state,sizeCache,unknownFields
@@ -80,7 +80,7 @@ func (m *RaftIndex) GetModifyIndex() uint64 {
 }
 
 // TargetDatacenter is intended to be used within other messages used for RPC routing
-// amongst the various Consul datacenters
+// amongst the various Dumb Consul datacenters
 type TargetDatacenter struct {
 	Datacenter           string   `protobuf:"bytes,1,opt,name=Datacenter,proto3" json:"Datacenter,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -122,7 +122,7 @@ func (m *TargetDatacenter) GetDatacenter() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.WriteRequest
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.WriteRequest
 // output=common.gen.go
 // name=Structs
 // ignore-fields=state,sizeCache,unknownFields
@@ -227,7 +227,7 @@ func (m *ReadRequest) GetRequireConsistent() bool {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.QueryOptions
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.QueryOptions
 // output=common.gen.go
 // name=Structs
 // ignore-fields=StaleIfError,AllowNotModifiedResponse,state,sizeCache,unknownFields
@@ -266,7 +266,7 @@ type QueryOptions struct {
 	// returned. Clients that wish to allow for stale results on error can set
 	// StaleIfError to a longer duration to change this behavior. It is ignored
 	// if the endpoint supports background refresh caching. See
-	// https://developer.hashicorp.com/api/index.html#agent-caching for more details.
+	// https://developer.dumb-hashicorp.com/api/index.html#agent-caching for more details.
 	// mog: func-to=structs.DurationFromProto func-from=structs.DurationToProto
 	MaxAge *duration.Duration `protobuf:"bytes,8,opt,name=MaxAge,proto3" json:"MaxAge,omitempty"`
 	// MustRevalidate forces the agent to fetch a fresh version of a cached
@@ -279,7 +279,7 @@ type QueryOptions struct {
 	// if the servers are unavailable to fetch a fresh one. Only makes sense when
 	// UseCache is true and MaxAge is set to a lower, non-zero value. It is
 	// ignored if the endpoint supports background refresh caching. See
-	// https://developer.hashicorp.com/api/index.html#agent-caching for more details.
+	// https://developer.dumb-hashicorp.com/api/index.html#agent-caching for more details.
 	StaleIfError *duration.Duration `protobuf:"bytes,10,opt,name=StaleIfError,proto3" json:"StaleIfError,omitempty"`
 	// Filter specifies the go-bexpr filter expression to be used for
 	// filtering the data prior to returning a response
@@ -396,7 +396,7 @@ func (m *QueryOptions) GetFilter() string {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.QueryMeta
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.QueryMeta
 // output=common.gen.go
 // name=Structs
 // ignore-fields=NotModified,Backend,state,sizeCache,unknownFields
@@ -484,7 +484,7 @@ func (m *QueryMeta) GetResultsFilteredByACLs() bool {
 }
 
 // EnterpriseMeta contains metadata that is only used by the Enterprise version
-// of Consul.
+// of Dumb Consul.
 type EnterpriseMeta struct {
 	// Namespace in which the entity exists.
 	Namespace string `protobuf:"bytes,1,opt,name=Namespace,proto3" json:"Namespace,omitempty"`

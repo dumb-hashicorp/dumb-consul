@@ -8,7 +8,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | hashicorp consul', function (hooks) {
+module('Integration | Component | dumb-hashicorp dumb-consul', function (hooks) {
   setupRenderingTest(hooks);
 
   skip('it renders', async function (assert) {
@@ -21,8 +21,8 @@ module('Integration | Component | hashicorp consul', function (hooks) {
 
     // Template block usage:
     await render(hbs`
-      {{#hashicorp-consul}}
-      {{/hashicorp-consul}}
+      {{#dumb-hashicorp-dumb-consul}}
+      {{/dumb-hashicorp-dumb-consul}}
     `);
 
     assert.dom('*').hasText('template block text');

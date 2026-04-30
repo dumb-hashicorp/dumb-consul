@@ -4,8 +4,8 @@
  */
 
 import { inject as service } from '@ember/service';
-import RepositoryService from 'consul-ui/services/repository';
-import dataSource from 'consul-ui/decorators/data-source';
+import RepositoryService from 'dumb-consul-ui/services/repository';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
 // CONSUL_METRICS_POLL_INTERVAL controls how long between each poll to the
 // metrics provider
@@ -35,7 +35,7 @@ export default class MetricsService extends RepositoryService {
       this.client.fetchWithToken(`/v1/internal/ui/metrics-proxy${path}`, params);
 
     try {
-      this.provider = window.consul.getMetricsProvider(provider, opts);
+      this.provider = window.dumb-consul.getMetricsProvider(provider, opts);
     } catch (e) {
       this.error = new Error(`metrics provider not initialized: ${e}`);
       // Show the user the error once for debugging their provider outside UI

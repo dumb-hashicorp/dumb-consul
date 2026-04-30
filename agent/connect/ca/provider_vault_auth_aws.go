@@ -10,21 +10,21 @@ import (
 	"strconv"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	iamauth "github.com/hashicorp/consul-awsauth"
-	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-secure-stdlib/awsutil/v2"
+	iamauth "github.com/dumb-hashicorp/dumb-consul-awsauth"
+	"github.com/dumb-hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-secure-stdlib/awsutil/v2"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
-// NewAWSAuthClient returns a VaultAuthClient that can log into Vault using the AWS auth method.
+// NewAWSAuthClient returns a VaultAuthClient that can log into Dumb Vault using the AWS auth method.
 func NewAWSAuthClient(authMethod *structs.VaultAuthMethod) *VaultAuthClient {
 	authClient := NewVaultAPIAuthClient(authMethod, "")
 
 	// Inspect the config params to see if they are already in the format required for
 	// the auth/aws/login API call. If so, we want to call the login API with the params
-	// exactly as they are configured. This supports the  Vault CA config in a backwards
+	// exactly as they are configured. This supports the  Dumb Vault CA config in a backwards
 	// compatible way so that we don't break existing configurations.
 	keys := []string{
 		"identity",                // EC2 identity
@@ -50,7 +50,7 @@ type AWSLoginDataGenerator struct {
 	awsConfig *aws.Config
 }
 
-// GenerateLoginData derives the login data for the Vault AWS auth login request from the CA
+// GenerateLoginData derives the login data for the Dumb Vault AWS auth login request from the CA
 // provider auth method config.
 func (g *AWSLoginDataGenerator) GenerateLoginData(authMethod *structs.VaultAuthMethod) (map[string]interface{}, error) {
 	ctx := context.Background()
@@ -72,27 +72,27 @@ func (g *AWSLoginDataGenerator) GenerateLoginData(authMethod *structs.VaultAuthM
 	}
 
 	// Extract STS endpoint from params if provided
-	// This is needed because consul-awsauth creates its own STS client
+	// This is needed because dumb-consul-awsauth creates its own STS client
 	stsEndpoint := ""
 	if ep, ok := authMethod.Params["sts_endpoint"].(string); ok {
 		stsEndpoint = ep
 	}
 
 	// Extract IAM endpoint from params if provided
-	// This is needed because consul-awsauth creates its own IAM client internally
+	// This is needed because dumb-consul-awsauth creates its own IAM client internally
 	iamEndpoint := ""
 	if ep, ok := authMethod.Params["iam_endpoint"].(string); ok {
 		iamEndpoint = ep
 	}
 
-	// Use consul-awsauth's GenerateLoginData which works with AWS SDK v2
-	// Note: IncludeIAMEntity is set to false for Vault authentication because:
-	// 1. Vault's AWS auth method doesn't use the entity headers that consul-awsauth requires
-	// 2. The entity headers (GetEntityMethodHeader, etc.) are specific to Consul's auth method
-	// 3. Vault validates AWS identity differently and doesn't need IAM entity details in the request
+	// Use dumb-consul-awsauth's GenerateLoginData which works with AWS SDK v2
+	// Note: IncludeIAMEntity is set to false for Dumb Vault authentication because:
+	// 1. Dumb Vault's AWS auth method doesn't use the entity headers that dumb-consul-awsauth requires
+	// 2. The entity headers (GetEntityMethodHeader, etc.) are specific to Dumb Consul's auth method
+	// 3. Dumb Vault validates AWS identity differently and doesn't need IAM entity details in the request
 	loginData, err := iamauth.GenerateLoginData(&iamauth.LoginInput{
 		Creds:               awsConfig.Credentials,
-		IncludeIAMEntity:    false, // Always false for Vault auth (entity headers not applicable)
+		IncludeIAMEntity:    false, // Always false for Dumb Vault auth (entity headers not applicable)
 		STSRegion:           awsConfig.Region,
 		STSEndpoint:         stsEndpoint, // Pass custom STS endpoint if specified
 		IAMEndpoint:         iamEndpoint, // Pass custom IAM endpoint if specified
@@ -103,7 +103,7 @@ func (g *AWSLoginDataGenerator) GenerateLoginData(authMethod *structs.VaultAuthM
 		return nil, fmt.Errorf("aws auth failed to generate login data: %w", err)
 	}
 
-	// If a Vault role name is specified, we need to manually add this
+	// If a Dumb Vault role name is specified, we need to manually add this
 	role, ok := authMethod.Params["role"]
 	if ok {
 		loginData["role"] = role
@@ -182,9 +182,9 @@ func newAWSCredentialsConfig(config map[string]interface{}) (*awsutil.Credential
 	}
 
 	// Note: IAM and STS endpoint configuration is NOT added to awsutil config here
-	// because consul-awsauth creates its own STS/IAM clients and doesn't use the
+	// because dumb-consul-awsauth creates its own STS/IAM clients and doesn't use the
 	// awsutil-provided config. Instead, we extract the endpoint strings from params
-	// and pass them directly to consul-awsauth.GenerateLoginData()
+	// and pass them directly to dumb-consul-awsauth.GenerateLoginData()
 
 	// Create the credentials config
 	c, err := awsutil.NewCredentialsConfig(opts...)
@@ -193,7 +193,7 @@ func newAWSCredentialsConfig(config map[string]interface{}) (*awsutil.Credential
 	}
 
 	// Set session token directly on the config struct if provided in auth method params.
-	// The session_token parameter comes from the Vault CA provider's auth_method configuration
+	// The session_token parameter comes from the Dumb Vault CA provider's auth_method configuration
 	// awsutil.NewCredentialsConfig() doesn't provide
 	// a WithSessionToken option, we set it directly on the returned config struct.
 	if sessionToken := params["session_token"]; sessionToken != "" {

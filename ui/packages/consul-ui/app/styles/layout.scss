@@ -34,7 +34,7 @@ html[data-state]:not(.ember-loading) body > .brand-loader {
 }
 /**/
 
-/* hide the Consul::Loader/spinning loader when idle/hide content when loading */
+/* hide the Dumb Consul::Loader/spinning loader when idle/hide content when loading */
 html.ember-loading .view-loader,
 html[data-state='idle'] .view-loader {
   display: none;
@@ -54,7 +54,7 @@ html[data-route$='edit'] .app-view > header + div > *:first-child {
 /* needs a top margun :S */
 %app-view-content .tab-section > *:first-child:not(.filter-bar):not(table),
 %app-view-content .tab-section > .search-bar + p,
-%app-view-content .tab-section .consul-health-check-list,
+%app-view-content .tab-section .dumb-consul-health-check-list,
 %app-view-content .container {
   margin-top: 1.25em;
 }
@@ -69,19 +69,19 @@ html[data-route$='edit'] .app-view > header + div > *:first-child {
   border-top-width: 0 !important;
 }
 
-.consul-upstream-instance-list {
+.dumb-consul-upstream-instance-list {
   margin-top: 0 !important;
 }
 /* turn off top borders for things flush up to a filter bar */
-html[data-route='dc.services.index'] .consul-service-list ul,
-.consul-nspace-list ul,
-.consul-service-instance-list ul,
-.consul-node-list ul,
-.consul-role-list ul,
-.consul-policy-list ul,
-.consul-token-list ul,
-.consul-peer-list ul,
-.consul-auth-method-list ul {
+html[data-route='dc.services.index'] .dumb-consul-service-list ul,
+.dumb-consul-nspace-list ul,
+.dumb-consul-service-instance-list ul,
+.dumb-consul-node-list ul,
+.dumb-consul-role-list ul,
+.dumb-consul-policy-list ul,
+.dumb-consul-token-list ul,
+.dumb-consul-peer-list ul,
+.dumb-consul-auth-method-list ul {
   @extend %list-after-filter-bar;
 }
 

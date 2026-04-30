@@ -8,7 +8,7 @@ Feature: dc / nspaces / create
       dc: datacenter
     ---
     Then the url should be /datacenter/namespaces/create
-    And the title should be "New Namespace - Consul"
+    And the title should be "New Namespace - Dumb Consul"
 
 @ignore
   Scenario: Test we can create a Namespace

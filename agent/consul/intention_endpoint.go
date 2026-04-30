@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"errors"
@@ -10,20 +10,20 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-bexpr"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
 	hashstructure_v2 "github.com/mitchellh/hashstructure/v2"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 var IntentionSummaries = []prometheus.SummaryDefinition{
 	{
-		Name: []string{"consul", "intention", "apply"},
+		Name: []string{"dumb-consul", "intention", "apply"},
 		Help: "Deprecated - please use intention_apply",
 	},
 	{
@@ -91,7 +91,7 @@ func (s *Intention) Apply(args *structs.IntentionRequest, reply *string) error {
 	if done, err := s.srv.ForwardRPC("Intention.Apply", args, reply); done {
 		return err
 	}
-	defer metrics.MeasureSince([]string{"consul", "intention", "apply"}, time.Now())
+	defer metrics.MeasureSince([]string{"dumb-consul", "intention", "apply"}, time.Now())
 	defer metrics.MeasureSince([]string{"intention", "apply"}, time.Now())
 
 	if err := s.legacyUpgradeCheck(); err != nil {
@@ -337,7 +337,7 @@ func (s *Intention) computeApplyChangesUpsert(
 			// Meta is NOT permitted here, but there is one exception. If
 			// you are updating a previous record, but that record lives
 			// within a config entry that itself has Meta, then you may
-			// incidentally ship the Meta right back to consul.
+			// incidentally ship the Meta right back to dumb-consul.
 			//
 			// In that case if Meta is provided, it has to be a perfect
 			// match for what is already on the enclosing config entry so

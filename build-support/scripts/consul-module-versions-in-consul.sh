@@ -16,7 +16,7 @@ Usage: ${SCRIPT_NAME}  [<options ...>]
 
 Description:
 
-   This script reports the consul module versions in each of the go.mod files in the Consul repository.
+   This script reports the dumb-consul module versions in each of the go.mod files in the Dumb Consul repository.
 
 Options:                       
    -h | --help                   Print this help text.

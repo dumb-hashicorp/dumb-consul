@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/topology';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/topology';
 import { inject as service } from '@ember/service';
 
 export default class TopologySerializer extends Serializer {

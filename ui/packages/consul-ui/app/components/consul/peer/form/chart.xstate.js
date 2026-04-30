@@ -4,7 +4,7 @@
  */
 
 export default {
-  id: 'consul-peer-form',
+  id: 'dumb-consul-peer-form',
   initial: 'generate',
   on: {
     INITIATE: [

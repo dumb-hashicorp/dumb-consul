@@ -1,9 +1,9 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
-import "github.com/hashicorp/consul/logging"
+import "github.com/dumb-hashicorp/dumb-consul/logging"
 
 func init() {
 	registerEndpoint(func(s *Server) interface{} { return &ACL{s, s.loggers.Named(logging.ACL)} })

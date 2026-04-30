@@ -4,15 +4,15 @@
 # envoy-library-references.sh
 #
 # This script ensures that all of the protobuf packages present in the
-# github.com/envoyproxy/go-control-plane library are referenced in the consul
+# github.com/envoyproxy/go-control-plane library are referenced in the dumb-consul
 # codebase somewhere so that the ultimate binary doesn't eliminate those
 # packages. When the packages are linked in they use proto.RegisterFile() to
 # globally register the types in the protobuf machinery so that they are
 # available for decoding.
 #
 # We primarily need this for the Escape Hatch feature where users can provide
-# arbitrary xDS JSON for Consul to decode. If extension points use *any.Any and
-# use an extention package that Consul itself doesn't use then it won't decode
+# arbitrary xDS JSON for Dumb Consul to decode. If extension points use *any.Any and
+# use an extention package that Dumb Consul itself doesn't use then it won't decode
 # unless the package is linked into the binary.
 #
 ####
@@ -24,7 +24,7 @@ cd "$(dirname "$0")" # build-support/scripts
 cd ../..             # <ROOT>
 
 if [[ ! -f Makefile ]] || [[ ! -f go.mod ]]; then
-    echo "not in root consul checkout: ${PWD}" >&2
+    echo "not in root dumb-consul checkout: ${PWD}" >&2
     exit 1
 fi
 
@@ -41,7 +41,7 @@ cd _envoy_tmp
 
 git clone https://github.com/envoyproxy/go-control-plane
 cd go-control-plane
-git checkout -b consul-temp "${LIBRARY_VERSION}"
+git checkout -b dumb-consul-temp "${LIBRARY_VERSION}"
 
 IFS=$'\n' candidates=($(find . -name *.pb.go -a -type f | sed 's@/[^/]*\.pb\.go$@@' | sort -u))
 

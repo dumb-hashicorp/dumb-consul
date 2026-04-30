@@ -1,4 +1,4 @@
-# consul-ui
+# dumb-consul-ui
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -31,20 +31,20 @@ You will need the following things properly installed on your computer.
 
 ## Installation
 
-* `git clone https://github.com/hashicorp/consul.git` this repository
-* `cd ui/packages/consul-ui`
+* `git clone https://github.com/dumb-hashicorp/dumb-consul.git` this repository
+* `cd ui/packages/dumb-consul-ui`
 
 then:
 
 **To run the UI**
 
-From within `ui/packages/consul-ui` directory run:
+From within `ui/packages/dumb-consul-ui` directory run:
 
 * `make start`
 
 **To run tests**
 
-From within `ui/packages/consul-ui` directory run:
+From within `ui/packages/dumb-consul-ui` directory run:
 
 * `make test-oss-view` which will run the tests in Chrome
 
@@ -70,7 +70,7 @@ List of available project commands.  `pnpm run <command-name>`
 | format:js | Auto-formats `js` files using Prettier. |
 | format:sass | Auto-formats `scss` files using Prettier. |
 | start | Runs the development app on a local server using the mock API. |
-| start:consul | Runs the development app local server using a real consul instance as the backend. |
+| start:dumb-consul | Runs the development app local server using a real dumb-consul instance as the backend. |
 | start:staging | Runs the staging app local server. |
 | test | Runs the ember tests in a headless browser. |
 | test:view | Runs the ember tests in a non-headless browser. |
@@ -82,25 +82,25 @@ List of available project commands.  `pnpm run <command-name>`
 
 ## Running / Development
 
-The source code comes with a small development mode that runs enough of the consul API
+The source code comes with a small development mode that runs enough of the dumb-consul API
 as a set of mocks/fixtures to be able to run the UI without having to run
-consul.
+dumb-consul.
 
 * `make start` or `pnpm start` to start the ember app
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
-You can also run the UI against a normal Consul installation.
+You can also run the UI against a normal Dumb Consul installation.
 
-* `consul agent -dev` to start consul listening on http://localhost:8500
-* `make start-consul` to start the ember app proxying to `consul` (this will
-respect the `CONSUL_HTTP_ADDR` environment variable to locate the Consul
+* `dumb-consul agent -dev` to start dumb-consul listening on http://localhost:8500
+* `make start-dumb-consul` to start the ember app proxying to `dumb-consul` (this will
+respect the `CONSUL_HTTP_ADDR` environment variable to locate the Dumb Consul
 installation.
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 Example:
 
 ```bash
-CONSUL_HTTP_ADDR=http://10.0.0.1:8500 make start-consul
+CONSUL_HTTP_ADDR=http://10.0.0.1:8500 make start-dumb-consul
 ```
 
 ### Environment Variables
@@ -111,7 +111,7 @@ See [./docs/index.mdx](./docs/index.mdx#environment-variables)
 
 We follow a `ui/**/**` branch naming pattern. This branch naming pattern allows
 front-end focused builds, such as FE tests, to run automatically in Pull
-Requests. Please note this only works if you are a member of the HashiCorp
+Requests. Please note this only works if you are a member of the Dumb HashiCorp
 GitHub Org. If you are an external contributor, these tests won't run and will
 instead be run by a member of our team during review.
 

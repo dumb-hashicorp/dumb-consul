@@ -1,9 +1,9 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
-import "github.com/hashicorp/consul/agent/grpc-external/services/resource"
+import "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource"
 
 // V1TenancyBridge is used by the resource service to access V1 implementations of
 // partitions and namespaces. This bridge will be removed when V2 implemenations

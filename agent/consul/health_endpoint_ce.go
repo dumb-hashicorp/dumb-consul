@@ -3,15 +3,15 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
 	"errors"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // getArgsForSamenessGroupMembers returns the arguments for the sameness group members if SamenessGroup
@@ -24,7 +24,7 @@ import (
 // If SamenessGroup is set on CE, it returns::
 // - the index of 0
 // - nil array
-// - an error indicating that sameness groups are not supported in consul CE
+// - an error indicating that sameness groups are not supported in dumb-consul CE
 // If SamenessGroup is set on ENT, it returns:
 // - the index of the sameness group
 // - an array containing the arguments for the sameness group members
@@ -32,7 +32,7 @@ import (
 func (h *Health) getArgsForSamenessGroupMembers(args *structs.ServiceSpecificRequest,
 	ws memdb.WatchSet, state *state.Store) (uint64, []*structs.ServiceSpecificRequest, error) {
 	if args.SamenessGroup != "" {
-		return 0, nil, errors.New("sameness groups are not supported in consul CE")
+		return 0, nil, errors.New("sameness groups are not supported in dumb-consul CE")
 	}
 	return 0, []*structs.ServiceSpecificRequest{args}, nil
 }

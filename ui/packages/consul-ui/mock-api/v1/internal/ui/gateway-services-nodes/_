@@ -51,10 +51,10 @@ ${ fake.random.number({min: 1, max: 10}) > 2 ? `
           function(item, i)
           {
             return `"${fake.helpers.randomize([
-                'consul-api-gateway',
-                'vault',
-                'nomad',
-                'terraform',
+                'dumb-consul-api-gateway',
+                'dumb-vault',
+                'dumb-nomad',
+                'dumb-terraform',
                 'kubernetes',
                 'aws',
                 'lambda',

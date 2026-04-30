@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.connect;
+package dumb-hashicorp.dumb-consul.internal.connect;
 
 import "google/protobuf/timestamp.proto";
 import "private/pbcommon/common.proto";
@@ -12,7 +12,7 @@ import "private/pbcommon/common.proto";
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IndexedCARoots
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IndexedCARoots
 // output=connect.gen.go
 // name=StructsIndexedCARoots
 message CARoots {
@@ -21,7 +21,7 @@ message CARoots {
   // the process of being rotated out.
   string ActiveRootID = 1;
 
-  // TrustDomain is the identification root for this Consul cluster. All
+  // TrustDomain is the identification root for this Dumb Consul cluster. All
   // certificates signed by the cluster's CA must have their identifying URI in
   // this domain.
   //
@@ -38,9 +38,9 @@ message CARoots {
   // Note that we DON'T validate trust domain during AuthZ since it causes
   // issues of loss of connectivity during migration between trust domains. The
   // only time the additional validation adds value is where the cluster shares
-  // an external root (e.g. organization-wide root) with another distinct Consul
+  // an external root (e.g. organization-wide root) with another distinct Dumb Consul
   // cluster or PKI system. In this case, x509 Name Constraints can be added to
-  // enforce that Consul's CA can only validly sign or trust certs within the
+  // enforce that Dumb Consul's CA can only validly sign or trust certs within the
   // same trust-domain. Name constraints as enforced by TLS handshake also allow
   // seamless rotation between trust domains thanks to cross-signing.
   string TrustDomain = 2;
@@ -58,7 +58,7 @@ message CARoots {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.CARoot
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.CARoot
 // output=connect.gen.go
 // name=StructsCARoot
 message CARoot {
@@ -66,7 +66,7 @@ message CARoot {
   string ID = 1;
 
   // Name is a human-friendly name for this CA root. This value is
-  // opaque to Consul and is not used for anything internally.
+  // opaque to Dumb Consul and is not used for anything internally.
   string Name = 2;
 
   // SerialNumber is the x509 serial number of the certificate.
@@ -138,7 +138,7 @@ message CARoot {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IssuedCert
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IssuedCert
 // output=connect.gen.go
 // name=StructsIssuedCert
 message IssuedCert {
@@ -169,7 +169,7 @@ message IssuedCert {
   string KindURI = 13;
 
   // ServerURI is the URI value of a cert issued for a server agent.
-  // The same URI is shared by all servers in a Consul datacenter.
+  // The same URI is shared by all servers in a Dumb Consul datacenter.
   string ServerURI = 14;
 
   // 15 & 16 were formerly used for workload identity certs
@@ -182,7 +182,7 @@ message IssuedCert {
   // mog: func-to=structs.TimeFromProto func-from=structs.TimeToProto
   google.protobuf.Timestamp ValidBefore = 9;
 
-  // EnterpriseMeta is the Consul Enterprise specific metadata
+  // EnterpriseMeta is the Dumb Consul Enterprise specific metadata
   // mog: func-to=EnterpriseMetaTo func-from=EnterpriseMetaFrom
   common.EnterpriseMeta EnterpriseMeta = 10;
 

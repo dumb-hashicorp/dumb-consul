@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import Route from 'consul-ui/routing/route';
+import Route from 'dumb-consul-ui/routing/route';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import isFolder from 'consul-ui/utils/isFolder';
+import isFolder from 'dumb-consul-ui/utils/isFolder';
 
 export default class IndexRoute extends Route {
   @service router;

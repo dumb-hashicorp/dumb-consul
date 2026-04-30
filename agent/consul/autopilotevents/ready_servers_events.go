@@ -11,14 +11,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-memdb"
-	autopilot "github.com/hashicorp/raft-autopilot"
+	"github.com/dumb-hashicorp/go-memdb"
+	autopilot "github.com/dumb-hashicorp/raft-autopilot"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 const (
@@ -291,7 +291,7 @@ func (r *ReadyServersEventPublisher) getTaggedAddresses(srv *autopilot.ServerSta
 	return addrs
 }
 
-// getGRPCPort will get the external gRPC port for a Consul server.
+// getGRPCPort will get the external gRPC port for a Dumb Consul server.
 // Returns 0 if there is none assigned or if an error is encountered.
 func (r *ReadyServersEventPublisher) getGRPCPort(srv *autopilot.ServerState) int {
 	if r.GetStore == nil {

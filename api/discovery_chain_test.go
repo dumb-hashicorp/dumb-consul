@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// testClusterID is the Consul cluster ID for testing.
+// testClusterID is the Dumb Consul cluster ID for testing.
 //
 // NOTE: this is explicitly duplicated from agent/connect:TestClusterID
 const testClusterID = "11111111-2222-3333-4444-555555555555"
@@ -55,8 +55,8 @@ func TestAPI_DiscoveryChain_Get(t *testing.T) {
 						Namespace:      "default",
 						Datacenter:     "dc1",
 						ConnectTimeout: 5 * time.Second,
-						SNI:            "web.default.dc1.internal." + testClusterID + ".consul",
-						Name:           "web.default.dc1.internal." + testClusterID + ".consul",
+						SNI:            "web.default.dc1.internal." + testClusterID + ".dumb-consul",
+						Name:           "web.default.dc1.internal." + testClusterID + ".dumb-consul",
 					},
 				},
 			},
@@ -97,8 +97,8 @@ func TestAPI_DiscoveryChain_Get(t *testing.T) {
 						Namespace:      "default",
 						Datacenter:     "dc2",
 						ConnectTimeout: 5 * time.Second,
-						SNI:            "web.default.dc2.internal." + testClusterID + ".consul",
-						Name:           "web.default.dc2.internal." + testClusterID + ".consul",
+						SNI:            "web.default.dc2.internal." + testClusterID + ".dumb-consul",
+						Name:           "web.default.dc2.internal." + testClusterID + ".dumb-consul",
 					},
 				},
 			},
@@ -144,8 +144,8 @@ func TestAPI_DiscoveryChain_Get(t *testing.T) {
 						Namespace:      "default",
 						Datacenter:     "dc1",
 						ConnectTimeout: 33 * time.Second,
-						SNI:            "web.default.dc1.internal." + testClusterID + ".consul",
-						Name:           "web.default.dc1.internal." + testClusterID + ".consul",
+						SNI:            "web.default.dc1.internal." + testClusterID + ".dumb-consul",
+						Name:           "web.default.dc1.internal." + testClusterID + ".dumb-consul",
 					},
 				},
 			},
@@ -193,8 +193,8 @@ func TestAPI_DiscoveryChain_Get(t *testing.T) {
 							Mode: MeshGatewayModeLocal,
 						},
 						ConnectTimeout: 22 * time.Second,
-						SNI:            "web.default.dc2.internal." + testClusterID + ".consul",
-						Name:           "web.default.dc2.internal." + testClusterID + ".consul",
+						SNI:            "web.default.dc2.internal." + testClusterID + ".dumb-consul",
+						Name:           "web.default.dc2.internal." + testClusterID + ".dumb-consul",
 					},
 				},
 			},

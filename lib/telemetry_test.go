@@ -9,10 +9,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 
 	"github.com/armon/go-metrics"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-multierror"
 	"github.com/stretchr/testify/require"
 )
 

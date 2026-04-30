@@ -10,7 +10,7 @@ Feature: dc / acls / tokens / use: Using an ACL token
     ---
     And settings from yaml
     ---
-    consul:token:
+    dumb-consul:token:
       SecretID: secret
       AccessorID: accessor
       Namespace: default
@@ -28,7 +28,7 @@ Feature: dc / acls / tokens / use: Using an ACL token
     And "[data-notification]" has the "hds-alert--color-success" class
     Then I have settings like yaml
     ---
-    consul:token: "{\"AccessorID\":\"token\",\"SecretID\":\"ee52203d-989f-4f7a-ab5a-2bef004164ca\",\"Namespace\":\"@namespace\",\"Partition\":\"default\"}"
+    dumb-consul:token: "{\"AccessorID\":\"token\",\"SecretID\":\"ee52203d-989f-4f7a-ab5a-2bef004164ca\",\"Namespace\":\"@namespace\",\"Partition\":\"default\"}"
     ---
   # FIXME
   @ignore
@@ -44,5 +44,5 @@ Feature: dc / acls / tokens / use: Using an ACL token
     And "[data-notification]" has the "hds-alert--color-success" class
     Then I have settings like yaml
     ---
-    consul:token: "{\"AccessorID\":\"token\",\"SecretID\":\"ee52203d-989f-4f7a-ab5a-2bef004164ca\",\"Namespace\":\"@namespace\",\"Partition\":\"default\"}"
+    dumb-consul:token: "{\"AccessorID\":\"token\",\"SecretID\":\"ee52203d-989f-4f7a-ab5a-2bef004164ca\",\"Namespace\":\"@namespace\",\"Partition\":\"default\"}"
     ---

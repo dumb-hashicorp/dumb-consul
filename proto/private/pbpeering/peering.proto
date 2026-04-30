@@ -3,45 +3,45 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.peering;
+package dumb-hashicorp.dumb-consul.internal.peering;
 
 import "annotations/ratelimit/ratelimit.proto";
 import "google/protobuf/timestamp.proto";
 import "private/pbcommon/common.proto";
 
 // PeeringService handles operations for establishing peering relationships
-// between disparate Consul clusters.
+// between disparate Dumb Consul clusters.
 service PeeringService {
   rpc GenerateToken(GenerateTokenRequest) returns (GenerateTokenResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_WRITE
       operation_category: OPERATION_CATEGORY_PEERING
     };
   }
 
   rpc Establish(EstablishRequest) returns (EstablishResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_WRITE
       operation_category: OPERATION_CATEGORY_PEERING
     };
   }
 
   rpc PeeringRead(PeeringReadRequest) returns (PeeringReadResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_PEERING
     };
   }
 
   rpc PeeringList(PeeringListRequest) returns (PeeringListResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_PEERING
     };
   }
 
   rpc PeeringDelete(PeeringDeleteRequest) returns (PeeringDeleteResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_WRITE
       operation_category: OPERATION_CATEGORY_PEERING
     };
@@ -50,7 +50,7 @@ service PeeringService {
   // TODO(peering): As of writing, this method is only used in tests to set up Peerings in the state store.
   // Consider removing if we can find another way to populate state store in peering_endpoint_test.go
   rpc PeeringWrite(PeeringWriteRequest) returns (PeeringWriteResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_WRITE
       operation_category: OPERATION_CATEGORY_PEERING
     };
@@ -58,14 +58,14 @@ service PeeringService {
 
   // TODO(peering): Rename this to PeeredServiceRoots? or something like that?
   rpc TrustBundleListByService(TrustBundleListByServiceRequest) returns (TrustBundleListByServiceResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_PEERING
     };
   }
 
   rpc TrustBundleRead(TrustBundleReadRequest) returns (TrustBundleReadResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_PEERING
     };
@@ -187,11 +187,11 @@ message PeeringSecrets {
   Stream stream = 3;
 }
 
-// Peering defines a peering relationship between two disparate Consul clusters
+// Peering defines a peering relationship between two disparate Dumb Consul clusters
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.Peering
+// target=github.com/dumb-hashicorp/dumb-consul/api.Peering
 // output=peering.gen.go
 // name=API
 message Peering {
@@ -257,7 +257,7 @@ message Peering {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringRemoteInfo
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringRemoteInfo
 // output=peering.gen.go
 // name=API
 message RemoteInfo {
@@ -408,7 +408,7 @@ message PeeringTrustBundleDeleteResponse {}
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringGenerateTokenRequest
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringGenerateTokenRequest
 // output=peering.gen.go
 // name=API
 message GenerateTokenRequest {
@@ -423,13 +423,13 @@ message GenerateTokenRequest {
 
   // ServerExternalAddresses is a list of addresses to put into the generated token. This could be used to specify
   // load balancer(s) or external IPs to reach the servers from the dialing side, and will override any server
-  // addresses obtained from the "consul" service.
+  // addresses obtained from the "dumb-consul" service.
   repeated string ServerExternalAddresses = 6;
 }
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringGenerateTokenResponse
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringGenerateTokenResponse
 // output=peering.gen.go
 // name=API
 message GenerateTokenResponse {
@@ -440,7 +440,7 @@ message GenerateTokenResponse {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringEstablishRequest
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringEstablishRequest
 // output=peering.gen.go
 // name=API
 message EstablishRequest {
@@ -459,7 +459,7 @@ message EstablishRequest {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringEstablishResponse
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringEstablishResponse
 // output=peering.gen.go
 // name=API
 message EstablishResponse {}

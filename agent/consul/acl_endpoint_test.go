@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
@@ -12,22 +12,22 @@ import (
 	"time"
 
 	"github.com/go-jose/go-jose/v3/jwt"
-	"github.com/hashicorp/consul/agent/consul/auth"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/auth"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/stretchr/testify/require"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/authmethod/kubeauth"
-	"github.com/hashicorp/consul/agent/consul/authmethod/testauth"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/structs/aclfilter"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/kubeauth"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/testauth"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs/aclfilter"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestACLEndpoint_BootstrapTokens(t *testing.T) {
@@ -3103,7 +3103,7 @@ func TestACLEndpoint_AuthMethodSet(t *testing.T) {
 
 	t.Parallel()
 
-	tempDir, err := os.MkdirTemp("", "consul")
+	tempDir, err := os.MkdirTemp("", "dumb-consul")
 	require.NoError(t, err)
 	t.Cleanup(func() { os.RemoveAll(tempDir) })
 	_, srv, codec := testACLServerWithConfig(t, nil, false)
@@ -4575,8 +4575,8 @@ func TestACLEndpoint_Login(t *testing.T) {
 	)
 	testauth.InstallSessionToken(
 		testSessionID,
-		"fake-vault", // 1 rule (role)
-		"default", "vault", "jkl012",
+		"fake-dumb-vault", // 1 rule (role)
+		"default", "dumb-vault", "jkl012",
 	)
 	testauth.InstallSessionToken(
 		testSessionID,
@@ -4606,10 +4606,10 @@ func TestACLEndpoint_Login(t *testing.T) {
 	)
 	require.NoError(t, err)
 
-	// 'fake-vault' rules
+	// 'fake-dumb-vault' rules
 	_, err = upsertTestBindingRule(
 		codec, TestDefaultInitialManagementToken, "dc1", method.Name,
-		"serviceaccount.namespace==default and serviceaccount.name==vault",
+		"serviceaccount.namespace==default and serviceaccount.name==dumb-vault",
 		structs.BindingRuleBindTypeRole,
 		"method-${serviceaccount.name}",
 	)
@@ -4710,7 +4710,7 @@ func TestACLEndpoint_Login(t *testing.T) {
 		req := structs.ACLLoginRequest{
 			Auth: &structs.ACLLoginParams{
 				AuthMethod:  method.Name,
-				BearerToken: "fake-vault",
+				BearerToken: "fake-dumb-vault",
 				Meta:        map[string]string{"pod": "pod1"},
 			},
 			Datacenter: "dc1",
@@ -4726,7 +4726,7 @@ func TestACLEndpoint_Login(t *testing.T) {
 		arg := structs.ACLRoleSetRequest{
 			Datacenter: "dc1",
 			Role: structs.ACLRole{
-				Name: "method-vault",
+				Name: "method-dumb-vault",
 			},
 			WriteRequest: structs.WriteRequest{Token: TestDefaultInitialManagementToken},
 		}
@@ -4741,7 +4741,7 @@ func TestACLEndpoint_Login(t *testing.T) {
 		req := structs.ACLLoginRequest{
 			Auth: &structs.ACLLoginParams{
 				AuthMethod:  method.Name,
-				BearerToken: "fake-vault",
+				BearerToken: "fake-dumb-vault",
 				Meta:        map[string]string{"pod": "pod1"},
 			},
 			Datacenter: "dc1",
@@ -4757,7 +4757,7 @@ func TestACLEndpoint_Login(t *testing.T) {
 		require.Len(t, resp.Roles, 1)
 		role := resp.Roles[0]
 		require.Equal(t, vaultRoleID, role.ID)
-		require.Equal(t, "method-vault", role.Name)
+		require.Equal(t, "method-dumb-vault", role.Name)
 	})
 
 	t.Run("valid method token 1 service binding 1 role binding and role does not exist", func(t *testing.T) {
@@ -5371,9 +5371,9 @@ func TestACLEndpoint_Login_jwt(t *testing.T) {
 						"/org/primary": "primary_org",
 					},
 					"ListClaimMappings": map[string]string{
-						"https://consul.test/groups": "groups",
+						"https://dumb-consul.test/groups": "groups",
 					},
-					"BoundAudiences": []string{"https://consul.test"},
+					"BoundAudiences": []string{"https://dumb-consul.test"},
 				}
 				if tc.f != nil {
 					tc.f(method.Config)
@@ -5396,7 +5396,7 @@ func TestACLEndpoint_Login_jwt(t *testing.T) {
 
 			cl := jwt.Claims{
 				Subject:   "r3qXcK2bix9eFECzsU3Sbmh0K16fatW6@clients",
-				Audience:  jwt.Audience{"https://consul.test"},
+				Audience:  jwt.Audience{"https://dumb-consul.test"},
 				Issuer:    tc.issuer,
 				NotBefore: jwt.NewNumericDate(time.Now().Add(-5 * time.Second)),
 				Expiry:    jwt.NewNumericDate(time.Now().Add(5 * time.Second)),
@@ -5409,7 +5409,7 @@ func TestACLEndpoint_Login_jwt(t *testing.T) {
 			privateCl := struct {
 				FirstName string   `json:"first_name"`
 				Org       orgs     `json:"org"`
-				Groups    []string `json:"https://consul.test/groups"`
+				Groups    []string `json:"https://dumb-consul.test/groups"`
 			}{
 				FirstName: "jeff2",
 				Org:       orgs{"engineering"},

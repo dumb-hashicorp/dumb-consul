@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -17,19 +17,19 @@ import (
 	"github.com/armon/go-metrics/prometheus"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
-	"github.com/hashicorp/go-version"
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-version"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/structs/aclfilter"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs/aclfilter"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 var LeaderSummaries = []prometheus.SummaryDefinition{
@@ -48,7 +48,7 @@ var LeaderSummaries = []prometheus.SummaryDefinition{
 }
 
 const (
-	newLeaderEvent      = "consul:new-leader"
+	newLeaderEvent      = "dumb-consul:new-leader"
 	barrierWriteTimeout = 2 * time.Minute
 
 	defaultDeletionRoundBurst int        = 5  // number replication round bursts
@@ -59,7 +59,7 @@ var (
 	// caRootPruneInterval is how often we check for stale CARoots to remove.
 	caRootPruneInterval = time.Hour
 
-	// minCentralizedConfigVersion is the minimum Consul version in which centralized
+	// minCentralizedConfigVersion is the minimum Dumb Consul version in which centralized
 	// config is supported
 	minCentralizedConfigVersion = version.Must(version.NewVersion("1.5.0"))
 )
@@ -250,7 +250,7 @@ WAIT:
 
 			// in case establishLeadership failed, we will try to
 			// transfer leadership. At this time raft thinks we are
-			// the leader, but consul disagrees.
+			// the leader, but dumb-consul disagrees.
 			if err != nil {
 				if err := s.leadershipTransfer(); err != nil {
 					// establishedLeader was true before,
@@ -442,7 +442,7 @@ func (s *Server) initializeACLs(ctx context.Context) error {
 	}
 
 	// Generate or rotate the server management token on leadership transitions.
-	// This token is used by Consul servers for authn/authz when making
+	// This token is used by Dumb Consul servers for authn/authz when making
 	// requests to themselves through public APIs such as the agent cache.
 	// It is stored as system metadata because it is internally
 	// managed and users are not meant to see it or interact with it.
@@ -890,7 +890,7 @@ func (s *Server) bootstrapConfigEntries(entries []structs.ConfigEntry) error {
 	// Do some quick preflight checks to see if someone is doing something
 	// that's not allowed at this time:
 	//
-	// - Trying to upgrade from an older pre-1.9.0 version of consul with
+	// - Trying to upgrade from an older pre-1.9.0 version of dumb-consul with
 	// intentions AND are trying to bootstrap a service-intentions config entry
 	// at the same time.
 	//
@@ -1008,7 +1008,7 @@ func (s *Server) reconcileReaped(known map[string]struct{}, nodeEntMeta *acl.Ent
 
 		// Create the appropriate tags if this was a server node
 		if serverPort > 0 {
-			member.Tags["role"] = "consul"
+			member.Tags["role"] = "dumb-consul"
 			member.Tags["port"] = strconv.FormatUint(uint64(serverPort), 10)
 			member.Tags["id"] = serverID
 			member.Addr = net.ParseIP(serverAddr)
@@ -1022,7 +1022,7 @@ func (s *Server) reconcileReaped(known map[string]struct{}, nodeEntMeta *acl.Ent
 	return nil
 }
 
-// ConsulRegistrator is an interface that manages the catalog registration lifecycle of Consul servers from serf events.
+// ConsulRegistrator is an interface that manages the catalog registration lifecycle of Dumb Consul servers from serf events.
 type ConsulRegistrator interface {
 	HandleAliveMember(member serf.Member, nodeEntMeta *acl.EnterpriseMeta, joinServer func(m serf.Member, parts *metadata.Server) error) error
 	HandleFailedMember(member serf.Member, nodeEntMeta *acl.EnterpriseMeta) error
@@ -1072,7 +1072,7 @@ func (s *Server) reconcileMember(member serf.Member) error {
 	return nil
 }
 
-// shouldHandleMember checks if this is a Consul pool member
+// shouldHandleMember checks if this is a Dumb Consul pool member
 func (s *Server) shouldHandleMember(member serf.Member) bool {
 	if valid, dc := isConsulNode(member); valid && dc == s.config.Datacenter {
 		return true
@@ -1085,7 +1085,7 @@ func (s *Server) shouldHandleMember(member serf.Member) bool {
 	return false
 }
 
-// joinConsulServer is used to try to join another consul server
+// joinConsulServer is used to try to join another dumb-consul server
 func (s *Server) joinConsulServer(m serf.Member, parts *metadata.Server) error {
 	// Check for possibility of multiple bootstrap nodes
 	if parts.Bootstrap {
@@ -1119,7 +1119,7 @@ func (s *Server) joinConsulServer(m serf.Member, parts *metadata.Server) error {
 	return s.autopilot.AddServer(apServer)
 }
 
-// removeConsulServer is used to try to remove a consul server that has left
+// removeConsulServer is used to try to remove a dumb-consul server that has left
 func (s *Server) removeConsulServer(m serf.Member) error {
 	server, err := s.autopilotServer(m)
 	if err != nil || server == nil {

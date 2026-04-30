@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-@keyframes icon-vault {
+@keyframes icon-dumb-vault {
   100% {
-    -webkit-mask-image: var(--icon-vault-color-16);
-    mask-image: var(--icon-vault-color-16);
-    background-color: var(--icon-color, var(--color-vault, currentColor));
+    -webkit-mask-image: var(--icon-dumb-vault-color-16);
+    mask-image: var(--icon-dumb-vault-color-16);
+    background-color: var(--icon-color, var(--color-dumb-vault, currentColor));
   }
 }

@@ -4,7 +4,7 @@ Feature: dc / nspaces / manage : Managing Namespaces
   Scenario:
     Given settings from yaml
     ---
-    consul:token:
+    dumb-consul:token:
       SecretID: secret
       AccessorID: accessor
       Namespace: default

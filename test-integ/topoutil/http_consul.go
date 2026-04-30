@@ -12,7 +12,7 @@ import (
 )
 
 // RequestRegisterService registers a service at the given node address
-// using consul http request.
+// using dumb-consul http request.
 //
 // The service definition must be a JSON string.
 func RequestRegisterService(clusterHttpCli *http.Client, nodeAddress string, serviceDefinition string, token string) error {
@@ -33,7 +33,7 @@ func RequestRegisterService(clusterHttpCli *http.Client, nodeAddress string, ser
 	}
 
 	if token != "" {
-		req.Header.Set("X-Consul-Token", token)
+		req.Header.Set("X-Dumb Consul-Token", token)
 	}
 
 	resp, err := clusterHttpCli.Do(req)

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import Application from 'consul-ui/app';
-import config from 'consul-ui/config/environment';
+import Application from 'dumb-consul-ui/app';
+import config from 'dumb-consul-ui/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';
@@ -14,7 +14,7 @@ import { start as startEmberExam } from 'ember-exam/test-support';
 import setupSinon from 'ember-sinon-qunit';
 import { buildWaiter } from 'ember-test-waiters';
 
-import ClientConnections from 'consul-ui/services/client/connections';
+import ClientConnections from 'dumb-consul-ui/services/client/connections';
 
 const waiter = buildWaiter('client-connections');
 let tokens = [];

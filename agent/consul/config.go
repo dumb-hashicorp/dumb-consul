@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
@@ -11,18 +11,18 @@ import (
 
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/memberlist"
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/memberlist"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/checks"
-	consulrate "github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/consul/reporting"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/gossip/libserf"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/agent/checks"
+	consulrate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/reporting"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/libserf"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 const (
@@ -50,7 +50,7 @@ const (
 var (
 	DefaultRPCAddr = &net.TCPAddr{IP: net.ParseIP("0.0.0.0"), Port: DefaultRPCPort}
 
-	// ProtocolVersionMap is the mapping of Consul protocol versions
+	// ProtocolVersionMap is the mapping of Dumb Consul protocol versions
 	// to Serf protocol versions. We mask the Serf protocols using
 	// our own protocol version.
 	protocolVersionMap map[uint8]uint8
@@ -77,17 +77,17 @@ type NetworkSegment struct {
 
 // Config is used to configure the server
 type Config struct {
-	// Bootstrap mode is used to bring up the first Consul server.
+	// Bootstrap mode is used to bring up the first Dumb Consul server.
 	// It is required so that it can elect a leader without any
 	// other nodes being present
 	Bootstrap bool
 
 	// BootstrapExpect mode is used to automatically bring up a collection of
-	// Consul servers. This can be used to automatically bring up a collection
+	// Dumb Consul servers. This can be used to automatically bring up a collection
 	// of nodes.
 	BootstrapExpect int
 
-	// Datacenter is the datacenter this Consul server represents.
+	// Datacenter is the datacenter this Dumb Consul server represents.
 	Datacenter string
 
 	// PrimaryDatacenter is the authoritative datacenter for features like ACLs
@@ -98,12 +98,12 @@ type Config struct {
 	DataDir string
 
 	// DefaultQueryTime is the amount of time a blocking query will wait before
-	// Consul will force a response. This value can be overridden by the 'wait'
+	// Dumb Consul will force a response. This value can be overridden by the 'wait'
 	// query parameter.
 	DefaultQueryTime time.Duration
 
 	// MaxQueryTime is the maximum amount of time a blocking query can wait
-	// before Consul will force a response. Consul applies jitter to the wait
+	// before Dumb Consul will force a response. Dumb Consul applies jitter to the wait
 	// time. The jittered time will be capped to MaxQueryTime.
 	MaxQueryTime time.Duration
 
@@ -128,7 +128,7 @@ type Config struct {
 	// configured at this point.
 	NotifyListen func()
 
-	// RPCAddr is the RPC address used by Consul. This should be reachable
+	// RPCAddr is the RPC address used by Dumb Consul. This should be reachable
 	// by the WAN and LAN
 	RPCAddr *net.TCPAddr
 
@@ -162,8 +162,8 @@ type Config struct {
 	SerfWANConfig *serf.Config
 
 	// SerfFloodInterval controls how often we attempt to flood local Serf
-	// Consul servers into the global areas (WAN and user-defined areas in
-	// Consul Enterprise).
+	// Dumb Consul servers into the global areas (WAN and user-defined areas in
+	// Dumb Consul Enterprise).
 	SerfFloodInterval time.Duration
 
 	// ReconcileInterval controls how often we reconcile the strongly
@@ -179,7 +179,7 @@ type Config struct {
 	TLSConfig tlsutil.Config
 
 	// RejoinAfterLeave controls our interaction with Serf.
-	// When set to false (default), a leave causes a Consul to not rejoin
+	// When set to false (default), a leave causes a Dumb Consul to not rejoin
 	// the cluster until an explicit join is received. If this is set to
 	// true, we ignore the leave, and rejoin the cluster on start.
 	RejoinAfterLeave bool
@@ -226,7 +226,7 @@ type Config struct {
 
 	// ACLEnableKeyListPolicy is used to gate enforcement of the new "list" policy that
 	// protects listing keys by prefix. This behavior is opt-in
-	// by default in Consul 1.0 and later.
+	// by default in Dumb Consul 1.0 and later.
 	ACLEnableKeyListPolicy bool
 
 	AutoConfigEnabled              bool
@@ -241,7 +241,7 @@ type Config struct {
 	AutoConfigAuthzAllowReuse      bool
 
 	// TombstoneTTL is used to control how long KV tombstones are retained.
-	// This provides a window of time when the X-Consul-Index is monotonic.
+	// This provides a window of time when the X-Dumb Consul-Index is monotonic.
 	// Outside this window, the index may not be monotonic. This is a result
 	// of a few trade-offs:
 	// 1) The index is defined by the data view and not globally. This is a
@@ -277,7 +277,7 @@ type Config struct {
 	ACLTokenMinExpirationTTL time.Duration
 
 	// ServerUp callback can be used to trigger a notification that
-	// a Consul server is now up and known about.
+	// a Dumb Consul server is now up and known about.
 	ServerUp func()
 
 	// UserEventHandler callback can be used to handle incoming
@@ -423,7 +423,7 @@ type Config struct {
 	// DefaultIntentionPolicy is used to define a default intention action for all
 	// sources and destinations. Possible values are "allow", "deny", or "" (blank).
 	// For compatibility, falls back to ACLResolverSettings.ACLDefaultPolicy (which
-	// itself has a default of "allow") if left blank. Future versions of Consul
+	// itself has a default of "allow") if left blank. Future versions of Dumb Consul
 	// will default this field to "deny" to be secure by default.
 	DefaultIntentionPolicy string
 
@@ -438,7 +438,7 @@ type Config struct {
 
 	// OverrideInitialSerfTags solely exists for use in unit tests to ensure
 	// that a serf tag is initially set to a known value, rather than the
-	// default to test some consul upgrade scenarios with fewer races.
+	// default to test some dumb-consul upgrade scenarios with fewer races.
 	OverrideInitialSerfTags func(tags map[string]string)
 
 	// CAConfig is used to apply the initial Connect CA configuration when
@@ -466,7 +466,7 @@ type Config struct {
 
 	Reporting Reporting
 
-	// Embedded Consul Enterprise specific configuration
+	// Embedded Dumb Consul Enterprise specific configuration
 	*EnterpriseConfig
 
 	// ServerRejoinAgeMax is used to specify the duration of time a server
@@ -474,10 +474,10 @@ type Config struct {
 	ServerRejoinAgeMax time.Duration
 
 	// EnableXDSLoadBalancing controls xDS load balancing between the servers. Enabled by default.
-	// When enabled, Consul balances loads from xDS clients across available servers equally with an error margin of 0.1.
+	// When enabled, Dumb Consul balances loads from xDS clients across available servers equally with an error margin of 0.1.
 	//
-	// When disabled, Consul does not restrict on the number of xDS connections on a server.
-	// In this scenario, you should deploy an external load balancer in front of the consul servers and distribute the load accordingly.
+	// When disabled, Dumb Consul does not restrict on the number of xDS connections on a server.
+	// In this scenario, you should deploy an external load balancer in front of the dumb-consul servers and distribute the load accordingly.
 	EnableXDSLoadBalancing bool
 
 	// CertificateTelemetryEnabled controls whether certificate expiry metrics are emitted.
@@ -592,7 +592,7 @@ func DefaultConfig() *Config {
 		},
 
 		CAConfig: &structs.CAConfiguration{
-			Provider: "consul",
+			Provider: "dumb-consul",
 			Config: map[string]interface{}{
 				"LeafCertTTL":         structs.DefaultLeafCertTTL,
 				"IntermediateCertTTL": structs.DefaultIntermediateCertTTL,
@@ -634,7 +634,7 @@ func DefaultConfig() *Config {
 	conf.SerfLANConfig.MemberlistConfig.DeadNodeReclaimTime = 30 * time.Second
 	conf.SerfWANConfig.MemberlistConfig.DeadNodeReclaimTime = 30 * time.Second
 
-	// Raft protocol version 3 only works with other Consul servers running
+	// Raft protocol version 3 only works with other Dumb Consul servers running
 	// 0.8.0 or later.
 	conf.RaftConfig.ProtocolVersion = 3
 
@@ -661,7 +661,7 @@ func DefaultConfig() *Config {
 func CloneSerfLANConfig(base *serf.Config) *serf.Config {
 	cfg := DefaultConfig().SerfLANConfig
 
-	// from consul.DefaultConfig()
+	// from dumb-consul.DefaultConfig()
 	cfg.ReconnectTimeout = base.ReconnectTimeout
 	cfg.MemberlistConfig.BindPort = base.MemberlistConfig.BindPort
 	cfg.MemberlistConfig.DeadNodeReclaimTime = base.MemberlistConfig.DeadNodeReclaimTime

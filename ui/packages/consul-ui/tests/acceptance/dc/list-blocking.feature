@@ -2,7 +2,7 @@
 Feature: dc / list-blocking
   In order to see updates without refreshing the page
   As a user
-  I want to see changes if I change consul externally
+  I want to see changes if I change dumb-consul externally
   Background:
     Given 1 datacenter model with the value "dc-1"
   Scenario: Viewing the listing pages for [Page]

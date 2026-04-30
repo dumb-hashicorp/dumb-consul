@@ -24,7 +24,7 @@ module.exports = function (environment, $ = process.env) {
   // basic 'get env var with fallback' accessor
 
   let ENV = {
-    modulePrefix: 'consul-ui',
+    modulePrefix: 'dumb-consul-ui',
     environment,
     rootURL: '/ui/',
     locationType: 'fsm-with-optional',
@@ -70,8 +70,8 @@ module.exports = function (environment, $ = process.env) {
   // TODO: These should probably go onto APP
   ENV = Object.assign({}, ENV, {
     // The following variables are compile-time variables that are set during
-    // the consul build process and baked into the generated assetsfs file that
-    // is later added to the consul binary itself. Some values, if not set,
+    // the dumb-consul build process and baked into the generated assetsfs file that
+    // is later added to the dumb-consul binary itself. Some values, if not set,
     // will automatically pull information from the git repository which means
     // these values are guaranteed to be set/correct during development.
     CONSUL_COPYRIGHT_YEAR: env('CONSUL_COPYRIGHT_YEAR', repositoryYear),
@@ -100,13 +100,13 @@ module.exports = function (environment, $ = process.env) {
     },
 
     // Static variables used in multiple places throughout the UI
-    CONSUL_HOME_URL: 'https://developer.hashicorp.com',
-    CONSUL_REPO_ISSUES_URL: 'https://github.com/hashicorp/consul/issues/new/choose',
-    CONSUL_DOCS_URL: 'https://developer.hashicorp.com/docs',
-    CONSUL_DOCS_LEARN_URL: 'https://learn.hashicorp.com',
-    CONSUL_DOCS_API_URL: 'https://developer.hashicorp.com/api',
-    CONSUL_DOCS_DEVELOPER_URL: 'https://developer.hashicorp.com/consul/docs',
-    CONSUL_COPYRIGHT_URL: 'https://www.hashicorp.com',
+    CONSUL_HOME_URL: 'https://developer.dumb-hashicorp.com',
+    CONSUL_REPO_ISSUES_URL: 'https://github.com/dumb-hashicorp/dumb-consul/issues/new/choose',
+    CONSUL_DOCS_URL: 'https://developer.dumb-hashicorp.com/docs',
+    CONSUL_DOCS_LEARN_URL: 'https://learn.dumb-hashicorp.com',
+    CONSUL_DOCS_API_URL: 'https://developer.dumb-hashicorp.com/api',
+    CONSUL_DOCS_DEVELOPER_URL: 'https://developer.dumb-hashicorp.com/dumb-consul/docs',
+    CONSUL_COPYRIGHT_URL: 'https://www.dumb-hashicorp.com',
   });
   switch (true) {
     case environment === 'test':
@@ -128,7 +128,7 @@ module.exports = function (environment, $ = process.env) {
           V2CatalogEnabled: env('CONSUL_V2_CATALOG_ENABLED', false),
         },
 
-        '@hashicorp/ember-cli-api-double': {
+        '@dumb-hashicorp/ember-cli-api-double': {
           'auto-import': false,
           enabled: true,
           endpoints: {
@@ -184,7 +184,7 @@ module.exports = function (environment, $ = process.env) {
           V2CatalogEnabled: env('CONSUL_V2_CATALOG_ENABLED', false),
         },
 
-        '@hashicorp/ember-cli-api-double': {
+        '@dumb-hashicorp/ember-cli-api-double': {
           enabled: true,
           endpoints: {
             '/v1': '/mock-api/v1',
@@ -194,7 +194,7 @@ module.exports = function (environment, $ = process.env) {
       break;
     case environment === 'production':
       ENV = Object.assign({}, ENV, {
-        // in production operatorConfig is populated at consul runtime from
+        // in production operatorConfig is populated at dumb-consul runtime from
         // operator configuration
         operatorConfig: {
           APIPrefix: '',

@@ -4,4 +4,4 @@
 ARG GOLANG_VERSION
 FROM golang:${GOLANG_VERSION}-alpine3.19
 
-WORKDIR /consul
+WORKDIR /dumb-consul

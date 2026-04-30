@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import tickerIndex from 'consul-ui/utils/ticker/index';
+import tickerIndex from 'dumb-consul-ui/utils/ticker/index';
 import { module, skip } from 'qunit';
 
 module('Unit | Utility | ticker/index', function () {

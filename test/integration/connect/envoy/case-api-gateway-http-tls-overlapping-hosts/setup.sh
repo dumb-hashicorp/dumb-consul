@@ -17,7 +17,7 @@ listeners = [
       certificates = [
         {
           kind = "inline-certificate"
-          name = "host-consul-example"
+          name = "host-dumb-consul-example"
         }
       ]
     }
@@ -30,15 +30,15 @@ listeners = [
       certificates = [
         {
           kind = "inline-certificate"
-          name = "host-consul-example"
+          name = "host-dumb-consul-example"
         },
         {
           kind = "inline-certificate"
-          name = "also-host-consul-example"
+          name = "also-host-dumb-consul-example"
         },
         { 
           kind = "inline-certificate"
-          name = "other-consul-example"
+          name = "other-dumb-consul-example"
         }
       ]
     }
@@ -48,7 +48,7 @@ listeners = [
 
 upsert_config_entry primary '
 kind = "inline-certificate"
-name = "host-consul-example"
+name = "host-dumb-consul-example"
 private_key = <<EOF
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEA0wzZeonUklhOvJ0AxcdDdCTiMwR9tsm/6IGcw9Jm50xVY+qg
@@ -105,7 +105,7 @@ EOF
 
 upsert_config_entry primary '
 kind = "inline-certificate"
-name = "also-host-consul-example"
+name = "also-host-dumb-consul-example"
 private_key = <<EOF
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEA0wzZeonUklhOvJ0AxcdDdCTiMwR9tsm/6IGcw9Jm50xVY+qg
@@ -162,7 +162,7 @@ EOF
 
 upsert_config_entry primary '
 kind = "inline-certificate"
-name = "other-consul-example"
+name = "other-dumb-consul-example"
 private_key = <<EOF
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEA7Qgf93OZYlpM9UvfbFBUeK+udCTfy+yRbTKYgti5qKyZQwnT

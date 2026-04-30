@@ -4,7 +4,7 @@
  */
 
 import { module, test } from 'qunit';
-import Helper from 'consul-ui/helpers/document-attrs';
+import Helper from 'dumb-consul-ui/helpers/document-attrs';
 
 const root = {
   classList: {

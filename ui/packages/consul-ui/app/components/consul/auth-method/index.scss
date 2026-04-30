@@ -4,7 +4,7 @@
  */
 
 // List
-.consul-auth-method-list ul {
+.dumb-consul-auth-method-list ul {
   .locality::before {
     @extend %with-public-default-mask, %as-pseudo;
     margin-right: 4px;
@@ -12,7 +12,7 @@
 }
 
 // View
-.consul-auth-method-view {
+.dumb-consul-auth-method-view {
   margin-bottom: 32px;
   section {
     @extend %body-200-regular;
@@ -31,7 +31,7 @@
       }
       tbody {
         td {
-          color: var(--token-color-hashicorp-brand);
+          color: var(--token-color-dumb-hashicorp-brand);
           word-break: break-word;
         }
         tr {
@@ -56,7 +56,7 @@
 }
 
 // Binding List
-.consul-auth-method-binding-list {
+.dumb-consul-auth-method-binding-list {
   p {
     margin-bottom: 4px !important;
   }
@@ -74,7 +74,7 @@
 }
 
 // Nspace List
-.consul-auth-method-nspace-list {
+.dumb-consul-auth-method-nspace-list {
   thead {
     td {
       @extend %body-200-semibold;
@@ -83,7 +83,7 @@
   }
   tbody {
     td {
-      color: var(--token-color-hashicorp-brand);
+      color: var(--token-color-dumb-hashicorp-brand);
     }
     tr {
       cursor: default;

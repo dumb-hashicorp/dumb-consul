@@ -1,9 +1,9 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<ListCollection class='consul-policy-list' @items={{@items}} as |item|>
+<ListCollection class='dumb-consul-policy-list' @items={{@items}} as |item|>
   <BlockSlot @name='header'>
     {{#if (or (eq (policy/typeof item) 'policy-management') (eq (policy/typeof item) 'read-only'))}}
       <dl class='policy-management'>

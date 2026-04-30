@@ -4,7 +4,7 @@
  */
 
 import { module, test } from 'qunit';
-import ascend from 'consul-ui/utils/ascend';
+import ascend from 'dumb-consul-ui/utils/ascend';
 
 module('Unit | Utils | ascend', function () {
   test('it returns a parent path (ascension of 1)', function (assert) {

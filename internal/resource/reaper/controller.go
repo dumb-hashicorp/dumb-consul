@@ -10,13 +10,13 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 const (
-	statusKeyReaperController       = "consul.io/reaper-controller"
+	statusKeyReaperController       = "dumb-consul.io/reaper-controller"
 	secondPassDelay                 = 30 * time.Second
 	conditionTypeFirstPassCompleted = "FirstPassCompleted"
 )

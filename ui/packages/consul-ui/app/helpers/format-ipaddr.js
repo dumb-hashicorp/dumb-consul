@@ -4,7 +4,7 @@
  */
 
 import { helper } from '@ember/component/helper';
-import { processIpAddress } from 'consul-ui/utils/process-ip-address';
+import { processIpAddress } from 'dumb-consul-ui/utils/process-ip-address';
 
 export default helper(function formatIpaddr([ipaddress]) {
   const value = processIpAddress(ipaddress);

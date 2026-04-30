@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/oidc-provider';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/oidc-provider';
 
 export default class OidcSerializer extends Serializer {
   primaryKey = PRIMARY_KEY;

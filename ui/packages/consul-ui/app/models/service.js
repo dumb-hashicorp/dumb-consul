@@ -6,7 +6,7 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 import { tracked } from '@glimmer/tracking';
 import { fragment } from 'ember-data-model-fragments/attributes';
-import replace, { nullValue } from 'consul-ui/decorators/replace';
+import replace, { nullValue } from 'dumb-consul-ui/decorators/replace';
 
 export const PRIMARY_KEY = 'uid';
 export const SLUG_KEY = 'Name,PeerName';

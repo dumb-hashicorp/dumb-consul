@@ -9,12 +9,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 	"github.com/stretchr/testify/require"
 )
 
@@ -184,7 +184,7 @@ func TestTrafficManagement_ResolverDefaultOnlyPassing(t *testing.T) {
 		err = cluster.ConfigEntryDelete(serviceResolver)
 		require.NoError(t, err)
 
-		// Consul health check assert only one static-server proxy is healthy when onlyPassing is false
+		// Dumb Consul health check assert only one static-server proxy is healthy when onlyPassing is false
 		libassert.AssertServiceHasHealthyInstances(t, node, libservice.StaticServerServiceName, false, 2)
 
 		// Although the service status is in warning state, when onlypassing is set to false Envoy

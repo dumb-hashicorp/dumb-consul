@@ -6,7 +6,7 @@ package tls
 import (
 	"os"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -37,24 +37,24 @@ func FileDoesNotExist(file string) bool {
 
 const synopsis = `Builtin helpers for creating CAs and certificates`
 const help = `
-Usage: consul tls <subcommand> <subcommand> [options]
+Usage: dumb-consul tls <subcommand> <subcommand> [options]
 
-  This command has subcommands for interacting with Consul TLS.
+  This command has subcommands for interacting with Dumb Consul TLS.
 
   Here are some simple examples, and more detailed examples are available
   in the subcommands or the documentation.
 
   Create a CA
 
-    $ consul tls ca create
+    $ dumb-consul tls ca create
 
   Create a server certificate
 
-    $ consul tls cert create -server
+    $ dumb-consul tls cert create -server
 
   Create a client certificate
 
-    $ consul tls cert create -client
+    $ dumb-consul tls cert create -client
 
   For more examples, ask for subcommand help or view the documentation.
 `

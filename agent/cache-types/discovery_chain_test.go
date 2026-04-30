@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestCompiledDiscoveryChain(t *testing.T) {
@@ -21,7 +21,7 @@ func TestCompiledDiscoveryChain(t *testing.T) {
 	typ := &CompiledDiscoveryChain{RPC: rpc}
 
 	// just do the default chain
-	chain := discoverychain.TestCompileConfigEntries(t, "web", "default", "default", "dc1", "trustdomain.consul", nil, nil)
+	chain := discoverychain.TestCompileConfigEntries(t, "web", "default", "default", "dc1", "trustdomain.dumb-consul", nil, nil)
 
 	// Expect the proper RPC call. This also sets the expected value
 	// since that is return-by-pointer in the arguments.

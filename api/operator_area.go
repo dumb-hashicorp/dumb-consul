@@ -1,13 +1,13 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
 
-// The /v1/operator/area endpoints are available only in Consul Enterprise and
+// The /v1/operator/area endpoints are available only in Dumb Consul Enterprise and
 // interact with its network area subsystem. Network areas are used to link
-// together Consul servers in different Consul datacenters. With network areas,
-// Consul datacenters can be linked together in ways other than a fully-connected
-// mesh, as is required for Consul's WAN.
+// together Dumb Consul servers in different Dumb Consul datacenters. With network areas,
+// Dumb Consul datacenters can be linked together in ways other than a fully-connected
+// mesh, as is required for Dumb Consul's WAN.
 
 import (
 	"net"
@@ -20,13 +20,13 @@ type Area struct {
 	// when creating a new area.
 	ID string
 
-	// PeerDatacenter is the peer Consul datacenter that will make up the
+	// PeerDatacenter is the peer Dumb Consul datacenter that will make up the
 	// other side of this network area. Network areas always involve a pair
 	// of datacenters: the datacenter where the area was created, and the
 	// peer datacenter. This is required.
 	PeerDatacenter string
 
-	// RetryJoin specifies the address of Consul servers to join to, such as
+	// RetryJoin specifies the address of Dumb Consul servers to join to, such as
 	// an IPs or hostnames with an optional port number. This is optional.
 	RetryJoin []string
 
@@ -70,10 +70,10 @@ type SerfMember struct {
 	// Role is "client", "server", or "unknown".
 	Role string
 
-	// Build has the version of the Consul agent.
+	// Build has the version of the Dumb Consul agent.
 	Build string
 
-	// Protocol is the protocol of the Consul agent.
+	// Protocol is the protocol of the Dumb Consul agent.
 	Protocol int
 
 	// Status is the Serf health status "none", "alive", "leaving", "left",

@@ -130,7 +130,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time(({container=\"consul-dataplane\",namespace=~\"$namespace\"})[$__interval]))",
+          "expr": "sum(count_over_time(({container=\"dumb-consul-dataplane\",namespace=~\"$namespace\"})[$__interval]))",
           "hide": false,
           "queryType": "range",
           "refId": "A"
@@ -215,7 +215,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "sum(count_over_time({container=\"consul-dataplane\", namespace=~\"$namespace\"} |~ `(?i)(?i)$searchable_pattern` [$__interval]))",
+          "expr": "sum(count_over_time({container=\"dumb-consul-dataplane\", namespace=~\"$namespace\"} |~ `(?i)(?i)$searchable_pattern` [$__interval]))",
           "hide": false,
           "queryType": "range",
           "refId": "A"
@@ -300,7 +300,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "builder",
-          "expr": "(sum(count_over_time({container=\"consul-dataplane\", namespace=~\"$namespace\"} |~ `(?i)(?i)$searchable_pattern` [$__interval])) * 100) / sum(count_over_time({container=\"consul-dataplane\", namespace=~\"$namespace\"} [$__interval]))",
+          "expr": "(sum(count_over_time({container=\"dumb-consul-dataplane\", namespace=~\"$namespace\"} |~ `(?i)(?i)$searchable_pattern` [$__interval])) * 100) / sum(count_over_time({container=\"dumb-consul-dataplane\", namespace=~\"$namespace\"} [$__interval]))",
           "hide": false,
           "queryType": "range",
           "refId": "A"
@@ -367,7 +367,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "sum by(response_code) (count_over_time({container=\"consul-dataplane\", namespace=\"$namespace\"} | json | response_code != `0` | __error__=`` [$__range]))",
+          "expr": "sum by(response_code) (count_over_time({container=\"dumb-consul-dataplane\", namespace=\"$namespace\"} | json | response_code != `0` | __error__=`` [$__range]))",
           "key": "Q-aac7d4c8-664f-43c0-8064-9f737ce3e78e-0",
           "legendFormat": "{{response_code}}",
           "queryType": "range",
@@ -472,7 +472,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "builder",
-          "expr": "sum by(app) (rate({container=\"consul-dataplane\", namespace=~\"$namespace\"} |~ `(?i)(?i)$searchable_pattern` [$__range]))",
+          "expr": "sum by(app) (rate({container=\"dumb-consul-dataplane\", namespace=~\"$namespace\"} |~ `(?i)(?i)$searchable_pattern` [$__range]))",
           "hide": false,
           "legendFormat": "{{pod}}",
           "queryType": "range",
@@ -545,7 +545,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "builder",
-          "expr": "sum by(app) (count_over_time({container=\"consul-dataplane\", namespace=~\"$namespace\"} |~ `(?i)(?i)$searchable_pattern` [$__interval]))",
+          "expr": "sum by(app) (count_over_time({container=\"dumb-consul-dataplane\", namespace=~\"$namespace\"} |~ `(?i)(?i)$searchable_pattern` [$__interval]))",
           "legendFormat": "{{pod}}",
           "queryType": "instant",
           "refId": "A"
@@ -1914,7 +1914,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Consul Service_To_Service Dashboard",
+  "title": "Dumb Consul Service_To_Service Dashboard",
   "uid": "qTEWJ0XSkm",
   "version": 8,
   "weekStart": ""

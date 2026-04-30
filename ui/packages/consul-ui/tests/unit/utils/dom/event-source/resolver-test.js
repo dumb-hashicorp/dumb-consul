@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domEventSourceResolver from 'consul-ui/utils/dom/event-source/resolver';
+import domEventSourceResolver from 'dumb-consul-ui/utils/dom/event-source/resolver';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | dom/event source/resolver', function () {

@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -13,7 +13,7 @@ as |items|}}
     {{#if (gt items.length 0)}}
       <TabularCollection
         data-test-addresses
-        class="consul-tagged-addresses"
+        class="dumb-consul-tagged-addresses"
         @items={{items}} as |taggedAddress index|
       >
           <BlockSlot @name="header">

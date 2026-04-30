@@ -19,10 +19,10 @@
         const sidecar = service.indexOf('-sidecar-proxy')
         const id = (proxy !== -1 ? service.slice(0, -6) + '-with-id-proxy' : service + '-with-id');
         const externalSource = fake.helpers.randomize([
-            'consul-api-gateway',
-            'vault',
-            'nomad',
-            'terraform',
+            'dumb-consul-api-gateway',
+            'dumb-vault',
+            'dumb-nomad',
+            'dumb-terraform',
             'kubernetes',
             'aws',
             'lambda',
@@ -99,7 +99,7 @@ ${typeof location.search.partition !== 'undefined' ? `
             },
 ${ fake.random.number({min: 1, max: 10}) > 2 ? `
             "Meta": {
-              "consul-dashboard-url": "${fake.internet.protocol()}://${fake.internet.domainName()}/?id={{Service}}",
+              "dumb-consul-dashboard-url": "${fake.internet.protocol()}://${fake.internet.domainName()}/?id={{Service}}",
               "external-source": "${externalSource}"
             },
 ` : `

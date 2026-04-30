@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -11,14 +11,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestLeader_RegisterMember(t *testing.T) {
@@ -91,8 +91,8 @@ func TestLeader_RegisterMember(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
-	if _, ok := services.Services["consul"]; !ok {
-		t.Fatalf("consul service not registered: %v", services)
+	if _, ok := services.Services["dumb-consul"]; !ok {
+		t.Fatalf("dumb-consul service not registered: %v", services)
 	}
 }
 
@@ -398,12 +398,12 @@ func TestLeader_CheckServersMeta(t *testing.T) {
 	state := s1.fsm.State()
 
 	consulService := &structs.NodeService{
-		ID:      "consul",
-		Service: "consul",
+		ID:      "dumb-consul",
+		Service: "dumb-consul",
 	}
 	// s3 should be registered
 	retry.Run(t, func(r *retry.R) {
-		_, service, err := state.NodeService(nil, s3.config.NodeName, "consul", &consulService.EnterpriseMeta, "")
+		_, service, err := state.NodeService(nil, s3.config.NodeName, "dumb-consul", &consulService.EnterpriseMeta, "")
 		if err != nil {
 			r.Fatalf("err: %v", err)
 		}
@@ -431,7 +431,7 @@ func TestLeader_CheckServersMeta(t *testing.T) {
 	versionToExpect := "19.7.9"
 
 	retry.Run(t, func(r *retry.R) {
-		// DEPRECATED - remove nonvoter tag in favor of read_replica in a future version of consul
+		// DEPRECATED - remove nonvoter tag in favor of read_replica in a future version of dumb-consul
 		member.Tags["nonvoter"] = "1"
 		member.Tags["read_replica"] = "1"
 		member.Tags["build"] = versionToExpect
@@ -439,14 +439,14 @@ func TestLeader_CheckServersMeta(t *testing.T) {
 		if err != nil {
 			r.Fatalf("Unexpected error :%v", err)
 		}
-		_, service, err := state.NodeService(nil, s3.config.NodeName, "consul", &consulService.EnterpriseMeta, "")
+		_, service, err := state.NodeService(nil, s3.config.NodeName, "dumb-consul", &consulService.EnterpriseMeta, "")
 		if err != nil {
 			r.Fatalf("err: %v", err)
 		}
 		if service == nil {
 			r.Fatal("client not registered")
 		}
-		// DEPRECATED - remove non_voter in favor of read_replica in a future version of consul
+		// DEPRECATED - remove non_voter in favor of read_replica in a future version of dumb-consul
 		if service.Meta["non_voter"] != "true" {
 			r.Fatalf("Expected to be non_voter == true, was: %s", service.Meta["non_voter"])
 		}

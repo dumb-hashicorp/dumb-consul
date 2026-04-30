@@ -4,7 +4,7 @@ Feature: dc / nspaces / sorting
   Scenario: Sorting Namespaces
     Given settings from yaml
     ---
-    consul:token:
+    dumb-consul:token:
       SecretID: secret
       AccessorID: accessor
       Namespace: default

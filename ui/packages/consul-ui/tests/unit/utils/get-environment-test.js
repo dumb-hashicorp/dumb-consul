@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import getEnvironment from 'consul-ui/utils/get-environment';
+import getEnvironment from 'dumb-consul-ui/utils/get-environment';
 import { module, test } from 'qunit';
 const getEntriesByType = function (type) {
   return [
@@ -71,7 +71,7 @@ module('Unit | Utility | getEnvironment', function () {
     let expected = 'http://localhost/ui';
     let doc = {
       cookie: '',
-      getElementsByTagName: makeGetElementsBy(`${expected}/assets/consul-ui.js`),
+      getElementsByTagName: makeGetElementsBy(`${expected}/assets/dumb-consul-ui.js`),
       getElementsByName: makeGetElementsBy('{}'),
       querySelector: () => makeOperatorConfig({}),
     };
@@ -80,7 +80,7 @@ module('Unit | Utility | getEnvironment', function () {
     expected = 'http://localhost/somewhere/else';
     doc = {
       cookie: '',
-      getElementsByTagName: makeGetElementsBy(`${expected}/assets/consul-ui.js`),
+      getElementsByTagName: makeGetElementsBy(`${expected}/assets/dumb-consul-ui.js`),
       getElementsByName: makeGetElementsBy('{}'),
       querySelector: () => makeOperatorConfig({}),
     };

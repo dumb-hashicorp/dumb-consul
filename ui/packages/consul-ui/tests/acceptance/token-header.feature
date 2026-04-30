@@ -14,7 +14,7 @@ Feature: token-header
     And a GET request was made to "/v1/internal/ui/services?dc=dc1&ns=@namespace" from yaml
     ---
     headers:
-      X-Consul-Token: ''
+      X-Dumb Consul-Token: ''
     ---
   Scenario: Set the token to [Token] and then navigate to the service page
     Given 1 datacenter model with the value "dc1"
@@ -39,7 +39,7 @@ Feature: token-header
     And a GET request was made to "/v1/internal/ui/services?dc=dc1&ns=@namespace" from yaml
     ---
     headers:
-      X-Consul-Token: [Token]
+      X-Dumb Consul-Token: [Token]
     ---
   Where:
       ---------

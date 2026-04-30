@@ -7,8 +7,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -80,7 +80,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Display the current Autopilot configuration"
 const help = `
-Usage: consul operator autopilot get-config [options]
+Usage: dumb-consul operator autopilot get-config [options]
 
   Displays the current Autopilot configuration.
 `

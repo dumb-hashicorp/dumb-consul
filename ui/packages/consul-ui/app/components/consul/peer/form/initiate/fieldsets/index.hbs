@@ -1,11 +1,11 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <div
   class={{class-map
-    'consul-peer-form-initiate-fieldsets'
+    'dumb-consul-peer-form-initiate-fieldsets'
   }}
   ...attributes
 >
@@ -30,7 +30,7 @@
       Enter a token generated in the desired peer.
     </p>
       <StateMachine
-        @src={{require '/machines/validate.xstate' from="/components/consul/peer/form/generate/fieldsets"}}
+        @src={{require '/machines/validate.xstate' from="/components/dumb-consul/peer/form/generate/fieldsets"}}
       as |fsm|>
 
       <fieldset>

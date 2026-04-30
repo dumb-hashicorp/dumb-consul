@@ -10,11 +10,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	libtopology "github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	libtopology "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 // TestPeering_ControlPlaneMGW verifies the peering control plane traffic go through the mesh gateway
@@ -67,7 +67,7 @@ func TestPeering_ControlPlaneMGW(t *testing.T) {
 	libassert.PeeringStatus(t, dialingClient, libtopology.DialingPeerName, api.PeeringStateActive)
 
 	// POST upgrade validation
-	//  - Restarted mesh gateway can receive consul generated configuration
+	//  - Restarted mesh gateway can receive dumb-consul generated configuration
 	//  - control plane traffic is through mesh gateway
 	//  - Register a new static-client service in dialing cluster and
 	//  - set upstream to static-server service in peered cluster

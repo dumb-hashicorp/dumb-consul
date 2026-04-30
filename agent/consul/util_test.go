@@ -1,18 +1,18 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
 	"regexp"
 	"testing"
 
-	"github.com/hashicorp/go-version"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-version"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
 )
 
 func TestUtil_CanServersUnderstandProtocol(t *testing.T) {
@@ -52,7 +52,7 @@ func TestUtil_CanServersUnderstandProtocol(t *testing.T) {
 	// Add a server member.
 	members = append(members, serf.Member{
 		Tags: map[string]string{
-			"role":    "consul",
+			"role":    "dumb-consul",
 			"vsn_min": fmt.Sprintf("%d", ProtocolVersionMin),
 			"vsn_max": fmt.Sprintf("%d", ProtocolVersionMax),
 		},
@@ -83,7 +83,7 @@ func TestUtil_CanServersUnderstandProtocol(t *testing.T) {
 	// Add an older server.
 	members = append(members, serf.Member{
 		Tags: map[string]string{
-			"role":    "consul",
+			"role":    "dumb-consul",
 			"vsn_min": fmt.Sprintf("%d", ProtocolVersionMin),
 			"vsn_max": fmt.Sprintf("%d", ProtocolVersionMax-1),
 		},

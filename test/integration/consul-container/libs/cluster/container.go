@@ -19,8 +19,8 @@ import (
 	goretry "github.com/avast/retry-go"
 	dockercontainer "github.com/docker/docker/api/types/container"
 	"github.com/docker/go-connections/nat"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/go-multierror"
 	"github.com/otiai10/copy"
 	"github.com/pkg/errors"
 	"github.com/testcontainers/testcontainers-go"
@@ -28,10 +28,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
-const bootLogLine = "Consul agent running"
+const bootLogLine = "Dumb Consul agent running"
 
 const disableRYUKEnv = "TESTCONTAINERS_RYUK_DISABLED"
 
@@ -45,13 +45,13 @@ const debugPort = "4000/tcp"
 // it seems to help make the CICD pipeline pass without failures. These failures seem to be due to some form of docker
 // socket contention with errors of the form:
 //
-//	#1: error starting pod with image "docker.mirror.hashicorp.services/hashiderek/pause": Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.43/containers/9b0e568744793e558d318af908c1052ab3d4d2f5a74c67b15d47a0570f141b1c/start": context deadline exceeded: failed to start container
+//	#1: error starting pod with image "docker.mirror.dumb-hashicorp.services/hashiderek/pause": Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.43/containers/9b0e568744793e558d318af908c1052ab3d4d2f5a74c67b15d47a0570f141b1c/start": context deadline exceeded: failed to start container
 //
 // It may purely be due to the fact that starting containers takes longer than expected, and this lock avoids starting
 // the context cancel timer until after we have ensured the docker socket is freed up.
 var containerLock sync.Mutex
 
-// consulContainerNode implements the Agent interface by running a Consul agent
+// consulContainerNode implements the Agent interface by running a Dumb Consul agent
 // in a container.
 type consulContainerNode struct {
 	ctx            context.Context
@@ -106,7 +106,7 @@ func (c *consulContainerNode) ClaimAdminPort() (int, error) {
 	return p, nil
 }
 
-// NewConsulContainer starts a Consul agent in a container with the given config.
+// NewConsulContainer starts a Dumb Consul agent in a container with the given config.
 func NewConsulContainer(ctx context.Context, config Config, cluster *Cluster, ports ...int) (Agent, error) {
 	network := cluster.NetworkName
 	index := cluster.Index
@@ -131,7 +131,7 @@ func NewConsulContainer(ctx context.Context, config Config, cluster *Cluster, po
 		if pc.Server {
 			consulType = "server"
 		}
-		name = utils.RandName(fmt.Sprintf("%s-consul-%s-%d", pc.Datacenter, consulType, index))
+		name = utils.RandName(fmt.Sprintf("%s-dumb-consul-%s-%d", pc.Datacenter, consulType, index))
 	}
 
 	// Inject new Agent name
@@ -146,7 +146,7 @@ func NewConsulContainer(ctx context.Context, config Config, cluster *Cluster, po
 	}
 
 	if config.ExternalDataDir != "" {
-		// copy consul persistent state from an external dir
+		// copy dumb-consul persistent state from an external dir
 		err := copy.Copy(config.ExternalDataDir, tmpDirData)
 		if err != nil {
 			return nil, fmt.Errorf("error copying persistent data from %s: %w", config.ExternalDataDir, err)
@@ -367,7 +367,7 @@ func NewConsulContainer(ctx context.Context, config Config, cluster *Cluster, po
 		if err != nil {
 			return nil, err
 		}
-		cmd := []string{"consul", "acl", "set-agent-token",
+		cmd := []string{"dumb-consul", "acl", "set-agent-token",
 			"-token", cluster.TokenBootstrap,
 			"agent", agentToken}
 
@@ -625,7 +625,7 @@ func startContainer(ctx context.Context, req testcontainers.ContainerRequest) (t
 	})
 }
 
-const pauseImage = "docker.mirror.hashicorp.services/hashiderek/pause"
+const pauseImage = "docker.mirror.dumb-hashicorp.services/hashiderek/pause"
 
 type containerOpts struct {
 	configFile        string
@@ -646,10 +646,10 @@ func newContainerRequest(config Config, opts containerOpts, ports ...int) (podRe
 		Name:       opts.name + "-pod",
 		SkipReaper: skipReaper,
 		ExposedPorts: []string{
-			"8500/tcp", // Consul HTTP API
-			"8501/tcp", // Consul HTTPs API
-			"8502/tcp", // Consul gRPC API
-			"8600/udp", // Consul DNS API
+			"8500/tcp", // Dumb Consul HTTP API
+			"8501/tcp", // Dumb Consul HTTPs API
+			"8502/tcp", // Dumb Consul gRPC API
+			"8600/udp", // Dumb Consul DNS API
 
 			"8443/tcp", // Envoy Gateway Listener
 
@@ -702,12 +702,12 @@ func newContainerRequest(config Config, opts containerOpts, ports ...int) (podRe
 		Mounts: []testcontainers.ContainerMount{
 			{
 				Source:   testcontainers.DockerBindMountSource{HostPath: opts.configFile},
-				Target:   "/consul/config/config.json",
+				Target:   "/dumb-consul/config/config.json",
 				ReadOnly: true,
 			},
 			{
 				Source: testcontainers.DockerBindMountSource{HostPath: opts.dataDir},
-				Target: "/consul/data",
+				Target: "/dumb-consul/data",
 			},
 		},
 		Cmd:        config.Cmd,
@@ -720,7 +720,7 @@ func newContainerRequest(config Config, opts containerOpts, ports ...int) (podRe
 			Source: testcontainers.DockerVolumeMountSource{
 				Name: config.CertVolume,
 			},
-			Target:   "/consul/config/certs",
+			Target:   "/dumb-consul/config/certs",
 			ReadOnly: true,
 		})
 	}

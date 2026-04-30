@@ -3,10 +3,10 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
-	"github.com/hashicorp/consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
 )
 
 func (c *CAManager) validateSupportedIdentityScopesInCertificate(spiffeID connect.CertURI) error {

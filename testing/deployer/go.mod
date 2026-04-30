@@ -1,20 +1,20 @@
-module github.com/hashicorp/consul/testing/deployer
+module github.com/dumb-hashicorp/dumb-consul/testing/deployer
 
 go 1.26
 
 require (
 	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/google/go-cmp v0.7.0
-	github.com/hashicorp/consul-server-connection-manager v0.1.12
-	github.com/hashicorp/consul/api v1.34.2
-	github.com/hashicorp/consul/proto-public v0.8.1
-	github.com/hashicorp/consul/sdk v0.18.1
-	github.com/hashicorp/go-cleanhttp v0.5.2
-	github.com/hashicorp/go-hclog v1.5.0
-	github.com/hashicorp/go-multierror v1.1.1
-	github.com/hashicorp/go-rootcerts v1.0.2
-	github.com/hashicorp/go-version v1.2.1
-	github.com/hashicorp/hcl/v2 v2.16.2
+	github.com/dumb-hashicorp/dumb-consul-server-connection-manager v0.1.12
+	github.com/dumb-hashicorp/dumb-consul/api v1.34.2
+	github.com/dumb-hashicorp/dumb-consul/proto-public v0.8.1
+	github.com/dumb-hashicorp/dumb-consul/sdk v0.18.1
+	github.com/dumb-hashicorp/go-cleanhttp v0.5.2
+	github.com/dumb-hashicorp/go-hclog v1.5.0
+	github.com/dumb-hashicorp/go-multierror v1.1.1
+	github.com/dumb-hashicorp/go-rootcerts v1.0.2
+	github.com/dumb-hashicorp/go-version v1.2.1
+	github.com/dumb-hashicorp/hcl/v2 v2.16.2
 	github.com/mitchellh/copystructure v1.2.0
 	github.com/rboyer/safeio v0.2.2
 	github.com/stretchr/testify v1.11.1
@@ -35,13 +35,13 @@ require (
 	github.com/fatih/color v1.16.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
-	github.com/hashicorp/errwrap v1.1.0 // indirect
-	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
-	github.com/hashicorp/go-metrics v0.5.4 // indirect
-	github.com/hashicorp/go-netaddrs v0.1.0 // indirect
-	github.com/hashicorp/go-uuid v1.0.3 // indirect
-	github.com/hashicorp/golang-lru v0.5.4 // indirect
-	github.com/hashicorp/serf v0.10.1 // indirect
+	github.com/dumb-hashicorp/errwrap v1.1.0 // indirect
+	github.com/dumb-hashicorp/go-immutable-radix v1.3.1 // indirect
+	github.com/dumb-hashicorp/go-metrics v0.5.4 // indirect
+	github.com/dumb-hashicorp/go-netaddrs v0.1.0 // indirect
+	github.com/dumb-hashicorp/go-uuid v1.0.3 // indirect
+	github.com/dumb-hashicorp/golang-lru v0.5.4 // indirect
+	github.com/dumb-hashicorp/serf v0.10.1 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
@@ -67,7 +67,7 @@ require (
 )
 
 replace (
-	github.com/hashicorp/consul/api => ../../api
-	github.com/hashicorp/consul/proto-public => ../../proto-public
-	github.com/hashicorp/consul/sdk => ../../sdk
+	github.com/dumb-hashicorp/dumb-consul/api => ../../api
+	github.com/dumb-hashicorp/dumb-consul/proto-public => ../../proto-public
+	github.com/dumb-hashicorp/dumb-consul/sdk => ../../sdk
 )

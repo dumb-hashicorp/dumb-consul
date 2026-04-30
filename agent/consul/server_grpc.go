@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
@@ -13,25 +13,25 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	aclgrpc "github.com/hashicorp/consul/agent/grpc-external/services/acl"
-	"github.com/hashicorp/consul/agent/grpc-external/services/configentry"
-	"github.com/hashicorp/consul/agent/grpc-external/services/connectca"
-	"github.com/hashicorp/consul/agent/grpc-external/services/dataplane"
-	"github.com/hashicorp/consul/agent/grpc-external/services/peerstream"
-	resourcegrpc "github.com/hashicorp/consul/agent/grpc-external/services/resource"
-	"github.com/hashicorp/consul/agent/grpc-external/services/serverdiscovery"
-	agentgrpc "github.com/hashicorp/consul/agent/grpc-internal"
-	"github.com/hashicorp/consul/agent/grpc-internal/services/subscribe"
-	agentmiddleware "github.com/hashicorp/consul/agent/grpc-middleware"
-	"github.com/hashicorp/consul/agent/rpc/operator"
-	"github.com/hashicorp/consul/agent/rpc/peering"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	aclgrpc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/connectca"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/dataplane"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/peerstream"
+	resourcegrpc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/serverdiscovery"
+	agentgrpc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/services/subscribe"
+	agentmiddleware "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/operator"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/peering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
 )
 
 func (s *Server) setupGRPCInterfaces(config *Config, deps Deps) error {
@@ -285,7 +285,7 @@ func (s *Server) setupGRPCServices(config *Config, deps Deps) error {
 
 	// register the server discovery service on all "secure" interfaces other
 	// than the multiplexed internal interface. This service is mainly consumed
-	// by the consul-server-connection-manager library which is used by various
+	// by the dumb-consul-server-connection-manager library which is used by various
 	// other system components other than the agent.
 	err = s.registerServerDiscoveryServer(
 		s.ACLResolver,
@@ -311,7 +311,7 @@ func (s *Server) setupGRPCServices(config *Config, deps Deps) error {
 
 	// register the data plane service on the external gRPC server only. This
 	// service is only access by dataplanes and at this time there is no need
-	// for anything internal in Consul to use the service. If that changes
+	// for anything internal in Dumb Consul to use the service. If that changes
 	// we could register it on the in-process interfaces as well.
 	err = s.registerDataplaneServer(
 		s.externalGRPCServer,

@@ -3,14 +3,14 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
 	"context"
 	"fmt"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func testIdentityForTokenEnterprise(string) (bool, structs.ACLIdentity, error) {

@@ -9,12 +9,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 func (s *Sprawl) getResourceClient(clusterName string) pbresource.ResourceServiceClient {
@@ -24,7 +24,7 @@ func (s *Sprawl) getResourceClient(clusterName string) pbresource.ResourceServic
 func (s *Sprawl) getManagementTokenContext(ctx context.Context, clusterName string) context.Context {
 	mgmtToken := s.secrets.ReadGeneric(clusterName, secrets.BootstrapToken)
 	//nolint:staticcheck
-	return context.WithValue(ctx, "x-consul-token", mgmtToken)
+	return context.WithValue(ctx, "x-dumb-consul-token", mgmtToken)
 }
 
 func getLeader(client *api.Client) (string, error) {

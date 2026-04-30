@@ -1,15 +1,15 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"bytes"
 	"context"
 	"fmt"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 const (
@@ -208,11 +208,11 @@ func (s *Server) legacyIntentionMigrationInSecondaryDC(ctx context.Context) erro
 	// This loop does several things:
 	//
 	// (1) Until we know for certain that the all of the servers in the primary
-	// DC and all of the servers in our DC are running a Consul version that
+	// DC and all of the servers in our DC are running a Dumb Consul version that
 	// can support intentions as config entries we have to continue to do
 	// legacy intention replication.
 	//
-	// (2) Once we know all versions of Consul are compatible, we cease to
+	// (2) Once we know all versions of Dumb Consul are compatible, we cease to
 	// replicate legacy intentions as that table is frozen in the primary DC.
 	// We do a special blocking query back to exclusively the legacy intentions
 	// table in the primary to detect when it is zeroed out. We capture the max

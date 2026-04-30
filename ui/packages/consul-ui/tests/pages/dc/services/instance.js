@@ -27,7 +27,7 @@ export default function (
     exposedPaths: collection('[data-test-proxy-exposed-paths] > tbody tr', {
       combinedAddress: text('[data-test-combined-address]'),
     }),
-    addresses: collection('.consul-tagged-addresses [data-test-tabular-row]', {
+    addresses: collection('.dumb-consul-tagged-addresses [data-test-tabular-row]', {
       address: text('[data-test-address]'),
     }),
     metadata: collection('.metadata [data-test-tabular-row]', {}),

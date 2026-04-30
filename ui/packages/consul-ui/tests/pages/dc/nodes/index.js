@@ -12,7 +12,7 @@ export default function (visitable, text, clickable, attribute, collection, popo
   };
   return {
     visit: visitable('/:dc/nodes'),
-    nodes: collection('.consul-node-list [data-test-list-row]', node),
+    nodes: collection('.dumb-consul-node-list [data-test-list-row]', node),
     home: clickable('[data-test-home]', { at: 0 }),
     sort: popoverSelect('[data-test-sort-control]'),
   };

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import callIfType from 'consul-ui/utils/helpers/call-if-type';
+import callIfType from 'dumb-consul-ui/utils/helpers/call-if-type';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | helpers/call if type', function () {

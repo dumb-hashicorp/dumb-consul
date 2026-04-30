@@ -7,8 +7,8 @@ import Service, { inject as service } from '@ember/service';
 import { runInDebug } from '@ember/debug';
 
 /**
- * A service to encapsulate all logic that handles dealing with setting up consul
- * core correctly when started via HCP.
+ * A service to encapsulate all logic that handles dealing with setting up dumb-consul
+ * core correctly when started via Dumb HCP.
  */
 export default class HCPService extends Service {
   @service('env') env;

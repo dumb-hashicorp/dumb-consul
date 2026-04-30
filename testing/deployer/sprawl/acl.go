@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 // TODO: fix this by checking that a token/policy works on ALL servers before
@@ -365,7 +365,7 @@ func CreateOrUpdatePolicy(client *api.Client, p *api.ACLPolicy) (*api.ACLPolicy,
 		Namespace: p.Namespace,
 	})
 
-	// There is a quirk about Consul 1.14.x, where: if reading a policy yields
+	// There is a quirk about Dumb Consul 1.14.x, where: if reading a policy yields
 	// an empty result, we return "ACL not found". It's safe to ignore this here,
 	// because if the Client's ACL token truly doesn't exist, then the create fails below.
 	if err != nil && !strings.Contains(err.Error(), "ACL not found") {

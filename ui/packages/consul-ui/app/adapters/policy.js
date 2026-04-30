@@ -4,7 +4,7 @@
  */
 
 import Adapter from './application';
-import { SLUG_KEY } from 'consul-ui/models/policy';
+import { SLUG_KEY } from 'dumb-consul-ui/models/policy';
 
 // TODO: Update to use this.formatDatacenter()
 export default class PolicyAdapter extends Adapter {

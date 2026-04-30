@@ -6,7 +6,7 @@ package peering
 import (
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 const (
@@ -40,9 +40,9 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Create and manage peering connections between Consul clusters"
+const synopsis = "Create and manage peering connections between Dumb Consul clusters"
 const help = `
-Usage: consul peering <subcommand> [options] [args]
+Usage: dumb-consul peering <subcommand> [options] [args]
 
   This command has subcommands for interacting with Cluster Peering 
   connections. Here are some simple examples, and more detailed
@@ -50,27 +50,27 @@ Usage: consul peering <subcommand> [options] [args]
 
   Generate a peering token:
 
-    $ consul peering generate-token -name west-dc
+    $ dumb-consul peering generate-token -name west-dc
 
   Establish a peering connection:
 
-    $ consul peering establish -name east-dc -peering-token <token>
+    $ dumb-consul peering establish -name east-dc -peering-token <token>
 
   List all the local peering connections:
 
-    $ consul peering list
+    $ dumb-consul peering list
 
   Print the status of a peering connection:
 
-    $ consul peering read -name west-dc
+    $ dumb-consul peering read -name west-dc
 
   Lists services exported to a peering connection:
 
-    $ consul peering exported-services -name west-dc
+    $ dumb-consul peering exported-services -name west-dc
 
   Delete and close a peering connection:
 
-    $ consul peering delete -name west-dc
+    $ dumb-consul peering delete -name west-dc
 
   For more examples, ask for subcommand help or view the documentation.
 `

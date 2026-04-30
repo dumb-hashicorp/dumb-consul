@@ -10,9 +10,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl/templatedpolicy"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/templatedpolicy"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 const (
@@ -20,13 +20,13 @@ const (
 	JSONFormat   string = "json"
 	synopsis            = "Read an ACL Templated Policy"
 	help                = `
-Usage: consul acl templated-policy read [options] TEMPLATED_POLICY
+Usage: dumb-consul acl templated-policy read [options] TEMPLATED_POLICY
 
   This command will retrieve and print out the details of a single templated policy.
 
   Example:
 
-      $ consul acl templated-policy read -name templated-policy-name
+      $ dumb-consul acl templated-policy read -name templated-policy-name
 `
 )
 
@@ -77,7 +77,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 

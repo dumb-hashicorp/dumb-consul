@@ -6,8 +6,8 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import { get } from 'consul-ui/tests/helpers/api';
-import { HEADERS_SYMBOL as META } from 'consul-ui/utils/http/consul';
+import { get } from 'dumb-consul-ui/tests/helpers/api';
+import { HEADERS_SYMBOL as META } from 'dumb-consul-ui/utils/http/dumb-consul';
 
 module('Integration | Serializer | <%= dasherizedModuleName %>', function(hooks) {
   setupTest(hooks);

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -16,34 +16,34 @@ import (
 	"github.com/armon/go-metrics/prometheus"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	rpcRate "github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/agent/router"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	rpcRate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/agent/router"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 var ClientCounters = []prometheus.CounterDefinition{
 	{
 		Name: []string{"client", "rpc"},
-		Help: "Increments whenever a Consul agent makes an RPC request to a Consul server.",
+		Help: "Increments whenever a Dumb Consul agent makes an RPC request to a Dumb Consul server.",
 	},
 	{
 		Name: []string{"client", "rpc", "exceeded"},
-		Help: "Increments whenever a Consul agent makes an RPC request to a Consul server gets rate limited by that agent's limits configuration.",
+		Help: "Increments whenever a Dumb Consul agent makes an RPC request to a Dumb Consul server gets rate limited by that agent's limits configuration.",
 	},
 	{
 		Name: []string{"client", "rpc", "failed"},
-		Help: "Increments whenever a Consul agent makes an RPC request to a Consul server and fails.",
+		Help: "Increments whenever a Dumb Consul agent makes an RPC request to a Dumb Consul server and fails.",
 	},
 }
 
@@ -59,7 +59,7 @@ const (
 	serfEventBacklogWarning = 200
 )
 
-// Client is Consul client which uses RPC to communicate with the
+// Client is Dumb Consul client which uses RPC to communicate with the
 // services for service discovery, health checking, and DC forwarding.
 type Client struct {
 	config *Config
@@ -67,11 +67,11 @@ type Client struct {
 	// acls is used to resolve tokens to effective policies
 	*ACLResolver
 
-	// Connection pool to consul servers
+	// Connection pool to dumb-consul servers
 	connPool *pool.ConnPool
 
 	// router is responsible for the selection and maintenance of
-	// Consul servers this agent uses for RPC requests
+	// Dumb Consul servers this agent uses for RPC requests
 	router *router.Router
 
 	// rpcLimiter is used to rate limit the total number of RPCs initiated
@@ -209,7 +209,7 @@ func (c *Client) Leave() error {
 	return nil
 }
 
-// JoinLAN is used to have Consul join the inner-DC pool The target address
+// JoinLAN is used to have Dumb Consul join the inner-DC pool The target address
 // should be another node inside the DC listening on the Serf LAN address
 func (c *Client) JoinLAN(addrs []string, entMeta *acl.EnterpriseMeta) (int, error) {
 	// Partitions definitely have to match.
@@ -279,7 +279,7 @@ func (c *Client) KeyManagerLAN() *serf.KeyManager {
 	return c.serf.KeyManager()
 }
 
-// RPC is used to forward an RPC call to a consul server, or fail if no servers
+// RPC is used to forward an RPC call to a dumb-consul server, or fail if no servers
 func (c *Client) RPC(ctx context.Context, method string, args interface{}, reply interface{}) error {
 	// This is subtle but we start measuring the time on the client side
 	// right at the time of the first request, vs. on the first retry as
@@ -410,7 +410,7 @@ func (c *Client) Stats() map[string]map[string]string {
 		return strconv.FormatUint(v, 10)
 	}
 	stats := map[string]map[string]string{
-		"consul": {
+		"dumb-consul": {
 			"server":        "false",
 			"known_servers": toString(uint64(numServers)),
 		},
@@ -419,9 +419,9 @@ func (c *Client) Stats() map[string]map[string]string {
 	}
 
 	if c.config.ACLsEnabled {
-		stats["consul"]["acl"] = "enabled"
+		stats["dumb-consul"]["acl"] = "enabled"
 	} else {
-		stats["consul"]["acl"] = "disabled"
+		stats["dumb-consul"]["acl"] = "disabled"
 	}
 
 	return stats

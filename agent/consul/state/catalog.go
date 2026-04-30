@@ -12,17 +12,17 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/maps"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/maps"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 const (
@@ -360,7 +360,7 @@ func ensureNoNodeWithSimilarNameTxn(tx ReadTxn, node *structs.Node, allowClashWi
 			}
 
 			// Get the node health. If there's no Serf health check, we consider it safe to rename
-			// the node as it's likely an external node registration not managed by Consul.
+			// the node as it's likely an external node registration not managed by Dumb Consul.
 			var nodeHealthy bool
 			if enodeCheck != nil {
 				enodeSerfCheck, ok := enodeCheck.(*structs.HealthCheck)
@@ -442,8 +442,8 @@ func (s *Store) ensureNodeTxn(tx WriteTxn, idx uint64, preserveIndexes bool, nod
 			}
 		}
 	}
-	// TODO: else Node.ID == "" should be forbidden in future Consul releases
-	// See https://github.com/hashicorp/consul/pull/3983 for context
+	// TODO: else Node.ID == "" should be forbidden in future Dumb Consul releases
+	// See https://github.com/dumb-hashicorp/dumb-consul/pull/3983 for context
 
 	// Check for an existing node by name to support nodes with no IDs.
 	if n == nil {
@@ -461,7 +461,7 @@ func (s *Store) ensureNodeTxn(tx WriteTxn, idx uint64, preserveIndexes bool, nod
 		}
 		// WARNING, for compatibility reasons with tests, we do not check
 		// for case insensitive matches, which may lead to DB corruption
-		// See https://github.com/hashicorp/consul/pull/3983 for context
+		// See https://github.com/dumb-hashicorp/dumb-consul/pull/3983 for context
 	}
 
 	// Get the indexes.
@@ -870,8 +870,8 @@ func ensureServiceTxn(tx WriteTxn, idx uint64, node string, preserveIndexes bool
 	}
 
 	if svc.PeerName == "" {
-		// Do not associate non-typical services with gateways or consul services
-		if svc.Kind == structs.ServiceKindTypical && svc.Service != "consul" {
+		// Do not associate non-typical services with gateways or dumb-consul services
+		if svc.Kind == structs.ServiceKindTypical && svc.Service != "dumb-consul" {
 			// Check if this service is covered by a gateway's wildcard specifier, we force the service kind to a gateway-service here as that take precedence
 			sn := structs.NewServiceName(svc.Service, &svc.EnterpriseMeta)
 			if err = checkGatewayWildcardsAndUpdate(tx, idx, &sn, svc, structs.GatewayServiceKindService); err != nil {
@@ -3003,7 +3003,7 @@ func checkServiceNodesTxn(tx ReadTxn, ws memdb.WatchSet, serviceName string, con
 	// thousands of watch chans for large services which may need many goroutines.
 	// It also avoids the performance cliff that is hit when watchLimit is hit
 	// (~682 service instances). See
-	// https://github.com/hashicorp/consul/issues/4984
+	// https://github.com/dumb-hashicorp/dumb-consul/issues/4984
 	watchOptimized := false
 	if len(serviceNames) > 0 {
 		// Assume optimization will work since it really should at this point. For
@@ -3551,8 +3551,8 @@ func parseNodes(tx ReadTxn, ws memdb.WatchSet, idx uint64,
 		ws.AddWithLimit(watchLimit, services.WatchCh(), allServicesCh)
 		for service := services.Next(); service != nil; service = services.Next() {
 			ns := service.(*structs.ServiceNode).ToNodeService()
-			// If version isn't defined in node meta, set it from the Consul service meta
-			if _, ok := dump.Meta[structs.MetaConsulVersion]; !ok && ns.ID == "consul" && ns.Meta["version"] != "" {
+			// If version isn't defined in node meta, set it from the Dumb Consul service meta
+			if _, ok := dump.Meta[structs.MetaConsulVersion]; !ok && ns.ID == "dumb-consul" && ns.Meta["version"] != "" {
 				if dump.Meta == nil {
 					dump.Meta = make(map[string]string)
 				}
@@ -3903,8 +3903,8 @@ func updateGatewayNamespace(tx WriteTxn, idx uint64, service *structs.GatewaySer
 	for svc := services.Next(); svc != nil; svc = services.Next() {
 		sn := svc.(*structs.ServiceNode)
 
-		// Only associate non-consul services with gateways
-		if sn.ServiceName == "consul" {
+		// Only associate non-dumb-consul services with gateways
+		if sn.ServiceName == "dumb-consul" {
 			continue
 		}
 

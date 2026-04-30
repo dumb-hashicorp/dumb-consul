@@ -17,8 +17,8 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -113,12 +113,12 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 	info, err := client.Agent().Self()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 		return 1
 	}
 	c.apiclient = client
@@ -193,11 +193,11 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Executes a command on Consul nodes"
+const synopsis = "Executes a command on Dumb Consul nodes"
 const help = `
-Usage: consul exec [options] [-|command...]
+Usage: dumb-consul exec [options] [-|command...]
 
-  Evaluates a command on remote Consul nodes. The nodes responding can
+  Evaluates a command on remote Dumb Consul nodes. The nodes responding can
   be filtered using regular expressions on node name, service, and tag
   definitions. If a command is '-', stdin will be read until EOF
   and used as a script input.
@@ -432,12 +432,12 @@ func (c *cmd) createSessionLocal() (string, error) {
 func (c *cmd) createSessionForeign() (string, error) {
 	// Look for a remote node to bind to
 	health := c.apiclient.Health()
-	services, _, err := health.Service("consul", "", true, nil)
+	services, _, err := health.Service("dumb-consul", "", true, nil)
 	if err != nil {
-		return "", fmt.Errorf("Failed to find Consul server in remote datacenter: %v", err)
+		return "", fmt.Errorf("Failed to find Dumb Consul server in remote datacenter: %v", err)
 	}
 	if len(services) == 0 {
-		return "", fmt.Errorf("Failed to find Consul server in remote datacenter")
+		return "", fmt.Errorf("Failed to find Dumb Consul server in remote datacenter")
 	}
 	node := services[0].Node.Node
 	if c.conf.verbose {

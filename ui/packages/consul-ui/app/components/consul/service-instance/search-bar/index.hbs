@@ -1,28 +1,28 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<SearchBar class='consul-service-instance-search-bar' ...attributes @filter={{@filter}}>
+<SearchBar class='dumb-consul-service-instance-search-bar' ...attributes @filter={{@filter}}>
   <:status as |search|>
 
     {{#let
       (t
-        (concat 'components.consul.service-instance.search-bar.' search.status.key '.name')
+        (concat 'components.dumb-consul.service-instance.search-bar.' search.status.key '.name')
         default=(array
-          (concat 'common.search.' search.status.key) (concat 'common.consul.' search.status.key)
+          (concat 'common.search.' search.status.key) (concat 'common.dumb-consul.' search.status.key)
         )
       )
       (t
         (concat
-          'components.consul.service-instance.search-bar.'
+          'components.dumb-consul.service-instance.search-bar.'
           search.status.key
           '.options.'
           search.status.value
         )
         default=(array
           (concat 'common.search.' search.status.value)
-          (concat 'common.consul.' search.status.value)
+          (concat 'common.dumb-consul.' search.status.value)
           (concat 'common.brand.' search.status.value)
         )
       )
@@ -61,7 +61,7 @@
             {{#let components.Option as |Option|}}
               {{#each @filter.searchproperty.default as |prop|}}
                 <Option @value={{prop}} @selected={{includes prop @filter.searchproperty.value}}>
-                  {{t (concat 'common.consul.' (lowercase prop))}}
+                  {{t (concat 'common.dumb-consul.' (lowercase prop))}}
                 </Option>
               {{/each}}
             {{/let}}
@@ -80,7 +80,7 @@
     >
       <BlockSlot @name='selected'>
         <span>
-          {{t 'common.consul.status'}}
+          {{t 'common.dumb-consul.status'}}
         </span>
       </BlockSlot>
       <BlockSlot @name='options'>
@@ -91,7 +91,7 @@
               @value={{state}}
               @selected={{includes state @filter.status.value}}
             >
-              {{t (concat 'common.consul.' state) default=(array (concat 'common.search.' state))}}
+              {{t (concat 'common.dumb-consul.' state) default=(array (concat 'common.search.' state))}}
             </Option>
           {{/each}}
         {{/let}}
@@ -105,7 +105,7 @@
         @multiple={{true}}
         as |components|
       >
-        <Consul::SourcesSelect
+        <Dumb Consul::SourcesSelect
           @components={{components}}
           @filter={{@filter}}
           @sources={{@sources}}
@@ -142,7 +142,7 @@
       </BlockSlot>
       <BlockSlot @name='options'>
         {{#let components.Optgroup components.Option as |Optgroup Option|}}
-          <Optgroup @label={{t 'common.consul.status'}}>
+          <Optgroup @label={{t 'common.dumb-consul.status'}}>
             <Option @value='Status:asc' @selected={{eq 'Status:asc' @sort.value}}>{{t
                 'common.sort.status.asc'
               }}</Option>
@@ -150,7 +150,7 @@
                 'common.sort.status.desc'
               }}</Option>
           </Optgroup>
-          <Optgroup @label={{t 'components.consul.service-instance.search-bar.sort.name.name'}}>
+          <Optgroup @label={{t 'components.dumb-consul.service-instance.search-bar.sort.name.name'}}>
             <Option @value='Name:asc' @selected={{eq 'Name:asc' @sort.value}}>{{t
                 'common.sort.alpha.asc'
               }}</Option>

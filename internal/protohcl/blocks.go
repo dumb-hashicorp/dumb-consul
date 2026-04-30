@@ -6,7 +6,7 @@ package protohcl
 import (
 	"fmt"
 
-	"github.com/hashicorp/hcl/v2"
+	"github.com/dumb-hashicorp/hcl/v2"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 

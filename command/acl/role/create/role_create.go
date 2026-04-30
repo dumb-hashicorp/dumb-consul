@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/role"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/role"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -103,7 +103,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -182,11 +182,11 @@ func (c *cmd) Help() string {
 const synopsis = "Create an ACL role"
 
 const help = `
-Usage: consul acl role create -name NAME [options]
+Usage: dumb-consul acl role create -name NAME [options]
 
     Create a new role:
 
-        $ consul acl role create -name "new-role" \
+        $ dumb-consul acl role create -name "new-role" \
                                  -description "This is an example role" \
                                  -policy-id b52fc3de-5 \
                                  -policy-name "acl-replication" \

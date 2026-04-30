@@ -9,7 +9,7 @@ Feature: dc / acls / roles / create
 
   Scenario: Visiting the page without error and the title is correct
     Then the url should be /datacenter/acls/roles/create
-    And the title should be "New Role - Consul"
+    And the title should be "New Role - Dumb Consul"
   Scenario: Creating a simple ACL role with description [Description]
     Then I fill in the role form with yaml
     ---

@@ -4,18 +4,18 @@
  */
 
 import Service from '@ember/service';
-import { andOr } from 'consul-ui/utils/filter';
+import { andOr } from 'dumb-consul-ui/utils/filter';
 
-import service from 'consul-ui/filter/predicates/service';
-import serviceInstance from 'consul-ui/filter/predicates/service-instance';
-import healthCheck from 'consul-ui/filter/predicates/health-check';
-import node from 'consul-ui/filter/predicates/node';
-import kv from 'consul-ui/filter/predicates/kv';
-import intention from 'consul-ui/filter/predicates/intention';
-import token from 'consul-ui/filter/predicates/token';
-import policy from 'consul-ui/filter/predicates/policy';
-import authMethod from 'consul-ui/filter/predicates/auth-method';
-import peer from 'consul-ui/filter/predicates/peer';
+import service from 'dumb-consul-ui/filter/predicates/service';
+import serviceInstance from 'dumb-consul-ui/filter/predicates/service-instance';
+import healthCheck from 'dumb-consul-ui/filter/predicates/health-check';
+import node from 'dumb-consul-ui/filter/predicates/node';
+import kv from 'dumb-consul-ui/filter/predicates/kv';
+import intention from 'dumb-consul-ui/filter/predicates/intention';
+import token from 'dumb-consul-ui/filter/predicates/token';
+import policy from 'dumb-consul-ui/filter/predicates/policy';
+import authMethod from 'dumb-consul-ui/filter/predicates/auth-method';
+import peer from 'dumb-consul-ui/filter/predicates/peer';
 
 const predicates = {
   service: andOr(service),

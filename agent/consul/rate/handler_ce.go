@@ -5,7 +5,7 @@
 
 package rate
 
-import "github.com/hashicorp/consul/agent/structs"
+import "github.com/dumb-hashicorp/dumb-consul/agent/structs"
 
 type IPLimitConfig struct{}
 

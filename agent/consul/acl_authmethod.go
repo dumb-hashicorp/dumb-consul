@@ -1,18 +1,18 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/agent/consul/authmethod"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 
 	// register these as a builtin auth method
-	_ "github.com/hashicorp/consul/agent/consul/authmethod/awsauth"
-	_ "github.com/hashicorp/consul/agent/consul/authmethod/kubeauth"
-	_ "github.com/hashicorp/consul/agent/consul/authmethod/ssoauth"
+	_ "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/awsauth"
+	_ "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/kubeauth"
+	_ "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/ssoauth"
 )
 
 type authMethodValidatorEntry struct {

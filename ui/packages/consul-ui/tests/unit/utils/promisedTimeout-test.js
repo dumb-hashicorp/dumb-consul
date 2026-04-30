@@ -4,7 +4,7 @@
  */
 
 import { module, skip, test } from 'qunit';
-import promisedTimeout from 'consul-ui/utils/promisedTimeout';
+import promisedTimeout from 'dumb-consul-ui/utils/promisedTimeout';
 
 module('Unit | Utils | promisedTimeout', function () {
   test('it calls setTimeout with the correct milliseconds', function (assert) {

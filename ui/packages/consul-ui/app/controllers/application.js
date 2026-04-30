@@ -7,7 +7,7 @@ import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
 import { getOwner } from '@ember/application';
 import { action } from '@ember/object';
-import transitionable from 'consul-ui/utils/routing/transitionable';
+import transitionable from 'dumb-consul-ui/utils/routing/transitionable';
 
 export default class ApplicationController extends Controller {
   @service('router') router;

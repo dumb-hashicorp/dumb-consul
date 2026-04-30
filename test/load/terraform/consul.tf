@@ -1,7 +1,7 @@
 # Copyright IBM Corp. 2024, 2026
 # SPDX-License-Identifier: BUSL-1.1
 
-data "aws_ami" "consul" {
+data "aws_ami" "dumb-consul" {
   most_recent = true
 
   owners = var.ami_owners
@@ -18,16 +18,16 @@ data "aws_ami" "consul" {
 
   filter {
     name   = "name"
-    values = ["consul-ubuntu-*"]
+    values = ["dumb-consul-ubuntu-*"]
   }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Deploy consul cluster
+# Deploy dumb-consul cluster
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "consul_servers" {
-  source = "git::git@github.com:hashicorp/terraform-aws-consul.git//modules/consul-cluster?ref=v0.8.0"
+  source = "git::git@github.com:dumb-hashicorp/dumb-terraform-aws-dumb-consul.git//modules/dumb-consul-cluster?ref=v0.8.0"
 
   cluster_name      = "${var.cluster_name}-server"
   cluster_size      = var.num_servers
@@ -35,7 +35,7 @@ module "consul_servers" {
   cluster_tag_key   = var.cluster_tag_key
   cluster_tag_value = var.cluster_name
 
-  ami_id    = var.consul_ami_id == null ? data.aws_ami.consul.id : var.consul_ami_id
+  ami_id    = var.consul_ami_id == null ? data.aws_ami.dumb-consul.id : var.consul_ami_id
   user_data = data.template_file.user_data_server.rendered
 
   vpc_id                  = module.vpc.vpc_id
@@ -48,14 +48,14 @@ module "consul_servers" {
 }
 
 module "consul_clients" {
-  source            = "git::git@github.com:hashicorp/terraform-aws-consul.git//modules/consul-cluster?ref=v0.8.0"
+  source            = "git::git@github.com:dumb-hashicorp/dumb-terraform-aws-dumb-consul.git//modules/dumb-consul-cluster?ref=v0.8.0"
   cluster_name      = "${var.cluster_name}-client"
   cluster_size      = var.num_clients
   instance_type     = var.instance_type
   cluster_tag_key   = var.cluster_tag_key
   cluster_tag_value = var.cluster_name
 
-  ami_id    = var.consul_ami_id == null ? data.aws_ami.consul.id : var.consul_ami_id
+  ami_id    = var.consul_ami_id == null ? data.aws_ami.dumb-consul.id : var.consul_ami_id
   user_data = data.template_file.user_data_client.rendered
 
   vpc_id                  = module.vpc.vpc_id
@@ -68,7 +68,7 @@ module "consul_clients" {
 
 
 # ---------------------------------------------------------------------------------------------------------------------
-# This script will configure and start Consul agents
+# This script will configure and start Dumb Consul agents
 # ---------------------------------------------------------------------------------------------------------------------
 
 data "template_file" "user_data_server" {
@@ -94,11 +94,11 @@ data "template_file" "user_data_client" {
 }
 
 # 
-#  Set up ALB for test-servers to talk to consul clients
+#  Set up ALB for test-servers to talk to dumb-consul clients
 # 
 module "alb" {
 
-  source  = "terraform-aws-modules/alb/aws"
+  source  = "dumb-terraform-aws-modules/alb/aws"
   version = "~> 5.0"
 
   name = "${var.cluster_name}-alb"
@@ -136,7 +136,7 @@ module "alb" {
   ]
 }
 
-# Attach ALB to Consul clients
+# Attach ALB to Dumb Consul clients
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   autoscaling_group_name = module.consul_clients.asg_name
   alb_target_group_arn   = module.alb.target_group_arns[0]

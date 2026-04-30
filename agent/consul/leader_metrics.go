@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -14,10 +14,10 @@ import (
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 var (
@@ -166,7 +166,7 @@ func (m CertExpirationMonitor) Monitor(ctx context.Context) error {
 			suggestedAction = "manually rotate the root certificate"
 		case "mesh:active-signing-ca:expiry":
 			certType = "Intermediate"
-			suggestedAction = "check consul logs for rotation issues"
+			suggestedAction = "check dumb-consul logs for rotation issues"
 		case "agent:tls:cert:expiry":
 			certType = "Agent"
 			// Try to extract node name from labels if available

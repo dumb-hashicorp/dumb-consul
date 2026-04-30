@@ -10,10 +10,10 @@
 package pbpeerstream
 
 import (
-	_ "github.com/hashicorp/consul/proto-public/annotations/ratelimit"
-	pbpeering "github.com/hashicorp/consul/proto/private/pbpeering"
-	pbservice "github.com/hashicorp/consul/proto/private/pbservice"
-	pbstatus "github.com/hashicorp/consul/proto/private/pbstatus"
+	_ "github.com/dumb-hashicorp/dumb-consul/proto-public/annotations/ratelimit"
+	pbpeering "github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	pbservice "github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
+	pbstatus "github.com/dumb-hashicorp/dumb-consul/proto/private/pbstatus"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -207,7 +207,7 @@ func (*ReplicationMessage_Terminated_) isReplicationMessage_Payload() {}
 
 func (*ReplicationMessage_Heartbeat_) isReplicationMessage_Payload() {}
 
-// LeaderAddress is sent when the peering service runs on a consul node
+// LeaderAddress is sent when the peering service runs on a dumb-consul node
 // that is not a leader. The node either lost leadership, or never was a leader.
 type LeaderAddress struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -602,7 +602,7 @@ type ReplicationMessage_Response struct {
 	// The resource being returned.
 	Resource *anypb.Any `protobuf:"bytes,4,opt,name=Resource,proto3" json:"Resource,omitempty"`
 	// REQUIRED. The operation to be performed in relation to the resource.
-	Operation     Operation `protobuf:"varint,5,opt,name=operation,proto3,enum=hashicorp.consul.internal.peerstream.Operation" json:"operation,omitempty"`
+	Operation     Operation `protobuf:"varint,5,opt,name=operation,proto3,enum=dumb-hashicorp.dumb-consul.internal.peerstream.Operation" json:"operation,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -751,24 +751,24 @@ var File_private_pbpeerstream_peerstream_proto protoreflect.FileDescriptor
 
 const file_private_pbpeerstream_peerstream_proto_rawDesc = "" +
 	"\n" +
-	"%private/pbpeerstream/peerstream.proto\x12$hashicorp.consul.internal.peerstream\x1a%annotations/ratelimit/ratelimit.proto\x1a\x19google/protobuf/any.proto\x1a\x1fprivate/pbpeering/peering.proto\x1a\x1cprivate/pbservice/node.proto\x1a\x1dprivate/pbstatus/status.proto\"\xbb\b\n" +
+	"%private/pbpeerstream/peerstream.proto\x12$dumb-hashicorp.dumb-consul.internal.peerstream\x1a%annotations/ratelimit/ratelimit.proto\x1a\x19google/protobuf/any.proto\x1a\x1fprivate/pbpeering/peering.proto\x1a\x1cprivate/pbservice/node.proto\x1a\x1dprivate/pbstatus/status.proto\"\xbb\b\n" +
 	"\x12ReplicationMessage\x12S\n" +
-	"\x04open\x18\x01 \x01(\v2=.hashicorp.consul.internal.peerstream.ReplicationMessage.OpenH\x00R\x04open\x12\\\n" +
-	"\arequest\x18\x02 \x01(\v2@.hashicorp.consul.internal.peerstream.ReplicationMessage.RequestH\x00R\arequest\x12_\n" +
-	"\bresponse\x18\x03 \x01(\v2A.hashicorp.consul.internal.peerstream.ReplicationMessage.ResponseH\x00R\bresponse\x12e\n" +
+	"\x04open\x18\x01 \x01(\v2=.dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.OpenH\x00R\x04open\x12\\\n" +
+	"\arequest\x18\x02 \x01(\v2@.dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.RequestH\x00R\arequest\x12_\n" +
+	"\bresponse\x18\x03 \x01(\v2A.dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.ResponseH\x00R\bresponse\x12e\n" +
 	"\n" +
-	"terminated\x18\x04 \x01(\v2C.hashicorp.consul.internal.peerstream.ReplicationMessage.TerminatedH\x00R\n" +
+	"terminated\x18\x04 \x01(\v2C.dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.TerminatedH\x00R\n" +
 	"terminated\x12b\n" +
-	"\theartbeat\x18\x05 \x01(\v2B.hashicorp.consul.internal.peerstream.ReplicationMessage.HeartbeatH\x00R\theartbeat\x1a\x8d\x01\n" +
+	"\theartbeat\x18\x05 \x01(\v2B.dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.HeartbeatH\x00R\theartbeat\x1a\x8d\x01\n" +
 	"\x04Open\x12\x16\n" +
 	"\x06PeerID\x18\x01 \x01(\tR\x06PeerID\x12&\n" +
 	"\x0eStreamSecretID\x18\x02 \x01(\tR\x0eStreamSecretID\x12E\n" +
-	"\x06Remote\x18\x03 \x01(\v2-.hashicorp.consul.internal.peering.RemoteInfoR\x06Remote\x1a\xa9\x01\n" +
+	"\x06Remote\x18\x03 \x01(\v2-.dumb-hashicorp.dumb-consul.internal.peering.RemoteInfoR\x06Remote\x1a\xa9\x01\n" +
 	"\aRequest\x12\x16\n" +
 	"\x06PeerID\x18\x01 \x01(\tR\x06PeerID\x12$\n" +
 	"\rResponseNonce\x18\x02 \x01(\tR\rResponseNonce\x12 \n" +
 	"\vResourceURL\x18\x03 \x01(\tR\vResourceURL\x12>\n" +
-	"\x05Error\x18\x05 \x01(\v2(.hashicorp.consul.internal.status.StatusR\x05Error\x1a\xe3\x01\n" +
+	"\x05Error\x18\x05 \x01(\v2(.dumb-hashicorp.dumb-consul.internal.status.StatusR\x05Error\x1a\xe3\x01\n" +
 	"\bResponse\x12\x14\n" +
 	"\x05Nonce\x18\x01 \x01(\tR\x05Nonce\x12 \n" +
 	"\vResourceURL\x18\x02 \x01(\tR\vResourceURL\x12\x1e\n" +
@@ -776,7 +776,7 @@ const file_private_pbpeerstream_peerstream_proto_rawDesc = "" +
 	"ResourceID\x18\x03 \x01(\tR\n" +
 	"ResourceID\x120\n" +
 	"\bResource\x18\x04 \x01(\v2\x14.google.protobuf.AnyR\bResource\x12M\n" +
-	"\toperation\x18\x05 \x01(\x0e2/.hashicorp.consul.internal.peerstream.OperationR\toperation\x1a\f\n" +
+	"\toperation\x18\x05 \x01(\x0e2/.dumb-hashicorp.dumb-consul.internal.peerstream.OperationR\toperation\x1a\f\n" +
 	"\n" +
 	"Terminated\x1a\v\n" +
 	"\tHeartbeatB\t\n" +
@@ -784,7 +784,7 @@ const file_private_pbpeerstream_peerstream_proto_rawDesc = "" +
 	"\rLeaderAddress\x12\x18\n" +
 	"\aaddress\x18\x01 \x01(\tR\aaddress\"\\\n" +
 	"\x0fExportedService\x12I\n" +
-	"\x05Nodes\x18\x01 \x03(\v23.hashicorp.consul.internal.service.CheckServiceNodeR\x05Nodes\"1\n" +
+	"\x05Nodes\x18\x01 \x03(\v23.dumb-hashicorp.dumb-consul.internal.service.CheckServiceNodeR\x05Nodes\"1\n" +
 	"\x13ExportedServiceList\x12\x1a\n" +
 	"\bServices\x18\x01 \x03(\tR\bServices\"a\n" +
 	"\x15ExchangeSecretRequest\x12\x16\n" +
@@ -796,9 +796,9 @@ const file_private_pbpeerstream_peerstream_proto_rawDesc = "" +
 	"\x15OPERATION_UNSPECIFIED\x10\x00\x12\x14\n" +
 	"\x10OPERATION_UPSERT\x10\x012\xc1\x02\n" +
 	"\x11PeerStreamService\x12\x93\x01\n" +
-	"\x0fStreamResources\x128.hashicorp.consul.internal.peerstream.ReplicationMessage\x1a8.hashicorp.consul.internal.peerstream.ReplicationMessage\"\b\xe2\x86\x04\x04\b\x02\x10\x02(\x010\x01\x12\x95\x01\n" +
-	"\x0eExchangeSecret\x12;.hashicorp.consul.internal.peerstream.ExchangeSecretRequest\x1a<.hashicorp.consul.internal.peerstream.ExchangeSecretResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x02B\xa7\x02\n" +
-	"(com.hashicorp.consul.internal.peerstreamB\x0fPeerstreamProtoP\x01Z6github.com/hashicorp/consul/proto/private/pbpeerstream\xa2\x02\x04HCIP\xaa\x02$Hashicorp.Consul.Internal.Peerstream\xca\x02$Hashicorp\\Consul\\Internal\\Peerstream\xe2\x020Hashicorp\\Consul\\Internal\\Peerstream\\GPBMetadata\xea\x02'Hashicorp::Consul::Internal::Peerstreamb\x06proto3"
+	"\x0fStreamResources\x128.dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage\x1a8.dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage\"\b\xe2\x86\x04\x04\b\x02\x10\x02(\x010\x01\x12\x95\x01\n" +
+	"\x0eExchangeSecret\x12;.dumb-hashicorp.dumb-consul.internal.peerstream.ExchangeSecretRequest\x1a<.dumb-hashicorp.dumb-consul.internal.peerstream.ExchangeSecretResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x02B\xa7\x02\n" +
+	"(com.dumb-hashicorp.dumb-consul.internal.peerstreamB\x0fPeerstreamProtoP\x01Z6github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeerstream\xa2\x02\x04HCIP\xaa\x02$Hashicorp.Dumb Consul.Internal.Peerstream\xca\x02$Hashicorp\\Dumb Consul\\Internal\\Peerstream\xe2\x020Hashicorp\\Dumb Consul\\Internal\\Peerstream\\GPBMetadata\xea\x02'Hashicorp::Dumb Consul::Internal::Peerstreamb\x06proto3"
 
 var (
 	file_private_pbpeerstream_peerstream_proto_rawDescOnce sync.Once
@@ -815,38 +815,38 @@ func file_private_pbpeerstream_peerstream_proto_rawDescGZIP() []byte {
 var file_private_pbpeerstream_peerstream_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_private_pbpeerstream_peerstream_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_private_pbpeerstream_peerstream_proto_goTypes = []any{
-	(Operation)(0),                        // 0: hashicorp.consul.internal.peerstream.Operation
-	(*ReplicationMessage)(nil),            // 1: hashicorp.consul.internal.peerstream.ReplicationMessage
-	(*LeaderAddress)(nil),                 // 2: hashicorp.consul.internal.peerstream.LeaderAddress
-	(*ExportedService)(nil),               // 3: hashicorp.consul.internal.peerstream.ExportedService
-	(*ExportedServiceList)(nil),           // 4: hashicorp.consul.internal.peerstream.ExportedServiceList
-	(*ExchangeSecretRequest)(nil),         // 5: hashicorp.consul.internal.peerstream.ExchangeSecretRequest
-	(*ExchangeSecretResponse)(nil),        // 6: hashicorp.consul.internal.peerstream.ExchangeSecretResponse
-	(*ReplicationMessage_Open)(nil),       // 7: hashicorp.consul.internal.peerstream.ReplicationMessage.Open
-	(*ReplicationMessage_Request)(nil),    // 8: hashicorp.consul.internal.peerstream.ReplicationMessage.Request
-	(*ReplicationMessage_Response)(nil),   // 9: hashicorp.consul.internal.peerstream.ReplicationMessage.Response
-	(*ReplicationMessage_Terminated)(nil), // 10: hashicorp.consul.internal.peerstream.ReplicationMessage.Terminated
-	(*ReplicationMessage_Heartbeat)(nil),  // 11: hashicorp.consul.internal.peerstream.ReplicationMessage.Heartbeat
-	(*pbservice.CheckServiceNode)(nil),    // 12: hashicorp.consul.internal.service.CheckServiceNode
-	(*pbpeering.RemoteInfo)(nil),          // 13: hashicorp.consul.internal.peering.RemoteInfo
-	(*pbstatus.Status)(nil),               // 14: hashicorp.consul.internal.status.Status
+	(Operation)(0),                        // 0: dumb-hashicorp.dumb-consul.internal.peerstream.Operation
+	(*ReplicationMessage)(nil),            // 1: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage
+	(*LeaderAddress)(nil),                 // 2: dumb-hashicorp.dumb-consul.internal.peerstream.LeaderAddress
+	(*ExportedService)(nil),               // 3: dumb-hashicorp.dumb-consul.internal.peerstream.ExportedService
+	(*ExportedServiceList)(nil),           // 4: dumb-hashicorp.dumb-consul.internal.peerstream.ExportedServiceList
+	(*ExchangeSecretRequest)(nil),         // 5: dumb-hashicorp.dumb-consul.internal.peerstream.ExchangeSecretRequest
+	(*ExchangeSecretResponse)(nil),        // 6: dumb-hashicorp.dumb-consul.internal.peerstream.ExchangeSecretResponse
+	(*ReplicationMessage_Open)(nil),       // 7: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Open
+	(*ReplicationMessage_Request)(nil),    // 8: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Request
+	(*ReplicationMessage_Response)(nil),   // 9: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Response
+	(*ReplicationMessage_Terminated)(nil), // 10: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Terminated
+	(*ReplicationMessage_Heartbeat)(nil),  // 11: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Heartbeat
+	(*pbservice.CheckServiceNode)(nil),    // 12: dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode
+	(*pbpeering.RemoteInfo)(nil),          // 13: dumb-hashicorp.dumb-consul.internal.peering.RemoteInfo
+	(*pbstatus.Status)(nil),               // 14: dumb-hashicorp.dumb-consul.internal.status.Status
 	(*anypb.Any)(nil),                     // 15: google.protobuf.Any
 }
 var file_private_pbpeerstream_peerstream_proto_depIdxs = []int32{
-	7,  // 0: hashicorp.consul.internal.peerstream.ReplicationMessage.open:type_name -> hashicorp.consul.internal.peerstream.ReplicationMessage.Open
-	8,  // 1: hashicorp.consul.internal.peerstream.ReplicationMessage.request:type_name -> hashicorp.consul.internal.peerstream.ReplicationMessage.Request
-	9,  // 2: hashicorp.consul.internal.peerstream.ReplicationMessage.response:type_name -> hashicorp.consul.internal.peerstream.ReplicationMessage.Response
-	10, // 3: hashicorp.consul.internal.peerstream.ReplicationMessage.terminated:type_name -> hashicorp.consul.internal.peerstream.ReplicationMessage.Terminated
-	11, // 4: hashicorp.consul.internal.peerstream.ReplicationMessage.heartbeat:type_name -> hashicorp.consul.internal.peerstream.ReplicationMessage.Heartbeat
-	12, // 5: hashicorp.consul.internal.peerstream.ExportedService.Nodes:type_name -> hashicorp.consul.internal.service.CheckServiceNode
-	13, // 6: hashicorp.consul.internal.peerstream.ReplicationMessage.Open.Remote:type_name -> hashicorp.consul.internal.peering.RemoteInfo
-	14, // 7: hashicorp.consul.internal.peerstream.ReplicationMessage.Request.Error:type_name -> hashicorp.consul.internal.status.Status
-	15, // 8: hashicorp.consul.internal.peerstream.ReplicationMessage.Response.Resource:type_name -> google.protobuf.Any
-	0,  // 9: hashicorp.consul.internal.peerstream.ReplicationMessage.Response.operation:type_name -> hashicorp.consul.internal.peerstream.Operation
-	1,  // 10: hashicorp.consul.internal.peerstream.PeerStreamService.StreamResources:input_type -> hashicorp.consul.internal.peerstream.ReplicationMessage
-	5,  // 11: hashicorp.consul.internal.peerstream.PeerStreamService.ExchangeSecret:input_type -> hashicorp.consul.internal.peerstream.ExchangeSecretRequest
-	1,  // 12: hashicorp.consul.internal.peerstream.PeerStreamService.StreamResources:output_type -> hashicorp.consul.internal.peerstream.ReplicationMessage
-	6,  // 13: hashicorp.consul.internal.peerstream.PeerStreamService.ExchangeSecret:output_type -> hashicorp.consul.internal.peerstream.ExchangeSecretResponse
+	7,  // 0: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.open:type_name -> dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Open
+	8,  // 1: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.request:type_name -> dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Request
+	9,  // 2: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.response:type_name -> dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Response
+	10, // 3: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.terminated:type_name -> dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Terminated
+	11, // 4: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.heartbeat:type_name -> dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Heartbeat
+	12, // 5: dumb-hashicorp.dumb-consul.internal.peerstream.ExportedService.Nodes:type_name -> dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode
+	13, // 6: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Open.Remote:type_name -> dumb-hashicorp.dumb-consul.internal.peering.RemoteInfo
+	14, // 7: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Request.Error:type_name -> dumb-hashicorp.dumb-consul.internal.status.Status
+	15, // 8: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Response.Resource:type_name -> google.protobuf.Any
+	0,  // 9: dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage.Response.operation:type_name -> dumb-hashicorp.dumb-consul.internal.peerstream.Operation
+	1,  // 10: dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService.StreamResources:input_type -> dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage
+	5,  // 11: dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService.ExchangeSecret:input_type -> dumb-hashicorp.dumb-consul.internal.peerstream.ExchangeSecretRequest
+	1,  // 12: dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService.StreamResources:output_type -> dumb-hashicorp.dumb-consul.internal.peerstream.ReplicationMessage
+	6,  // 13: dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService.ExchangeSecret:output_type -> dumb-hashicorp.dumb-consul.internal.peerstream.ExchangeSecretResponse
 	12, // [12:14] is the sub-list for method output_type
 	10, // [10:12] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name

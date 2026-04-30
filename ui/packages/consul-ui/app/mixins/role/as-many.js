@@ -5,7 +5,7 @@
 
 import Mixin from '@ember/object/mixin';
 
-import minimizeModel from 'consul-ui/utils/minimizeModel';
+import minimizeModel from 'dumb-consul-ui/utils/minimizeModel';
 
 export default Mixin.create({
   // TODO: what about update and create?

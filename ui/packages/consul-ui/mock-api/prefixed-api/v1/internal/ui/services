@@ -1,6 +1,6 @@
 [
     {
-        "Name": "consul",
+        "Name": "dumb-consul",
         "Datacenter": "dc1",
         "Tags": null,
         "Nodes": [

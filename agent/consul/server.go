@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -24,60 +24,60 @@ import (
 	"golang.org/x/time/rate"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
-	"github.com/hashicorp/go-connlimit"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/raft"
-	autopilot "github.com/hashicorp/raft-autopilot"
-	raftboltdb "github.com/hashicorp/raft-boltdb/v2"
-	raftwal "github.com/hashicorp/raft-wal"
-	walmetrics "github.com/hashicorp/raft-wal/metrics"
-	"github.com/hashicorp/raft-wal/verifier"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
+	"github.com/dumb-hashicorp/go-connlimit"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/raft"
+	autopilot "github.com/dumb-hashicorp/raft-autopilot"
+	raftboltdb "github.com/dumb-hashicorp/raft-boltdb/v2"
+	raftwal "github.com/dumb-hashicorp/raft-wal"
+	walmetrics "github.com/dumb-hashicorp/raft-wal/metrics"
+	"github.com/dumb-hashicorp/raft-wal/verifier"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/blockingquery"
-	"github.com/hashicorp/consul/agent/consul/authmethod"
-	"github.com/hashicorp/consul/agent/consul/authmethod/ssoauth"
-	"github.com/hashicorp/consul/agent/consul/fsm"
-	"github.com/hashicorp/consul/agent/consul/multilimiter"
-	rpcRate "github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/consul/reporting"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/consul/usagemetrics"
-	"github.com/hashicorp/consul/agent/consul/wanfed"
-	"github.com/hashicorp/consul/agent/consul/xdscapacity"
-	"github.com/hashicorp/consul/agent/grpc-external/services/peerstream"
-	logdrop "github.com/hashicorp/consul/agent/log-drop"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/agent/router"
-	"github.com/hashicorp/consul/agent/rpc/middleware"
-	"github.com/hashicorp/consul/agent/rpc/peering"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/internal/multicluster"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/demo"
-	"github.com/hashicorp/consul/internal/resource/reaper"
-	"github.com/hashicorp/consul/internal/storage"
-	raftstorage "github.com/hashicorp/consul/internal/storage/raft"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/routine"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/blockingquery"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/ssoauth"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/fsm"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/multilimiter"
+	rpcRate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/reporting"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/usagemetrics"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/wanfed"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/xdscapacity"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/peerstream"
+	logdrop "github.com/dumb-hashicorp/dumb-consul/agent/log-drop"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/agent/router"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/peering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/internal/multicluster"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/demo"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/reaper"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	raftstorage "github.com/dumb-hashicorp/dumb-consul/internal/storage/raft"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/routine"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
-// NOTE The "consul.client.rpc" and "consul.client.rpc.exceeded" counters are defined in consul/client.go
+// NOTE The "dumb-consul.client.rpc" and "dumb-consul.client.rpc.exceeded" counters are defined in dumb-consul/client.go
 
-// These are the protocol versions that Consul can _understand_. These are
-// Consul-level protocol versions, that are used to configure the Serf
+// These are the protocol versions that Dumb Consul can _understand_. These are
+// Dumb Consul-level protocol versions, that are used to configure the Serf
 // protocol versions.
 const (
 	DefaultRPCProtocol = 2
@@ -86,7 +86,7 @@ const (
 
 	// Version 3 added support for network coordinates but we kept the
 	// default protocol version at 2 to ease the transition to this new
-	// feature. A Consul agent speaking version 2 of the protocol will
+	// feature. A Dumb Consul agent speaking version 2 of the protocol will
 	// attempt to send its coordinates to a server who understands version
 	// 3 or greater.
 	ProtocolVersion2Compatible = 2
@@ -164,7 +164,7 @@ const requestLimitsBurstMultiplier = 10
 
 var _ blockingquery.FSMServer = (*Server)(nil)
 
-// Server is Consul server which manages the service discovery,
+// Server is Dumb Consul server which manages the service discovery,
 // health checking, DC forwarding, Raft, and multiple Serf pools.
 type Server struct {
 	// queriesBlocking is a counter that we incr and decr atomically in
@@ -190,7 +190,7 @@ type Server struct {
 	// rate limiter to use when signing leaf certificates
 	caLeafLimiter connectSignRateLimiter
 
-	// Consul configuration
+	// Dumb Consul configuration
 	config *Config
 
 	// configReplicator is used to manage the leaders replication routines for
@@ -203,7 +203,7 @@ type Server struct {
 
 	// dcSupportsFederationStates is used to determine whether we can
 	// replicate federation states or not. All servers in the local
-	// DC must be on a version of Consul supporting federation states
+	// DC must be on a version of Dumb Consul supporting federation states
 	// before this will get enabled.
 	dcSupportsFederationStates int32
 
@@ -212,10 +212,10 @@ type Server struct {
 	// the configuration directly.
 	tokens *token.Store
 
-	// Connection pool to other consul servers
+	// Connection pool to other dumb-consul servers
 	connPool *pool.ConnPool
 
-	// Connection pool to other consul servers using gRPC
+	// Connection pool to other dumb-consul servers using gRPC
 	grpcConnPool GRPCClientConner
 
 	// eventChLAN is used to receive events from the
@@ -240,7 +240,7 @@ type Server struct {
 	logger  hclog.InterceptLogger
 	loggers *loggerStore
 
-	// The raft instance is used among Consul nodes within the DC to protect
+	// The raft instance is used among Dumb Consul nodes within the DC to protect
 	// operations that require strong consistency.
 	// the state directly.
 	raft          *raft.Raft
@@ -270,7 +270,7 @@ type Server struct {
 	readyForConsistentReads int32
 
 	// leaveCh is used to signal that the server is leaving the cluster
-	// and trying to shed its RPC traffic onto other Consul servers. This
+	// and trying to shed its RPC traffic onto other Dumb Consul servers. This
 	// is only ever closed.
 	leaveCh chan struct{}
 
@@ -303,7 +303,7 @@ type Server struct {
 	// to coordinate with regards to data immutability.
 	secureSafeGRPCChan *inprocgrpc.Channel
 
-	// router is used to map out Consul servers in the WAN and in Consul
+	// router is used to map out Dumb Consul servers in the WAN and in Dumb Consul
 	// Enterprise user-defined areas.
 	router *router.Router
 
@@ -348,7 +348,7 @@ type Server struct {
 	serfLAN *serf.Serf
 
 	// serfWAN is the Serf cluster maintained between DC's
-	// which SHOULD only consist of Consul servers
+	// which SHOULD only consist of Dumb Consul servers
 	serfWAN                *serf.Serf
 	serfWANConfig          *serf.Config
 	memberlistTransportWAN wanfed.IngestionAwareTransport
@@ -372,7 +372,7 @@ type Server struct {
 	sessionTimers *SessionTimers
 
 	// statsFetcher is used by autopilot to check the status of the other
-	// Consul router.
+	// Dumb Consul router.
 	statsFetcher *StatsFetcher
 
 	// overviewManager is used to periodically update the cluster overview
@@ -401,14 +401,14 @@ type Server struct {
 
 	// dcSupportsIntentionsAsConfigEntries is used to determine whether we can
 	// migrate old intentions into service-intentions config entries. All
-	// servers in the local DC must be on a version of Consul supporting
+	// servers in the local DC must be on a version of Dumb Consul supporting
 	// service-intentions before this will get enabled.
 	dcSupportsIntentionsAsConfigEntries int32
 
 	// Manager to handle starting/stopping go routines when establishing/revoking raft leadership
 	leaderRoutineManager *routine.Manager
 
-	// registrator is an implemenation that translates serf events of Consul servers into catalog events
+	// registrator is an implemenation that translates serf events of Dumb Consul servers into catalog events
 	registrator ConsulRegistrator
 
 	// publisher is the EventPublisher to be shared amongst various server components. Events from
@@ -437,7 +437,7 @@ type Server struct {
 	// controllerManager schedules the execution of controllers.
 	controllerManager *controller.Manager
 
-	// handles metrics reporting to HashiCorp
+	// handles metrics reporting to Dumb HashiCorp
 	reportingManager *reporting.ReportingManager
 
 	registry resource.Registry
@@ -462,7 +462,7 @@ type connHandler interface {
 	Shutdown() error
 }
 
-// NewServer is used to construct a new Consul server from the configuration
+// NewServer is used to construct a new Dumb Consul server from the configuration
 // and extra options, potentially returning an error.
 func NewServer(config *Config, flat Deps, externalGRPCServer *grpc.Server,
 	incomingRPCLimiter rpcRate.RequestLimitsHandler, serverLogger hclog.InterceptLogger) (*Server, error) {
@@ -1430,7 +1430,7 @@ func (s *Server) Leave() error {
 	return nil
 }
 
-// JoinWAN is used to have Consul join the cross-WAN Consul ring
+// JoinWAN is used to have Dumb Consul join the cross-WAN Dumb Consul ring
 // The target address should be another node listening on the
 // Serf WAN address
 func (s *Server) JoinWAN(addrs []string) (int, error) {
@@ -1722,7 +1722,7 @@ func (s *Server) Stats() map[string]map[string]string {
 	}
 	numKnownDCs := len(s.router.GetDatacenters())
 	stats := map[string]map[string]string{
-		"consul": {
+		"dumb-consul": {
 			"server":            "true",
 			"leader":            fmt.Sprintf("%v", s.IsLeader()),
 			"leader_addr":       string(s.raft.Leader()),
@@ -1735,9 +1735,9 @@ func (s *Server) Stats() map[string]map[string]string {
 	}
 
 	if s.config.ACLsEnabled {
-		stats["consul"]["acl"] = "enabled"
+		stats["dumb-consul"]["acl"] = "enabled"
 	} else {
-		stats["consul"]["acl"] = "disabled"
+		stats["dumb-consul"]["acl"] = "disabled"
 	}
 
 	if s.serfWAN != nil {
@@ -1820,7 +1820,7 @@ func (s *Server) ReloadConfig(config ReloadableConfig) error {
 // raft instance.
 func computeRaftReloadableConfig(config ReloadableConfig) raft.ReloadableConfig {
 	// We use the raw defaults _not_ the current values so that you can reload
-	// back to a zero value having previously started Consul with a custom value
+	// back to a zero value having previously started Dumb Consul with a custom value
 	// for one of these fields.
 	defaultConf := DefaultConfig()
 	raftCfg := raft.ReloadableConfig{
@@ -1958,14 +1958,14 @@ func convertConsulConfigToRateLimitHandlerConfig(limitsConfig RequestLimits, mul
 // peers.json file. This is written to a file called peers.info in the same
 // location.
 const peersInfoContent = `
-As of Consul 0.7.0, the peers.json file is only used for recovery
+As of Dumb Consul 0.7.0, the peers.json file is only used for recovery
 after an outage. The format of this file depends on what the server has
 configured for its Raft protocol version. Please see the agent configuration
-page at https://developer.hashicorp.com/docs/agent/config/cli-flags#_raft_protocol for more
+page at https://developer.dumb-hashicorp.com/docs/agent/config/cli-flags#_raft_protocol for more
 details about this parameter.
 
 For Raft protocol version 2 and earlier, this should be formatted as a JSON
-array containing the address and port of each Consul server in the cluster, like
+array containing the address and port of each Dumb Consul server in the cluster, like
 this:
 
 [
@@ -1976,7 +1976,7 @@ this:
 
 For Raft protocol version 3 and later, this should be formatted as a JSON
 array containing the node ID, address:port, and suffrage information of each
-Consul server in the cluster, like this:
+Dumb Consul server in the cluster, like this:
 
 [
   {
@@ -2004,13 +2004,13 @@ The "address" field is the address and port of the server.
 
 The "non_voter" field controls whether the server is a non-voter, which is used
 in some advanced Autopilot configurations, please see
-https://developer.hashicorp.com/docs/guides/autopilot.html for more information. If
+https://developer.dumb-hashicorp.com/docs/guides/autopilot.html for more information. If
 "non_voter" is omitted it will default to false, which is typical for most
 clusters.
 
 Under normal operation, the peers.json file will not be present.
 
-When Consul starts for the first time, it will create this peers.info file and
+When Dumb Consul starts for the first time, it will create this peers.info file and
 delete any existing peers.json file so that recovery doesn't occur on the first
 startup.
 
@@ -2021,5 +2021,5 @@ creating the peers.json file, and that all servers receive the same
 configuration. Once the peers.json file is successfully ingested and applied, it
 will be deleted.
 
-Please see https://developer.hashicorp.com/docs/guides/outage.html for more information.
+Please see https://developer.dumb-hashicorp.com/docs/guides/outage.html for more information.
 `

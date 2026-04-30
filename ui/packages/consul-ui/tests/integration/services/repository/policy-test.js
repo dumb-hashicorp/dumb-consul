@@ -5,7 +5,7 @@
 
 import { module, skip, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import repo from 'consul-ui/tests/helpers/repo';
+import repo from 'dumb-consul-ui/tests/helpers/repo';
 
 module(`Integration | Service | policy`, function (hooks) {
   setupTest(hooks);

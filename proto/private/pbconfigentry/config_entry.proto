@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.configentry;
+package dumb-hashicorp.dumb-consul.internal.configentry;
 
 import "annotations/ratelimit/ratelimit.proto";
 import "google/protobuf/duration.proto";
@@ -13,13 +13,13 @@ import "private/pbcommon/common.proto";
 // ConfigEntryService handles operations related to config entries
 service ConfigEntryService {
   rpc GetResolvedExportedServices(GetResolvedExportedServicesRequest) returns (GetResolvedExportedServicesResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_CONFIGENTRY
     };
   }
   rpc GetImportedServices(GetImportedServicesRequest) returns (GetImportedServicesResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_CONFIGENTRY
     };
@@ -105,7 +105,7 @@ message ConfigEntry {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=RaftIndex,EnterpriseMeta
@@ -122,7 +122,7 @@ message MeshConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TransparentProxyMeshConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TransparentProxyMeshConfig
 // output=config_entry.gen.go
 // name=Structs
 message TransparentProxyMeshConfig {
@@ -131,7 +131,7 @@ message TransparentProxyMeshConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshTLSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshTLSConfig
 // output=config_entry.gen.go
 // name=Structs
 message MeshTLSConfig {
@@ -141,7 +141,7 @@ message MeshTLSConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshDirectionalTLSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshDirectionalTLSConfig
 // output=config_entry.gen.go
 // name=Structs
 message MeshDirectionalTLSConfig {
@@ -155,7 +155,7 @@ message MeshDirectionalTLSConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshHTTPConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshHTTPConfig
 // output=config_entry.gen.go
 // name=Structs
 message MeshHTTPConfig {
@@ -165,7 +165,7 @@ message MeshHTTPConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshDirectionalHTTPConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshDirectionalHTTPConfig
 // output=config_entry.gen.go
 // name=Structs
 message MeshDirectionalHTTPConfig {
@@ -174,7 +174,7 @@ message MeshDirectionalHTTPConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.PeeringMeshConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.PeeringMeshConfig
 // output=config_entry.gen.go
 // name=Structs
 message PeeringMeshConfig {
@@ -183,7 +183,7 @@ message PeeringMeshConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RequestNormalizationMeshConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RequestNormalizationMeshConfig
 // output=config_entry.gen.go
 // name=Structs
 message RequestNormalizationMeshConfig {
@@ -211,7 +211,7 @@ enum HeadersWithUnderscoresAction {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -232,7 +232,7 @@ message ServiceResolver {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverSubset
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverSubset
 // output=config_entry.gen.go
 // name=Structs
 message ServiceResolverSubset {
@@ -242,7 +242,7 @@ message ServiceResolverSubset {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverRedirect
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverRedirect
 // output=config_entry.gen.go
 // name=Structs
 message ServiceResolverRedirect {
@@ -257,7 +257,7 @@ message ServiceResolverRedirect {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverFailover
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverFailover
 // output=config_entry.gen.go
 // name=Structs
 message ServiceResolverFailover {
@@ -272,7 +272,7 @@ message ServiceResolverFailover {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverFailoverPolicy
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverFailoverPolicy
 // output=config_entry.gen.go
 // name=Structs
 message ServiceResolverFailoverPolicy {
@@ -282,7 +282,7 @@ message ServiceResolverFailoverPolicy {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverPrioritizeByLocality
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverPrioritizeByLocality
 // output=config_entry.gen.go
 // name=Structs
 message ServiceResolverPrioritizeByLocality {
@@ -291,7 +291,7 @@ message ServiceResolverPrioritizeByLocality {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverFailoverTarget
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverFailoverTarget
 // output=config_entry.gen.go
 // name=Structs
 message ServiceResolverFailoverTarget {
@@ -305,7 +305,7 @@ message ServiceResolverFailoverTarget {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.LoadBalancer
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.LoadBalancer
 // output=config_entry.gen.go
 // name=Structs
 message LoadBalancer {
@@ -317,7 +317,7 @@ message LoadBalancer {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RingHashConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RingHashConfig
 // output=config_entry.gen.go
 // name=Structs
 message RingHashConfig {
@@ -327,7 +327,7 @@ message RingHashConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.LeastRequestConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.LeastRequestConfig
 // output=config_entry.gen.go
 // name=Structs
 message LeastRequestConfig {
@@ -336,7 +336,7 @@ message LeastRequestConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HashPolicy
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HashPolicy
 // output=config_entry.gen.go
 // name=Structs
 message HashPolicy {
@@ -349,7 +349,7 @@ message HashPolicy {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.CookieConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.CookieConfig
 // output=config_entry.gen.go
 // name=Structs
 message CookieConfig {
@@ -361,7 +361,7 @@ message CookieConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IngressGatewayConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IngressGatewayConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -375,7 +375,7 @@ message IngressGateway {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IngressServiceConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IngressServiceConfig
 // output=config_entry.gen.go
 // name=Structs
 message IngressServiceConfig {
@@ -387,7 +387,7 @@ message IngressServiceConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.GatewayTLSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.GatewayTLSConfig
 // output=config_entry.gen.go
 // name=Structs
 message GatewayTLSConfig {
@@ -403,7 +403,7 @@ message GatewayTLSConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.GatewayTLSSDSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.GatewayTLSSDSConfig
 // output=config_entry.gen.go
 // name=Structs
 message GatewayTLSSDSConfig {
@@ -413,7 +413,7 @@ message GatewayTLSSDSConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IngressListener
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IngressListener
 // output=config_entry.gen.go
 // name=Structs
 message IngressListener {
@@ -426,7 +426,7 @@ message IngressListener {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IngressService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IngressService
 // output=config_entry.gen.go
 // name=Structs
 message IngressService {
@@ -446,7 +446,7 @@ message IngressService {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.GatewayServiceTLSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.GatewayServiceTLSConfig
 // output=config_entry.gen.go
 // name=Structs
 message GatewayServiceTLSConfig {
@@ -455,7 +455,7 @@ message GatewayServiceTLSConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPHeaderModifiers
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPHeaderModifiers
 // output=config_entry.gen.go
 // name=Structs
 message HTTPHeaderModifiers {
@@ -466,7 +466,7 @@ message HTTPHeaderModifiers {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceIntentionsConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceIntentionsConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -479,7 +479,7 @@ message ServiceIntentions {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionJWTRequirement
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionJWTRequirement
 // output=config_entry.gen.go
 // name=Structs
 message IntentionJWTRequirement {
@@ -488,7 +488,7 @@ message IntentionJWTRequirement {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionJWTProvider
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionJWTProvider
 // output=config_entry.gen.go
 // name=Structs
 message IntentionJWTProvider {
@@ -498,7 +498,7 @@ message IntentionJWTProvider {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionJWTClaimVerification
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionJWTClaimVerification
 // output=config_entry.gen.go
 // name=Structs
 message IntentionJWTClaimVerification {
@@ -508,7 +508,7 @@ message IntentionJWTClaimVerification {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.SourceIntention
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.SourceIntention
 // output=config_entry.gen.go
 // name=Structs
 message SourceIntention {
@@ -539,12 +539,12 @@ enum IntentionAction {
 }
 
 enum IntentionSourceType {
-  Consul = 0;
+  Dumb Consul = 0;
 }
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionPermission
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionPermission
 // output=config_entry.gen.go
 // name=Structs
 message IntentionPermission {
@@ -556,7 +556,7 @@ message IntentionPermission {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionHTTPPermission
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionHTTPPermission
 // output=config_entry.gen.go
 // name=Structs
 message IntentionHTTPPermission {
@@ -569,7 +569,7 @@ message IntentionHTTPPermission {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionHTTPHeaderPermission
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionHTTPHeaderPermission
 // output=config_entry.gen.go
 // name=Structs
 message IntentionHTTPHeaderPermission {
@@ -586,7 +586,7 @@ message IntentionHTTPHeaderPermission {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -610,7 +610,7 @@ message ServiceDefaults {
   RateLimits RateLimits = 16;
   map<string, string> Meta = 13;
   // mog: func-to=EnvoyExtensionsToStructs func-from=EnvoyExtensionsFromStructs
-  repeated hashicorp.consul.internal.common.EnvoyExtension EnvoyExtensions = 14;
+  repeated dumb-hashicorp.dumb-consul.internal.common.EnvoyExtension EnvoyExtensions = 14;
   // mog: func-to=mutualTLSModeToStructs func-from=mutualTLSModeFromStructs
   MutualTLSMode MutualTLSMode = 15;
   uint64 Hash = 17;
@@ -632,7 +632,7 @@ enum MutualTLSMode {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TransparentProxyConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TransparentProxyConfig
 // output=config_entry.gen.go
 // name=Structs
 message TransparentProxyConfig {
@@ -643,7 +643,7 @@ message TransparentProxyConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshGatewayConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshGatewayConfig
 // output=config_entry.gen.go
 // name=Structs
 message MeshGatewayConfig {
@@ -660,7 +660,7 @@ enum MeshGatewayMode {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExposeConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExposeConfig
 // output=config_entry.gen.go
 // name=Structs
 message ExposeConfig {
@@ -670,7 +670,7 @@ message ExposeConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExposePath
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExposePath
 // output=config_entry.gen.go
 // name=Structs
 message ExposePath {
@@ -685,7 +685,7 @@ message ExposePath {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.UpstreamConfiguration
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.UpstreamConfiguration
 // output=config_entry.gen.go
 // name=Structs
 message UpstreamConfiguration {
@@ -695,7 +695,7 @@ message UpstreamConfiguration {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.UpstreamConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.UpstreamConfig
 // output=config_entry.gen.go
 // name=Structs
 message UpstreamConfig {
@@ -716,7 +716,7 @@ message UpstreamConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.UpstreamLimits
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.UpstreamLimits
 // output=config_entry.gen.go
 // name=Structs
 message UpstreamLimits {
@@ -730,7 +730,7 @@ message UpstreamLimits {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.PassiveHealthCheck
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.PassiveHealthCheck
 // output=config_entry.gen.go
 // name=Structs
 message PassiveHealthCheck {
@@ -747,7 +747,7 @@ message PassiveHealthCheck {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.DestinationConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.DestinationConfig
 // output=config_entry.gen.go
 // name=Structs
 message DestinationConfig {
@@ -758,7 +758,7 @@ message DestinationConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RateLimits
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RateLimits
 // output=config_entry.gen.go
 // name=Structs
 message RateLimits {
@@ -767,7 +767,7 @@ message RateLimits {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.InstanceLevelRateLimits
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.InstanceLevelRateLimits
 // output=config_entry.gen.go
 // name=Structs
 message InstanceLevelRateLimits {
@@ -780,7 +780,7 @@ message InstanceLevelRateLimits {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.InstanceLevelRouteRateLimits
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.InstanceLevelRouteRateLimits
 // output=config_entry.gen.go
 // name=Structs
 message InstanceLevelRouteRateLimits {
@@ -795,7 +795,7 @@ message InstanceLevelRouteRateLimits {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.APIGatewayConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.APIGatewayConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -810,7 +810,7 @@ message APIGateway {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Status
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Status
 // output=config_entry.gen.go
 // name=Structs
 message Status {
@@ -819,7 +819,7 @@ message Status {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Condition
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Condition
 // output=config_entry.gen.go
 // name=Structs
 message Condition {
@@ -839,7 +839,7 @@ enum APIGatewayListenerProtocol {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.APIGatewayListener
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.APIGatewayListener
 // output=config_entry.gen.go
 // name=Structs
 message APIGatewayListener {
@@ -858,7 +858,7 @@ message APIGatewayListener {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.APIGatewayTLSConfiguration
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.APIGatewayTLSConfiguration
 // output=config_entry.gen.go
 // name=Structs
 message APIGatewayTLSConfiguration {
@@ -874,7 +874,7 @@ message APIGatewayTLSConfiguration {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.APIGatewayPolicy
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.APIGatewayPolicy
 // output=config_entry.gen.go
 // name=Structs
 message APIGatewayPolicy {
@@ -898,7 +898,7 @@ message APIGatewayJWTClaimVerification {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ResourceReference
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ResourceReference
 // output=config_entry.gen.go
 // name=Structs
 message ResourceReference {
@@ -911,7 +911,7 @@ message ResourceReference {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.BoundAPIGatewayConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.BoundAPIGatewayConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -929,7 +929,7 @@ message ListOfResourceReference {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.BoundAPIGatewayListener
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.BoundAPIGatewayListener
 // output=config_entry.gen.go
 // name=Structs
 message BoundAPIGatewayListener {
@@ -940,7 +940,7 @@ message BoundAPIGatewayListener {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.FileSystemCertificateConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.FileSystemCertificateConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -953,7 +953,7 @@ message FileSystemCertificate {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.InlineCertificateConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.InlineCertificateConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -966,7 +966,7 @@ message InlineCertificate {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPRouteConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPRouteConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -981,7 +981,7 @@ message HTTPRoute {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPRouteRule
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPRouteRule
 // output=config_entry.gen.go
 // name=Structs
 message HTTPRouteRule {
@@ -993,7 +993,7 @@ message HTTPRouteRule {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPMatch
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPMatch
 // output=config_entry.gen.go
 // name=Structs
 message HTTPMatch {
@@ -1027,7 +1027,7 @@ enum HTTPHeaderMatchType {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPHeaderMatch
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPHeaderMatch
 // output=config_entry.gen.go
 // name=Structs
 message HTTPHeaderMatch {
@@ -1045,7 +1045,7 @@ enum HTTPPathMatchType {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPPathMatch
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPPathMatch
 // output=config_entry.gen.go
 // name=Structs
 message HTTPPathMatch {
@@ -1062,7 +1062,7 @@ enum HTTPQueryMatchType {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPQueryMatch
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPQueryMatch
 // output=config_entry.gen.go
 // name=Structs
 message HTTPQueryMatch {
@@ -1074,7 +1074,7 @@ message HTTPQueryMatch {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPFilters
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPFilters
 // output=config_entry.gen.go
 // name=Structs
 message HTTPFilters {
@@ -1088,7 +1088,7 @@ message HTTPFilters {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPResponseFilters
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPResponseFilters
 // output=config_entry.gen.go
 // name=Structs
 message HTTPResponseFilters {
@@ -1097,7 +1097,7 @@ message HTTPResponseFilters {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.URLRewrite
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.URLRewrite
 // output=config_entry.gen.go
 // name=Structs
 message URLRewrite {
@@ -1106,7 +1106,7 @@ message URLRewrite {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RetryFilter
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RetryFilter
 // output=config_entry.gen.go
 // name=Structs
 message RetryFilter {
@@ -1118,7 +1118,7 @@ message RetryFilter {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TimeoutFilter
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TimeoutFilter
 // output=config_entry.gen.go
 // name=Structs
 message TimeoutFilter {
@@ -1134,7 +1134,7 @@ message JWTFilter {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPHeaderFilter
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPHeaderFilter
 // output=config_entry.gen.go
 // name=Structs
 message HTTPHeaderFilter {
@@ -1145,7 +1145,7 @@ message HTTPHeaderFilter {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPService
 // output=config_entry.gen.go
 // name=Structs
 message HTTPService {
@@ -1162,7 +1162,7 @@ message HTTPService {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TCPRouteConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TCPRouteConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -1176,7 +1176,7 @@ message TCPRoute {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TCPService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TCPService
 // output=config_entry.gen.go
 // name=Structs
 message TCPService {
@@ -1189,7 +1189,7 @@ message TCPService {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.SamenessGroupConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.SamenessGroupConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=RaftIndex
@@ -1206,7 +1206,7 @@ message SamenessGroup {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.SamenessGroupMember
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.SamenessGroupMember
 // output=config_entry.gen.go
 // name=Structs
 message SamenessGroupMember {
@@ -1216,7 +1216,7 @@ message SamenessGroupMember {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTProviderConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTProviderConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Name,Kind,RaftIndex,EnterpriseMeta
@@ -1235,7 +1235,7 @@ message JWTProvider {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JSONWebKeySet
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JSONWebKeySet
 // output=config_entry.gen.go
 // name=Structs
 message JSONWebKeySet {
@@ -1245,7 +1245,7 @@ message JSONWebKeySet {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.LocalJWKS
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.LocalJWKS
 // output=config_entry.gen.go
 // name=Structs
 message LocalJWKS {
@@ -1255,7 +1255,7 @@ message LocalJWKS {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RemoteJWKS
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RemoteJWKS
 // output=config_entry.gen.go
 // name=Structs
 message RemoteJWKS {
@@ -1272,7 +1272,7 @@ message RemoteJWKS {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSCluster
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSCluster
 // output=config_entry.gen.go
 // name=Structs
 message JWKSCluster {
@@ -1284,7 +1284,7 @@ message JWKSCluster {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSTLSCertificate
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSTLSCertificate
 // output=config_entry.gen.go
 // name=Structs
 message JWKSTLSCertificate {
@@ -1294,7 +1294,7 @@ message JWKSTLSCertificate {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSTLSCertProviderInstance
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSTLSCertProviderInstance
 // output=config_entry.gen.go
 // name=Structs
 message JWKSTLSCertProviderInstance {
@@ -1304,7 +1304,7 @@ message JWKSTLSCertProviderInstance {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSTLSCertTrustedCA
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSTLSCertTrustedCA
 // output=config_entry.gen.go
 // name=Structs
 message JWKSTLSCertTrustedCA {
@@ -1316,7 +1316,7 @@ message JWKSTLSCertTrustedCA {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSRetryPolicy
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSRetryPolicy
 // output=config_entry.gen.go
 // name=Structs
 message JWKSRetryPolicy {
@@ -1327,7 +1327,7 @@ message JWKSRetryPolicy {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RetryPolicyBackOff
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RetryPolicyBackOff
 // output=config_entry.gen.go
 // name=Structs
 message RetryPolicyBackOff {
@@ -1339,7 +1339,7 @@ message RetryPolicyBackOff {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTLocation
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTLocation
 // output=config_entry.gen.go
 // name=Structs
 message JWTLocation {
@@ -1350,7 +1350,7 @@ message JWTLocation {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTLocationHeader
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTLocationHeader
 // output=config_entry.gen.go
 // name=Structs
 message JWTLocationHeader {
@@ -1361,7 +1361,7 @@ message JWTLocationHeader {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTLocationQueryParam
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTLocationQueryParam
 // output=config_entry.gen.go
 // name=Structs
 message JWTLocationQueryParam {
@@ -1370,7 +1370,7 @@ message JWTLocationQueryParam {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTLocationCookie
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTLocationCookie
 // output=config_entry.gen.go
 // name=Structs
 message JWTLocationCookie {
@@ -1379,7 +1379,7 @@ message JWTLocationCookie {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTForwardingConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTForwardingConfig
 // output=config_entry.gen.go
 // name=Structs
 message JWTForwardingConfig {
@@ -1389,7 +1389,7 @@ message JWTForwardingConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTCacheConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTCacheConfig
 // output=config_entry.gen.go
 // name=Structs
 message JWTCacheConfig {
@@ -1399,7 +1399,7 @@ message JWTCacheConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExportedServicesConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExportedServicesConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -1414,7 +1414,7 @@ message ExportedServices {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExportedService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExportedService
 // output=config_entry.gen.go
 // name=Structs
 message ExportedServicesService {
@@ -1425,7 +1425,7 @@ message ExportedServicesService {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceConsumer
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceConsumer
 // output=config_entry.gen.go
 // name=Structs
 message ExportedServicesConsumer {

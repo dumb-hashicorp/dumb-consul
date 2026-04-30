@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-.consul-instance-checks {
+.dumb-consul-instance-checks {
   & {
     @extend %horizontal-kv-list;
   }

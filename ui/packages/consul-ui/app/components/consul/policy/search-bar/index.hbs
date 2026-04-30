@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <SearchBar
-  class="consul-policy-search-bar"
+  class="dumb-consul-policy-search-bar"
   ...attributes
   @filter={{@filter}}
 >
@@ -12,17 +12,17 @@
 
 {{#let
 
-  (t (concat "components.consul.policy.search-bar." search.status.key ".name")
+  (t (concat "components.dumb-consul.policy.search-bar." search.status.key ".name")
       default=(array
         (concat "common.search." search.status.key)
-        (concat "common.consul." search.status.key)
+        (concat "common.dumb-consul." search.status.key)
       )
   )
 
-  (t (concat "components.consul.policy.search-bar." search.status.key ".options." search.status.value)
+  (t (concat "components.dumb-consul.policy.search-bar." search.status.key ".options." search.status.value)
       default=(array
         (concat "common.search." search.status.value)
-        (concat "common.consul." search.status.value)
+        (concat "common.dumb-consul." search.status.value)
         (concat "common.brand." search.status.value)
       )
   )
@@ -61,7 +61,7 @@ as |key value|}}
     {{#let components.Optgroup components.Option as |Optgroup Option|}}
             {{#each @filter.searchproperty.default as |prop|}}
               <Option @value={{prop}} @selected={{includes prop @filter.searchproperty.value}}>
-                {{t (concat "common.consul." (lowercase prop))}}
+                {{t (concat "common.dumb-consul." (lowercase prop))}}
               </Option>
             {{/each}}
     {{/let}}
@@ -78,7 +78,7 @@ as |key value|}}
       as |components|>
         <BlockSlot @name="selected">
           <span>
-            {{t "common.consul.datacenter"}}
+            {{t "common.dumb-consul.datacenter"}}
           </span>
         </BlockSlot>
         <BlockSlot @name="options">
@@ -106,14 +106,14 @@ as |key value|}}
       as |components|>
         <BlockSlot @name="selected">
           <span>
-            {{t "components.consul.policy.search-bar.kind.name"}}
+            {{t "components.dumb-consul.policy.search-bar.kind.name"}}
           </span>
         </BlockSlot>
         <BlockSlot @name="options">
   {{#let components.Optgroup components.Option as |Optgroup Option|}}
     {{#each (array "global-management" "standard") as |state|}}
           <Option class="value-{{state}}" @value={{state}} @selected={{includes state @filter.kind.value}}>
-            {{t (concat "components.consul.policy.search-bar.kind.options." state)
+            {{t (concat "components.dumb-consul.policy.search-bar.kind.options." state)
                 default=(array
                   (concat "common.search." state)
                 )

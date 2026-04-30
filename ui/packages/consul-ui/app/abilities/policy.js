@@ -5,7 +5,7 @@
 
 import BaseAbility from './base';
 import { inject as service } from '@ember/service';
-import { typeOf } from 'consul-ui/helpers/policy/typeof';
+import { typeOf } from 'dumb-consul-ui/helpers/policy/typeof';
 
 export default class PolicyAbility extends BaseAbility {
   @service('env') env;

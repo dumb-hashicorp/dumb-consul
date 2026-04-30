@@ -9,9 +9,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
 )
 
 const replicationPolicyRules = `
@@ -51,7 +51,7 @@ func retryFunc[T any](t *testing.T, f func() (T, error)) T {
 //   - Validate ACL replication by creating a token
 //     and checking it is found in each datacenter.
 //
-// Added to validate this issue: https://github.com/hashicorp/consul/issues/16620
+// Added to validate this issue: https://github.com/dumb-hashicorp/dumb-consul/issues/16620
 func TestWanFed_ReplicationBootstrap(t *testing.T) {
 	cfgFunc := func(c *libcluster.ConfigBuilder) {
 		c.Set("primary_datacenter", "primary")
@@ -90,7 +90,7 @@ func TestWanFed_ReplicationBootstrap(t *testing.T) {
 		t.Logf("Create the replication policy")
 		p, _, err := primary.GetClient().ACL().PolicyCreate(
 			&api.ACLPolicy{
-				Name:  "consul-server-replication",
+				Name:  "dumb-consul-server-replication",
 				Rules: replicationPolicyRules,
 			},
 			nil,
@@ -101,7 +101,7 @@ func TestWanFed_ReplicationBootstrap(t *testing.T) {
 		t.Logf("Create the replication policy")
 		tok, _, err := primary.GetClient().ACL().TokenCreate(
 			&api.ACLToken{
-				Description: "Consul server replication token",
+				Description: "Dumb Consul server replication token",
 				Policies:    []*api.ACLLink{{ID: replicationPolicy.ID}},
 			},
 			nil,

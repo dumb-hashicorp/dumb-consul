@@ -10,8 +10,8 @@ import hbs from 'htmlbars-inline-precompile';
 
 import Service, { inject as service } from '@ember/service';
 
-import DataSourceComponent from 'consul-ui/components/data-source/index';
-import { BlockingEventSource as RealEventSource } from 'consul-ui/utils/dom/event-source';
+import DataSourceComponent from 'dumb-consul-ui/components/data-source/index';
+import { BlockingEventSource as RealEventSource } from 'dumb-consul-ui/utils/dom/event-source';
 import sinon from 'sinon';
 
 const createFakeBlockingEventSource = function () {

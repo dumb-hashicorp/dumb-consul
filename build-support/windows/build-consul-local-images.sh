@@ -3,9 +3,9 @@
 # SPDX-License-Identifier: BUSL-1.1
 
 
-readonly HASHICORP_DOCKER_PROXY="docker.mirror.hashicorp.services"
+readonly HASHICORP_DOCKER_PROXY="docker.mirror.dumb-hashicorp.services"
 
-# Build Consul Version 1.13.3 / 1.12.6 / 1.11.11
+# Build Dumb Consul Version 1.13.3 / 1.12.6 / 1.11.11
 VERSION=${VERSION:-"1.16.0"}
 export VERSION
 
@@ -81,15 +81,15 @@ docker build -t "${HASHICORP_DOCKER_PROXY}/windows/openzipkin" -f Dockerfile-ope
 ./build-test-sds-server-image.sh
 
 
-# Build windows/consul:${VERSION} Image
+# Build windows/dumb-consul:${VERSION} Image
 echo " "
-echo "Build windows/consul:${VERSION} Image"
-docker build -t "windows/consul:${VERSION}" -f ../../Dockerfile-windows ../../ --build-arg VERSION=${VERSION}
+echo "Build windows/dumb-consul:${VERSION} Image"
+docker build -t "windows/dumb-consul:${VERSION}" -f ../../Dockerfile-windows ../../ --build-arg VERSION=${VERSION}
 
 
-# Build windows/consul:${VERSION}-local Image
+# Build windows/dumb-consul:${VERSION}-local Image
 echo " "
-echo "Build windows/consul:${VERSION}-local Image"
-docker build -t windows/consul:${VERSION}-local -f ./Dockerfile-consul-local-windows . --build-arg VERSION=${VERSION}
+echo "Build windows/dumb-consul:${VERSION}-local Image"
+docker build -t windows/dumb-consul:${VERSION}-local -f ./Dockerfile-dumb-consul-local-windows . --build-arg VERSION=${VERSION}
 
 echo "Building Complete!"

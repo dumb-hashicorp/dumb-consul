@@ -8,16 +8,16 @@ import (
 	"fmt"
 	"strings"
 
-	memdb "github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/go-multierror"
+	memdb "github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/maps"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/maps"
 )
 
 var (
@@ -1444,7 +1444,7 @@ func testCompileDiscoveryChain(
 		EvaluateInNamespace:   entMeta.NamespaceOrDefault(),
 		EvaluateInPartition:   entMeta.PartitionOrDefault(),
 		EvaluateInDatacenter:  "dc1",
-		EvaluateInTrustDomain: "b6fc9da3-03d4-4b5a-9134-c045e9b20152.consul",
+		EvaluateInTrustDomain: "b6fc9da3-03d4-4b5a-9134-c045e9b20152.dumb-consul",
 		Entries:               speculativeEntries,
 	}
 	chain, err := discoverychain.Compile(req)
@@ -2183,8 +2183,8 @@ func protocolForService(
 	return maxIdx, chain.Protocol, nil
 }
 
-const dummyTrustDomain = "b6fc9da3-03d4-4b5a-9134-c045e9b20152.consul"
-const dummyPeerTrustDomain = "4945bd44-b427-4cf5-b19a-5f54b195bf6e.consul"
+const dummyTrustDomain = "b6fc9da3-03d4-4b5a-9134-c045e9b20152.dumb-consul"
+const dummyPeerTrustDomain = "4945bd44-b427-4cf5-b19a-5f54b195bf6e.dumb-consul"
 
 func newConfigEntryQuery(c structs.ConfigEntry) configentry.KindName {
 	return configentry.NewKindName(c.GetKind(), c.GetName(), c.GetEnterpriseMeta())

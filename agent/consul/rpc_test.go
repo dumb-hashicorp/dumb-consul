@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"bufio"
@@ -21,29 +21,29 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/raft"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/consul/state"
-	agent_grpc "github.com/hashicorp/consul/agent/grpc-internal"
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/agent/structs"
-	tokenStore "github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	agent_grpc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	tokenStore "github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 func TestRPC_NoLeader_Fail(t *testing.T) {
@@ -478,7 +478,7 @@ func TestRPC_PreventsTLSNesting(t *testing.T) {
 				c.TLSConfig.InternalRPC.VerifyServerHostname = true
 				c.TLSConfig.InternalRPC.VerifyOutgoing = true
 				c.TLSConfig.InternalRPC.VerifyIncoming = false // saves us getting client cert setup
-				c.TLSConfig.Domain = "consul"
+				c.TLSConfig.Domain = "dumb-consul"
 			})
 			defer os.RemoveAll(dir1)
 			defer s1.Shutdown()
@@ -636,7 +636,7 @@ func TestRPC_RPCMaxConnsPerClient(t *testing.T) {
 					c.TLSConfig.InternalRPC.VerifyServerHostname = true
 					c.TLSConfig.InternalRPC.VerifyOutgoing = true
 					c.TLSConfig.InternalRPC.VerifyIncoming = false // saves us getting client cert setup
-					c.TLSConfig.Domain = "consul"
+					c.TLSConfig.Domain = "dumb-consul"
 				}
 			})
 			defer os.RemoveAll(dir1)
@@ -1063,7 +1063,7 @@ func TestRPC_LocalTokenStrippedOnForward_GRPC(t *testing.T) {
 		require.NoError(t, err)
 		require.NotNil(t, event)
 
-		// So now that we can read data, we should get a snapshot with just instances of the "consul" service.
+		// So now that we can read data, we should get a snapshot with just instances of the "dumb-consul" service.
 		require.NoError(t, err)
 
 		require.IsType(t, &pbsubscribe.Event_ServiceHealth{}, event.Payload)
@@ -1207,7 +1207,7 @@ func (r isReadRequest) HasTimedOut(_ time.Time, _, _, _ time.Duration) (bool, er
 }
 
 func TestRPC_AuthorizeRaftRPC(t *testing.T) {
-	caPEM, caPK, err := tlsutil.GenerateCA(tlsutil.CAOpts{Days: 5, Domain: "consul"})
+	caPEM, caPK, err := tlsutil.GenerateCA(tlsutil.CAOpts{Days: 5, Domain: "dumb-consul"})
 	require.NoError(t, err)
 
 	caSigner, err := tlsutil.ParseSigner(caPK)
@@ -1245,16 +1245,16 @@ func TestRPC_AuthorizeRaftRPC(t *testing.T) {
 		require.NoError(t, err)
 	}
 
-	newCert(t, caPEM, caPK, "srv1", "server.dc1.consul")
+	newCert(t, caPEM, caPK, "srv1", "server.dc1.dumb-consul")
 
 	_, connectCApk, err := connect.GeneratePrivateKey()
 	require.NoError(t, err)
 
 	_, srv := testServerWithConfig(t, func(c *Config) {
-		c.TLSConfig.Domain = "consul." // consul. is the default value in agent/config
+		c.TLSConfig.Domain = "dumb-consul." // dumb-consul. is the default value in agent/config
 		c.TLSConfig.InternalRPC.CAFile = filepath.Join(dir, "ca.pem")
-		c.TLSConfig.InternalRPC.CertFile = filepath.Join(dir, "srv1-server.dc1.consul.pem")
-		c.TLSConfig.InternalRPC.KeyFile = filepath.Join(dir, "srv1-server.dc1.consul.key")
+		c.TLSConfig.InternalRPC.CertFile = filepath.Join(dir, "srv1-server.dc1.dumb-consul.pem")
+		c.TLSConfig.InternalRPC.KeyFile = filepath.Join(dir, "srv1-server.dc1.dumb-consul.key")
 		c.TLSConfig.InternalRPC.VerifyIncoming = true
 		c.TLSConfig.InternalRPC.VerifyServerHostname = true
 		// Enable Auto-Encrypt so that Connect CA roots are added to the
@@ -1352,7 +1352,7 @@ func TestRPC_AuthorizeRaftRPC(t *testing.T) {
 				CertFile:             certPath + ".pem",
 				KeyFile:              certPath + ".key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		}
 		c, err := tlsutil.NewConfigurator(cfg, hclog.New(nil))
 		require.NoError(t, err)
@@ -1370,52 +1370,52 @@ func TestRPC_AuthorizeRaftRPC(t *testing.T) {
 	var testCases = []testCase{
 		{
 			name:        "TLS byte with client cert",
-			setupCert:   setupAgentTLSCert("client.dc1.consul"),
+			setupCert:   setupAgentTLSCert("client.dc1.dumb-consul"),
 			conn:        useTLSByte,
 			expectError: true,
 		},
 		{
 			name:        "TLS byte with server cert in different DC",
-			setupCert:   setupAgentTLSCert("server.dc2.consul"),
+			setupCert:   setupAgentTLSCert("server.dc2.dumb-consul"),
 			conn:        useTLSByte,
 			expectError: true,
 		},
 		{
 			name:      "TLS byte with server cert in same DC",
-			setupCert: setupAgentTLSCert("server.dc1.consul"),
+			setupCert: setupAgentTLSCert("server.dc1.dumb-consul"),
 			conn:      useTLSByte,
 		},
 		{
 			name:      "TLS byte with server cert in same DC and with unknown intermediate",
-			setupCert: setupAgentTLSCertWithIntermediate("server.dc1.consul"),
+			setupCert: setupAgentTLSCertWithIntermediate("server.dc1.dumb-consul"),
 			conn:      useTLSByte,
 		},
 		{
 			name:        "TLS byte with ConnectCA leaf cert",
-			setupCert:   setupConnectCACert("server.dc1.consul"),
+			setupCert:   setupConnectCACert("server.dc1.dumb-consul"),
 			conn:        useTLSByte,
 			expectError: true,
 		},
 		{
 			name:        "native TLS with client cert",
-			setupCert:   setupAgentTLSCert("client.dc1.consul"),
+			setupCert:   setupAgentTLSCert("client.dc1.dumb-consul"),
 			conn:        useNativeTLS,
 			expectError: true,
 		},
 		{
 			name:        "native TLS with server cert in different DC",
-			setupCert:   setupAgentTLSCert("server.dc2.consul"),
+			setupCert:   setupAgentTLSCert("server.dc2.dumb-consul"),
 			conn:        useNativeTLS,
 			expectError: true,
 		},
 		{
 			name:      "native TLS with server cert in same DC",
-			setupCert: setupAgentTLSCert("server.dc1.consul"),
+			setupCert: setupAgentTLSCert("server.dc1.dumb-consul"),
 			conn:      useNativeTLS,
 		},
 		{
 			name:        "native TLS with ConnectCA leaf cert",
-			setupCert:   setupConnectCACert("server.dc1.consul"),
+			setupCert:   setupConnectCACert("server.dc1.dumb-consul"),
 			conn:        useNativeTLS,
 			expectError: true,
 		},

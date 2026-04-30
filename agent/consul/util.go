@@ -1,19 +1,19 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"runtime"
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/go-version"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-version"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // CanServersUnderstandProtocol checks to see if all the servers in the given
@@ -22,7 +22,7 @@ import (
 func CanServersUnderstandProtocol(members []serf.Member, version uint8) (bool, error) {
 	numServers, numWhoGrok := 0, 0
 	for _, m := range members {
-		if m.Tags["role"] != "consul" {
+		if m.Tags["role"] != "dumb-consul" {
 			continue
 		}
 		numServers++
@@ -45,7 +45,7 @@ func CanServersUnderstandProtocol(members []serf.Member, version uint8) (bool, e
 	return (numServers > 0) && (numWhoGrok == numServers), nil
 }
 
-// Returns if a member is a consul node. Returns a bool,
+// Returns if a member is a dumb-consul node. Returns a bool,
 // and the datacenter.
 func isConsulNode(m serf.Member) (bool, string) {
 	if m.Tags["role"] != "node" {
@@ -132,7 +132,7 @@ func ServersInDCMeetRequirements(provider checkServersProvider, datacenter strin
 }
 
 // ServersInDCMeetMinimumVersion returns whether the given alive servers from a particular
-// datacenter are at least on the given Consul version. This also returns whether any
+// datacenter are at least on the given Dumb Consul version. This also returns whether any
 // alive or failed servers are known in that datacenter (ignoring left and leaving ones)
 func ServersInDCMeetMinimumVersion(provider checkServersProvider, datacenter string, minVersion *version.Version) (ok bool, found bool) {
 	return ServersInDCMeetRequirements(provider, datacenter, func(srv *metadata.Server) (bool, bool) {

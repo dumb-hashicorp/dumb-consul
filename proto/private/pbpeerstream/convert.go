@@ -6,8 +6,8 @@ package pbpeerstream
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/agent/structs"
-	pbservice "github.com/hashicorp/consul/proto/private/pbservice"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	pbservice "github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
 )
 
 // CheckServiceNodesToStruct converts the contained CheckServiceNodes to their structs equivalent.

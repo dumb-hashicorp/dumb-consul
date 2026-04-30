@@ -14,9 +14,9 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/ryanuber/columnize"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/peering"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/peering"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -62,7 +62,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -124,14 +124,14 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "List peering connections"
 	help     = `
-Usage: consul peering list [options]
+Usage: dumb-consul peering list [options]
 
   List all peering connections.  The results will be filtered according
   to ACL policy configuration.
 
   Example:
 
-    $ consul peering list
+    $ dumb-consul peering list
 `
 )
 

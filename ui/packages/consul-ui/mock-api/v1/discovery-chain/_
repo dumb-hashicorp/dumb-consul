@@ -319,7 +319,7 @@ ${splitters.map((item, i) => `
     "Targets": {
 ${resolvers.map(item => {
   const uuid = fake.random.uuid();
-  const domain = 'consul';
+  const domain = 'dumb-consul';
 	const name = `${item.Name}.internal.${uuid}.${domain}`;
 	return `
 		"${item.Name}": {

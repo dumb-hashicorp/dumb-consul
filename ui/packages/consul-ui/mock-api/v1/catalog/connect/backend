@@ -11,7 +11,7 @@
       "wan_ipv4": "172.17.0.2"
     },
     "NodeMeta": {
-      "consul-network-segment": ""
+      "dumb-consul-network-segment": ""
     },
     "ServiceKind": "connect-proxy",
     "ServiceID": "backend-sidecar-proxy",
@@ -51,7 +51,7 @@
       "wan_ipv4": "172.17.0.2"
     },
     "NodeMeta": {
-      "consul-network-segment": ""
+      "dumb-consul-network-segment": ""
     },
     "ServiceKind": "connect-proxy",
     "ServiceID": "backend-v2-sidecar-proxy",

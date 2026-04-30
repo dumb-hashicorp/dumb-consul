@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <div
-  class="consul-intention"
+  class="dumb-consul-intention"
   ...attributes
 >
 <DataForm
@@ -59,7 +59,7 @@ as |item readonly|}}
 
   {{#let (changeset-get item 'Action') as |newAction|}}
       <ModalDialog
-        class="consul-intention-action-warn-modal warning"
+        class="dumb-consul-intention-action-warn-modal warning"
         data-test-action-warning
         @aria={{hash
           label=(concat "Set intention to " newAction)
@@ -134,13 +134,13 @@ as |item readonly|}}
         </Hds::Alert>
       {{/if}}
       {{#if this.isManagedByCRDs}}
-        <Consul::Intention::Notice::CustomResource @type="warning" />
+        <Dumb Consul::Intention::Notice::CustomResource @type="warning" />
       {{/if}}
     {{/if}}
       <form
         {{on 'submit' (fn this.submit item api.submit)}}
       >
-        <Consul::Intention::Form::Fieldsets
+        <Dumb Consul::Intention::Form::Fieldsets
           @nspaces={{this.nspaces}}
           @dc={{@dc}}
           @partitions={{this.partitions}}
@@ -208,7 +208,7 @@ as |item readonly|}}
       </Hds::Alert>
     {{/if}}
 
-    <Consul::Intention::View
+    <Dumb Consul::Intention::View
       @item={{item}}
       data-test-readonly
     />

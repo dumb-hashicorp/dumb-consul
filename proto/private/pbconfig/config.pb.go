@@ -662,7 +662,7 @@ var File_private_pbconfig_config_proto protoreflect.FileDescriptor
 
 const file_private_pbconfig_config_proto_rawDesc = "" +
 	"\n" +
-	"\x1dprivate/pbconfig/config.proto\x12 hashicorp.consul.internal.config\"\xb7\x03\n" +
+	"\x1dprivate/pbconfig/config.proto\x12 dumb-hashicorp.dumb-consul.internal.config\"\xb7\x03\n" +
 	"\x06Config\x12\x1e\n" +
 	"\n" +
 	"Datacenter\x18\x01 \x01(\tR\n" +
@@ -671,13 +671,13 @@ const file_private_pbconfig_config_proto_rawDesc = "" +
 	"\bNodeName\x18\x03 \x01(\tR\bNodeName\x12 \n" +
 	"\vSegmentName\x18\x04 \x01(\tR\vSegmentName\x12\x1c\n" +
 	"\tPartition\x18\t \x01(\tR\tPartition\x127\n" +
-	"\x03ACL\x18\x05 \x01(\v2%.hashicorp.consul.internal.config.ACLR\x03ACL\x12O\n" +
-	"\vAutoEncrypt\x18\x06 \x01(\v2-.hashicorp.consul.internal.config.AutoEncryptR\vAutoEncrypt\x12@\n" +
-	"\x06Gossip\x18\a \x01(\v2(.hashicorp.consul.internal.config.GossipR\x06Gossip\x127\n" +
-	"\x03TLS\x18\b \x01(\v2%.hashicorp.consul.internal.config.TLSR\x03TLS\"\x80\x01\n" +
+	"\x03ACL\x18\x05 \x01(\v2%.dumb-hashicorp.dumb-consul.internal.config.ACLR\x03ACL\x12O\n" +
+	"\vAutoEncrypt\x18\x06 \x01(\v2-.dumb-hashicorp.dumb-consul.internal.config.AutoEncryptR\vAutoEncrypt\x12@\n" +
+	"\x06Gossip\x18\a \x01(\v2(.dumb-hashicorp.dumb-consul.internal.config.GossipR\x06Gossip\x127\n" +
+	"\x03TLS\x18\b \x01(\v2%.dumb-hashicorp.dumb-consul.internal.config.TLSR\x03TLS\"\x80\x01\n" +
 	"\x06Gossip\x12R\n" +
 	"\n" +
-	"Encryption\x18\x01 \x01(\v22.hashicorp.consul.internal.config.GossipEncryptionR\n" +
+	"Encryption\x18\x01 \x01(\v22.dumb-hashicorp.dumb-consul.internal.config.GossipEncryptionR\n" +
 	"Encryption\x12\"\n" +
 	"\fRetryJoinLAN\x18\x02 \x03(\tR\fRetryJoinLAN\"t\n" +
 	"\x10GossipEncryption\x12\x10\n" +
@@ -702,7 +702,7 @@ const file_private_pbconfig_config_proto_rawDesc = "" +
 	"DownPolicy\x12$\n" +
 	"\rDefaultPolicy\x18\x06 \x01(\tR\rDefaultPolicy\x120\n" +
 	"\x13EnableKeyListPolicy\x18\a \x01(\bR\x13EnableKeyListPolicy\x12C\n" +
-	"\x06Tokens\x18\b \x01(\v2+.hashicorp.consul.internal.config.ACLTokensR\x06Tokens\x129\n" +
+	"\x06Tokens\x18\b \x01(\v2+.dumb-hashicorp.dumb-consul.internal.config.ACLTokensR\x06Tokens\x129\n" +
 	"\x16Deprecated_DisabledTTL\x18\t \x01(\tB\x02\x18\x01R\x15DeprecatedDisabledTTL\x126\n" +
 	"\x16EnableTokenPersistence\x18\n" +
 	" \x01(\bR\x16EnableTokenPersistence\x120\n" +
@@ -713,7 +713,7 @@ const file_private_pbconfig_config_proto_rawDesc = "" +
 	"\rAgentRecovery\x18\x03 \x01(\tR\rAgentRecovery\x12\x18\n" +
 	"\aDefault\x18\x04 \x01(\tR\aDefault\x12\x14\n" +
 	"\x05Agent\x18\x05 \x01(\tR\x05Agent\x12q\n" +
-	"\x16ManagedServiceProvider\x18\x06 \x03(\v29.hashicorp.consul.internal.config.ACLServiceProviderTokenR\x16ManagedServiceProvider\"U\n" +
+	"\x16ManagedServiceProvider\x18\x06 \x03(\v29.dumb-hashicorp.dumb-consul.internal.config.ACLServiceProviderTokenR\x16ManagedServiceProvider\"U\n" +
 	"\x17ACLServiceProviderToken\x12\x1e\n" +
 	"\n" +
 	"AccessorID\x18\x01 \x01(\tR\n" +
@@ -724,7 +724,7 @@ const file_private_pbconfig_config_proto_rawDesc = "" +
 	"\x06DNSSAN\x18\x02 \x03(\tR\x06DNSSAN\x12\x14\n" +
 	"\x05IPSAN\x18\x03 \x03(\tR\x05IPSAN\x12\x1a\n" +
 	"\bAllowTLS\x18\x04 \x01(\bR\bAllowTLSB\x8b\x02\n" +
-	"$com.hashicorp.consul.internal.configB\vConfigProtoP\x01Z2github.com/hashicorp/consul/proto/private/pbconfig\xa2\x02\x04HCIC\xaa\x02 Hashicorp.Consul.Internal.Config\xca\x02 Hashicorp\\Consul\\Internal\\Config\xe2\x02,Hashicorp\\Consul\\Internal\\Config\\GPBMetadata\xea\x02#Hashicorp::Consul::Internal::Configb\x06proto3"
+	"$com.dumb-hashicorp.dumb-consul.internal.configB\vConfigProtoP\x01Z2github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfig\xa2\x02\x04HCIC\xaa\x02 Hashicorp.Dumb Consul.Internal.Config\xca\x02 Hashicorp\\Dumb Consul\\Internal\\Config\xe2\x02,Hashicorp\\Dumb Consul\\Internal\\Config\\GPBMetadata\xea\x02#Hashicorp::Dumb Consul::Internal::Configb\x06proto3"
 
 var (
 	file_private_pbconfig_config_proto_rawDescOnce sync.Once
@@ -740,23 +740,23 @@ func file_private_pbconfig_config_proto_rawDescGZIP() []byte {
 
 var file_private_pbconfig_config_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_private_pbconfig_config_proto_goTypes = []any{
-	(*Config)(nil),                  // 0: hashicorp.consul.internal.config.Config
-	(*Gossip)(nil),                  // 1: hashicorp.consul.internal.config.Gossip
-	(*GossipEncryption)(nil),        // 2: hashicorp.consul.internal.config.GossipEncryption
-	(*TLS)(nil),                     // 3: hashicorp.consul.internal.config.TLS
-	(*ACL)(nil),                     // 4: hashicorp.consul.internal.config.ACL
-	(*ACLTokens)(nil),               // 5: hashicorp.consul.internal.config.ACLTokens
-	(*ACLServiceProviderToken)(nil), // 6: hashicorp.consul.internal.config.ACLServiceProviderToken
-	(*AutoEncrypt)(nil),             // 7: hashicorp.consul.internal.config.AutoEncrypt
+	(*Config)(nil),                  // 0: dumb-hashicorp.dumb-consul.internal.config.Config
+	(*Gossip)(nil),                  // 1: dumb-hashicorp.dumb-consul.internal.config.Gossip
+	(*GossipEncryption)(nil),        // 2: dumb-hashicorp.dumb-consul.internal.config.GossipEncryption
+	(*TLS)(nil),                     // 3: dumb-hashicorp.dumb-consul.internal.config.TLS
+	(*ACL)(nil),                     // 4: dumb-hashicorp.dumb-consul.internal.config.ACL
+	(*ACLTokens)(nil),               // 5: dumb-hashicorp.dumb-consul.internal.config.ACLTokens
+	(*ACLServiceProviderToken)(nil), // 6: dumb-hashicorp.dumb-consul.internal.config.ACLServiceProviderToken
+	(*AutoEncrypt)(nil),             // 7: dumb-hashicorp.dumb-consul.internal.config.AutoEncrypt
 }
 var file_private_pbconfig_config_proto_depIdxs = []int32{
-	4, // 0: hashicorp.consul.internal.config.Config.ACL:type_name -> hashicorp.consul.internal.config.ACL
-	7, // 1: hashicorp.consul.internal.config.Config.AutoEncrypt:type_name -> hashicorp.consul.internal.config.AutoEncrypt
-	1, // 2: hashicorp.consul.internal.config.Config.Gossip:type_name -> hashicorp.consul.internal.config.Gossip
-	3, // 3: hashicorp.consul.internal.config.Config.TLS:type_name -> hashicorp.consul.internal.config.TLS
-	2, // 4: hashicorp.consul.internal.config.Gossip.Encryption:type_name -> hashicorp.consul.internal.config.GossipEncryption
-	5, // 5: hashicorp.consul.internal.config.ACL.Tokens:type_name -> hashicorp.consul.internal.config.ACLTokens
-	6, // 6: hashicorp.consul.internal.config.ACLTokens.ManagedServiceProvider:type_name -> hashicorp.consul.internal.config.ACLServiceProviderToken
+	4, // 0: dumb-hashicorp.dumb-consul.internal.config.Config.ACL:type_name -> dumb-hashicorp.dumb-consul.internal.config.ACL
+	7, // 1: dumb-hashicorp.dumb-consul.internal.config.Config.AutoEncrypt:type_name -> dumb-hashicorp.dumb-consul.internal.config.AutoEncrypt
+	1, // 2: dumb-hashicorp.dumb-consul.internal.config.Config.Gossip:type_name -> dumb-hashicorp.dumb-consul.internal.config.Gossip
+	3, // 3: dumb-hashicorp.dumb-consul.internal.config.Config.TLS:type_name -> dumb-hashicorp.dumb-consul.internal.config.TLS
+	2, // 4: dumb-hashicorp.dumb-consul.internal.config.Gossip.Encryption:type_name -> dumb-hashicorp.dumb-consul.internal.config.GossipEncryption
+	5, // 5: dumb-hashicorp.dumb-consul.internal.config.ACL.Tokens:type_name -> dumb-hashicorp.dumb-consul.internal.config.ACLTokens
+	6, // 6: dumb-hashicorp.dumb-consul.internal.config.ACLTokens.ManagedServiceProvider:type_name -> dumb-hashicorp.dumb-consul.internal.config.ACLServiceProviderToken
 	7, // [7:7] is the sub-list for method output_type
 	7, // [7:7] is the sub-list for method input_type
 	7, // [7:7] is the sub-list for extension type_name

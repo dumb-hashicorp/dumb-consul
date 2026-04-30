@@ -12,18 +12,18 @@ import (
 
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/consul"
-	consulrate "github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	consulrate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 type RuntimeSOAConfig struct {
@@ -33,7 +33,7 @@ type RuntimeSOAConfig struct {
 	Minttl  uint32 // 0,
 }
 
-// StaticRuntimeConfig specifies the subset of configuration the consul agent actually
+// StaticRuntimeConfig specifies the subset of configuration the dumb-consul agent actually
 // uses and that are not reloadable by configuration auto reload.
 type StaticRuntimeConfig struct {
 	// EncryptVerifyIncoming enforces incoming gossip encryption and can be
@@ -49,7 +49,7 @@ type StaticRuntimeConfig struct {
 	EncryptVerifyOutgoing bool
 }
 
-// RuntimeConfig specifies the configuration the consul agent actually
+// RuntimeConfig specifies the configuration the dumb-consul agent actually
 // uses. Is is derived from one or more Config structures which can come
 // from files, flags and/or environment variables.
 type RuntimeConfig struct {
@@ -68,7 +68,7 @@ type RuntimeConfig struct {
 	VersionMetadata            string
 	BuildDate                  time.Time
 
-	// consul config
+	// dumb-consul config
 	ConsulCoordinateUpdateMaxBatches int
 	ConsulCoordinateUpdateBatchSize  int
 	ConsulCoordinateUpdatePeriod     time.Duration
@@ -89,12 +89,12 @@ type RuntimeConfig struct {
 
 	ACLTokens token.Config
 
-	ACLResolverSettings consul.ACLResolverSettings
+	ACLResolverSettings dumb-consul.ACLResolverSettings
 
 	// ACLEnableKeyListPolicy is used to opt-in to the "list" policy added to
-	// KV ACLs in Consul 1.0.
+	// KV ACLs in Dumb Consul 1.0.
 	//
-	// See https://developer.hashicorp.com/docs/guides/acl.html#list-policy-for-keys for
+	// See https://developer.dumb-hashicorp.com/docs/guides/acl.html#list-policy-for-keys for
 	// more details.
 	//
 	// hcl: acl.enable_key_list_policy = (true|false)
@@ -159,7 +159,7 @@ type RuntimeConfig struct {
 	AutopilotServerStabilizationTime time.Duration
 
 	// AutopilotUpgradeVersionTag is the node tag to use for version info when
-	// performing upgrade migrations. If left blank, the Consul version will be used.
+	// performing upgrade migrations. If left blank, the Dumb Consul version will be used.
 	//
 	// (Enterprise-only)
 	//
@@ -168,7 +168,7 @@ type RuntimeConfig struct {
 
 	// DNSAllowStale is used to enable lookups with stale
 	// data. This gives horizontal read scalability since
-	// any Consul server can service the query instead of
+	// any Dumb Consul server can service the query instead of
 	// only the leader.
 	//
 	// hcl: dns_config { allow_stale = (true|false) }
@@ -194,21 +194,21 @@ type RuntimeConfig struct {
 	DNSARecordLimit int
 
 	// DNSDisableCompression is used to control whether DNS responses are
-	// compressed. In Consul 0.7 this was turned on by default and this
+	// compressed. In Dumb Consul 0.7 this was turned on by default and this
 	// config was added as an opt-out.
 	//
 	// hcl: dns_config { disable_compression = (true|false) }
 	DNSDisableCompression bool
 
 	// DNSDomain is the DNS domain for the records. Should end with a dot.
-	// Defaults to "consul."
+	// Defaults to "dumb-consul."
 	//
 	// hcl: domain = string
 	// flag: -domain string
 	DNSDomain string
 
 	// DNSAltDomain can be set to support resolution on an additional
-	// consul domain. Should end with a dot.
+	// dumb-consul domain. Should end with a dot.
 	// If left blank, only the primary domain will be used.
 	//
 	// hcl: alt_domain = string
@@ -217,7 +217,7 @@ type RuntimeConfig struct {
 
 	// DNSEnableTruncate is used to enable setting the truncate
 	// flag for UDP DNS queries.  This allows unmodified
-	// clients to re-query the consul server using TCP
+	// clients to re-query the dumb-consul server using TCP
 	// when the total number of records exceeds the number
 	// returned by default for UDP.
 	//
@@ -255,7 +255,7 @@ type RuntimeConfig struct {
 	DNSRecursorStrategy structs.RecursorStrategy
 
 	// DNSRecursorTimeout specifies the timeout in seconds
-	// for Consul's internal dns client used for recursion.
+	// for Dumb Consul's internal dns client used for recursion.
 	// This value is used for the connection, read and write timeout.
 	//
 	// hcl: dns_config { recursor_timeout = "duration" }
@@ -284,7 +284,7 @@ type RuntimeConfig struct {
 	DNSNodeMetaTXT bool
 
 	// DNSRecursors can be set to allow the DNS servers to recursively
-	// resolve non-consul domains.
+	// resolve non-dumb-consul domains.
 	//
 	// hcl: recursors = []string
 	// flag: -recursor string [-recursor string]
@@ -357,7 +357,7 @@ type RuntimeConfig struct {
 	NodeName string
 
 	// AdvertiseAddrLAN is the address we use for advertising our Serf, and
-	// Consul RPC IP. The address can be specified as an ip address or as a
+	// Dumb Consul RPC IP. The address can be specified as an ip address or as a
 	// go-sockaddr template which resolves to a single ip address. If not
 	// specified, the bind address is used.
 	//
@@ -365,7 +365,7 @@ type RuntimeConfig struct {
 	AdvertiseAddrLAN *net.IPAddr
 
 	// AdvertiseAddrWAN is the address we use for advertising our Serf, and
-	// Consul RPC IP. The address can be specified as an ip address or as a
+	// Dumb Consul RPC IP. The address can be specified as an ip address or as a
 	// go-sockaddr template which resolves to a single ip address. If not
 	// specified, the bind address is used.
 	//
@@ -384,14 +384,14 @@ type RuntimeConfig struct {
 	// flag: -bind string
 	BindAddr *net.IPAddr
 
-	// Bootstrap is used to bring up the first Consul server, and
+	// Bootstrap is used to bring up the first Dumb Consul server, and
 	// permits that node to elect itself leader
 	//
 	// hcl: bootstrap = (true|false)
 	// flag: -bootstrap
 	Bootstrap bool
 
-	// BootstrapExpect tries to automatically bootstrap the Consul cluster, by
+	// BootstrapExpect tries to automatically bootstrap the Dumb Consul cluster, by
 	// having servers wait to bootstrap until enough servers join, and then
 	// performing the bootstrap process automatically. They will disable their
 	// automatic bootstrap process if they detect any servers that are part of
@@ -407,7 +407,7 @@ type RuntimeConfig struct {
 	// CheckUpdateInterval controls the interval on which the output of a health check
 	// is updated if there is no change to the state. For example, a check in a steady
 	// state may run every 5 second generating a unique output (timestamp, etc), forcing
-	// constant writes. This allows Consul to defer the write for some period of time,
+	// constant writes. This allows Dumb Consul to defer the write for some period of time,
 	// reducing the write pressure when the state is steady.
 	//
 	// See also: DiscardCheckOutput
@@ -573,14 +573,14 @@ type RuntimeConfig struct {
 	// DefaultIntentionPolicy is used to define a default intention action for all
 	// sources and destinations. Possible values are "allow", "deny", or "" (blank).
 	// For compatibility, falls back to ACLResolverSettings.ACLDefaultPolicy (which
-	// itself has a default of "allow") if left blank. Future versions of Consul
+	// itself has a default of "allow") if left blank. Future versions of Dumb Consul
 	// will default this field to "deny" to be secure by default.
 	//
 	// hcl: default_intention_policy = string
 	DefaultIntentionPolicy string
 
 	// DefaultQueryTime is the amount of time a blocking query will wait before
-	// Consul will force a response. This value can be overridden by the 'wait'
+	// Dumb Consul will force a response. This value can be overridden by the 'wait'
 	// query parameter.
 	//
 	// hcl: default_query_time = "duration"
@@ -588,7 +588,7 @@ type RuntimeConfig struct {
 	DefaultQueryTime time.Duration
 
 	// DevMode enables a fast-path mode of operation to bring up an in-memory
-	// server with minimal configuration. Useful for developing Consul.
+	// server with minimal configuration. Useful for developing Dumb Consul.
 	//
 	// flag: -dev
 	DevMode bool
@@ -604,8 +604,8 @@ type RuntimeConfig struct {
 	// hcl: disable_coordinates = (true|false)
 	DisableCoordinates bool
 
-	// DisableHostNodeID will prevent Consul from using information from the
-	// host to generate a node ID, and will cause Consul to generate a
+	// DisableHostNodeID will prevent Dumb Consul from using information from the
+	// host to generate a node ID, and will cause Dumb Consul to generate a
 	// random ID instead.
 	//
 	// hcl: disable_host_node_id = (true|false)
@@ -616,7 +616,7 @@ type RuntimeConfig struct {
 	// URLs from containing unprintable chars. This filter was added in 1.0.3 as a
 	// response to a vulnerability report. Disabling this is never recommended in
 	// general however some users who have keys written in older versions of
-	// Consul may use this to temporarily disable the filter such that they can
+	// Dumb Consul may use this to temporarily disable the filter such that they can
 	// delete those keys again! We do not recommend leaving it disabled long term.
 	//
 	// hcl: disable_http_unprintable_char_filter
@@ -716,7 +716,7 @@ type RuntimeConfig struct {
 	// The addresses are taken from 'addresses.grpc' which should contain a
 	// space separated list of ip addresses, UNIX socket paths and/or
 	// go-sockaddr templates. UNIX socket paths must be written as
-	// 'unix://<full path>', e.g. 'unix:///var/run/consul-grpc.sock'.
+	// 'unix://<full path>', e.g. 'unix:///var/run/dumb-consul-grpc.sock'.
 	//
 	// If 'addresses.grpc' was not provided the 'client_addr' addresses are
 	// used.
@@ -731,7 +731,7 @@ type RuntimeConfig struct {
 	// The addresses are taken from 'addresses.grpc_tls' which should contain a
 	// space separated list of ip addresses, UNIX socket paths and/or
 	// go-sockaddr templates. UNIX socket paths must be written as
-	// 'unix://<full path>', e.g. 'unix:///var/run/consul-grpc.sock'.
+	// 'unix://<full path>', e.g. 'unix:///var/run/dumb-consul-grpc.sock'.
 	//
 	// If 'addresses.grpc_tls' was not provided the 'client_addr' addresses are
 	// used.
@@ -753,10 +753,10 @@ type RuntimeConfig struct {
 	GRPCKeepaliveTimeout time.Duration
 
 	// EnableXDSLoadBalancing controls xDS load balancing between the servers. Enabled by default.
-	// When enabled, Consul balances loads from xDS clients across available servers equally with an error margin of 0.1.
+	// When enabled, Dumb Consul balances loads from xDS clients across available servers equally with an error margin of 0.1.
 	//
-	// When disabled, Consul does not restrict on the number of xDS connections on a server.
-	// In this scenario, you should deploy an external load balancer in front of the consul servers and distribute the load accordingly.
+	// When disabled, Dumb Consul does not restrict on the number of xDS connections on a server.
+	// In this scenario, you should deploy an external load balancer in front of the dumb-consul servers and distribute the load accordingly.
 	EnableXDSLoadBalancing bool
 
 	// HTTPAddrs contains the list of TCP addresses and UNIX sockets the HTTP
@@ -766,7 +766,7 @@ type RuntimeConfig struct {
 	// The addresses are taken from 'addresses.http' which should contain a
 	// space separated list of ip addresses, UNIX socket paths and/or
 	// go-sockaddr templates. UNIX socket paths must be written as
-	// 'unix://<full path>', e.g. 'unix:///var/run/consul-http.sock'.
+	// 'unix://<full path>', e.g. 'unix:///var/run/dumb-consul-http.sock'.
 	//
 	// If 'addresses.http' was not provided the 'client_addr' addresses are
 	// used.
@@ -788,7 +788,7 @@ type RuntimeConfig struct {
 	// The addresses are taken from 'addresses.https' which should contain a
 	// space separated list of ip addresses, UNIX socket paths and/or
 	// go-sockaddr templates. UNIX socket paths must be written as
-	// 'unix://<full path>', e.g. 'unix:///var/run/consul-https.sock'.
+	// 'unix://<full path>', e.g. 'unix:///var/run/dumb-consul-https.sock'.
 	//
 	// If 'addresses.https' was not provided the 'client_addr' addresses are
 	// used.
@@ -879,7 +879,7 @@ type RuntimeConfig struct {
 	Logging logging.Config
 
 	// MaxQueryTime is the maximum amount of time a blocking query can wait
-	// before Consul will force a response. Consul applies jitter to the wait
+	// before Dumb Consul will force a response. Dumb Consul applies jitter to the wait
 	// time. The jittered time will be capped to MaxQueryTime.
 	//
 	// hcl: max_query_time = "duration"
@@ -937,7 +937,7 @@ type RuntimeConfig struct {
 
 	// PrimaryGateways is a list of addresses and/or go-discover expressions to
 	// discovery the mesh gateways in the primary datacenter. See
-	// https://developer.hashicorp.com/docs/agent/config/cli-flags#cloud-auto-joining for
+	// https://developer.dumb-hashicorp.com/docs/agent/config/cli-flags#cloud-auto-joining for
 	// details.
 	//
 	// hcl: primary_gateways = []string
@@ -951,14 +951,14 @@ type RuntimeConfig struct {
 	// hcl: primary_gateways_interval = "duration"
 	PrimaryGatewaysInterval time.Duration
 
-	// RPCAdvertiseAddr is the TCP address Consul advertises for its RPC endpoint.
+	// RPCAdvertiseAddr is the TCP address Dumb Consul advertises for its RPC endpoint.
 	// By default this is the bind address on the default RPC Server port. If the
 	// advertise address is specified then it is used.
 	//
 	// hcl: bind_addr = string advertise_addr = string ports { server = int }
 	RPCAdvertiseAddr *net.TCPAddr
 
-	// RPCBindAddr is the TCP address Consul will bind to for its RPC endpoint.
+	// RPCBindAddr is the TCP address Dumb Consul will bind to for its RPC endpoint.
 	// By default this is the bind address on the default RPC Server port.
 	//
 	// hcl: bind_addr = string ports { server = int }
@@ -1013,12 +1013,12 @@ type RuntimeConfig struct {
 	// hcl: limits { rpc_max_conns_per_client = 100 }
 	RPCMaxConnsPerClient int
 
-	// RPCProtocol is the Consul protocol version to use.
+	// RPCProtocol is the Dumb Consul protocol version to use.
 	//
 	// hcl: protocol = int
 	RPCProtocol int
 
-	RPCConfig consul.RPCConfig
+	RPCConfig dumb-consul.RPCConfig
 
 	// UseStreamingBackend enables streaming as a replacement for agent/cache
 	// in the client agent for endpoints which support streaming.
@@ -1050,7 +1050,7 @@ type RuntimeConfig struct {
 	// followers time to reload from snapshot without becoming unhealthy. If it's
 	// too low then followers are unable to ever recover from a restart and will
 	// enter a loop of constantly downloading full snapshots and never catching
-	// up. If you need to change this you should reconsider your usage of Consul
+	// up. If you need to change this you should reconsider your usage of Dumb Consul
 	// as it is not designed to store multiple-gigabyte data sets with high write
 	// throughput. Defaults to 10000.
 	//
@@ -1060,7 +1060,7 @@ type RuntimeConfig struct {
 	// hcl: raft_prevote_disabled = bool
 	RaftPreVoteDisabled bool
 
-	RaftLogStoreConfig consul.RaftLogStoreConfig
+	RaftLogStoreConfig dumb-consul.RaftLogStoreConfig
 
 	// ReconnectTimeoutLAN specifies the amount of time to wait to reconnect with
 	// another agent before deciding it's permanently gone. This can be used to
@@ -1084,7 +1084,7 @@ type RuntimeConfig struct {
 	AdvertiseReconnectTimeout time.Duration
 
 	// RejoinAfterLeave controls our interaction with the cluster after leave.
-	// When set to false (default), a leave causes Consul to not rejoin
+	// When set to false (default), a leave causes Dumb Consul to not rejoin
 	// the cluster until an explicit join is received. If this is set to
 	// true, we ignore the leave, and rejoin the cluster on start.
 	//
@@ -1139,7 +1139,7 @@ type RuntimeConfig struct {
 
 	// RetryJoinLAN is a list of addresses and/or go-discover expressions to
 	// join with retry enabled. See
-	// https://developer.hashicorp.com/docs/agent/config/cli-flags#cloud-auto-joining for
+	// https://developer.dumb-hashicorp.com/docs/agent/config/cli-flags#cloud-auto-joining for
 	// details.
 	//
 	// hcl: retry_join = []string
@@ -1164,7 +1164,7 @@ type RuntimeConfig struct {
 
 	// RetryJoinWAN is a list of addresses and/or go-discover expressions to
 	// join -wan with retry enabled. See
-	// https://developer.hashicorp.com/docs/agent/config/cli-flags#cloud-auto-joining for
+	// https://developer.dumb-hashicorp.com/docs/agent/config/cli-flags#cloud-auto-joining for
 	// details.
 	//
 	// hcl: retry_join_wan = []string
@@ -1415,7 +1415,7 @@ type RuntimeConfig struct {
 	// hcl: gossip_wan { retransmit_mult = int }
 	GossipWANRetransmitMult int
 
-	// ServerMode controls if this agent acts like a Consul server,
+	// ServerMode controls if this agent acts like a Dumb Consul server,
 	// or merely as a client. Servers have more state, take part
 	// in leader election, etc.
 	//
@@ -1482,7 +1482,7 @@ type RuntimeConfig struct {
 	AutoReloadConfig bool
 
 	// TLS configures certificates, CA, cipher suites, and other TLS settings
-	// on Consul's listeners (i.e. Internal multiplexed RPC, HTTPS and gRPC).
+	// on Dumb Consul's listeners (i.e. Internal multiplexed RPC, HTTPS and gRPC).
 	//
 	// hcl: tls { ... }
 	TLS tlsutil.Config
@@ -1497,7 +1497,7 @@ type RuntimeConfig struct {
 	// hcl: tagged_addresses = map[string]string
 	TaggedAddresses map[string]string
 
-	// TranslateWANAddrs controls whether or not Consul should prefer
+	// TranslateWANAddrs controls whether or not Dumb Consul should prefer
 	// the "wan" tagged address when doing lookups in remote datacenters.
 	// See TaggedAddresses below for more details.
 	//
@@ -1524,19 +1524,19 @@ type RuntimeConfig struct {
 	UIConfig UIConfig
 
 	// UnixSocketGroup contains the group of the file permissions when
-	// Consul binds to UNIX sockets.
+	// Dumb Consul binds to UNIX sockets.
 	//
 	// hcl: unix_sockets { group = string }
 	UnixSocketGroup string
 
 	// UnixSocketMode contains the mode of the file permissions when
-	// Consul binds to UNIX sockets.
+	// Dumb Consul binds to UNIX sockets.
 	//
 	// hcl: unix_sockets { mode = string }
 	UnixSocketMode string
 
 	// UnixSocketUser contains the user of the file permissions when
-	// Consul binds to UNIX sockets.
+	// Dumb Consul binds to UNIX sockets.
 	//
 	// hcl: unix_sockets { user = string }
 	UnixSocketUser string
@@ -1547,7 +1547,7 @@ type RuntimeConfig struct {
 	// handler to act appropriately. These are managed entirely in the
 	// agent layer using the standard APIs.
 	//
-	// See https://developer.hashicorp.com/docs/agent/watches.html for details.
+	// See https://developer.dumb-hashicorp.com/docs/agent/watches.html for details.
 	//
 	// hcl: watches = [
 	//   { type=string ... },
@@ -1730,7 +1730,7 @@ func (c *RuntimeConfig) ClientAddress() (unixAddr, httpAddr, httpsAddr string) {
 
 func (c *RuntimeConfig) ConnectCAConfiguration() (*structs.CAConfiguration, error) {
 	ca := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"LeafCertTTL":         structs.DefaultLeafCertTTL,
 			"IntermediateCertTTL": structs.DefaultIntermediateCertTTL,

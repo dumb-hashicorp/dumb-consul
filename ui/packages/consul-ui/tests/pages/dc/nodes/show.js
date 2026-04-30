@@ -25,18 +25,18 @@ export default function (
       'metadata',
     ]),
     healthChecks: alias('tabs.healthChecksTab.healthChecks'),
-    services: collection('.consul-service-instance-list > ul > li:not(:first-child)', {
+    services: collection('.dumb-consul-service-instance-list > ul > li:not(:first-child)', {
       name: text('[data-test-service-name]'),
       port: attribute('data-test-service-port', '[data-test-service-port]'),
       externalSource: attribute('data-test-external-source', '[data-test-external-source]'),
     }),
-    sessions: collection('.consul-lock-session-list [data-test-list-row]', {
+    sessions: collection('.dumb-consul-lock-session-list [data-test-list-row]', {
       TTL: attribute('data-test-session-ttl', '[data-test-session-ttl]'),
       delay: text('[data-test-session-delay]'),
       actions: clickable('label'),
       ...deletable(),
     }),
-    metadata: collection('.consul-metadata-list [data-test-tabular-row]', {}),
+    metadata: collection('.dumb-consul-metadata-list [data-test-tabular-row]', {}),
   };
   page.tabs.healthChecksTab = {
     criticalSerfNotice: present('[data-test-critical-serf-notice]'),

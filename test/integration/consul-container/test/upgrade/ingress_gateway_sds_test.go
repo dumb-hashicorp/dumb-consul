@@ -13,12 +13,12 @@ import (
 	"time"
 
 	"github.com/docker/go-connections/nat"
-	"github.com/hashicorp/consul/api"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/testcontainers/testcontainers-go"
@@ -28,9 +28,9 @@ import (
 const sdsServerPort = 1234
 
 // This upgrade test tests Ingress Gateway functionality when using an external
-// SDS server for certs, as described in https://developer.hashicorp.com/consul/docs/connect/gateways/ingress-gateway#custom-tls-certificates-via-secret-discovery-service-sds
+// SDS server for certs, as described in https://developer.dumb-hashicorp.com/dumb-consul/docs/connect/gateways/ingress-gateway#custom-tls-certificates-via-secret-discovery-service-sds
 // It:
-//  1. starts a consul cluster
+//  1. starts a dumb-consul cluster
 //  2. builds and starts a test SDS server from .../test-sds-server
 //  3. configures an ingress gateway pointed at this SDS server
 //  4. does HTTPS calls against the gateway and checks that the certs returned
@@ -70,7 +70,7 @@ func TestIngressGateway_SDS_UpgradeToTarget_fromLatest(t *testing.T) {
 	const nameS2 = libservice.StaticServer2ServiceName
 
 	// this must be one of the externally-mapped ports from
-	// https://github.com/hashicorp/consul/blob/c5e729e86576771c4c22c6da1e57aaa377319323/test/integration/consul-container/libs/cluster/container.go#L521-L525
+	// https://github.com/dumb-hashicorp/dumb-consul/blob/c5e729e86576771c4c22c6da1e57aaa377319323/test/integration/dumb-consul-container/libs/cluster/container.go#L521-L525
 	const (
 		portWildcard   = 8080
 		portOther      = 9999
@@ -78,7 +78,7 @@ func TestIngressGateway_SDS_UpgradeToTarget_fromLatest(t *testing.T) {
 		// these are in our pre-created certs in .../test-sds-server
 		hostnameWWW          = "www.example.com"
 		hostnameFoo          = "foo.example.com"
-		certResourceWildcard = "wildcard.ingress.consul"
+		certResourceWildcard = "wildcard.ingress.dumb-consul"
 	)
 	require.NoError(t, cluster.ConfigEntryWrite(&api.IngressGatewayConfigEntry{
 		Kind: api.IngressGateway,
@@ -137,7 +137,7 @@ func TestIngressGateway_SDS_UpgradeToTarget_fromLatest(t *testing.T) {
 
 	const staticClusterJSONKey = "envoy_extra_static_clusters_json"
 
-	// register sds cluster as per https://developer.hashicorp.com/consul/docs/connect/gateways/ingress-gateway#configure-static-sds-cluster-s
+	// register sds cluster as per https://developer.dumb-hashicorp.com/dumb-consul/docs/connect/gateways/ingress-gateway#configure-static-sds-cluster-s
 	require.NoError(t, cluster.Servers()[0].GetClient().Agent().ServiceRegister(
 		&api.AgentServiceRegistration{
 			Kind: api.ServiceKindIngressGateway,
@@ -218,9 +218,9 @@ func TestIngressGateway_SDS_UpgradeToTarget_fromLatest(t *testing.T) {
 	libassert.CatalogServiceExists(t, client, nameS2, nil)
 
 	tests := func(t *testing.T) {
-		t.Run("ensure HTTP response with cert *.ingress.consul", func(t *testing.T) {
+		t.Run("ensure HTTP response with cert *.ingress.dumb-consul", func(t *testing.T) {
 			port := portWildcard
-			reqHost := fmt.Sprintf("%s.ingress.consul:%d", libservice.StaticServerServiceName, port)
+			reqHost := fmt.Sprintf("%s.ingress.dumb-consul:%d", libservice.StaticServerServiceName, port)
 			portMapped, _ := cluster.Servers()[0].GetPod().MappedPort(
 				context.Background(),
 				nat.Port(fmt.Sprintf("%d/tcp", port)),
@@ -233,7 +233,7 @@ func TestIngressGateway_SDS_UpgradeToTarget_fromLatest(t *testing.T) {
 
 			require.Equal(t, 1, len(resp.TLS.PeerCertificates))
 			require.Equal(t, 1, len(resp.TLS.PeerCertificates[0].DNSNames))
-			assert.Equal(t, "*.ingress.consul", resp.TLS.PeerCertificates[0].DNSNames[0])
+			assert.Equal(t, "*.ingress.dumb-consul", resp.TLS.PeerCertificates[0].DNSNames[0])
 		})
 
 		t.Run("listener 2: ensure HTTP response with cert www.example.com", func(t *testing.T) {
@@ -321,7 +321,7 @@ func createSDSServer(t *testing.T, cluster *libcluster.Cluster) (containerName s
 	_, err = testcontainers.GenericContainer(ctx, testcontainers.GenericContainerRequest{
 		Started: true,
 		ContainerRequest: testcontainers.ContainerRequest{
-			Image: "consul-sds-server",
+			Image: "dumb-consul-sds-server",
 			Name:  containerName,
 			Networks: []string{
 				cluster.NetworkName,

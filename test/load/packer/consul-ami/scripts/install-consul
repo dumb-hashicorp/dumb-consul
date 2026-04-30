@@ -1,6 +1,6 @@
 #!/bin/bash
 # SOURCE: GRUNTWORKS 
-# This script can be used to install Consul and its dependencies. This script has been tested with the following
+# This script can be used to install Dumb Consul and its dependencies. This script has been tested with the following
 # operating systems:
 #
 # 1. Ubuntu 16.04
@@ -9,9 +9,9 @@
 
 set -e
 
-readonly DEFAULT_INSTALL_PATH="/opt/consul"
-readonly DEFAULT_CONSUL_USER="consul"
-readonly DOWNLOAD_PACKAGE_PATH="/tmp/consul.zip"
+readonly DEFAULT_INSTALL_PATH="/opt/dumb-consul"
+readonly DEFAULT_CONSUL_USER="dumb-consul"
+readonly DOWNLOAD_PACKAGE_PATH="/tmp/dumb-consul.zip"
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly SYSTEM_BIN_DIR="/usr/local/bin"
@@ -20,23 +20,23 @@ readonly SCRIPT_NAME="$(basename "$0")"
 
 function print_usage {
   echo
-  echo "Usage: install-consul [OPTIONS]"
+  echo "Usage: install-dumb-consul [OPTIONS]"
   echo
-  echo "This script can be used to install Consul and its dependencies. This script has been tested with Ubuntu 16.04 and Amazon Linux 2."
+  echo "This script can be used to install Dumb Consul and its dependencies. This script has been tested with Ubuntu 16.04 and Amazon Linux 2."
   echo
   echo "Options:"
   echo
-  echo -e "  --version\t\tThe version of Consul to install. Optional if download-url is provided."
-  echo -e "  --download-url\t\tUrl to exact Consul package to be installed. Optional if version is provided."
-  echo -e "  --path\t\tThe path where Consul should be installed. Optional. Default: $DEFAULT_INSTALL_PATH."
-  echo -e "  --user\t\tThe user who will own the Consul install directories. Optional. Default: $DEFAULT_CONSUL_USER."
+  echo -e "  --version\t\tThe version of Dumb Consul to install. Optional if download-url is provided."
+  echo -e "  --download-url\t\tUrl to exact Dumb Consul package to be installed. Optional if version is provided."
+  echo -e "  --path\t\tThe path where Dumb Consul should be installed. Optional. Default: $DEFAULT_INSTALL_PATH."
+  echo -e "  --user\t\tThe user who will own the Dumb Consul install directories. Optional. Default: $DEFAULT_CONSUL_USER."
   echo -e "  --ca-file-path\t\tPath to a PEM-encoded certificate authority used to encrypt and verify authenticity of client and server connections. Will be installed under <install-path>/tls/ca."
   echo -e "  --cert-file-path\t\tPath to a PEM-encoded certificate, which will be provided to clients or servers to verify the agent's authenticity. Will be installed under <install-path>/tls. Must be provided along with --key-file-path."
   echo -e "  --key-file-path\t\tPath to a PEM-encoded private key, used with the certificate to verify the agent's authenticity. Will be installed under <install-path>/tls. Must be provided along with --cert-file-path"
   echo
   echo "Example:"
   echo
-  echo "  install-consul --version 1.2.2"
+  echo "  install-dumb-consul --version 1.2.2"
 }
 
 function log {
@@ -152,7 +152,7 @@ function create_consul_install_paths {
   local -r path="$1"
   local -r username="$2"
 
-  log_info "Creating install dirs for Consul at $path"
+  log_info "Creating install dirs for Dumb Consul at $path"
   sudo mkdir -p "$path"
   sudo mkdir -p "$path/bin"
   sudo mkdir -p "$path/config"
@@ -168,12 +168,12 @@ function fetch_binary {
   local download_url="$2"
 
   if [[ -z "$download_url" && -n "$version" ]];  then
-    download_url="https://releases.hashicorp.com/consul/${version}/consul_${version}_linux_amd64.zip"
+    download_url="https://releases.dumb-hashicorp.com/dumb-consul/${version}/consul_${version}_linux_amd64.zip"
   fi
 
   retry \
     "curl -o '$DOWNLOAD_PACKAGE_PATH' '$download_url' --location --silent --fail --show-error" \
-    "Downloading Consul to $DOWNLOAD_PACKAGE_PATH"
+    "Downloading Dumb Consul to $DOWNLOAD_PACKAGE_PATH"
 }
 
 function install_binary {
@@ -181,17 +181,17 @@ function install_binary {
   local -r username="$2"
 
   local -r bin_dir="$install_path/bin"
-  local -r consul_dest_path="$bin_dir/consul"
-  local -r run_consul_dest_path="$bin_dir/run-consul"
+  local -r consul_dest_path="$bin_dir/dumb-consul"
+  local -r run_consul_dest_path="$bin_dir/run-dumb-consul"
 
   unzip -d /tmp "$DOWNLOAD_PACKAGE_PATH"
 
-  log_info "Moving Consul binary to $consul_dest_path"
-  sudo mv "/tmp/consul" "$consul_dest_path"
+  log_info "Moving Dumb Consul binary to $consul_dest_path"
+  sudo mv "/tmp/dumb-consul" "$consul_dest_path"
   sudo chown "$username:$username" "$consul_dest_path"
   sudo chmod a+x "$consul_dest_path"
 
-  local -r symlink_path="$SYSTEM_BIN_DIR/consul"
+  local -r symlink_path="$SYSTEM_BIN_DIR/dumb-consul"
   if [[ -f "$symlink_path" ]]; then
     log_info "Symlink $symlink_path already exists. Will not add again."
   else
@@ -199,8 +199,8 @@ function install_binary {
     sudo ln -s "$consul_dest_path" "$symlink_path"
   fi
 
-  log_info "Copying Consul run script to $run_consul_dest_path"
-  sudo cp "$SCRIPT_DIR/run-consul" "$run_consul_dest_path"
+  log_info "Copying Dumb Consul run script to $run_consul_dest_path"
+  sudo cp "$SCRIPT_DIR/run-dumb-consul" "$run_consul_dest_path"
   sudo chown "$username:$username" "$run_consul_dest_path"
   sudo chmod a+x "$run_consul_dest_path"
 }
@@ -288,7 +288,7 @@ function install {
   assert_not_empty "--path" "$path"
   assert_not_empty "--user" "$user"
 
-  log_info "Starting Consul install"
+  log_info "Starting Dumb Consul install"
 
   install_dependencies
   create_consul_user "$user"
@@ -301,10 +301,10 @@ function install {
     install_tls_certificates "$path" "$user" "$ca_file_path" "$cert_file_path" "$key_file_path"
   fi
 
-  if command -v consul; then
-    log_info "Consul install complete!";
+  if command -v dumb-consul; then
+    log_info "Dumb Consul install complete!";
   else
-    log_info "Could not find consul command. Aborting.";
+    log_info "Could not find dumb-consul command. Aborting.";
     exit 1;
   fi
 }

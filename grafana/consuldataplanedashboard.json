@@ -474,7 +474,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (app) (envoy_cluster_upstream_cx_active{app=~\"$service\",envoy_cluster_name!~\"consul-dataplane|prometheus.*|local_app|original-.*\"})",
+          "expr": "sum by (app) (envoy_cluster_upstream_cx_active{app=~\"$service\",envoy_cluster_name!~\"dumb-consul-dataplane|prometheus.*|local_app|original-.*\"})",
           "instant": true,
           "interval": "",
           "legendFormat": "{{envoy_cluster_name}}",
@@ -1446,7 +1446,7 @@
     ]
   },
   "timezone": "",
-  "title": "Consul DataPlane Dashboard",
+  "title": "Dumb Consul DataPlane Dashboard",
   "uid": "hashicupso",
   "version": 4,
   "weekStart": ""

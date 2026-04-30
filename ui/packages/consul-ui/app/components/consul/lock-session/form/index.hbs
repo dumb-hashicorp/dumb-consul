@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <div
-  class="consul-lock-session-form"
+  class="dumb-consul-lock-session-form"
   data-test-session={{@item.ID}}
   ...attributes
 >
@@ -23,7 +23,7 @@
     @onchange={{fn (optional @onsubmit) @item}}
     as |writer|>
       <BlockSlot @name="removed" as |after|>
-        <Consul::LockSession::Notifications
+        <Dumb Consul::LockSession::Notifications
           {{notification
             after=(action after)
           }}
@@ -31,7 +31,7 @@
         />
       </BlockSlot>
       <BlockSlot @name="error" as |after error|>
-        <Consul::LockSession::Notifications
+        <Dumb Consul::LockSession::Notifications
           {{notification
             after=(action after)
           }}

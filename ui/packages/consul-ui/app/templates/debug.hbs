@@ -1,9 +1,9 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-{{page-title 'Engineering Docs - Consul' separator=' - '}}
+{{page-title 'Engineering Docs - Dumb Consul' separator=' - '}}
 
 {{document-attrs class='is-debug'}}
 {{! Tell CSS what we have enabled }}
@@ -16,7 +16,7 @@
 {{#if (can 'use partitions')}}
   {{document-attrs class='has-partitions'}}
 {{/if}}
-<App class='docs hashicorp-consul' id='wrapper'>
+<App class='docs dumb-hashicorp-dumb-consul' id='wrapper'>
 
   <:notifications as |app|>
     {{#each this.flashMessages.queue as |flash|}}
@@ -32,15 +32,15 @@
   </:notifications>
 
   <:sideNav>
-    <Hds::AppSideNav @isResponsive={{true}} class='consul-side-nav'>
+    <Hds::AppSideNav @isResponsive={{true}} class='dumb-consul-side-nav'>
       <DocfyOutput as |node|>
         <Hds::AppSideNav::List as |SNL|>
           <SNL.Link
-            @icon='consul-color'
-            @ariaLabel='Consul'
+            @icon='dumb-consul-color'
+            @ariaLabel='Dumb Consul'
             @route='index'
             @query={{hash peer=undefined}}
-            @text='Consul'
+            @text='Dumb Consul'
           />
           <SNL.Title>Docs</SNL.Title>
 

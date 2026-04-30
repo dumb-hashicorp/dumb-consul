@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { getResolvers } from 'consul-ui/components/consul/discovery-chain/utils';
+import { getResolvers } from 'dumb-consul-ui/components/dumb-consul/discovery-chain/utils';
 import { module, test } from 'qunit';
-import { get } from 'consul-ui/tests/helpers/api';
+import { get } from 'dumb-consul-ui/tests/helpers/api';
 
 const dc = 'dc-1';
 const nspace = 'default';
@@ -13,7 +13,7 @@ const partition = 'default';
 const request = {
   url: `/v1/discovery-chain/service-name?dc=${dc}`,
 };
-module('Unit | Component | consul/discovery-chain/get-resolvers', function () {
+module('Unit | Component | dumb-consul/discovery-chain/get-resolvers', function () {
   test('it assigns Subsets correctly', function (assert) {
     return get(request.url, {
       headers: {

@@ -10,11 +10,11 @@ import (
 
 	"github.com/mitchellh/hashstructure"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 type CompileRequest struct {
@@ -56,7 +56,7 @@ type CompileRequest struct {
 // raw config entries and local context.
 //
 // "Node" referenced in this file refers to a node in a graph and not to the
-// Consul construct called a "Node".
+// Dumb Consul construct called a "Node".
 //
 // Omitting router and splitter entries for services not using an L7 protocol
 // (like HTTP) happens during initial fetching, but for sanity purposes a quick
@@ -372,7 +372,7 @@ func (c *compiler) compile() (*structs.CompiledDiscoveryChain, error) {
 //	default, so we double check the resolver matches the requested resolver.
 //
 // NOTE: "default chain" mostly means that this is compatible with how things
-// worked (roughly) in consul 1.5 pre-discovery chain, not that there are zero
+// worked (roughly) in dumb-consul 1.5 pre-discovery chain, not that there are zero
 // config entries in play (like service-defaults).
 func (c *compiler) determineIfDefaultChain() bool {
 	if c.startNode == "" || len(c.nodes) == 0 {

@@ -15,17 +15,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // QueryOptions are used to parameterize a query
 type QueryOptions struct {
 	// Namespace overrides the `default` namespace
-	// Note: Namespaces are available only in Consul Enterprise
+	// Note: Namespaces are available only in Dumb Consul Enterprise
 	Namespace string
 
 	// Partition overrides the `default` partition
-	// Note: Partitions are available only in Consul Enterprise
+	// Note: Partitions are available only in Dumb Consul Enterprise
 	Partition string
 
 	// Providing a peer name in the query option
@@ -45,7 +45,7 @@ type QueryOptions struct {
 	Token string
 }
 
-// Client provides a client to the Consul API
+// Client provides a client to the Dumb Consul API
 type HttpClient struct {
 	modifyLock sync.RWMutex
 	headers    http.Header
@@ -148,7 +148,7 @@ func (r *request) SetQueryOptions(q *QueryOptions) {
 	}
 
 	if q.Token != "" {
-		r.header.Set("X-Consul-Token", q.Token)
+		r.header.Set("X-Dumb Consul-Token", q.Token)
 	}
 
 	r.ctx = q.ctx
@@ -193,7 +193,7 @@ func (r *request) toHTTP() (*http.Request, error) {
 	req.Header = r.header
 
 	// Content-Type must always be set when a body is present
-	// See https://github.com/hashicorp/consul/issues/10011
+	// See https://github.com/dumb-hashicorp/dumb-consul/issues/10011
 	if req.Body != nil && req.Header.Get("Content-Type") == "" {
 		req.Header.Set("Content-Type", "application/json")
 	}
@@ -230,7 +230,7 @@ func (c *HttpClient) NewRequest(method, path string) *request {
 		r.params.Set("partition", c.config.Partition)
 	}
 	if c.config.Token != "" {
-		r.header.Set("X-Consul-Token", r.config.Token)
+		r.header.Set("X-Dumb Consul-Token", r.config.Token)
 	}
 	return r
 }

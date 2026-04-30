@@ -1,9 +1,9 @@
 <!-- START component-docs:@tagName -->
-# Consul::Server::Card
+# Dumb Consul::Server::Card
 <!-- END component-docs:@tagName -->
 
 <!-- START component-docs:@description -->
-A presentational component representing a Consul Server
+A presentational component representing a Dumb Consul Server
 <!-- END component-docs:@description -->
 
 ```hbs
@@ -11,7 +11,7 @@ A presentational component representing a Consul Server
   <figcaption>
     Read Replicas just show the name of the Server
   </figcaption>
-    <Consul::Server::Card
+    <Dumb Consul::Server::Card
       @item={{hash
         Name="Server Name"
         Healthy=true
@@ -19,14 +19,14 @@ A presentational component representing a Consul Server
         Status="voter"
       }}
     >
-    </Consul::Server::Card>
+    </Dumb Consul::Server::Card>
 </figure>
 
 <figure>
   <figcaption>
     Leaders have a special icon-tile
   </figcaption>
-    <Consul::Server::Card
+    <Dumb Consul::Server::Card
       @item={{hash
         Name="Server Name"
         Healthy=true
@@ -34,14 +34,14 @@ A presentational component representing a Consul Server
         Status="leader"
       }}
     >
-    </Consul::Server::Card>
+    </Dumb Consul::Server::Card>
 </figure>
 
 <figure>
   <figcaption>
     Unhealthy voters have a differently colored badge
   </figcaption>
-    <Consul::Server::Card
+    <Dumb Consul::Server::Card
       @item={{hash
         Name="Server Name"
         Healthy=false
@@ -49,14 +49,14 @@ A presentational component representing a Consul Server
         Status="voter"
       }}
     >
-    </Consul::Server::Card>
+    </Dumb Consul::Server::Card>
 </figure>
 
 <figure>
   <figcaption>
     Non-voters have different text and coloring
   </figcaption>
-    <Consul::Server::Card
+    <Dumb Consul::Server::Card
       @item={{hash
         Name="Server Name"
         Healthy=true
@@ -64,10 +64,10 @@ A presentational component representing a Consul Server
         Status="non-voter"
       }}
     >
-    </Consul::Server::Card>
+    </Dumb Consul::Server::Card>
 </figure>
 <figure>
-    <Consul::Server::Card
+    <Dumb Consul::Server::Card
       style={{style-map
         (array 'width' '200px')
       }}
@@ -78,7 +78,7 @@ A presentational component representing a Consul Server
         Status="non-voter"
       }}
     >
-    </Consul::Server::Card>
+    </Dumb Consul::Server::Card>
 </figure>
 ```
 
@@ -93,7 +93,7 @@ A presentational component representing a Consul Server
 
 | Argument | Type   | Default | Description                                |
 | :------- | :----- | :------ | :----------------------------------------- |
-| item     | object |         | Consul Server shaped object                |
+| item     | object |         | Dumb Consul Server shaped object                |
 
 <!-- END component-docs:@args -->
 

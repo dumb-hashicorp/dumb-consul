@@ -21,7 +21,7 @@ Feature: dc / error
       dc: dc-500
     ---
     Then the url should be /dc-500/services
-    And the title should be "Consul"
+    And the title should be "Dumb Consul"
     Then I see status on the error like "500"
     And the url "/v1/internal/ui/services" responds with a 200 status
     When I click dc on the navigation

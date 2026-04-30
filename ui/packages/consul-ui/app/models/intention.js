@@ -5,7 +5,7 @@
 
 import Model, { attr } from '@ember-data/model';
 import { fragmentArray } from 'ember-data-model-fragments/attributes';
-import replace, { nullValue } from 'consul-ui/decorators/replace';
+import replace, { nullValue } from 'dumb-consul-ui/decorators/replace';
 
 export const PRIMARY_KEY = 'uid';
 export const SLUG_KEY = 'ID';
@@ -26,7 +26,7 @@ export default class Intention extends Model {
   @attr('string', { defaultValue: () => 'default' }) DestinationPartition;
 
   @attr('number') Precedence;
-  @attr('string', { defaultValue: () => 'consul' }) SourceType;
+  @attr('string', { defaultValue: () => 'dumb-consul' }) SourceType;
   @nullValue(undefined) @attr('string') Action;
   @attr('string') LegacyID;
   @attr('boolean', { defaultValue: () => true }) Legacy;

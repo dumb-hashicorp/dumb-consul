@@ -81,11 +81,11 @@ var File_private_pbacl_acl_proto protoreflect.FileDescriptor
 
 const file_private_pbacl_acl_proto_rawDesc = "" +
 	"\n" +
-	"\x17private/pbacl/acl.proto\x12\x1dhashicorp.consul.internal.acl\"-\n" +
+	"\x17private/pbacl/acl.proto\x12\x1dhashicorp.dumb-consul.internal.acl\"-\n" +
 	"\aACLLink\x12\x0e\n" +
 	"\x02ID\x18\x01 \x01(\tR\x02ID\x12\x12\n" +
 	"\x04Name\x18\x02 \x01(\tR\x04NameB\xf6\x01\n" +
-	"!com.hashicorp.consul.internal.aclB\bAclProtoP\x01Z/github.com/hashicorp/consul/proto/private/pbacl\xa2\x02\x04HCIA\xaa\x02\x1dHashicorp.Consul.Internal.Acl\xca\x02\x1dHashicorp\\Consul\\Internal\\Acl\xe2\x02)Hashicorp\\Consul\\Internal\\Acl\\GPBMetadata\xea\x02 Hashicorp::Consul::Internal::Aclb\x06proto3"
+	"!com.dumb-hashicorp.dumb-consul.internal.aclB\bAclProtoP\x01Z/github.com/dumb-hashicorp/dumb-consul/proto/private/pbacl\xa2\x02\x04HCIA\xaa\x02\x1dHashicorp.Dumb Consul.Internal.Acl\xca\x02\x1dHashicorp\\Dumb Consul\\Internal\\Acl\xe2\x02)Hashicorp\\Dumb Consul\\Internal\\Acl\\GPBMetadata\xea\x02 Hashicorp::Dumb Consul::Internal::Aclb\x06proto3"
 
 var (
 	file_private_pbacl_acl_proto_rawDescOnce sync.Once
@@ -101,7 +101,7 @@ func file_private_pbacl_acl_proto_rawDescGZIP() []byte {
 
 var file_private_pbacl_acl_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_private_pbacl_acl_proto_goTypes = []any{
-	(*ACLLink)(nil), // 0: hashicorp.consul.internal.acl.ACLLink
+	(*ACLLink)(nil), // 0: dumb-hashicorp.dumb-consul.internal.acl.ACLLink
 }
 var file_private_pbacl_acl_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

@@ -16,7 +16,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.db.default.default.dc1"
               }
             }
@@ -65,7 +65,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "passthrough~mongo.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "passthrough~mongo.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.mongo.default.default.dc1"
               }
             }
@@ -85,7 +85,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "mongo.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "mongo.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.mongo.default.default.dc1"
               }
             }
@@ -105,7 +105,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "passthrough~kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "passthrough~kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.kafka.default.default.dc1"
               }
             }
@@ -138,7 +138,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.prepared_query_geo-cache"
               }
             }

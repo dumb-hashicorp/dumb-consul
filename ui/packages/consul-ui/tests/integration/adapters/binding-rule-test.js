@@ -5,7 +5,7 @@
 
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import getNspaceRunner from 'consul-ui/tests/helpers/get-nspace-runner';
+import getNspaceRunner from 'dumb-consul-ui/tests/helpers/get-nspace-runner';
 
 const nspaceRunner = getNspaceRunner('binding-rule');
 module('Integration | Adapter | binding-rule', function (hooks) {

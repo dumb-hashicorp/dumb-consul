@@ -1,9 +1,9 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<div class={{class-map "consul-peer-form-initiate"}} ...attributes>
+<div class={{class-map "dumb-consul-peer-form-initiate"}} ...attributes>
   <DataWriter
     @sink={{uri
       "/${partition}/${nspace}/${dc}/peer"
@@ -30,10 +30,10 @@
           {{yield
             (hash
               Fieldsets=(component
-                "consul/peer/form/initiate/fieldsets" item=@item
+                "dumb-consul/peer/form/initiate/fieldsets" item=@item
               )
               Actions=(component
-                "consul/peer/form/initiate/actions" item=@item id=id
+                "dumb-consul/peer/form/initiate/actions" item=@item id=id
               )
             )
           }}

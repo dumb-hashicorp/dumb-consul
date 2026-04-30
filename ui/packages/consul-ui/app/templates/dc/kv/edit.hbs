@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -91,10 +91,10 @@ as |parts|}}
 
 {{! if a KV has a session `Session` will always be populated despite any specific session permissions }}
 {{#if item.Session}}
-    <Consul::LockSession::Notifications @type="kv" />
+    <Dumb Consul::LockSession::Notifications @type="kv" />
 {{/if}}
 
-      <Consul::Kv::Form
+      <Dumb Consul::Kv::Form
         @item={{item}}
         @dc={{route.params.dc}}
         @nspace={{route.params.nspace}}
@@ -129,7 +129,7 @@ as |parts|}}
         </Action>
       </h2>
   {{#if this.session.ID}}
-      <Consul::LockSession::Form
+      <Dumb Consul::LockSession::Form
         @item={{this.session}}
         @ondelete={{loader.invalidate}}
       />

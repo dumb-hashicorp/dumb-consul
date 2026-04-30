@@ -11,9 +11,9 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/command/resource/read"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/read"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestResourceApplyCommand(t *testing.T) {

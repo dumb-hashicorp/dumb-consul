@@ -1,13 +1,13 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 {{#if (can "use peers")}}
   {{#let @list as |SNL|}}
-    <SNL.Title ...attributes>{{t "components.hashicorp-consul.side-nav.organization.title"}}</SNL.Title>
+    <SNL.Title ...attributes>{{t "components.dumb-hashicorp-dumb-consul.side-nav.organization.title"}}</SNL.Title>
     <SNL.Link
-      @text={{t "components.hashicorp-consul.side-nav.organization.peers"}}
+      @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.organization.peers"}}
       @route="dc.peers"
       @models={{array @dc.Name}}
       @query={{hash peer=undefined}}

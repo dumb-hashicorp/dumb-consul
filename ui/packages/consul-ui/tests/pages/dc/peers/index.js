@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import tabgroup from 'consul-ui/components/tab-nav/pageobject';
+import tabgroup from 'dumb-consul-ui/components/tab-nav/pageobject';
 
 export default function (visitable, creatable, items, popoverSelect) {
   return creatable({

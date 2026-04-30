@@ -9,10 +9,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libtopology "github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libtopology "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 // TestACL_NodeToken test verifies the following after upgrade
@@ -43,7 +43,7 @@ func TestACL_NodeToken(t *testing.T) {
 	require.NoError(t, err)
 
 	// Post upgrade validation: agent token can be used to query the node
-	// Assert consul catalog nodes  -token e3dc19d9-658d-a430-bcf4-7302efa397fc
+	// Assert dumb-consul catalog nodes  -token e3dc19d9-658d-a430-bcf4-7302efa397fc
 	client, err := cluster.Agents[1].NewClient(agentToken, false)
 	require.NoError(t, err)
 	libassert.CatalogNodeExists(t, client, cluster.Agents[1].GetAgentName())

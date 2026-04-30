@@ -64,7 +64,7 @@ export default function (scenario, assert, pauseUntil, find, currentURL, clipboa
     .then('I have settings like yaml\n$yaml', function (data) {
       // TODO: Inject this
       const settings = window.localStorage;
-      // TODO: this and the setup should probably use consul:
+      // TODO: this and the setup should probably use dumb-consul:
       // as we are talking about 'settings' here not localStorage
       // so the prefix should be hidden
       Object.keys(data).forEach(function (prop) {

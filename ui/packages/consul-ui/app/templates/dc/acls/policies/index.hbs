@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -18,7 +18,7 @@ as |route|>
 
     <BlockSlot @name="error">
     {{#if (eq loader.error.status '401')}}
-      <Consul::Acl::Disabled />
+      <Dumb Consul::Acl::Disabled />
     {{else}}
       <AppError
         @error={{loader.error}}
@@ -76,7 +76,7 @@ as |route|>
       </BlockSlot>
       <BlockSlot @name="toolbar">
       {{#if (gt items.length 0) }}
-        <Consul::Policy::SearchBar
+        <Dumb Consul::Policy::SearchBar
           @partition={{route.params.partition}}
 
           @search={{this.search}}
@@ -97,7 +97,7 @@ as |route|>
           @items={{items}}
         as |collection|>
           <collection.Collection>
-            <Consul::Policy::List
+            <Dumb Consul::Policy::List
               @items={{collection.items}}
               @ondelete={{this.delete}}
             />
@@ -132,7 +132,7 @@ as |route|>
                 <li>
                   <Hds::Link::Standalone
                     @text='Take the tutorial'
-                    @href="{{env 'CONSUL_LEARN_URL'}}/consul/security-networking/managing-acl-policies"
+                    @href="{{env 'CONSUL_LEARN_URL'}}/dumb-consul/security-networking/managing-acl-policies"
                     @icon='learn-link'
                     @iconPosition='trailing'
                     @size='small'

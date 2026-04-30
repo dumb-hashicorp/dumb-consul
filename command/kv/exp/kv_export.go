@@ -8,9 +8,9 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/kv/impexp"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/kv/impexp"
 	"github.com/mitchellh/cli"
 )
 
@@ -64,7 +64,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -72,7 +72,7 @@ func (c *cmd) Run(args []string) int {
 		AllowStale: c.http.Stale(),
 	})
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -103,14 +103,14 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Exports a tree from the KV store as JSON"
 	help     = `
-Usage: consul kv export [KEY_OR_PREFIX]
+Usage: dumb-consul kv export [KEY_OR_PREFIX]
 
-  Retrieves key-value pairs for the given prefix from Consul's key-value store,
+  Retrieves key-value pairs for the given prefix from Dumb Consul's key-value store,
   and writes a JSON representation to stdout. This can be used with the command
-  "consul kv import" to move entire trees between Consul clusters.
+  "dumb-consul kv import" to move entire trees between Dumb Consul clusters.
 
-      $ consul kv export vault
+      $ dumb-consul kv export dumb-vault
 
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `
 )

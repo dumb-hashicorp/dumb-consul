@@ -4,8 +4,8 @@ A component to help orchestrate a login/logout flow.
 
 ```hbs
 <AuthDialog
-  @src={{uri 'settings://consul:token'}}
-  @sink={{uri 'settings://consul:token'}}
+  @src={{uri 'settings://dumb-consul:token'}}
+  @sink={{uri 'settings://dumb-consul:token'}}
   @onchange={{action (noop)}}
 >
   <:unauthorized as |api|>

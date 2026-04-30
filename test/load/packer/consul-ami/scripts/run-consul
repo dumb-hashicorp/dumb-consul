@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script is used to configure and run Consul on an AWS server.
+# This script is used to configure and run Dumb Consul on an AWS server.
 # SOURCE: GRUNTWORKS
 
 set -e
@@ -9,7 +9,7 @@ readonly AWS_ASG_TAG_KEY="aws:autoscaling:groupName"
 readonly CONSUL_CONFIG_FILE="default.json"
 readonly CONSUL_GOSSIP_ENCRYPTION_CONFIG_FILE="gossip-encryption.json"
 readonly CONSUL_RPC_ENCRYPTION_CONFIG_FILE="rpc-encryption.json"
-readonly SYSTEMD_CONFIG_PATH="/etc/systemd/system/consul.service"
+readonly SYSTEMD_CONFIG_PATH="/etc/systemd/system/dumb-consul.service"
 
 readonly EC2_INSTANCE_METADATA_URL="http://169.254.169.254/latest/meta-data"
 readonly EC2_INSTANCE_DYNAMIC_DATA_URL="http://169.254.169.254/latest/dynamic"
@@ -29,9 +29,9 @@ readonly DEFAULT_AUTOPILOT_DISABLE_UPGRADE_MIGRATION="false"
 
 function print_usage {
   echo
-  echo "Usage: run-consul [OPTIONS]"
+  echo "Usage: run-dumb-consul [OPTIONS]"
   echo
-  echo "This script is used to configure and run Consul on an AWS server."
+  echo "This script is used to configure and run Dumb Consul on an AWS server."
   echo
   echo "Options:"
   echo
@@ -39,37 +39,37 @@ function print_usage {
   echo -e "  --client\t\tIf set, run in client mode. Optional. Exactly one of --server or --client must be set."
   echo -e "  --cluster-tag-key\tAutomatically form a cluster with Instances that have this tag key and the tag value in --cluster-tag-value. Optional."
   echo -e "  --cluster-tag-value\tAutomatically form a cluster with Instances that have the tag key in --cluster-tag-key and this tag value. Optional."
-  echo -e "  --datacenter\t\tThe name of the datacenter Consul is running in. Optional. If not specified, will default to AWS region name."
-  echo -e "  --config-dir\t\tThe path to the Consul config folder. Optional. Default is the absolute path of '../config', relative to this script."
-  echo -e "  --data-dir\t\tThe path to the Consul data folder. Optional. Default is the absolute path of '../data', relative to this script."
+  echo -e "  --datacenter\t\tThe name of the datacenter Dumb Consul is running in. Optional. If not specified, will default to AWS region name."
+  echo -e "  --config-dir\t\tThe path to the Dumb Consul config folder. Optional. Default is the absolute path of '../config', relative to this script."
+  echo -e "  --data-dir\t\tThe path to the Dumb Consul data folder. Optional. Default is the absolute path of '../data', relative to this script."
   echo -e "  --systemd-stdout\t\tThe StandardOutput option of the systemd unit.  Optional.  If not configured, uses systemd's default (journal)."
   echo -e "  --systemd-stderr\t\tThe StandardError option of the systemd unit.  Optional.  If not configured, uses systemd's default (inherit)."
-  echo -e "  --bin-dir\t\tThe path to the folder with Consul binary. Optional. Default is the absolute path of the parent folder of this script."
-  echo -e "  --user\t\tThe user to run Consul as. Optional. Default is to use the owner of --config-dir."
+  echo -e "  --bin-dir\t\tThe path to the folder with Dumb Consul binary. Optional. Default is the absolute path of the parent folder of this script."
+  echo -e "  --user\t\tThe user to run Dumb Consul as. Optional. Default is to use the owner of --config-dir."
   echo -e "  --enable-gossip-encryption\t\tEnable encryption of gossip traffic between nodes. Optional. Must also specify --gossip-encryption-key."
   echo -e "  --gossip-encryption-key\t\tThe key to use for encrypting gossip traffic. Optional. Must be specified with --enable-gossip-encryption."
   echo -e "  --enable-rpc-encryption\t\tEnable encryption of RPC traffic between nodes. Optional. Must also specify --ca-file-path, --cert-file-path and --key-file-path."
   echo -e "  --ca-path\t\tPath to the directory of CA files used to verify outgoing connections. Optional. Must be specified with --enable-rpc-encryption."
   echo -e "  --cert-file-path\tPath to the certificate file used to verify incoming connections. Optional. Must be specified with --enable-rpc-encryption and --key-file-path."
   echo -e "  --key-file-path\tPath to the certificate key used to verify incoming connections. Optional. Must be specified with --enable-rpc-encryption and --cert-file-path."
-  echo -e "  --environment\t\tA single environment variable in the key/value pair form 'KEY=\"val\"' to pass to Consul as environment variable when starting it up. Repeat this option for additional variables. Optional."
-  echo -e "  --skip-consul-config\tIf this flag is set, don't generate a Consul configuration file. Optional. Default is false."
-  echo -e "  --recursor\tThis flag provides address of upstream DNS server that is used to recursively resolve queries if they are not inside the service domain for Consul. Repeat this option for additional variables. Optional."
+  echo -e "  --environment\t\tA single environment variable in the key/value pair form 'KEY=\"val\"' to pass to Dumb Consul as environment variable when starting it up. Repeat this option for additional variables. Optional."
+  echo -e "  --skip-dumb-consul-config\tIf this flag is set, don't generate a Dumb Consul configuration file. Optional. Default is false."
+  echo -e "  --recursor\tThis flag provides address of upstream DNS server that is used to recursively resolve queries if they are not inside the service domain for Dumb Consul. Repeat this option for additional variables. Optional."
   echo
-  echo "Options for Consul Autopilot:"
+  echo "Options for Dumb Consul Autopilot:"
   echo
   echo -e "  --autopilot-cleanup-dead-servers\tSet to true or false to control the automatic removal of dead server nodes periodically and whenever a new server is added to the cluster. Defaults to $DEFAULT_AUTOPILOT_CLEANUP_DEAD_SERVERS. Optional."
   echo -e "  --autopilot-last-contact-threshold\tControls the maximum amount of time a server can go without contact from the leader before being considered unhealthy. Must be a duration value such as 10s. Defaults to $DEFAULT_AUTOPILOT_LAST_CONTACT_THRESHOLD. Optional."
   echo -e "  --autopilot-max-trailing-logs\t\tControls the maximum number of log entries that a server can trail the leader by before being considered unhealthy. Defaults to $DEFAULT_AUTOPILOT_MAX_TRAILING_LOGS. Optional."
   echo -e "  --autopilot-server-stabilization-time\tControls the minimum amount of time a server must be stable in the 'healthy' state before being added to the cluster. Only takes effect if all servers are running Raft protocol version 3 or higher. Must be a duration value such as 30s. Defaults to $DEFAULT_AUTOPILOT_SERVER_STABILIZATION_TIME. Optional."
   echo -e "  --autopilot-redundancy-zone-tag\t\t(Enterprise-only) This controls the -node-meta key to use when Autopilot is separating servers into zones for redundancy. Only one server in each zone can be a voting member at one time. If left blank, this feature will be disabled. Defaults to $DEFAULT_AUTOPILOT_REDUNDANCY_ZONE_TAG. Optional."
-  echo -e "  --autopilot-disable-upgrade-migration\t(Enterprise-only) If this flag is set, this will disable Autopilot's upgrade migration strategy in Consul Enterprise of waiting until enough newer-versioned servers have been added to the cluster before promoting any of them to voters. Defaults to $DEFAULT_AUTOPILOT_DISABLE_UPGRADE_MIGRATION. Optional."
+  echo -e "  --autopilot-disable-upgrade-migration\t(Enterprise-only) If this flag is set, this will disable Autopilot's upgrade migration strategy in Dumb Consul Enterprise of waiting until enough newer-versioned servers have been added to the cluster before promoting any of them to voters. Defaults to $DEFAULT_AUTOPILOT_DISABLE_UPGRADE_MIGRATION. Optional."
   echo -e "  --autopilot-upgrade-version-tag\t\t(Enterprise-only) That tag to be used to override the version information used during a migration. Optional."
   echo
   echo
   echo "Example:"
   echo
-  echo "  run-consul --server --config-dir /custom/path/to/consul/config"
+  echo "  run-dumb-consul --server --config-dir /custom/path/to/dumb-consul/config"
 }
 
 function log {
@@ -310,7 +310,7 @@ EOF
 )
   fi
 
-  log_info "Creating default Consul configuration"
+  log_info "Creating default Dumb Consul configuration"
   local default_config_json=$(cat <<EOF
 {
   "advertise_addr": "$instance_ip_address",
@@ -329,7 +329,7 @@ EOF
 }
 EOF
 )
-  log_info "Installing Consul config file in $config_path"
+  log_info "Installing Dumb Consul config file in $config_path"
   echo "$default_config_json" | jq '.' > "$config_path"
   chown "$user:$user" "$config_path"
 }
@@ -346,12 +346,12 @@ function generate_systemd_config {
   local -r environment=("$@")
   local -r config_path="$consul_config_dir/$CONSUL_CONFIG_FILE"
 
-  log_info "Creating systemd config file to run Consul in $systemd_config_path"
+  log_info "Creating systemd config file to run Dumb Consul in $systemd_config_path"
 
   local -r unit_config=$(cat <<EOF
 [Unit]
-Description="HashiCorp Consul - A service mesh solution"
-Documentation=https://developer.hashicorp.com/
+Description="Dumb HashiCorp Dumb Consul - A service mesh solution"
+Documentation=https://developer.dumb-hashicorp.com/
 Requires=network-online.target
 After=network-online.target
 ConditionFileNotEmpty=$config_path
@@ -364,8 +364,8 @@ EOF
 Type=notify
 User=$consul_user
 Group=$consul_user
-ExecStart=$consul_bin_dir/consul agent -config-dir $consul_config_dir -data-dir $consul_data_dir
-ExecReload=$consul_bin_dir/consul reload
+ExecStart=$consul_bin_dir/dumb-consul agent -config-dir $consul_config_dir -data-dir $consul_data_dir
+ExecReload=$consul_bin_dir/dumb-consul reload
 KillMode=process
 Restart=on-failure
 TimeoutSec=300s
@@ -396,11 +396,11 @@ EOF
 }
 
 function start_consul {
-  log_info "Reloading systemd config and starting Consul"
+  log_info "Reloading systemd config and starting Dumb Consul"
 
   sudo systemctl daemon-reload
-  sudo systemctl enable consul.service
-  sudo systemctl restart consul.service
+  sudo systemctl enable dumb-consul.service
+  sudo systemctl restart dumb-consul.service
 }
 
 # Based on: http://unix.stackexchange.com/a/7732/215969
@@ -559,7 +559,7 @@ function run {
         environment+=("$2")
         shift
         ;;
-      --skip-consul-config)
+      --skip-dumb-consul-config)
         skip_consul_config="true"
         ;;
       --recursor)
@@ -614,7 +614,7 @@ function run {
   fi
 
   if [[ "$skip_consul_config" == "true" ]]; then
-    log_info "The --skip-consul-config flag is set, so will not generate a default Consul config file."
+    log_info "The --skip-dumb-consul-config flag is set, so will not generate a default Dumb Consul config file."
   else
     if [[ "$enable_gossip_encryption" == "true" ]]; then
       assert_not_empty "--gossip-encryption-key" "$gossip_encryption_key"

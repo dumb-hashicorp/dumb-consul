@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.protohcl.testproto;
+package dumb-hashicorp.dumb-consul.internal.protohcl.testproto;
 
 import "google/protobuf/duration.proto";
 import "google/protobuf/empty.proto";

@@ -1,19 +1,19 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 {{#let @list as |SNL|}}
   {{#if (can "use acls")}}
-    <SNL.Title>{{t "components.hashicorp-consul.side-nav.acls.title"}}</SNL.Title>
+    <SNL.Title>{{t "components.dumb-hashicorp-dumb-consul.side-nav.acls.title"}}</SNL.Title>
   {{else}}
-    <SNL.Title {{hds-tooltip (t "components.hashicorp-consul.side-nav.acls.tooltip") options=(detached-tooltip-options)}}>
-      {{t "components.hashicorp-consul.side-nav.acls.title"}}
+    <SNL.Title {{hds-tooltip (t "components.dumb-hashicorp-dumb-consul.side-nav.acls.tooltip") options=(detached-tooltip-options)}}>
+      {{t "components.dumb-hashicorp-dumb-consul.side-nav.acls.title"}}
     </SNL.Title>
   {{/if}}
 
   <SNL.Link
-    @text={{t "components.hashicorp-consul.side-nav.acls.tokens"}}
+    @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.acls.tokens"}}
     @href={{href-to "dc.acls.tokens" @dc.Name}}
     @isHrefExternal={{false}}
     @isActive={{is-href "dc.acls.tokens" @dc.Name}}
@@ -22,35 +22,35 @@
 
   {{#if (can "read acls")}}
     <SNL.Link
-      @text={{t "components.hashicorp-consul.side-nav.acls.policies"}}
+      @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.acls.policies"}}
       @href={{href-to "dc.acls.policies" @dc.Name}}
       @isHrefExternal={{false}}
       @isActive={{is-href "dc.acls.policies" @dc.Name}}
       data-test-main-nav-policies
     />
     <SNL.Link
-      @text={{t "components.hashicorp-consul.side-nav.acls.roles"}}
+      @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.acls.roles"}}
       @href={{href-to "dc.acls.roles" @dc.Name}}
       @isHrefExternal={{false}}
       @isActive={{is-href "dc.acls.roles" @dc.Name}}
       data-test-main-nav-roles
     />
     <SNL.Link
-      @text={{t "components.hashicorp-consul.side-nav.acls.auth-methods"}}
+      @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.acls.auth-methods"}}
       @href={{href-to "dc.acls.auth-methods" @dc.Name}}
       @isHrefExternal={{false}}
       @isActive={{is-href "dc.acls.auth-methods" @dc.Name}}
       data-test-main-nav-auth-methods
     />
   {{else if (not (can "use acls"))}}
-    <SNL.Item class="consul-disabled-nav" data-test-main-nav-policies>
-      {{t "components.hashicorp-consul.side-nav.acls.policies"}}
+    <SNL.Item class="dumb-consul-disabled-nav" data-test-main-nav-policies>
+      {{t "components.dumb-hashicorp-dumb-consul.side-nav.acls.policies"}}
     </SNL.Item>
-    <SNL.Item class="consul-disabled-nav" data-test-main-nav-roles>
-      {{t "components.hashicorp-consul.side-nav.acls.roles"}}
+    <SNL.Item class="dumb-consul-disabled-nav" data-test-main-nav-roles>
+      {{t "components.dumb-hashicorp-dumb-consul.side-nav.acls.roles"}}
     </SNL.Item>
-    <SNL.Item class="consul-disabled-nav" data-test-main-nav-auth-methods>
-      {{t "components.hashicorp-consul.side-nav.acls.auth-methods"}}
+    <SNL.Item class="dumb-consul-disabled-nav" data-test-main-nav-auth-methods>
+      {{t "components.dumb-hashicorp-dumb-consul.side-nav.acls.auth-methods"}}
     </SNL.Item>
   {{/if}}
 {{/let}}

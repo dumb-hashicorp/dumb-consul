@@ -1,13 +1,13 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<div class={{class-map "consul-peer-form-generate-fieldsets"}} ...attributes>
+<div class={{class-map "dumb-consul-peer-form-generate-fieldsets"}} ...attributes>
   <StateMachine
     @src={{require
       "/machines/validate.xstate"
-      from="/components/consul/peer/form/generate/fieldsets"
+      from="/components/dumb-consul/peer/form/generate/fieldsets"
     }}
     as |fsm|
   >
@@ -28,7 +28,7 @@
     }}
       <fieldset>
         <TextInput
-          @label={{t "components.consul.peer.generate.name"}}
+          @label={{t "components.dumb-consul.peer.generate.name"}}
           @name="Name"
           @item={{@item}}
           @validations={{Name}}
@@ -46,7 +46,7 @@
     }}
       <fieldset>
         <TextInput
-          @label={{t "components.consul.peer.generate.addresses"}}
+          @label={{t "components.dumb-consul.peer.generate.addresses"}}
           @name="ServerExternalAddresses"
           @item={{@item}}
           @chart={{fsm}}

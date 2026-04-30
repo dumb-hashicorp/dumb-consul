@@ -9,7 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/hashicorp/consul/lib/file"
+	"github.com/dumb-hashicorp/dumb-consul/lib/file"
 )
 
 // Logger used by Store.Load to report warnings.

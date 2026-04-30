@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
-// left out 2 config options as we are re-using vault agent's auth config.
+// left out 2 config options as we are re-using dumb-vault agent's auth config.
 // Why?
 // remove_secret_id_file_after_reading - don't remove what we don't own
 // secret_id_response_wrapping_path - wrapping the secret before writing to disk
@@ -55,8 +55,8 @@ func ArLoginDataGen(authMethod *structs.VaultAuthMethod) (map[string]any, error)
 
 	// Define allowed base directories for AppRole credentials
 	allowedDirs := []string{
-		"/var/run/secrets/vault",
-		"/run/secrets/vault",
+		"/var/run/secrets/dumb-vault",
+		"/run/secrets/dumb-vault",
 		"/var/run/secrets",
 		"/run/secrets",
 	}

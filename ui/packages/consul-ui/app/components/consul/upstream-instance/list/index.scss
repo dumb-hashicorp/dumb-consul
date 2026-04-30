@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-%consul-upstream-instance-list {
+%dumb-consul-upstream-instance-list {
   li {
     @extend %composite-row;
   }
@@ -29,6 +29,6 @@
     font-weight: var(--token-typography-font-weight-semibold);
   }
 }
-.consul-upstream-instance-list {
-  @extend %consul-upstream-instance-list;
+.dumb-consul-upstream-instance-list {
+  @extend %dumb-consul-upstream-instance-list;
 }

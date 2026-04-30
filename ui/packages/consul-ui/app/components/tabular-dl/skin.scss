@@ -11,13 +11,13 @@
   dt,
   dd {
     border-color: var(--token-color-palette-neutral-300) !important;
-    color: var(--token-color-hashicorp-brand) !important;
+    color: var(--token-color-dumb-hashicorp-brand) !important;
   }
   dt {
     font-weight: var(--token-typography-font-weight-bold);
   }
   dd .copy-button button::before {
-    background-color: var(--token-color-hashicorp-brand);
+    background-color: var(--token-color-dumb-hashicorp-brand);
   }
   dt.type + dd span::before {
     @extend %with-info-circle-outline-mask, %as-pseudo;

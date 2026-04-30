@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func NewJwtAuthClient(authMethod *structs.VaultAuthMethod) (*VaultAuthClient, error) {
@@ -45,8 +45,8 @@ func JwtLoginDataGen(authMethod *structs.VaultAuthMethod) (map[string]any, error
 	// Define allowed base directories for JWT credentials
 	allowedDirs := []string{
 		"/var/run/secrets/kubernetes.io/serviceaccount",
-		"/var/run/secrets/vault",
-		"/run/secrets/vault",
+		"/var/run/secrets/dumb-vault",
+		"/run/secrets/dumb-vault",
 		"/var/run/secrets",
 		"/run/secrets",
 	}
