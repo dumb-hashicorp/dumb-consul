@@ -11,7 +11,7 @@
 // source: private/pbsubscribe/subscribe.proto
 
 // TODO: ideally we would have prefixed this package as
-// "hashicorp.consul.internal.subscribe" before releasing but now correcting this will
+// "dumb-hashicorp.dumb-consul.internal.subscribe" before releasing but now correcting this will
 // require a grpc passthrough service shim since the package name is part of
 // the rpc method dispatch and editing it naively would break backwards
 // compatibility.
@@ -19,10 +19,10 @@
 package pbsubscribe
 
 import (
-	_ "github.com/hashicorp/consul/proto-public/annotations/ratelimit"
-	pbcommon "github.com/hashicorp/consul/proto/private/pbcommon"
-	pbconfigentry "github.com/hashicorp/consul/proto/private/pbconfigentry"
-	pbservice "github.com/hashicorp/consul/proto/private/pbservice"
+	_ "github.com/dumb-hashicorp/dumb-consul/proto-public/annotations/ratelimit"
+	pbcommon "github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	pbconfigentry "github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry"
+	pbservice "github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -352,7 +352,7 @@ type SubscribeRequest struct {
 	// client on subsequent re-connections such that the full snapshot doesn't
 	// need to be resent if the client is up to date.
 	Index uint64 `protobuf:"varint,4,opt,name=Index,proto3" json:"Index,omitempty"`
-	// Datacenter specifies the Consul datacenter the request is targeted at.
+	// Datacenter specifies the Dumb Consul datacenter the request is targeted at.
 	// If it's not the local DC the server will forward the request to
 	// the remote DC and proxy the results back  to the subscriber. An empty
 	// string defaults to the local datacenter.
@@ -943,10 +943,10 @@ const file_private_pbsubscribe_subscribe_proto_rawDesc = "" +
 	"\x06Events\x18\x01 \x03(\v2\x10.subscribe.EventR\x06Events\"\x9c\x01\n" +
 	"\x13ServiceHealthUpdate\x12$\n" +
 	"\x02Op\x18\x01 \x01(\x0e2\x14.subscribe.CatalogOpR\x02Op\x12_\n" +
-	"\x10CheckServiceNode\x18\x02 \x01(\v23.hashicorp.consul.internal.service.CheckServiceNodeR\x10CheckServiceNode\"\xc4\x01\n" +
+	"\x10CheckServiceNode\x18\x02 \x01(\v23.dumb-hashicorp.dumb-consul.internal.service.CheckServiceNodeR\x10CheckServiceNode\"\xc4\x01\n" +
 	"\x11ConfigEntryUpdate\x125\n" +
 	"\x02Op\x18\x01 \x01(\x0e2%.subscribe.ConfigEntryUpdate.UpdateOpR\x02Op\x12T\n" +
-	"\vConfigEntry\x18\x02 \x01(\v22.hashicorp.consul.internal.configentry.ConfigEntryR\vConfigEntry\"\"\n" +
+	"\vConfigEntry\x18\x02 \x01(\v22.dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntryR\vConfigEntry\"\"\n" +
 	"\bUpdateOp\x12\n" +
 	"\n" +
 	"\x06Upsert\x10\x00\x12\n" +
@@ -955,7 +955,7 @@ const file_private_pbsubscribe_subscribe_proto_rawDesc = "" +
 	"\x11ServiceListUpdate\x12$\n" +
 	"\x02Op\x18\x01 \x01(\x0e2\x14.subscribe.CatalogOpR\x02Op\x12\x12\n" +
 	"\x04Name\x18\x02 \x01(\tR\x04Name\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x03 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x1a\n" +
+	"\x0eEnterpriseMeta\x18\x03 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x1a\n" +
 	"\bPeerName\x18\x04 \x01(\tR\bPeerName*\x8b\x03\n" +
 	"\x05Topic\x12\v\n" +
 	"\aUnknown\x10\x00\x12\x11\n" +
@@ -987,7 +987,7 @@ const file_private_pbsubscribe_subscribe_proto_rawDesc = "" +
 	"Deregister\x10\x012a\n" +
 	"\x17StateChangeSubscription\x12F\n" +
 	"\tSubscribe\x12\x1b.subscribe.SubscribeRequest\x1a\x10.subscribe.Event\"\b\xe2\x86\x04\x04\b\x02\x10\t0\x01B\x9a\x01\n" +
-	"\rcom.subscribeB\x0eSubscribeProtoP\x01Z5github.com/hashicorp/consul/proto/private/pbsubscribe\xa2\x02\x03SXX\xaa\x02\tSubscribe\xca\x02\tSubscribe\xe2\x02\x15Subscribe\\GPBMetadata\xea\x02\tSubscribeb\x06proto3"
+	"\rcom.subscribeB\x0eSubscribeProtoP\x01Z5github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe\xa2\x02\x03SXX\xaa\x02\tSubscribe\xca\x02\tSubscribe\xe2\x02\x15Subscribe\\GPBMetadata\xea\x02\tSubscribeb\x06proto3"
 
 var (
 	file_private_pbsubscribe_subscribe_proto_rawDescOnce sync.Once
@@ -1014,9 +1014,9 @@ var file_private_pbsubscribe_subscribe_proto_goTypes = []any{
 	(*ServiceHealthUpdate)(nil),        // 7: subscribe.ServiceHealthUpdate
 	(*ConfigEntryUpdate)(nil),          // 8: subscribe.ConfigEntryUpdate
 	(*ServiceListUpdate)(nil),          // 9: subscribe.ServiceListUpdate
-	(*pbservice.CheckServiceNode)(nil), // 10: hashicorp.consul.internal.service.CheckServiceNode
-	(*pbconfigentry.ConfigEntry)(nil),  // 11: hashicorp.consul.internal.configentry.ConfigEntry
-	(*pbcommon.EnterpriseMeta)(nil),    // 12: hashicorp.consul.internal.common.EnterpriseMeta
+	(*pbservice.CheckServiceNode)(nil), // 10: dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode
+	(*pbconfigentry.ConfigEntry)(nil),  // 11: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry
+	(*pbcommon.EnterpriseMeta)(nil),    // 12: dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
 }
 var file_private_pbsubscribe_subscribe_proto_depIdxs = []int32{
 	0,  // 0: subscribe.SubscribeRequest.Topic:type_name -> subscribe.Topic
@@ -1027,11 +1027,11 @@ var file_private_pbsubscribe_subscribe_proto_depIdxs = []int32{
 	9,  // 5: subscribe.Event.Service:type_name -> subscribe.ServiceListUpdate
 	5,  // 6: subscribe.EventBatch.Events:type_name -> subscribe.Event
 	1,  // 7: subscribe.ServiceHealthUpdate.Op:type_name -> subscribe.CatalogOp
-	10, // 8: subscribe.ServiceHealthUpdate.CheckServiceNode:type_name -> hashicorp.consul.internal.service.CheckServiceNode
+	10, // 8: subscribe.ServiceHealthUpdate.CheckServiceNode:type_name -> dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode
 	2,  // 9: subscribe.ConfigEntryUpdate.Op:type_name -> subscribe.ConfigEntryUpdate.UpdateOp
-	11, // 10: subscribe.ConfigEntryUpdate.ConfigEntry:type_name -> hashicorp.consul.internal.configentry.ConfigEntry
+	11, // 10: subscribe.ConfigEntryUpdate.ConfigEntry:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry
 	1,  // 11: subscribe.ServiceListUpdate.Op:type_name -> subscribe.CatalogOp
-	12, // 12: subscribe.ServiceListUpdate.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
+	12, // 12: subscribe.ServiceListUpdate.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
 	4,  // 13: subscribe.StateChangeSubscription.Subscribe:input_type -> subscribe.SubscribeRequest
 	5,  // 14: subscribe.StateChangeSubscription.Subscribe:output_type -> subscribe.Event
 	14, // [14:15] is the sub-list for method output_type

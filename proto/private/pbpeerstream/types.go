@@ -6,10 +6,10 @@ package pbpeerstream
 const (
 	apiTypePrefix = "type.googleapis.com/"
 
-	TypeURLExportedService        = apiTypePrefix + "hashicorp.consul.internal.peerstream.ExportedService"
-	TypeURLExportedServiceList    = apiTypePrefix + "hashicorp.consul.internal.peerstream.ExportedServiceList"
-	TypeURLPeeringTrustBundle     = apiTypePrefix + "hashicorp.consul.internal.peering.PeeringTrustBundle"
-	TypeURLPeeringServerAddresses = apiTypePrefix + "hashicorp.consul.internal.peering.PeeringServerAddresses"
+	TypeURLExportedService        = apiTypePrefix + "dumb-hashicorp.dumb-consul.internal.peerstream.ExportedService"
+	TypeURLExportedServiceList    = apiTypePrefix + "dumb-hashicorp.dumb-consul.internal.peerstream.ExportedServiceList"
+	TypeURLPeeringTrustBundle     = apiTypePrefix + "dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundle"
+	TypeURLPeeringServerAddresses = apiTypePrefix + "dumb-hashicorp.dumb-consul.internal.peering.PeeringServerAddresses"
 )
 
 func KnownTypeURL(s string) bool {

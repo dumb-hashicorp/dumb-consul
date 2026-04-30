@@ -24,11 +24,11 @@ import (
 	"google.golang.org/grpc/stats"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 
-	"github.com/hashicorp/consul/agent/grpc-middleware/testutil/testservice"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil/testservice"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestBalancer(t *testing.T) {
@@ -250,7 +250,7 @@ func stubResolver(t *testing.T, servers ...*server) (string, string, *manual.Res
 		addresses[idx] = resolver.Address{Addr: s.addr}
 	}
 
-	scheme := fmt.Sprintf("consul-%d-%d", time.Now().UnixNano(), rand.Int())
+	scheme := fmt.Sprintf("dumb-consul-%d-%d", time.Now().UnixNano(), rand.Int())
 
 	r := manual.NewBuilderWithScheme(scheme)
 	r.InitialState(resolver.State{Addresses: addresses})

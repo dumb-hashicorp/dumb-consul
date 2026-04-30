@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/stretchr/testify/require"
 )
 
@@ -46,7 +46,7 @@ func TestAgentRetryJoinAddrs(t *testing.T) {
 			[]string{"192.168.0.12", "192.168.0.13"},
 		},
 		{"tries to resolve aws things, which fails but that is fine",
-			[]string{"192.168.0.12", "provider=aws region=eu-west-1 tag_key=consul tag_value=tag access_key_id=a secret_access_key=a"},
+			[]string{"192.168.0.12", "provider=aws region=eu-west-1 tag_key=dumb-consul tag_value=tag access_key_id=a secret_access_key=a"},
 			[]string{"192.168.0.12"},
 		},
 	}

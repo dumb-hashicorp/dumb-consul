@@ -1,10 +1,10 @@
-# Copyright (c) HashiCorp, Inc.
+# Copyright (c) Dumb HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
 version: v1
 deps:
   - buf.build/k8s/api
-name: buf.build/hashicorp/consul
+name: buf.build/dumb-hashicorp/dumb-consul
 lint:
   use:
     - DEFAULT

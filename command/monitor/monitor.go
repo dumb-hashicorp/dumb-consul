@@ -8,13 +8,13 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
 // cmd is a Command implementation that queries a running
-// Consul agent what members are part of the cluster currently.
+// Dumb Consul agent what members are part of the cluster currently.
 type cmd struct {
 	UI    cli.Ui
 	help  string
@@ -60,7 +60,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err = c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -118,13 +118,13 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Stream logs from a Consul agent"
+const synopsis = "Stream logs from a Dumb Consul agent"
 const help = `
-Usage: consul monitor [options]
+Usage: dumb-consul monitor [options]
 
-  Shows recent log messages of a Consul agent, and attaches to the agent,
+  Shows recent log messages of a Dumb Consul agent, and attaches to the agent,
   outputting log messages as they occur in real time. The monitor lets you
-  listen for log levels that may be filtered out of the Consul agent. For
+  listen for log levels that may be filtered out of the Dumb Consul agent. For
   example your agent may only be logging at INFO level, but with the monitor
   you can see the DEBUG level logs.
 `

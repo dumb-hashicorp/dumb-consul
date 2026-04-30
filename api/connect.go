@@ -1,13 +1,13 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
 
-// TelemetryCollectorName is the service name for the Consul Telemetry Collector
-const TelemetryCollectorName string = "consul-telemetry-collector"
+// TelemetryCollectorName is the service name for the Dumb Consul Telemetry Collector
+const TelemetryCollectorName string = "dumb-consul-telemetry-collector"
 
 // Connect can be used to work with endpoints related to Connect, the
-// feature for securely connecting services within Consul.
+// feature for securely connecting services within Dumb Consul.
 type Connect struct {
 	c *Client
 }

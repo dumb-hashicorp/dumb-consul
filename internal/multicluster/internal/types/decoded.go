@@ -4,8 +4,8 @@
 package types
 
 import (
-	"github.com/hashicorp/consul/internal/resource"
-	v2 "github.com/hashicorp/consul/proto-public/pbmulticluster/v2"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	v2 "github.com/dumb-hashicorp/dumb-consul/proto-public/pbmulticluster/v2"
 )
 
 type (

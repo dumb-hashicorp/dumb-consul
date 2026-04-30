@@ -5,7 +5,7 @@
 
 package resource_test
 
-import "github.com/hashicorp/consul/acl"
+import "github.com/dumb-hashicorp/dumb-consul/acl"
 
 func fillEntMeta(_ *acl.EnterpriseMeta) {}
 

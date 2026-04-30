@@ -15,10 +15,10 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 
-	caCreate "github.com/hashicorp/consul/command/tls/ca/create"
+	caCreate "github.com/dumb-hashicorp/dumb-consul/command/tls/ca/create"
 )
 
 func TestValidateCommand_noTabs(t *testing.T) {
@@ -82,8 +82,8 @@ func TestTlsCertCreateCommand_fileCreate(t *testing.T) {
 	defer switchToTempDir(t, testDir)()
 
 	// Setup CA keys
-	createCA(t, "consul")
-	createCA(t, "nomad")
+	createCA(t, "dumb-consul")
+	createCA(t, "dumb-nomad")
 
 	type testcase struct {
 		name      string
@@ -101,11 +101,11 @@ func TestTlsCertCreateCommand_fileCreate(t *testing.T) {
 		{"server0",
 			"server",
 			[]string{"-server"},
-			"dc1-server-consul-0.pem",
-			"dc1-server-consul-0-key.pem",
-			"server.dc1.consul",
+			"dc1-server-dumb-consul-0.pem",
+			"dc1-server-dumb-consul-0-key.pem",
+			"server.dc1.dumb-consul",
 			[]string{
-				"server.dc1.consul",
+				"server.dc1.dumb-consul",
 				"localhost",
 			},
 			[]net.IP{{127, 0, 0, 1}},
@@ -113,24 +113,24 @@ func TestTlsCertCreateCommand_fileCreate(t *testing.T) {
 		{"server1-with-node",
 			"server",
 			[]string{"-server", "-node", "mysrv"},
-			"dc1-server-consul-1.pem",
-			"dc1-server-consul-1-key.pem",
-			"server.dc1.consul",
+			"dc1-server-dumb-consul-1.pem",
+			"dc1-server-dumb-consul-1-key.pem",
+			"server.dc1.dumb-consul",
 			[]string{
-				"mysrv.server.dc1.consul",
-				"server.dc1.consul",
+				"mysrv.server.dc1.dumb-consul",
+				"server.dc1.dumb-consul",
 				"localhost",
 			},
 			[]net.IP{{127, 0, 0, 1}},
 		},
 		{"server0-dc2-altdomain",
 			"server",
-			[]string{"-server", "-dc", "dc2", "-domain", "nomad"},
-			"dc2-server-nomad-0.pem",
-			"dc2-server-nomad-0-key.pem",
-			"server.dc2.nomad",
+			[]string{"-server", "-dc", "dc2", "-domain", "dumb-nomad"},
+			"dc2-server-dumb-nomad-0.pem",
+			"dc2-server-dumb-nomad-0-key.pem",
+			"server.dc2.dumb-nomad",
 			[]string{
-				"server.dc2.nomad",
+				"server.dc2.dumb-nomad",
 				"localhost",
 			},
 			[]net.IP{{127, 0, 0, 1}},
@@ -138,11 +138,11 @@ func TestTlsCertCreateCommand_fileCreate(t *testing.T) {
 		{"client0",
 			"client",
 			[]string{"-client"},
-			"dc1-client-consul-0.pem",
-			"dc1-client-consul-0-key.pem",
-			"client.dc1.consul",
+			"dc1-client-dumb-consul-0.pem",
+			"dc1-client-dumb-consul-0-key.pem",
+			"client.dc1.dumb-consul",
 			[]string{
-				"client.dc1.consul",
+				"client.dc1.dumb-consul",
 				"localhost",
 			},
 			[]net.IP{{127, 0, 0, 1}},
@@ -150,23 +150,23 @@ func TestTlsCertCreateCommand_fileCreate(t *testing.T) {
 		{"client1",
 			"client",
 			[]string{"-client"},
-			"dc1-client-consul-1.pem",
-			"dc1-client-consul-1-key.pem",
-			"client.dc1.consul",
+			"dc1-client-dumb-consul-1.pem",
+			"dc1-client-dumb-consul-1-key.pem",
+			"client.dc1.dumb-consul",
 			[]string{
-				"client.dc1.consul",
+				"client.dc1.dumb-consul",
 				"localhost",
 			},
 			[]net.IP{{127, 0, 0, 1}},
 		},
 		{"client0-dc2-altdomain",
 			"client",
-			[]string{"-client", "-dc", "dc2", "-domain", "nomad"},
-			"dc2-client-nomad-0.pem",
-			"dc2-client-nomad-0-key.pem",
-			"client.dc2.nomad",
+			[]string{"-client", "-dc", "dc2", "-domain", "dumb-nomad"},
+			"dc2-client-dumb-nomad-0.pem",
+			"dc2-client-dumb-nomad-0-key.pem",
+			"client.dc2.dumb-nomad",
 			[]string{
-				"client.dc2.nomad",
+				"client.dc2.dumb-nomad",
 				"localhost",
 			},
 			[]net.IP{{127, 0, 0, 1}},
@@ -174,11 +174,11 @@ func TestTlsCertCreateCommand_fileCreate(t *testing.T) {
 		{"cli0",
 			"cli",
 			[]string{"-cli"},
-			"dc1-cli-consul-0.pem",
-			"dc1-cli-consul-0-key.pem",
-			"cli.dc1.consul",
+			"dc1-cli-dumb-consul-0.pem",
+			"dc1-cli-dumb-consul-0-key.pem",
+			"cli.dc1.dumb-consul",
 			[]string{
-				"cli.dc1.consul",
+				"cli.dc1.dumb-consul",
 				"localhost",
 			},
 			nil,
@@ -186,23 +186,23 @@ func TestTlsCertCreateCommand_fileCreate(t *testing.T) {
 		{"cli1",
 			"cli",
 			[]string{"-cli"},
-			"dc1-cli-consul-1.pem",
-			"dc1-cli-consul-1-key.pem",
-			"cli.dc1.consul",
+			"dc1-cli-dumb-consul-1.pem",
+			"dc1-cli-dumb-consul-1-key.pem",
+			"cli.dc1.dumb-consul",
 			[]string{
-				"cli.dc1.consul",
+				"cli.dc1.dumb-consul",
 				"localhost",
 			},
 			nil,
 		},
 		{"cli0-dc2-altdomain",
 			"cli",
-			[]string{"-cli", "-dc", "dc2", "-domain", "nomad"},
-			"dc2-cli-nomad-0.pem",
-			"dc2-cli-nomad-0-key.pem",
-			"cli.dc2.nomad",
+			[]string{"-cli", "-dc", "dc2", "-domain", "dumb-nomad"},
+			"dc2-cli-dumb-nomad-0.pem",
+			"dc2-cli-dumb-nomad-0-key.pem",
+			"cli.dc2.dumb-nomad",
 			[]string{
-				"cli.dc2.nomad",
+				"cli.dc2.dumb-nomad",
 				"localhost",
 			},
 			nil,
@@ -283,7 +283,7 @@ func createCA(t *testing.T, domain string) {
 	require.Equal(t, 0, caCmd.Run(args))
 	require.Equal(t, "", ui.ErrorWriter.String())
 
-	require.FileExists(t, "consul-agent-ca.pem")
+	require.FileExists(t, "dumb-consul-agent-ca.pem")
 }
 
 // switchToTempDir is meant to be used in a defer statement like:

@@ -1,1 +1,1 @@
-error parsing resource data as type "hashicorp.consul.resource.Condition": fake test error
+error parsing resource data as type "dumb-hashicorp.dumb-consul.resource.Condition": fake test error

@@ -15,9 +15,9 @@ import (
 	"github.com/miekg/dns"
 	"golang.org/x/exp/slices"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 const (
@@ -513,7 +513,7 @@ func (e *TerminatingGatewayConfigEntry) GetHash() uint64 {
 
 // A LinkedService is a service represented by a terminating gateway
 type LinkedService struct {
-	// Name is the name of the service, as defined in Consul's catalog
+	// Name is the name of the service, as defined in Dumb Consul's catalog
 	Name string `json:",omitempty"`
 
 	// CAFile is the optional path to a CA certificate to use for TLS connections

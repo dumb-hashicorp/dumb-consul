@@ -19,7 +19,7 @@
                 "weightedClusters": {
                   "clusters": [
                     {
-                      "name": "big-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                      "name": "big-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                       "requestHeadersToAdd": [
                         {
                           "appendAction": "OVERWRITE_IF_EXISTS_OR_ADD",
@@ -41,7 +41,7 @@
                       "weight": 10000
                     },
                     {
-                      "name": "goldilocks-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                      "name": "goldilocks-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                       "requestHeadersToAdd": [
                         {
                           "appendAction": "OVERWRITE_IF_EXISTS_OR_ADD",
@@ -63,7 +63,7 @@
                       "weight": 10000
                     },
                     {
-                      "name": "lil-bit-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                      "name": "lil-bit-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                       "requestHeadersToAdd": [
                         {
                           "appendAction": "OVERWRITE_IF_EXISTS_OR_ADD",

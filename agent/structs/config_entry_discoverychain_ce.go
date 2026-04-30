@@ -8,7 +8,7 @@ package structs
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 // GetEnterpriseMeta is used to synthesize the EnterpriseMeta struct from
@@ -33,15 +33,15 @@ func (redir *ServiceResolverRedirect) GetEnterpriseMeta(_ *acl.EnterpriseMeta) *
 // with enterprise binaries.
 func (redir *ServiceResolverRedirect) ValidateEnterprise() error {
 	if redir.Partition != "" {
-		return fmt.Errorf("Setting Partition requires Consul Enterprise")
+		return fmt.Errorf("Setting Partition requires Dumb Consul Enterprise")
 	}
 
 	if redir.Namespace != "" {
-		return fmt.Errorf("Setting Namespace requires Consul Enterprise")
+		return fmt.Errorf("Setting Namespace requires Dumb Consul Enterprise")
 	}
 
 	if redir.SamenessGroup != "" {
-		return fmt.Errorf("Setting SamenessGroup requires Consul Enterprise")
+		return fmt.Errorf("Setting SamenessGroup requires Dumb Consul Enterprise")
 	}
 
 	return nil
@@ -57,11 +57,11 @@ func (failover *ServiceResolverFailover) GetEnterpriseMeta(_ *acl.EnterpriseMeta
 // with enterprise binaries.
 func (failover *ServiceResolverFailover) ValidateEnterprise() error {
 	if failover.Namespace != "" {
-		return fmt.Errorf("Setting Namespace requires Consul Enterprise")
+		return fmt.Errorf("Setting Namespace requires Dumb Consul Enterprise")
 	}
 
 	if failover.SamenessGroup != "" {
-		return fmt.Errorf("Setting SamenessGroup requires Consul Enterprise")
+		return fmt.Errorf("Setting SamenessGroup requires Dumb Consul Enterprise")
 	}
 
 	return nil
@@ -77,11 +77,11 @@ func (target *ServiceResolverFailoverTarget) GetEnterpriseMeta(_ *acl.Enterprise
 // with enterprise binaries.
 func (redir *ServiceResolverFailoverTarget) ValidateEnterprise() error {
 	if redir.Partition != "" {
-		return fmt.Errorf("Setting Partition requires Consul Enterprise")
+		return fmt.Errorf("Setting Partition requires Dumb Consul Enterprise")
 	}
 
 	if redir.Namespace != "" {
-		return fmt.Errorf("Setting Namespace requires Consul Enterprise")
+		return fmt.Errorf("Setting Namespace requires Dumb Consul Enterprise")
 	}
 
 	return nil
@@ -107,7 +107,7 @@ func (f *ServiceResolverFailoverPolicy) ValidateEnterprise() error {
 	}
 
 	if f.Mode != "" {
-		return fmt.Errorf("Setting failover policies requires Consul Enterprise")
+		return fmt.Errorf("Setting failover policies requires Dumb Consul Enterprise")
 	}
 
 	return nil
@@ -123,5 +123,5 @@ func (pbl *ServiceResolverPrioritizeByLocality) validate() error {
 	if pbl == nil || *pbl == zero {
 		return nil
 	}
-	return fmt.Errorf("Prioritize-by-locality requires Consul Enterprise ")
+	return fmt.Errorf("Prioritize-by-locality requires Dumb Consul Enterprise ")
 }

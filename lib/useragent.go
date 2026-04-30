@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 var (
 	// projectURL is the project URL.
-	projectURL = "https://developer.hashicorp.com/"
+	projectURL = "https://developer.dumb-hashicorp.com/"
 
 	// rt is the runtime - variable for tests.
 	rt = runtime.Version()
@@ -25,8 +25,8 @@ var (
 	}
 )
 
-// UserAgent returns the consistent user-agent string for Consul.
+// UserAgent returns the consistent user-agent string for Dumb Consul.
 func UserAgent() string {
-	return fmt.Sprintf("Consul/%s (+%s; %s)",
+	return fmt.Sprintf("Dumb Consul/%s (+%s; %s)",
 		versionFunc(), projectURL, rt)
 }

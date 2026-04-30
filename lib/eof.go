@@ -9,8 +9,8 @@ import (
 	"io"
 	"strings"
 
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
-	"github.com/hashicorp/yamux"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
+	"github.com/dumb-hashicorp/yamux"
 )
 
 var yamuxStreamClosed = yamux.ErrStreamClosed.Error()

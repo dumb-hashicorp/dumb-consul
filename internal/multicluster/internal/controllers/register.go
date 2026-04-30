@@ -4,8 +4,8 @@
 package controllers
 
 import (
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/multicluster/internal/controllers/v1compat"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/multicluster/internal/controllers/v1compat"
 )
 
 type CompatDependencies struct {

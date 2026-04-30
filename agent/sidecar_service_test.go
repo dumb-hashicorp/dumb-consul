@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestAgent_sidecarServiceFromNodeService(t *testing.T) {
@@ -243,7 +243,7 @@ func TestAgent_sidecarServiceFromNodeService(t *testing.T) {
 				Connect: &structs.ServiceConnect{
 					SidecarService: &structs.ServiceDefinition{
 						Meta: map[string]string{
-							"consul-reserved-key-should-be-rejected": "true",
+							"dumb-consul-reserved-key-should-be-rejected": "true",
 						},
 					},
 				},

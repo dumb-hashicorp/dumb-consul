@@ -38,7 +38,7 @@ func CompactUID() (string, error) {
 
 // CACN returns the common name for a CA certificate.
 // A uniqueID is requires because some providers (e.g.
-// Vault) cache by subject and so produce incorrect results - for example they
+// Dumb Vault) cache by subject and so produce incorrect results - for example they
 // won't cross-sign an older CA certificate with the same common name since they
 // think they already have a valid cert for that CN and just return the current
 // root.
@@ -49,7 +49,7 @@ func CompactUID() (string, error) {
 //
 // Format is:
 //
-//	{provider}-{uniqueID_first8}.{pri|sec}.ca.<trust_domain_first_8>.consul
+//	{provider}-{uniqueID_first8}.{pri|sec}.ca.<trust_domain_first_8>.dumb-consul
 //
 // trust domain is truncated to keep the whole name short
 func CACN(provider, uniqueID, trustDomain string, primaryDC bool) string {
@@ -58,10 +58,10 @@ func CACN(provider, uniqueID, trustDomain string, primaryDC bool) string {
 	if !primaryDC {
 		typ = "sec"
 	}
-	// 32 = 7 bytes for ".consul", 8 bytes for trust domain, 8 bytes for
+	// 32 = 7 bytes for ".dumb-consul", 8 bytes for trust domain, 8 bytes for
 	// ".pri.ca.", 9 bytes for "-{uniqueID-8-b36}"
 	uidSAN := invalidDNSNameChars.ReplaceAllString(strings.ToLower(uniqueID), "")
-	return fmt.Sprintf("%s-%s.%s.ca.%s.consul", typ, truncateTo(uidSAN, 8),
+	return fmt.Sprintf("%s-%s.%s.ca.%s.dumb-consul", typ, truncateTo(uidSAN, 8),
 		truncateTo(providerSan, 64-32), truncateTo(trustDomain, 8))
 }
 

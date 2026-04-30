@@ -8,11 +8,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	svctest "github.com/hashicorp/consul/agent/grpc-external/services/resource/testing"
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	pbdemov2 "github.com/hashicorp/consul/proto/private/pbdemo/v2"
-	"github.com/hashicorp/consul/sdk/testutil"
+	svctest "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource/testing"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	pbdemov2 "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v2"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestArtistReconciler(t *testing.T) {
@@ -48,9 +48,9 @@ func TestArtistReconciler(t *testing.T) {
 	// Check the status was updated.
 	readRsp, err := client.Read(ctx, &pbresource.ReadRequest{Id: writeRsp.Resource.Id})
 	require.NoError(t, err)
-	require.Contains(t, readRsp.Resource.Status, "consul.io/artist-controller")
+	require.Contains(t, readRsp.Resource.Status, "dumb-consul.io/artist-controller")
 
-	status := readRsp.Resource.Status["consul.io/artist-controller"]
+	status := readRsp.Resource.Status["dumb-consul.io/artist-controller"]
 	require.Equal(t, writeRsp.Resource.Generation, status.ObservedGeneration)
 	require.Len(t, status.Conditions, 11)
 	require.Equal(t, "Accepted", status.Conditions[0].Type)

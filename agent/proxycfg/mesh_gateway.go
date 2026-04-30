@@ -12,16 +12,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/proxycfg/internal/watch"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib/maps"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg/internal/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib/maps"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 type handlerMeshGateway struct {
@@ -508,7 +508,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 
 		// If PeerThroughMeshGateways is enabled, and we are in the default partition,
 		// we need to start watching the list of peering connections in all partitions
-		// to set up outbound routes for the control plane. Consul servers are in the default partition,
+		// to set up outbound routes for the control plane. Dumb Consul servers are in the default partition,
 		// so only mesh gateways here have his responsibility.
 		if snap.ProxyID.InDefaultPartition() &&
 			snap.MeshGateway.PeerServersWatchCancel == nil {
@@ -529,7 +529,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 			snap.MeshGateway.PeerServersWatchCancel = cancel
 		}
 
-		// We avoid initializing Consul server watches when WAN federation is enabled since it
+		// We avoid initializing Dumb Consul server watches when WAN federation is enabled since it
 		// always requires server watches.
 		if s.meta[structs.MetaWANFederationKey] == "1" {
 			return nil
@@ -547,7 +547,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 		}, consulServerListWatchID, s.ch)
 		if err != nil {
 			cancel()
-			return fmt.Errorf("failed to watch local consul servers: %w", err)
+			return fmt.Errorf("failed to watch local dumb-consul servers: %w", err)
 		}
 
 		snap.MeshGateway.WatchedLocalServers.InitWatch(structs.ConsulServiceName, cancel)
@@ -569,7 +569,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 			}
 
 			if existing, ok := peerServers[peering.PeerServerName]; ok && existing.Index >= peering.ModifyIndex {
-				// Multiple peerings can reference the same set of Consul servers, since there can be
+				// Multiple peerings can reference the same set of Dumb Consul servers, since there can be
 				// multiple partitions in a datacenter. Rather than randomly overwriting, we attempt to
 				// use the latest addresses by checking the Raft index associated with the peering.
 				continue

@@ -11,7 +11,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/stretchr/testify/require"
 )
 
@@ -37,7 +37,7 @@ var enterpriseConfigKeyWarnings = []string{
 // CE-only equivalent of TestConfigFlagsAndEdgecases
 // used for flags validated in ent-only code
 func TestLoad_IntegrationWithFlags_CE(t *testing.T) {
-	dataDir := testutil.TempDir(t, "consul")
+	dataDir := testutil.TempDir(t, "dumb-consul")
 	defer os.RemoveAll(dataDir)
 
 	tests := []testCase{
@@ -50,7 +50,7 @@ func TestLoad_IntegrationWithFlags_CE(t *testing.T) {
 			json: []string{`{ "partition": "foo" }`},
 			hcl:  []string{`partition = "foo"`},
 			expectedWarnings: []string{
-				`"partition" is a Consul Enterprise configuration and will have no effect`,
+				`"partition" is a Dumb Consul Enterprise configuration and will have no effect`,
 			},
 			expected: func(rt *RuntimeConfig) {
 				rt.DataDir = dataDir
@@ -66,7 +66,7 @@ func TestLoad_IntegrationWithFlags_CE(t *testing.T) {
 			json: []string{`{ "partition": "foo" }`},
 			hcl:  []string{`partition = "foo"`},
 			expectedWarnings: []string{
-				`"partition" is a Consul Enterprise configuration and will have no effect`,
+				`"partition" is a Dumb Consul Enterprise configuration and will have no effect`,
 			},
 			expected: func(rt *RuntimeConfig) {
 				rt.DataDir = dataDir
@@ -163,7 +163,7 @@ func TestLoad_ReportingConfig(t *testing.T) {
 		result, err := Load(opts)
 		require.NoError(t, err)
 		require.Len(t, result.Warnings, 1)
-		require.Contains(t, result.Warnings[0], "\"reporting.license.enabled\" is a Consul Enterprise configuration and will have no effect")
+		require.Contains(t, result.Warnings[0], "\"reporting.license.enabled\" is a Dumb Consul Enterprise configuration and will have no effect")
 		require.Equal(t, false, result.RuntimeConfig.Reporting.License.Enabled)
 	})
 }

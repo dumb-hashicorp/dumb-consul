@@ -72,8 +72,8 @@ auto_config = {
             list_claim_mappings = {
                 foo = "bar"
             }
-            bound_issuer = "consul"
-            bound_audiences = ["consul-cluster-1"]
+            bound_issuer = "dumb-consul"
+            bound_audiences = ["dumb-consul-cluster-1"]
             claim_assertions = ["value.node == \"${node}\""]
             jwt_validation_pub_keys = ["-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAERVchfCZng4mmdvQz1+sJHRN40snC\nYt8NjYOnbnScEXMkyoUmASr88gb7jaVAVt3RYASAbgBjB2Z+EUizWkx5Tg==\n-----END PUBLIC KEY-----"]
         }
@@ -216,7 +216,7 @@ cloud {
     scada_address = "aoeusth232"
 }
 connect {
-    ca_provider = "consul"
+    ca_provider = "dumb-consul"
     ca_config {
         intermediate_cert_ttl = "8760h"
         leaf_cert_ttl = "1h"

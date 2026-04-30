@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent"
-	consulapi "github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	consulapi "github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -122,7 +122,7 @@ func (c *cmd) Run(args []string) int {
 	// All other operations will require a client connection
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -237,7 +237,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Manages gossip layer encryption keys"
 const help = `
-Usage: consul keyring [options]
+Usage: dumb-consul keyring [options]
 
   Manages encryption keys used for gossip messages. Gossip encryption is
   optional. When enabled, this command may be used to examine active encryption

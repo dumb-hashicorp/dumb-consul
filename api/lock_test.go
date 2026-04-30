@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func createTestLock(t testutil.TestingTB, c *Client, key string) (*Lock, *Session) {
@@ -413,7 +413,7 @@ func TestAPI_LockMonitorRetry(t *testing.T) {
 	defer outage.Close()
 
 	// Set up a reverse proxy that will send some requests to the
-	// 500 server and pass everything else through to the real Consul
+	// 500 server and pass everything else through to the real Dumb Consul
 	// server.
 	var mutex sync.Mutex
 	errors := 0
@@ -433,7 +433,7 @@ func TestAPI_LockMonitorRetry(t *testing.T) {
 	defer proxy.Close()
 
 	// Make another client that points at the proxy instead of the real
-	// Consul server.
+	// Dumb Consul server.
 	config := raw.config
 	config.Address = proxy.URL[7:] // Strip off "http://".
 	c, err := NewClient(&config)

@@ -7,7 +7,7 @@ import (
 	"errors"
 	"sync"
 
-	log "github.com/hashicorp/go-hclog"
+	log "github.com/dumb-hashicorp/go-hclog"
 )
 
 // Monitor provides a mechanism to stream logs using go-hclog

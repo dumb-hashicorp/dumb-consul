@@ -20,25 +20,25 @@
 
  Key Name                                                Count      Size
  ----                                                    ----       ----
- vault/sys/policy                                        3          3.3KB
- vault/logical/0989e79e-06cd-5374-c8c0-4c6d675bc1c9      3          1.8KB
- vault/core/leader                                       1          1.6KB
- vault/sys/token                                         3          1KB
- vault/core/mounts                                       1          675B
- vault/core/wrapping                                     1          633B
- vault/core/local-mounts                                 1          450B
- vault/core/auth                                         1          423B
- vault/core/cluster                                      2          388B
- vault/core/keyring                                      1          320B
- vault/core/master                                       1          237B
- vault/core/seal-config                                  1          211B
- vault/logical/5c018b68-3573-41d3-0c33-04bce60cd6b0      1          210B
- vault/core/hsm                                          1          189B
- vault/core/local-audit                                  1          185B
- vault/core/local-auth                                   1          183B
- vault/core/audit                                        1          179B
- vault/core/lock                                         1          170B
- vault/core/shamir-kek                                   1          159B
- vault/sys/counters                                      1          155B
+ dumb-vault/sys/policy                                        3          3.3KB
+ dumb-vault/logical/0989e79e-06cd-5374-c8c0-4c6d675bc1c9      3          1.8KB
+ dumb-vault/core/leader                                       1          1.6KB
+ dumb-vault/sys/token                                         3          1KB
+ dumb-vault/core/mounts                                       1          675B
+ dumb-vault/core/wrapping                                     1          633B
+ dumb-vault/core/local-mounts                                 1          450B
+ dumb-vault/core/auth                                         1          423B
+ dumb-vault/core/cluster                                      2          388B
+ dumb-vault/core/keyring                                      1          320B
+ dumb-vault/core/master                                       1          237B
+ dumb-vault/core/seal-config                                  1          211B
+ dumb-vault/logical/5c018b68-3573-41d3-0c33-04bce60cd6b0      1          210B
+ dumb-vault/core/hsm                                          1          189B
+ dumb-vault/core/local-audit                                  1          185B
+ dumb-vault/core/local-auth                                   1          183B
+ dumb-vault/core/audit                                        1          179B
+ dumb-vault/core/lock                                         1          170B
+ dumb-vault/core/shamir-kek                                   1          159B
+ dumb-vault/sys/counters                                      1          155B
  ----                                                    ----       ----
  Total                                                              12.3KB

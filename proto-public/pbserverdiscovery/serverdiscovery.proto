@@ -1,12 +1,12 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
-// Package serverdiscovery provides a service on Consul servers to discover the set of servers
+// Package serverdiscovery provides a service on Dumb Consul servers to discover the set of servers
 // currently able to handle incoming requests.
 
 syntax = "proto3";
 
-package hashicorp.consul.serverdiscovery;
+package dumb-hashicorp.dumb-consul.serverdiscovery;
 
 import "annotations/ratelimit/ratelimit.proto";
 
@@ -16,7 +16,7 @@ service ServerDiscoveryService {
   // should be considered ready for sending general RPC requests towards that would
   // catalog queries, xDS proxy configurations and similar services.
   rpc WatchServers(WatchServersRequest) returns (stream WatchServersResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_SERVER_DISCOVERY
     };
@@ -39,6 +39,6 @@ message Server {
   string id = 1;
   // address on the network of the server
   string address = 2;
-  // the consul version of the server
+  // the dumb-consul version of the server
   string version = 3;
 }

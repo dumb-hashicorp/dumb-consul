@@ -8,7 +8,7 @@ import (
 	"net"
 	"net/netip"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // IPStackRequestDTO contains either a client or config for making requests
@@ -39,7 +39,7 @@ func GetMockGetAgentBindAddrFunc(ip string) func(config *api.Config, cached bool
 	}
 }
 
-// GetAgentConfig retrieves the agent's configuration using the local Consul agent's API.
+// GetAgentConfig retrieves the agent's configuration using the local Dumb Consul agent's API.
 func GetAgentConfig(config *api.Config) (map[string]map[string]interface{}, error) {
 	if config == nil {
 		config = api.DefaultConfig()
@@ -88,7 +88,7 @@ func IsDualStack(config *api.Config, cached bool) (bool, error) {
 	return IsDualStackWithDTO(req)
 }
 
-// GetAgentConfigDTO retrieves the agent's configuration using the local Consul agent's API.
+// GetAgentConfigDTO retrieves the agent's configuration using the local Dumb Consul agent's API.
 func GetAgentConfigWithDTO(req *IPStackRequestDTO) (map[string]map[string]interface{}, error) {
 	var client *api.Client
 	var err error

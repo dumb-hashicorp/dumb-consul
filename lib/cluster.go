@@ -16,7 +16,7 @@ const (
 
 // DurationMinusBuffer returns a duration, minus a buffer and jitter
 // subtracted from the duration.  This function is used primarily for
-// servicing Consul TTL Checks in advance of the TTL.
+// servicing Dumb Consul TTL Checks in advance of the TTL.
 func DurationMinusBuffer(intv time.Duration, buffer time.Duration, jitter int64) time.Duration {
 	d := intv - buffer
 	if jitter == 0 {

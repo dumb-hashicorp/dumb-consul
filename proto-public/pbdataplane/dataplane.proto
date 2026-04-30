@@ -1,11 +1,11 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
-// Package dataplane provides a service on Consul servers for the Consul Dataplane
+// Package dataplane provides a service on Dumb Consul servers for the Dumb Consul Dataplane
 
 syntax = "proto3";
 
-package hashicorp.consul.dataplane;
+package dumb-hashicorp.dumb-consul.dataplane;
 
 import "annotations/ratelimit/ratelimit.proto";
 import "google/protobuf/struct.proto";
@@ -47,14 +47,14 @@ enum ServiceKind {
   // as if TYPICAL was explicitly used.
   SERVICE_KIND_UNSPECIFIED = 0;
 
-  // ServiceKind Typical is a typical, classic Consul service. This is
+  // ServiceKind Typical is a typical, classic Dumb Consul service. This is
   // represented by the absence of a value. This was chosen for ease of
   // backwards compatibility: existing services in the catalog would
   // default to the typical service.
   SERVICE_KIND_TYPICAL = 1;
 
   // ServiceKind Connect Proxy is a proxy for the Connect feature. This
-  // service proxies another service within Consul and speaks the connect
+  // service proxies another service within Dumb Consul and speaks the connect
   // protocol.
   SERVICE_KIND_CONNECT_PROXY = 2;
 
@@ -106,14 +106,14 @@ message GetEnvoyBootstrapParamsResponse {
 
 service DataplaneService {
   rpc GetSupportedDataplaneFeatures(GetSupportedDataplaneFeaturesRequest) returns (GetSupportedDataplaneFeaturesResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_DATAPLANE
     };
   }
 
   rpc GetEnvoyBootstrapParams(GetEnvoyBootstrapParamsRequest) returns (GetEnvoyBootstrapParamsResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_DATAPLANE
     };

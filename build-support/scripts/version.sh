@@ -16,7 +16,7 @@ Usage: ${SCRIPT_NAME}  [<options ...>]
 
 Description:
 
-   This script is just a convenience around discover what the Consul
+   This script is just a convenience around discover what the Dumb Consul
    version would be if you were to build it. 
 
 Options:                       

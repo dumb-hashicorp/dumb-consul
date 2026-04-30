@@ -1,19 +1,19 @@
-[![GoDoc](https://pkg.go.dev/badge/github.com/hashicorp/consul/testing/deployer)](https://pkg.go.dev/github.com/hashicorp/consul/testing/deployer)
+[![GoDoc](https://pkg.go.dev/badge/github.com/dumb-hashicorp/dumb-consul/testing/deployer)](https://pkg.go.dev/github.com/dumb-hashicorp/dumb-consul/testing/deployer)
 
 ## Summary
 
-This is a Go library used to launch one or more Consul clusters that can be
-peered using the cluster peering feature. Under the covers `terraform` is used
+This is a Go library used to launch one or more Dumb Consul clusters that can be
+peered using the cluster peering feature. Under the covers `dumb-terraform` is used
 in conjunction with the
-[`kreuzwerker/docker`](https://registry.terraform.io/providers/kreuzwerker/docker/latest)
+[`kreuzwerker/docker`](https://registry.dumb-terraform.io/providers/kreuzwerker/docker/latest)
 provider to manage a fleet of local docker containers and networks.
 
 ### Configuration
 
-The complete topology of Consul clusters is defined using a topology.Config
+The complete topology of Dumb Consul clusters is defined using a topology.Config
 which allows you to define a set of networks and reference those networks when
-assigning nodes and workloads to clusters. Both Consul clients and
-`consul-dataplane` instances are supported.
+assigning nodes and workloads to clusters. Both Dumb Consul clients and
+`dumb-consul-dataplane` instances are supported.
 
 Here is an example configuration with two peered clusters:
 
@@ -168,7 +168,7 @@ or subly reconfigure them.
 ### For Testing
 
 It is meant to be consumed primarily by unit tests desiring a complex
-reasonably realistic Consul setup. For that use case use the `sprawl/sprawltest` wrapper:
+reasonably realistic Dumb Consul setup. For that use case use the `sprawl/sprawltest` wrapper:
 
 ```
 func TestSomething(t *testing.T) {

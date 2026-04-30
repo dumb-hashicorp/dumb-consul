@@ -6,10 +6,10 @@ package structs
 import (
 	"fmt"
 
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 // ServiceDefinition is used to JSON decode the Service definitions. For
@@ -98,7 +98,7 @@ func (s *ServiceDefinition) NodeService() *NodeService {
 			}
 
 			// If a proxy's namespace and partition are not defined, inherit from the proxied service
-			// Applicable only to Consul Enterprise.
+			// Applicable only to Dumb Consul Enterprise.
 			if ns.Proxy.Upstreams[i].DestinationNamespace == "" {
 				ns.Proxy.Upstreams[i].DestinationNamespace = ns.NamespaceOrEmpty()
 			}

@@ -7,7 +7,7 @@ package mockpbacl
 import (
 	"context"
 
-	"github.com/hashicorp/consul/proto-public/pbacl"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbacl"
 	mock "github.com/stretchr/testify/mock"
 )
 

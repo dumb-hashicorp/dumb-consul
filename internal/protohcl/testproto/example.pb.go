@@ -240,7 +240,7 @@ type NestedAndCollections struct {
 	Primitives     *Primitives            `protobuf:"bytes,1,opt,name=primitives,proto3" json:"primitives,omitempty"`
 	PrimitivesList []*Primitives          `protobuf:"bytes,2,rep,name=primitives_list,json=primitivesList,proto3" json:"primitives_list,omitempty"`
 	PrimitivesMap  map[string]*Primitives `protobuf:"bytes,3,rep,name=primitives_map,json=primitivesMap,proto3" json:"primitives_map,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	ProtocolMap    map[string]Protocol    `protobuf:"bytes,4,rep,name=protocol_map,json=protocolMap,proto3" json:"protocol_map,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"varint,2,opt,name=value,enum=hashicorp.consul.internal.protohcl.testproto.Protocol"`
+	ProtocolMap    map[string]Protocol    `protobuf:"bytes,4,rep,name=protocol_map,json=protocolMap,proto3" json:"protocol_map,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"varint,2,opt,name=value,enum=dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Protocol"`
 	IntList        []int32                `protobuf:"varint,5,rep,packed,name=int_list,json=intList,proto3" json:"int_list,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
@@ -625,7 +625,7 @@ var File_example_proto protoreflect.FileDescriptor
 
 const file_example_proto_rawDesc = "" +
 	"\n" +
-	"\rexample.proto\x12,hashicorp.consul.internal.protohcl.testproto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x19google/protobuf/any.proto\x1a\x1cgoogle/protobuf/struct.proto\"\xdb\x03\n" +
+	"\rexample.proto\x12,dumb-hashicorp.dumb-consul.internal.protohcl.testproto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x19google/protobuf/any.proto\x1a\x1cgoogle/protobuf/struct.proto\"\xdb\x03\n" +
 	"\n" +
 	"Primitives\x12\x1d\n" +
 	"\n" +
@@ -654,18 +654,18 @@ const file_example_proto_rawDesc = "" +
 	"\bbyte_val\x18\x0f \x01(\fR\abyteVal\"\xd8\x05\n" +
 	"\x14NestedAndCollections\x12X\n" +
 	"\n" +
-	"primitives\x18\x01 \x01(\v28.hashicorp.consul.internal.protohcl.testproto.PrimitivesR\n" +
+	"primitives\x18\x01 \x01(\v28.dumb-hashicorp.dumb-consul.internal.protohcl.testproto.PrimitivesR\n" +
 	"primitives\x12a\n" +
-	"\x0fprimitives_list\x18\x02 \x03(\v28.hashicorp.consul.internal.protohcl.testproto.PrimitivesR\x0eprimitivesList\x12|\n" +
-	"\x0eprimitives_map\x18\x03 \x03(\v2U.hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.PrimitivesMapEntryR\rprimitivesMap\x12v\n" +
-	"\fprotocol_map\x18\x04 \x03(\v2S.hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.ProtocolMapEntryR\vprotocolMap\x12\x19\n" +
+	"\x0fprimitives_list\x18\x02 \x03(\v28.dumb-hashicorp.dumb-consul.internal.protohcl.testproto.PrimitivesR\x0eprimitivesList\x12|\n" +
+	"\x0eprimitives_map\x18\x03 \x03(\v2U.dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.PrimitivesMapEntryR\rprimitivesMap\x12v\n" +
+	"\fprotocol_map\x18\x04 \x03(\v2S.dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.ProtocolMapEntryR\vprotocolMap\x12\x19\n" +
 	"\bint_list\x18\x05 \x03(\x05R\aintList\x1az\n" +
 	"\x12PrimitivesMapEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12N\n" +
-	"\x05value\x18\x02 \x01(\v28.hashicorp.consul.internal.protohcl.testproto.PrimitivesR\x05value:\x028\x01\x1av\n" +
+	"\x05value\x18\x02 \x01(\v28.dumb-hashicorp.dumb-consul.internal.protohcl.testproto.PrimitivesR\x05value:\x028\x01\x1av\n" +
 	"\x10ProtocolMapEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12L\n" +
-	"\x05value\x18\x02 \x01(\x0e26.hashicorp.consul.internal.protohcl.testproto.ProtocolR\x05value:\x028\x01\"\x9d\x04\n" +
+	"\x05value\x18\x02 \x01(\x0e26.dumb-hashicorp.dumb-consul.internal.protohcl.testproto.ProtocolR\x05value:\x028\x01\"\x9d\x04\n" +
 	"\bWrappers\x12;\n" +
 	"\n" +
 	"double_val\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\tdoubleVal\x128\n" +
@@ -683,7 +683,7 @@ const file_example_proto_rawDesc = "" +
 	"\x05OneOf\x12\x1d\n" +
 	"\tint32_val\x18\x01 \x01(\x05H\x00R\bint32Val\x12Z\n" +
 	"\n" +
-	"primitives\x18\x02 \x01(\v28.hashicorp.consul.internal.protohcl.testproto.PrimitivesH\x00R\n" +
+	"primitives\x18\x02 \x01(\v28.dumb-hashicorp.dumb-consul.internal.protohcl.testproto.PrimitivesH\x00R\n" +
 	"primitivesB\x06\n" +
 	"\x04data\"\xc9\x01\n" +
 	"\x13NonDynamicWellKnown\x123\n" +
@@ -699,7 +699,7 @@ const file_example_proto_rawDesc = "" +
 	"\x14PROTOCOL_UNSPECIFIED\x10\x00\x12\x10\n" +
 	"\fPROTOCOL_TCP\x10\x01\x12\x10\n" +
 	"\fPROTOCOL_UDP\x10\x02B\xcf\x02\n" +
-	"0com.hashicorp.consul.internal.protohcl.testprotoB\fExampleProtoP\x01Z7github.com/hashicorp/consul/internal/protohcl/testproto\xa2\x02\x05HCIPT\xaa\x02,Hashicorp.Consul.Internal.Protohcl.Testproto\xca\x02,Hashicorp\\Consul\\Internal\\Protohcl\\Testproto\xe2\x028Hashicorp\\Consul\\Internal\\Protohcl\\Testproto\\GPBMetadata\xea\x020Hashicorp::Consul::Internal::Protohcl::Testprotob\x06proto3"
+	"0com.dumb-hashicorp.dumb-consul.internal.protohcl.testprotoB\fExampleProtoP\x01Z7github.com/dumb-hashicorp/dumb-consul/internal/protohcl/testproto\xa2\x02\x05HCIPT\xaa\x02,Hashicorp.Dumb Consul.Internal.Protohcl.Testproto\xca\x02,Hashicorp\\Dumb Consul\\Internal\\Protohcl\\Testproto\xe2\x028Hashicorp\\Dumb Consul\\Internal\\Protohcl\\Testproto\\GPBMetadata\xea\x020Hashicorp::Dumb Consul::Internal::Protohcl::Testprotob\x06proto3"
 
 var (
 	file_example_proto_rawDescOnce sync.Once
@@ -716,15 +716,15 @@ func file_example_proto_rawDescGZIP() []byte {
 var file_example_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_example_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_example_proto_goTypes = []any{
-	(Protocol)(0),                  // 0: hashicorp.consul.internal.protohcl.testproto.Protocol
-	(*Primitives)(nil),             // 1: hashicorp.consul.internal.protohcl.testproto.Primitives
-	(*NestedAndCollections)(nil),   // 2: hashicorp.consul.internal.protohcl.testproto.NestedAndCollections
-	(*Wrappers)(nil),               // 3: hashicorp.consul.internal.protohcl.testproto.Wrappers
-	(*OneOf)(nil),                  // 4: hashicorp.consul.internal.protohcl.testproto.OneOf
-	(*NonDynamicWellKnown)(nil),    // 5: hashicorp.consul.internal.protohcl.testproto.NonDynamicWellKnown
-	(*DynamicWellKnown)(nil),       // 6: hashicorp.consul.internal.protohcl.testproto.DynamicWellKnown
-	nil,                            // 7: hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.PrimitivesMapEntry
-	nil,                            // 8: hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.ProtocolMapEntry
+	(Protocol)(0),                  // 0: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Protocol
+	(*Primitives)(nil),             // 1: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives
+	(*NestedAndCollections)(nil),   // 2: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections
+	(*Wrappers)(nil),               // 3: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers
+	(*OneOf)(nil),                  // 4: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.OneOf
+	(*NonDynamicWellKnown)(nil),    // 5: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NonDynamicWellKnown
+	(*DynamicWellKnown)(nil),       // 6: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.DynamicWellKnown
+	nil,                            // 7: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.PrimitivesMapEntry
+	nil,                            // 8: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.ProtocolMapEntry
 	(*wrapperspb.DoubleValue)(nil), // 9: google.protobuf.DoubleValue
 	(*wrapperspb.FloatValue)(nil),  // 10: google.protobuf.FloatValue
 	(*wrapperspb.Int32Value)(nil),  // 11: google.protobuf.Int32Value
@@ -741,28 +741,28 @@ var file_example_proto_goTypes = []any{
 	(*structpb.Struct)(nil),        // 22: google.protobuf.Struct
 }
 var file_example_proto_depIdxs = []int32{
-	1,  // 0: hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.primitives:type_name -> hashicorp.consul.internal.protohcl.testproto.Primitives
-	1,  // 1: hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.primitives_list:type_name -> hashicorp.consul.internal.protohcl.testproto.Primitives
-	7,  // 2: hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.primitives_map:type_name -> hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.PrimitivesMapEntry
-	8,  // 3: hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.protocol_map:type_name -> hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.ProtocolMapEntry
-	9,  // 4: hashicorp.consul.internal.protohcl.testproto.Wrappers.double_val:type_name -> google.protobuf.DoubleValue
-	10, // 5: hashicorp.consul.internal.protohcl.testproto.Wrappers.float_val:type_name -> google.protobuf.FloatValue
-	11, // 6: hashicorp.consul.internal.protohcl.testproto.Wrappers.int32_val:type_name -> google.protobuf.Int32Value
-	12, // 7: hashicorp.consul.internal.protohcl.testproto.Wrappers.int64_val:type_name -> google.protobuf.Int64Value
-	13, // 8: hashicorp.consul.internal.protohcl.testproto.Wrappers.uint32_val:type_name -> google.protobuf.UInt32Value
-	14, // 9: hashicorp.consul.internal.protohcl.testproto.Wrappers.uint64_val:type_name -> google.protobuf.UInt64Value
-	15, // 10: hashicorp.consul.internal.protohcl.testproto.Wrappers.bool_val:type_name -> google.protobuf.BoolValue
-	16, // 11: hashicorp.consul.internal.protohcl.testproto.Wrappers.string_val:type_name -> google.protobuf.StringValue
-	17, // 12: hashicorp.consul.internal.protohcl.testproto.Wrappers.bytes_val:type_name -> google.protobuf.BytesValue
-	1,  // 13: hashicorp.consul.internal.protohcl.testproto.OneOf.primitives:type_name -> hashicorp.consul.internal.protohcl.testproto.Primitives
-	18, // 14: hashicorp.consul.internal.protohcl.testproto.NonDynamicWellKnown.empty_val:type_name -> google.protobuf.Empty
-	19, // 15: hashicorp.consul.internal.protohcl.testproto.NonDynamicWellKnown.timestamp_val:type_name -> google.protobuf.Timestamp
-	20, // 16: hashicorp.consul.internal.protohcl.testproto.NonDynamicWellKnown.duration_val:type_name -> google.protobuf.Duration
-	21, // 17: hashicorp.consul.internal.protohcl.testproto.DynamicWellKnown.any_val:type_name -> google.protobuf.Any
-	22, // 18: hashicorp.consul.internal.protohcl.testproto.DynamicWellKnown.struct_val:type_name -> google.protobuf.Struct
-	21, // 19: hashicorp.consul.internal.protohcl.testproto.DynamicWellKnown.any_list:type_name -> google.protobuf.Any
-	1,  // 20: hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.PrimitivesMapEntry.value:type_name -> hashicorp.consul.internal.protohcl.testproto.Primitives
-	0,  // 21: hashicorp.consul.internal.protohcl.testproto.NestedAndCollections.ProtocolMapEntry.value:type_name -> hashicorp.consul.internal.protohcl.testproto.Protocol
+	1,  // 0: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.primitives:type_name -> dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives
+	1,  // 1: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.primitives_list:type_name -> dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives
+	7,  // 2: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.primitives_map:type_name -> dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.PrimitivesMapEntry
+	8,  // 3: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.protocol_map:type_name -> dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.ProtocolMapEntry
+	9,  // 4: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers.double_val:type_name -> google.protobuf.DoubleValue
+	10, // 5: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers.float_val:type_name -> google.protobuf.FloatValue
+	11, // 6: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers.int32_val:type_name -> google.protobuf.Int32Value
+	12, // 7: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers.int64_val:type_name -> google.protobuf.Int64Value
+	13, // 8: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers.uint32_val:type_name -> google.protobuf.UInt32Value
+	14, // 9: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers.uint64_val:type_name -> google.protobuf.UInt64Value
+	15, // 10: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers.bool_val:type_name -> google.protobuf.BoolValue
+	16, // 11: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers.string_val:type_name -> google.protobuf.StringValue
+	17, // 12: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers.bytes_val:type_name -> google.protobuf.BytesValue
+	1,  // 13: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.OneOf.primitives:type_name -> dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives
+	18, // 14: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NonDynamicWellKnown.empty_val:type_name -> google.protobuf.Empty
+	19, // 15: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NonDynamicWellKnown.timestamp_val:type_name -> google.protobuf.Timestamp
+	20, // 16: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NonDynamicWellKnown.duration_val:type_name -> google.protobuf.Duration
+	21, // 17: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.DynamicWellKnown.any_val:type_name -> google.protobuf.Any
+	22, // 18: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.DynamicWellKnown.struct_val:type_name -> google.protobuf.Struct
+	21, // 19: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.DynamicWellKnown.any_list:type_name -> google.protobuf.Any
+	1,  // 20: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.PrimitivesMapEntry.value:type_name -> dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives
+	0,  // 21: dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections.ProtocolMapEntry.value:type_name -> dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Protocol
 	22, // [22:22] is the sub-list for method output_type
 	22, // [22:22] is the sub-list for method input_type
 	22, // [22:22] is the sub-list for extension type_name

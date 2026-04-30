@@ -47,7 +47,7 @@ Finally, after serveral tries, it was decided that instead of replicating the Li
 
 ## Single Container Test Architecture
 
-As mentioned above, the single container approach, means building a Windows Docker image not only with Consul and Envoy, but also with all the tools required to execute the existing Envoy integration tests.  
+As mentioned above, the single container approach, means building a Windows Docker image not only with Dumb Consul and Envoy, but also with all the tools required to execute the existing Envoy integration tests.  
 
 ![windows-linux-singlecontainer](./img/windows-singlecontainer.png)
 
@@ -55,7 +55,7 @@ Below you can find a list and a brief description of those components.
 
 ### Docker Image Components
 
-The Docker image used for the Consul - Envoy integration tests has several components needed to run those tests.
+The Docker image used for the Dumb Consul - Envoy integration tests has several components needed to run those tests.
 
 - Main Components:
   - [Bats](#bats)
@@ -75,7 +75,7 @@ BATS stands for Bash Automated Testing System and is the one in charge of execut
 
 #### Fortio
 
-Fortio is a microservices (http, grpc) load testing library, command line tool, advanced echo server, and web UI. It is used to run the services registered into Consul during the integration tests.
+Fortio is a microservices (http, grpc) load testing library, command line tool, advanced echo server, and web UI. It is used to run the services registered into Dumb Consul during the integration tests.
 
 #### Jaegertracing
 

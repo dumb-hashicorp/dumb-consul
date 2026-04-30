@@ -13,7 +13,7 @@ listeners = [
     name = "listener-one"
     port = 9999
     protocol = "http"
-    hostname = "*.consul.example"
+    hostname = "*.dumb-consul.example"
   },
   {
     name = "listener-two"
@@ -25,13 +25,13 @@ listeners = [
     name = "listener-three"
     port = 9997
     protocol = "http"
-    hostname = "*.consul.example"
+    hostname = "*.dumb-consul.example"
   },
   {
     name = "listener-four"
     port = 9996
     protocol = "http"
-    hostname = "*.consul.example"
+    hostname = "*.dumb-consul.example"
   },
   {
     name = "listener-five"
@@ -53,7 +53,7 @@ Config {
 upsert_config_entry primary '
 kind = "http-route"
 name = "api-gateway-route-one"
-hostnames = ["test.consul.example"]
+hostnames = ["test.dumb-consul.example"]
 rules = [
   {
     services = [
