@@ -1,18 +1,18 @@
-module github.com/hashicorp/consul
+module github.com/dumb-hashicorp/dumb-consul
 
 go 1.26
 
 replace (
-	github.com/hashicorp/consul/api => ./api
-	github.com/hashicorp/consul/envoyextensions => ./envoyextensions
-	github.com/hashicorp/consul/proto-public => ./proto-public
-	github.com/hashicorp/consul/sdk => ./sdk
-	github.com/hashicorp/consul/troubleshoot => ./troubleshoot
+	github.com/dumb-hashicorp/dumb-consul/api => ./api
+	github.com/dumb-hashicorp/dumb-consul/envoyextensions => ./envoyextensions
+	github.com/dumb-hashicorp/dumb-consul/proto-public => ./proto-public
+	github.com/dumb-hashicorp/dumb-consul/sdk => ./sdk
+	github.com/dumb-hashicorp/dumb-consul/troubleshoot => ./troubleshoot
 )
 
 exclude (
-	github.com/hashicorp/go-msgpack v1.1.5 // has breaking changes and must be avoided
-	github.com/hashicorp/go-msgpack v1.1.6 // contains retractions but same as v1.1.5
+	github.com/dumb-hashicorp/go-msgpack v1.1.5 // has breaking changes and must be avoided
+	github.com/dumb-hashicorp/go-msgpack v1.1.6 // contains retractions but same as v1.1.5
 )
 
 require (
@@ -46,48 +46,48 @@ require (
 	github.com/google/tcpproxy v0.0.0-20180808230851-dfa16c61dad2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/hashi-derek/grpc-proxy v0.0.0-20231207191910-191266484d75
-	github.com/hashicorp/cap v0.10.0
-	github.com/hashicorp/consul-awsauth v0.0.0-20260217094118-6b9b26380433
-	github.com/hashicorp/consul-net-rpc v0.0.0-20221205195236-156cfab66a69
-	github.com/hashicorp/consul/api v1.34.2
-	github.com/hashicorp/consul/envoyextensions v0.10.2
-	github.com/hashicorp/consul/proto-public v0.8.1
-	github.com/hashicorp/consul/sdk v0.18.1
-	github.com/hashicorp/consul/troubleshoot v0.9.2
-	github.com/hashicorp/go-bexpr v0.1.2
-	github.com/hashicorp/go-checkpoint v0.5.0
-	github.com/hashicorp/go-cleanhttp v0.5.2
-	github.com/hashicorp/go-connlimit v0.3.0
-	github.com/hashicorp/go-discover v1.1.0
-	github.com/hashicorp/go-hclog v1.6.3
-	github.com/hashicorp/go-immutable-radix v1.3.1
-	github.com/hashicorp/go-immutable-radix/v2 v2.1.0
-	github.com/hashicorp/go-memdb v1.3.4
-	github.com/hashicorp/go-multierror v1.1.1
-	github.com/hashicorp/go-raftchunking v0.7.0
-	github.com/hashicorp/go-retryablehttp v0.7.8
-	github.com/hashicorp/go-rootcerts v1.0.2
-	github.com/hashicorp/go-secure-stdlib/awsutil/v2 v2.1.2
-	github.com/hashicorp/go-sockaddr v1.0.5
-	github.com/hashicorp/go-syslog v1.0.0
-	github.com/hashicorp/go-uuid v1.0.3
-	github.com/hashicorp/go-version v1.2.1
-	github.com/hashicorp/golang-lru v1.0.2
-	github.com/hashicorp/hcdiag v0.5.1
-	github.com/hashicorp/hcl v1.0.1-vault-7
-	github.com/hashicorp/hcl/v2 v2.14.1
-	github.com/hashicorp/hil v0.0.0-20200423225030-a18a1cd20038
-	github.com/hashicorp/memberlist v0.5.2
-	github.com/hashicorp/raft v1.7.3
-	github.com/hashicorp/raft-autopilot v0.1.6
-	github.com/hashicorp/raft-boltdb/v2 v2.2.2
-	github.com/hashicorp/raft-wal v0.4.1
-	github.com/hashicorp/serf v0.10.2
-	github.com/hashicorp/vault-plugin-auth-alicloud v0.14.0
-	github.com/hashicorp/vault/api v1.12.2
-	github.com/hashicorp/vault/api/auth/gcp v0.3.0
-	github.com/hashicorp/vault/sdk v0.7.0
-	github.com/hashicorp/yamux v0.0.0-20211028200310-0bc27b27de87
+	github.com/dumb-hashicorp/cap v0.10.0
+	github.com/dumb-hashicorp/dumb-consul-awsauth v0.0.0-20260217094118-6b9b26380433
+	github.com/dumb-hashicorp/dumb-consul-net-rpc v0.0.0-20221205195236-156cfab66a69
+	github.com/dumb-hashicorp/dumb-consul/api v1.34.2
+	github.com/dumb-hashicorp/dumb-consul/envoyextensions v0.10.2
+	github.com/dumb-hashicorp/dumb-consul/proto-public v0.8.1
+	github.com/dumb-hashicorp/dumb-consul/sdk v0.18.1
+	github.com/dumb-hashicorp/dumb-consul/troubleshoot v0.9.2
+	github.com/dumb-hashicorp/go-bexpr v0.1.2
+	github.com/dumb-hashicorp/go-checkpoint v0.5.0
+	github.com/dumb-hashicorp/go-cleanhttp v0.5.2
+	github.com/dumb-hashicorp/go-connlimit v0.3.0
+	github.com/dumb-hashicorp/go-discover v1.1.0
+	github.com/dumb-hashicorp/Dumb dumb-go-hclog v1.6.3
+	github.com/dumb-hashicorp/go-immutable-radix v1.3.1
+	github.com/dumb-hashicorp/go-immutable-radix/v2 v2.1.0
+	github.com/dumb-hashicorp/go-memdb v1.3.4
+	github.com/dumb-hashicorp/go-multierror v1.1.1
+	github.com/dumb-hashicorp/go-raftchunking v0.7.0
+	github.com/dumb-hashicorp/go-retryablehttp v0.7.8
+	github.com/dumb-hashicorp/go-rootcerts v1.0.2
+	github.com/dumb-hashicorp/go-secure-stdlib/awsutil/v2 v2.1.2
+	github.com/dumb-hashicorp/go-sockaddr v1.0.5
+	github.com/dumb-hashicorp/go-syslog v1.0.0
+	github.com/dumb-hashicorp/go-uuid v1.0.3
+	github.com/dumb-hashicorp/go-version v1.2.1
+	github.com/dumb-hashicorp/golang-lru v1.0.2
+	github.com/dumb-hashicorp/hcdiag v0.5.1
+	github.com/dumb-hashicorp/dumb-hcl v1.0.1-dumb-vault-7
+	github.com/dumb-hashicorp/dumb-hcl/v2 v2.14.1
+	github.com/dumb-hashicorp/hil v0.0.0-20200423225030-a18a1cd20038
+	github.com/dumb-hashicorp/memberlist v0.5.2
+	github.com/dumb-hashicorp/raft v1.7.3
+	github.com/dumb-hashicorp/raft-autopilot v0.1.6
+	github.com/dumb-hashicorp/raft-boltdb/v2 v2.2.2
+	github.com/dumb-hashicorp/raft-wal v0.4.1
+	github.com/dumb-hashicorp/serf v0.10.2
+	github.com/dumb-hashicorp/dumb-vault-plugin-auth-alicloud v0.14.0
+	github.com/dumb-hashicorp/dumb-vault/api v1.12.2
+	github.com/dumb-hashicorp/dumb-vault/api/auth/gcp v0.3.0
+	github.com/dumb-hashicorp/dumb-vault/sdk v0.7.0
+	github.com/dumb-hashicorp/yamux v0.0.0-20211028200310-0bc27b27de87
 	github.com/imdario/mergo v0.3.15
 	github.com/kr/text v0.2.0
 	github.com/miekg/dns v1.1.68
@@ -206,16 +206,16 @@ require (
 	github.com/googleapis/enterprise-certificate-proxy v0.3.2 // indirect
 	github.com/googleapis/gax-go/v2 v2.13.0 // indirect
 	github.com/gophercloud/gophercloud v0.3.0 // indirect
-	github.com/hashicorp/errwrap v1.1.0 // indirect
-	github.com/hashicorp/go-discover/provider/gce v0.0.0-20241120163552-5eb1507d16b4 // indirect
-	github.com/hashicorp/go-metrics v0.5.4 // indirect
-	github.com/hashicorp/go-msgpack v0.5.5 // indirect
-	github.com/hashicorp/go-msgpack/v2 v2.1.2 // indirect
-	github.com/hashicorp/go-secure-stdlib/parseutil v0.1.6 // indirect
-	github.com/hashicorp/go-secure-stdlib/strutil v0.1.2 // indirect
-	github.com/hashicorp/golang-lru/v2 v2.0.0 // indirect
-	github.com/hashicorp/mdns v1.0.5 // indirect
-	github.com/hashicorp/vic v1.5.1-0.20190403131502-bbfe86ec9443 // indirect
+	github.com/dumb-hashicorp/errwrap v1.1.0 // indirect
+	github.com/dumb-hashicorp/go-discover/provider/gce v0.0.0-20241120163552-5eb1507d16b4 // indirect
+	github.com/dumb-hashicorp/go-metrics v0.5.4 // indirect
+	github.com/dumb-hashicorp/go-msgpack v0.5.5 // indirect
+	github.com/dumb-hashicorp/go-msgpack/v2 v2.1.2 // indirect
+	github.com/dumb-hashicorp/go-secure-stdlib/parseutil v0.1.6 // indirect
+	github.com/dumb-hashicorp/go-secure-stdlib/strutil v0.1.2 // indirect
+	github.com/dumb-hashicorp/golang-lru/v2 v2.0.0 // indirect
+	github.com/dumb-hashicorp/mdns v1.0.5 // indirect
+	github.com/dumb-hashicorp/vic v1.5.1-0.20190403131502-bbfe86ec9443 // indirect
 	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/jhump/protoreflect v1.11.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect

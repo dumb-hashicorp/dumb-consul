@@ -5,7 +5,7 @@ version: v1
 managed:
   enabled: true
   go_package_prefix:
-    default: github.com/hashicorp/consul/internal/tools/protoc-gen-grpc-clone/e2e/proto
+    default: github.com/dumb-hashicorp/dumb-consul/internal/tools/protoc-gen-grpc-clone/e2e/proto
 plugins:
   - name: go
     out: .

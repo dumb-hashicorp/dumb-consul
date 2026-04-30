@@ -16,11 +16,11 @@ import (
 
 	"github.com/armon/go-metrics"
 
-	"github.com/hashicorp/consul/agent/grpc-internal/balancer"
-	agentmiddleware "github.com/hashicorp/consul/agent/grpc-middleware"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/balancer"
+	agentmiddleware "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 // grpcServiceConfig is provided as the default service config.
@@ -59,43 +59,43 @@ const grpcServiceConfig = `
 		{
 			"name": [
 				{
-					"service": "hashicorp.consul.connectca.ConnectCAService",
+					"service": "dumb-hashicorp.dumb-consul.connectca.ConnectCAService",
 					"method": "WatchRoots"
 				},
 				{
-					"service": "hashicorp.consul.dataplane.DataplaneService",
+					"service": "dumb-hashicorp.dumb-consul.dataplane.DataplaneService",
 					"method": "GetEnvoyBootstrapParams"
 				},
 				{
-					"service": "hashicorp.consul.dataplane.DataplaneService",
+					"service": "dumb-hashicorp.dumb-consul.dataplane.DataplaneService",
 					"method": "GetSupportedDataplaneFeatures"
 				},
 				{
-					"service": "hashicorp.consul.dns.DNSService",
+					"service": "dumb-hashicorp.dumb-consul.dns.DNSService",
 					"method": "Query"
 				},
 				{
-					"service": "hashicorp.consul.internal.peering.PeeringService",
+					"service": "dumb-hashicorp.dumb-consul.internal.peering.PeeringService",
 					"method": "PeeringList"
 				},
 				{
-					"service": "hashicorp.consul.internal.peering.PeeringService",
+					"service": "dumb-hashicorp.dumb-consul.internal.peering.PeeringService",
 					"method": "PeeringRead"
 				},
 				{
-					"service": "hashicorp.consul.internal.peering.PeeringService",
+					"service": "dumb-hashicorp.dumb-consul.internal.peering.PeeringService",
 					"method": "TrustBundleListByService"
 				},
 				{
-					"service": "hashicorp.consul.internal.peering.PeeringService",
+					"service": "dumb-hashicorp.dumb-consul.internal.peering.PeeringService",
 					"method": "TrustBundleRead"
 				},
 				{
-					"service": "hashicorp.consul.internal.peerstream.PeerStreamService",
+					"service": "dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService",
 					"method": "StreamResources"
 				},
 				{
-					"service": "hashicorp.consul.serverdiscovery.ServerDiscoveryService",
+					"service": "dumb-hashicorp.dumb-consul.serverdiscovery.ServerDiscoveryService",
 					"method": "WatchServers"
 				},
 				{
@@ -215,10 +215,10 @@ type ClientConnPoolConfig struct {
 	UseTLSForDC func(dc string) bool
 
 	// DialingFromServer should be set to true if this connection pool is owned
-	// by a consul server instance.
+	// by a dumb-consul server instance.
 	DialingFromServer bool
 
-	// DialingFromDatacenter is the datacenter of the consul agent using this
+	// DialingFromDatacenter is the datacenter of the dumb-consul agent using this
 	// pool.
 	DialingFromDatacenter string
 }
@@ -255,7 +255,7 @@ func (c *ClientConnPool) dial(datacenter string, serverType string) (*grpc.Clien
 	c.connsLock.Lock()
 	defer c.connsLock.Unlock()
 
-	target := fmt.Sprintf("consul://%s/%s.%s", c.servers.Authority(), serverType, datacenter)
+	target := fmt.Sprintf("dumb-consul://%s/%s.%s", c.servers.Authority(), serverType, datacenter)
 	if conn, ok := c.conns[target]; ok {
 		return conn, nil
 	}

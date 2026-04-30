@@ -17,10 +17,10 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 type ClientOption func(*Client)
@@ -173,7 +173,7 @@ func (client *Client) Context(t T) context.Context {
 
 	if client.token != "" {
 		md := metadata.New(map[string]string{
-			"x-consul-token": client.token,
+			"x-dumb-consul-token": client.token,
 		})
 		ctx = metadata.NewOutgoingContext(ctx, md)
 	}

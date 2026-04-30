@@ -8,9 +8,9 @@ import (
 	envoy_cluster_v3 "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
 	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
 	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/go-multierror"
 	"google.golang.org/protobuf/proto"
 )
 

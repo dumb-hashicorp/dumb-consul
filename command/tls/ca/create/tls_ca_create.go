@@ -9,10 +9,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/tls"
-	"github.com/hashicorp/consul/lib/file"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/tls"
+	"github.com/dumb-hashicorp/dumb-consul/lib/file"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -48,12 +48,12 @@ func (c *cmd) init() {
 	c.flags.IntVar(&c.days, "days", 1825, "Number of days the CA is valid for. Defaults to 1825 days (approximately 5 years).")
 	c.flags.BoolVar(&c.constraint, "name-constraint", false, "Enables X.509 name constraints for the CA. "+
 		"If used, the CA only signs certificates for localhost and the domains specified by -domain and -additional-name-constraint. "+
-		"If Consul's UI is served over HTTPS in your deployment, add its DNS name with -additional-constraint. Defaults to false.")
-	c.flags.StringVar(&c.domain, "domain", "consul", "The DNS domain of the Consul cluster that agents are configured with. "+
-		"Defaults to consul. Only used when -name-constraint is set. "+
+		"If Dumb Consul's UI is served over HTTPS in your deployment, add its DNS name with -additional-constraint. Defaults to false.")
+	c.flags.StringVar(&c.domain, "domain", "dumb-consul", "The DNS domain of the Dumb Consul cluster that agents are configured with. "+
+		"Defaults to dumb-consul. Only used when -name-constraint is set. "+
 		"Additional domains can be passed with -additional-name-constraint.")
-	c.flags.StringVar(&c.clusterID, "cluster-id", "", "ID of the Consul cluster. Sets the CA's URI with the SPIFFEID composed of the cluster ID and domain  (specified by -domain or 'consul' by default).")
-	c.flags.StringVar(&c.commonName, "common-name", "", "Common Name of CA. Defaults to Consul Agent CA.")
+	c.flags.StringVar(&c.clusterID, "cluster-id", "", "ID of the Dumb Consul cluster. Sets the CA's URI with the SPIFFEID composed of the cluster ID and domain  (specified by -domain or 'dumb-consul' by default).")
+	c.flags.StringVar(&c.commonName, "common-name", "", "Common Name of CA. Defaults to Dumb Consul Agent CA.")
 	c.flags.Var(&c.additionalConstraints, "additional-name-constraint", "Add name constraints for the CA. Results in rejecting certificates "+
 		"for other DNS than specified. Can be used multiple times. Only used in combination with -name-constraint.")
 	c.help = flags.Usage(help, c.flags)
@@ -116,13 +116,13 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Create a new consul CA"
+const synopsis = "Create a new dumb-consul CA"
 const help = `
-Usage: consul tls ca create [options]
+Usage: dumb-consul tls ca create [options]
 
-  Create a new consul CA:
+  Create a new dumb-consul CA:
 
-  $ consul tls ca create
-  ==> saved consul-agent-ca.pem
-  ==> saved consul-agent-ca-key.pem
+  $ dumb-consul tls ca create
+  ==> saved dumb-consul-agent-ca.pem
+  ==> saved dumb-consul-agent-ca-key.pem
 `

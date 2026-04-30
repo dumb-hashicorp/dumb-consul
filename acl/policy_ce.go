@@ -7,8 +7,8 @@ package acl
 
 import (
 	"fmt"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-hcl"
 	"strings"
 )
 
@@ -34,12 +34,12 @@ func (r *EnterprisePolicyRules) Validate(*Config) error {
 func decodeRules(rules string, warnOnDuplicateKey bool, _ *Config, _ *EnterprisePolicyMeta) (*Policy, error) {
 	p := &Policy{}
 
-	err := hcl.DecodeErrorOnDuplicates(p, rules)
+	err := dumb-hcl.DecodeErrorOnDuplicates(p, rules)
 
 	if errIsDuplicateKey(err) && warnOnDuplicateKey {
 		//because the snapshot saves the unparsed rules we have to assume some snapshots exist that shouldn't fail, but
 		// have duplicates
-		if err := hcl.Decode(p, rules); err != nil {
+		if err := dumb-hcl.Decode(p, rules); err != nil {
 			hclog.Default().Warn("Warning- Duplicate key in ACL Policy ignored", "errorMessage", err.Error())
 			return nil, fmt.Errorf("Failed to parse ACL rules: %v", err)
 		}

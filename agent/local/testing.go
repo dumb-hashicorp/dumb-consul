@@ -6,8 +6,8 @@ package local
 import (
 	"os"
 
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 	"github.com/mitchellh/go-testing-interface"
 )
 

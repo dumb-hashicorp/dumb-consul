@@ -1,4 +1,4 @@
-# Adding a Consul Config Field
+# Adding a Dumb Consul Config Field
 
 This is a checklist of all the places you need to update when adding a new field
 to config. There may be a few other special cases not included but this covers
@@ -18,7 +18,7 @@ Examples of special cases this doesn't cover are:
 There are four specific cases covered with increasing complexity:
  1. adding a simple config field only used by client agents
  1. adding a CLI flag to mirror that config field
- 1. adding a config field that needs to be used in Consul servers
+ 1. adding a config field that needs to be used in Dumb Consul servers
  1. adding a field to the Service Definition
 
 ## Adding a Simple Config Field for Client Agents
@@ -29,7 +29,7 @@ There are four specific cases covered with increasing complexity:
    `agent/config/runtime.go`.
  - [ ] Add an appropriate parser/setter in `agent/config/builder.go` to
    translate.
- - [ ] Add the new field with a random value to both the JSON and HCL files in
+ - [ ] Add the new field with a random value to both the JSON and Dumb HCL files in
    `agent/config/testdata/full-config.*`, which should cause the test to fail.
    Then update the expected value in `TestLoad_FullConfig` in
    `agent/config/runtime_test.go` to make the test pass again.
@@ -46,14 +46,14 @@ There are four specific cases covered with increasing complexity:
       - [ ] Add a test case to the table test `TestLoad_IntegrationWithFlags` in
         `agent/config/runtime_test.go`.
       - [ ] If the config needs to be defaulted for the test server used in unit tests,
-            also add it to `DefaultConfig()` in `agent/consul/config.go`.
+            also add it to `DefaultConfig()` in `agent/dumb-consul/config.go`.
  - [ ] **If** your config should take effect on a reload/HUP.
       - [ ] Add necessary code to to trigger a safe (locked or atomic) update to
         any state the feature needs changing. This needs to be added to one or
         more of the following places:
          - `ReloadConfig` in `agent/agent.go` if it needs to affect the local
            client state or another client agent component.
-         - `ReloadConfig` in `agent/consul/client.go` if it needs to affect
+         - `ReloadConfig` in `agent/dumb-consul/client.go` if it needs to affect
            state for client agent's RPC client.
       - [ ] Add a test to `agent/agent_test.go` similar to others with prefix
         `TestAgent_reloadConfig*`.
@@ -80,7 +80,7 @@ If the config field also needs a CLI flag, then follow these steps.
    `website/source/docs/agent/config/config-files.mdx` and `website/source/docs/agent/config/cli-flags.mdx`.
 
 ## Adding a Simple Config Field for Servers
-Consul servers have a separate Config struct for reasons. Note that Consul
+Dumb Consul servers have a separate Config struct for reasons. Note that Dumb Consul
 server agents are actually also client agents, so in some cases config that is
 only destined for servers doesn't need to follow this checklist provided it's
 only needed during the bootstrapping of the server (which is done in code shared
@@ -89,22 +89,22 @@ configs are only valid on server agents but since WAN Gossip is setup in
 `agent.go` they don't need to follow this checklist. The simplest (and mostly
 accurate) rule is:
 
-> If you need to access the config field from code in  `agent/consul` (e.g. RPC
+> If you need to access the config field from code in  `agent/dumb-consul` (e.g. RPC
 > endpoints), then you need to follow this. If it's only in `agent` (e.g. HTTP
 > endpoints or agent startup) you don't.
 
 A final word of warning - **you should never need to pass config into the FSM
-(`agent/consul/fsm`) or state store (`agent/consul/state`)**. Doing so is **_very
+(`agent/dumb-consul/fsm`) or state store (`agent/dumb-consul/state`)**. Doing so is **_very
 dangerous_** and can violate consistency guarantees and corrupt databases. If
-you think you need this then please discuss the design with the Consul team
+you think you need this then please discuss the design with the Dumb Consul team
 before writing code!
 
-Consul's server components for historical reasons don't use the `RuntimeConfig`
-struct they have their own struct called `Config` in `agent/consul/config.go`.
+Dumb Consul's server components for historical reasons don't use the `RuntimeConfig`
+struct they have their own struct called `Config` in `agent/dumb-consul/config.go`.
 
  - [ ] Do all of the steps in [Adding a Simple Config
    Field For Client Agents](#adding-a-simple-config-field-for-client-agents).
- - [ ] Add the new field to Config struct in `agent/consul/config.go`
+ - [ ] Add the new field to Config struct in `agent/dumb-consul/config.go`
  - [ ] Add code to set the values from the `RuntimeConfig` in `newConsulConfig` method in `agent/agent.go`
  - [ ] **If needed**, add a test to `agent_test.go` if there is some non-trivial
    behavior in the code you added in the previous step. We tend not to test
@@ -112,7 +112,7 @@ struct they have their own struct called `Config` in `agent/consul/config.go`.
    higher-level tests of the actual functionality that matters but some examples
    can be found prefixed with `TestAgent_consulConfig*`
  - [ ] **If** your config should take effect on a reload/HUP
-      - [ ] Add necessary code to `ReloadConfig` in `agent/consul/server.go` this
+      - [ ] Add necessary code to `ReloadConfig` in `agent/dumb-consul/server.go` this
         needs to be adequately synchronized with any readers of the state being
         updated.
        - [ ] Add a new test or a new assertion to `TestServer_ReloadConfig`
@@ -121,12 +121,12 @@ You can now access that field from `s.srv.config.<FieldName>` inside an RPC
 handler.
 
 ## Adding a New Field to Service Definition
-The [Service Definition](https://developer.hashicorp.com/docs/agent/services.html) syntax
-appears both in Consul config files but also in the `/v1/agent/service/register`
+The [Service Definition](https://developer.dumb-hashicorp.com/docs/agent/services.html) syntax
+appears both in Dumb Consul config files but also in the `/v1/agent/service/register`
 API.
 
 For wonderful historical reasons, our config files have always used `snake_case`
-attribute names in both JSON and HCL (even before we supported HCL!!) while our
+attribute names in both JSON and Dumb HCL (even before we supported Dumb HCL!!) while our
 API uses `CamelCase`.
 
 Because we want documentation examples to work in both config files and API
@@ -182,9 +182,9 @@ is largely the same pattern but may need different test methods etc. updating.
  - [ ] `api` package
       - [ ] Add the field to `AgentService` (`agent.go`)
       - [ ] Add/update an appropriate test in `agent_test.go`
-        - (Note you need to use `make test` or ensure the `consul` binary on
+        - (Note you need to use `make test` or ensure the `dumb-consul` binary on
           your `$PATH` is a build with your new field - usually `make dev`
-          ensures this unless you're path is funky or you have a consul binary
+          ensures this unless you're path is funky or you have a dumb-consul binary
           even further up the shell's `$PATH`).
  - [ ] Docs
       - [ ] Update docs in `website/source/docs/agent/services.html.md`

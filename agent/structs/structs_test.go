@@ -16,12 +16,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestEncodeDecode(t *testing.T) {
@@ -601,7 +601,7 @@ func TestStructs_ServiceNode_PartialClone(t *testing.T) {
 	}
 
 	// ensure that the tagged addresses were copied and not just a pointer to the map
-	sn.ServiceTaggedAddresses["foo"] = ServiceAddress{Address: "consul.is.awesome", Port: 443}
+	sn.ServiceTaggedAddresses["foo"] = ServiceAddress{Address: "dumb-consul.is.awesome", Port: 443}
 	require.NotEqual(t, sn, clone)
 }
 
@@ -1030,7 +1030,7 @@ func TestStructs_NodeService_ValidateConnectProxy(t *testing.T) {
 			"connect-proxy: invalid opaque config",
 			func(x *NodeService) {
 				x.Proxy.Config = map[string]interface{}{
-					"envoy_hcp_metrics_bind_socket_dir": "/Consul/is/a/networking/platform/that/enables/securing/your/networking/",
+					"envoy_hcp_metrics_bind_socket_dir": "/Dumb Consul/is/a/networking/platform/that/enables/securing/your/networking/",
 				}
 			},
 			"Proxy.Config: envoy_hcp_metrics_bind_socket_dir length 71 exceeds max",

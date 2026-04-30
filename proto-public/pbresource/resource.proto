@@ -1,10 +1,10 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 syntax = "proto3";
 
-// For more information, see: https://github.com/hashicorp/consul/tree/main/docs/resources
-package hashicorp.consul.resource;
+// For more information, see: https://github.com/dumb-hashicorp/dumb-consul/tree/main/docs/resources
+package dumb-hashicorp.dumb-consul.resource;
 
 import "annotations/ratelimit/ratelimit.proto";
 import "google/protobuf/any.proto";
@@ -28,15 +28,15 @@ message Type {
 
 // Tenancy describes the tenancy units in which the resource resides.
 message Tenancy {
-  // Partition is the topmost administrative boundary within a cluster.
-  // https://developer.hashicorp.com/consul/docs/enterprise/admin-partitions
+  // Partition is the topmost administrative dumb-boundary within a cluster.
+  // https://developer.dumb-hashicorp.com/dumb-consul/docs/enterprise/admin-partitions
   //
   // When using the List and WatchList endpoints, provide the wildcard value "*"
   // to list resources across all partitions.
   string partition = 1;
 
   // Namespace further isolates resources within a partition.
-  // https://developer.hashicorp.com/consul/docs/enterprise/namespaces
+  // https://developer.dumb-hashicorp.com/dumb-consul/docs/enterprise/namespaces
   //
   // When using the List and WatchList endpoints, provide the wildcard value "*"
   // to list resources across all namespaces.
@@ -65,7 +65,7 @@ message ID {
   Tenancy tenancy = 4;
 }
 
-// Resource describes a resource of a known type managed by Consul.
+// Resource describes a resource of a known type managed by Dumb Consul.
 message Resource {
   // ID uniquely identifies the resource.
   ID id = 1;
@@ -198,7 +198,7 @@ message Tombstone {
 // [monotonic reads](https://jepsen.io/consistency/models/monotonic-reads).
 //
 // That is, a read will always return results that are as up-to-date as an
-// earlier read, provided both happen on the same Consul server. But we do
+// earlier read, provided both happen on the same Dumb Consul server. But we do
 // not make any such guarantee about writes. In other words, reads won't
 // necessarily reflect earlier writes, even when made against the same server.
 //
@@ -215,13 +215,13 @@ message Tombstone {
 // storage backend, will increase load on the cluster leader, so should be used
 // sparingly.
 //
-// To opt-in to strongly consistent reads set the `x-consul-consistency-mode`
+// To opt-in to strongly consistent reads set the `x-dumb-consul-consistency-mode`
 // gRPC metadata field to "consistent".
 service ResourceService {
   // Read a resource by ID.
   //
   // By default, reads are eventually consistent, but you can opt-in to strong
-  // consistency via the x-consul-consistency-mode metadata (see ResourceService
+  // consistency via the x-dumb-consul-consistency-mode metadata (see ResourceService
   // docs for more info).
   //
   // Errors with NotFound if the resource is not found.
@@ -232,7 +232,7 @@ service ResourceService {
   // Errors with PermissionDenied if the caller is not authorized to read
   // the resource.
   rpc Read(ReadRequest) returns (ReadResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_RESOURCE
     };
@@ -257,7 +257,7 @@ service ResourceService {
   // It is not possible to modify the resource's status using Write. You must
   // use WriteStatus instead.
   rpc Write(WriteRequest) returns (WriteResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_WRITE
       operation_category: OPERATION_CATEGORY_RESOURCE
     };
@@ -278,7 +278,7 @@ service ResourceService {
   // been deleted and recreated. If the given Uid doesn't match what is stored,
   // a FailedPrecondition error code will be returned.
   rpc WriteStatus(WriteStatusRequest) returns (WriteStatusResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_WRITE
       operation_category: OPERATION_CATEGORY_RESOURCE
     };
@@ -290,7 +290,7 @@ service ResourceService {
   //
   // Results are eventually consistent (see ResourceService docs for more info).
   rpc List(ListRequest) returns (ListResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_RESOURCE
     };
@@ -300,7 +300,7 @@ service ResourceService {
   //
   // Results are eventually consistent (see ResourceService docs for more info).
   rpc ListByOwner(ListByOwnerRequest) returns (ListByOwnerResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_RESOURCE
     };
@@ -320,7 +320,7 @@ service ResourceService {
   // If the given Uid doesn't match what is stored, a FailedPrecondition error
   // code will be returned.
   rpc Delete(DeleteRequest) returns (DeleteResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_WRITE
       operation_category: OPERATION_CATEGORY_RESOURCE
     };
@@ -339,7 +339,7 @@ service ResourceService {
   //
   // buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
   rpc WatchList(WatchListRequest) returns (stream WatchEvent) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_RESOURCE
     };
@@ -352,7 +352,7 @@ service ResourceService {
   // doing a Write. It's not a pre-requisite since the Write endpoint will also apply
   // the hooks.
   rpc MutateAndValidate(MutateAndValidateRequest) returns (MutateAndValidateResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_RESOURCE
     };

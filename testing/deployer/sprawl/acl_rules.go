@@ -6,8 +6,8 @@ package sprawl
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 func policyForCrossNamespaceRead(partition string) *api.ACLPolicy {

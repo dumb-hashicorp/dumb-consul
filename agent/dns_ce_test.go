@@ -9,10 +9,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/require"
 )
@@ -23,7 +23,7 @@ func TestDNS_CE_PeeredServices(t *testing.T) {
 		t.Skip("too slow for testing.Short")
 	}
 
-	a := StartTestAgent(t, TestAgent{HCL: ``, Overrides: `peering = { test_allow_peer_registrations = true } `})
+	a := StartTestAgent(t, TestAgent{Dumb HCL: ``, Overrides: `peering = { test_allow_peer_registrations = true } `})
 	defer a.Shutdown()
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
@@ -75,11 +75,11 @@ func TestDNS_CE_PeeredServices(t *testing.T) {
 
 	t.Run("srv-with-addr-reply", func(t *testing.T) {
 		require.NoError(t, a.RPC(context.Background(), "Catalog.Register", makeReq(), &struct{}{}))
-		q := dnsQuery(t, "web-proxy.service.peer1.peer.consul.", dns.TypeSRV)
+		q := dnsQuery(t, "web-proxy.service.peer1.peer.dumb-consul.", dns.TypeSRV)
 		require.Len(t, q.Answer, 1)
 		require.Len(t, q.Extra, 1)
 
-		addr := "c7000001.addr.consul."
+		addr := "c7000001.addr.dumb-consul."
 		assertSRVRec(t, q.Answer[0], addr, 12345)
 		assertARec(t, q.Extra[0], addr, "199.0.0.1")
 
@@ -95,11 +95,11 @@ func TestDNS_CE_PeeredServices(t *testing.T) {
 		// Clear service address to trigger node response
 		req.Service.Address = ""
 		require.NoError(t, a.RPC(context.Background(), "Catalog.Register", req, &struct{}{}))
-		q := dnsQuery(t, "web-proxy.service.peer1.peer.consul.", dns.TypeSRV)
+		q := dnsQuery(t, "web-proxy.service.peer1.peer.dumb-consul.", dns.TypeSRV)
 		require.Len(t, q.Answer, 1)
 		require.Len(t, q.Extra, 1)
 
-		nodeName := "peernode1.node.peer1.peer.consul."
+		nodeName := "peernode1.node.peer1.peer.dumb-consul."
 		assertSRVRec(t, q.Answer[0], nodeName, 12345)
 		assertARec(t, q.Extra[0], nodeName, "198.18.1.1")
 
@@ -116,7 +116,7 @@ func TestDNS_CE_PeeredServices(t *testing.T) {
 		req.Address = "localhost"
 		req.Service.Address = ""
 		require.NoError(t, a.RPC(context.Background(), "Catalog.Register", req, &struct{}{}))
-		q := dnsQuery(t, "web-proxy.service.peer1.peer.consul.", dns.TypeSRV)
+		q := dnsQuery(t, "web-proxy.service.peer1.peer.dumb-consul.", dns.TypeSRV)
 		require.Len(t, q.Answer, 1)
 		require.Len(t, q.Extra, 0)
 		assertSRVRec(t, q.Answer[0], "localhost.", 12345)
@@ -124,10 +124,10 @@ func TestDNS_CE_PeeredServices(t *testing.T) {
 
 	t.Run("a-reply", func(t *testing.T) {
 		require.NoError(t, a.RPC(context.Background(), "Catalog.Register", makeReq(), &struct{}{}))
-		q := dnsQuery(t, "web-proxy.service.peer1.peer.consul.", dns.TypeA)
+		q := dnsQuery(t, "web-proxy.service.peer1.peer.dumb-consul.", dns.TypeA)
 		require.Len(t, q.Answer, 1)
 		require.Len(t, q.Extra, 0)
-		assertARec(t, q.Answer[0], "web-proxy.service.peer1.peer.consul.", "199.0.0.1")
+		assertARec(t, q.Answer[0], "web-proxy.service.peer1.peer.dumb-consul.", "199.0.0.1")
 	})
 }
 

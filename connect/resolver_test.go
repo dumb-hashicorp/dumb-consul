@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 	"github.com/stretchr/testify/require"
 )
 
@@ -50,7 +50,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 	}
 
 	// Setup a local test agent to query
-	agent := agent.StartTestAgent(t, agent.TestAgent{Name: "test-consul"})
+	agent := agent.StartTestAgent(t, agent.TestAgent{Name: "test-dumb-consul"})
 	defer agent.Shutdown()
 
 	cfg := api.DefaultConfig()
@@ -280,7 +280,7 @@ func TestConsulResolverFromAddrFunc(t *testing.T) {
 	}{
 		{
 			name: "service",
-			addr: "foo.service.consul",
+			addr: "foo.service.dumb-consul",
 			want: &ConsulResolver{
 				Client:    client,
 				Namespace: "default",
@@ -290,7 +290,7 @@ func TestConsulResolverFromAddrFunc(t *testing.T) {
 		},
 		{
 			name: "query",
-			addr: "foo.query.consul",
+			addr: "foo.query.dumb-consul",
 			want: &ConsulResolver{
 				Client:    client,
 				Namespace: "default",
@@ -300,7 +300,7 @@ func TestConsulResolverFromAddrFunc(t *testing.T) {
 		},
 		{
 			name: "service with dc",
-			addr: "foo.service.dc2.consul",
+			addr: "foo.service.dc2.dumb-consul",
 			want: &ConsulResolver{
 				Client:     client,
 				Datacenter: "dc2",
@@ -311,7 +311,7 @@ func TestConsulResolverFromAddrFunc(t *testing.T) {
 		},
 		{
 			name: "query with dc",
-			addr: "foo.query.dc2.consul",
+			addr: "foo.query.dc2.dumb-consul",
 			want: &ConsulResolver{
 				Client:     client,
 				Datacenter: "dc2",
@@ -323,37 +323,37 @@ func TestConsulResolverFromAddrFunc(t *testing.T) {
 		{
 			name:    "invalid host:port",
 			addr:    "%%%",
-			wantErr: "invalid Consul DNS domain",
+			wantErr: "invalid Dumb Consul DNS domain",
 		},
 		{
 			name:    "custom domain",
-			addr:    "foo.service.my-consul.com",
-			wantErr: "invalid Consul DNS domain",
+			addr:    "foo.service.my-dumb-consul.com",
+			wantErr: "invalid Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported query type",
-			addr:    "foo.connect.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "foo.connect.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported query type and datacenter",
-			addr:    "foo.connect.dc1.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "foo.connect.dc1.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported query type and datacenter",
-			addr:    "foo.connect.dc1.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "foo.connect.dc1.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported tag filter",
-			addr:    "tag1.foo.service.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "tag1.foo.service.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported tag filter with DC",
-			addr:    "tag1.foo.service.dc1.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "tag1.foo.service.dc1.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 	}
 	for _, tt := range tests {

@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 type SamenessGroupConfigEntry struct {
@@ -17,7 +17,7 @@ type SamenessGroupConfigEntry struct {
 	Members            []SamenessGroupMember
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 

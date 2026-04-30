@@ -11,7 +11,7 @@ import (
 
 	"github.com/miekg/dns"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 // BoundRoute indicates a route that has parent gateways which
@@ -45,7 +45,7 @@ type HTTPRouteConfigEntry struct {
 	// Status is the asynchronous reconciliation status which an HTTPRoute propagates to the user.
 	Status             Status
 	Hash               uint64 `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -568,7 +568,7 @@ type HTTPService struct {
 	// Limits are upstream circuit-breaker limits applied to this routed service.
 	Limits *UpstreamLimits `json:",omitempty"`
 
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 }
 
 func (s HTTPService) ServiceName() ServiceName {
@@ -603,7 +603,7 @@ type TCPRouteConfigEntry struct {
 	// Status is the asynchronous reconciliation status which a TCPRoute propagates to the user.
 	Status             Status
 	Hash               uint64 `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -739,7 +739,7 @@ type TCPService struct {
 	// Limits are upstream circuit-breaker limits applied to this routed service.
 	Limits *UpstreamLimits `json:",omitempty"`
 
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 }
 
 func (s TCPService) ServiceName() ServiceName {

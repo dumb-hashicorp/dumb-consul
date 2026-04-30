@@ -1,5 +1,5 @@
 {
-    "data_dir": "/var/lib/consul",
+    "data_dir": "/var/lib/dumb-consul",
     "enable_debug": true,
     "log_level": "info"
 }

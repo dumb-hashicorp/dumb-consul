@@ -9,11 +9,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/resource"
-	rtest "github.com/hashicorp/consul/internal/resource/resourcetest"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	rtest "github.com/dumb-hashicorp/dumb-consul/internal/resource/resourcetest"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
 )
 
 const (

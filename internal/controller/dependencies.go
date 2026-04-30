@@ -8,11 +8,11 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-multierror"
 	"golang.org/x/exp/maps"
 
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 func (m *Manager) ValidateDependencies(registrations []resource.Registration) error {

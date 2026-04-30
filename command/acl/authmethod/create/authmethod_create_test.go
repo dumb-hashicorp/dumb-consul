@@ -12,20 +12,20 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 
 	// activate testing auth method
-	_ "github.com/hashicorp/consul/agent/consul/authmethod/testauth"
+	_ "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/testauth"
 )
 
 func TestAuthMethodCreateCommand_noTabs(t *testing.T) {
@@ -218,7 +218,7 @@ func TestAuthMethodCreateCommand(t *testing.T) {
 	t.Run("create testing with custom token name format", func(t *testing.T) {
 		name := getTestName(t)
 		// Testing the syntax you found: ${auth_method_type}-{}
-		// Note: Consul validates this on the server side; if 'testing' type
+		// Note: Dumb Consul validates this on the server side; if 'testing' type
 		// doesn't support {}, this might return 500 depending on the provider.
 		tokenFormat := "${auth_method_type}-{}"
 

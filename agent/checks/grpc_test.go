@@ -14,11 +14,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/agent/mock"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/mock"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"

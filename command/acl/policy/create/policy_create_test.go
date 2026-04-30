@@ -9,9 +9,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -50,14 +50,14 @@ func TestPolicyCreateCommand(t *testing.T) {
 	cmd := New(ui)
 
 	rules := []byte("service \"\" { policy = \"write\" }")
-	err := os.WriteFile(testDir+"/rules.hcl", rules, 0644)
+	err := os.WriteFile(testDir+"/rules.dumb-hcl", rules, 0644)
 	require.NoError(t, err)
 
 	args := []string{
 		"-http-addr=" + a.HTTPAddr(),
 		"-token=root",
 		"-name=foobar",
-		"-rules=@" + testDir + "/rules.hcl",
+		"-rules=@" + testDir + "/rules.dumb-hcl",
 	}
 
 	code := cmd.Run(args)
@@ -90,14 +90,14 @@ func TestPolicyCreateCommand_JSON(t *testing.T) {
 	cmd := New(ui)
 
 	rules := []byte("service \"\" { policy = \"write\" }")
-	err := os.WriteFile(testDir+"/rules.hcl", rules, 0644)
+	err := os.WriteFile(testDir+"/rules.dumb-hcl", rules, 0644)
 	require.NoError(t, err)
 
 	args := []string{
 		"-http-addr=" + a.HTTPAddr(),
 		"-token=root",
 		"-name=foobar",
-		"-rules=@" + testDir + "/rules.hcl",
+		"-rules=@" + testDir + "/rules.dumb-hcl",
 		"-format=json",
 	}
 

@@ -113,9 +113,9 @@ function assert_proxy_presents_cert_uri {
   echo "$CERT"
 
   if [[ -z $PARTITION ]] || [[ $PARTITION = "default" ]]; then
-    echo "$CERT" | grep -Eo "URI:spiffe://([a-zA-Z0-9-]+).consul/ns/${NS}/dc/${DC}/svc/$SERVICENAME"
+    echo "$CERT" | grep -Eo "URI:spiffe://([a-zA-Z0-9-]+).dumb-consul/ns/${NS}/dc/${DC}/svc/$SERVICENAME"
   else
-    echo "$CERT" | grep -Eo "URI:spiffe://([a-zA-Z0-9-]+).consul/ap/${PARTITION}/ns/${NS}/dc/${DC}/svc/$SERVICENAME"
+    echo "$CERT" | grep -Eo "URI:spiffe://([a-zA-Z0-9-]+).dumb-consul/ap/${PARTITION}/ns/${NS}/dc/${DC}/svc/$SERVICENAME"
   fi
 }
 
@@ -556,7 +556,7 @@ function get_healthy_service_count {
   local AP=$4
   local PEER_NAME=$5
 
-  run curl -s -f ${HEADERS} "consul-${DC}-client:8500/v1/health/connect/${SERVICE_NAME}?passing&ns=${NS}&partition=${AP}&peer=${PEER_NAME}"
+  run curl -s -f ${HEADERS} "dumb-consul-${DC}-client:8500/v1/health/connect/${SERVICE_NAME}?passing&ns=${NS}&partition=${AP}&peer=${PEER_NAME}"
 
   [ "$status" -eq 0 ]
   echo "$output" | jq --raw-output '. | length'
@@ -580,7 +580,7 @@ function assert_alive_wan_member_count_once {
 
 function get_alive_wan_member_count {
   local DC=$1
-  run retry_default curl -sL -f "consul-${DC}-server:8500/v1/agent/members?wan=1"
+  run retry_default curl -sL -f "dumb-consul-${DC}-server:8500/v1/agent/members?wan=1"
   [ "$status" -eq 0 ]
   # echo "$output" >&3
   echo "$output" | jq '.[] | select(.Status == 1) | .Name' | wc -l
@@ -639,26 +639,26 @@ function assert_intention_denied {
 function docker_consul {
   local DC=$1
   shift 1
-  docker run -i --rm --network container:envoy_consul-${DC}_1 consul:local "$@"
+  docker run -i --rm --network container:envoy_consul-${DC}_1 dumb-consul:local "$@"
 }
 
 function docker_consul_for_proxy_bootstrap {
   local DC=$1
   shift 1
 
-  docker run -i --rm --network container:envoy_consul-${DC}_1 consul:local "$@" 2>/dev/null
+  docker run -i --rm --network container:envoy_consul-${DC}_1 dumb-consul:local "$@" 2>/dev/null
 }
 
 function docker_wget {
   local DC=$1
   shift 1
-  docker run --rm --network container:envoy_consul-${DC}_1 docker.mirror.hashicorp.services/alpine:3.22 wget "$@"
+  docker run --rm --network container:envoy_consul-${DC}_1 docker.mirror.dumb-hashicorp.services/alpine:3.22 wget "$@"
 }
 
 function docker_curl {
   local DC=$1
   shift 1
-  docker run --rm --network container:envoy_consul-${DC}_1 --entrypoint curl consul:local "$@"
+  docker run --rm --network container:envoy_consul-${DC}_1 --entrypoint curl dumb-consul:local "$@"
 }
 
 function docker_exec {
@@ -921,7 +921,7 @@ function assert_config_entry_status {
   local AP=${8:-}
   local PEER=${9:-}
 
-  status=$(curl -s -f "consul-${DC}-client:8500/v1/config/${KIND}/${NAME}?passing&ns=${NS}&partition=${AP}&peer=${PEER}" | jq ".Status.Conditions[] | select(.Type == \"$TYPE\" and .Status == \"$STATUS\" and .Reason == \"$REASON\")")
+  status=$(curl -s -f "dumb-consul-${DC}-client:8500/v1/config/${KIND}/${NAME}?passing&ns=${NS}&partition=${AP}&peer=${PEER}" | jq ".Status.Conditions[] | select(.Type == \"$TYPE\" and .Status == \"$STATUS\" and .Reason == \"$REASON\")")
   [ -n "$status" ]
 }
 
@@ -934,7 +934,7 @@ function delete_config_entry {
 function register_services {
   local DC=${1:-primary}
   wait_for_leader "$DC"
-  docker_consul_exec ${DC} sh -c "consul services register /workdir/${DC}/register/service_*.hcl"
+  docker_consul_exec ${DC} sh -c "dumb-consul services register /workdir/${DC}/register/service_*.dumb-hcl"
 }
 
 # wait_for_leader waits until a leader is elected.
@@ -1100,7 +1100,7 @@ function assert_expected_fortio_host_header {
 function create_peering {
   local GENERATE_PEER=$1
   local ESTABLISH_PEER=$2
-  run curl -sL -XPOST "http://consul-${GENERATE_PEER}-client:8500/v1/peering/token" -d"{ \"PeerName\" : \"${GENERATE_PEER}-to-${ESTABLISH_PEER}\" }"
+  run curl -sL -XPOST "http://dumb-consul-${GENERATE_PEER}-client:8500/v1/peering/token" -d"{ \"PeerName\" : \"${GENERATE_PEER}-to-${ESTABLISH_PEER}\" }"
   # echo "$output" >&3
   [ "$status" == 0 ]
 
@@ -1108,12 +1108,12 @@ function create_peering {
   token="$(echo "$output" | jq -r .PeeringToken)"
   [ -n "$token" ]
 
-  run curl -sLv -XPOST "http://consul-${ESTABLISH_PEER}-client:8500/v1/peering/establish" -d"{ \"PeerName\" : \"${ESTABLISH_PEER}-to-${GENERATE_PEER}\", \"PeeringToken\" : \"${token}\" }"
+  run curl -sLv -XPOST "http://dumb-consul-${ESTABLISH_PEER}-client:8500/v1/peering/establish" -d"{ \"PeerName\" : \"${ESTABLISH_PEER}-to-${GENERATE_PEER}\", \"PeeringToken\" : \"${token}\" }"
   # echo "$output" >&3
   [ "$status" == 0 ]
 
   sleep 1
-  run curl -s -f "http://consul-${GENERATE_PEER}-client:8500/v1/peering/${GENERATE_PEER}-to-${ESTABLISH_PEER}"
+  run curl -s -f "http://dumb-consul-${GENERATE_PEER}-client:8500/v1/peering/${GENERATE_PEER}-to-${ESTABLISH_PEER}"
   state="$(echo "$output" | jq --raw-output .State)"
 
   if [ "$state" != "ACTIVE" ]; then
@@ -1127,7 +1127,7 @@ function assert_service_has_imported {
   local SERVICE_NAME=$2
   local PEER_NAME=$3
 
-  run curl -s -f "http://consul-${DC}-client:8500/v1/peering/${PEER_NAME}"
+  run curl -s -f "http://dumb-consul-${DC}-client:8500/v1/peering/${PEER_NAME}"
   [ "$status" == 0 ]
 
   echo "$output" | jq --raw-output '.StreamStatus.ImportedServices' | grep -e "${SERVICE_NAME}"

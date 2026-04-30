@@ -7,10 +7,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/hashicorp/consul/internal/controller/cache/index/indexmock"
-	"github.com/hashicorp/consul/internal/resource/resourcetest"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/index/indexmock"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/resourcetest"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
 	"github.com/stretchr/testify/require"
 )
 

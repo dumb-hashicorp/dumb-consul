@@ -146,28 +146,28 @@ func (m *MockAuthorizer) MeshWrite(ctx *AuthorizerContext) EnforcementDecision {
 	return ret.Get(0).(EnforcementDecision)
 }
 
-// PeeringRead determines if the read-only Consul peering functions
+// PeeringRead determines if the read-only Dumb Consul peering functions
 // can be used.
 func (m *MockAuthorizer) PeeringRead(ctx *AuthorizerContext) EnforcementDecision {
 	ret := m.Called(ctx)
 	return ret.Get(0).(EnforcementDecision)
 }
 
-// PeeringWrite determines if the state-changing Consul peering
+// PeeringWrite determines if the state-changing Dumb Consul peering
 // functions can be used.
 func (m *MockAuthorizer) PeeringWrite(ctx *AuthorizerContext) EnforcementDecision {
 	ret := m.Called(ctx)
 	return ret.Get(0).(EnforcementDecision)
 }
 
-// OperatorRead determines if the read-only Consul operator functions
+// OperatorRead determines if the read-only Dumb Consul operator functions
 // can be used.	ret := m.Called(segment, ctx)
 func (m *MockAuthorizer) OperatorRead(ctx *AuthorizerContext) EnforcementDecision {
 	ret := m.Called(ctx)
 	return ret.Get(0).(EnforcementDecision)
 }
 
-// OperatorWrite determines if the state-changing Consul operator
+// OperatorWrite determines if the state-changing Dumb Consul operator
 // functions can be used.
 func (m *MockAuthorizer) OperatorWrite(ctx *AuthorizerContext) EnforcementDecision {
 	ret := m.Called(ctx)

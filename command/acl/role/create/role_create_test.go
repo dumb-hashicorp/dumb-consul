@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -126,7 +126,7 @@ func TestRoleCreateCommand_Pretty(t *testing.T) {
 			"-name=role-with-node-identity",
 			"-templated-policy=builtin/node",
 			"-var=name:" + a.Config.NodeName,
-			"-templated-policy-file=test.hcl",
+			"-templated-policy-file=test.dumb-hcl",
 		})
 		require.Equal(t, 1, code)
 		require.Contains(t, ui.ErrorWriter.String(), "Cannot combine the use of templated-policy flag with templated-policy-file.")

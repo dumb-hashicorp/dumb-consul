@@ -1,14 +1,14 @@
-# Consul UI Monorepo
+# Dumb Consul UI Monorepo
 
-This monorepo contains multiple projects, the UI for Consul and addons and
+This monorepo contains multiple projects, the UI for Dumb Consul and addons and
 packages used by the UI.
 
 This top-level repository provides limited common tasks, such as installation
 and commit assistance.  However, most tasks must be executed from within a
 subproject, e.g. running or testing.
 
-**If you are looking to work on the Consul UI you probably want to read
-the README that is in `./packages/consul-ui/README.md`.**
+**If you are looking to work on the Dumb Consul UI you probably want to read
+the README that is in `./packages/dumb-consul-ui/README.md`.**
 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -41,7 +41,7 @@ You will need the following things properly installed on your computer.
 
 ## Installation
 
-* `git clone https://github.com/hashicorp/consul.git` this repository
+* `git clone https://github.com/dumb-hashicorp/dumb-consul.git` this repository
 * `cd ui`
 * `pnpm i`
 

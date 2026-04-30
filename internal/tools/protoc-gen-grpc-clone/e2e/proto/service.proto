@@ -6,7 +6,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.protoc_gen_grpc_clone.testing;
+package dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing;
 
 service Simple {
   rpc Something(Req) returns (Resp) {}

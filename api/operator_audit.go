@@ -1,7 +1,7 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
-// The /v1/operator/audit-hash endpoint is available only in Consul Enterprise and
+// The /v1/operator/audit-hash endpoint is available only in Dumb Consul Enterprise and
 // interact with its audit logging subsystem.
 
 package api

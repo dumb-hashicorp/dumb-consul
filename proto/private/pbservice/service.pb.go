@@ -10,7 +10,7 @@
 package pbservice
 
 import (
-	pbcommon "github.com/hashicorp/consul/proto/private/pbcommon"
+	pbcommon "github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	structpb "google.golang.org/protobuf/types/known/structpb"
@@ -34,7 +34,7 @@ const (
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ConnectProxyConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ConnectProxyConfig
 // output=service.gen.go
 // name=Structs
 // ignore-fields=MutualTLSMode
@@ -228,7 +228,7 @@ func (x *ConnectProxyConfig) GetAccessLogs() *AccessLogsConfig {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Upstream
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Upstream
 // output=service.gen.go
 // name=Structs
 // ignore-fields=IngressHosts
@@ -408,7 +408,7 @@ func (x *Upstream) GetLocalBindSocketMode() string {
 // definitions from the agent to the state store.
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceConnect
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceConnect
 // output=service.gen.go
 // name=Structs
 type ServiceConnect struct {
@@ -484,7 +484,7 @@ func (x *ServiceConnect) GetPeerMeta() *PeeringServiceMeta {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.PeeringServiceMeta
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.PeeringServiceMeta
 // output=service.gen.go
 // name=Structs
 type PeeringServiceMeta struct {
@@ -552,12 +552,12 @@ func (x *PeeringServiceMeta) GetProtocol() string {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExposeConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExposeConfig
 // output=service.gen.go
 // name=Structs
 type ExposeConfig struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Checks defines whether paths associated with Consul checks will be exposed.
+	// Checks defines whether paths associated with Dumb Consul checks will be exposed.
 	// This flag triggers exposing all HTTP and GRPC check paths registered for the service.
 	Checks bool `protobuf:"varint,1,opt,name=Checks,proto3" json:"Checks,omitempty"`
 	// Paths is the list of paths exposed through the proxy.
@@ -613,7 +613,7 @@ func (x *ExposeConfig) GetPaths() []*ExposePath {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExposePath
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExposePath
 // output=service.gen.go
 // name=Structs
 type ExposePath struct {
@@ -702,7 +702,7 @@ func (x *ExposePath) GetParsedFromCheck() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshGatewayConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshGatewayConfig
 // output=service.gen.go
 // name=Structs
 type MeshGatewayConfig struct {
@@ -752,7 +752,7 @@ func (x *MeshGatewayConfig) GetMode() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TransparentProxyConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TransparentProxyConfig
 // output=service.gen.go
 // name=Structs
 type TransparentProxyConfig struct {
@@ -813,7 +813,7 @@ func (x *TransparentProxyConfig) GetDialedDirectly() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.AccessLogsConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.AccessLogsConfig
 // output=service.gen.go
 // name=Structs
 type AccessLogsConfig struct {
@@ -907,7 +907,7 @@ func (x *AccessLogsConfig) GetTextFormat() string {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceDefinition
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceDefinition
 // output=service.gen.go
 // name=Structs
 type ServiceDefinition struct {
@@ -1124,7 +1124,7 @@ func (x *ServiceDefinition) GetPorts() []*ServicePort {
 // ServicePort contains the port information for a service.
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServicePort
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServicePort
 // output=service.gen.go
 // name=Structs
 type ServicePort struct {
@@ -1304,24 +1304,24 @@ var File_private_pbservice_service_proto protoreflect.FileDescriptor
 
 const file_private_pbservice_service_proto_rawDesc = "" +
 	"\n" +
-	"\x1fprivate/pbservice/service.proto\x12!hashicorp.consul.internal.service\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1dprivate/pbcommon/common.proto\x1a#private/pbservice/healthcheck.proto\"\xbd\a\n" +
+	"\x1fprivate/pbservice/service.proto\x12!dumb-hashicorp.dumb-consul.internal.service\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1dprivate/pbcommon/common.proto\x1a#private/pbservice/healthcheck.proto\"\xbd\a\n" +
 	"\x12ConnectProxyConfig\x126\n" +
 	"\x16DestinationServiceName\x18\x01 \x01(\tR\x16DestinationServiceName\x122\n" +
 	"\x14DestinationServiceID\x18\x02 \x01(\tR\x14DestinationServiceID\x120\n" +
 	"\x13LocalServiceAddress\x18\x03 \x01(\tR\x13LocalServiceAddress\x12*\n" +
 	"\x10LocalServicePort\x18\x04 \x01(\x05R\x10LocalServicePort\x12\\\n" +
-	"\x11LocalServicePorts\x18\x0e \x03(\v2..hashicorp.consul.internal.service.ServicePortR\x11LocalServicePorts\x12/\n" +
+	"\x11LocalServicePorts\x18\x0e \x03(\v2..dumb-hashicorp.dumb-consul.internal.service.ServicePortR\x11LocalServicePorts\x12/\n" +
 	"\x06Config\x18\x05 \x01(\v2\x17.google.protobuf.StructR\x06Config\x12I\n" +
-	"\tUpstreams\x18\x06 \x03(\v2+.hashicorp.consul.internal.service.UpstreamR\tUpstreams\x12V\n" +
-	"\vMeshGateway\x18\a \x01(\v24.hashicorp.consul.internal.service.MeshGatewayConfigR\vMeshGateway\x12G\n" +
-	"\x06Expose\x18\b \x01(\v2/.hashicorp.consul.internal.service.ExposeConfigR\x06Expose\x12\x12\n" +
+	"\tUpstreams\x18\x06 \x03(\v2+.dumb-hashicorp.dumb-consul.internal.service.UpstreamR\tUpstreams\x12V\n" +
+	"\vMeshGateway\x18\a \x01(\v24.dumb-hashicorp.dumb-consul.internal.service.MeshGatewayConfigR\vMeshGateway\x12G\n" +
+	"\x06Expose\x18\b \x01(\v2/.dumb-hashicorp.dumb-consul.internal.service.ExposeConfigR\x06Expose\x12\x12\n" +
 	"\x04Mode\x18\t \x01(\tR\x04Mode\x12e\n" +
 	"\x10TransparentProxy\x18\n" +
-	" \x01(\v29.hashicorp.consul.internal.service.TransparentProxyConfigR\x10TransparentProxy\x126\n" +
+	" \x01(\v29.dumb-hashicorp.dumb-consul.internal.service.TransparentProxyConfigR\x10TransparentProxy\x126\n" +
 	"\x16LocalServiceSocketPath\x18\v \x01(\tR\x16LocalServiceSocketPath\x12Z\n" +
-	"\x0fEnvoyExtensions\x18\f \x03(\v20.hashicorp.consul.internal.common.EnvoyExtensionR\x0fEnvoyExtensions\x12S\n" +
+	"\x0fEnvoyExtensions\x18\f \x03(\v20.dumb-hashicorp.dumb-consul.internal.common.EnvoyExtensionR\x0fEnvoyExtensions\x12S\n" +
 	"\n" +
-	"AccessLogs\x18\r \x01(\v23.hashicorp.consul.internal.service.AccessLogsConfigR\n" +
+	"AccessLogs\x18\r \x01(\v23.dumb-hashicorp.dumb-consul.internal.service.AccessLogsConfigR\n" +
 	"AccessLogs\"\xab\x05\n" +
 	"\bUpstream\x12(\n" +
 	"\x0fDestinationType\x18\x01 \x01(\tR\x0fDestinationType\x122\n" +
@@ -1336,22 +1336,22 @@ const file_private_pbservice_service_proto_rawDesc = "" +
 	"\x10LocalBindAddress\x18\x05 \x01(\tR\x10LocalBindAddress\x12$\n" +
 	"\rLocalBindPort\x18\x06 \x01(\x05R\rLocalBindPort\x12/\n" +
 	"\x06Config\x18\a \x01(\v2\x17.google.protobuf.StructR\x06Config\x12V\n" +
-	"\vMeshGateway\x18\b \x01(\v24.hashicorp.consul.internal.service.MeshGatewayConfigR\vMeshGateway\x120\n" +
+	"\vMeshGateway\x18\b \x01(\v24.dumb-hashicorp.dumb-consul.internal.service.MeshGatewayConfigR\vMeshGateway\x120\n" +
 	"\x13CentrallyConfigured\x18\t \x01(\bR\x13CentrallyConfigured\x120\n" +
 	"\x13LocalBindSocketPath\x18\n" +
 	" \x01(\tR\x13LocalBindSocketPath\x120\n" +
 	"\x13LocalBindSocketMode\x18\v \x01(\tR\x13LocalBindSocketMode\"\xdf\x01\n" +
 	"\x0eServiceConnect\x12\x16\n" +
 	"\x06Native\x18\x01 \x01(\bR\x06Native\x12\\\n" +
-	"\x0eSidecarService\x18\x03 \x01(\v24.hashicorp.consul.internal.service.ServiceDefinitionR\x0eSidecarService\x12Q\n" +
-	"\bPeerMeta\x18\x04 \x01(\v25.hashicorp.consul.internal.service.PeeringServiceMetaR\bPeerMetaJ\x04\b\x02\x10\x03\"^\n" +
+	"\x0eSidecarService\x18\x03 \x01(\v24.dumb-hashicorp.dumb-consul.internal.service.ServiceDefinitionR\x0eSidecarService\x12Q\n" +
+	"\bPeerMeta\x18\x04 \x01(\v25.dumb-hashicorp.dumb-consul.internal.service.PeeringServiceMetaR\bPeerMetaJ\x04\b\x02\x10\x03\"^\n" +
 	"\x12PeeringServiceMeta\x12\x10\n" +
 	"\x03SNI\x18\x01 \x03(\tR\x03SNI\x12\x1a\n" +
 	"\bSpiffeID\x18\x02 \x03(\tR\bSpiffeID\x12\x1a\n" +
 	"\bProtocol\x18\x03 \x01(\tR\bProtocol\"k\n" +
 	"\fExposeConfig\x12\x16\n" +
 	"\x06Checks\x18\x01 \x01(\bR\x06Checks\x12C\n" +
-	"\x05Paths\x18\x02 \x03(\v2-.hashicorp.consul.internal.service.ExposePathR\x05Paths\"\xb0\x01\n" +
+	"\x05Paths\x18\x02 \x03(\v2-.dumb-hashicorp.dumb-consul.internal.service.ExposePathR\x05Paths\"\xb0\x01\n" +
 	"\n" +
 	"ExposePath\x12\"\n" +
 	"\fListenerPort\x18\x01 \x01(\x05R\fListenerPort\x12\x12\n" +
@@ -1381,26 +1381,26 @@ const file_private_pbservice_service_proto_rawDesc = "" +
 	"\x04Name\x18\x03 \x01(\tR\x04Name\x12\x12\n" +
 	"\x04Tags\x18\x04 \x03(\tR\x04Tags\x12\x18\n" +
 	"\aAddress\x18\x05 \x01(\tR\aAddress\x12s\n" +
-	"\x0fTaggedAddresses\x18\x10 \x03(\v2I.hashicorp.consul.internal.service.ServiceDefinition.TaggedAddressesEntryR\x0fTaggedAddresses\x12R\n" +
-	"\x04Meta\x18\x06 \x03(\v2>.hashicorp.consul.internal.service.ServiceDefinition.MetaEntryR\x04Meta\x12\x12\n" +
+	"\x0fTaggedAddresses\x18\x10 \x03(\v2I.dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.TaggedAddressesEntryR\x0fTaggedAddresses\x12R\n" +
+	"\x04Meta\x18\x06 \x03(\v2>.dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.MetaEntryR\x04Meta\x12\x12\n" +
 	"\x04Port\x18\a \x01(\x05R\x04Port\x12\x1e\n" +
 	"\n" +
 	"SocketPath\x18\x12 \x01(\tR\n" +
 	"SocketPath\x12B\n" +
-	"\x05Check\x18\b \x01(\v2,.hashicorp.consul.internal.service.CheckTypeR\x05Check\x12D\n" +
-	"\x06Checks\x18\t \x03(\v2,.hashicorp.consul.internal.service.CheckTypeR\x06Checks\x12D\n" +
+	"\x05Check\x18\b \x01(\v2,.dumb-hashicorp.dumb-consul.internal.service.CheckTypeR\x05Check\x12D\n" +
+	"\x06Checks\x18\t \x03(\v2,.dumb-hashicorp.dumb-consul.internal.service.CheckTypeR\x06Checks\x12D\n" +
 	"\aWeights\x18\n" +
-	" \x01(\v2*.hashicorp.consul.internal.service.WeightsR\aWeights\x12\x14\n" +
+	" \x01(\v2*.dumb-hashicorp.dumb-consul.internal.service.WeightsR\aWeights\x12\x14\n" +
 	"\x05Token\x18\v \x01(\tR\x05Token\x12,\n" +
 	"\x11EnableTagOverride\x18\f \x01(\bR\x11EnableTagOverride\x12K\n" +
-	"\x05Proxy\x18\x0e \x01(\v25.hashicorp.consul.internal.service.ConnectProxyConfigR\x05Proxy\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x11 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12K\n" +
-	"\aConnect\x18\x0f \x01(\v21.hashicorp.consul.internal.service.ServiceConnectR\aConnect\x12F\n" +
-	"\bLocality\x18\x13 \x01(\v2*.hashicorp.consul.internal.common.LocalityR\bLocality\x12D\n" +
-	"\x05Ports\x18\x14 \x03(\v2..hashicorp.consul.internal.service.ServicePortR\x05Ports\x1au\n" +
+	"\x05Proxy\x18\x0e \x01(\v25.dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfigR\x05Proxy\x12X\n" +
+	"\x0eEnterpriseMeta\x18\x11 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12K\n" +
+	"\aConnect\x18\x0f \x01(\v21.dumb-hashicorp.dumb-consul.internal.service.ServiceConnectR\aConnect\x12F\n" +
+	"\bLocality\x18\x13 \x01(\v2*.dumb-hashicorp.dumb-consul.internal.common.LocalityR\bLocality\x12D\n" +
+	"\x05Ports\x18\x14 \x03(\v2..dumb-hashicorp.dumb-consul.internal.service.ServicePortR\x05Ports\x1au\n" +
 	"\x14TaggedAddressesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12G\n" +
-	"\x05value\x18\x02 \x01(\v21.hashicorp.consul.internal.service.ServiceAddressR\x05value:\x028\x01\x1a7\n" +
+	"\x05value\x18\x02 \x01(\v21.dumb-hashicorp.dumb-consul.internal.service.ServiceAddressR\x05value:\x028\x01\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"O\n" +
@@ -1414,7 +1414,7 @@ const file_private_pbservice_service_proto_rawDesc = "" +
 	"\aWeights\x12\x18\n" +
 	"\aPassing\x18\x01 \x01(\x05R\aPassing\x12\x18\n" +
 	"\aWarning\x18\x02 \x01(\x05R\aWarningB\x92\x02\n" +
-	"%com.hashicorp.consul.internal.serviceB\fServiceProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Consul.Internal.Service\xca\x02!Hashicorp\\Consul\\Internal\\Service\xe2\x02-Hashicorp\\Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Serviceb\x06proto3"
+	"%com.dumb-hashicorp.dumb-consul.internal.serviceB\fServiceProtoP\x01Z3github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Dumb Consul.Internal.Service\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Service\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Serviceb\x06proto3"
 
 var (
 	file_private_pbservice_service_proto_rawDescOnce sync.Once
@@ -1430,52 +1430,52 @@ func file_private_pbservice_service_proto_rawDescGZIP() []byte {
 
 var file_private_pbservice_service_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_private_pbservice_service_proto_goTypes = []any{
-	(*ConnectProxyConfig)(nil),      // 0: hashicorp.consul.internal.service.ConnectProxyConfig
-	(*Upstream)(nil),                // 1: hashicorp.consul.internal.service.Upstream
-	(*ServiceConnect)(nil),          // 2: hashicorp.consul.internal.service.ServiceConnect
-	(*PeeringServiceMeta)(nil),      // 3: hashicorp.consul.internal.service.PeeringServiceMeta
-	(*ExposeConfig)(nil),            // 4: hashicorp.consul.internal.service.ExposeConfig
-	(*ExposePath)(nil),              // 5: hashicorp.consul.internal.service.ExposePath
-	(*MeshGatewayConfig)(nil),       // 6: hashicorp.consul.internal.service.MeshGatewayConfig
-	(*TransparentProxyConfig)(nil),  // 7: hashicorp.consul.internal.service.TransparentProxyConfig
-	(*AccessLogsConfig)(nil),        // 8: hashicorp.consul.internal.service.AccessLogsConfig
-	(*ServiceDefinition)(nil),       // 9: hashicorp.consul.internal.service.ServiceDefinition
-	(*ServicePort)(nil),             // 10: hashicorp.consul.internal.service.ServicePort
-	(*ServiceAddress)(nil),          // 11: hashicorp.consul.internal.service.ServiceAddress
-	(*Weights)(nil),                 // 12: hashicorp.consul.internal.service.Weights
-	nil,                             // 13: hashicorp.consul.internal.service.ServiceDefinition.TaggedAddressesEntry
-	nil,                             // 14: hashicorp.consul.internal.service.ServiceDefinition.MetaEntry
+	(*ConnectProxyConfig)(nil),      // 0: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig
+	(*Upstream)(nil),                // 1: dumb-hashicorp.dumb-consul.internal.service.Upstream
+	(*ServiceConnect)(nil),          // 2: dumb-hashicorp.dumb-consul.internal.service.ServiceConnect
+	(*PeeringServiceMeta)(nil),      // 3: dumb-hashicorp.dumb-consul.internal.service.PeeringServiceMeta
+	(*ExposeConfig)(nil),            // 4: dumb-hashicorp.dumb-consul.internal.service.ExposeConfig
+	(*ExposePath)(nil),              // 5: dumb-hashicorp.dumb-consul.internal.service.ExposePath
+	(*MeshGatewayConfig)(nil),       // 6: dumb-hashicorp.dumb-consul.internal.service.MeshGatewayConfig
+	(*TransparentProxyConfig)(nil),  // 7: dumb-hashicorp.dumb-consul.internal.service.TransparentProxyConfig
+	(*AccessLogsConfig)(nil),        // 8: dumb-hashicorp.dumb-consul.internal.service.AccessLogsConfig
+	(*ServiceDefinition)(nil),       // 9: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition
+	(*ServicePort)(nil),             // 10: dumb-hashicorp.dumb-consul.internal.service.ServicePort
+	(*ServiceAddress)(nil),          // 11: dumb-hashicorp.dumb-consul.internal.service.ServiceAddress
+	(*Weights)(nil),                 // 12: dumb-hashicorp.dumb-consul.internal.service.Weights
+	nil,                             // 13: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.TaggedAddressesEntry
+	nil,                             // 14: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.MetaEntry
 	(*structpb.Struct)(nil),         // 15: google.protobuf.Struct
-	(*pbcommon.EnvoyExtension)(nil), // 16: hashicorp.consul.internal.common.EnvoyExtension
-	(*CheckType)(nil),               // 17: hashicorp.consul.internal.service.CheckType
-	(*pbcommon.EnterpriseMeta)(nil), // 18: hashicorp.consul.internal.common.EnterpriseMeta
-	(*pbcommon.Locality)(nil),       // 19: hashicorp.consul.internal.common.Locality
+	(*pbcommon.EnvoyExtension)(nil), // 16: dumb-hashicorp.dumb-consul.internal.common.EnvoyExtension
+	(*CheckType)(nil),               // 17: dumb-hashicorp.dumb-consul.internal.service.CheckType
+	(*pbcommon.EnterpriseMeta)(nil), // 18: dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	(*pbcommon.Locality)(nil),       // 19: dumb-hashicorp.dumb-consul.internal.common.Locality
 }
 var file_private_pbservice_service_proto_depIdxs = []int32{
-	10, // 0: hashicorp.consul.internal.service.ConnectProxyConfig.LocalServicePorts:type_name -> hashicorp.consul.internal.service.ServicePort
-	15, // 1: hashicorp.consul.internal.service.ConnectProxyConfig.Config:type_name -> google.protobuf.Struct
-	1,  // 2: hashicorp.consul.internal.service.ConnectProxyConfig.Upstreams:type_name -> hashicorp.consul.internal.service.Upstream
-	6,  // 3: hashicorp.consul.internal.service.ConnectProxyConfig.MeshGateway:type_name -> hashicorp.consul.internal.service.MeshGatewayConfig
-	4,  // 4: hashicorp.consul.internal.service.ConnectProxyConfig.Expose:type_name -> hashicorp.consul.internal.service.ExposeConfig
-	7,  // 5: hashicorp.consul.internal.service.ConnectProxyConfig.TransparentProxy:type_name -> hashicorp.consul.internal.service.TransparentProxyConfig
-	16, // 6: hashicorp.consul.internal.service.ConnectProxyConfig.EnvoyExtensions:type_name -> hashicorp.consul.internal.common.EnvoyExtension
-	8,  // 7: hashicorp.consul.internal.service.ConnectProxyConfig.AccessLogs:type_name -> hashicorp.consul.internal.service.AccessLogsConfig
-	15, // 8: hashicorp.consul.internal.service.Upstream.Config:type_name -> google.protobuf.Struct
-	6,  // 9: hashicorp.consul.internal.service.Upstream.MeshGateway:type_name -> hashicorp.consul.internal.service.MeshGatewayConfig
-	9,  // 10: hashicorp.consul.internal.service.ServiceConnect.SidecarService:type_name -> hashicorp.consul.internal.service.ServiceDefinition
-	3,  // 11: hashicorp.consul.internal.service.ServiceConnect.PeerMeta:type_name -> hashicorp.consul.internal.service.PeeringServiceMeta
-	5,  // 12: hashicorp.consul.internal.service.ExposeConfig.Paths:type_name -> hashicorp.consul.internal.service.ExposePath
-	13, // 13: hashicorp.consul.internal.service.ServiceDefinition.TaggedAddresses:type_name -> hashicorp.consul.internal.service.ServiceDefinition.TaggedAddressesEntry
-	14, // 14: hashicorp.consul.internal.service.ServiceDefinition.Meta:type_name -> hashicorp.consul.internal.service.ServiceDefinition.MetaEntry
-	17, // 15: hashicorp.consul.internal.service.ServiceDefinition.Check:type_name -> hashicorp.consul.internal.service.CheckType
-	17, // 16: hashicorp.consul.internal.service.ServiceDefinition.Checks:type_name -> hashicorp.consul.internal.service.CheckType
-	12, // 17: hashicorp.consul.internal.service.ServiceDefinition.Weights:type_name -> hashicorp.consul.internal.service.Weights
-	0,  // 18: hashicorp.consul.internal.service.ServiceDefinition.Proxy:type_name -> hashicorp.consul.internal.service.ConnectProxyConfig
-	18, // 19: hashicorp.consul.internal.service.ServiceDefinition.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	2,  // 20: hashicorp.consul.internal.service.ServiceDefinition.Connect:type_name -> hashicorp.consul.internal.service.ServiceConnect
-	19, // 21: hashicorp.consul.internal.service.ServiceDefinition.Locality:type_name -> hashicorp.consul.internal.common.Locality
-	10, // 22: hashicorp.consul.internal.service.ServiceDefinition.Ports:type_name -> hashicorp.consul.internal.service.ServicePort
-	11, // 23: hashicorp.consul.internal.service.ServiceDefinition.TaggedAddressesEntry.value:type_name -> hashicorp.consul.internal.service.ServiceAddress
+	10, // 0: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig.LocalServicePorts:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServicePort
+	15, // 1: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig.Config:type_name -> google.protobuf.Struct
+	1,  // 2: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig.Upstreams:type_name -> dumb-hashicorp.dumb-consul.internal.service.Upstream
+	6,  // 3: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig.MeshGateway:type_name -> dumb-hashicorp.dumb-consul.internal.service.MeshGatewayConfig
+	4,  // 4: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig.Expose:type_name -> dumb-hashicorp.dumb-consul.internal.service.ExposeConfig
+	7,  // 5: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig.TransparentProxy:type_name -> dumb-hashicorp.dumb-consul.internal.service.TransparentProxyConfig
+	16, // 6: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig.EnvoyExtensions:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnvoyExtension
+	8,  // 7: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig.AccessLogs:type_name -> dumb-hashicorp.dumb-consul.internal.service.AccessLogsConfig
+	15, // 8: dumb-hashicorp.dumb-consul.internal.service.Upstream.Config:type_name -> google.protobuf.Struct
+	6,  // 9: dumb-hashicorp.dumb-consul.internal.service.Upstream.MeshGateway:type_name -> dumb-hashicorp.dumb-consul.internal.service.MeshGatewayConfig
+	9,  // 10: dumb-hashicorp.dumb-consul.internal.service.ServiceConnect.SidecarService:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition
+	3,  // 11: dumb-hashicorp.dumb-consul.internal.service.ServiceConnect.PeerMeta:type_name -> dumb-hashicorp.dumb-consul.internal.service.PeeringServiceMeta
+	5,  // 12: dumb-hashicorp.dumb-consul.internal.service.ExposeConfig.Paths:type_name -> dumb-hashicorp.dumb-consul.internal.service.ExposePath
+	13, // 13: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.TaggedAddresses:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.TaggedAddressesEntry
+	14, // 14: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.MetaEntry
+	17, // 15: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.Check:type_name -> dumb-hashicorp.dumb-consul.internal.service.CheckType
+	17, // 16: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.Checks:type_name -> dumb-hashicorp.dumb-consul.internal.service.CheckType
+	12, // 17: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.Weights:type_name -> dumb-hashicorp.dumb-consul.internal.service.Weights
+	0,  // 18: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.Proxy:type_name -> dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig
+	18, // 19: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	2,  // 20: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.Connect:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServiceConnect
+	19, // 21: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.Locality:type_name -> dumb-hashicorp.dumb-consul.internal.common.Locality
+	10, // 22: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.Ports:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServicePort
+	11, // 23: dumb-hashicorp.dumb-consul.internal.service.ServiceDefinition.TaggedAddressesEntry.value:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServiceAddress
 	24, // [24:24] is the sub-list for method output_type
 	24, // [24:24] is the sub-list for method input_type
 	24, // [24:24] is the sub-list for extension type_name

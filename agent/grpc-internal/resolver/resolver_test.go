@@ -15,8 +15,8 @@ import (
 	"google.golang.org/grpc/resolver"
 	"google.golang.org/grpc/serviceconfig"
 
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestServerResolverBuilder(t *testing.T) {
@@ -42,7 +42,7 @@ func TestServerResolverBuilder(t *testing.T) {
 
 		cc := &fakeClientConn{}
 		_, err := rs.Build(resolver.Target{
-			URL: url.URL{Opaque: endpoint, Scheme: "consul", Host: rs.Authority()},
+			URL: url.URL{Opaque: endpoint, Scheme: "dumb-consul", Host: rs.Authority()},
 		}, cc, resolver.BuildOptions{})
 		require.NoError(t, err)
 

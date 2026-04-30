@@ -16,15 +16,15 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/acl"
-	svc "github.com/hashicorp/consul/agent/grpc-external/services/resource"
-	svctest "github.com/hashicorp/consul/agent/grpc-external/services/resource/testing"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/demo"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	svc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource"
+	svctest "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource/testing"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/demo"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
 )
 
 func TestList_InputValidation(t *testing.T) {
@@ -375,7 +375,7 @@ func listTestCases() map[string]listTestCase {
 			consistency: storage.StrongConsistency,
 			ctx: metadata.NewOutgoingContext(
 				context.Background(),
-				metadata.New(map[string]string{"x-consul-consistency-mode": "consistent"}),
+				metadata.New(map[string]string{"x-dumb-consul-consistency-mode": "consistent"}),
 			),
 		},
 	}

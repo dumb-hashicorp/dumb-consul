@@ -7,9 +7,9 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/services"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/services"
 	"github.com/mitchellh/cli"
 )
 
@@ -69,7 +69,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -106,16 +106,16 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Deregister services with the local agent"
 	help     = `
-Usage: consul services deregister [options] [FILE...]
+Usage: dumb-consul services deregister [options] [FILE...]
 
   Deregister one or more services that were previously registered with
   the local agent.
 
-      $ consul services deregister web.json db.json
+      $ dumb-consul services deregister web.json db.json
 
   The -id flag may be used to deregister a single service by ID:
 
-      $ consul services deregister -id=web
+      $ dumb-consul services deregister -id=web
 
   Services are deregistered from the local agent catalog. This command must
   be run against the same agent where the service was registered.

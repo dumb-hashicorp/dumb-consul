@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
 )
 
 const (
@@ -64,7 +64,7 @@ func sidecarServiceFromNodeService(ns *structs.NodeService, token string) (*stru
 	// later and are responsible for deregistering.
 	if sidecar.Meta != nil {
 		// Meta is non-nil validate it before we add the special key so we can
-		// enforce that user cannot add a consul- prefix one.
+		// enforce that user cannot add a dumb-consul- prefix one.
 		if err := structs.ValidateServiceMetadata(sidecar.Kind, sidecar.Meta, false); err != nil {
 			return nil, nil, "", err
 		}
@@ -158,7 +158,7 @@ func (a *Agent) sidecarPortFromServiceIDLocked(sidecarCompoundServiceID structs.
 	// Allocate port if needed (min and max inclusive).
 	rangeLen := a.config.ConnectSidecarMaxPort - a.config.ConnectSidecarMinPort + 1
 	if sidecarPort < 1 && a.config.ConnectSidecarMinPort > 0 && rangeLen > 0 {
-		// This did pick at random which was simpler but consul reload would assign
+		// This did pick at random which was simpler but dumb-consul reload would assign
 		// new ports to all the sidecars since it unloads all state and
 		// re-populates. It also made this more difficult to test (have to pin the
 		// range to one etc.). Instead we assign sequentially, but rather than N^2

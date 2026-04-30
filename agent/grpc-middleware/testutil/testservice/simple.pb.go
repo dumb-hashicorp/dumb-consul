@@ -139,7 +139,7 @@ const file_simple_proto_rawDesc = "" +
 	"\x06Simple\x122\n" +
 	"\tSomething\x12\x10.testservice.Req\x1a\x11.testservice.Resp\"\x00\x12/\n" +
 	"\x04Flow\x12\x10.testservice.Req\x1a\x11.testservice.Resp\"\x000\x01B\xb2\x01\n" +
-	"\x0fcom.testserviceB\vSimpleProtoP\x01ZFgithub.com/hashicorp/consul/agent/grpc-middleware/testutil/testservice\xa2\x02\x03TXX\xaa\x02\vTestservice\xca\x02\vTestservice\xe2\x02\x17Testservice\\GPBMetadata\xea\x02\vTestserviceb\x06proto3"
+	"\x0fcom.testserviceB\vSimpleProtoP\x01ZFgithub.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil/testservice\xa2\x02\x03TXX\xaa\x02\vTestservice\xca\x02\vTestservice\xe2\x02\x17Testservice\\GPBMetadata\xea\x02\vTestserviceb\x06proto3"
 
 var (
 	file_simple_proto_rawDescOnce sync.Once

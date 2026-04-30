@@ -16,12 +16,12 @@ func (f *ResourceFlags) ResourceFlags() *flag.FlagSet {
 	fs.Var(&f.partition, "partition",
 		"Specifies the admin partition to query. If not provided, the admin partition will be inferred "+
 			"from the request's ACL token, or will default to the `default` admin partition. "+
-			"Admin Partitions are a Consul Enterprise feature.")
+			"Admin Partitions are a Dumb Consul Enterprise feature.")
 	fs.Var(&f.namespace, "namespace",
 		"Specifies the namespace to query. If not provided, the namespace will be inferred "+
 			"from the request's ACL token, or will default to the `default` namespace.")
 	fs.Var(&f.stale, "stale",
-		"Permit any Consul server (non-leader) to respond to this request. This "+
+		"Permit any Dumb Consul server (non-leader) to respond to this request. This "+
 			"allows for lower latency and higher throughput, but can result in "+
 			"stale data. This option has no effect on non-read operations. The "+
 			"default value is false.")

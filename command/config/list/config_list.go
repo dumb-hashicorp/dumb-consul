@@ -7,8 +7,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -51,7 +51,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -80,14 +80,14 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "List centralized config entries of a given kind"
 	help     = `
-Usage: consul config list [options] -kind <config kind>
+Usage: dumb-consul config list [options] -kind <config kind>
 
   Lists all of the config entries for a given kind. The -kind parameter
   is required.
 
   Example:
 
-    $ consul config list -kind service-defaults
+    $ dumb-consul config list -kind service-defaults
 
 `
 )

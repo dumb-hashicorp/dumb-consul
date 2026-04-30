@@ -12,28 +12,28 @@ import (
 	"time"
 
 	"github.com/armon/go-metrics"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-multierror"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	grpcstatus "google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/blockingquery"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/grpc-external/services/peerstream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/retry"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/pbpeerstream"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/blockingquery"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/peerstream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeerstream"
 )
 
 var (
@@ -46,7 +46,7 @@ var (
 const (
 	// meshGatewayWait is the initial wait on calls to exchange a secret with a peer when dialing through a gateway.
 	// This wait provides some time for the first gateway address to configure a route to the peer servers.
-	// This study shows latency distribution https://www.hashicorp.com/cgsb.
+	// This study shows latency distribution https://www.dumb-hashicorp.com/cgsb.
 	// With 1s we cover ~p96, then we initiate the 3-second retry loop.
 	meshGatewayWait      = 1 * time.Second
 	establishmentTimeout = 3 * time.Second
@@ -126,7 +126,7 @@ func (s *Server) Register(registrar grpc.ServiceRegistrar) {
 }
 
 // Backend defines the core integrations the Peering endpoint depends on. A
-// functional implementation will integrate with various subcomponents of Consul
+// functional implementation will integrate with various subcomponents of Dumb Consul
 // such as the State store for reading and writing data, the CA machinery for
 // providing access to CA data and the RPC system for forwarding requests to
 // other servers.
@@ -163,11 +163,11 @@ type Backend interface {
 
 	Subscribe(req *stream.SubscribeRequest) (*stream.Subscription, error)
 
-	// IsLeader indicates whether the consul server is in a leader state or not.
+	// IsLeader indicates whether the dumb-consul server is in a leader state or not.
 	IsLeader() bool
 
 	// SetLeaderAddress is called on a raft.LeaderObservation in a go routine
-	// in the consul server; see trackLeaderChanges()
+	// in the dumb-consul server; see trackLeaderChanges()
 	SetLeaderAddress(string)
 
 	// GetLeaderAddress provides the best hint for the current address of the
@@ -200,7 +200,7 @@ var peeringNotEnabledErr = grpcstatus.Error(codes.FailedPrecondition, "peering m
 
 // GenerateToken implements the PeeringService RPC method to generate a
 // peering token which is the initial step in establishing a peering relationship
-// with other Consul clusters.
+// with other Dumb Consul clusters.
 func (s *Server) GenerateToken(
 	ctx context.Context,
 	req *pbpeering.GenerateTokenRequest,

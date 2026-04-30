@@ -3,7 +3,7 @@
 
 version: v1
 deps:
-  - buf.build/hashicorp/consul
+  - buf.build/dumb-hashicorp/dumb-consul
 lint:
   use:
     - DEFAULT

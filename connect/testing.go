@@ -13,12 +13,12 @@ import (
 	"net/http"
 	"sync/atomic"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 	testing "github.com/mitchellh/go-testing-interface"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
 )
 
 // TestService returns a Service instance based on a static TLS Config.

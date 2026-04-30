@@ -4,12 +4,12 @@
 package autoconf
 
 import (
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbautoconf"
-	"github.com/hashicorp/consul/proto/private/pbconfig"
-	"github.com/hashicorp/consul/proto/private/pbconnect"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbautoconf"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfig"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconnect"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // translateAgentConfig is meant to take in a proto/pbconfig.Config type

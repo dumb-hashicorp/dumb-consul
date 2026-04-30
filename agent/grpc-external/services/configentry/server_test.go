@@ -10,12 +10,12 @@ import (
 	"time"
 
 	"github.com/armon/go-metrics"
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbconfigentry"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
@@ -176,7 +176,7 @@ func TestGetResolvedExportedServices_Index(t *testing.T) {
 
 func TestGetResolvedExportedServices_Metrics(t *testing.T) {
 	sink := metrics.NewInmemSink(5*time.Second, time.Minute)
-	cfg := metrics.DefaultConfig("consul")
+	cfg := metrics.DefaultConfig("dumb-consul")
 	metrics.NewGlobal(cfg, sink)
 
 	authorizer := acl.MockAuthorizer{}
@@ -228,7 +228,7 @@ func TestGetResolvedExportedServices_Metrics(t *testing.T) {
 	require.Equal(t, 2, len(resp.Services))
 
 	// Checking if metrics were added
-	require.NotNil(t, sink.Data()[0].Samples[`consul.configentry.get_resolved_exported_services`])
+	require.NotNil(t, sink.Data()[0].Samples[`dumb-consul.configentry.get_resolved_exported_services`])
 }
 
 func doForwardRPC(structs.RPCInfo, func(*grpc.ClientConn) error) (bool, error) {

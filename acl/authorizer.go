@@ -113,19 +113,19 @@ type Authorizer interface {
 	// KeyringWrite determines if the keyring can be manipulated
 	KeyringWrite(*AuthorizerContext) EnforcementDecision
 
-	// MeshRead determines if the read-only Consul mesh functions
+	// MeshRead determines if the read-only Dumb Consul mesh functions
 	// can be used.
 	MeshRead(*AuthorizerContext) EnforcementDecision
 
-	// MeshWrite determines if the state-changing Consul mesh
+	// MeshWrite determines if the state-changing Dumb Consul mesh
 	// functions can be used.
 	MeshWrite(*AuthorizerContext) EnforcementDecision
 
-	// PeeringRead determines if the read-only Consul peering functions
+	// PeeringRead determines if the read-only Dumb Consul peering functions
 	// can be used.
 	PeeringRead(*AuthorizerContext) EnforcementDecision
 
-	// PeeringWrite determines if the stage-changing Consul peering
+	// PeeringWrite determines if the stage-changing Dumb Consul peering
 	// functions can be used.
 	PeeringWrite(*AuthorizerContext) EnforcementDecision
 
@@ -139,11 +139,11 @@ type Authorizer interface {
 	// given node.
 	NodeWrite(string, *AuthorizerContext) EnforcementDecision
 
-	// OperatorRead determines if the read-only Consul operator functions
+	// OperatorRead determines if the read-only Dumb Consul operator functions
 	// can be used.
 	OperatorRead(*AuthorizerContext) EnforcementDecision
 
-	// OperatorWrite determines if the state-changing Consul operator
+	// OperatorWrite determines if the state-changing Dumb Consul operator
 	// functions can be used.
 	OperatorWrite(*AuthorizerContext) EnforcementDecision
 
@@ -188,7 +188,7 @@ type Authorizer interface {
 	// created, modified, or deleted.
 	TrafficPermissionsWrite(string, *AuthorizerContext) EnforcementDecision
 
-	// Embedded Interface for Consul Enterprise specific ACL enforcement
+	// Embedded Interface for Dumb Consul Enterprise specific ACL enforcement
 	enterpriseAuthorizer
 
 	// ToAllowAuthorizer is needed until we can use ResolveResult in all the places this interface is used.
@@ -340,7 +340,7 @@ func (a AllowAuthorizer) KeyringWriteAllowed(ctx *AuthorizerContext) error {
 	return nil
 }
 
-// MeshReadAllowed determines if the read-only Consul mesh functions
+// MeshReadAllowed determines if the read-only Dumb Consul mesh functions
 // can be used.
 func (a AllowAuthorizer) MeshReadAllowed(ctx *AuthorizerContext) error {
 	if a.MeshRead(ctx) != Allow {
@@ -349,7 +349,7 @@ func (a AllowAuthorizer) MeshReadAllowed(ctx *AuthorizerContext) error {
 	return nil
 }
 
-// MeshWriteAllowed determines if the state-changing Consul mesh
+// MeshWriteAllowed determines if the state-changing Dumb Consul mesh
 // functions can be used.
 func (a AllowAuthorizer) MeshWriteAllowed(ctx *AuthorizerContext) error {
 	if a.MeshWrite(ctx) != Allow {
@@ -358,7 +358,7 @@ func (a AllowAuthorizer) MeshWriteAllowed(ctx *AuthorizerContext) error {
 	return nil
 }
 
-// PeeringReadAllowed determines if the read-only Consul peering functions
+// PeeringReadAllowed determines if the read-only Dumb Consul peering functions
 // can be used.
 func (a AllowAuthorizer) PeeringReadAllowed(ctx *AuthorizerContext) error {
 	if a.PeeringRead(ctx) != Allow {
@@ -367,7 +367,7 @@ func (a AllowAuthorizer) PeeringReadAllowed(ctx *AuthorizerContext) error {
 	return nil
 }
 
-// PeeringWriteAllowed determines if the state-changing Consul peering
+// PeeringWriteAllowed determines if the state-changing Dumb Consul peering
 // functions can be used.
 func (a AllowAuthorizer) PeeringWriteAllowed(ctx *AuthorizerContext) error {
 	if a.PeeringWrite(ctx) != Allow {
@@ -402,7 +402,7 @@ func (a AllowAuthorizer) NodeWriteAllowed(name string, ctx *AuthorizerContext) e
 	return nil
 }
 
-// OperatorReadAllowed determines if the read-only Consul operator functions
+// OperatorReadAllowed determines if the read-only Dumb Consul operator functions
 // can be used.
 func (a AllowAuthorizer) OperatorReadAllowed(ctx *AuthorizerContext) error {
 	if a.OperatorRead(ctx) != Allow {
@@ -411,7 +411,7 @@ func (a AllowAuthorizer) OperatorReadAllowed(ctx *AuthorizerContext) error {
 	return nil
 }
 
-// OperatorWriteAllowed determines if the state-changing Consul operator
+// OperatorWriteAllowed determines if the state-changing Dumb Consul operator
 // functions can be used.
 func (a AllowAuthorizer) OperatorWriteAllowed(ctx *AuthorizerContext) error {
 	if a.OperatorWrite(ctx) != Allow {

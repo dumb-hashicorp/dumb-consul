@@ -12,10 +12,10 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/ryanuber/columnize"
 
-	"github.com/hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/go-bexpr"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 const (
@@ -84,7 +84,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -173,12 +173,12 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Lists imported services"
 	help     = `
-Usage: consul services imported-services [options]
+Usage: dumb-consul services imported-services [options]
 
   Lists all the imported services and their sources. Wildcards and sameness groups(Enterprise) are expanded.
 
   Example:
 
-    $ consul services imported-services
+    $ dumb-consul services imported-services
 `
 )

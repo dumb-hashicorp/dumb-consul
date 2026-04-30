@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
 	"github.com/mitchellh/cli"
 )
 
@@ -48,7 +48,7 @@ func (c *cmd) init() {
 			"is false.")
 	c.flags.Uint64Var(&c.kvflags, "flags", 0,
 		"Unsigned integer value to assign to this key-value pair. This "+
-			"value is not read by Consul, so clients can use this value however "+
+			"value is not read by Dumb Consul, so clients can use this value however "+
 			"makes sense for their use case. The default value is 0 (no flags).")
 	c.flags.BoolVar(&c.base64encoded, "base64", false,
 		"Treat the data as base 64 encoded. The default value is false.")
@@ -105,7 +105,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -233,26 +233,26 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Sets or updates data in the KV store"
 	help     = `
-Usage: consul kv put [options] KEY [DATA]
+Usage: dumb-consul kv put [options] KEY [DATA]
 
   Writes the data to the given path in the key-value store. The data can be of
   any type.
 
-      $ consul kv put config/redis/maxconns 5
+      $ dumb-consul kv put config/redis/maxconns 5
 
   The data can also be consumed from a file on disk by prefixing with the "@"
   symbol. For example:
 
-      $ consul kv put config/program/license @license.lic
+      $ dumb-consul kv put config/program/license @license.lic
 
   Or it can be read from stdin using the "-" symbol:
 
-      $ echo "abcd1234" | consul kv put config/program/license -
+      $ echo "abcd1234" | dumb-consul kv put config/program/license -
 
   The DATA argument itself is optional. If omitted, this will create an empty
   key-value pair at the specified path:
 
-      $ consul kv put webapp/beta/active
+      $ dumb-consul kv put webapp/beta/active
 
   If the -base64 flag is specified, the data will be treated as base 64
   encoded.
@@ -261,7 +261,7 @@ Usage: consul kv put [options] KEY [DATA]
   appropriate -modify-index flag corresponding to the key you want to perform
   the CAS operation on:
 
-      $ consul kv put -cas -modify-index=844 config/redis/maxconns 5
+      $ dumb-consul kv put -cas -modify-index=844 config/redis/maxconns 5
 
   Additional flags and more advanced use cases are detailed below.
 `

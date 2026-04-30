@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -8,15 +8,15 @@ import (
 )
 
 // ExportedServicesConfigEntry manages the exported services for a single admin partition.
-// Admin Partitions are a Consul Enterprise feature.
+// Admin Partitions are a Dumb Consul Enterprise feature.
 type ExportedServicesConfigEntry struct {
 	// Name is the name of the partition the ExportedServicesConfigEntry applies to.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Name string `json:",omitempty"`
 
 	// Partition is the partition where the ExportedServicesConfigEntry is stored.
 	// If the partition does not match the name, the name will overwrite the partition.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// Services is a list of services to be exported and the list of partitions

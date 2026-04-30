@@ -11,8 +11,8 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/agent/cacheshim"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cacheshim"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 // UpdateEvent is a struct summarizing an update to a cache entry

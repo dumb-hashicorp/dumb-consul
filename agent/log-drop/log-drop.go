@@ -6,7 +6,7 @@ package logdrop
 import (
 	"context"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 )
 
 // Logger mimic the interface from hclog.Logger

@@ -13,8 +13,8 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/stretchr/testify/require"
 )
 
@@ -139,7 +139,7 @@ func TestUIEndpoint_MetricsProxy_ACLDeny(t *testing.T) {
 				require.False(t, backendCalled.Load().(bool))
 			})
 
-			for _, headerName := range []string{"x-consul-token", "authorization"} {
+			for _, headerName := range []string{"x-dumb-consul-token", "authorization"} {
 				headerVal := tc.token
 				if headerName == "authorization" {
 					headerVal = "bearer " + tc.token
@@ -156,8 +156,8 @@ func TestUIEndpoint_MetricsProxy_ACLDeny(t *testing.T) {
 					headersSent, _ := lastHeadersSent.Load().(http.Header)
 					if tc.expect == http.StatusOK {
 						require.True(t, backendCalled.Load().(bool))
-						// Ensure we didn't accidentally ship our consul token to the proxy.
-						require.Empty(t, headersSent.Get("X-Consul-Token"))
+						// Ensure we didn't accidentally ship our dumb-consul token to the proxy.
+						require.Empty(t, headersSent.Get("X-Dumb Consul-Token"))
 						require.Empty(t, headersSent.Get("Authorization"))
 					} else {
 						require.False(t, backendCalled.Load().(bool))

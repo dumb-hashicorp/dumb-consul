@@ -10,7 +10,7 @@
 package pboperator
 
 import (
-	_ "github.com/hashicorp/consul/proto-public/annotations/ratelimit"
+	_ "github.com/dumb-hashicorp/dumb-consul/proto-public/annotations/ratelimit"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -71,7 +71,7 @@ func (x *TransferLeaderRequest) GetID() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.TransferLeaderResponse
+// target=github.com/dumb-hashicorp/dumb-consul/api.TransferLeaderResponse
 // output=operator.gen.go
 // name=API
 type TransferLeaderResponse struct {
@@ -123,15 +123,15 @@ var File_private_pboperator_operator_proto protoreflect.FileDescriptor
 
 const file_private_pboperator_operator_proto_rawDesc = "" +
 	"\n" +
-	"!private/pboperator/operator.proto\x12\"hashicorp.consul.internal.operator\x1a%annotations/ratelimit/ratelimit.proto\"'\n" +
+	"!private/pboperator/operator.proto\x12\"dumb-hashicorp.dumb-consul.internal.operator\x1a%annotations/ratelimit/ratelimit.proto\"'\n" +
 	"\x15TransferLeaderRequest\x12\x0e\n" +
 	"\x02ID\x18\x01 \x01(\tR\x02ID\"2\n" +
 	"\x16TransferLeaderResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess2\xa5\x01\n" +
 	"\x0fOperatorService\x12\x91\x01\n" +
-	"\x0eTransferLeader\x129.hashicorp.consul.internal.operator.TransferLeaderRequest\x1a:.hashicorp.consul.internal.operator.TransferLeaderResponse\"\b\xe2\x86\x04\x04\b\x01\x10\n" +
+	"\x0eTransferLeader\x129.dumb-hashicorp.dumb-consul.internal.operator.TransferLeaderRequest\x1a:.dumb-hashicorp.dumb-consul.internal.operator.TransferLeaderResponse\"\b\xe2\x86\x04\x04\b\x01\x10\n" +
 	"B\x99\x02\n" +
-	"&com.hashicorp.consul.internal.operatorB\rOperatorProtoP\x01Z4github.com/hashicorp/consul/proto/private/pboperator\xa2\x02\x04HCIO\xaa\x02\"Hashicorp.Consul.Internal.Operator\xca\x02\"Hashicorp\\Consul\\Internal\\Operator\xe2\x02.Hashicorp\\Consul\\Internal\\Operator\\GPBMetadata\xea\x02%Hashicorp::Consul::Internal::Operatorb\x06proto3"
+	"&com.dumb-hashicorp.dumb-consul.internal.operatorB\rOperatorProtoP\x01Z4github.com/dumb-hashicorp/dumb-consul/proto/private/pboperator\xa2\x02\x04HCIO\xaa\x02\"Hashicorp.Dumb Consul.Internal.Operator\xca\x02\"Hashicorp\\Dumb Consul\\Internal\\Operator\xe2\x02.Hashicorp\\Dumb Consul\\Internal\\Operator\\GPBMetadata\xea\x02%Hashicorp::Dumb Consul::Internal::Operatorb\x06proto3"
 
 var (
 	file_private_pboperator_operator_proto_rawDescOnce sync.Once
@@ -147,12 +147,12 @@ func file_private_pboperator_operator_proto_rawDescGZIP() []byte {
 
 var file_private_pboperator_operator_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_private_pboperator_operator_proto_goTypes = []any{
-	(*TransferLeaderRequest)(nil),  // 0: hashicorp.consul.internal.operator.TransferLeaderRequest
-	(*TransferLeaderResponse)(nil), // 1: hashicorp.consul.internal.operator.TransferLeaderResponse
+	(*TransferLeaderRequest)(nil),  // 0: dumb-hashicorp.dumb-consul.internal.operator.TransferLeaderRequest
+	(*TransferLeaderResponse)(nil), // 1: dumb-hashicorp.dumb-consul.internal.operator.TransferLeaderResponse
 }
 var file_private_pboperator_operator_proto_depIdxs = []int32{
-	0, // 0: hashicorp.consul.internal.operator.OperatorService.TransferLeader:input_type -> hashicorp.consul.internal.operator.TransferLeaderRequest
-	1, // 1: hashicorp.consul.internal.operator.OperatorService.TransferLeader:output_type -> hashicorp.consul.internal.operator.TransferLeaderResponse
+	0, // 0: dumb-hashicorp.dumb-consul.internal.operator.OperatorService.TransferLeader:input_type -> dumb-hashicorp.dumb-consul.internal.operator.TransferLeaderRequest
+	1, // 1: dumb-hashicorp.dumb-consul.internal.operator.OperatorService.TransferLeader:output_type -> dumb-hashicorp.dumb-consul.internal.operator.TransferLeaderResponse
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

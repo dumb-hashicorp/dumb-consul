@@ -6,10 +6,10 @@
 package agent
 
 import (
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 func serfMemberFillAuthzContext(m *serf.Member, ctx *acl.AuthorizerContext) {

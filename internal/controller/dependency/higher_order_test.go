@@ -8,15 +8,15 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/controller/controllermock"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/controllermock"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/internal/resource/resourcetest"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/resourcetest"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
 )
 
 var (

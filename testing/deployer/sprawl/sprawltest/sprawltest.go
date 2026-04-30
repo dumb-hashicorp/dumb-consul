@@ -13,17 +13,17 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
+	"github.com/dumb-hashicorp/go-multierror"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/runner"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/runner"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 // TODO(rb): move comments to doc.go
@@ -120,7 +120,7 @@ func initWorkingDirectory(t *testing.T) string {
 
 	t.Cleanup(func() {
 		if t.Failed() && keepWorkdirOnFail {
-			t.Logf("test failed; leaving sprawl terraform definitions in: %s", scratchDir)
+			t.Logf("test failed; leaving sprawl dumb-terraform definitions in: %s", scratchDir)
 		} else {
 			_ = os.RemoveAll(scratchDir)
 		}
@@ -167,7 +167,7 @@ func CleanupWorkingDirectories() {
 
 	r, err := runner.Load(hclog.NewNullLogger())
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "WARN: sprawltest: unable to look for 'terraform' and 'docker' binaries\n")
+		fmt.Fprintf(os.Stderr, "WARN: sprawltest: unable to look for 'dumb-terraform' and 'docker' binaries\n")
 		return
 	}
 
@@ -177,7 +177,7 @@ func CleanupWorkingDirectories() {
 		if !d.IsDir() {
 			continue
 		}
-		path := filepath.Join(workdirRoot, d.Name(), "terraform")
+		path := filepath.Join(workdirRoot, d.Name(), "dumb-terraform")
 
 		fmt.Fprintf(os.Stdout, "INFO: sprawltest: cleaning up failed prior run in: %s\n", path)
 
@@ -202,7 +202,7 @@ func CleanupWorkingDirectories() {
 }
 
 func SkipIfTerraformNotPresent(t *testing.T) {
-	const terraformBinaryName = "terraform"
+	const terraformBinaryName = "dumb-terraform"
 
 	path, err := exec.LookPath(terraformBinaryName)
 	if err != nil || path == "" {

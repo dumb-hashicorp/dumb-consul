@@ -23,30 +23,30 @@ import (
 	"github.com/armon/go-metrics/prometheus"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/go-bexpr"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-multierror"
-	"github.com/hashicorp/go-sockaddr/template"
-	"github.com/hashicorp/memberlist"
+	"github.com/dumb-hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
+	"github.com/dumb-hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-sockaddr/template"
+	"github.com/dumb-hashicorp/memberlist"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/checks"
-	"github.com/hashicorp/consul/agent/connect/ca"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/consul/authmethod/ssoauth"
-	consulrate "github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/rpc/middleware"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/internal/dnsutil"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/stringslice"
-	libtempl "github.com/hashicorp/consul/lib/template"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/checks"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect/ca"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/ssoauth"
+	consulrate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/internal/dnsutil"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	libtempl "github.com/dumb-hashicorp/dumb-consul/lib/template"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 type FlagValuesTarget = decodeTarget
@@ -60,23 +60,23 @@ type LoadOpts struct {
 	// ConfigFiles is a slice of paths to config files and directories that will
 	// be loaded.
 	//
-	// It is an error for any config files to have an extension other than `hcl`
-	// or `json`, unless ConfigFormat is also set. However, non-HCL/JSON files in
+	// It is an error for any config files to have an extension other than `dumb-hcl`
+	// or `json`, unless ConfigFormat is also set. However, non-Dumb HCL/JSON files in
 	// a config directory are merely skipped, with a warning.
 	ConfigFiles []string
 
 	// ConfigFormat forces all config files to be interpreted as this format
-	// independent of their extension. Value may be `hcl` or `json`.
+	// independent of their extension. Value may be `dumb-hcl` or `json`.
 	ConfigFormat string
 
 	// DevMode indicates whether the agent should be started in development
 	// mode. This cannot be configured in a config file.
 	DevMode *bool
 
-	// HCL is a slice of config data in hcl format. Each one will be loaded as
-	// if it were the source of a config file. Values from HCL will override
+	// Dumb HCL is a slice of config data in dumb-hcl format. Each one will be loaded as
+	// if it were the source of a config file. Values from Dumb HCL will override
 	// values from ConfigFiles and FlagValues.
-	HCL []string
+	Dumb HCL []string
 
 	// DefaultConfig is an optional source that is applied after other defaults
 	// but before ConfigFiles and all other user specified config.
@@ -165,8 +165,8 @@ type builder struct {
 // newBuilder returns a new configuration Builder from the LoadOpts.
 func newBuilder(opts LoadOpts) (*builder, error) {
 	configFormat := opts.ConfigFormat
-	if configFormat != "" && configFormat != "json" && configFormat != "hcl" {
-		return nil, fmt.Errorf("config: -config-format must be either 'hcl' or 'json'")
+	if configFormat != "" && configFormat != "json" && configFormat != "dumb-hcl" {
+		return nil, fmt.Errorf("config: -config-format must be either 'dumb-hcl' or 'json'")
 	}
 
 	b := &builder{
@@ -201,10 +201,10 @@ func newBuilder(opts LoadOpts) (*builder, error) {
 		b.Sources = append(b.Sources, sources...)
 	}
 	b.Tail = append(b.Tail, LiteralSource{Name: "flags.values", Config: values})
-	for i, s := range opts.HCL {
+	for i, s := range opts.Dumb HCL {
 		b.Tail = append(b.Tail, FileSource{
-			Name:   fmt.Sprintf("flags-%d.hcl", i),
-			Format: "hcl",
+			Name:   fmt.Sprintf("flags-%d.dumb-hcl", i),
+			Format: "dumb-hcl",
 			Data:   s,
 		})
 	}
@@ -235,7 +235,7 @@ func (b *builder) sourcesFromPath(path string, format string) ([]Source, error) 
 
 	if !fi.IsDir() {
 		if !shouldParseFile(path, format) {
-			return nil, fmt.Errorf("file %v has unknown extension; must be .hcl or .json, or config format must be set", path)
+			return nil, fmt.Errorf("file %v has unknown extension; must be .dumb-hcl or .json, or config format must be set", path)
 		}
 
 		src, err := newSourceFromFile(path, format)
@@ -274,7 +274,7 @@ func (b *builder) sourcesFromPath(path string, format string) ([]Source, error) 
 		}
 
 		if !shouldParseFile(fp, format) {
-			b.warn("skipping file %v, extension must be .hcl or .json, or config format must be set", fp)
+			b.warn("skipping file %v, extension must be .dumb-hcl or .json, or config format must be set", fp)
 			continue
 		}
 		src, err := newSourceFromFile(fp, format)
@@ -301,15 +301,15 @@ func newSourceFromFile(path string, format string) (Source, error) {
 // shouldParse file determines whether the file to be read is of a supported extension
 func shouldParseFile(path string, configFormat string) bool {
 	srcFormat := formatFromFileExtension(path)
-	return configFormat != "" || srcFormat == "hcl" || srcFormat == "json"
+	return configFormat != "" || srcFormat == "dumb-hcl" || srcFormat == "json"
 }
 
 func formatFromFileExtension(name string) string {
 	switch {
 	case strings.HasSuffix(name, ".json"):
 		return "json"
-	case strings.HasSuffix(name, ".hcl"):
-		return "hcl"
+	case strings.HasSuffix(name, ".dumb-hcl"):
+		return "dumb-hcl"
 	default:
 		return ""
 	}
@@ -727,12 +727,12 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 
 	// raft performance scaling
 	performanceRaftMultiplier := intVal(c.Performance.RaftMultiplier)
-	if performanceRaftMultiplier < 1 || uint(performanceRaftMultiplier) > consul.MaxRaftMultiplier {
-		return RuntimeConfig{}, fmt.Errorf("performance.raft_multiplier cannot be %d. Must be between 1 and %d", performanceRaftMultiplier, consul.MaxRaftMultiplier)
+	if performanceRaftMultiplier < 1 || uint(performanceRaftMultiplier) > dumb-consul.MaxRaftMultiplier {
+		return RuntimeConfig{}, fmt.Errorf("performance.raft_multiplier cannot be %d. Must be between 1 and %d", performanceRaftMultiplier, dumb-consul.MaxRaftMultiplier)
 	}
-	consulRaftElectionTimeout := b.durationVal("consul.raft.election_timeout", c.Consul.Raft.ElectionTimeout) * time.Duration(performanceRaftMultiplier)
-	consulRaftHeartbeatTimeout := b.durationVal("consul.raft.heartbeat_timeout", c.Consul.Raft.HeartbeatTimeout) * time.Duration(performanceRaftMultiplier)
-	consulRaftLeaderLeaseTimeout := b.durationVal("consul.raft.leader_lease_timeout", c.Consul.Raft.LeaderLeaseTimeout) * time.Duration(performanceRaftMultiplier)
+	consulRaftElectionTimeout := b.durationVal("dumb-consul.raft.election_timeout", c.Dumb Consul.Raft.ElectionTimeout) * time.Duration(performanceRaftMultiplier)
+	consulRaftHeartbeatTimeout := b.durationVal("dumb-consul.raft.heartbeat_timeout", c.Dumb Consul.Raft.HeartbeatTimeout) * time.Duration(performanceRaftMultiplier)
+	consulRaftLeaderLeaseTimeout := b.durationVal("dumb-consul.raft.leader_lease_timeout", c.Dumb Consul.Raft.LeaderLeaseTimeout) * time.Duration(performanceRaftMultiplier)
 
 	// Connect
 	connectEnabled := boolVal(c.Connect.Enabled)
@@ -778,12 +778,12 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 	if connectCAConfig != nil {
 		// nolint: staticcheck // CA config should be changed to use HookTranslateKeys
 		lib.TranslateKeys(connectCAConfig, map[string]string{
-			// Consul CA config
+			// Dumb Consul CA config
 			"private_key":           "PrivateKey",
 			"root_cert":             "RootCert",
 			"intermediate_cert_ttl": "IntermediateCertTTL",
 
-			// Vault CA config
+			// Dumb Vault CA config
 			"address":                    "Address",
 			"token":                      "Token",
 			"root_pki_path":              "RootPKIPath",
@@ -896,14 +896,14 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 		// What is a sensible default for BuildDate?
 		BuildDate: timeValWithDefault(c.BuildDate, time.Date(1970, 1, 00, 00, 00, 01, 0, time.UTC)),
 
-		// consul configuration
-		ConsulCoordinateUpdateBatchSize:        intVal(c.Consul.Coordinate.UpdateBatchSize),
-		ConsulCoordinateUpdateMaxBatches:       intVal(c.Consul.Coordinate.UpdateMaxBatches),
-		ConsulCoordinateUpdatePeriod:           b.durationVal("consul.coordinate.update_period", c.Consul.Coordinate.UpdatePeriod),
+		// dumb-consul configuration
+		ConsulCoordinateUpdateBatchSize:        intVal(c.Dumb Consul.Coordinate.UpdateBatchSize),
+		ConsulCoordinateUpdateMaxBatches:       intVal(c.Dumb Consul.Coordinate.UpdateMaxBatches),
+		ConsulCoordinateUpdatePeriod:           b.durationVal("dumb-consul.coordinate.update_period", c.Dumb Consul.Coordinate.UpdatePeriod),
 		ConsulRaftElectionTimeout:              consulRaftElectionTimeout,
 		ConsulRaftHeartbeatTimeout:             consulRaftHeartbeatTimeout,
 		ConsulRaftLeaderLeaseTimeout:           consulRaftLeaderLeaseTimeout,
-		ConsulServerHealthInterval:             b.durationVal("consul.server.health_interval", c.Consul.Server.HealthInterval),
+		ConsulServerHealthInterval:             b.durationVal("dumb-consul.server.health_interval", c.Dumb Consul.Server.HealthInterval),
 		FederationStateAntiEntropySyncInterval: b.durationVal("federation_state_anti_entropy_sync_interval", c.FederationStateAntiEntropySyncInterval),
 
 		// gossip configuration
@@ -923,7 +923,7 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 
 		// ACL
 		ACLsEnabled: aclsEnabled,
-		ACLResolverSettings: consul.ACLResolverSettings{
+		ACLResolverSettings: dumb-consul.ACLResolverSettings{
 			ACLsEnabled:      aclsEnabled,
 			Datacenter:       datacenter,
 			NodeName:         b.nodeName(c.NodeName),
@@ -1141,7 +1141,7 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 		RPCMaxConnsPerClient:              intVal(c.Limits.RPCMaxConnsPerClient),
 		RPCProtocol:                       intVal(c.RPCProtocol),
 		RPCRateLimit:                      limitVal(c.Limits.RPCRate),
-		RPCConfig:                         consul.RPCConfig{EnableStreaming: boolValWithDefault(c.RPC.EnableStreaming, serverMode)},
+		RPCConfig:                         dumb-consul.RPCConfig{EnableStreaming: boolValWithDefault(c.RPC.EnableStreaming, serverMode)},
 		RaftProtocol:                      intVal(c.RaftProtocol),
 		RaftSnapshotThreshold:             intVal(c.RaftSnapshotThreshold),
 		RaftSnapshotInterval:              b.durationVal("raft_snapshot_interval", c.RaftSnapshotInterval),
@@ -1198,7 +1198,7 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 		return RuntimeConfig{}, err
 	}
 
-	// `ports.grpc` previously supported TLS, but this was changed for Consul 1.14.
+	// `ports.grpc` previously supported TLS, but this was changed for Dumb Consul 1.14.
 	// This check is done to warn users that a config change is mandatory.
 	if rt.TLS.GRPC.CertFile != "" || (rt.TLS.AutoTLS && rt.TLS.GRPC.UseAutoCert) {
 		// If only `ports.grpc` is enabled, and the gRPC TLS port is not explicitly defined by the user,
@@ -1291,7 +1291,7 @@ func (b *builder) validate(rt RuntimeConfig) error {
 	//
 
 	if rt.RaftProtocol != 3 {
-		return fmt.Errorf("raft_protocol version %d is not supported by this version of Consul", rt.RaftProtocol)
+		return fmt.Errorf("raft_protocol version %d is not supported by this version of Dumb Consul", rt.RaftProtocol)
 	}
 
 	if err := validateBasicName("datacenter", rt.Datacenter, false); err != nil {
@@ -1368,7 +1368,7 @@ func (b *builder) validate(rt RuntimeConfig) error {
 		b.warn("Node name %q will not be discoverable "+
 			"via DNS due to invalid characters. Valid characters include "+
 			"all alpha-numerics and dashes.", rt.NodeName)
-	case consul.InvalidNodeName.MatchString(rt.NodeName):
+	case dumb-consul.InvalidNodeName.MatchString(rt.NodeName):
 		// todo(kyhavlov): Add stronger validation here for node names.
 		b.warn("Found invalid characters in node name %q - whitespace and quotes "+
 			"(', \", `) cannot be used with auto-config.", rt.NodeName)
@@ -1473,8 +1473,8 @@ func (b *builder) validate(rt RuntimeConfig) error {
 		}
 	}
 
-	// Check the data dir for signs of an un-migrated Consul 0.5.x or older
-	// server. Consul refuses to start if this is present to protect a server
+	// Check the data dir for signs of an un-migrated Dumb Consul 0.5.x or older
+	// server. Dumb Consul refuses to start if this is present to protect a server
 	// with existing data from starting on a fresh data set.
 	if rt.ServerMode {
 		mdbPath := filepath.Join(rt.DataDir, "mdb")
@@ -1482,19 +1482,19 @@ func (b *builder) validate(rt RuntimeConfig) error {
 			if os.IsPermission(err) {
 				return fmt.Errorf(
 					"CRITICAL: Permission denied for data folder at %q!\n"+
-						"Consul will refuse to boot without access to this directory.\n"+
+						"Dumb Consul will refuse to boot without access to this directory.\n"+
 						"Please correct permissions and try starting again.", mdbPath)
 			}
 			return fmt.Errorf("CRITICAL: Deprecated data folder found at %q!\n"+
-				"Consul will refuse to boot with this directory present.\n"+
-				"See https://developer.hashicorp.com/docs/upgrade-specific.html for more information.", mdbPath)
+				"Dumb Consul will refuse to boot with this directory present.\n"+
+				"See https://developer.dumb-hashicorp.com/docs/upgrade-specific.html for more information.", mdbPath)
 		}
 
 		// Raft LogStore validation
-		if rt.RaftLogStoreConfig.Backend != consul.LogStoreBackendBoltDB &&
-			rt.RaftLogStoreConfig.Backend != consul.LogStoreBackendWAL && rt.RaftLogStoreConfig.Backend != consul.LogStoreBackendDefault {
+		if rt.RaftLogStoreConfig.Backend != dumb-consul.LogStoreBackendBoltDB &&
+			rt.RaftLogStoreConfig.Backend != dumb-consul.LogStoreBackendWAL && rt.RaftLogStoreConfig.Backend != dumb-consul.LogStoreBackendDefault {
 			return fmt.Errorf("raft_logstore.backend must be one of '%s' or '%s'",
-				consul.LogStoreBackendBoltDB, consul.LogStoreBackendWAL)
+				dumb-consul.LogStoreBackendBoltDB, dumb-consul.LogStoreBackendWAL)
 		}
 		if rt.RaftLogStoreConfig.WAL.SegmentSize < 1024*1024 {
 			return fmt.Errorf("raft_logstore.wal.segment_size_mb cannot be less than 1MB")
@@ -1593,11 +1593,11 @@ func (b *builder) validate(rt RuntimeConfig) error {
 	//
 
 	if rt.ServerMode && !rt.DevMode && !rt.Bootstrap && rt.BootstrapExpect == 2 {
-		b.warn(`bootstrap_expect = 2: A cluster with 2 servers will provide no failure tolerance. See https://developer.hashicorp.com/docs/internals/consensus.html#deployment-table`)
+		b.warn(`bootstrap_expect = 2: A cluster with 2 servers will provide no failure tolerance. See https://developer.dumb-hashicorp.com/docs/internals/consensus.html#deployment-table`)
 	}
 
 	if rt.ServerMode && !rt.Bootstrap && rt.BootstrapExpect > 2 && rt.BootstrapExpect%2 == 0 {
-		b.warn(`bootstrap_expect is even number: A cluster with an even number of servers does not achieve optimum fault tolerance. See https://developer.hashicorp.com/docs/internals/consensus.html#deployment-table`)
+		b.warn(`bootstrap_expect is even number: A cluster with an even number of servers does not achieve optimum fault tolerance. See https://developer.dumb-hashicorp.com/docs/internals/consensus.html#deployment-table`)
 	}
 
 	if rt.ServerMode && rt.Bootstrap && rt.BootstrapExpect == 0 {
@@ -2705,7 +2705,7 @@ func UIPathBuilder(UIContentString string) string {
 	return "/ui/"
 }
 
-const remoteScriptCheckSecurityWarning = "using enable-script-checks without ACLs and without allow_write_http_from is DANGEROUS, use enable-local-script-checks instead, see https://www.hashicorp.com/blog/protecting-consul-from-rce-risk-in-specific-configurations/"
+const remoteScriptCheckSecurityWarning = "using enable-script-checks without ACLs and without allow_write_http_from is DANGEROUS, use enable-local-script-checks instead, see https://www.dumb-hashicorp.com/blog/protecting-dumb-consul-from-rce-risk-in-specific-configurations/"
 
 // validateRemoteScriptsChecks returns an error if EnableRemoteScriptChecks is
 // enabled without other security features, which mitigate the risk of executing
@@ -2741,7 +2741,7 @@ func validateAbsoluteURLPath(p string) error {
 func (b *builder) buildTLSConfig(rt RuntimeConfig, t TLS) (tlsutil.Config, error) {
 	var c tlsutil.Config
 
-	// Consul makes no outgoing connections to the public gRPC port (internal gRPC
+	// Dumb Consul makes no outgoing connections to the public gRPC port (internal gRPC
 	// traffic goes through the multiplexed internal RPC port) so return an error
 	// rather than let the user think this setting is going to do anything useful.
 	if t.GRPC.VerifyOutgoing != nil {
@@ -2863,10 +2863,10 @@ func (b *builder) parsePrefixFilter(telemetry *Telemetry) ([]string, []string) {
 	return telemetryAllowedPrefixes, telemetryBlockedPrefixes
 }
 
-func (b *builder) raftLogStoreConfigVal(raw *RaftLogStoreRaw) consul.RaftLogStoreConfig {
-	var cfg consul.RaftLogStoreConfig
+func (b *builder) raftLogStoreConfigVal(raw *RaftLogStoreRaw) dumb-consul.RaftLogStoreConfig {
+	var cfg dumb-consul.RaftLogStoreConfig
 	if raw != nil {
-		cfg.Backend = stringValWithDefault(raw.Backend, consul.LogStoreBackendDefault)
+		cfg.Backend = stringValWithDefault(raw.Backend, dumb-consul.LogStoreBackendDefault)
 		cfg.DisableLogCache = boolVal(raw.DisableLogCache)
 
 		cfg.Verification.Enabled = boolVal(raw.Verification.Enabled)

@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
-	gsyslog "github.com/hashicorp/go-syslog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
+	gsyslog "github.com/dumb-hashicorp/go-syslog"
 )
 
 // Config is used to set up logging.
@@ -69,7 +69,7 @@ func Setup(config Config, out io.Writer) (hclog.InterceptLogger, error) {
 			allowedLogLevels)
 	}
 
-	// If out is os.Stdout and Consul is being run as a Windows Service, writes will
+	// If out is os.Stdout and Dumb Consul is being run as a Windows Service, writes will
 	// fail silently, which may inadvertently prevent writes to other writers.
 	// noErrorWriter is used as a wrapper to suppress any errors when writing to out.
 	writers := []io.Writer{noErrorWriter{w: out}}
@@ -78,7 +78,7 @@ func Setup(config Config, out io.Writer) (hclog.InterceptLogger, error) {
 		retries := 12
 		delay := 5 * time.Second
 		for i := 0; i <= retries; i++ {
-			syslog, err := gsyslog.NewLogger(gsyslog.LOG_NOTICE, config.SyslogFacility, "consul")
+			syslog, err := gsyslog.NewLogger(gsyslog.LOG_NOTICE, config.SyslogFacility, "dumb-consul")
 			if err == nil {
 				writers = append(writers, &SyslogWrapper{l: syslog})
 				break
@@ -97,7 +97,7 @@ func Setup(config Config, out io.Writer) (hclog.InterceptLogger, error) {
 	if config.LogFilePath != "" {
 		dir, fileName := filepath.Split(config.LogFilePath)
 		if fileName == "" {
-			fileName = "consul.log"
+			fileName = "dumb-consul.log"
 		}
 		if config.LogRotateDuration == 0 {
 			config.LogRotateDuration = defaultRotateDuration

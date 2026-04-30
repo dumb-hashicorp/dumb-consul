@@ -8,9 +8,9 @@ import (
 	"io"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/stretchr/testify/require"
 )
 
@@ -20,7 +20,7 @@ func Test_GetPolicyIDByName_Builtins(t *testing.T) {
 	a := agent.StartTestAgent(t,
 		agent.TestAgent{
 			LogOutput: io.Discard,
-			HCL: `
+			Dumb HCL: `
 				primary_datacenter = "dc1"
 				acl {
 					enabled = true
@@ -36,7 +36,7 @@ func Test_GetPolicyIDByName_Builtins(t *testing.T) {
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1", testrpc.WithToken("root"))
 
 	client := a.Client()
-	client.AddHeader("X-Consul-Token", "root")
+	client.AddHeader("X-Dumb Consul-Token", "root")
 
 	for _, policy := range structs.ACLBuiltinPolicies {
 		name := fmt.Sprintf("%s policy", policy.Name)
@@ -54,7 +54,7 @@ func Test_GetPolicyIDByName_NotFound(t *testing.T) {
 	a := agent.StartTestAgent(t,
 		agent.TestAgent{
 			LogOutput: io.Discard,
-			HCL: `
+			Dumb HCL: `
 				primary_datacenter = "dc1"
 				acl {
 					enabled = true
@@ -70,7 +70,7 @@ func Test_GetPolicyIDByName_NotFound(t *testing.T) {
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1", testrpc.WithToken("root"))
 
 	client := a.Client()
-	client.AddHeader("X-Consul-Token", "root")
+	client.AddHeader("X-Dumb Consul-Token", "root")
 
 	id, err := GetPolicyIDByName(client, "not_found")
 	require.Error(t, err)
@@ -84,7 +84,7 @@ func Test_GetPolicyIDFromPartial_Builtins(t *testing.T) {
 	a := agent.StartTestAgent(t,
 		agent.TestAgent{
 			LogOutput: io.Discard,
-			HCL: `
+			Dumb HCL: `
 				primary_datacenter = "dc1"
 				acl {
 					enabled = true
@@ -100,7 +100,7 @@ func Test_GetPolicyIDFromPartial_Builtins(t *testing.T) {
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1", testrpc.WithToken("root"))
 
 	client := a.Client()
-	client.AddHeader("X-Consul-Token", "root")
+	client.AddHeader("X-Dumb Consul-Token", "root")
 
 	for _, policy := range structs.ACLBuiltinPolicies {
 		name := fmt.Sprintf("%s policy", policy.Name)

@@ -8,7 +8,7 @@ package structs
 import (
 	"testing"
 
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/dumb-hcl"
 	"github.com/stretchr/testify/require"
 )
 
@@ -33,7 +33,7 @@ func TestDecodeConfigEntry_CE(t *testing.T) {
 				Name = "terminating-gateway"
 				Namespace = "foo"
 			`,
-			expectErr: `invalid config key "namespace", namespaces are a consul enterprise feature`,
+			expectErr: `invalid config key "namespace", namespaces are a dumb-consul enterprise feature`,
 		},
 		{
 			name: "namespaces invalid deep",
@@ -72,14 +72,14 @@ func TestDecodeConfigEntry_CE(t *testing.T) {
 					},
 				]
 			`,
-			expectErr: `* invalid config key "listeners[0].services[0].namespace", namespaces are a consul enterprise feature`,
+			expectErr: `* invalid config key "listeners[0].services[0].namespace", namespaces are a dumb-consul enterprise feature`,
 		},
 	} {
 		tc := tc
 
 		testbody := func(t *testing.T, body string) {
 			var raw map[string]interface{}
-			err := hcl.Decode(&raw, body)
+			err := dumb-hcl.Decode(&raw, body)
 			require.NoError(t, err)
 
 			got, err := DecodeConfigEntry(raw)

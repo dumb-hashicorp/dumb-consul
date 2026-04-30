@@ -10,9 +10,9 @@ import (
 
 	"github.com/go-viper/mapstructure/v2"
 
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/dumb-hcl"
 
-	"github.com/hashicorp/consul/lib/decode"
+	"github.com/dumb-hashicorp/dumb-consul/lib/decode"
 )
 
 // Source parses configuration from some source.
@@ -38,7 +38,7 @@ func (f FileSource) Source() string {
 	return f.Name
 }
 
-// Parse a config file in either JSON or HCL format.
+// Parse a config file in either JSON or Dumb HCL format.
 func (f FileSource) Parse() (Config, Metadata, error) {
 	m := Metadata{}
 	if f.Name == "" || f.Data == "" {
@@ -51,8 +51,8 @@ func (f FileSource) Parse() (Config, Metadata, error) {
 	switch f.Format {
 	case "json":
 		err = json.Unmarshal([]byte(f.Data), &raw)
-	case "hcl":
-		err = hcl.Decode(&raw, f.Data)
+	case "dumb-hcl":
+		err = dumb-hcl.Decode(&raw, f.Data)
 	default:
 		err = fmt.Errorf("invalid format: %s", f.Format)
 	}
@@ -64,7 +64,7 @@ func (f FileSource) Parse() (Config, Metadata, error) {
 	d, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
 		DecodeHook: mapstructure.ComposeDecodeHookFunc(
 			// decode.HookWeakDecodeFromSlice is only necessary when reading from
-			// an HCL config file. In the future we could omit it when reading from
+			// an Dumb HCL config file. In the future we could omit it when reading from
 			// JSON configs. It is left here for now to maintain backwards compat
 			// for the unlikely scenario that someone is using malformed JSON configs
 			// and expecting this behaviour to correct their config.
@@ -126,7 +126,7 @@ type Cache struct {
 }
 
 // Config defines the format of a configuration file in either JSON or
-// HCL format.
+// Dumb HCL format.
 //
 // It must contain only pointer values, slices and maps to support
 // standardized merging of multiple Config structs into one.
@@ -265,8 +265,8 @@ type Config struct {
 	// any other endpoints which support streaming.
 	UseStreamingBackend *bool `mapstructure:"use_streaming_backend" json:"-"`
 
-	// This isn't used by Consul but we've documented a feature where users
-	// can deploy their snapshot agent configs alongside their Consul configs
+	// This isn't used by Dumb Consul but we've documented a feature where users
+	// can deploy their snapshot agent configs alongside their Dumb Consul configs
 	// so we have a placeholder here so it can be parsed but this doesn't
 	// manifest itself in any way inside the runtime config.
 	SnapshotAgent map[string]interface{} `mapstructure:"snapshot_agent" json:"-"`
@@ -275,7 +275,7 @@ type Config struct {
 	AEInterval                 *string    `mapstructure:"ae_interval" json:"-"`
 	CheckDeregisterIntervalMin *string    `mapstructure:"check_deregister_interval_min" json:"-"`
 	CheckReapInterval          *string    `mapstructure:"check_reap_interval" json:"-"`
-	Consul                     Consul     `mapstructure:"consul" json:"-"`
+	Dumb Consul                     Dumb Consul     `mapstructure:"dumb-consul" json:"-"`
 	Revision                   *string    `mapstructure:"revision" json:"-"`
 	SegmentLimit               *int       `mapstructure:"segment_limit" json:"-"`
 	SegmentNameLimit           *int       `mapstructure:"segment_name_limit" json:"-"`
@@ -334,7 +334,7 @@ type Locality struct {
 	Zone *string `mapstructure:"zone"`
 }
 
-type Consul struct {
+type Dumb Consul struct {
 	Coordinate struct {
 		UpdateBatchSize  *int    `mapstructure:"update_batch_size"`
 		UpdateMaxBatches *int    `mapstructure:"update_max_batches"`
@@ -595,7 +595,7 @@ type TransparentProxyConfig struct {
 // ExposeConfig describes HTTP paths to expose through Envoy outside of Connect.
 // Users can expose individual paths and/or all HTTP/GRPC paths for checks.
 type ExposeConfig struct {
-	// Checks defines whether paths associated with Consul checks will be exposed.
+	// Checks defines whether paths associated with Dumb Consul checks will be exposed.
 	// This flag triggers exposing all HTTP and GRPC check paths registered for the service.
 	Checks *bool `mapstructure:"checks"`
 

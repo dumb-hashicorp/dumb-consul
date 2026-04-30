@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -45,7 +45,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -86,13 +86,13 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Delete an intention."
 	help     = `
-Usage: consul intention delete [options] SRC DST
-Usage: consul intention delete [options] ID
+Usage: dumb-consul intention delete [options] SRC DST
+Usage: dumb-consul intention delete [options] ID
 
   Delete an intention. This cannot be reversed. The intention can be looked
   up via an exact source/destination match or via the unique intention ID.
 
-      $ consul intention delete web db
+      $ dumb-consul intention delete web db
 
 `
 )

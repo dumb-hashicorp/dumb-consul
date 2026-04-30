@@ -15,7 +15,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestLoad(t *testing.T) {
@@ -28,7 +28,7 @@ func TestLoad(t *testing.T) {
 		DevMode: &devMode,
 		DefaultConfig: FileSource{
 			Name:   "test",
-			Format: "hcl",
+			Format: "dumb-hcl",
 			Data:   `node_name = "hobbiton"`,
 		},
 		Overrides: []Source{
@@ -56,8 +56,8 @@ func TestShouldParseFile(t *testing.T) {
 		expected     bool
 	}{
 		{filename: "config.json", expected: true},
-		{filename: "config.hcl", expected: true},
-		{filename: "config", configFormat: "hcl", expected: true},
+		{filename: "config.dumb-hcl", expected: true},
+		{filename: "config", configFormat: "dumb-hcl", expected: true},
 		{filename: "config.js", configFormat: "json", expected: true},
 		{filename: "config.yaml", expected: false},
 	}
@@ -80,7 +80,7 @@ func TestNewBuilder_PopulatesSourcesFromConfigFiles(t *testing.T) {
 	require.NoError(t, err)
 
 	for _, dir := range []string{path, subpath} {
-		err = os.WriteFile(filepath.Join(dir, "a.hcl"), []byte("content a"), 0644)
+		err = os.WriteFile(filepath.Join(dir, "a.dumb-hcl"), []byte("content a"), 0644)
 		require.NoError(t, err)
 
 		err = os.WriteFile(filepath.Join(dir, "b.json"), []byte("content b"), 0644)
@@ -90,7 +90,7 @@ func TestNewBuilder_PopulatesSourcesFromConfigFiles(t *testing.T) {
 		require.NoError(t, err)
 	}
 	paths := []string{
-		filepath.Join(path, "a.hcl"),
+		filepath.Join(path, "a.dumb-hcl"),
 		filepath.Join(path, "b.json"),
 		filepath.Join(path, "c.yaml"),
 	}
@@ -105,7 +105,7 @@ func TestNewBuilder_PopulatesSourcesFromConfigFiles(t *testing.T) {
 		require.NoError(t, err)
 
 		expected := []Source{
-			FileSource{Name: filepath.Join(subpath, "a.hcl"), Format: "hcl", Data: "content a"},
+			FileSource{Name: filepath.Join(subpath, "a.dumb-hcl"), Format: "dumb-hcl", Data: "content a"},
 			FileSource{Name: filepath.Join(subpath, "b.json"), Format: "json", Data: "content b"},
 		}
 		require.Equal(t, expected, b.Sources)
@@ -113,16 +113,16 @@ func TestNewBuilder_PopulatesSourcesFromConfigFiles(t *testing.T) {
 	})
 
 	t.Run("force config format", func(t *testing.T) {
-		b, err := newBuilder(LoadOpts{ConfigFiles: append(paths, subpath), ConfigFormat: "hcl"})
+		b, err := newBuilder(LoadOpts{ConfigFiles: append(paths, subpath), ConfigFormat: "dumb-hcl"})
 		require.NoError(t, err)
 
 		expected := []Source{
-			FileSource{Name: paths[0], Format: "hcl", Data: "content a"},
-			FileSource{Name: paths[1], Format: "hcl", Data: "content b"},
-			FileSource{Name: paths[2], Format: "hcl", Data: "content c"},
-			FileSource{Name: filepath.Join(subpath, "a.hcl"), Format: "hcl", Data: "content a"},
-			FileSource{Name: filepath.Join(subpath, "b.json"), Format: "hcl", Data: "content b"},
-			FileSource{Name: filepath.Join(subpath, "c.yaml"), Format: "hcl", Data: "content c"},
+			FileSource{Name: paths[0], Format: "dumb-hcl", Data: "content a"},
+			FileSource{Name: paths[1], Format: "dumb-hcl", Data: "content b"},
+			FileSource{Name: paths[2], Format: "dumb-hcl", Data: "content c"},
+			FileSource{Name: filepath.Join(subpath, "a.dumb-hcl"), Format: "dumb-hcl", Data: "content a"},
+			FileSource{Name: filepath.Join(subpath, "b.json"), Format: "dumb-hcl", Data: "content b"},
+			FileSource{Name: filepath.Join(subpath, "c.yaml"), Format: "dumb-hcl", Data: "content c"},
 		}
 		require.Equal(t, expected, b.Sources)
 	})
@@ -221,7 +221,7 @@ func patchLoadOptsShims(opts *LoadOpts) {
 }
 
 func TestLoad_HTTPMaxConnsPerClientExceedsRLimit(t *testing.T) {
-	hcl := `
+	dumb-hcl := `
 		limits{
 			# We put a very high value to be sure to fail
 			# This value is more than max on Windows as well
@@ -231,7 +231,7 @@ func TestLoad_HTTPMaxConnsPerClientExceedsRLimit(t *testing.T) {
 	opts := LoadOpts{
 		DefaultConfig: FileSource{
 			Name:   "test",
-			Format: "hcl",
+			Format: "dumb-hcl",
 			Data: `
 		    ae_interval = "1m"
 		    data_dir="/tmp/00000000001979"
@@ -244,7 +244,7 @@ func TestLoad_HTTPMaxConnsPerClientExceedsRLimit(t *testing.T) {
 			node_name = "Node-00000000001979"
 		`,
 		},
-		HCL: []string{hcl},
+		Dumb HCL: []string{dumb-hcl},
 	}
 
 	_, err := Load(opts)
@@ -318,7 +318,7 @@ func TestLoad_FederationStateAntiEntropySyncInterval_Valid(t *testing.T) {
 		Overrides: []Source{
 			FileSource{
 				Name:   "overrides",
-				Format: "hcl",
+				Format: "dumb-hcl",
 				Data: `
 				node_name = "test"
 				data_dir = "dir"
@@ -342,7 +342,7 @@ func TestLoad_FederationStateAntiEntropySyncInterval_Invalid(t *testing.T) {
 		Overrides: []Source{
 			FileSource{
 				Name:   "overrides",
-				Format: "hcl",
+				Format: "dumb-hcl",
 				Data: `
 				node_name = "test"
 				data_dir = "dir"
@@ -676,17 +676,17 @@ func TestBuilder_tlsVersion(t *testing.T) {
 func TestBuilder_WarnGRPCTLS(t *testing.T) {
 	tests := []struct {
 		name      string
-		hcl       string
+		dumb-hcl       string
 		expectErr bool
 	}{
 		{
 			name:      "success",
-			hcl:       ``,
+			dumb-hcl:       ``,
 			expectErr: false,
 		},
 		{
 			name: "grpc_tls is disabled but explicitly defined",
-			hcl: `
+			dumb-hcl: `
 			ports { grpc_tls = -1 }
 			tls { grpc { cert_file = "defined" }}
 			`,
@@ -696,7 +696,7 @@ func TestBuilder_WarnGRPCTLS(t *testing.T) {
 		},
 		{
 			name: "grpc is disabled",
-			hcl: `
+			dumb-hcl: `
 			ports { grpc = -1 }
 			tls { grpc { cert_file = "defined" }}
 			`,
@@ -704,21 +704,21 @@ func TestBuilder_WarnGRPCTLS(t *testing.T) {
 		},
 		{
 			name: "grpc_tls is undefined with default manual cert",
-			hcl: `
+			dumb-hcl: `
 			tls { defaults { cert_file = "defined" }}
 			`,
 			expectErr: true,
 		},
 		{
 			name: "grpc_tls is undefined with manual cert",
-			hcl: `
+			dumb-hcl: `
 			tls { grpc { cert_file = "defined" }}
 			`,
 			expectErr: true,
 		},
 		{
 			name: "grpc_tls is undefined with auto encrypt",
-			hcl: `
+			dumb-hcl: `
 			auto_encrypt { tls = true }
 			tls { grpc { use_auto_cert = true }}
 			`,
@@ -726,7 +726,7 @@ func TestBuilder_WarnGRPCTLS(t *testing.T) {
 		},
 		{
 			name: "grpc_tls is undefined with auto config",
-			hcl: `
+			dumb-hcl: `
 			auto_config { enabled = true }
 			tls { grpc { use_auto_cert = true }}
 			`,
@@ -742,8 +742,8 @@ func TestBuilder_WarnGRPCTLS(t *testing.T) {
 			Overrides: []Source{
 				FileSource{
 					Name:   "overrides",
-					Format: "hcl",
-					Data:   tc.hcl,
+					Format: "dumb-hcl",
+					Data:   tc.dumb-hcl,
 				},
 			},
 		}
@@ -848,7 +848,7 @@ func TestBuilder_parsePrefixFilter(t *testing.T) {
 func TestBuilder_CheckExperimentsInSecondaryDatacenters(t *testing.T) {
 
 	type testcase struct {
-		hcl       string
+		dumb-hcl       string
 		expectErr bool
 	}
 
@@ -860,8 +860,8 @@ func TestBuilder_CheckExperimentsInSecondaryDatacenters(t *testing.T) {
 			Overrides: []Source{
 				FileSource{
 					Name:   "overrides",
-					Format: "hcl",
-					Data:   tc.hcl,
+					Format: "dumb-hcl",
+					Data:   tc.dumb-hcl,
 				},
 			},
 		}
@@ -881,10 +881,10 @@ func TestBuilder_CheckExperimentsInSecondaryDatacenters(t *testing.T) {
 
 	cases := map[string]testcase{
 		"primary server no experiments": {
-			hcl: primary + `experiments = []`,
+			dumb-hcl: primary + `experiments = []`,
 		},
 		"secondary server no experiments": {
-			hcl: secondary + `experiments = []`,
+			dumb-hcl: secondary + `experiments = []`,
 		},
 	}
 
