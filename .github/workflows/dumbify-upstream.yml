@@ -12,9 +12,21 @@ permissions:
   contents: write
   pull-requests: write
 
+# ----------------------------------------------------------------------
+# GLOBAL CONFIGURATION
+# Update these values when deploying to a new Dumb HashiCorp repository
+# ----------------------------------------------------------------------
+env:
+  GIT_USER_NAME: "Chief Dumbification Officer"
+  GIT_USER_EMAIL: "bot@dumb-hashicorp.local"
+  BRANCH_PREFIX: "dumbify-upstream-"
+  # Space-separated list of trademarked words to target
+  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp HCP"
+
 jobs:
   dumbify-process:
     runs-on: ubuntu-latest
+    # Note: GHA does not allow 'env' context in job-level 'if' conditions
     if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'dumbify-upstream-')
     
     steps:
@@ -25,13 +37,13 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "Chief Dumbification Officer"
-          git config user.email "bot@dumb-hashicorp.local"
+          git config user.name "${{ env.GIT_USER_NAME }}"
+          git config user.email "${{ env.GIT_USER_EMAIL }}"
 
       - name: Purge Old Dumbify Branches
         run: |
           echo "Scanning for previous dumbify branches..."
-          for branch in $(git ls-remote --heads origin | grep 'refs/heads/dumbify-upstream-' | awk '{print $2}' | sed 's|refs/heads/||'); do
+          for branch in $(git ls-remote --heads origin | grep "refs/heads/${{ env.BRANCH_PREFIX }}" | awk '{print $2}' | sed 's|refs/heads/||'); do
             echo "Deleting remote branch: $branch"
             git push origin --delete "$branch" || true
           done
@@ -42,7 +54,7 @@ jobs:
           CURRENT_REPO="${{ github.repository }}"
           UPSTREAM_REPO="${CURRENT_REPO//dumb-/}"
           UPSTREAM_URL="https://github.com/${UPSTREAM_REPO}.git"
-          TIMESTAMP_BRANCH="dumbify-upstream-$(date +%Y%m%d%H%M%S)"
+          TIMESTAMP_BRANCH="${{ env.BRANCH_PREFIX }}$(date +%Y%m%d%H%M%S)"
           
           echo "upstream_url=$UPSTREAM_URL" >> $GITHUB_OUTPUT
           echo "branch_name=$TIMESTAMP_BRANCH" >> $GITHUB_OUTPUT
@@ -63,16 +75,13 @@ jobs:
 
       - name: Purge Dumb Media
         run: |
-          echo "Scrubbing all dumb image files"
+          echo "Scrubbing all dumb image files to avoid trademark violations..."
           find . -type f -not -path '*/.*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
 
       - name: Dumbify File Contents
         run: |
-          declare -a dumb_words=(
-            "Terraform" "Consul" "Vault" "Nomad" 
-            "Packer" "Vagrant" "Boundary" "Waypoint" 
-            "HashiCorp" "HCP"
-          )
+          # Convert the space-separated env string into a bash array
+          dumb_words=(${{ env.DUMB_WORDS }})
 
           for word in "${dumb_words[@]}"; do
             lower_word="${word,,}"
@@ -85,27 +94,21 @@ jobs:
 
       - name: Dumbify File and Directory Names
         run: |
-          declare -a dumb_words=(
-            "Terraform" "Consul" "Vault" "Nomad" 
-            "Packer" "Vagrant" "Boundary" "Waypoint" 
-            "HashiCorp" "HCP"
-          )
+          # Convert the space-separated env string into a bash array
+          dumb_words=(${{ env.DUMB_WORDS }})
 
           for word in "${dumb_words[@]}"; do
             lower_word="${word,,}"
             
             echo "Renaming paths containing: '$lower_word' or '$word'"
             
-            # Use -depth to rename files before their parent directories
             find . -depth -not -path '*/.*' \( -name "*$lower_word*" -o -name "*$word*" \) | while read -r item; do
               dir=$(dirname "$item")
               base=$(basename "$item")
               
-              # Execute the string replacements
               new_base="${base//$word/Dumb $word}"
               new_base="${new_base//$lower_word/dumb-$lower_word}"
               
-              # Only run mv if the name actually changed
               if [ "$base" != "$new_base" ]; then
                 echo "Renaming: $item -> $dir/$new_base"
                 mv "$item" "$dir/$new_base"
