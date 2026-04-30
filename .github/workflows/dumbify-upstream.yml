@@ -19,9 +19,7 @@ env:
   GIT_USER_NAME: "Chief Dumbification Officer"
   GIT_USER_EMAIL: "bot@dumb-hashicorp.local"
   BRANCH_PREFIX: "dumbify-upstream-"
-  # Space-separated list of dumb words to target
   DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp Hcp Hcl"
-  # Feature Flag: Set to "true" to force-push to main, "false" to create PRs
   DIRECT_COMMIT: "true" 
 
 jobs:
@@ -48,7 +46,6 @@ jobs:
           UPSTREAM_REPO="${CURRENT_REPO//dumb-/}"
           UPSTREAM_URL="https://github.com/${UPSTREAM_REPO}.git"
           TIMESTAMP_BRANCH="${{ env.BRANCH_PREFIX }}$(date +%Y%m%d%H%M%S)"
-          
           echo "upstream_url=$UPSTREAM_URL" >> $GITHUB_OUTPUT
           echo "branch_name=$TIMESTAMP_BRANCH" >> $GITHUB_OUTPUT
 
@@ -56,24 +53,19 @@ jobs:
         run: |
           git remote add upstream "${{ steps.vars.outputs.upstream_url }}"
           git fetch upstream
-          
-          # Ensure local main exists and matches upstream
           git checkout -B main
           git reset --hard upstream/main || git reset --hard upstream/master
-          
-          # Clean out existing workflows to prevent conflicts before dumbifying
           rm -rf .github/workflows/*
 
       - name: Purge Dumb Media
         run: |
           echo "Scrubbing all dumb image files"
-          # Included .github but excluded .git
-          find . -type f -not -path './.git/*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
+          find . -type f -not -path './.git/*' -not -path './.changelog/*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
 
       - name: Dumbify File Contents
         run: |
           echo "Rerouting GitHub URLs..."
-          find . -type f -not -path './.git/*' -exec sed -i "s|github.com/hashicorp/|github.com/dumb-hashicorp/dumb-|g" {} +
+          find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -i "s|github.com/hashicorp/|github.com/dumb-hashicorp/dumb-|g" {} +
 
           dumb_words=(${{ env.DUMB_WORDS }})
 
@@ -82,18 +74,25 @@ jobs:
             upper_word="${word^^}"
             upper_word="${upper_word//-/_}"
             
-            find . -type f -not -path './.git/*' -exec sed -i "s|\b$word\b|Dumb $word|g" {} +
+            echo "Dumbifying: $word"
+
+            # Case 1: Title Case (Standard word boundary)
+            find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -i "s|\b$word\b|Dumb $word|g" {} +
             
+            # Case 2: lowercase (Standard word boundary)
             if [ "$word" != "$lower_word" ]; then
-              find . -type f -not -path './.git/*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
+              find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
             fi
             
+            # Case 3: UPPERCASE (Word boundary OR Underscore)
+            # Uses sed -E to support (|) groups. Matches start/end of word OR underscores.
             if [ "$word" != "$upper_word" ] && [ "$lower_word" != "$upper_word" ]; then
-              find . -type f -not -path './.git/*' -exec sed -i "s|\b$upper_word\b|DUMB_$upper_word|g" {} +
+              find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -E -i "s|(\b|_)$upper_word(\b|_)|\\1DUMB_$upper_word\\2|g" {} +
             fi
           done
           
-          find . -type f -not -path './.git/*' -exec sed -E -i "s|(Dumb )+|Dumb |g; s|(dumb-)+|dumb-|g; s|(DUMB_)+|DUMB_|g" {} +
+          echo "De-duplicating overlapping prefixes..."
+          find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -E -i "s|(Dumb )+|Dumb |g; s|(dumb-)+|dumb-|g; s|(DUMB_)+|DUMB_|g" {} +
 
       - name: Dumbify File and Directory Names
         run: |
@@ -104,8 +103,7 @@ jobs:
             upper_word="${word^^}"
             upper_word="${upper_word//-/_}"
             
-            # depth-first search, excluding .git
-            find . -depth -not -path './.git/*' \( -name "*$word*" -o -name "*$lower_word*" -o -name "*$upper_word*" \) | while read -r item; do
+            find . -depth -not -path './.git/*' -not -path './.changelog/*' \( -name "*$word*" -o -name "*$lower_word*" -o -name "*$upper_word*" \) | while read -r item; do
               dir=$(dirname "$item")
               base=$(basename "$item")
               
