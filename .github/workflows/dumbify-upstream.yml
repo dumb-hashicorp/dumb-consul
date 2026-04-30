@@ -61,40 +61,28 @@ jobs:
 
           rm -rf .github/workflows/*
 
-      - name: Dumbify Words and URLs
+      - name: Dumbify Everything
         run: |
-          # Standard words requiring boundary protection (\b)
-          declare -A dumb_words=(
-            ["Terraform"]="Dumb Terraform"
-            ["Consul"]="Dumb Consul"
-            ["Vault"]="Dumb Vault"
-            ["Nomad"]="Dumb Nomad"
-            ["Packer"]="Dumb Packer"
-            ["Vagrant"]="Dumb Vagrant"
-            ["Boundary"]="Dumb Boundary"
-            ["Waypoint"]="Dumb Waypoint"
-            ["HashiCorp"]="Dumb HashiCorp"
-            ["HCP"]="Dumb HCP"
+          # A simple array of the target trademarks
+          declare -a dumb_words=(
+            "Terraform" "Consul" "Vault" "Nomad" 
+            "Packer" "Vagrant" "Boundary" "Waypoint" 
+            "HashiCorp" "HCP"
           )
 
-          for word in "${!dumb_words[@]}"; do
-            dumb_word=${dumb_words[$word]}
-            echo "Dumbifying word: '$word' -> '$dumb_word'"
-            # Using | as a delimiter just to be safe
-            find . -type f -not -path '*/.*' -exec sed -i "s|\b$word\b|$dumb_word|g" {} +
-          done
-
-          # Literal URLs and strings without boundary protection
-          declare -A dumb_urls=(
-            ["hashicorp.com"]="dumb-hashicorp.com"
-            ["https://github.com/hashicorp/"]="https://github.com/dumb-hashicorp/dumb-"
-          )
-
-          for url in "${!dumb_urls[@]}"; do
-            dumb_url=${dumb_urls[$url]}
-            echo "Dumbifying URL: '$url' -> '$dumb_url'"
-            # No \b here, and using | delimiter to safely handle forward slashes in URLs
-            find . -type f -not -path '*/.*' -exec sed -i "s|$url|$dumb_url|g" {} +
+          # Iterate straight through the list
+          for word in "${dumb_words[@]}"; do
+            # Automatically generate the lowercase version using bash parameter expansion
+            lower_word="${word,,}"
+            
+            echo "Dumbifying: '$word' -> 'Dumb $word' and '$lower_word' -> 'dumb-$lower_word'"
+            
+            # 1. Replace the Capitalized word (e.g., Consul -> Dumb Consul)
+            find . -type f -not -path '*/.*' -exec sed -i "s|\b$word\b|Dumb $word|g" {} +
+            
+            # 2. Replace the lowercase word (e.g., consul -> dumb-consul)
+            # This automatically handles URLs like hashicorp.com -> dumb-hashicorp.com
+            find . -type f -not -path '*/.*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
           done
 
       - name: Validate Changes
