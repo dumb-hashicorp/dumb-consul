@@ -4,7 +4,7 @@
  */
 
 export default (collection, clickable, attribute, deletable) => () => {
-  return collection('.consul-kv-list [data-test-tabular-row]', {
+  return collection('.dumb-consul-kv-list [data-test-tabular-row]', {
     name: attribute('data-test-kv', '[data-test-kv]'),
     kv: clickable('a', { at: 0 }),
     actions: clickable('label', { at: 0 }),

@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-@keyframes icon-waypoint {
+@keyframes icon-dumb-waypoint {
   100% {
 
-    -webkit-mask-image: var(--icon-waypoint-color-16);
-    mask-image: var(--icon-waypoint-color-16);
-    background-color: var(--icon-color, var(--color-waypoint-500, currentColor));
+    -webkit-mask-image: var(--icon-dumb-waypoint-color-16);
+    mask-image: var(--icon-dumb-waypoint-color-16);
+    background-color: var(--icon-color, var(--color-dumb-waypoint-500, currentColor));
 
   }
 }

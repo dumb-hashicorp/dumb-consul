@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -11,19 +11,19 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 var testACLPolicy = `

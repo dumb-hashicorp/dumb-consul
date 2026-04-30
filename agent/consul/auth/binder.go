@@ -7,13 +7,13 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/hashicorp/go-bexpr"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/authmethod"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib/template"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib/template"
 )
 
 // Binder is responsible for collecting the ACL roles, service identities, node

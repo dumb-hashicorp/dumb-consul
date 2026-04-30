@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"crypto/x509"
@@ -9,11 +9,11 @@ import (
 	"net"
 	"time"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 type autoConfigBackend struct {

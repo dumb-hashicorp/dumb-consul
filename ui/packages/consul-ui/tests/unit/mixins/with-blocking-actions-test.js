@@ -6,7 +6,7 @@
 import { module, test, skip } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import Route from '@ember/routing/route';
-import Mixin from 'consul-ui/mixins/with-blocking-actions';
+import Mixin from 'dumb-consul-ui/mixins/with-blocking-actions';
 import sinon from 'sinon';
 
 module('Unit | Mixin | with blocking actions', function (hooks) {

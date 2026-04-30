@@ -4,7 +4,7 @@
  */
 
 import Service from '@ember/service';
-import { Tween } from 'consul-ui/utils/ticker';
+import { Tween } from 'dumb-consul-ui/utils/ticker';
 
 let map;
 export default class TickerService extends Service {

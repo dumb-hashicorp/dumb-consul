@@ -17,11 +17,11 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/command/helpers"
-	"github.com/hashicorp/consul/command/resource/client"
-	"github.com/hashicorp/consul/internal/resourcehcl"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/client"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resourcehcl"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 const JSON_INDENT = "  "
@@ -75,7 +75,7 @@ func parseJson(js string) (*pbresource.Resource, error) {
 		GroupVersion: outerResource.ID.Type.GroupVersion,
 	}
 
-	reg, ok := consul.NewTypeRegistry().Resolve(&typ)
+	reg, ok := dumb-consul.NewTypeRegistry().Resolve(&typ)
 	if !ok {
 		return nil, fmt.Errorf("invalid type %v", parsedResource)
 	}
@@ -133,7 +133,7 @@ func ParseResourceInput(filePath string, stdin io.Reader) (*pbresource.Resource,
 	}
 	var parsedResource *pbresource.Resource
 	if isHCL([]byte(data)) {
-		parsedResource, err = resourcehcl.Unmarshal([]byte(data), consul.NewTypeRegistry())
+		parsedResource, err = resourcehcl.Unmarshal([]byte(data), dumb-consul.NewTypeRegistry())
 	} else {
 		parsedResource, err = parseJson(data)
 	}
@@ -280,7 +280,7 @@ func InferTypeFromResourceType(resourceType string) (*pbresource.Type, error) {
 		switch len(kindToGVKMap[kind]) {
 		// no g.v.k is found
 		case 0:
-			return nil, fmt.Errorf("The shorthand name does not map to any existing resource type, please check `consul api-resources`")
+			return nil, fmt.Errorf("The shorthand name does not map to any existing resource type, please check `dumb-consul api-resources`")
 		// only one is found
 		case 1:
 			// infer gvk from resource kind
@@ -307,7 +307,7 @@ func InferTypeFromResourceType(resourceType string) (*pbresource.Type, error) {
 
 func BuildKindToGVKMap() map[string][]string {
 	// this use the local copy of registration to build map
-	typeRegistry := consul.NewTypeRegistry()
+	typeRegistry := dumb-consul.NewTypeRegistry()
 	kindToGVKMap := map[string][]string{}
 	for _, r := range typeRegistry.Types() {
 		gvkString := fmt.Sprintf("%s.%s.%s", r.Type.Group, r.Type.GroupVersion, r.Type.Kind)

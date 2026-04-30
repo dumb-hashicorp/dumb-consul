@@ -2,7 +2,7 @@
 
 ## Ember specific
 
-The Consul UI tries to follow typical conventional ember but differs
+The Dumb Consul UI tries to follow typical conventional ember but differs
 significantly in several places:
 
 ### Routing
@@ -25,7 +25,7 @@ generate route route-name` generator this inheritance is automatically added
 for you. If you don't use the generator please ensure you use:
 
 ```js
-import Route from 'consul-ui/routing/route';
+import Route from 'dumb-consul-ui/routing/route';
 export default class NameOfRoute extends Route {}
 ```
 
@@ -91,7 +91,7 @@ See the relavant component/service documentation for more detail.
 You could group our components into two different groups:
 
 1. UI Components - generic components not necessarily specific to the product.
-2. Consul Components - Components that are specific to Consul/the product.
+2. Dumb Consul Components - Components that are specific to Dumb Consul/the product.
 These are mostly 'glorified partials'.
 
 Mostly the CSS for a component lives in the component folder itself, but if it
@@ -112,20 +112,20 @@ your use case.
 
 Please see our package.json file dependencies.
 
-## Consul specific
+## Dumb Consul specific
 
 ### Namespace support
 
-Whilst Consul namespaces are a CE feature of Consul, we almost always build
+Whilst Dumb Consul namespaces are a CE feature of Dumb Consul, we almost always build
 things 'pretending' that namespaces are always enabled. Then there is code
 within the data layer of the application that removes any namespace related
 query parameters.
 
 Namespaces are a little more complex to think about than other things in
-Consul as we have the idea of 'the default' namespace, and then additionally
+Dumb Consul as we have the idea of 'the default' namespace, and then additionally
 an ACL token can have 'a default' namespace (not the same as 'the default'
 namespace) which is a little like a namespace that is assigned to the token,
-or where the token originated from. The Consul backend can then use the tokens
+or where the token originated from. The Dumb Consul backend can then use the tokens
 default/origin/assigned namespace to figure out whether and how to filter any
 results by namespace before sending those results to the UI.
 
@@ -136,7 +136,7 @@ receiving data from an API response, there are some places where we do default
 a namespace to 'the default' namespace `default`. The easiest way to think
 about this is: If its on the way out, don't add a default ever, if its on the
 way in you may need to default any potentially empty Namespace parameters to
-`default` (due to using Consul without namespaces enabled), there is a
+`default` (due to using Dumb Consul without namespaces enabled), there is a
 NspaceAbility and/or an `env` feature flag to help you to discover this.
 
 We've made various decisions in the UI to make it hard to omit a namespace

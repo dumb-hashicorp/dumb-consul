@@ -6,23 +6,23 @@
 import ObjectProxy from '@ember/object/proxy';
 import ArrayProxy from '@ember/array/proxy';
 
-import createListeners from 'consul-ui/utils/dom/create-listeners';
+import createListeners from 'dumb-consul-ui/utils/dom/create-listeners';
 
-import EventTarget from 'consul-ui/utils/dom/event-target/rsvp';
+import EventTarget from 'dumb-consul-ui/utils/dom/event-target/rsvp';
 
-import cacheFactory from 'consul-ui/utils/dom/event-source/cache';
-import proxyFactory from 'consul-ui/utils/dom/event-source/proxy';
-import firstResolverFactory from 'consul-ui/utils/dom/event-source/resolver';
+import cacheFactory from 'dumb-consul-ui/utils/dom/event-source/cache';
+import proxyFactory from 'dumb-consul-ui/utils/dom/event-source/proxy';
+import firstResolverFactory from 'dumb-consul-ui/utils/dom/event-source/resolver';
 
-import CallableEventSourceFactory from 'consul-ui/utils/dom/event-source/callable';
-import OpenableEventSourceFactory from 'consul-ui/utils/dom/event-source/openable';
-import BlockingEventSourceFactory from 'consul-ui/utils/dom/event-source/blocking';
-import StorageEventSourceFactory from 'consul-ui/utils/dom/event-source/storage';
+import CallableEventSourceFactory from 'dumb-consul-ui/utils/dom/event-source/callable';
+import OpenableEventSourceFactory from 'dumb-consul-ui/utils/dom/event-source/openable';
+import BlockingEventSourceFactory from 'dumb-consul-ui/utils/dom/event-source/blocking';
+import StorageEventSourceFactory from 'dumb-consul-ui/utils/dom/event-source/storage';
 
 import EmberObject from '@ember/object';
 import { task } from 'ember-concurrency';
 
-import { env } from 'consul-ui/env';
+import { env } from 'dumb-consul-ui/env';
 
 let runner;
 switch (env('CONSUL_UI_REALTIME_RUNNER')) {

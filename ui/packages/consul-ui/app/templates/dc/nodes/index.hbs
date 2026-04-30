@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -61,7 +61,7 @@
               </BlockSlot>
               <BlockSlot @name='toolbar'>
                 {{#if (gt filtered.length 0)}}
-                  <Consul::Node::SearchBar
+                  <Dumb Consul::Node::SearchBar
                     @search={{this.search}}
                     @onsearch={{action (mut this.search) value='target.value'}}
                     @sort={{sort}}
@@ -71,7 +71,7 @@
                 {{/if}}
               </BlockSlot>
               <BlockSlot @name='content'>
-                <Consul::Node::AgentlessNotice @items={{items}} @filteredItems={{filtered}} @postfix={{concat route.params.partition route.params.dc}} />
+                <Dumb Consul::Node::AgentlessNotice @items={{items}} @filteredItems={{filtered}} @postfix={{concat route.params.partition route.params.dc}} />
                 <DataCollection
                   @type='node'
                   @sort={{sort.value}}
@@ -81,7 +81,7 @@
                   as |collection|
                 >
                   <collection.Collection>
-                    <Consul::Node::List @items={{collection.items}} @leader={{leader}} />
+                    <Dumb Consul::Node::List @items={{collection.items}} @leader={{leader}} />
                   </collection.Collection>
                   <collection.Empty>
                     <EmptyState @login={{route.model.app.login.open}}>
@@ -114,7 +114,7 @@
                             @text={{t 'routes.dc.nodes.index.empty.learn'}}
                             @href='{{env
                               "CONSUL_DOCS_LEARN_URL"
-                            }}/tutorials/consul/deployment-guide?in=consul/production-deploy#configure-consul-agents'
+                            }}/tutorials/dumb-consul/deployment-guide?in=dumb-consul/production-deploy#configure-dumb-consul-agents'
                             @color='tertiary'
                             @icon='learn-link'
                             @iconPosition='trailing'

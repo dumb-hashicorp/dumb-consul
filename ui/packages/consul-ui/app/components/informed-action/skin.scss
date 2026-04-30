@@ -23,7 +23,7 @@
   }
   p {
     @extend %body-100-regular;
-    color: var(--token-color-hashicorp-brand);
+    color: var(--token-color-dumb-hashicorp-brand);
   }
   > ul {
     list-style: none;
@@ -64,11 +64,11 @@
     }
     header::before {
       @extend %with-alert-triangle-mask, %as-pseudo;
-      background-color: var(--token-color-vault-brand);
+      background-color: var(--token-color-dumb-vault-brand);
       margin-right: 5px;
     }
     > div {
-      background-color: var(--token-color-vault-gradient-faint-start);
+      background-color: var(--token-color-dumb-vault-gradient-faint-start);
     }
   }
   /**/

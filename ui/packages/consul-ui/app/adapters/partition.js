@@ -4,7 +4,7 @@
  */
 
 import Adapter from './application';
-import { SLUG_KEY } from 'consul-ui/models/partition';
+import { SLUG_KEY } from 'dumb-consul-ui/models/partition';
 
 // Blocking query support for partitions is currently disabled
 export default class PartitionAdapter extends Adapter {
@@ -14,7 +14,7 @@ export default class PartitionAdapter extends Adapter {
 
       ${{ index }}
     `;
-    await respond((headers, body) => delete headers['x-consul-index']);
+    await respond((headers, body) => delete headers['x-dumb-consul-index']);
     return respond;
   }
   // TODO: Not used until we do Partition CRUD
@@ -27,7 +27,7 @@ export default class PartitionAdapter extends Adapter {
 
       ${{ index }}
     `;
-    await respond((headers, body) => delete headers['x-consul-index']);
+    await respond((headers, body) => delete headers['x-dumb-consul-index']);
     return respond;
   }
 

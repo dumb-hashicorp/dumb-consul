@@ -10,7 +10,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	radix "github.com/hashicorp/go-immutable-radix"
+	radix "github.com/dumb-hashicorp/go-immutable-radix"
 	"golang.org/x/time/rate"
 )
 

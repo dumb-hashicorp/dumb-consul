@@ -11,10 +11,10 @@ import (
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
 
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 var CommandsSummaries = []prometheus.SummaryDefinition{
@@ -59,7 +59,7 @@ var CommandsSummaries = []prometheus.SummaryDefinition{
 		Help: "Measures the time it takes to apply the given autopilot update to the FSM.",
 	},
 	{
-		Name: []string{"consul", "fsm", "intention"},
+		Name: []string{"dumb-consul", "fsm", "intention"},
 		Help: "Deprecated - use fsm_intention instead",
 	},
 	{
@@ -67,7 +67,7 @@ var CommandsSummaries = []prometheus.SummaryDefinition{
 		Help: "Measures the time it takes to apply an intention operation to the FSM.",
 	},
 	{
-		Name: []string{"consul", "fsm", "ca"},
+		Name: []string{"dumb-consul", "fsm", "ca"},
 		Help: "Deprecated - use fsm_ca instead",
 	},
 	{
@@ -377,7 +377,7 @@ func (c *FSM) applyIntentionOperation(buf []byte, index uint64) interface{} {
 	// TODO(kit): We should deprecate this first metric that writes the metrics_prefix itself,
 	//  the config we use to flag this out, telemetry.disable_compat_1.9 is on the agent - how do
 	//  we access it here?
-	defer metrics.MeasureSinceWithLabels([]string{"consul", "fsm", "intention"}, time.Now(),
+	defer metrics.MeasureSinceWithLabels([]string{"dumb-consul", "fsm", "intention"}, time.Now(),
 		[]metrics.Label{{Name: "op", Value: string(req.Op)}})
 
 	defer metrics.MeasureSinceWithLabels([]string{"fsm", "intention"}, time.Now(),
@@ -411,7 +411,7 @@ func (c *FSM) applyConnectCAOperation(buf []byte, index uint64) interface{} {
 		panic(fmt.Errorf("failed to decode request: %v", err))
 	}
 
-	defer metrics.MeasureSinceWithLabels([]string{"consul", "fsm", "ca"}, time.Now(),
+	defer metrics.MeasureSinceWithLabels([]string{"dumb-consul", "fsm", "ca"}, time.Now(),
 		[]metrics.Label{{Name: "op", Value: string(req.Op)}})
 	defer metrics.MeasureSinceWithLabels([]string{"fsm", "ca"}, time.Now(),
 		[]metrics.Label{{Name: "op", Value: string(req.Op)}})

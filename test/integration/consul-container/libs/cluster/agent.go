@@ -11,16 +11,16 @@ import (
 
 	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/go-viper/mapstructure/v2"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib/decode"
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib/decode"
+	"github.com/dumb-hashicorp/hcl"
 	"github.com/testcontainers/testcontainers-go"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
-// Agent represent a Consul agent abstraction
+// Agent represent a Dumb Consul agent abstraction
 type Agent interface {
 	GetIP() string
 	GetClient() *api.Client
@@ -51,7 +51,7 @@ type Agent interface {
 //
 // Constructed by (Builder).ToAgentConfig()
 type Config struct {
-	// NodeName is set for the consul agent name and container name
+	// NodeName is set for the dumb-consul agent name and container name
 	// Equivalent to the -node command-line flag.
 	// If empty, a random name will be generated
 	NodeName string
@@ -60,7 +60,7 @@ type Config struct {
 	// If empty, a random name will be generated
 	NodeID string
 
-	// ExternalDataDir is data directory to copy consul data from, if set.
+	// ExternalDataDir is data directory to copy dumb-consul data from, if set.
 	// This directory contains subdirectories like raft, serf, services
 	ExternalDataDir string
 
@@ -132,7 +132,7 @@ func convertHcl2Json(in string) (string, error) {
 	}
 
 	// We target an opaque map so that changes to config fields not yet present
-	// in a tagged version of `consul` (missing from latest released schema)
+	// in a tagged version of `dumb-consul` (missing from latest released schema)
 	// can be used in tests.
 	var target map[string]any
 	var md mapstructure.Metadata

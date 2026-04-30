@@ -4,8 +4,8 @@
  */
 
 import Model, { attr } from '@ember-data/model';
-import isFolder from 'consul-ui/utils/isFolder';
-import { nullValue } from 'consul-ui/decorators/replace';
+import isFolder from 'dumb-consul-ui/utils/isFolder';
+import { nullValue } from 'dumb-consul-ui/decorators/replace';
 
 export const PRIMARY_KEY = 'uid';
 // not really a slug as it contains slashes but all intents and purposes its

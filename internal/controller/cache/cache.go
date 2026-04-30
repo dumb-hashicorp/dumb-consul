@@ -4,8 +4,8 @@
 package cache
 
 import (
-	"github.com/hashicorp/consul/internal/controller/cache/index"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/index"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // Query is the function type to use for named query callbacks

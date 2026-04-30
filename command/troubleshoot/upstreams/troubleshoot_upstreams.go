@@ -11,9 +11,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/consul/command/cli"
-	"github.com/hashicorp/consul/command/flags"
-	troubleshoot "github.com/hashicorp/consul/troubleshoot/proxy"
+	"github.com/dumb-hashicorp/dumb-consul/command/cli"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	troubleshoot "github.com/dumb-hashicorp/dumb-consul/troubleshoot/proxy"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -96,7 +96,7 @@ func (c *cmd) Run(args []string) int {
 	c.UI.UnchangedOutput("-> Check intentions: Transparent proxy upstreams are configured based on intentions. Make sure you " +
 		"have configured intentions to allow traffic to your upstream.")
 	c.UI.UnchangedOutput("-> To check that the right cluster is being dialed, run a DNS lookup " +
-		"for the upstream you are dialing. For example, run `dig backend.svc.consul` to return the IP address for the `backend` service. If the address you get from that is missing " +
+		"for the upstream you are dialing. For example, run `dig backend.svc.dumb-consul` to return the IP address for the `backend` service. If the address you get from that is missing " +
 		"from the upstream IPs, it means that your proxy may be misconfigured.")
 	return 0
 }
@@ -112,13 +112,13 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Get upstream envoy identifiers for the current envoy instance"
 	help     = `
-Usage: consul troubleshoot upstreams [options]
+Usage: dumb-consul troubleshoot upstreams [options]
   
   Connects to local Envoy and lists upstream service envoy identifiers.
   This command is used in combination with 
-  'consul troubleshoot proxy' to diagnose issues in Consul service mesh. 
+  'dumb-consul troubleshoot proxy' to diagnose issues in Dumb Consul service mesh. 
   Examples:
-    $ consul troubleshoot upstreams
+    $ dumb-consul troubleshoot upstreams
 `
 )
 

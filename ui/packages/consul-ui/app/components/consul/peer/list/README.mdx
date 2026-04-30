@@ -1,10 +1,10 @@
-# Consul::Peer::List
+# Dumb Consul::Peer::List
 
-A presentational component for rendering Consul Peers
+A presentational component for rendering Dumb Consul Peers
 
 ```hbs
 <DataSource @src={{uri '/partition/default/dc-1/peers'}} as |source|>
-  <Consul::Peer::List
+  <Dumb Consul::Peer::List
     @items={{source.data}}
     @ondelete={{noop}}
   />

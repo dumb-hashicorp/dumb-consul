@@ -3,7 +3,7 @@
 
 package sentinel
 
-// Evaluator wraps the Sentinel evaluator from the HashiCorp Sentinel policy
+// Evaluator wraps the Sentinel evaluator from the Dumb HashiCorp Sentinel policy
 // engine.
 type Evaluator interface {
 	Compile(policy string) error

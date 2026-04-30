@@ -6,8 +6,8 @@
 import Service from '@ember/service';
 import { get } from '@ember/object';
 import { runInDebug } from '@ember/debug';
-import atob from 'consul-ui/utils/atob';
-import btoa from 'consul-ui/utils/btoa';
+import atob from 'dumb-consul-ui/utils/atob';
+import btoa from 'dumb-consul-ui/utils/btoa';
 
 const createRegExpEncoder = function (re, encoder = (str) => str, strict = true) {
   return (template = '', vars = {}) => {

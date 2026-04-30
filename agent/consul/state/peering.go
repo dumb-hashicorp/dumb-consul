@@ -9,15 +9,15 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/maps"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/maps"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 const (
@@ -814,9 +814,9 @@ func exportedServicesForPeerTxn(
 	}
 
 	// Build the set of all services that will be exported.
-	// Any possible namespace wildcards or "consul" services should be removed by this step.
+	// Any possible namespace wildcards or "dumb-consul" services should be removed by this step.
 	for _, svc := range exportConf.Services {
-		// Prevent exporting the "consul" service.
+		// Prevent exporting the "dumb-consul" service.
 		if svc.Name == structs.ConsulServiceName {
 			continue
 		}
@@ -850,7 +850,7 @@ func exportedServicesForPeerTxn(
 			maxIdx = idx
 		}
 		for _, sn := range typicalServices {
-			// Prevent exporting the "consul" service.
+			// Prevent exporting the "dumb-consul" service.
 			if sn.Service.Name != structs.ConsulServiceName {
 				exportedServices[sn.Service] = struct{}{}
 			}
@@ -866,7 +866,7 @@ func exportedServicesForPeerTxn(
 			maxIdx = idx
 		}
 		for _, sn := range discoChains {
-			// Prevent exporting the "consul" service.
+			// Prevent exporting the "dumb-consul" service.
 			if sn.Name != structs.ConsulServiceName {
 				exportedConnectServices[sn] = struct{}{}
 				insertEntry(namespaceDiscoChains, svcEntMeta, sn.Name)
@@ -978,7 +978,7 @@ func exportedServicesForPeerTxn(
 			maxIdx = idx
 		}
 
-		// Prevent the consul service from being exported by a discovery chain.
+		// Prevent the dumb-consul service from being exported by a discovery chain.
 		for _, t := range targets {
 			if t.Service == structs.ConsulServiceName {
 				return nil

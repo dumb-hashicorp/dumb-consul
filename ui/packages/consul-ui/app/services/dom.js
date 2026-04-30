@@ -7,19 +7,19 @@ import Service, { inject as service } from '@ember/service';
 import { guidFor } from '@ember/object/internals';
 
 // selecting
-import qsaFactory from 'consul-ui/utils/dom/qsa-factory';
+import qsaFactory from 'dumb-consul-ui/utils/dom/qsa-factory';
 // TODO: sibling and closest seem to have 'PHP-like' guess the order arguments
 // ie. one `string, element` and the other has `element, string`
 // see if its possible to standardize
-import sibling from 'consul-ui/utils/dom/sibling';
-import closest from 'consul-ui/utils/dom/closest';
-import isOutside from 'consul-ui/utils/dom/is-outside';
-import getComponentFactory from 'consul-ui/utils/dom/get-component-factory';
+import sibling from 'dumb-consul-ui/utils/dom/sibling';
+import closest from 'dumb-consul-ui/utils/dom/closest';
+import isOutside from 'dumb-consul-ui/utils/dom/is-outside';
+import getComponentFactory from 'dumb-consul-ui/utils/dom/get-component-factory';
 
 // events
-import normalizeEvent from 'consul-ui/utils/dom/normalize-event';
-import createListeners from 'consul-ui/utils/dom/create-listeners';
-import clickFirstAnchorFactory from 'consul-ui/utils/dom/click-first-anchor';
+import normalizeEvent from 'dumb-consul-ui/utils/dom/normalize-event';
+import createListeners from 'dumb-consul-ui/utils/dom/create-listeners';
+import clickFirstAnchorFactory from 'dumb-consul-ui/utils/dom/click-first-anchor';
 
 // ember-eslint doesn't like you using a single $ so use double
 // use $_ for components

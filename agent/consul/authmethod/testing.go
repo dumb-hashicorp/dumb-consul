@@ -6,7 +6,7 @@ package authmethod
 import (
 	"sort"
 
-	"github.com/hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/go-bexpr"
 	"github.com/mitchellh/go-testing-interface"
 	"github.com/stretchr/testify/require"
 )

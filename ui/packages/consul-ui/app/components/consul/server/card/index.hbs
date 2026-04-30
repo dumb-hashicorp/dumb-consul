@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -10,23 +10,23 @@
   @hasBorder={{true}}
   @overflow="hidden"
   class={{class-map
-    'consul-server-card'
-    (array 'consul-server-card--leader' (eq @item.Status 'leader'))
-    (array 'consul-server-card--voter' (and (not @item.ReadReplica) (eq @item.Status 'voter')))
-    (array 'consul-server-card--non-voter' (or @item.ReadReplica (includes @item.Status (array 'non-voter' 'staging'))))
+    'dumb-consul-server-card'
+    (array 'dumb-consul-server-card--leader' (eq @item.Status 'leader'))
+    (array 'dumb-consul-server-card--voter' (and (not @item.ReadReplica) (eq @item.Status 'voter')))
+    (array 'dumb-consul-server-card--non-voter' (or @item.ReadReplica (includes @item.Status (array 'non-voter' 'staging'))))
   }}
   ...attributes
 >
-  <a href={{@href}} class="consul-server-card__link">
+  <a href={{@href}} class="dumb-consul-server-card__link">
 
     {{#if (eq @item.Status 'leader')}}
-      <span class="consul-server-card__leader-tile" {{hds-tooltip "Leader" options=(detached-tooltip-options)}}>
-        <Hds::Icon @name="star-fill" @size="16" @color="var(--token-color-consul-brand)" />
+      <span class="dumb-consul-server-card__leader-tile" {{hds-tooltip "Leader" options=(detached-tooltip-options)}}>
+        <Hds::Icon @name="star-fill" @size="16" @color="var(--token-color-dumb-consul-brand)" />
       </span>
     {{/if}}
 
-    <div class="consul-server-card__content">
-      <p class="consul-server-card__name">
+    <div class="dumb-consul-server-card__content">
+      <p class="dumb-consul-server-card__name">
         {{@item.Name}}
       </p>
 

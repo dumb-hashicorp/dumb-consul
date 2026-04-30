@@ -10,10 +10,10 @@ import (
 
 	dockercontainer "github.com/docker/docker/api/types/container"
 	"github.com/docker/go-connections/nat"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-multierror"
 	"github.com/testcontainers/testcontainers-go"
 
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 // LaunchInfo is the resutl of LaunchContainerOnNode.
@@ -27,8 +27,8 @@ type LaunchInfo struct {
 // namespace as the provided agent, in the same manner in Kubernetes where
 // you'd run two containers in the same pod so you can share localhost.
 //
-// This is supposed to mimic more accurately how consul/CLI/envoy/etc all are
-// co-located on localhost with the consul client agent in typical deployment
+// This is supposed to mimic more accurately how dumb-consul/CLI/envoy/etc all are
+// co-located on localhost with the dumb-consul client agent in typical deployment
 // topologies.
 func LaunchContainerOnNode(
 	ctx context.Context,

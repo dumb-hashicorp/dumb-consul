@@ -4,18 +4,18 @@
  */
 
 import { clickable } from 'ember-cli-page-object';
-import { input, options, click, button } from 'consul-ui/tests/lib/page-object';
-import powerSelect from 'consul-ui/components/power-select/pageobject';
-import headersForm from 'consul-ui/components/consul/intention/permission/header/form/pageobject';
-import headersList from 'consul-ui/components/consul/intention/permission/header/list/pageobject';
+import { input, options, click, button } from 'dumb-consul-ui/tests/lib/page-object';
+import powerSelect from 'dumb-consul-ui/components/power-select/pageobject';
+import headersForm from 'dumb-consul-ui/components/dumb-consul/intention/permission/header/form/pageobject';
+import headersList from 'dumb-consul-ui/components/dumb-consul/intention/permission/header/list/pageobject';
 
-export default (scope = '.consul-intention-permission-form') => {
+export default (scope = '.dumb-consul-intention-permission-form') => {
   return {
     scope: scope,
     resetScope: true, // where we use the form it is in a modal layer
     submit: {
       resetScope: true,
-      scope: '.consul-intention-permission-modal [data-test-intention-permission-submit]',
+      scope: '.dumb-consul-intention-permission-modal [data-test-intention-permission-submit]',
       click: clickable(),
     },
     Action: {

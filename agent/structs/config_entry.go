@@ -15,14 +15,14 @@ import (
 	"github.com/miekg/dns"
 	"github.com/mitchellh/hashstructure"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/envoyextensions"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/decode"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/decode"
 )
 
 const (
@@ -414,7 +414,7 @@ func (c *UpstreamConfiguration) Clone() *UpstreamConfiguration {
 	return &c2
 }
 
-// DestinationConfig represents a virtual service, i.e. one that is external to Consul
+// DestinationConfig represents a virtual service, i.e. one that is external to Dumb Consul
 type DestinationConfig struct {
 	// Addresses of the endpoint; hostname or IP
 	Addresses []string `json:",omitempty"`
@@ -430,7 +430,7 @@ func IsIP(address string) bool {
 
 // RateLimits is rate limiting configuration that is applied to
 // inbound traffic for a service.
-// Rate limiting is a Consul enterprise feature.
+// Rate limiting is a Dumb Consul enterprise feature.
 type RateLimits struct {
 	InstanceLevel InstanceLevelRateLimits `alias:"instance_level"`
 }

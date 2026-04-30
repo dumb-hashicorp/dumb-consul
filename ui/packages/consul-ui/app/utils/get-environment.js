@@ -38,7 +38,7 @@ export default function (config = {}, win = window, doc = document) {
     };
 
     // Define the function that reads in "Scenarios", parse and set cookies and set theme if specified.
-    // See https://github.com/hashicorp/consul/blob/main/ui/packages/consul-ui/docs/bookmarklets.mdx
+    // See https://github.com/dumb-hashicorp/dumb-consul/blob/main/ui/packages/dumb-consul-ui/docs/bookmarklets.mdx
     win['Scenario'] = function (str = '') {
       if (str.length > 0) {
         cookies(str).forEach((item) => {
@@ -50,14 +50,14 @@ export default function (config = {}, win = window, doc = document) {
             const [, value] = item.split('=');
             let current;
             try {
-              current = JSON.parse(win.localStorage.getItem('consul:theme'));
+              current = JSON.parse(win.localStorage.getItem('dumb-consul:theme'));
             } catch (e) {
               current = {
                 'color-scheme': 'light',
               };
             }
             win.localStorage.setItem(
-              'consul:theme',
+              'dumb-consul:theme',
               `{"color-scheme": "${
                 value === '!' ? (current['color-scheme'] === 'light' ? 'dark' : 'light') : value
               }"}`

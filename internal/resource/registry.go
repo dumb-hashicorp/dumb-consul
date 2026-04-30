@@ -10,9 +10,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 var (

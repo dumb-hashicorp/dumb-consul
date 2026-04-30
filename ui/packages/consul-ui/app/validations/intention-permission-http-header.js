@@ -4,7 +4,7 @@
  */
 
 import { validatePresence } from 'ember-changeset-validations/validators';
-import validateSometimes from 'consul-ui/validations/sometimes';
+import validateSometimes from 'dumb-consul-ui/validations/sometimes';
 export default (schema) => ({
   Name: [validatePresence(true)],
   Value: [

@@ -6,7 +6,7 @@
 import domEventSourceBlocking, {
   validateCursor,
   createErrorBackoff,
-} from 'consul-ui/utils/dom/event-source/blocking';
+} from 'dumb-consul-ui/utils/dom/event-source/blocking';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 

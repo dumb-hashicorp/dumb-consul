@@ -5,7 +5,7 @@
 
 import Adapter from './application';
 import { inject as service } from '@ember/service';
-import { SLUG_KEY } from 'consul-ui/models/token';
+import { SLUG_KEY } from 'dumb-consul-ui/models/token';
 
 export default class TokenAdapter extends Adapter {
   @service('store') store;
@@ -36,7 +36,7 @@ export default class TokenAdapter extends Adapter {
         index,
       }}
     `;
-    respond((headers, body) => delete headers['x-consul-index']);
+    respond((headers, body) => delete headers['x-dumb-consul-index']);
     return respond;
   }
 
@@ -68,7 +68,7 @@ export default class TokenAdapter extends Adapter {
 
     // If a token has Rules, use the old API
     if (typeof data['Rules'] !== 'undefined') {
-      // https://developer.hashicorp.com/api/acl/legacy.html#update-acl-token
+      // https://developer.dumb-hashicorp.com/api/acl/legacy.html#update-acl-token
       // as we are using the old API we don't need to specify a nspace
       return request`
         PUT /v1/acl/update?${this.formatDatacenter(data.Datacenter)}
@@ -110,10 +110,10 @@ export default class TokenAdapter extends Adapter {
 
   requestForSelf(request, serialized, { dc, index, secret }) {
     // TODO: Change here and elsewhere to use Authorization Bearer Token
-    // https://github.com/hashicorp/consul/pull/4502
+    // https://github.com/dumb-hashicorp/dumb-consul/pull/4502
     return request`
       GET /v1/acl/token/self?${{ dc }}
-      X-Consul-Token: ${secret}
+      X-Dumb Consul-Token: ${secret}
       Cache-Control: no-store
 
       ${{ index }}

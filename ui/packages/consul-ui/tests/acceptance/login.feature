@@ -18,7 +18,7 @@ Feature: login
     Then a GET request was made to "/v1/acl/token/self?dc=dc-1" from yaml
     ---
     headers:
-      X-Consul-Token: something
+      X-Dumb Consul-Token: something
     ---
   @onlyNamespaceable
   Scenario: Logging in via SSO

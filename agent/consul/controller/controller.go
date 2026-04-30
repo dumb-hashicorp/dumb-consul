@@ -13,13 +13,13 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 
-	"github.com/hashicorp/consul/agent/consul/controller/queue"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/controller/queue"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
 )
 
 // much of this is a re-implementation of

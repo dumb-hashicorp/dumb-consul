@@ -6,14 +6,14 @@ package dataplane
 import (
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbdataplane"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbdataplane"
 )
 
 type Server struct {
@@ -24,7 +24,7 @@ type Config struct {
 	GetStore    func() StateStore
 	Logger      hclog.Logger
 	ACLResolver ACLResolver
-	// Datacenter of the Consul server this gRPC server is hosted on
+	// Datacenter of the Dumb Consul server this gRPC server is hosted on
 	Datacenter string
 }
 

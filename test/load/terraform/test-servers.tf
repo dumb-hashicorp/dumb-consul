@@ -18,7 +18,7 @@ data "aws_ami" "test" {
 
   filter {
     name   = "name"
-    values = ["consul-test-*"]
+    values = ["dumb-consul-test-*"]
   }
 }
 
@@ -58,7 +58,7 @@ resource "aws_instance" "test-server" {
   associate_public_ip_address = var.test_public_ip
   subnet_id                   = (module.vpc.public_subnets)[0]
   tags = {
-    Name = "consul-load-generator-server-${local.random_name}"
+    Name = "dumb-consul-load-generator-server-${local.random_name}"
   }
   provisioner "remote-exec" {
     inline = [

@@ -10,17 +10,17 @@ Feature: dc / services / show / dc-switch : Switching Datacenters
     And 1 service model from yaml
     ---
     - Service:
-        Service: consul
+        Service: dumb-consul
         Kind: ~
     ---
 
     When I visit the service page for yaml
     ---
       dc: dc-1
-      service: consul
+      service: dumb-consul
     ---
 
-    Then the url should be /dc-1/services/consul/topology
+    Then the url should be /dc-1/services/dumb-consul/topology
     When I click dc on the navigation
     And I click dcs.1.name on the navigation
-    Then the url should be /dc-2/services/consul/topology
+    Then the url should be /dc-2/services/dumb-consul/topology

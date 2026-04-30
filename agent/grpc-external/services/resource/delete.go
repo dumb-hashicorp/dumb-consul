@@ -15,10 +15,10 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // Delete deletes a resource.
@@ -86,7 +86,7 @@ func (s *Server) Delete(ctx context.Context, req *pbresource.DeleteRequest) (*pb
 
 			// Mark for deletion and let controllers that put finalizers in place do their
 			// thing. Note we're passing in a clone of the recently read resource since
-			// we've not crossed a network/serialization boundary since the read and we
+			// we've not crossed a network/serialization dumb-boundary since the read and we
 			// don't want to mutate the in-mem reference.
 			_, err := s.markForDeletion(ctx, clone(existing))
 			return err

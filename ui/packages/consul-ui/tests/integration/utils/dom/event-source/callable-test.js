@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domEventSourceCallable from 'consul-ui/utils/dom/event-source/callable';
-import EventTarget from 'consul-ui/utils/dom/event-target/rsvp';
+import domEventSourceCallable from 'dumb-consul-ui/utils/dom/event-source/callable';
+import EventTarget from 'dumb-consul-ui/utils/dom/event-target/rsvp';
 
 import { module, test, skip } from 'qunit';
 import { setupTest } from 'ember-qunit';

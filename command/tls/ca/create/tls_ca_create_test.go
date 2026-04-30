@@ -15,8 +15,8 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestValidateCommand_noTabs(t *testing.T) {
@@ -42,8 +42,8 @@ func TestCACreateCommand(t *testing.T) {
 	cases := []testcase{
 		{"ca defaults",
 			nil,
-			"consul-agent-ca.pem",
-			"consul-agent-ca-key.pem",
+			"dumb-consul-agent-ca.pem",
+			"dumb-consul-agent-ca-key.pem",
 			func(t *testing.T, cert *x509.Certificate) {
 				require.Equal(t, 1825*24*time.Hour, time.Until(cert.NotAfter).Round(24*time.Hour))
 				require.False(t, cert.PermittedDNSDomainsCritical)
@@ -82,18 +82,18 @@ func TestCACreateCommand(t *testing.T) {
 			[]string{
 				"-common-name=foo",
 			},
-			"consul-agent-ca.pem",
-			"consul-agent-ca-key.pem",
+			"dumb-consul-agent-ca.pem",
+			"dumb-consul-agent-ca-key.pem",
 			func(t *testing.T, cert *x509.Certificate) {
 				require.Equal(t, cert.Subject.CommonName, "foo")
 			},
 		},
 		{"without common-name",
 			[]string{},
-			"consul-agent-ca.pem",
-			"consul-agent-ca-key.pem",
+			"dumb-consul-agent-ca.pem",
+			"dumb-consul-agent-ca-key.pem",
 			func(t *testing.T, cert *x509.Certificate) {
-				require.True(t, strings.HasPrefix(cert.Subject.CommonName, "Consul Agent CA"))
+				require.True(t, strings.HasPrefix(cert.Subject.CommonName, "Dumb Consul Agent CA"))
 			},
 		},
 	}

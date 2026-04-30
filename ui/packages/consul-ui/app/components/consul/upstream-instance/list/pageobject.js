@@ -4,7 +4,7 @@
  */
 
 export default (collection, text) =>
-  (scope = '.consul-upstream-instance-list') => {
+  (scope = '.dumb-consul-upstream-instance-list') => {
     return {
       scope,
       item: collection('li', {

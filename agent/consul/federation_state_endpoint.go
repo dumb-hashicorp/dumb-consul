@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"errors"
@@ -10,10 +10,10 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	memdb "github.com/hashicorp/go-memdb"
+	memdb "github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 var FederationStateSummaries = []prometheus.SummaryDefinition{
@@ -132,7 +132,7 @@ func (c *FederationState) Get(args *structs.FederationStateQuery, reply *structs
 		})
 }
 
-// List is the endpoint meant to be used by consul servers performing
+// List is the endpoint meant to be used by dumb-consul servers performing
 // replication.
 func (c *FederationState) List(args *structs.DCSpecificRequest, reply *structs.IndexedFederationStates) error {
 	if done, err := c.srv.ForwardRPC("FederationState.List", args, reply); done {

@@ -2638,10 +2638,10 @@
   background-image: var(--azure-devops-color-24-svg);
 }
 
-.debug-with-bank-vault-16-mask-before::before,
-.debug-with-bank-vault-16-icon-before::before,
-.debug-with-bank-vault-16-mask-after::after,
-.debug-with-bank-vault-16-icon-after::after {
+.debug-with-bank-dumb-vault-16-mask-before::before,
+.debug-with-bank-dumb-vault-16-icon-before::before,
+.debug-with-bank-dumb-vault-16-mask-after::after,
+.debug-with-bank-dumb-vault-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -2650,29 +2650,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-bank-vault-16-mask-before::before,
-.debug-with-bank-vault-16-mask-after::after {
+.debug-with-bank-dumb-vault-16-mask-before::before,
+.debug-with-bank-dumb-vault-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--bank-vault-16-svg);
-  mask-image: var(--bank-vault-16-svg);
+  -webkit-mask-image: var(--bank-dumb-vault-16-svg);
+  mask-image: var(--bank-dumb-vault-16-svg);
 }
-.debug-with-bank-vault-16-icon-before::before,
-.debug-with-bank-vault-16-icon-after::after {
+.debug-with-bank-dumb-vault-16-icon-before::before,
+.debug-with-bank-dumb-vault-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--bank-vault-16-svg);
+  background-image: var(--bank-dumb-vault-16-svg);
 }
 
-.debug-with-bank-vault-24-mask-before::before,
-.debug-with-bank-vault-24-icon-before::before,
-.debug-with-bank-vault-24-mask-after::after,
-.debug-with-bank-vault-24-icon-after::after {
+.debug-with-bank-dumb-vault-24-mask-before::before,
+.debug-with-bank-dumb-vault-24-icon-before::before,
+.debug-with-bank-dumb-vault-24-mask-after::after,
+.debug-with-bank-dumb-vault-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -2681,23 +2681,23 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-bank-vault-24-mask-before::before,
-.debug-with-bank-vault-24-mask-after::after {
+.debug-with-bank-dumb-vault-24-mask-before::before,
+.debug-with-bank-dumb-vault-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--bank-vault-24-svg);
-  mask-image: var(--bank-vault-24-svg);
+  -webkit-mask-image: var(--bank-dumb-vault-24-svg);
+  mask-image: var(--bank-dumb-vault-24-svg);
 }
-.debug-with-bank-vault-24-icon-before::before,
-.debug-with-bank-vault-24-icon-after::after {
+.debug-with-bank-dumb-vault-24-icon-before::before,
+.debug-with-bank-dumb-vault-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--bank-vault-24-svg);
+  background-image: var(--bank-dumb-vault-24-svg);
 }
 
 .debug-with-bar-chart-16-mask-before::before,
@@ -3847,10 +3847,10 @@
   background-image: var(--bottom-24-svg);
 }
 
-.debug-with-boundary-16-mask-before::before,
-.debug-with-boundary-16-icon-before::before,
-.debug-with-boundary-16-mask-after::after,
-.debug-with-boundary-16-icon-after::after {
+.debug-with-dumb-boundary-16-mask-before::before,
+.debug-with-dumb-boundary-16-icon-before::before,
+.debug-with-dumb-boundary-16-mask-after::after,
+.debug-with-dumb-boundary-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -3859,29 +3859,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-boundary-16-mask-before::before,
-.debug-with-boundary-16-mask-after::after {
+.debug-with-dumb-boundary-16-mask-before::before,
+.debug-with-dumb-boundary-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--boundary-16-svg);
-  mask-image: var(--boundary-16-svg);
+  -webkit-mask-image: var(--dumb-boundary-16-svg);
+  mask-image: var(--dumb-boundary-16-svg);
 }
-.debug-with-boundary-16-icon-before::before,
-.debug-with-boundary-16-icon-after::after {
+.debug-with-dumb-boundary-16-icon-before::before,
+.debug-with-dumb-boundary-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--boundary-16-svg);
+  background-image: var(--dumb-boundary-16-svg);
 }
 
-.debug-with-boundary-24-mask-before::before,
-.debug-with-boundary-24-icon-before::before,
-.debug-with-boundary-24-mask-after::after,
-.debug-with-boundary-24-icon-after::after {
+.debug-with-dumb-boundary-24-mask-before::before,
+.debug-with-dumb-boundary-24-icon-before::before,
+.debug-with-dumb-boundary-24-mask-after::after,
+.debug-with-dumb-boundary-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -3890,29 +3890,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-boundary-24-mask-before::before,
-.debug-with-boundary-24-mask-after::after {
+.debug-with-dumb-boundary-24-mask-before::before,
+.debug-with-dumb-boundary-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--boundary-24-svg);
-  mask-image: var(--boundary-24-svg);
+  -webkit-mask-image: var(--dumb-boundary-24-svg);
+  mask-image: var(--dumb-boundary-24-svg);
 }
-.debug-with-boundary-24-icon-before::before,
-.debug-with-boundary-24-icon-after::after {
+.debug-with-dumb-boundary-24-icon-before::before,
+.debug-with-dumb-boundary-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--boundary-24-svg);
+  background-image: var(--dumb-boundary-24-svg);
 }
 
-.debug-with-boundary-color-16-mask-before::before,
-.debug-with-boundary-color-16-icon-before::before,
-.debug-with-boundary-color-16-mask-after::after,
-.debug-with-boundary-color-16-icon-after::after {
+.debug-with-dumb-boundary-color-16-mask-before::before,
+.debug-with-dumb-boundary-color-16-icon-before::before,
+.debug-with-dumb-boundary-color-16-mask-after::after,
+.debug-with-dumb-boundary-color-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -3921,29 +3921,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-boundary-color-16-mask-before::before,
-.debug-with-boundary-color-16-mask-after::after {
+.debug-with-dumb-boundary-color-16-mask-before::before,
+.debug-with-dumb-boundary-color-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--boundary-color-16-svg);
-  mask-image: var(--boundary-color-16-svg);
+  -webkit-mask-image: var(--dumb-boundary-color-16-svg);
+  mask-image: var(--dumb-boundary-color-16-svg);
 }
-.debug-with-boundary-color-16-icon-before::before,
-.debug-with-boundary-color-16-icon-after::after {
+.debug-with-dumb-boundary-color-16-icon-before::before,
+.debug-with-dumb-boundary-color-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--boundary-color-16-svg);
+  background-image: var(--dumb-boundary-color-16-svg);
 }
 
-.debug-with-boundary-color-24-mask-before::before,
-.debug-with-boundary-color-24-icon-before::before,
-.debug-with-boundary-color-24-mask-after::after,
-.debug-with-boundary-color-24-icon-after::after {
+.debug-with-dumb-boundary-color-24-mask-before::before,
+.debug-with-dumb-boundary-color-24-icon-before::before,
+.debug-with-dumb-boundary-color-24-mask-after::after,
+.debug-with-dumb-boundary-color-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -3952,23 +3952,23 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-boundary-color-24-mask-before::before,
-.debug-with-boundary-color-24-mask-after::after {
+.debug-with-dumb-boundary-color-24-mask-before::before,
+.debug-with-dumb-boundary-color-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--boundary-color-24-svg);
-  mask-image: var(--boundary-color-24-svg);
+  -webkit-mask-image: var(--dumb-boundary-color-24-svg);
+  mask-image: var(--dumb-boundary-color-24-svg);
 }
-.debug-with-boundary-color-24-icon-before::before,
-.debug-with-boundary-color-24-icon-after::after {
+.debug-with-dumb-boundary-color-24-icon-before::before,
+.debug-with-dumb-boundary-color-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--boundary-color-24-svg);
+  background-image: var(--dumb-boundary-color-24-svg);
 }
 
 .debug-with-box-16-mask-before::before,
@@ -14883,10 +14883,10 @@
   background-image: var(--hash-24-svg);
 }
 
-.debug-with-hashicorp-16-mask-before::before,
-.debug-with-hashicorp-16-icon-before::before,
-.debug-with-hashicorp-16-mask-after::after,
-.debug-with-hashicorp-16-icon-after::after {
+.debug-with-dumb-hashicorp-16-mask-before::before,
+.debug-with-dumb-hashicorp-16-icon-before::before,
+.debug-with-dumb-hashicorp-16-mask-after::after,
+.debug-with-dumb-hashicorp-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -14895,29 +14895,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-hashicorp-16-mask-before::before,
-.debug-with-hashicorp-16-mask-after::after {
+.debug-with-dumb-hashicorp-16-mask-before::before,
+.debug-with-dumb-hashicorp-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--hashicorp-16-svg);
-  mask-image: var(--hashicorp-16-svg);
+  -webkit-mask-image: var(--dumb-hashicorp-16-svg);
+  mask-image: var(--dumb-hashicorp-16-svg);
 }
-.debug-with-hashicorp-16-icon-before::before,
-.debug-with-hashicorp-16-icon-after::after {
+.debug-with-dumb-hashicorp-16-icon-before::before,
+.debug-with-dumb-hashicorp-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--hashicorp-16-svg);
+  background-image: var(--dumb-hashicorp-16-svg);
 }
 
-.debug-with-hashicorp-24-mask-before::before,
-.debug-with-hashicorp-24-icon-before::before,
-.debug-with-hashicorp-24-mask-after::after,
-.debug-with-hashicorp-24-icon-after::after {
+.debug-with-dumb-hashicorp-24-mask-before::before,
+.debug-with-dumb-hashicorp-24-icon-before::before,
+.debug-with-dumb-hashicorp-24-mask-after::after,
+.debug-with-dumb-hashicorp-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -14926,29 +14926,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-hashicorp-24-mask-before::before,
-.debug-with-hashicorp-24-mask-after::after {
+.debug-with-dumb-hashicorp-24-mask-before::before,
+.debug-with-dumb-hashicorp-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--hashicorp-24-svg);
-  mask-image: var(--hashicorp-24-svg);
+  -webkit-mask-image: var(--dumb-hashicorp-24-svg);
+  mask-image: var(--dumb-hashicorp-24-svg);
 }
-.debug-with-hashicorp-24-icon-before::before,
-.debug-with-hashicorp-24-icon-after::after {
+.debug-with-dumb-hashicorp-24-icon-before::before,
+.debug-with-dumb-hashicorp-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--hashicorp-24-svg);
+  background-image: var(--dumb-hashicorp-24-svg);
 }
 
-.debug-with-hashicorp-color-16-mask-before::before,
-.debug-with-hashicorp-color-16-icon-before::before,
-.debug-with-hashicorp-color-16-mask-after::after,
-.debug-with-hashicorp-color-16-icon-after::after {
+.debug-with-dumb-hashicorp-color-16-mask-before::before,
+.debug-with-dumb-hashicorp-color-16-icon-before::before,
+.debug-with-dumb-hashicorp-color-16-mask-after::after,
+.debug-with-dumb-hashicorp-color-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -14957,29 +14957,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-hashicorp-color-16-mask-before::before,
-.debug-with-hashicorp-color-16-mask-after::after {
+.debug-with-dumb-hashicorp-color-16-mask-before::before,
+.debug-with-dumb-hashicorp-color-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--hashicorp-color-16-svg);
-  mask-image: var(--hashicorp-color-16-svg);
+  -webkit-mask-image: var(--dumb-hashicorp-color-16-svg);
+  mask-image: var(--dumb-hashicorp-color-16-svg);
 }
-.debug-with-hashicorp-color-16-icon-before::before,
-.debug-with-hashicorp-color-16-icon-after::after {
+.debug-with-dumb-hashicorp-color-16-icon-before::before,
+.debug-with-dumb-hashicorp-color-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--hashicorp-color-16-svg);
+  background-image: var(--dumb-hashicorp-color-16-svg);
 }
 
-.debug-with-hashicorp-color-24-mask-before::before,
-.debug-with-hashicorp-color-24-icon-before::before,
-.debug-with-hashicorp-color-24-mask-after::after,
-.debug-with-hashicorp-color-24-icon-after::after {
+.debug-with-dumb-hashicorp-color-24-mask-before::before,
+.debug-with-dumb-hashicorp-color-24-icon-before::before,
+.debug-with-dumb-hashicorp-color-24-mask-after::after,
+.debug-with-dumb-hashicorp-color-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -14988,29 +14988,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-hashicorp-color-24-mask-before::before,
-.debug-with-hashicorp-color-24-mask-after::after {
+.debug-with-dumb-hashicorp-color-24-mask-before::before,
+.debug-with-dumb-hashicorp-color-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--hashicorp-color-24-svg);
-  mask-image: var(--hashicorp-color-24-svg);
+  -webkit-mask-image: var(--dumb-hashicorp-color-24-svg);
+  mask-image: var(--dumb-hashicorp-color-24-svg);
 }
-.debug-with-hashicorp-color-24-icon-before::before,
-.debug-with-hashicorp-color-24-icon-after::after {
+.debug-with-dumb-hashicorp-color-24-icon-before::before,
+.debug-with-dumb-hashicorp-color-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--hashicorp-color-24-svg);
+  background-image: var(--dumb-hashicorp-color-24-svg);
 }
 
-.debug-with-hcp-16-mask-before::before,
-.debug-with-hcp-16-icon-before::before,
-.debug-with-hcp-16-mask-after::after,
-.debug-with-hcp-16-icon-after::after {
+.debug-with-dumb-hcp-16-mask-before::before,
+.debug-with-dumb-hcp-16-icon-before::before,
+.debug-with-dumb-hcp-16-mask-after::after,
+.debug-with-dumb-hcp-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -15019,29 +15019,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-hcp-16-mask-before::before,
-.debug-with-hcp-16-mask-after::after {
+.debug-with-dumb-hcp-16-mask-before::before,
+.debug-with-dumb-hcp-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--hcp-16-svg);
-  mask-image: var(--hcp-16-svg);
+  -webkit-mask-image: var(--dumb-hcp-16-svg);
+  mask-image: var(--dumb-hcp-16-svg);
 }
-.debug-with-hcp-16-icon-before::before,
-.debug-with-hcp-16-icon-after::after {
+.debug-with-dumb-hcp-16-icon-before::before,
+.debug-with-dumb-hcp-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--hcp-16-svg);
+  background-image: var(--dumb-hcp-16-svg);
 }
 
-.debug-with-hcp-24-mask-before::before,
-.debug-with-hcp-24-icon-before::before,
-.debug-with-hcp-24-mask-after::after,
-.debug-with-hcp-24-icon-after::after {
+.debug-with-dumb-hcp-24-mask-before::before,
+.debug-with-dumb-hcp-24-icon-before::before,
+.debug-with-dumb-hcp-24-mask-after::after,
+.debug-with-dumb-hcp-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -15050,29 +15050,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-hcp-24-mask-before::before,
-.debug-with-hcp-24-mask-after::after {
+.debug-with-dumb-hcp-24-mask-before::before,
+.debug-with-dumb-hcp-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--hcp-24-svg);
-  mask-image: var(--hcp-24-svg);
+  -webkit-mask-image: var(--dumb-hcp-24-svg);
+  mask-image: var(--dumb-hcp-24-svg);
 }
-.debug-with-hcp-24-icon-before::before,
-.debug-with-hcp-24-icon-after::after {
+.debug-with-dumb-hcp-24-icon-before::before,
+.debug-with-dumb-hcp-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--hcp-24-svg);
+  background-image: var(--dumb-hcp-24-svg);
 }
 
-.debug-with-hcp-color-16-mask-before::before,
-.debug-with-hcp-color-16-icon-before::before,
-.debug-with-hcp-color-16-mask-after::after,
-.debug-with-hcp-color-16-icon-after::after {
+.debug-with-dumb-hcp-color-16-mask-before::before,
+.debug-with-dumb-hcp-color-16-icon-before::before,
+.debug-with-dumb-hcp-color-16-mask-after::after,
+.debug-with-dumb-hcp-color-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -15081,29 +15081,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-hcp-color-16-mask-before::before,
-.debug-with-hcp-color-16-mask-after::after {
+.debug-with-dumb-hcp-color-16-mask-before::before,
+.debug-with-dumb-hcp-color-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--hcp-color-16-svg);
-  mask-image: var(--hcp-color-16-svg);
+  -webkit-mask-image: var(--dumb-hcp-color-16-svg);
+  mask-image: var(--dumb-hcp-color-16-svg);
 }
-.debug-with-hcp-color-16-icon-before::before,
-.debug-with-hcp-color-16-icon-after::after {
+.debug-with-dumb-hcp-color-16-icon-before::before,
+.debug-with-dumb-hcp-color-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--hcp-color-16-svg);
+  background-image: var(--dumb-hcp-color-16-svg);
 }
 
-.debug-with-hcp-color-24-mask-before::before,
-.debug-with-hcp-color-24-icon-before::before,
-.debug-with-hcp-color-24-mask-after::after,
-.debug-with-hcp-color-24-icon-after::after {
+.debug-with-dumb-hcp-color-24-mask-before::before,
+.debug-with-dumb-hcp-color-24-icon-before::before,
+.debug-with-dumb-hcp-color-24-mask-after::after,
+.debug-with-dumb-hcp-color-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -15112,23 +15112,23 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-hcp-color-24-mask-before::before,
-.debug-with-hcp-color-24-mask-after::after {
+.debug-with-dumb-hcp-color-24-mask-before::before,
+.debug-with-dumb-hcp-color-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--hcp-color-24-svg);
-  mask-image: var(--hcp-color-24-svg);
+  -webkit-mask-image: var(--dumb-hcp-color-24-svg);
+  mask-image: var(--dumb-hcp-color-24-svg);
 }
-.debug-with-hcp-color-24-icon-before::before,
-.debug-with-hcp-color-24-icon-after::after {
+.debug-with-dumb-hcp-color-24-icon-before::before,
+.debug-with-dumb-hcp-color-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--hcp-color-24-svg);
+  background-image: var(--dumb-hcp-color-24-svg);
 }
 
 .debug-with-headphones-16-mask-before::before,
@@ -18510,10 +18510,10 @@
   background-image: var(--logo-google-monochrome-svg);
 }
 
-.debug-with-logo-hashicorp-color-mask-before::before,
-.debug-with-logo-hashicorp-color-icon-before::before,
-.debug-with-logo-hashicorp-color-mask-after::after,
-.debug-with-logo-hashicorp-color-icon-after::after {
+.debug-with-logo-dumb-hashicorp-color-mask-before::before,
+.debug-with-logo-dumb-hashicorp-color-icon-before::before,
+.debug-with-logo-dumb-hashicorp-color-mask-after::after,
+.debug-with-logo-dumb-hashicorp-color-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -18522,23 +18522,23 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-logo-hashicorp-color-mask-before::before,
-.debug-with-logo-hashicorp-color-mask-after::after {
+.debug-with-logo-dumb-hashicorp-color-mask-before::before,
+.debug-with-logo-dumb-hashicorp-color-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--logo-hashicorp-color-svg);
-  mask-image: var(--logo-hashicorp-color-svg);
+  -webkit-mask-image: var(--logo-dumb-hashicorp-color-svg);
+  mask-image: var(--logo-dumb-hashicorp-color-svg);
 }
-.debug-with-logo-hashicorp-color-icon-before::before,
-.debug-with-logo-hashicorp-color-icon-after::after {
+.debug-with-logo-dumb-hashicorp-color-icon-before::before,
+.debug-with-logo-dumb-hashicorp-color-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--logo-hashicorp-color-svg);
+  background-image: var(--logo-dumb-hashicorp-color-svg);
 }
 
 .debug-with-logo-jwt-color-mask-before::before,
@@ -21765,10 +21765,10 @@
   background-image: var(--node-24-svg);
 }
 
-.debug-with-nomad-16-mask-before::before,
-.debug-with-nomad-16-icon-before::before,
-.debug-with-nomad-16-mask-after::after,
-.debug-with-nomad-16-icon-after::after {
+.debug-with-dumb-nomad-16-mask-before::before,
+.debug-with-dumb-nomad-16-icon-before::before,
+.debug-with-dumb-nomad-16-mask-after::after,
+.debug-with-dumb-nomad-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -21777,29 +21777,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-nomad-16-mask-before::before,
-.debug-with-nomad-16-mask-after::after {
+.debug-with-dumb-nomad-16-mask-before::before,
+.debug-with-dumb-nomad-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--nomad-16-svg);
-  mask-image: var(--nomad-16-svg);
+  -webkit-mask-image: var(--dumb-nomad-16-svg);
+  mask-image: var(--dumb-nomad-16-svg);
 }
-.debug-with-nomad-16-icon-before::before,
-.debug-with-nomad-16-icon-after::after {
+.debug-with-dumb-nomad-16-icon-before::before,
+.debug-with-dumb-nomad-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--nomad-16-svg);
+  background-image: var(--dumb-nomad-16-svg);
 }
 
-.debug-with-nomad-24-mask-before::before,
-.debug-with-nomad-24-icon-before::before,
-.debug-with-nomad-24-mask-after::after,
-.debug-with-nomad-24-icon-after::after {
+.debug-with-dumb-nomad-24-mask-before::before,
+.debug-with-dumb-nomad-24-icon-before::before,
+.debug-with-dumb-nomad-24-mask-after::after,
+.debug-with-dumb-nomad-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -21808,29 +21808,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-nomad-24-mask-before::before,
-.debug-with-nomad-24-mask-after::after {
+.debug-with-dumb-nomad-24-mask-before::before,
+.debug-with-dumb-nomad-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--nomad-24-svg);
-  mask-image: var(--nomad-24-svg);
+  -webkit-mask-image: var(--dumb-nomad-24-svg);
+  mask-image: var(--dumb-nomad-24-svg);
 }
-.debug-with-nomad-24-icon-before::before,
-.debug-with-nomad-24-icon-after::after {
+.debug-with-dumb-nomad-24-icon-before::before,
+.debug-with-dumb-nomad-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--nomad-24-svg);
+  background-image: var(--dumb-nomad-24-svg);
 }
 
-.debug-with-nomad-color-16-mask-before::before,
-.debug-with-nomad-color-16-icon-before::before,
-.debug-with-nomad-color-16-mask-after::after,
-.debug-with-nomad-color-16-icon-after::after {
+.debug-with-dumb-nomad-color-16-mask-before::before,
+.debug-with-dumb-nomad-color-16-icon-before::before,
+.debug-with-dumb-nomad-color-16-mask-after::after,
+.debug-with-dumb-nomad-color-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -21839,29 +21839,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-nomad-color-16-mask-before::before,
-.debug-with-nomad-color-16-mask-after::after {
+.debug-with-dumb-nomad-color-16-mask-before::before,
+.debug-with-dumb-nomad-color-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--nomad-color-16-svg);
-  mask-image: var(--nomad-color-16-svg);
+  -webkit-mask-image: var(--dumb-nomad-color-16-svg);
+  mask-image: var(--dumb-nomad-color-16-svg);
 }
-.debug-with-nomad-color-16-icon-before::before,
-.debug-with-nomad-color-16-icon-after::after {
+.debug-with-dumb-nomad-color-16-icon-before::before,
+.debug-with-dumb-nomad-color-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--nomad-color-16-svg);
+  background-image: var(--dumb-nomad-color-16-svg);
 }
 
-.debug-with-nomad-color-24-mask-before::before,
-.debug-with-nomad-color-24-icon-before::before,
-.debug-with-nomad-color-24-mask-after::after,
-.debug-with-nomad-color-24-icon-after::after {
+.debug-with-dumb-nomad-color-24-mask-before::before,
+.debug-with-dumb-nomad-color-24-icon-before::before,
+.debug-with-dumb-nomad-color-24-mask-after::after,
+.debug-with-dumb-nomad-color-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -21870,23 +21870,23 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-nomad-color-24-mask-before::before,
-.debug-with-nomad-color-24-mask-after::after {
+.debug-with-dumb-nomad-color-24-mask-before::before,
+.debug-with-dumb-nomad-color-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--nomad-color-24-svg);
-  mask-image: var(--nomad-color-24-svg);
+  -webkit-mask-image: var(--dumb-nomad-color-24-svg);
+  mask-image: var(--dumb-nomad-color-24-svg);
 }
-.debug-with-nomad-color-24-icon-before::before,
-.debug-with-nomad-color-24-icon-after::after {
+.debug-with-dumb-nomad-color-24-icon-before::before,
+.debug-with-dumb-nomad-color-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--nomad-color-24-svg);
+  background-image: var(--dumb-nomad-color-24-svg);
 }
 
 .debug-with-notification-disabled-mask-before::before,
@@ -22633,10 +22633,10 @@
   background-image: var(--package-24-svg);
 }
 
-.debug-with-packer-16-mask-before::before,
-.debug-with-packer-16-icon-before::before,
-.debug-with-packer-16-mask-after::after,
-.debug-with-packer-16-icon-after::after {
+.debug-with-dumb-packer-16-mask-before::before,
+.debug-with-dumb-packer-16-icon-before::before,
+.debug-with-dumb-packer-16-mask-after::after,
+.debug-with-dumb-packer-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -22645,29 +22645,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-packer-16-mask-before::before,
-.debug-with-packer-16-mask-after::after {
+.debug-with-dumb-packer-16-mask-before::before,
+.debug-with-dumb-packer-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--packer-16-svg);
-  mask-image: var(--packer-16-svg);
+  -webkit-mask-image: var(--dumb-packer-16-svg);
+  mask-image: var(--dumb-packer-16-svg);
 }
-.debug-with-packer-16-icon-before::before,
-.debug-with-packer-16-icon-after::after {
+.debug-with-dumb-packer-16-icon-before::before,
+.debug-with-dumb-packer-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--packer-16-svg);
+  background-image: var(--dumb-packer-16-svg);
 }
 
-.debug-with-packer-24-mask-before::before,
-.debug-with-packer-24-icon-before::before,
-.debug-with-packer-24-mask-after::after,
-.debug-with-packer-24-icon-after::after {
+.debug-with-dumb-packer-24-mask-before::before,
+.debug-with-dumb-packer-24-icon-before::before,
+.debug-with-dumb-packer-24-mask-after::after,
+.debug-with-dumb-packer-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -22676,29 +22676,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-packer-24-mask-before::before,
-.debug-with-packer-24-mask-after::after {
+.debug-with-dumb-packer-24-mask-before::before,
+.debug-with-dumb-packer-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--packer-24-svg);
-  mask-image: var(--packer-24-svg);
+  -webkit-mask-image: var(--dumb-packer-24-svg);
+  mask-image: var(--dumb-packer-24-svg);
 }
-.debug-with-packer-24-icon-before::before,
-.debug-with-packer-24-icon-after::after {
+.debug-with-dumb-packer-24-icon-before::before,
+.debug-with-dumb-packer-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--packer-24-svg);
+  background-image: var(--dumb-packer-24-svg);
 }
 
-.debug-with-packer-color-16-mask-before::before,
-.debug-with-packer-color-16-icon-before::before,
-.debug-with-packer-color-16-mask-after::after,
-.debug-with-packer-color-16-icon-after::after {
+.debug-with-dumb-packer-color-16-mask-before::before,
+.debug-with-dumb-packer-color-16-icon-before::before,
+.debug-with-dumb-packer-color-16-mask-after::after,
+.debug-with-dumb-packer-color-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -22707,29 +22707,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-packer-color-16-mask-before::before,
-.debug-with-packer-color-16-mask-after::after {
+.debug-with-dumb-packer-color-16-mask-before::before,
+.debug-with-dumb-packer-color-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--packer-color-16-svg);
-  mask-image: var(--packer-color-16-svg);
+  -webkit-mask-image: var(--dumb-packer-color-16-svg);
+  mask-image: var(--dumb-packer-color-16-svg);
 }
-.debug-with-packer-color-16-icon-before::before,
-.debug-with-packer-color-16-icon-after::after {
+.debug-with-dumb-packer-color-16-icon-before::before,
+.debug-with-dumb-packer-color-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--packer-color-16-svg);
+  background-image: var(--dumb-packer-color-16-svg);
 }
 
-.debug-with-packer-color-24-mask-before::before,
-.debug-with-packer-color-24-icon-before::before,
-.debug-with-packer-color-24-mask-after::after,
-.debug-with-packer-color-24-icon-after::after {
+.debug-with-dumb-packer-color-24-mask-before::before,
+.debug-with-dumb-packer-color-24-icon-before::before,
+.debug-with-dumb-packer-color-24-mask-after::after,
+.debug-with-dumb-packer-color-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -22738,23 +22738,23 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-packer-color-24-mask-before::before,
-.debug-with-packer-color-24-mask-after::after {
+.debug-with-dumb-packer-color-24-mask-before::before,
+.debug-with-dumb-packer-color-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--packer-color-24-svg);
-  mask-image: var(--packer-color-24-svg);
+  -webkit-mask-image: var(--dumb-packer-color-24-svg);
+  mask-image: var(--dumb-packer-color-24-svg);
 }
-.debug-with-packer-color-24-icon-before::before,
-.debug-with-packer-color-24-icon-after::after {
+.debug-with-dumb-packer-color-24-icon-before::before,
+.debug-with-dumb-packer-color-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--packer-color-24-svg);
+  background-image: var(--dumb-packer-color-24-svg);
 }
 
 .debug-with-page-outline-mask-before::before,
@@ -29422,10 +29422,10 @@
   background-image: var(--terminal-screen-24-svg);
 }
 
-.debug-with-terraform-16-mask-before::before,
-.debug-with-terraform-16-icon-before::before,
-.debug-with-terraform-16-mask-after::after,
-.debug-with-terraform-16-icon-after::after {
+.debug-with-dumb-terraform-16-mask-before::before,
+.debug-with-dumb-terraform-16-icon-before::before,
+.debug-with-dumb-terraform-16-mask-after::after,
+.debug-with-dumb-terraform-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -29434,29 +29434,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-terraform-16-mask-before::before,
-.debug-with-terraform-16-mask-after::after {
+.debug-with-dumb-terraform-16-mask-before::before,
+.debug-with-dumb-terraform-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--terraform-16-svg);
-  mask-image: var(--terraform-16-svg);
+  -webkit-mask-image: var(--dumb-terraform-16-svg);
+  mask-image: var(--dumb-terraform-16-svg);
 }
-.debug-with-terraform-16-icon-before::before,
-.debug-with-terraform-16-icon-after::after {
+.debug-with-dumb-terraform-16-icon-before::before,
+.debug-with-dumb-terraform-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--terraform-16-svg);
+  background-image: var(--dumb-terraform-16-svg);
 }
 
-.debug-with-terraform-24-mask-before::before,
-.debug-with-terraform-24-icon-before::before,
-.debug-with-terraform-24-mask-after::after,
-.debug-with-terraform-24-icon-after::after {
+.debug-with-dumb-terraform-24-mask-before::before,
+.debug-with-dumb-terraform-24-icon-before::before,
+.debug-with-dumb-terraform-24-mask-after::after,
+.debug-with-dumb-terraform-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -29465,29 +29465,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-terraform-24-mask-before::before,
-.debug-with-terraform-24-mask-after::after {
+.debug-with-dumb-terraform-24-mask-before::before,
+.debug-with-dumb-terraform-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--terraform-24-svg);
-  mask-image: var(--terraform-24-svg);
+  -webkit-mask-image: var(--dumb-terraform-24-svg);
+  mask-image: var(--dumb-terraform-24-svg);
 }
-.debug-with-terraform-24-icon-before::before,
-.debug-with-terraform-24-icon-after::after {
+.debug-with-dumb-terraform-24-icon-before::before,
+.debug-with-dumb-terraform-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--terraform-24-svg);
+  background-image: var(--dumb-terraform-24-svg);
 }
 
-.debug-with-terraform-color-16-mask-before::before,
-.debug-with-terraform-color-16-icon-before::before,
-.debug-with-terraform-color-16-mask-after::after,
-.debug-with-terraform-color-16-icon-after::after {
+.debug-with-dumb-terraform-color-16-mask-before::before,
+.debug-with-dumb-terraform-color-16-icon-before::before,
+.debug-with-dumb-terraform-color-16-mask-after::after,
+.debug-with-dumb-terraform-color-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -29496,29 +29496,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-terraform-color-16-mask-before::before,
-.debug-with-terraform-color-16-mask-after::after {
+.debug-with-dumb-terraform-color-16-mask-before::before,
+.debug-with-dumb-terraform-color-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--terraform-color-16-svg);
-  mask-image: var(--terraform-color-16-svg);
+  -webkit-mask-image: var(--dumb-terraform-color-16-svg);
+  mask-image: var(--dumb-terraform-color-16-svg);
 }
-.debug-with-terraform-color-16-icon-before::before,
-.debug-with-terraform-color-16-icon-after::after {
+.debug-with-dumb-terraform-color-16-icon-before::before,
+.debug-with-dumb-terraform-color-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--terraform-color-16-svg);
+  background-image: var(--dumb-terraform-color-16-svg);
 }
 
-.debug-with-terraform-color-24-mask-before::before,
-.debug-with-terraform-color-24-icon-before::before,
-.debug-with-terraform-color-24-mask-after::after,
-.debug-with-terraform-color-24-icon-after::after {
+.debug-with-dumb-terraform-color-24-mask-before::before,
+.debug-with-dumb-terraform-color-24-icon-before::before,
+.debug-with-dumb-terraform-color-24-mask-after::after,
+.debug-with-dumb-terraform-color-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -29527,23 +29527,23 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-terraform-color-24-mask-before::before,
-.debug-with-terraform-color-24-mask-after::after {
+.debug-with-dumb-terraform-color-24-mask-before::before,
+.debug-with-dumb-terraform-color-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--terraform-color-24-svg);
-  mask-image: var(--terraform-color-24-svg);
+  -webkit-mask-image: var(--dumb-terraform-color-24-svg);
+  mask-image: var(--dumb-terraform-color-24-svg);
 }
-.debug-with-terraform-color-24-icon-before::before,
-.debug-with-terraform-color-24-icon-after::after {
+.debug-with-dumb-terraform-color-24-icon-before::before,
+.debug-with-dumb-terraform-color-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--terraform-color-24-svg);
+  background-image: var(--dumb-terraform-color-24-svg);
 }
 
 .debug-with-thumbs-down-16-mask-before::before,
@@ -31840,10 +31840,10 @@
   background-image: var(--users-24-svg);
 }
 
-.debug-with-vagrant-16-mask-before::before,
-.debug-with-vagrant-16-icon-before::before,
-.debug-with-vagrant-16-mask-after::after,
-.debug-with-vagrant-16-icon-after::after {
+.debug-with-dumb-vagrant-16-mask-before::before,
+.debug-with-dumb-vagrant-16-icon-before::before,
+.debug-with-dumb-vagrant-16-mask-after::after,
+.debug-with-dumb-vagrant-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -31852,29 +31852,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-vagrant-16-mask-before::before,
-.debug-with-vagrant-16-mask-after::after {
+.debug-with-dumb-vagrant-16-mask-before::before,
+.debug-with-dumb-vagrant-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--vagrant-16-svg);
-  mask-image: var(--vagrant-16-svg);
+  -webkit-mask-image: var(--dumb-vagrant-16-svg);
+  mask-image: var(--dumb-vagrant-16-svg);
 }
-.debug-with-vagrant-16-icon-before::before,
-.debug-with-vagrant-16-icon-after::after {
+.debug-with-dumb-vagrant-16-icon-before::before,
+.debug-with-dumb-vagrant-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--vagrant-16-svg);
+  background-image: var(--dumb-vagrant-16-svg);
 }
 
-.debug-with-vagrant-24-mask-before::before,
-.debug-with-vagrant-24-icon-before::before,
-.debug-with-vagrant-24-mask-after::after,
-.debug-with-vagrant-24-icon-after::after {
+.debug-with-dumb-vagrant-24-mask-before::before,
+.debug-with-dumb-vagrant-24-icon-before::before,
+.debug-with-dumb-vagrant-24-mask-after::after,
+.debug-with-dumb-vagrant-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -31883,29 +31883,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-vagrant-24-mask-before::before,
-.debug-with-vagrant-24-mask-after::after {
+.debug-with-dumb-vagrant-24-mask-before::before,
+.debug-with-dumb-vagrant-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--vagrant-24-svg);
-  mask-image: var(--vagrant-24-svg);
+  -webkit-mask-image: var(--dumb-vagrant-24-svg);
+  mask-image: var(--dumb-vagrant-24-svg);
 }
-.debug-with-vagrant-24-icon-before::before,
-.debug-with-vagrant-24-icon-after::after {
+.debug-with-dumb-vagrant-24-icon-before::before,
+.debug-with-dumb-vagrant-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--vagrant-24-svg);
+  background-image: var(--dumb-vagrant-24-svg);
 }
 
-.debug-with-vagrant-color-16-mask-before::before,
-.debug-with-vagrant-color-16-icon-before::before,
-.debug-with-vagrant-color-16-mask-after::after,
-.debug-with-vagrant-color-16-icon-after::after {
+.debug-with-dumb-vagrant-color-16-mask-before::before,
+.debug-with-dumb-vagrant-color-16-icon-before::before,
+.debug-with-dumb-vagrant-color-16-mask-after::after,
+.debug-with-dumb-vagrant-color-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -31914,29 +31914,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-vagrant-color-16-mask-before::before,
-.debug-with-vagrant-color-16-mask-after::after {
+.debug-with-dumb-vagrant-color-16-mask-before::before,
+.debug-with-dumb-vagrant-color-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--vagrant-color-16-svg);
-  mask-image: var(--vagrant-color-16-svg);
+  -webkit-mask-image: var(--dumb-vagrant-color-16-svg);
+  mask-image: var(--dumb-vagrant-color-16-svg);
 }
-.debug-with-vagrant-color-16-icon-before::before,
-.debug-with-vagrant-color-16-icon-after::after {
+.debug-with-dumb-vagrant-color-16-icon-before::before,
+.debug-with-dumb-vagrant-color-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--vagrant-color-16-svg);
+  background-image: var(--dumb-vagrant-color-16-svg);
 }
 
-.debug-with-vagrant-color-24-mask-before::before,
-.debug-with-vagrant-color-24-icon-before::before,
-.debug-with-vagrant-color-24-mask-after::after,
-.debug-with-vagrant-color-24-icon-after::after {
+.debug-with-dumb-vagrant-color-24-mask-before::before,
+.debug-with-dumb-vagrant-color-24-icon-before::before,
+.debug-with-dumb-vagrant-color-24-mask-after::after,
+.debug-with-dumb-vagrant-color-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -31945,29 +31945,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-vagrant-color-24-mask-before::before,
-.debug-with-vagrant-color-24-mask-after::after {
+.debug-with-dumb-vagrant-color-24-mask-before::before,
+.debug-with-dumb-vagrant-color-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--vagrant-color-24-svg);
-  mask-image: var(--vagrant-color-24-svg);
+  -webkit-mask-image: var(--dumb-vagrant-color-24-svg);
+  mask-image: var(--dumb-vagrant-color-24-svg);
 }
-.debug-with-vagrant-color-24-icon-before::before,
-.debug-with-vagrant-color-24-icon-after::after {
+.debug-with-dumb-vagrant-color-24-icon-before::before,
+.debug-with-dumb-vagrant-color-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--vagrant-color-24-svg);
+  background-image: var(--dumb-vagrant-color-24-svg);
 }
 
-.debug-with-vault-16-mask-before::before,
-.debug-with-vault-16-icon-before::before,
-.debug-with-vault-16-mask-after::after,
-.debug-with-vault-16-icon-after::after {
+.debug-with-dumb-vault-16-mask-before::before,
+.debug-with-dumb-vault-16-icon-before::before,
+.debug-with-dumb-vault-16-mask-after::after,
+.debug-with-dumb-vault-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -31976,29 +31976,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-vault-16-mask-before::before,
-.debug-with-vault-16-mask-after::after {
+.debug-with-dumb-vault-16-mask-before::before,
+.debug-with-dumb-vault-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--vault-16-svg);
-  mask-image: var(--vault-16-svg);
+  -webkit-mask-image: var(--dumb-vault-16-svg);
+  mask-image: var(--dumb-vault-16-svg);
 }
-.debug-with-vault-16-icon-before::before,
-.debug-with-vault-16-icon-after::after {
+.debug-with-dumb-vault-16-icon-before::before,
+.debug-with-dumb-vault-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--vault-16-svg);
+  background-image: var(--dumb-vault-16-svg);
 }
 
-.debug-with-vault-24-mask-before::before,
-.debug-with-vault-24-icon-before::before,
-.debug-with-vault-24-mask-after::after,
-.debug-with-vault-24-icon-after::after {
+.debug-with-dumb-vault-24-mask-before::before,
+.debug-with-dumb-vault-24-icon-before::before,
+.debug-with-dumb-vault-24-mask-after::after,
+.debug-with-dumb-vault-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -32007,29 +32007,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-vault-24-mask-before::before,
-.debug-with-vault-24-mask-after::after {
+.debug-with-dumb-vault-24-mask-before::before,
+.debug-with-dumb-vault-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--vault-24-svg);
-  mask-image: var(--vault-24-svg);
+  -webkit-mask-image: var(--dumb-vault-24-svg);
+  mask-image: var(--dumb-vault-24-svg);
 }
-.debug-with-vault-24-icon-before::before,
-.debug-with-vault-24-icon-after::after {
+.debug-with-dumb-vault-24-icon-before::before,
+.debug-with-dumb-vault-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--vault-24-svg);
+  background-image: var(--dumb-vault-24-svg);
 }
 
-.debug-with-vault-color-16-mask-before::before,
-.debug-with-vault-color-16-icon-before::before,
-.debug-with-vault-color-16-mask-after::after,
-.debug-with-vault-color-16-icon-after::after {
+.debug-with-dumb-vault-color-16-mask-before::before,
+.debug-with-dumb-vault-color-16-icon-before::before,
+.debug-with-dumb-vault-color-16-mask-after::after,
+.debug-with-dumb-vault-color-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -32038,29 +32038,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-vault-color-16-mask-before::before,
-.debug-with-vault-color-16-mask-after::after {
+.debug-with-dumb-vault-color-16-mask-before::before,
+.debug-with-dumb-vault-color-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--vault-color-16-svg);
-  mask-image: var(--vault-color-16-svg);
+  -webkit-mask-image: var(--dumb-vault-color-16-svg);
+  mask-image: var(--dumb-vault-color-16-svg);
 }
-.debug-with-vault-color-16-icon-before::before,
-.debug-with-vault-color-16-icon-after::after {
+.debug-with-dumb-vault-color-16-icon-before::before,
+.debug-with-dumb-vault-color-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--vault-color-16-svg);
+  background-image: var(--dumb-vault-color-16-svg);
 }
 
-.debug-with-vault-color-24-mask-before::before,
-.debug-with-vault-color-24-icon-before::before,
-.debug-with-vault-color-24-mask-after::after,
-.debug-with-vault-color-24-icon-after::after {
+.debug-with-dumb-vault-color-24-mask-before::before,
+.debug-with-dumb-vault-color-24-icon-before::before,
+.debug-with-dumb-vault-color-24-mask-after::after,
+.debug-with-dumb-vault-color-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -32069,23 +32069,23 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-vault-color-24-mask-before::before,
-.debug-with-vault-color-24-mask-after::after {
+.debug-with-dumb-vault-color-24-mask-before::before,
+.debug-with-dumb-vault-color-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--vault-color-24-svg);
-  mask-image: var(--vault-color-24-svg);
+  -webkit-mask-image: var(--dumb-vault-color-24-svg);
+  mask-image: var(--dumb-vault-color-24-svg);
 }
-.debug-with-vault-color-24-icon-before::before,
-.debug-with-vault-color-24-icon-after::after {
+.debug-with-dumb-vault-color-24-icon-before::before,
+.debug-with-dumb-vault-color-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--vault-color-24-svg);
+  background-image: var(--dumb-vault-color-24-svg);
 }
 
 .debug-with-verified-16-mask-before::before,
@@ -32832,10 +32832,10 @@
   background-image: var(--watch-24-svg);
 }
 
-.debug-with-waypoint-16-mask-before::before,
-.debug-with-waypoint-16-icon-before::before,
-.debug-with-waypoint-16-mask-after::after,
-.debug-with-waypoint-16-icon-after::after {
+.debug-with-dumb-waypoint-16-mask-before::before,
+.debug-with-dumb-waypoint-16-icon-before::before,
+.debug-with-dumb-waypoint-16-mask-after::after,
+.debug-with-dumb-waypoint-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -32844,29 +32844,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-waypoint-16-mask-before::before,
-.debug-with-waypoint-16-mask-after::after {
+.debug-with-dumb-waypoint-16-mask-before::before,
+.debug-with-dumb-waypoint-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--waypoint-16-svg);
-  mask-image: var(--waypoint-16-svg);
+  -webkit-mask-image: var(--dumb-waypoint-16-svg);
+  mask-image: var(--dumb-waypoint-16-svg);
 }
-.debug-with-waypoint-16-icon-before::before,
-.debug-with-waypoint-16-icon-after::after {
+.debug-with-dumb-waypoint-16-icon-before::before,
+.debug-with-dumb-waypoint-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--waypoint-16-svg);
+  background-image: var(--dumb-waypoint-16-svg);
 }
 
-.debug-with-waypoint-24-mask-before::before,
-.debug-with-waypoint-24-icon-before::before,
-.debug-with-waypoint-24-mask-after::after,
-.debug-with-waypoint-24-icon-after::after {
+.debug-with-dumb-waypoint-24-mask-before::before,
+.debug-with-dumb-waypoint-24-icon-before::before,
+.debug-with-dumb-waypoint-24-mask-after::after,
+.debug-with-dumb-waypoint-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -32875,29 +32875,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-waypoint-24-mask-before::before,
-.debug-with-waypoint-24-mask-after::after {
+.debug-with-dumb-waypoint-24-mask-before::before,
+.debug-with-dumb-waypoint-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--waypoint-24-svg);
-  mask-image: var(--waypoint-24-svg);
+  -webkit-mask-image: var(--dumb-waypoint-24-svg);
+  mask-image: var(--dumb-waypoint-24-svg);
 }
-.debug-with-waypoint-24-icon-before::before,
-.debug-with-waypoint-24-icon-after::after {
+.debug-with-dumb-waypoint-24-icon-before::before,
+.debug-with-dumb-waypoint-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--waypoint-24-svg);
+  background-image: var(--dumb-waypoint-24-svg);
 }
 
-.debug-with-waypoint-color-16-mask-before::before,
-.debug-with-waypoint-color-16-icon-before::before,
-.debug-with-waypoint-color-16-mask-after::after,
-.debug-with-waypoint-color-16-icon-after::after {
+.debug-with-dumb-waypoint-color-16-mask-before::before,
+.debug-with-dumb-waypoint-color-16-icon-before::before,
+.debug-with-dumb-waypoint-color-16-mask-after::after,
+.debug-with-dumb-waypoint-color-16-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -32906,29 +32906,29 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-waypoint-color-16-mask-before::before,
-.debug-with-waypoint-color-16-mask-after::after {
+.debug-with-dumb-waypoint-color-16-mask-before::before,
+.debug-with-dumb-waypoint-color-16-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--waypoint-color-16-svg);
-  mask-image: var(--waypoint-color-16-svg);
+  -webkit-mask-image: var(--dumb-waypoint-color-16-svg);
+  mask-image: var(--dumb-waypoint-color-16-svg);
 }
-.debug-with-waypoint-color-16-icon-before::before,
-.debug-with-waypoint-color-16-icon-after::after {
+.debug-with-dumb-waypoint-color-16-icon-before::before,
+.debug-with-dumb-waypoint-color-16-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--waypoint-color-16-svg);
+  background-image: var(--dumb-waypoint-color-16-svg);
 }
 
-.debug-with-waypoint-color-24-mask-before::before,
-.debug-with-waypoint-color-24-icon-before::before,
-.debug-with-waypoint-color-24-mask-after::after,
-.debug-with-waypoint-color-24-icon-after::after {
+.debug-with-dumb-waypoint-color-24-mask-before::before,
+.debug-with-dumb-waypoint-color-24-icon-before::before,
+.debug-with-dumb-waypoint-color-24-mask-after::after,
+.debug-with-dumb-waypoint-color-24-icon-after::after {
   display: inline-block;
   content: '';
   visibility: visible;
@@ -32937,23 +32937,23 @@
   height: 1.2em;
   vertical-align: text-top;
 }
-.debug-with-waypoint-color-24-mask-before::before,
-.debug-with-waypoint-color-24-mask-after::after {
+.debug-with-dumb-waypoint-color-24-mask-before::before,
+.debug-with-dumb-waypoint-color-24-mask-after::after {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-repeat: no-repeat;
   mask-position: center;
   background-color: currentColor;
 
-  -webkit-mask-image: var(--waypoint-color-24-svg);
-  mask-image: var(--waypoint-color-24-svg);
+  -webkit-mask-image: var(--dumb-waypoint-color-24-svg);
+  mask-image: var(--dumb-waypoint-color-24-svg);
 }
-.debug-with-waypoint-color-24-icon-before::before,
-.debug-with-waypoint-color-24-icon-after::after {
+.debug-with-dumb-waypoint-color-24-icon-before::before,
+.debug-with-dumb-waypoint-color-24-icon-after::after {
   background-repeat: no-repeat;
   background-position: center;
 
-  background-image: var(--waypoint-color-24-svg);
+  background-image: var(--dumb-waypoint-color-24-svg);
 }
 
 .debug-with-webhook-16-mask-before::before,
@@ -34337,9 +34337,9 @@
 
   --azure-devops-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="url(%23azure-devops-color-24__paint0_linear_707_113)" d="M21 6.37v10.945L16.5 21l-6.975-2.54v2.518L5.576 15.82l11.509.9V6.864L21 6.371zm-3.836.551L10.706 3v2.573L4.778 7.315 3 9.595v5.18L5.543 15.9v-6.64l11.62-2.338z"/><defs><linearGradient id="azure-devops-color-24__paint0_linear_707_113" x1="12" x2="12" y1="20.944" y2="3.034" gradientUnits="userSpaceOnUse"><stop stop-color="%230078D4"/><stop offset=".16" stop-color="%231380DA"/><stop offset=".53" stop-color="%233C91E5"/><stop offset=".82" stop-color="%23559CEC"/><stop offset="1" stop-color="%235EA0EF"/></linearGradient></defs></svg>');
 
-  --bank-vault-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path fill-rule="evenodd" d="M6.035 3.974A4.978 4.978 0 019 3c1.11 0 2.136.362 2.965.974l.005-.004a.75.75 0 111.06 1.06l-.004.005C13.638 5.865 14 6.89 14 8c0 1.11-.362 2.136-.974 2.965l.004.005a.75.75 0 11-1.06 1.06l-.005-.004A4.978 4.978 0 019 13a4.978 4.978 0 01-2.965-.974l-.005.004a.75.75 0 01-1.06-1.06l.004-.005A4.977 4.977 0 014 8c0-1.11.362-2.136.974-2.965L4.97 5.03a.75.75 0 011.06-1.06l.005.004zm1.078 1.078A3.484 3.484 0 019 4.5c.695 0 1.343.203 1.887.552l-.917.918a.75.75 0 001.06 1.06l.918-.917c.35.544.552 1.192.552 1.887 0 .695-.203 1.343-.552 1.887l-.918-.917a.75.75 0 10-1.06 1.06l.917.918A3.484 3.484 0 019 11.5a3.483 3.483 0 01-1.887-.552l.917-.918a.75.75 0 10-1.06-1.06l-.918.917A3.484 3.484 0 015.5 8c0-.695.203-1.343.552-1.887l.918.917a.75.75 0 001.06-1.06l-.917-.918z" clip-rule="evenodd"/><path d="M2.75 3.25A.75.75 0 013.5 4v1.5a.75.75 0 01-1.5 0V4a.75.75 0 01.75-.75zM3.5 10.5a.75.75 0 00-1.5 0V12a.75.75 0 001.5 0v-1.5z"/><path fill-rule="evenodd" d="M2.25 1A2.25 2.25 0 000 3.25v9.5A2.25 2.25 0 002.25 15H3v.25a.75.75 0 001.5 0V15h7v.25a.75.75 0 001.5 0V15h.75A2.25 2.25 0 0016 12.75v-9.5A2.25 2.25 0 0013.75 1H2.25zm11.5 12.5a.75.75 0 00.75-.75v-9.5a.75.75 0 00-.75-.75H2.25a.75.75 0 00-.75.75v9.5c0 .414.336.75.75.75h11.5z" clip-rule="evenodd"/></g></svg>');
+  --bank-dumb-vault-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path fill-rule="evenodd" d="M6.035 3.974A4.978 4.978 0 019 3c1.11 0 2.136.362 2.965.974l.005-.004a.75.75 0 111.06 1.06l-.004.005C13.638 5.865 14 6.89 14 8c0 1.11-.362 2.136-.974 2.965l.004.005a.75.75 0 11-1.06 1.06l-.005-.004A4.978 4.978 0 019 13a4.978 4.978 0 01-2.965-.974l-.005.004a.75.75 0 01-1.06-1.06l.004-.005A4.977 4.977 0 014 8c0-1.11.362-2.136.974-2.965L4.97 5.03a.75.75 0 011.06-1.06l.005.004zm1.078 1.078A3.484 3.484 0 019 4.5c.695 0 1.343.203 1.887.552l-.917.918a.75.75 0 001.06 1.06l.918-.917c.35.544.552 1.192.552 1.887 0 .695-.203 1.343-.552 1.887l-.918-.917a.75.75 0 10-1.06 1.06l.917.918A3.484 3.484 0 019 11.5a3.483 3.483 0 01-1.887-.552l.917-.918a.75.75 0 10-1.06-1.06l-.918.917A3.484 3.484 0 015.5 8c0-.695.203-1.343.552-1.887l.918.917a.75.75 0 001.06-1.06l-.917-.918z" clip-rule="evenodd"/><path d="M2.75 3.25A.75.75 0 013.5 4v1.5a.75.75 0 01-1.5 0V4a.75.75 0 01.75-.75zM3.5 10.5a.75.75 0 00-1.5 0V12a.75.75 0 001.5 0v-1.5z"/><path fill-rule="evenodd" d="M2.25 1A2.25 2.25 0 000 3.25v9.5A2.25 2.25 0 002.25 15H3v.25a.75.75 0 001.5 0V15h7v.25a.75.75 0 001.5 0V15h.75A2.25 2.25 0 0016 12.75v-9.5A2.25 2.25 0 0013.75 1H2.25zm11.5 12.5a.75.75 0 00.75-.75v-9.5a.75.75 0 00-.75-.75H2.25a.75.75 0 00-.75.75v9.5c0 .414.336.75.75.75h11.5z" clip-rule="evenodd"/></g></svg>');
 
-  --bank-vault-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path fill-rule="evenodd" d="M8 12a6 6 0 1112 0 6 6 0 01-12 0zm2.332-2.607A4.48 4.48 0 009.5 12c0 .972.308 1.872.832 2.607l1.45-1.45A2.49 2.49 0 0111.5 12c0-.417.102-.81.283-1.156l-1.451-1.451zm1.06-1.061l1.452 1.45A2.49 2.49 0 0114 9.5c.417 0 .81.102 1.156.283l1.451-1.451A4.48 4.48 0 0014 7.5a4.48 4.48 0 00-2.607.832zm1.452 5.885l-1.451 1.451A4.48 4.48 0 0014 16.5a4.48 4.48 0 002.607-.832l-1.45-1.45A2.49 2.49 0 0114 14.5a2.49 2.49 0 01-1.156-.283zM18.5 12a4.48 4.48 0 01-.832 2.607l-1.45-1.45c.18-.346.282-.74.282-1.157 0-.417-.102-.81-.283-1.156l1.451-1.451A4.48 4.48 0 0118.5 12zM13 12a1 1 0 112 0 1 1 0 01-2 0z" clip-rule="evenodd"/><path d="M4.75 5a.75.75 0 01.75.75v2.5a.75.75 0 01-1.5 0v-2.5A.75.75 0 014.75 5zM5.5 15.75a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"/><path fill-rule="evenodd" d="M1 4.75A2.75 2.75 0 013.75 2h16.5A2.75 2.75 0 0123 4.75v14.5A2.75 2.75 0 0120.25 22h-.125v1a.875.875 0 01-1.75 0v-1H5.625v1a.875.875 0 01-1.75 0v-1H3.75A2.75 2.75 0 011 19.25V4.75zM3.75 3.5c-.69 0-1.25.56-1.25 1.25v14.5c0 .69.56 1.25 1.25 1.25h16.5c.69 0 1.25-.56 1.25-1.25V4.75c0-.69-.56-1.25-1.25-1.25H3.75z" clip-rule="evenodd"/></g></svg>');
+  --bank-dumb-vault-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path fill-rule="evenodd" d="M8 12a6 6 0 1112 0 6 6 0 01-12 0zm2.332-2.607A4.48 4.48 0 009.5 12c0 .972.308 1.872.832 2.607l1.45-1.45A2.49 2.49 0 0111.5 12c0-.417.102-.81.283-1.156l-1.451-1.451zm1.06-1.061l1.452 1.45A2.49 2.49 0 0114 9.5c.417 0 .81.102 1.156.283l1.451-1.451A4.48 4.48 0 0014 7.5a4.48 4.48 0 00-2.607.832zm1.452 5.885l-1.451 1.451A4.48 4.48 0 0014 16.5a4.48 4.48 0 002.607-.832l-1.45-1.45A2.49 2.49 0 0114 14.5a2.49 2.49 0 01-1.156-.283zM18.5 12a4.48 4.48 0 01-.832 2.607l-1.45-1.45c.18-.346.282-.74.282-1.157 0-.417-.102-.81-.283-1.156l1.451-1.451A4.48 4.48 0 0118.5 12zM13 12a1 1 0 112 0 1 1 0 01-2 0z" clip-rule="evenodd"/><path d="M4.75 5a.75.75 0 01.75.75v2.5a.75.75 0 01-1.5 0v-2.5A.75.75 0 014.75 5zM5.5 15.75a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"/><path fill-rule="evenodd" d="M1 4.75A2.75 2.75 0 013.75 2h16.5A2.75 2.75 0 0123 4.75v14.5A2.75 2.75 0 0120.25 22h-.125v1a.875.875 0 01-1.75 0v-1H5.625v1a.875.875 0 01-1.75 0v-1H3.75A2.75 2.75 0 011 19.25V4.75zM3.75 3.5c-.69 0-1.25.56-1.25 1.25v14.5c0 .69.56 1.25 1.25 1.25h16.5c.69 0 1.25-.56 1.25-1.25V4.75c0-.69-.56-1.25-1.25-1.25H3.75z" clip-rule="evenodd"/></g></svg>');
 
   --bar-chart-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M12 2a1 1 0 011 1v10a1 1 0 11-2 0V3a1 1 0 011-1zM8 6a1 1 0 011 1v6a1 1 0 11-2 0V7a1 1 0 011-1zM5 10a1 1 0 00-2 0v3a1 1 0 102 0v-3z"/></g></svg>');
 
@@ -34413,13 +34413,13 @@
 
   --bottom-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M11.75 2a.75.75 0 01.75.75v12.638l4.96-5.158a.75.75 0 111.08 1.04l-6.25 6.5a.75.75 0 01-1.08 0l-6.25-6.5a.75.75 0 111.08-1.04L11 15.388V2.75a.75.75 0 01.75-.75zM3.5 20.5a.75.75 0 000 1.5H20a.75.75 0 000-1.5H3.5z"/></g></svg>');
 
-  --boundary-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M4.81 15v-1.085h2.25v-.67H5.968v-1.093h5.149L8.726 8l2.392-4.154H5.84v5.76H3V1h9.775l1.631 2.832L12.006 8l2.448 4.252L12.872 15H4.81z"/><path d="M5.248 12.152h-1.09v1.092h1.09v-1.092zM3 13.907h1.09v1.092H3v-1.092z"/></g></svg>');
+  --dumb-boundary-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M4.81 15v-1.085h2.25v-.67H5.968v-1.093h5.149L8.726 8l2.392-4.154H5.84v5.76H3V1h9.775l1.631 2.832L12.006 8l2.448 4.252L12.872 15H4.81z"/><path d="M5.248 12.152h-1.09v1.092h1.09v-1.092zM3 13.907h1.09v1.092H3v-1.092z"/></g></svg>');
 
-  --boundary-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M6.586 22v-1.55H9.8v-.958H8.241v-1.56h7.356L12.18 12l3.417-5.934H8.058v8.229H4V2h13.964l2.33 4.046L16.866 12l3.498 6.074L18.103 22H6.586z"/><path d="M7.21 17.932H5.656v1.56H7.21v-1.56zM4 20.438h1.556v1.56H4v-1.56z"/></g></svg>');
+  --dumb-boundary-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M6.586 22v-1.55H9.8v-.958H8.241v-1.56h7.356L12.18 12l3.417-5.934H8.058v8.229H4V2h13.964l2.33 4.046L16.866 12l3.498 6.074L18.103 22H6.586z"/><path d="M7.21 17.932H5.656v1.56H7.21v-1.56zM4 20.438h1.556v1.56H4v-1.56z"/></g></svg>');
 
-  --boundary-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23F24C53"><path d="M4.81 15v-1.085h2.25v-.67H5.968v-1.093h5.149L8.726 8l2.392-4.154H5.84v5.76H3V1h9.775l1.631 2.832L12.006 8l2.448 4.252L12.872 15H4.81z"/><path d="M5.248 12.152h-1.09v1.092h1.09v-1.092zM4.09 13.907H3v1.092h1.09v-1.092z"/></g></svg>');
+  --dumb-boundary-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23F24C53"><path d="M4.81 15v-1.085h2.25v-.67H5.968v-1.093h5.149L8.726 8l2.392-4.154H5.84v5.76H3V1h9.775l1.631 2.832L12.006 8l2.448 4.252L12.872 15H4.81z"/><path d="M5.248 12.152h-1.09v1.092h1.09v-1.092zM4.09 13.907H3v1.092h1.09v-1.092z"/></g></svg>');
 
-  --boundary-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23F24C53"><path d="M6.586 22v-1.55H9.8v-.958H8.241v-1.56h7.356L12.18 12l3.417-5.934H8.058v8.229H4V2h13.964l2.33 4.046L16.866 12l3.498 6.074L18.103 22H6.586z"/><path d="M7.21 17.932H5.656v1.56H7.21v-1.56zM5.556 20.438H4v1.56h1.556v-1.56z"/></g></svg>');
+  --dumb-boundary-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23F24C53"><path d="M6.586 22v-1.55H9.8v-.958H8.241v-1.56h7.356L12.18 12l3.417-5.934H8.058v8.229H4V2h13.964l2.33 4.046L16.866 12l3.498 6.074L18.103 22H6.586z"/><path d="M7.21 17.932H5.656v1.56H7.21v-1.56zM5.556 20.438H4v1.56h1.556v-1.56z"/></g></svg>');
 
   --box-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" fill-rule="evenodd" d="M6.98.678a2.25 2.25 0 012.04 0l5.297 2.696c.42.214.683.644.683 1.114v6.717c0 .658-.37 1.261-.956 1.56L9.02 15.322a2.25 2.25 0 01-2.042 0l-5.023-2.557A1.75 1.75 0 011 11.205V4.488c0-.47.264-.9.683-1.114L6.979.678zm1.36 1.337a.75.75 0 00-.68 0L3.224 4.273 8 6.661l4.776-2.388L8.34 2.015zm-5.84 9.19V5.588l4.75 2.375v5.814l-4.613-2.35a.25.25 0 01-.137-.222zm6.25 2.572l4.613-2.35a.25.25 0 00.137-.222V5.588L8.75 7.963v5.814z" clip-rule="evenodd"/></svg>');
 
@@ -34639,13 +34639,13 @@
 
   --connection-gateway-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" fill-rule="evenodd" d="M20.5 1.75a3 3 0 00-2.665 4.378l-2.441 2.184A2.24 2.24 0 0014.25 8h-3A2.25 2.25 0 009 10.25V11H6.405a3.001 3.001 0 00-5.905.75 3 3 0 005.905.75H9v.75a2.25 2.25 0 002.25 2.25h3a2.24 2.24 0 001.144-.312l2.44 2.184a3 3 0 101-1.118l-2.476-2.216c.092-.245.142-.51.142-.788v-3c0-.277-.05-.543-.142-.788l2.477-2.216A3 3 0 1020.5 1.75zm-1.5 3a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM11.25 9.5a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-3zm9.25 7.75a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM2 11.75a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd"/></svg>');
 
-  --consul-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M4.737 14.193A7 7 0 008.006 15a6.98 6.98 0 004.735-1.847l-1.66-1.737a4.6 4.6 0 110-6.828l1.66-1.738a7 7 0 10-8.004 11.343zM13.32 11.402a.573.573 0 10.637-.953.573.573 0 00-.637.953z"/><path d="M7.96 9.517a1.517 1.517 0 11-.012-3.034 1.517 1.517 0 01.013 3.034zM13.978 9.447a.574.574 0 10.637-.954.574.574 0 00-.637.954zM12.59 9.472a.574.574 0 110-1.148.574.574 0 010 1.148zM13.978 7.514a.574.574 0 10.637-.954.574.574 0 00-.637.954zM12.59 7.675a.574.574 0 110-1.148.574.574 0 010 1.148zM13.353 5.585a.574.574 0 10.635-.956.574.574 0 00-.635.956z"/></g></svg>');
+  --dumb-consul-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M4.737 14.193A7 7 0 008.006 15a6.98 6.98 0 004.735-1.847l-1.66-1.737a4.6 4.6 0 110-6.828l1.66-1.738a7 7 0 10-8.004 11.343zM13.32 11.402a.573.573 0 10.637-.953.573.573 0 00-.637.953z"/><path d="M7.96 9.517a1.517 1.517 0 11-.012-3.034 1.517 1.517 0 01.013 3.034zM13.978 9.447a.574.574 0 10.637-.954.574.574 0 00-.637.954zM12.59 9.472a.574.574 0 110-1.148.574.574 0 010 1.148zM13.978 7.514a.574.574 0 10.637-.954.574.574 0 00-.637.954zM12.59 7.675a.574.574 0 110-1.148.574.574 0 010 1.148zM13.353 5.585a.574.574 0 10.635-.956.574.574 0 00-.635.956z"/></g></svg>');
 
-  --consul-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M6.872 21.731A11 11 0 0012.009 23a10.97 10.97 0 007.442-2.902l-2.61-2.73a7.229 7.229 0 110-10.73l2.61-2.73A11 11 0 106.87 21.73zM20.36 17.346a.901.901 0 101.001-1.498.901.901 0 00-1.001 1.498z"/><path d="M11.939 14.383a2.383 2.383 0 11-.02-4.766 2.383 2.383 0 01.02 4.766zM21.394 14.274a.902.902 0 101.002-1.5.902.902 0 00-1.002 1.5zM19.214 14.313a.902.902 0 110-1.804.902.902 0 010 1.804zM21.394 11.236a.901.901 0 101.001-1.5.901.901 0 00-1.001 1.5zM19.214 11.49a.901.901 0 110-1.803.901.901 0 010 1.803zM20.411 8.204a.901.901 0 10.999-1.5.901.901 0 00-.999 1.5z"/></g></svg>');
+  --dumb-consul-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M6.872 21.731A11 11 0 0012.009 23a10.97 10.97 0 007.442-2.902l-2.61-2.73a7.229 7.229 0 110-10.73l2.61-2.73A11 11 0 106.87 21.73zM20.36 17.346a.901.901 0 101.001-1.498.901.901 0 00-1.001 1.498z"/><path d="M11.939 14.383a2.383 2.383 0 11-.02-4.766 2.383 2.383 0 01.02 4.766zM21.394 14.274a.902.902 0 101.002-1.5.902.902 0 00-1.002 1.5zM19.214 14.313a.902.902 0 110-1.804.902.902 0 010 1.804zM21.394 11.236a.901.901 0 101.001-1.5.901.901 0 00-1.001 1.5zM19.214 11.49a.901.901 0 110-1.803.901.901 0 010 1.803zM20.411 8.204a.901.901 0 10.999-1.5.901.901 0 00-.999 1.5z"/></g></svg>');
 
-  --consul-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23E03875"><path d="M8.006 15A7 7 0 1112.74 2.85l-1.66 1.738a4.6 4.6 0 100 6.828l1.66 1.737A6.98 6.98 0 018.006 15zM13.638 11.499a.573.573 0 110-1.147.573.573 0 010 1.147z"/><path d="M7.96 9.517a1.517 1.517 0 11-.012-3.034 1.517 1.517 0 01.013 3.034zM14.296 9.544a.574.574 0 110-1.148.574.574 0 010 1.148zM12.59 9.472a.574.574 0 110-1.148.574.574 0 010 1.148zM14.296 7.61a.574.574 0 110-1.147.574.574 0 010 1.147zM12.59 7.675a.574.574 0 110-1.148.574.574 0 010 1.148zM13.672 5.68a.574.574 0 11-.003-1.147.574.574 0 01.003 1.148z"/></g></svg>');
+  --dumb-consul-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23E03875"><path d="M8.006 15A7 7 0 1112.74 2.85l-1.66 1.738a4.6 4.6 0 100 6.828l1.66 1.737A6.98 6.98 0 018.006 15zM13.638 11.499a.573.573 0 110-1.147.573.573 0 010 1.147z"/><path d="M7.96 9.517a1.517 1.517 0 11-.012-3.034 1.517 1.517 0 01.013 3.034zM14.296 9.544a.574.574 0 110-1.148.574.574 0 010 1.148zM12.59 9.472a.574.574 0 110-1.148.574.574 0 010 1.148zM14.296 7.61a.574.574 0 110-1.147.574.574 0 010 1.147zM12.59 7.675a.574.574 0 110-1.148.574.574 0 010 1.148zM13.672 5.68a.574.574 0 11-.003-1.147.574.574 0 01.003 1.148z"/></g></svg>');
 
-  --consul-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23E03875"><path d="M12.009 23a11 11 0 117.442-19.092l-2.61 2.73a7.229 7.229 0 100 10.73l2.61 2.73A10.97 10.97 0 0112.009 23zM20.86 17.498a.901.901 0 110-1.802.901.901 0 010 1.802z"/><path d="M11.939 14.383a2.383 2.383 0 11-.02-4.766 2.383 2.383 0 01.02 4.766zM21.895 14.426a.902.902 0 110-1.805.902.902 0 010 1.805zM19.214 14.313a.902.902 0 110-1.804.902.902 0 010 1.804zM21.895 11.387a.901.901 0 110-1.802.901.901 0 010 1.802zM19.214 11.49a.901.901 0 110-1.803.901.901 0 010 1.803zM20.913 8.355a.901.901 0 11-.004-1.803.901.901 0 01.004 1.803z"/></g></svg>');
+  --dumb-consul-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23E03875"><path d="M12.009 23a11 11 0 117.442-19.092l-2.61 2.73a7.229 7.229 0 100 10.73l2.61 2.73A10.97 10.97 0 0112.009 23zM20.86 17.498a.901.901 0 110-1.802.901.901 0 010 1.802z"/><path d="M11.939 14.383a2.383 2.383 0 11-.02-4.766 2.383 2.383 0 01.02 4.766zM21.895 14.426a.902.902 0 110-1.805.902.902 0 010 1.805zM19.214 14.313a.902.902 0 110-1.804.902.902 0 010 1.804zM21.895 11.387a.901.901 0 110-1.802.901.901 0 010 1.802zM19.214 11.49a.901.901 0 110-1.803.901.901 0 010 1.803zM20.913 8.355a.901.901 0 11-.004-1.803.901.901 0 01.004 1.803z"/></g></svg>');
 
   --corner-down-left-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" d="M13.5 2.75a.75.75 0 00-1.5 0v4.5A1.75 1.75 0 0110.25 9H4.56l2.22-2.22a.75.75 0 00-1.06-1.06l-3.5 3.5a.748.748 0 000 1.06l3.5 3.5a.75.75 0 001.06-1.06L4.56 10.5h5.69a3.25 3.25 0 003.25-3.25v-4.5z"/></svg>');
 
@@ -35025,21 +35025,21 @@
 
   --hash-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" fill-rule="evenodd" d="M10.363 3.009a.75.75 0 01.629.853L10.365 8h4.483l.66-4.362a.75.75 0 111.484.224L16.365 8h2.885a.75.75 0 010 1.5h-3.113l-.681 4.5h3.794a.75.75 0 010 1.5h-4.022l-.736 4.863a.75.75 0 11-1.483-.225l.702-4.638H9.228l-.736 4.863a.75.75 0 11-1.483-.225L7.71 15.5H4.75a.75.75 0 010-1.5h3.189l.681-4.5H4.75a.75.75 0 010-1.5h4.098l.66-4.362a.75.75 0 01.855-.63zM13.938 14l.682-4.5h-4.482L9.455 14h4.482z" clip-rule="evenodd"/></svg>');
 
-  --hashicorp-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M6.835.6L1 3.96v8.074l2.192 1.264V5.224l3.643-2.1V.6z"/><path d="M9.165.6v6.43h-2.33v-2.4L4.642 5.894v8.237l2.193 1.266v-6.41h2.33v2.383l2.192-1.264V1.864L9.165.6z"/><path d="M15 12.04L9.165 15.4v-2.525l3.642-2.1V2.703L15 3.966v8.073z"/></g></svg>');
+  --dumb-hashicorp-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M6.835.6L1 3.96v8.074l2.192 1.264V5.224l3.643-2.1V.6z"/><path d="M9.165.6v6.43h-2.33v-2.4L4.642 5.894v8.237l2.193 1.266v-6.41h2.33v2.383l2.192-1.264V1.864L9.165.6z"/><path d="M15 12.04L9.165 15.4v-2.525l3.642-2.1V2.703L15 3.966v8.073z"/></g></svg>');
 
-  --hashicorp-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M10.336 1.5L2 6.268v11.456l3.131 1.793V8.061l5.205-2.979V1.5z"/><path d="M13.664 1.5v9.123h-3.328V7.219L7.203 9.012V20.7l3.133 1.796V13.4h3.328v3.381l3.131-1.793V3.293L13.664 1.5z"/><path d="M22 17.732L13.664 22.5v-3.582l5.203-2.98V4.484L22 6.276v11.456z"/></g></svg>');
+  --dumb-hashicorp-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M10.336 1.5L2 6.268v11.456l3.131 1.793V8.061l5.205-2.979V1.5z"/><path d="M13.664 1.5v9.123h-3.328V7.219L7.203 9.012V20.7l3.133 1.796V13.4h3.328v3.381l3.131-1.793V3.293L13.664 1.5z"/><path d="M22 17.732L13.664 22.5v-3.582l5.203-2.98V4.484L22 6.276v11.456z"/></g></svg>');
 
-  --hashicorp-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M6.835.6L1 3.96v8.074l2.192 1.264V5.224l3.643-2.1V.6z"/><path d="M9.165.6v6.43h-2.33v-2.4L4.642 5.894v8.237l2.193 1.266v-6.41h2.33v2.383l2.192-1.264V1.864L9.165.6z"/><path d="M9.165 15.4L15 12.04V3.966l-2.193-1.264v8.074l-3.642 2.1V15.4z"/></g></svg>');
+  --dumb-hashicorp-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M6.835.6L1 3.96v8.074l2.192 1.264V5.224l3.643-2.1V.6z"/><path d="M9.165.6v6.43h-2.33v-2.4L4.642 5.894v8.237l2.193 1.266v-6.41h2.33v2.383l2.192-1.264V1.864L9.165.6z"/><path d="M9.165 15.4L15 12.04V3.966l-2.193-1.264v8.074l-3.642 2.1V15.4z"/></g></svg>');
 
-  --hashicorp-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M10.336 1.5L2 6.268v11.456l3.131 1.793V8.061l5.205-2.979V1.5z"/><path d="M13.664 1.5v9.123h-3.328V7.219L7.203 9.012V20.7l3.133 1.796V13.4h3.328v3.381l3.131-1.793V3.293L13.664 1.5z"/><path d="M13.664 22.5L22 17.732V6.276l-3.133-1.793v11.456l-5.203 2.979V22.5z"/></g></svg>');
+  --dumb-hashicorp-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M10.336 1.5L2 6.268v11.456l3.131 1.793V8.061l5.205-2.979V1.5z"/><path d="M13.664 1.5v9.123h-3.328V7.219L7.203 9.012V20.7l3.133 1.796V13.4h3.328v3.381l3.131-1.793V3.293L13.664 1.5z"/><path d="M13.664 22.5L22 17.732V6.276l-3.133-1.793v11.456l-5.203 2.979V22.5z"/></g></svg>');
 
-  --hcp-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M6.835.6L1 3.96v8.074l2.192 1.264V5.224l3.643-2.1V.6z"/><path d="M9.165.6v6.43h-2.33v-2.4L4.642 5.894v8.237l2.193 1.266v-6.41h2.33v2.383l2.192-1.264V1.864L9.165.6z"/><path d="M15 12.04L9.165 15.4v-2.525l3.642-2.1V2.703L15 3.966v8.073z"/></g></svg>');
+  --dumb-hcp-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M6.835.6L1 3.96v8.074l2.192 1.264V5.224l3.643-2.1V.6z"/><path d="M9.165.6v6.43h-2.33v-2.4L4.642 5.894v8.237l2.193 1.266v-6.41h2.33v2.383l2.192-1.264V1.864L9.165.6z"/><path d="M15 12.04L9.165 15.4v-2.525l3.642-2.1V2.703L15 3.966v8.073z"/></g></svg>');
 
-  --hcp-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M10.336 1.5L2 6.268v11.456l3.131 1.793V8.061l5.205-2.979V1.5z"/><path d="M13.664 1.5v9.123h-3.328V7.219L7.203 9.012V20.7l3.133 1.796V13.4h3.328v3.381l3.131-1.793V3.293L13.664 1.5z"/><path d="M22 17.732L13.664 22.5v-3.582l5.203-2.98V4.484L22 6.276v11.456z"/></g></svg>');
+  --dumb-hcp-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M10.336 1.5L2 6.268v11.456l3.131 1.793V8.061l5.205-2.979V1.5z"/><path d="M13.664 1.5v9.123h-3.328V7.219L7.203 9.012V20.7l3.133 1.796V13.4h3.328v3.381l3.131-1.793V3.293L13.664 1.5z"/><path d="M22 17.732L13.664 22.5v-3.582l5.203-2.98V4.484L22 6.276v11.456z"/></g></svg>');
 
-  --hcp-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M6.835.6L1 3.96v8.074l2.192 1.264V5.224l3.643-2.1V.6z"/><path d="M9.165.6v6.43h-2.33v-2.4L4.642 5.894v8.237l2.193 1.266v-6.41h2.33v2.383l2.192-1.264V1.864L9.165.6z"/><path d="M9.165 15.4L15 12.04V3.966l-2.193-1.264v8.074l-3.642 2.1V15.4z"/></g></svg>');
+  --dumb-hcp-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M6.835.6L1 3.96v8.074l2.192 1.264V5.224l3.643-2.1V.6z"/><path d="M9.165.6v6.43h-2.33v-2.4L4.642 5.894v8.237l2.193 1.266v-6.41h2.33v2.383l2.192-1.264V1.864L9.165.6z"/><path d="M9.165 15.4L15 12.04V3.966l-2.193-1.264v8.074l-3.642 2.1V15.4z"/></g></svg>');
 
-  --hcp-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M10.336 1.5L2 6.268v11.456l3.131 1.793V8.061l5.205-2.979V1.5z"/><path d="M13.664 1.5v9.123h-3.328V7.219L7.203 9.012V20.7l3.133 1.796V13.4h3.328v3.381l3.131-1.793V3.293L13.664 1.5z"/><path d="M13.664 22.5L22 17.732V6.276l-3.133-1.793v11.456l-5.203 2.979V22.5z"/></g></svg>');
+  --dumb-hcp-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M10.336 1.5L2 6.268v11.456l3.131 1.793V8.061l5.205-2.979V1.5z"/><path d="M13.664 1.5v9.123h-3.328V7.219L7.203 9.012V20.7l3.133 1.796V13.4h3.328v3.381l3.131-1.793V3.293L13.664 1.5z"/><path d="M13.664 22.5L22 17.732V6.276l-3.133-1.793v11.456l-5.203 2.979V22.5z"/></g></svg>');
 
   --headphones-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" fill-rule="evenodd" d="M8 2.5c-1.468 0-2.87.56-3.9 1.548A5.13 5.13 0 002.5 7.75V8h1.25A2.25 2.25 0 016 10.25v2.5A2.25 2.25 0 013.75 15h-.5A2.25 2.25 0 011 12.75v-5c0-1.8.745-3.52 2.061-4.784A7.135 7.135 0 018 1c1.847 0 3.624.704 4.939 1.966A6.63 6.63 0 0115 7.75v5A2.25 2.25 0 0112.75 15h-.5A2.25 2.25 0 0110 12.75v-2.5A2.25 2.25 0 0112.25 8h1.25v-.25a5.13 5.13 0 00-1.6-3.702A5.635 5.635 0 008 2.5zm5.5 7h-1.25a.75.75 0 00-.75.75v2.5c0 .414.336.75.75.75h.5a.75.75 0 00.75-.75V9.5zm-11 0h1.25a.75.75 0 01.75.75v2.5a.75.75 0 01-.75.75h-.5a.75.75 0 01-.75-.75V9.5z" clip-rule="evenodd"/></svg>');
 
@@ -35191,11 +35191,11 @@
 
   --logo-glimmer-color-svg: url('data:image/svg+xml;charset=UTF-8,<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><path d="M256 128c0 70.692-57.308 128-128 128C57.307 256 0 198.692 0 128 0 57.308 57.307 0 128 0c70.692 0 128 57.308 128 128" fill="%23F8835A"/><path d="M78.63 140.37a11.39 11.39 0 0 1-7.951-3.222c-4.533-4.392-4.648-11.627-.256-16.16l77.144-79.619c4.39-4.533 11.626-4.648 16.16-.256 4.532 4.392 4.647 11.628.255 16.161l-77.143 79.62a11.397 11.397 0 0 1-8.21 3.475zm50.31 3.036a11.356 11.356 0 0 1-7.926-3.21c-4.52-4.38-4.633-11.592-.254-16.111L181.687 61.2c4.379-4.52 11.59-4.632 16.11-.254s4.634 11.59.256 16.11l-60.928 62.884a11.363 11.363 0 0 1-8.184 3.465zm-24.69 79.286a11.383 11.383 0 0 1-7.951-3.221c-4.533-4.391-4.648-11.627-.256-16.16L202.61 93.322c4.39-4.532 11.627-4.647 16.16-.255 4.534 4.392 4.648 11.627.255 16.161L112.459 219.216a11.397 11.397 0 0 1-8.21 3.476zm-33.44-19.44c-2.865 0-5.73-1.07-7.95-3.222-4.534-4.392-4.649-11.628-.257-16.16l29.053-29.986c4.393-4.533 11.628-4.648 16.161-.256 4.533 4.393 4.647 11.628.255 16.161L79.02 199.775a11.397 11.397 0 0 1-8.209 3.476zm-23.179-86.764a11.39 11.39 0 0 1-7.952-3.221c-4.533-4.392-4.647-11.627-.255-16.16L68.477 67.12c4.393-4.533 11.628-4.647 16.161-.255 4.533 4.392 4.647 11.627.255 16.16L55.84 113.013a11.398 11.398 0 0 1-8.209 3.476zm149.433 65.295a11.39 11.39 0 0 1-7.95-3.221c-4.534-4.392-4.649-11.627-.257-16.16l13.754-14.195c4.391-4.532 11.627-4.65 16.16-.255 4.533 4.392 4.647 11.627.255 16.16l-13.753 14.195a11.397 11.397 0 0 1-8.209 3.476zm-26.78 28.338c0 6.312-5.117 11.428-11.43 11.428-6.31 0-11.428-5.116-11.428-11.428 0-6.312 5.118-11.429 11.429-11.429 6.312 0 11.429 5.117 11.429 11.43zM61.06 158.925c0 6.312-5.117 11.43-11.43 11.43-6.311 0-11.427-5.118-11.427-11.43 0-6.312 5.116-11.428 11.428-11.428 6.312 0 11.429 5.116 11.429 11.428zm54.284-112.142c0 6.312-5.117 11.428-11.428 11.428-6.312 0-11.429-5.116-11.429-11.428 0-6.312 5.117-11.43 11.429-11.43 6.311 0 11.428 5.118 11.428 11.43z" fill="%23FFF"/></svg>');
 
-  --logo-hashicorp-color-svg: url('data:image/svg+xml;charset=UTF-8,<svg viewBox="0 0 107 114" xmlns="http://www.w3.org/2000/svg"><path d="M44.54 0L0 25.69V87.41l16.73 9.66V35.35L44.54 19.3z"/><path d="M62.32 0v49.15H44.54V30.81L27.8 40.47v62.97l16.74 9.68V64.11h17.78v18.22l16.73-9.66V9.66z"/><path d="M62.32 113.14l44.54-25.69V25.73l-16.74-9.66v61.72l-27.8 16.05z"/></svg>');
+  --logo-dumb-hashicorp-color-svg: url('data:image/svg+xml;charset=UTF-8,<svg viewBox="0 0 107 114" xmlns="http://www.w3.org/2000/svg"><path d="M44.54 0L0 25.69V87.41l16.73 9.66V35.35L44.54 19.3z"/><path d="M62.32 0v49.15H44.54V30.81L27.8 40.47v62.97l16.74 9.68V64.11h17.78v18.22l16.73-9.66V9.66z"/><path d="M62.32 113.14l44.54-25.69V25.73l-16.74-9.66v61.72l-27.8 16.05z"/></svg>');
 
   --logo-jwt-color-svg: url('data:image/svg+xml;charset=UTF-8,<svg width="12" height="13" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.863 3.805V.667h-1.75v3.138l.875 1.202.875-1.202zM5.113 9.195v3.138h1.75V9.195l-.875-1.202-.875 1.202z" fill="%23fff"/><path fill-rule="evenodd" clip-rule="evenodd" d="M6.863 9.195l1.844 2.543L10.13 10.7 8.275 8.168l-1.412-.466v1.493zM5.113 3.805L3.27 1.262 1.847 2.3l1.855 2.532 1.411.466V3.805z" fill="%2300F2E6"/><path fill-rule="evenodd" clip-rule="evenodd" d="M3.702 4.832L.715 3.863.167 5.532l2.986.968 1.424-.455-.875-1.213zM7.4 6.955l.875 1.213 2.987.969.548-1.669L8.823 6.5 7.4 6.955z" fill="%2300B9F1"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.823 6.5l2.987-.968-.548-1.669-2.987.969L7.4 6.045l1.423.455zM3.153 6.5l-2.986.968.548 1.669 2.987-.969.875-1.213L3.153 6.5z" fill="%23D63AFF"/><path fill-rule="evenodd" clip-rule="evenodd" d="M3.702 8.168L1.847 10.7l1.423 1.038 1.843-2.543V7.702l-1.411.466zM8.275 4.832L10.13 2.3 8.707 1.262 6.863 3.805v1.493l1.412-.466z" fill="%23FB015B"/></svg>');
 
-  --logo-nomad-color-svg: url('data:image/svg+xml;charset=UTF-8,<svg viewBox="0 0 16 18" xmlns="http://www.w3.org/2000/svg"><g fill-rule="nonzero" fill="none"><path fill="%231F9967" d="M11.569 6.871v2.965l-2.064 1.192-1.443-.894v7.74l.04.002 7.78-4.47V4.48h-.145z"/><path fill="%2325BA81" d="M7.997 0L.24 4.481l5.233 3.074 1.06-.645 2.57 1.435v-2.98l2.465-1.481v2.987l4.314-2.391v-.011z"/><path fill="%2325BA81" d="M7.02 9.54v2.976l-2.347 1.488V8.05l.89-.548L.287 4.48.24 4.48v8.926l7.821 4.467v-7.74z"/></g></svg>');
+  --logo-dumb-nomad-color-svg: url('data:image/svg+xml;charset=UTF-8,<svg viewBox="0 0 16 18" xmlns="http://www.w3.org/2000/svg"><g fill-rule="nonzero" fill="none"><path fill="%231F9967" d="M11.569 6.871v2.965l-2.064 1.192-1.443-.894v7.74l.04.002 7.78-4.47V4.48h-.145z"/><path fill="%2325BA81" d="M7.997 0L.24 4.481l5.233 3.074 1.06-.645 2.57 1.435v-2.98l2.465-1.481v2.987l4.314-2.391v-.011z"/><path fill="%2325BA81" d="M7.02 9.54v2.976l-2.347 1.488V8.05l.89-.548L.287 4.48.24 4.48v8.926l7.821 4.467v-7.74z"/></g></svg>');
 
   --logo-oidc-color-svg: url('data:image/svg+xml;charset=UTF-8,<svg viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.833 8.375l-.291-2.625-.846.554c-.788-.496-1.78-.846-2.888-1.02 0 0-.554-.117-1.283-.117-.73 0-1.4.087-1.4.087-2.83.35-4.958 1.954-4.958 3.88 0 1.983 2.187 3.616 5.541 3.908v-1.138c-2.304-.32-3.762-1.4-3.762-2.77 0-1.284 1.341-2.363 3.179-2.713 0 0 1.43-.321 2.683.058.613.146 1.167.35 1.634.642l-1.109.67 3.5.584z" fill="%239E9E9E"/><path d="M6.708 2.833v10.209l1.75-.875V1.958l-1.75.875z" fill="%23000"/><path d="M6.708 2.833v10.209l1.75-.875V1.958l-1.75.875z" fill="%23FF9800"/></svg>');
 
@@ -35363,13 +35363,13 @@
 
   --node-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" fill-rule="evenodd" d="M7 9.25A2.75 2.75 0 019.75 6.5h5a2.75 2.75 0 012.75 2.75V11h4.75a.75.75 0 010 1.5H17.5v1.75A2.75 2.75 0 0114.75 17h-5A2.75 2.75 0 017 14.25V12.5H2.25a.75.75 0 010-1.5H7V9.25zm9 0C16 8.56 15.44 8 14.75 8h-5c-.69 0-1.25.56-1.25 1.25v5c0 .69.56 1.25 1.25 1.25h5c.69 0 1.25-.56 1.25-1.25v-5z" clip-rule="evenodd"/></svg>');
 
-  --nomad-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" d="M8 0L1 4v8l7 4 7-4V4L8 0zm3.119 8.797L9.254 9.863 7.001 8.65v2.549l-2.118 1.33v-5.33l1.68-1.018 2.332 1.216V4.794l2.23-1.322-.006 5.325z"/></svg>');
+  --dumb-nomad-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" d="M8 0L1 4v8l7 4 7-4V4L8 0zm3.119 8.797L9.254 9.863 7.001 8.65v2.549l-2.118 1.33v-5.33l1.68-1.018 2.332 1.216V4.794l2.23-1.322-.006 5.325z"/></svg>');
 
-  --nomad-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" d="M12 .5L2 6.25v11.5l10 5.75 10-5.75V6.25L12 .5zm4.456 12.646l-2.664 1.533-3.22-1.745v3.664l-3.026 1.911v-7.661l2.401-1.463 3.331 1.748v-3.74l3.185-1.902-.008 7.655z"/></svg>');
+  --dumb-nomad-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" d="M12 .5L2 6.25v11.5l10 5.75 10-5.75V6.25L12 .5zm4.456 12.646l-2.664 1.533-3.22-1.745v3.664l-3.026 1.911v-7.661l2.401-1.463 3.331 1.748v-3.74l3.185-1.902-.008 7.655z"/></svg>');
 
-  --nomad-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%2306D092" d="M8 0L1 4v8l7 4 7-4V4L8 0zm3.119 8.797L9.254 9.863 7.001 8.65v2.549l-2.118 1.33v-5.33l1.68-1.018 2.332 1.216V4.794l2.23-1.322-.006 5.325z"/></svg>');
+  --dumb-nomad-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%2306D092" d="M8 0L1 4v8l7 4 7-4V4L8 0zm3.119 8.797L9.254 9.863 7.001 8.65v2.549l-2.118 1.33v-5.33l1.68-1.018 2.332 1.216V4.794l2.23-1.322-.006 5.325z"/></svg>');
 
-  --nomad-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%2306D092" d="M12 .5L2 6.25v11.5l10 5.75 10-5.75V6.25L12 .5zm4.456 12.646l-2.664 1.533-3.22-1.745v3.664l-3.026 1.911v-7.661l2.401-1.463 3.331 1.748v-3.74l3.185-1.902-.008 7.655z"/></svg>');
+  --dumb-nomad-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%2306D092" d="M12 .5L2 6.25v11.5l10 5.75 10-5.75V6.25L12 .5zm4.456 12.646l-2.664 1.533-3.22-1.745v3.664l-3.026 1.911v-7.661l2.401-1.463 3.331 1.748v-3.74l3.185-1.902-.008 7.655z"/></svg>');
 
   --octagon-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" fill-rule="evenodd" d="M3.923.659A2.25 2.25 0 015.514 0h4.972c.597 0 1.169.237 1.59.659l3.265 3.264c.422.422.659.994.659 1.591v4.972a2.25 2.25 0 01-.659 1.59l-3.264 3.265a2.25 2.25 0 01-1.591.659H5.514a2.25 2.25 0 01-1.59-.659L.658 12.077A2.25 2.25 0 010 10.486V5.514c0-.597.237-1.169.659-1.59L3.923.658zm1.591.841a.75.75 0 00-.53.22L1.72 4.984a.75.75 0 00-.22.53v4.972c0 .199.079.39.22.53l3.264 3.264c.14.141.331.22.53.22h4.972a.75.75 0 00.53-.22l3.264-3.264a.75.75 0 00.22-.53V5.514a.75.75 0 00-.22-.53L11.016 1.72a.75.75 0 00-.53-.22H5.514z" clip-rule="evenodd"/></svg>');
 
@@ -35411,13 +35411,13 @@
 
   --package-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" fill-rule="evenodd" d="M10.794.754a2.75 2.75 0 012.412 0l8.811 4.298c.602.293.983.904.983 1.573v9.902a2.75 2.75 0 01-1.496 2.448l-8.25 4.226a2.75 2.75 0 01-2.508 0l-8.25-4.226A2.75 2.75 0 011 16.527V6.625c0-.67.381-1.28.983-1.573L10.794.754zm1.754 1.348a1.25 1.25 0 00-1.096 0l-2.82 1.375 8.505 4.253 3.52-1.672-8.109-3.956zm2.869 6.445L6.934 4.306 3.343 6.058 12 10.17l3.417-1.623zM2.5 16.527v-9.21l8.75 4.157v10.3L3.18 17.64a1.25 1.25 0 01-.68-1.113zm18.32 1.113l-8.07 4.133V11.474l8.75-4.156v9.21c0 .469-.263.898-.68 1.112z" clip-rule="evenodd"/></svg>');
 
-  --packer-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M5.163 0l5.762 3.247c1.138.646 2.074 2.085 2.075 3.2v4.963c0 1.123-.933 1.502-2.074.858L9.083 11.23V4.469l-3.92-2.216V0z"/><path d="M8.3 4.953L3 1.956v11.047L8.3 16V4.953z"/></g></svg>');
+  --dumb-packer-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M5.163 0l5.762 3.247c1.138.646 2.074 2.085 2.075 3.2v4.963c0 1.123-.933 1.502-2.074.858L9.083 11.23V4.469l-3.92-2.216V0z"/><path d="M8.3 4.953L3 1.956v11.047L8.3 16V4.953z"/></g></svg>');
 
-  --packer-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M8.028.5l8.067 4.668c1.593.928 2.903 2.996 2.905 4.6v7.134c0 1.614-1.306 2.158-2.903 1.233l-2.58-1.49V6.922L8.027 3.738V.5z"/><path d="M12.42 7.62L5 3.31v15.88l7.42 4.309V7.62z"/></g></svg>');
+  --dumb-packer-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M8.028.5l8.067 4.668c1.593.928 2.903 2.996 2.905 4.6v7.134c0 1.614-1.306 2.158-2.903 1.233l-2.58-1.49V6.922L8.027 3.738V.5z"/><path d="M12.42 7.62L5 3.31v15.88l7.42 4.309V7.62z"/></g></svg>');
 
-  --packer-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%2302A8EF"><path fill-rule="evenodd" d="M3 1.956l5.3 2.997V16L3 13.003V1.956z" clip-rule="evenodd"/><path d="M10.925 3.247L5.163 0v2.252l3.92 2.216v6.764l1.843 1.036c1.14.644 2.074.265 2.074-.858V6.447c-.001-1.115-.937-2.554-2.075-3.2z"/></g></svg>');
+  --dumb-packer-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%2302A8EF"><path fill-rule="evenodd" d="M3 1.956l5.3 2.997V16L3 13.003V1.956z" clip-rule="evenodd"/><path d="M10.925 3.247L5.163 0v2.252l3.92 2.216v6.764l1.843 1.036c1.14.644 2.074.265 2.074-.858V6.447c-.001-1.115-.937-2.554-2.075-3.2z"/></g></svg>');
 
-  --packer-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%2302A8EF"><path fill-rule="evenodd" d="M5 3.311l7.42 4.308V23.5L5 19.192V3.312z" clip-rule="evenodd"/><path d="M16.095 5.168L8.028.5v3.238l5.488 3.184v9.723l2.58 1.49c1.598.925 2.904.38 2.904-1.233V9.768c-.002-1.604-1.312-3.672-2.905-4.6z"/></g></svg>');
+  --dumb-packer-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%2302A8EF"><path fill-rule="evenodd" d="M5 3.311l7.42 4.308V23.5L5 19.192V3.312z" clip-rule="evenodd"/><path d="M16.095 5.168L8.028.5v3.238l5.488 3.184v9.723l2.58 1.49c1.598.925 2.904.38 2.904-1.233V9.768c-.002-1.604-1.312-3.672-2.905-4.6z"/></g></svg>');
 
   --paperclip-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" d="M9.387 2.102a2.034 2.034 0 012.864 0c.776.785.749 2.178 0 2.928-.75.749-6.39 6.465-6.39 6.465a.642.642 0 01-.898 0 .685.685 0 010-.937l5.896-5.966a.75.75 0 10-1.066-1.054L3.896 9.504a2.184 2.184 0 000 3.045 2.142 2.142 0 003.033 0l6.39-6.466c1.36-1.377 1.36-3.658 0-5.035-1.364-1.381-3.636-1.381-5 0L1.938 7.513A5.001 5.001 0 00.5 11.026c0 1.316.516 2.58 1.437 3.514A4.892 4.892 0 005.42 16c1.308 0 2.56-.526 3.482-1.46l6.383-6.466a.75.75 0 10-1.068-1.053l-6.382 6.465A3.392 3.392 0 015.419 14.5a3.392 3.392 0 01-2.414-1.014A3.501 3.501 0 012 11.026c0-.924.363-1.808 1.005-2.46l6.382-6.464z"/></svg>');
 
@@ -35781,13 +35781,13 @@
 
   --terminal-screen-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M6.174 7.27a.75.75 0 011.056-.096l4.5 3.75a.75.75 0 010 1.152l-4.5 3.75a.75.75 0 11-.96-1.152l3.809-3.174-3.81-3.174a.75.75 0 01-.095-1.056zM11.75 16a.75.75 0 000 1.5h5.5a.75.75 0 000-1.5h-5.5z"/><path fill-rule="evenodd" d="M1 4.75A2.75 2.75 0 013.75 2h16.5A2.75 2.75 0 0123 4.75v14.5A2.75 2.75 0 0120.25 22H3.75A2.75 2.75 0 011 19.25V4.75zM3.75 3.5c-.69 0-1.25.56-1.25 1.25v14.5c0 .69.56 1.25 1.25 1.25h16.5c.69 0 1.25-.56 1.25-1.25V4.75c0-.69-.56-1.25-1.25-1.25H3.75z" clip-rule="evenodd"/></g></svg>');
 
-  --terraform-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M1 0v5.05l4.349 2.527V2.526L1 0zM10.175 5.344l-4.35-2.525v5.05l4.35 2.527V5.344zM10.651 10.396V5.344L15 2.819v5.05l-4.349 2.527zM10.174 16l-4.349-2.526v-5.05l4.349 2.525V16z"/></g></svg>');
+  --dumb-terraform-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M1 0v5.05l4.349 2.527V2.526L1 0zM10.175 5.344l-4.35-2.525v5.05l4.35 2.527V5.344zM10.651 10.396V5.344L15 2.819v5.05l-4.349 2.527zM10.174 16l-4.349-2.526v-5.05l4.349 2.525V16z"/></g></svg>');
 
-  --terraform-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M2 .6v7.197l6.212 3.6V4.2L2 .6zM15.107 8.215L8.893 4.618v7.197l6.214 3.6v-7.2zM15.788 15.414V8.215L22 4.618v7.197l-6.212 3.6zM15.105 23.4l-6.212-3.6v-7.197l6.212 3.6V23.4z"/></g></svg>');
+  --dumb-terraform-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M2 .6v7.197l6.212 3.6V4.2L2 .6zM15.107 8.215L8.893 4.618v7.197l6.214 3.6v-7.2zM15.788 15.414V8.215L22 4.618v7.197l-6.212 3.6zM15.105 23.4l-6.212-3.6v-7.197l6.212 3.6V23.4z"/></g></svg>');
 
-  --terraform-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%237B42BC" fill-rule="evenodd" clip-rule="evenodd"><path d="M5.825 2.82l4.35 2.524v5.052L5.825 7.87V2.82zM10.651 5.344v5.052L15 7.87V2.82l-4.349 2.524zM1 0v5.05l4.349 2.527V2.526L1 0zM5.825 13.474L10.174 16v-5.051L5.825 8.423v5.051z"/></g></svg>');
+  --dumb-terraform-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%237B42BC" fill-rule="evenodd" clip-rule="evenodd"><path d="M5.825 2.82l4.35 2.524v5.052L5.825 7.87V2.82zM10.651 5.344v5.052L15 7.87V2.82l-4.349 2.524zM1 0v5.05l4.349 2.527V2.526L1 0zM5.825 13.474L10.174 16v-5.051L5.825 8.423v5.051z"/></g></svg>');
 
-  --terraform-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%237B42BC" fill-rule="evenodd" clip-rule="evenodd"><path d="M8.893 4.618l6.214 3.597v7.2l-6.214-3.6V4.618zM15.788 8.215v7.2l6.212-3.6V4.618l-6.212 3.597zM2 .6v7.197l6.212 3.6V4.2L2 .6zM8.893 19.8l6.212 3.6v-7.197l-6.212-3.6V19.8z"/></g></svg>');
+  --dumb-terraform-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%237B42BC" fill-rule="evenodd" clip-rule="evenodd"><path d="M8.893 4.618l6.214 3.597v7.2l-6.214-3.6V4.618zM15.788 8.215v7.2l6.212-3.6V4.618l-6.212 3.597zM2 .6v7.197l6.212 3.6V4.2L2 .6zM8.893 19.8l6.212 3.6v-7.197l-6.212-3.6V19.8z"/></g></svg>');
 
   --thumbs-down-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" fill-rule="evenodd" d="M8.404 14.484l2.56-5.759V1.5H3.488a.75.75 0 00-.741.637l-.995 6.55a.75.75 0 00.742.862h3.767c.69 0 1.25.56 1.25 1.25v2.626c0 .53.385.972.892 1.06zM12.464 1.5v6.634h1.286a.75.75 0 00.75-.75V2.25a.75.75 0 00-.75-.75h-1.287zM12.2 9.634l-2.511 5.65A1.206 1.206 0 018.588 16a2.575 2.575 0 01-2.576-2.575v-2.376H2.495A2.25 2.25 0 01.27 8.46l.995-6.549A2.25 2.25 0 013.489 0H13.75A2.25 2.25 0 0116 2.25v5.134a2.25 2.25 0 01-2.25 2.25H12.2z" clip-rule="evenodd"/></svg>');
 
@@ -35915,21 +35915,21 @@
 
   --users-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path fill-rule="evenodd" d="M9 3a5 5 0 100 10A5 5 0 009 3zM5.5 8a3.5 3.5 0 117 0 3.5 3.5 0 01-7 0z" clip-rule="evenodd"/><path d="M4.75 14.5A4.75 4.75 0 000 19.25v1a.75.75 0 001.5 0v-1A3.25 3.25 0 014.75 16h8.5a3.25 3.25 0 013.25 3.25v1a.75.75 0 001.5 0v-1a4.75 4.75 0 00-4.75-4.75h-8.5zM18.25 15.25a.75.75 0 01.75-.75h.25A4.75 4.75 0 0124 19.25v1a.75.75 0 01-1.5 0v-1A3.25 3.25 0 0019.25 16H19a.75.75 0 01-.75-.75zM15 3a.75.75 0 000 1.5 3.5 3.5 0 110 7 .75.75 0 000 1.5 5 5 0 000-10z"/></g></svg>');
 
-  --vagrant-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" d="M13.08.75L9.924 2.58v1.123L8 8.245 6.076 3.703V2.58L2.92.75 1 1.864v1.293l4.276 10.514L8 15.25l2.724-1.579L15 3.157V1.864L13.08.75z"/></svg>');
+  --dumb-vagrant-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" d="M13.08.75L9.924 2.58v1.123L8 8.245 6.076 3.703V2.58L2.92.75 1 1.864v1.293l4.276 10.514L8 15.25l2.724-1.579L15 3.157V1.864L13.08.75z"/></svg>');
 
-  --vagrant-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" d="M19.983.6l-4.96 2.877v1.767L12 12.384l-3.023-7.14V3.477L4.017.6 1 2.352v2.034l6.719 16.532L12 23.4l4.281-2.482L23 4.386V2.352L19.983.6z"/></svg>');
+  --dumb-vagrant-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" d="M19.983.6l-4.96 2.877v1.767L12 12.384l-3.023-7.14V3.477L4.017.6 1 2.352v2.034l6.719 16.532L12 23.4l4.281-2.482L23 4.386V2.352L19.983.6z"/></svg>');
 
-  --vagrant-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%231868F2" d="M13.08.75L9.924 2.58v1.123L8 8.245 6.076 3.703V2.58L2.92.75 1 1.864v1.293l4.276 10.514L8 15.25l2.724-1.579L15 3.157V1.864L13.08.75z"/><path fill="%230850C5" d="M15 1.865l-3.157 1.829v1.124L9.28 10.57 8 11.312v3.939l2.724-1.579L15 3.158V1.865zM6.076 3.703V2.58l-1.92 1.113v1.125l2.564 5.751L8 9.827V8.245L6.076 3.703z"/></svg>');
+  --dumb-vagrant-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%231868F2" d="M13.08.75L9.924 2.58v1.123L8 8.245 6.076 3.703V2.58L2.92.75 1 1.864v1.293l4.276 10.514L8 15.25l2.724-1.579L15 3.157V1.864L13.08.75z"/><path fill="%230850C5" d="M15 1.865l-3.157 1.829v1.124L9.28 10.57 8 11.312v3.939l2.724-1.579L15 3.158V1.865zM6.076 3.703V2.58l-1.92 1.113v1.125l2.564 5.751L8 9.827V8.245L6.076 3.703z"/></svg>');
 
-  --vagrant-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%231868F2" d="M19.983.6l-4.96 2.877v1.767L12 12.384l-3.023-7.14V3.477L4.017.6 1 2.352v2.034l6.719 16.532L12 23.4l4.281-2.482L23 4.386V2.352L19.983.6z"/><path fill="%230850C5" d="M23 2.352l-4.96 2.875v1.77l-4.028 9.043L12 17.207V23.4l4.28-2.482L23 4.386V2.352zM8.977 5.244V3.477l-3.019 1.75v1.77l4.03 9.043L12 14.873v-2.488L8.977 5.244z"/></svg>');
+  --dumb-vagrant-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%231868F2" d="M19.983.6l-4.96 2.877v1.767L12 12.384l-3.023-7.14V3.477L4.017.6 1 2.352v2.034l6.719 16.532L12 23.4l4.281-2.482L23 4.386V2.352L19.983.6z"/><path fill="%230850C5" d="M23 2.352l-4.96 2.875v1.77l-4.028 9.043L12 17.207V23.4l4.28-2.482L23 4.386V2.352zM8.977 5.244V3.477l-3.019 1.75v1.77l4.03 9.043L12 14.873v-2.488L8.977 5.244z"/></svg>');
 
-  --vault-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" d="M0 0l7.971 15.516L16 0H0zm6.732 6.16h-1.27V4.89h1.27v1.27zm0-1.906h-1.27V2.985h1.27v1.269zm1.904 3.81h-1.27v-1.27h1.27v1.27zm0-1.905h-1.27V4.89h1.27v1.27zm0-1.905h-1.27V2.985h1.27v1.269zm1.894 1.905H9.26V4.89h1.27v1.27zM9.26 4.254V2.985h1.27v1.269H9.26z"/></svg>');
+  --dumb-vault-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23000" d="M0 0l7.971 15.516L16 0H0zm6.732 6.16h-1.27V4.89h1.27v1.27zm0-1.906h-1.27V2.985h1.27v1.269zm1.904 3.81h-1.27v-1.27h1.27v1.27zm0-1.905h-1.27V4.89h1.27v1.27zm0-1.905h-1.27V2.985h1.27v1.269zm1.894 1.905H9.26V4.89h1.27v1.27zM9.26 4.254V2.985h1.27v1.269H9.26z"/></svg>');
 
-  --vault-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" d="M1 1l10.96 21.334L23 1H1zm9.256 8.469H8.51V7.723h1.746v1.746zm0-2.62H8.51V5.105h1.746v1.744zm2.618 5.238h-1.746v-1.746h1.746v1.746zm0-2.618h-1.746V7.723h1.746v1.746zm0-2.62h-1.746V5.105h1.746v1.744zm2.604 2.62h-1.746V7.723h1.746v1.746zm-1.746-2.62V5.105h1.746v1.744h-1.746z"/></svg>');
+  --dumb-vault-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23000" d="M1 1l10.96 21.334L23 1H1zm9.256 8.469H8.51V7.723h1.746v1.746zm0-2.62H8.51V5.105h1.746v1.744zm2.618 5.238h-1.746v-1.746h1.746v1.746zm0-2.618h-1.746V7.723h1.746v1.746zm0-2.62h-1.746V5.105h1.746v1.744zm2.604 2.62h-1.746V7.723h1.746v1.746zm-1.746-2.62V5.105h1.746v1.744h-1.746z"/></svg>');
 
-  --vault-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23FFD814" d="M0 0l7.971 15.516L16 0H0zm6.732 6.16h-1.27V4.89h1.27v1.27zm0-1.906h-1.27V2.985h1.27v1.269zm1.904 3.81h-1.27v-1.27h1.27v1.27zm0-1.905h-1.27V4.89h1.27v1.27zm0-1.905h-1.27V2.985h1.27v1.269zm1.894 1.905H9.26V4.89h1.27v1.27zM9.26 4.254V2.985h1.27v1.269H9.26z"/></svg>');
+  --dumb-vault-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="%23FFD814" d="M0 0l7.971 15.516L16 0H0zm6.732 6.16h-1.27V4.89h1.27v1.27zm0-1.906h-1.27V2.985h1.27v1.269zm1.904 3.81h-1.27v-1.27h1.27v1.27zm0-1.905h-1.27V4.89h1.27v1.27zm0-1.905h-1.27V2.985h1.27v1.269zm1.894 1.905H9.26V4.89h1.27v1.27zM9.26 4.254V2.985h1.27v1.269H9.26z"/></svg>');
 
-  --vault-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23FFD814" d="M1 1l10.96 21.334L23 1H1zm9.256 8.469H8.51V7.723h1.746v1.746zm0-2.62H8.51V5.105h1.746v1.744zm2.618 5.238h-1.746v-1.746h1.746v1.746zm0-2.618h-1.746V7.723h1.746v1.746zm0-2.62h-1.746V5.105h1.746v1.744zm2.604 2.62h-1.746V7.723h1.746v1.746zm-1.746-2.62V5.105h1.746v1.744h-1.746z"/></svg>');
+  --dumb-vault-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="%23FFD814" d="M1 1l10.96 21.334L23 1H1zm9.256 8.469H8.51V7.723h1.746v1.746zm0-2.62H8.51V5.105h1.746v1.744zm2.618 5.238h-1.746v-1.746h1.746v1.746zm0-2.618h-1.746V7.723h1.746v1.746zm0-2.62h-1.746V5.105h1.746v1.744zm2.604 2.62h-1.746V7.723h1.746v1.746zm-1.746-2.62V5.105h1.746v1.744h-1.746z"/></svg>');
 
   --verified-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M11.28 5.72a.75.75 0 010 1.06l-4 4a.75.75 0 01-1.06 0l-1.5-1.5a.75.75 0 011.06-1.06l.97.97 3.47-3.47a.75.75 0 011.06 0z"/><path fill-rule="evenodd" d="M6.402 1.22a2.75 2.75 0 013.196 0l.69.493c.154.11.332.184.519.215l.865.146a2.75 2.75 0 012.254 2.254l.146.866c.031.187.105.364.215.518l.493.69a2.75 2.75 0 010 3.197l-.493.69c-.11.154-.184.33-.215.518l-.146.865a2.75 2.75 0 01-2.254 2.254l-.865.146a1.25 1.25 0 00-.519.216l-.69.492a2.75 2.75 0 01-3.196 0l-.69-.492a1.25 1.25 0 00-.519-.216l-.865-.146a2.75 2.75 0 01-2.254-2.254l-.146-.865a1.25 1.25 0 00-.215-.519l-.493-.69a2.75 2.75 0 010-3.196l.493-.69a1.25 1.25 0 00.215-.518l.146-.866a2.75 2.75 0 012.254-2.254l.865-.146a1.25 1.25 0 00.519-.215l.69-.493zm2.324 1.22a1.25 1.25 0 00-1.453 0l-.69.493a2.75 2.75 0 01-1.14.474l-.865.146a1.25 1.25 0 00-1.025 1.025l-.146.865a2.75 2.75 0 01-.474 1.141l-.492.69a1.25 1.25 0 000 1.453l.492.69c.243.339.405.729.474 1.14l.146.865c.089.525.5.936 1.025 1.025l.865.146c.411.07.801.232 1.14.474l.69.493a1.25 1.25 0 001.454 0l.69-.493a2.75 2.75 0 011.14-.474l.865-.146a1.25 1.25 0 001.025-1.024l.146-.866a2.75 2.75 0 01.474-1.14l.492-.69a1.25 1.25 0 000-1.453l-.492-.69a2.75 2.75 0 01-.474-1.14l-.146-.866a1.25 1.25 0 00-1.025-1.025l-.865-.146a2.75 2.75 0 01-1.14-.474l-.69-.492z" clip-rule="evenodd"/></g></svg>');
 
@@ -35975,13 +35975,13 @@
 
   --watch-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M12.5 8.25a.75.75 0 00-1.5 0v4.25c0 .284.16.544.415.67l2.5 1.25a.75.75 0 10.67-1.34L12.5 12.036V8.25z"/><path fill-rule="evenodd" d="M7.464 2.258A2.75 2.75 0 0110.169 0h3.662a2.75 2.75 0 012.706 2.258l.666 3.665A7.982 7.982 0 0120 12a7.982 7.982 0 01-2.797 6.077l-.666 3.665A2.75 2.75 0 0113.83 24h-3.662a2.75 2.75 0 01-2.705-2.258l-.667-3.665A7.982 7.982 0 014 12a7.982 7.982 0 012.797-6.077l.667-3.665zM8.528 19.21l.411 2.265a1.25 1.25 0 001.23 1.026h3.662a1.25 1.25 0 001.23-1.026l.411-2.265A7.968 7.968 0 0112 20a7.97 7.97 0 01-3.472-.79zM15.06 2.526l.411 2.265A7.968 7.968 0 0012 4a7.968 7.968 0 00-3.472.79l.411-2.264A1.25 1.25 0 0110.17 1.5h3.662a1.25 1.25 0 011.23 1.026zM5.5 12a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" clip-rule="evenodd"/></g></svg>');
 
-  --waypoint-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M4 5.312h1.334L10 13.4l3.334-5.777L10.666 3H8l2.666 4.623L10 8.778 6.667 3H0l6 10.4 1.333-2.31L4 5.311zM14.002 6.463L16 3h-3.996l1.998 3.463z"/></g></svg>');
+  --dumb-waypoint-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M4 5.312h1.334L10 13.4l3.334-5.777L10.666 3H8l2.666 4.623L10 8.778 6.667 3H0l6 10.4 1.333-2.31L4 5.311zM14.002 6.463L16 3h-3.996l1.998 3.463z"/></g></svg>');
 
-  --waypoint-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M6 8.468h2L15 20.6l5-8.666L16 5h-4l4 6.934-1 1.733L10 5H0l9 15.6 2-3.466-5-8.666zM21.003 10.194L24 5h-5.994l2.997 5.194z"/></g></svg>');
+  --dumb-waypoint-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%23000"><path d="M6 8.468h2L15 20.6l5-8.666L16 5h-4l4 6.934-1 1.733L10 5H0l9 15.6 2-3.466-5-8.666zM21.003 10.194L24 5h-5.994l2.997 5.194z"/></g></svg>');
 
-  --waypoint-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%2314C6CB"><path d="M16 3l-1.998 3.463L12.004 3H16zM5.334 5.312H4l3.332 5.777L6 13.4 0 3h6.667L10 8.778l.666-1.155L8 3h2.666L12 5.312l1.334 2.31L10 13.4 5.334 5.312z"/></g></svg>');
+  --dumb-waypoint-color-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%2314C6CB"><path d="M16 3l-1.998 3.463L12.004 3H16zM5.334 5.312H4l3.332 5.777L6 13.4 0 3h6.667L10 8.778l.666-1.155L8 3h2.666L12 5.312l1.334 2.31L10 13.4 5.334 5.312z"/></g></svg>');
 
-  --waypoint-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%2314C6CB"><path d="M24 5l-2.997 5.194L18.006 5H24zM8 8.468H6l5 8.666L9 20.6 0 5h10l5 8.667 1-1.733L12 5h4l2 3.468 2 3.466-5 8.666L8 8.468z"/></g></svg>');
+  --dumb-waypoint-color-24-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g fill="%2314C6CB"><path d="M24 5l-2.997 5.194L18.006 5H24zM8 8.468H6l5 8.666L9 20.6 0 5h10l5 8.667 1-1.733L12 5h4l2 3.468 2 3.466-5 8.666L8 8.468z"/></g></svg>');
 
   --webhook-16-svg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><g fill="%23000"><path d="M6.032 4.132c0-1.039.843-1.882 1.886-1.882.709 0 1.328.39 1.65.97a.75.75 0 101.311-.728A3.385 3.385 0 007.918.75a3.383 3.383 0 00-3.386 3.382c0 .94.385 1.79 1.003 2.402l-2.054 3.594a1.25 1.25 0 00.151 2.49h.007a1.25 1.25 0 001.146-1.75l2.369-4.144a.75.75 0 00-.249-1.005 1.879 1.879 0 01-.873-1.587z"/><path d="M7.793 5.375a1.25 1.25 0 01.125-2.494h.006a1.25 1.25 0 011.157 1.725l2.159 3.572a3.383 3.383 0 014.51 3.19 3.383 3.383 0 01-4.23 3.275.75.75 0 11.373-1.452 1.883 1.883 0 002.357-1.822 1.883 1.883 0 00-2.897-1.588.75.75 0 01-1.045-.245l-2.515-4.16z"/><path d="M2.002 10.429a.75.75 0 00-1.298-.752 3.383 3.383 0 002.932 5.073c1.61 0 2.96-1.124 3.301-2.632h4.42c.229.304.592.5 1.001.5h.007a1.25 1.25 0 000-2.5h-.007c-.409 0-.772.197-1 .5H6.271a.75.75 0 00-.75.75 1.883 1.883 0 01-1.886 1.882 1.883 1.883 0 01-1.633-2.821z"/></g></svg>');
 

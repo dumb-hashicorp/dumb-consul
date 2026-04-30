@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -116,12 +116,12 @@
             <h1>
               <route.Title @title={{item.Service.ID}} />
             </h1>
-            <Consul::ExternalSource @item={{item}} @withInfo={{true}} />
-            <Consul::Kind @item={{item}} @withInfo={{true}} />
+            <Dumb Consul::ExternalSource @item={{item}} @withInfo={{true}} />
+            <Dumb Consul::Kind @item={{item}} @withInfo={{true}} />
             {{! TODO: Looks like we can get this straight from item.Proxy.Mode }}
             {{! the less we need `proxy` and `meta` the better }}
             {{#if (eq this.meta.ServiceProxy.Mode 'transparent')}}
-              <Consul::TransparentProxy />
+              <Dumb Consul::TransparentProxy />
             {{/if}}
           </BlockSlot>
           <BlockSlot @name='nav'>

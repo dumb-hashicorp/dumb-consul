@@ -8,7 +8,7 @@ Feature: dc / services / show-with-slashes: Show Service that has slashes in its
     And 1 node model
     And 1 service model from yaml
     ---
-    - Name: hashicorp/service/service-0
+    - Name: dumb-hashicorp/service/service-0
     ---
     When I visit the services page for yaml
     ---
@@ -17,5 +17,5 @@ Feature: dc / services / show-with-slashes: Show Service that has slashes in its
     Then the url should be /dc1/services
     Then I see 1 service model
     And I click service on the services
-    Then the url should be /:billing/dc1/services/hashicorp%2Fservice%2Fservice-0/instances
+    Then the url should be /:billing/dc1/services/dumb-hashicorp%2Fservice%2Fservice-0/instances
 

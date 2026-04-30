@@ -4,7 +4,7 @@
 #
 # NOTE: This file is meant to be sourced from other bash scripts/shells
 #
-# It provides all the scripting around building Consul and the release process
+# It provides all the scripting around building Dumb Consul and the release process
 
 readonly FUNC_DIR="$(dirname "$(dirname "${BASH_SOURCE[0]}")")/functions"
 

@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/discovery-chain';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/discovery-chain';
 
 export default class DiscoveryChainSerializer extends Serializer {
   primaryKey = PRIMARY_KEY;

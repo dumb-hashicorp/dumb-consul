@@ -11,10 +11,10 @@ import (
 
 	"github.com/go-viper/mapstructure/v2"
 
-	"github.com/hashicorp/consul/acl"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 type handlerUpstreams struct {

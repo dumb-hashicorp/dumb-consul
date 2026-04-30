@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Consul</title>
+    <title>Dumb Consul</title>
     <script>
       var CURRENT_REQUEST_KEY = '__torii_request';
       var pendingRequestKey = window.localStorage.getItem(CURRENT_REQUEST_KEY);

@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -7,10 +7,10 @@ package api
 type RaftServer struct {
 	// ID is the unique ID for the server. These are currently the same
 	// as the address, but they will be changed to a real GUID in a future
-	// release of Consul.
+	// release of Dumb Consul.
 	ID string
 
-	// Node is the node name of the server, as known by Consul, or this
+	// Node is the node name of the server, as known by Dumb Consul, or this
 	// will be set to "(unknown)" otherwise.
 	Node string
 
@@ -26,7 +26,7 @@ type RaftServer struct {
 	// Voter is true if this server has a vote in the cluster. This might
 	// be false if the server is staging and still coming online, or if
 	// it's a non-voting server, which will be added in a future release of
-	// Consul.
+	// Dumb Consul.
 	Voter bool
 
 	// LastIndex is the last log index this server has a record of in its Raft log.

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domEventSourceProxy from 'consul-ui/utils/dom/event-source/proxy';
+import domEventSourceProxy from 'dumb-consul-ui/utils/dom/event-source/proxy';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | dom/event source/proxy', function () {

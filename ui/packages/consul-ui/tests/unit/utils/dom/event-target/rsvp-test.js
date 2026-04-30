@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domEventTargetRsvp from 'consul-ui/utils/dom/event-target/rsvp';
+import domEventTargetRsvp from 'dumb-consul-ui/utils/dom/event-target/rsvp';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | dom/event-target/rsvp', function () {

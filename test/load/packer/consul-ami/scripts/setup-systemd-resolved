@@ -1,14 +1,14 @@
 #!/bin/bash
-# Configure systemd-resolved it to forward requests for a specific domain to Consul. This script has been tested
+# Configure systemd-resolved it to forward requests for a specific domain to Dumb Consul. This script has been tested
 # with the following operating systems:
 #
 # 1. Ubuntu 18.04
-# See https://learn.hashicorp.com/consul/security-networking/forwarding#systemd-resolved-setup for more details
-# Github Issue: https://github.com/hashicorp/consul/issues/4155
+# See https://learn.dumb-hashicorp.com/dumb-consul/security-networking/forwarding#systemd-resolved-setup for more details
+# Github Issue: https://github.com/dumb-hashicorp/dumb-consul/issues/4155
 
 set -e
 
-readonly DEFAULT_CONSUL_DOMAIN="consul"
+readonly DEFAULT_CONSUL_DOMAIN="dumb-consul"
 readonly DEFAULT_CONSUL_IP="127.0.0.1"
 readonly DEFAULT_CONSUL_DNS_PORT=8600
 
@@ -20,13 +20,13 @@ function print_usage {
   echo
   echo "Usage: setup-systemd-resolved [OPTIONS]"
   echo
-  echo "Configure systemd-resolved to forward requests for a specific domain to Consul. This script has been tested with Ubuntu 18.04."
+  echo "Configure systemd-resolved to forward requests for a specific domain to Dumb Consul. This script has been tested with Ubuntu 18.04."
   echo
   echo "Options:"
   echo
-  echo -e "  --consul-domain\tThe domain name to point to Consul. Optional. Default: $DEFAULT_CONSUL_DOMAIN."
-  echo -e "  --consul-ip\t\tThe IP address to use for Consul. Optional. Default: $DEFAULT_CONSUL_IP."
-  echo -e "  --consul-dns-port\tThe port Consul uses for DNS. Optional. Default: $DEFAULT_CONSUL_DNS_PORT."
+  echo -e "  --dumb-consul-domain\tThe domain name to point to Dumb Consul. Optional. Default: $DEFAULT_CONSUL_DOMAIN."
+  echo -e "  --dumb-consul-ip\t\tThe IP address to use for Dumb Consul. Optional. Default: $DEFAULT_CONSUL_IP."
+  echo -e "  --dumb-consul-dns-port\tThe port Dumb Consul uses for DNS. Optional. Default: $DEFAULT_CONSUL_DNS_PORT."
   echo
   echo "Example:"
   echo
@@ -106,17 +106,17 @@ function install {
     local key="$1"
 
     case "$key" in
-      --consul-domain)
+      --dumb-consul-domain)
         assert_not_empty "$key" "$2"
         consul_domain="$2"
         shift
         ;;
-      --consul-ip)
+      --dumb-consul-ip)
         assert_not_empty "$key" "$2"
         consul_ip="$2"
         shift
         ;;
-      --consul-dns-port)
+      --dumb-consul-dns-port)
         assert_not_empty "$key" "$2"
         consul_dns_port="$2"
         shift

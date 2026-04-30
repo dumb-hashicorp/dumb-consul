@@ -5,7 +5,7 @@
 
 import Serializer from './application';
 import { inject as service } from '@ember/service';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/intention';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/intention';
 
 export default class IntentionSerializer extends Serializer {
   @service('encoder') encoder;

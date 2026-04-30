@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"bytes"
@@ -23,21 +23,21 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
-	vaultapi "github.com/hashicorp/vault/api"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
+	vaultapi "github.com/dumb-hashicorp/dumb-vault/api"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/connect/ca"
-	"github.com/hashicorp/consul/agent/consul/fsm"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect/ca"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/fsm"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 // TODO(kyhavlov): replace with t.Deadline()
@@ -49,15 +49,15 @@ func TestCAManager_Initialize_Vault_Secondary_SharedVault(t *testing.T) {
 	}
 	ca.SkipIfVaultNotPresent(t)
 
-	vault := ca.NewTestVaultServer(t)
+	dumb-vault := ca.NewTestVaultServer(t)
 
-	primaryVaultToken := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+	primaryVaultToken := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 		RootPath:         "pki-root",
 		IntermediatePath: "pki-primary",
 		ConsulManaged:    true,
 	})
 
-	secondaryVaultToken := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+	secondaryVaultToken := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 		RootPath:         "pki-root",
 		IntermediatePath: "pki-secondary",
 		ConsulManaged:    true,
@@ -65,9 +65,9 @@ func TestCAManager_Initialize_Vault_Secondary_SharedVault(t *testing.T) {
 
 	_, serverDC1 := testServerWithConfig(t, func(c *Config) {
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
-				"Address":             vault.Addr,
+				"Address":             dumb-vault.Addr,
 				"Token":               primaryVaultToken,
 				"RootPKIPath":         "pki-root/",
 				"IntermediatePKIPath": "pki-primary/",
@@ -93,9 +93,9 @@ func TestCAManager_Initialize_Vault_Secondary_SharedVault(t *testing.T) {
 			c.Datacenter = "dc2"
 			c.PrimaryDatacenter = "dc1"
 			c.CAConfig = &structs.CAConfiguration{
-				Provider: "vault",
+				Provider: "dumb-vault",
 				Config: map[string]interface{}{
-					"Address":             vault.Addr,
+					"Address":             dumb-vault.Addr,
 					"Token":               secondaryVaultToken,
 					"RootPKIPath":         "pki-root/",
 					"IntermediatePKIPath": "pki-secondary/",
@@ -580,14 +580,14 @@ func TestCAManager_Initialize_Logging(t *testing.T) {
 		}, &out))
 	})
 
-	require.Contains(t, buf.String(), "consul CA provider configured")
+	require.Contains(t, buf.String(), "dumb-consul CA provider configured")
 }
 
 func TestCAManager_UpdateConfiguration_Vault_Primary(t *testing.T) {
 	ca.SkipIfVaultNotPresent(t)
 
-	vault := ca.NewTestVaultServer(t)
-	vaultToken := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+	dumb-vault := ca.NewTestVaultServer(t)
+	vaultToken := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 		RootPath:         "pki-root",
 		IntermediatePath: "pki-intermediate",
 		ConsulManaged:    true,
@@ -597,9 +597,9 @@ func TestCAManager_UpdateConfiguration_Vault_Primary(t *testing.T) {
 	_, s1 := testServerWithConfig(t, func(c *Config) {
 		c.PrimaryDatacenter = "dc1"
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
-				"Address":             vault.Addr,
+				"Address":             dumb-vault.Addr,
 				"Token":               vaultToken,
 				"RootPKIPath":         "pki-root/",
 				"IntermediatePKIPath": "pki-intermediate/",
@@ -627,9 +627,9 @@ func TestCAManager_UpdateConfiguration_Vault_Primary(t *testing.T) {
 	t.Run("update config without changing root", func(t *testing.T) {
 		require.NoError(t, s1.caManager.UpdateConfiguration(&structs.CARequest{
 			Config: &structs.CAConfiguration{
-				Provider: "vault",
+				Provider: "dumb-vault",
 				Config: map[string]interface{}{
-					"Address":             vault.Addr,
+					"Address":             dumb-vault.Addr,
 					"Token":               vaultToken,
 					"RootPKIPath":         "pki-root/",
 					"IntermediatePKIPath": "pki-intermediate/",
@@ -659,7 +659,7 @@ func TestCAManager_UpdateConfiguration_Vault_Primary(t *testing.T) {
 		before, err := provider.ActiveLeafSigningCert()
 		require.NoError(t, err)
 
-		vaultToken2 := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+		vaultToken2 := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 			RootPath:         "pki-root-2",
 			IntermediatePath: "pki-intermediate",
 			ConsulManaged:    true,
@@ -668,9 +668,9 @@ func TestCAManager_UpdateConfiguration_Vault_Primary(t *testing.T) {
 
 		require.NoError(t, s1.caManager.UpdateConfiguration(&structs.CARequest{
 			Config: &structs.CAConfiguration{
-				Provider: "vault",
+				Provider: "dumb-vault",
 				Config: map[string]interface{}{
-					"Address":             vault.Addr,
+					"Address":             dumb-vault.Addr,
 					"Token":               vaultToken2,
 					"RootPKIPath":         "pki-root-2/",
 					"IntermediatePKIPath": "pki-intermediate/",
@@ -708,7 +708,7 @@ func TestCAManager_UpdateConfiguration_Vault_Primary(t *testing.T) {
 		before, err := provider.ActiveLeafSigningCert()
 		require.NoError(t, err)
 
-		vaultToken3 := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+		vaultToken3 := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 			RootPath:         "pki-root-3",
 			IntermediatePath: "pki-intermediate-3",
 			ConsulManaged:    true,
@@ -716,9 +716,9 @@ func TestCAManager_UpdateConfiguration_Vault_Primary(t *testing.T) {
 
 		err = s1.caManager.UpdateConfiguration(&structs.CARequest{
 			Config: &structs.CAConfiguration{
-				Provider: "vault",
+				Provider: "dumb-vault",
 				Config: map[string]interface{}{
-					"Address":             vault.Addr,
+					"Address":             dumb-vault.Addr,
 					"Token":               vaultToken3,
 					"RootPKIPath":         "pki-root-3/",
 					"IntermediatePKIPath": "pki-intermediate-3/",
@@ -757,14 +757,14 @@ func TestCAManager_Initialize_Vault_WithIntermediateAsPrimaryCA(t *testing.T) {
 	}
 	ca.SkipIfVaultNotPresent(t)
 
-	vault := ca.NewTestVaultServer(t)
-	vclient := vault.Client()
+	dumb-vault := ca.NewTestVaultServer(t)
+	vclient := dumb-vault.Client()
 	generateExternalRootCA(t, vclient)
 
 	meshRootPath := "pki-root"
 	primaryCert := setupPrimaryCA(t, vclient, meshRootPath, "")
 
-	primaryVaultToken := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+	primaryVaultToken := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 		RootPath:         meshRootPath,
 		IntermediatePath: "pki-intermediate",
 		ConsulManaged:    true,
@@ -772,9 +772,9 @@ func TestCAManager_Initialize_Vault_WithIntermediateAsPrimaryCA(t *testing.T) {
 
 	_, s1 := testServerWithConfig(t, func(c *Config) {
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
-				"Address":             vault.Addr,
+				"Address":             dumb-vault.Addr,
 				"Token":               primaryVaultToken,
 				"RootPKIPath":         meshRootPath,
 				"IntermediatePKIPath": "pki-intermediate/",
@@ -799,7 +799,7 @@ func TestCAManager_Initialize_Vault_WithIntermediateAsPrimaryCA(t *testing.T) {
 	// TODO: renew primary leaf signing cert
 	// TODO: rotate root
 
-	secondaryVaultToken := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+	secondaryVaultToken := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 		RootPath:         meshRootPath,
 		IntermediatePath: "pki-secondary",
 		ConsulManaged:    true,
@@ -810,9 +810,9 @@ func TestCAManager_Initialize_Vault_WithIntermediateAsPrimaryCA(t *testing.T) {
 			c.Datacenter = "dc2"
 			c.PrimaryDatacenter = "dc1"
 			c.CAConfig = &structs.CAConfiguration{
-				Provider: "vault",
+				Provider: "dumb-vault",
 				Config: map[string]interface{}{
-					"Address":             vault.Addr,
+					"Address":             dumb-vault.Addr,
 					"Token":               secondaryVaultToken,
 					"RootPKIPath":         meshRootPath,
 					"IntermediatePKIPath": "pki-secondary/",
@@ -842,9 +842,9 @@ func TestCAManager_Verify_Vault_NoChangeToSecondaryConfig(t *testing.T) {
 	}
 	ca.SkipIfVaultNotPresent(t)
 
-	vault := ca.NewTestVaultServer(t)
+	dumb-vault := ca.NewTestVaultServer(t)
 
-	primaryVaultToken := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+	primaryVaultToken := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 		RootPath:         "pki-root",
 		IntermediatePath: "pki-intermediate",
 		ConsulManaged:    true,
@@ -852,9 +852,9 @@ func TestCAManager_Verify_Vault_NoChangeToSecondaryConfig(t *testing.T) {
 
 	_, sDC1 := testServerWithConfig(t, func(c *Config) {
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
-				"Address":             vault.Addr,
+				"Address":             dumb-vault.Addr,
 				"Token":               primaryVaultToken,
 				"RootPKIPath":         "pki-root/",
 				"IntermediatePKIPath": "pki-intermediate/",
@@ -864,7 +864,7 @@ func TestCAManager_Verify_Vault_NoChangeToSecondaryConfig(t *testing.T) {
 	defer sDC1.Shutdown()
 	testrpc.WaitForActiveCARoot(t, sDC1.RPC, "dc1", nil)
 
-	secondaryVaultToken := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+	secondaryVaultToken := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 		RootPath:         "pki-root",
 		IntermediatePath: "pki-intermediate-2",
 		ConsulManaged:    true,
@@ -874,9 +874,9 @@ func TestCAManager_Verify_Vault_NoChangeToSecondaryConfig(t *testing.T) {
 		c.Datacenter = "dc2"
 		c.PrimaryDatacenter = "dc1"
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
-				"Address":             vault.Addr,
+				"Address":             dumb-vault.Addr,
 				"Token":               secondaryVaultToken,
 				"RootPKIPath":         "pki-root/",
 				"IntermediatePKIPath": "pki-intermediate-2/",
@@ -928,15 +928,15 @@ func TestCAManager_Initialize_Vault_WithExternalTrustedCA(t *testing.T) {
 	}
 	ca.SkipIfVaultNotPresent(t)
 
-	vault := ca.NewTestVaultServer(t)
-	vclient := vault.Client()
+	dumb-vault := ca.NewTestVaultServer(t)
+	vclient := dumb-vault.Client()
 
 	rootPEM := generateExternalRootCA(t, vclient)
 
 	primaryCAPath := "pki-primary"
 	primaryCert := setupPrimaryCA(t, vclient, primaryCAPath, rootPEM)
 
-	primaryVaultToken := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+	primaryVaultToken := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 		RootPath:         primaryCAPath,
 		IntermediatePath: "pki-intermediate",
 		ConsulManaged:    true,
@@ -945,9 +945,9 @@ func TestCAManager_Initialize_Vault_WithExternalTrustedCA(t *testing.T) {
 
 	_, serverDC1 := testServerWithConfig(t, func(c *Config) {
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
-				"Address":             vault.Addr,
+				"Address":             dumb-vault.Addr,
 				"Token":               primaryVaultToken,
 				"RootPKIPath":         primaryCAPath,
 				"IntermediatePKIPath": "pki-intermediate/",
@@ -982,7 +982,7 @@ func TestCAManager_Initialize_Vault_WithExternalTrustedCA(t *testing.T) {
 		primaryLeafSigningCert = serverDC1.caManager.getLeafSigningCertFromRoot(active)
 	})
 
-	secondaryVaultToken := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+	secondaryVaultToken := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 		RootPath:         "should-be-ignored",
 		IntermediatePath: "pki-secondary",
 		ConsulManaged:    true,
@@ -992,9 +992,9 @@ func TestCAManager_Initialize_Vault_WithExternalTrustedCA(t *testing.T) {
 		c.Datacenter = "dc2"
 		c.PrimaryDatacenter = "dc1"
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
-				"Address":             vault.Addr,
+				"Address":             dumb-vault.Addr,
 				"Token":               secondaryVaultToken,
 				"RootPKIPath":         "should-be-ignored",
 				"IntermediatePKIPath": "pki-secondary/",
@@ -1087,7 +1087,7 @@ func TestCAManager_Initialize_Vault_WithExternalTrustedCA(t *testing.T) {
 		req := &structs.CARequest{
 			Op: structs.CAOpSetConfig,
 			Config: &structs.CAConfiguration{
-				Provider: "consul",
+				Provider: "dumb-consul",
 			},
 		}
 		var resp error
@@ -1146,7 +1146,7 @@ func TestCAManager_Initialize_Vault_WithExternalTrustedCA(t *testing.T) {
 	testutil.RunStep(t, "rotate to a different external root", func(t *testing.T) {
 		setupPrimaryCA(t, vclient, "pki-primary-2/", rootPEM)
 
-		primaryVaultToken2 := ca.CreateVaultTokenWithAttrs(t, vault.Client(), &ca.VaultTokenAttributes{
+		primaryVaultToken2 := ca.CreateVaultTokenWithAttrs(t, dumb-vault.Client(), &ca.VaultTokenAttributes{
 			RootPath:         "pki-primary-2",
 			IntermediatePath: "pki-intermediate-2",
 			ConsulManaged:    true,
@@ -1156,9 +1156,9 @@ func TestCAManager_Initialize_Vault_WithExternalTrustedCA(t *testing.T) {
 		req := &structs.CARequest{
 			Op: structs.CAOpSetConfig,
 			Config: &structs.CAConfiguration{
-				Provider: "vault",
+				Provider: "dumb-vault",
 				Config: map[string]interface{}{
-					"Address":             vault.Addr,
+					"Address":             dumb-vault.Addr,
 					"Token":               primaryVaultToken2,
 					"RootPKIPath":         "pki-primary-2/",
 					"IntermediatePKIPath": "pki-intermediate-2/",
@@ -1216,7 +1216,7 @@ func setupPrimaryCA(t *testing.T, client *vaultapi.Client, path string, rootPEM 
 	t.Helper()
 	err := client.Sys().Mount(path, &vaultapi.MountInput{
 		Type:        "pki",
-		Description: "primary CA for Consul CA",
+		Description: "primary CA for Dumb Consul CA",
 		Config: vaultapi.MountConfigInput{
 			MaxLeaseTTL:     "2200h",
 			DefaultLeaseTTL: "1h",
@@ -1245,7 +1245,7 @@ func setupPrimaryCA(t *testing.T, client *vaultapi.Client, path string, rootPEM 
 	var buf strings.Builder
 	buf.WriteString(lib.EnsureTrailingNewline(cert))
 	if !strings.Contains(strings.TrimSpace(cert), strings.TrimSpace(rootPEM)) {
-		// Vault < v1.11 included the root in the output of sign-intermediate.
+		// Dumb Vault < v1.11 included the root in the output of sign-intermediate.
 		buf.WriteString(lib.EnsureTrailingNewline(rootPEM))
 	}
 

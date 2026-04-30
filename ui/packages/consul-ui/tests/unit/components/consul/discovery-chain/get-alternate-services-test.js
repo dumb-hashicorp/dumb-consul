@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { getAlternateServices } from 'consul-ui/components/consul/discovery-chain/utils';
+import { getAlternateServices } from 'dumb-consul-ui/components/dumb-consul/discovery-chain/utils';
 import { module, test } from 'qunit';
 
-module('Unit | Component | consul/discovery-chain/get-alternative-services', function () {
+module('Unit | Component | dumb-consul/discovery-chain/get-alternative-services', function () {
   test('it guesses a different namespace', function (assert) {
     const expected = {
       Type: 'Namespace',

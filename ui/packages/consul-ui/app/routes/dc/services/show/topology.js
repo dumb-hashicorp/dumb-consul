@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import Route from 'consul-ui/routing/route';
+import Route from 'dumb-consul-ui/routing/route';
 import { inject as service } from '@ember/service';
 import { set, action } from '@ember/object';
 

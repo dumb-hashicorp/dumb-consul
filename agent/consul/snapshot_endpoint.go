@@ -3,12 +3,12 @@
 
 // The snapshot endpoint is a special non-RPC endpoint that supports streaming
 // for taking and restoring snapshots for disaster recovery. This gets wired
-// directly into Consul's stream handler, and a new TCP connection is made for
+// directly into Dumb Consul's stream handler, and a new TCP connection is made for
 // each request.
 //
 // This also includes a SnapshotRPC() function, which acts as a lightweight
 // client that knows the details of the stream protocol.
-package consul
+package dumb-consul
 
 import (
 	"bytes"
@@ -18,11 +18,11 @@ import (
 	"net"
 	"time"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
 
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/snapshot"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/snapshot"
 )
 
 // dispatchSnapshotRequest takes an incoming request structure with possibly some

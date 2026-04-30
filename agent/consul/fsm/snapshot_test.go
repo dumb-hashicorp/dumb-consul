@@ -10,22 +10,22 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-raftchunking"
+	"github.com/dumb-hashicorp/go-raftchunking"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestFSM_SnapshotRestore_CE(t *testing.T) {
@@ -241,7 +241,7 @@ func TestFSM_SnapshotRestore_CE(t *testing.T) {
 	// CA Config
 	caConfig := &structs.CAConfiguration{
 		ClusterID: "foo",
-		Provider:  "consul",
+		Provider:  "dumb-consul",
 		Config: map[string]interface{}{
 			"foo": "asdf",
 			"bar": 6.5,

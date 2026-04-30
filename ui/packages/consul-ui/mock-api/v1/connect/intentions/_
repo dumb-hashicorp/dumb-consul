@@ -12,7 +12,7 @@ ${ http.method !== "PUT" ? `
     "DestinationNS": "default",
     "SourcePartition": "default",
     "DestinationPartition": "default",
-    "SourceType": "${fake.helpers.randomize(['consul', 'externaluri'])}",
+    "SourceType": "${fake.helpers.randomize(['dumb-consul', 'externaluri'])}",
 ${legacy ? `
     "Action": "${fake.helpers.randomize(['allow', 'deny'])}",
 `:``}

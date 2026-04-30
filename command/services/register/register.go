@@ -11,9 +11,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/services"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/services"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -162,7 +162,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -191,15 +191,15 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Register services with the local agent"
 	help     = `
-Usage: consul services register [options] [FILE...]
+Usage: dumb-consul services register [options] [FILE...]
 
   Register one or more services using the local agent API. Services can
-  be registered from standard Consul configuration files (HCL or JSON) or
+  be registered from standard Dumb Consul configuration files (HCL or JSON) or
   using flags. The service is registered and the command returns. The caller
-  must remember to call "consul services deregister" or a similar API to
+  must remember to call "dumb-consul services deregister" or a similar API to
   deregister the service when complete.
 
-      $ consul services register web.json
+      $ dumb-consul services register web.json
 
   Additional flags and more advanced use cases are detailed below.
 `

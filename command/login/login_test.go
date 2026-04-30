@@ -15,15 +15,15 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul-awsauth/iamauthtest"
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/consul/authmethod/kubeauth"
-	"github.com/hashicorp/consul/agent/consul/authmethod/testauth"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul-awsauth/iamauthtest"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/kubeauth"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/testauth"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestLoginCommand_noTabs(t *testing.T) {
@@ -440,9 +440,9 @@ func TestLoginCommand_jwt(t *testing.T) {
 						"/org/primary": "primary_org",
 					},
 					"ListClaimMappings": map[string]string{
-						"https://consul.test/groups": "groups",
+						"https://dumb-consul.test/groups": "groups",
 					},
-					"BoundAudiences": []string{"https://consul.test"},
+					"BoundAudiences": []string{"https://dumb-consul.test"},
 				},
 			}
 			if tc.f != nil {
@@ -466,7 +466,7 @@ func TestLoginCommand_jwt(t *testing.T) {
 
 			cl := jwt.Claims{
 				Subject:   "r3qXcK2bix9eFECzsU3Sbmh0K16fatW6@clients",
-				Audience:  jwt.Audience{"https://consul.test"},
+				Audience:  jwt.Audience{"https://dumb-consul.test"},
 				Issuer:    tc.issuer,
 				NotBefore: jwt.NewNumericDate(time.Now().Add(-5 * time.Second)),
 				Expiry:    jwt.NewNumericDate(time.Now().Add(5 * time.Second)),
@@ -479,7 +479,7 @@ func TestLoginCommand_jwt(t *testing.T) {
 			privateCl := struct {
 				FirstName string   `json:"first_name"`
 				Org       orgs     `json:"org"`
-				Groups    []string `json:"https://consul.test/groups"`
+				Groups    []string `json:"https://dumb-consul.test/groups"`
 			}{
 				FirstName: "jeff2",
 				Org:       orgs{"engineering"},

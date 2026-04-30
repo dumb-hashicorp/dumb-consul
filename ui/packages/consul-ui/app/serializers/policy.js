@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/policy';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/policy';
 
 export default class PolicySerializer extends Serializer {
   primaryKey = PRIMARY_KEY;

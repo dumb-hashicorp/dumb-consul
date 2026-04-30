@@ -8,7 +8,7 @@ import {
   validatePresence,
   validateFormat,
 } from 'ember-changeset-validations/validators';
-import validateSometimes from 'consul-ui/validations/sometimes';
+import validateSometimes from 'dumb-consul-ui/validations/sometimes';
 
 const name = 'intention-permission';
 export default (schema) => ({

@@ -4,7 +4,7 @@
  */
 
 import Service, { inject as service } from '@ember/service';
-import { StorageEventSource } from 'consul-ui/utils/dom/event-source';
+import { StorageEventSource } from 'dumb-consul-ui/utils/dom/event-source';
 
 export default class LocalStorageService extends Service {
   @service('settings')

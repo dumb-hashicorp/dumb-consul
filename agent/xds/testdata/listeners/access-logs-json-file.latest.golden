@@ -12,7 +12,7 @@
               ]
             }
           },
-          "name": "Consul Listener Log",
+          "name": "Dumb Consul Listener Log",
           "typedConfig": {
             "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
             "logFormat": {
@@ -39,7 +39,7 @@
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "accessLog": [
                   {
-                    "name": "Consul Listener Filter Log",
+                    "name": "Dumb Consul Listener Filter Log",
                     "typedConfig": {
                       "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
                       "logFormat": {
@@ -51,7 +51,7 @@
                     }
                   }
                 ],
-                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.db.default.default.dc1"
               }
             }
@@ -72,7 +72,7 @@
               ]
             }
           },
-          "name": "Consul Listener Log",
+          "name": "Dumb Consul Listener Log",
           "typedConfig": {
             "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
             "logFormat": {
@@ -99,7 +99,7 @@
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "accessLog": [
                   {
-                    "name": "Consul Listener Filter Log",
+                    "name": "Dumb Consul Listener Filter Log",
                     "typedConfig": {
                       "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
                       "logFormat": {
@@ -111,7 +111,7 @@
                     }
                   }
                 ],
-                "cluster": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.prepared_query_geo-cache"
               }
             }
@@ -132,7 +132,7 @@
               ]
             }
           },
-          "name": "Consul Listener Log",
+          "name": "Dumb Consul Listener Log",
           "typedConfig": {
             "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
             "logFormat": {
@@ -167,7 +167,7 @@
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "accessLog": [
                   {
-                    "name": "Consul Listener Filter Log",
+                    "name": "Dumb Consul Listener Filter Log",
                     "typedConfig": {
                       "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
                       "logFormat": {

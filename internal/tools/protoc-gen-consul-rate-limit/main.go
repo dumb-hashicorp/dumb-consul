@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-// protoc-gen-consul-rate-limit
+// protoc-gen-dumb-consul-rate-limit
 // This protoc plugin maintains the mapping of gRPC method names to
 // a specification of how they should be rate-limited. This is used by the gRPC
 // InTapHandle function (see agent/grpc-middleware/rate.go) to enforce relevant
@@ -14,7 +14,7 @@
 //
 //		service Foo {
 //			rpc Bar(BarRequest) returns (BarResponse) {
-//				option (hashicorp.consul.internal.ratelimit.spec) = {
+//				option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
 //					operation_type: OPERATION_TYPE_WRITE,
 //					operation_category: OPERATION_CATEGORY_ACL
 //				};
@@ -48,7 +48,7 @@ import (
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/proto-public/annotations/ratelimit"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/annotations/ratelimit"
 )
 
 const (
@@ -60,7 +60,7 @@ const (
 
 	service %s {
 	  rpc %s(...) returns (...) {
-	    option (hashicorp.consul.internal.ratelimit.spec) = {
+	    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
 	      operation_type: OPERATION_TYPE_READ | OPERATION_TYPE_WRITE | OPERATION_TYPE_EXEMPT,
 		  operation_category: OPERATION_CATEGORY_ACL | OPERATION_CATEGORY_PEER_STREAM | OPERATION_CATEGORY_CONNECT_CA | OPERATION_CATEGORY_PARTITION | OPERATION_CATEGORY_PEERING | OPERATION_CATEGORY_SERVER_DISCOVERY | OPERATION_CATEGORY_DATAPLANE | OPERATION_CATEGORY_DNS | OPERATION_CATEGORY_SUBSCRIBE | OPERATION_CATEGORY_OPERATOR | OPERATION_CATEGORY_RESOURCE | OPERATION_CATEGORY_CONFIGENTRY,
 	    };

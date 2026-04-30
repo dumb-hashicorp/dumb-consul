@@ -16,7 +16,7 @@
         "Proxy": {
           "ExecMode": "daemon",
           "Command": [
-            "/bin/consul",
+            "/bin/dumb-consul",
             "connect",
             "proxy"
           ],

@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 
-	"github.com/hashicorp/consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
 	"github.com/mitchellh/cli"
 )
 
@@ -39,7 +39,7 @@ func TestConnectCAGetConfigCommand(t *testing.T) {
 		t.Fatalf("bad: %d. %#v", code, ui.ErrorWriter.String())
 	}
 	output := strings.TrimSpace(ui.OutputWriter.String())
-	if !strings.Contains(output, `"Provider": "consul"`) {
+	if !strings.Contains(output, `"Provider": "dumb-consul"`) {
 		t.Fatalf("bad: %s", output)
 	}
 }

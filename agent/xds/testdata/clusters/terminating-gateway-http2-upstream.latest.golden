@@ -7,7 +7,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -27,7 +27,7 @@
           }
         ]
       },
-      "name": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",

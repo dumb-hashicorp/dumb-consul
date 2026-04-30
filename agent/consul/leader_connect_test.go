@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -14,18 +14,18 @@ import (
 	"testing"
 	"time"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
-	"github.com/hashicorp/go-uuid"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/stretchr/testify/require"
 	"gotest.tools/v3/assert"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/connect/ca"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect/ca"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestConnectCA_ConfigurationSet_ChangeKeyConfig_Primary(t *testing.T) {
@@ -113,13 +113,13 @@ func TestConnectCA_ConfigurationSet_ChangeKeyConfig_Primary(t *testing.T) {
 				testutil.RunStep(t, "change roots", func(t *testing.T) {
 					// Update a config value
 					newConfig := &structs.CAConfiguration{
-						Provider: "consul",
+						Provider: "dumb-consul",
 						Config: map[string]interface{}{
 							"PrivateKey":     "",
 							"RootCert":       "",
 							"PrivateKeyType": dst.keyType,
 							"PrivateKeyBits": dst.keyBits,
-							// This verifies the state persistence for providers although Consul
+							// This verifies the state persistence for providers although Dumb Consul
 							// provider doesn't actually use that mechanism outside of tests.
 							"test_state": providerState,
 						},
@@ -341,7 +341,7 @@ func TestCAManager_RenewIntermediate_Vault_Primary(t *testing.T) {
 	_, s1 := testServerWithConfig(t, func(c *Config) {
 		c.PrimaryDatacenter = "dc1"
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
 				"Address":             testVault.Addr,
 				"Token":               vaultToken,
@@ -448,7 +448,7 @@ func TestCAManager_RenewIntermediate_Secondary(t *testing.T) {
 	_, s1 := testServerWithConfig(t, func(c *Config) {
 		c.Build = "1.6.0"
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "consul",
+			Provider: "dumb-consul",
 			Config: map[string]interface{}{
 				"PrivateKey":  "",
 				"RootCert":    "",
@@ -598,7 +598,7 @@ func TestConnectCA_ConfigurationSet_RootRotation_Secondary(t *testing.T) {
 	_, newKey, err := connect.GeneratePrivateKey()
 	require.NoError(t, err)
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"PrivateKey":          newKey,
 			"RootCert":            "",
@@ -719,9 +719,9 @@ func TestCAManager_Initialize_Vault_KeepOldRoots_Primary(t *testing.T) {
 		ConsulManaged:    true,
 	})
 
-	// Update the CA config to use Vault - this should force the generation of a new root cert.
+	// Update the CA config to use Dumb Vault - this should force the generation of a new root cert.
 	vaultCAConf := &structs.CAConfiguration{
-		Provider: "vault",
+		Provider: "dumb-vault",
 		Config: map[string]interface{}{
 			"Address":             testVault.Addr,
 			"Token":               vaultToken,
@@ -785,7 +785,7 @@ func TestCAManager_Initialize_Vault_FixesSigningKeyID_Primary(t *testing.T) {
 		c.Build = "1.6.0"
 		c.PrimaryDatacenter = "dc1"
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
 				"Address":             testVault.Addr,
 				"Token":               vaultToken,
@@ -800,7 +800,7 @@ func TestCAManager_Initialize_Vault_FixesSigningKeyID_Primary(t *testing.T) {
 	testrpc.WaitForLeader(t, s1pre.RPC, "dc1")
 
 	// Restore the pre-1.9.3/1.8.8/1.7.12 behavior of the SigningKeyID not being derived
-	// from the intermediates in the primary (which only matters for provider=vault).
+	// from the intermediates in the primary (which only matters for provider=dumb-vault).
 	var primaryRootSigningKeyID string
 	{
 		state := s1pre.fsm.State()
@@ -1055,7 +1055,7 @@ func TestCAManager_Initialize_TransitionFromPrimaryToSecondary(t *testing.T) {
 		}
 
 		// The old root should have its TrustDomain filled in as the old domain.
-		require.Equal(r, oldSecondaryRoot.ExternalTrustDomain, strings.TrimSuffix(dc2PrimaryRoots.TrustDomain, ".consul"))
+		require.Equal(r, oldSecondaryRoot.ExternalTrustDomain, strings.TrimSuffix(dc2PrimaryRoots.TrustDomain, ".dumb-consul"))
 
 		require.Equal(r, oldSecondaryRoot.ID, dc2PrimaryRoots.Roots[0].ID)
 		require.Equal(r, oldSecondaryRoot.RootCert, dc2PrimaryRoots.Roots[0].RootCert)
@@ -1232,7 +1232,7 @@ func TestLeader_CARootPruning(t *testing.T) {
 	_, newKey, err := connect.GeneratePrivateKey()
 	require.NoError(t, err)
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"LeafCertTTL":  "500ms",
 			"PrivateKey":   newKey,
@@ -1304,7 +1304,7 @@ func TestConnectCA_ConfigurationSet_PersistsRoots(t *testing.T) {
 	_, newKey, err := connect.GeneratePrivateKey()
 	require.NoError(t, err)
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"PrivateKey": newKey,
 			"RootCert":   "",
@@ -1569,7 +1569,7 @@ func TestCAManager_Initialize_Vault_BadCAConfigDoesNotPreventLeaderEstablishment
 		c.Build = "1.9.1"
 		c.PrimaryDatacenter = "dc1"
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
 				"Address":             testVault.Addr,
 				"Token":               "not-the-root",
@@ -1596,7 +1596,7 @@ func TestCAManager_Initialize_Vault_BadCAConfigDoesNotPreventLeaderEstablishment
 	// Now that the leader is up and we have verified that there are no roots / CA init failed,
 	// verify that we can reconfigure away from the bad configuration.
 	newConfig := &structs.CAConfiguration{
-		Provider: "vault",
+		Provider: "dumb-vault",
 		Config: map[string]interface{}{
 			"Address":             testVault.Addr,
 			"Token":               goodVaultToken,
@@ -1627,7 +1627,7 @@ func TestCAManager_Initialize_BadCAConfigDoesNotPreventLeaderEstablishment(t *te
 		c.Build = "1.9.1"
 		c.PrimaryDatacenter = "dc1"
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "consul",
+			Provider: "dumb-consul",
 			Config: map[string]interface{}{
 				"RootCert": "garbage",
 			},
@@ -1643,7 +1643,7 @@ func TestCAManager_Initialize_BadCAConfigDoesNotPreventLeaderEstablishment(t *te
 	require.Nil(t, activeRoot)
 
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config:   map[string]interface{}{},
 	}
 	{
@@ -1687,7 +1687,7 @@ func TestConnectCA_ConfigurationSet_ForceWithoutCrossSigning(t *testing.T) {
 	_, newKey, err := connect.GeneratePrivateKey()
 	require.NoError(t, err)
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"LeafCertTTL":  "500ms",
 			"PrivateKey":   newKey,
@@ -1735,7 +1735,7 @@ func TestConnectCA_ConfigurationSet_Vault_ForceWithoutCrossSigning(t *testing.T)
 		c.Build = "1.9.1"
 		c.PrimaryDatacenter = "dc1"
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config: map[string]interface{}{
 				"Address":             testVault.Addr,
 				"Token":               vaultToken1,
@@ -1768,7 +1768,7 @@ func TestConnectCA_ConfigurationSet_Vault_ForceWithoutCrossSigning(t *testing.T)
 	// Update the provider config to use a new PKI path, which should
 	// cause a rotation.
 	newConfig := &structs.CAConfiguration{
-		Provider: "vault",
+		Provider: "dumb-vault",
 		Config: map[string]interface{}{
 			"Address":             testVault.Addr,
 			"Token":               vaultToken2,

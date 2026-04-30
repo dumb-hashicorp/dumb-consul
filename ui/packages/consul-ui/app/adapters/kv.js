@@ -4,9 +4,9 @@
  */
 
 import Adapter from './application';
-import isFolder from 'consul-ui/utils/isFolder';
-import keyToArray from 'consul-ui/utils/keyToArray';
-import { SLUG_KEY } from 'consul-ui/models/kv';
+import isFolder from 'dumb-consul-ui/utils/isFolder';
+import keyToArray from 'dumb-consul-ui/utils/keyToArray';
+import { SLUG_KEY } from 'dumb-consul-ui/models/kv';
 
 // TODO: Update to use this.formatDatacenter()
 const API_KEYS_KEY = 'keys';
@@ -25,7 +25,7 @@ export default class KvAdapter extends Adapter {
         index,
       }}
     `;
-    await respond((headers, body) => delete headers['x-consul-index']);
+    await respond((headers, body) => delete headers['x-dumb-consul-index']);
     return respond;
   }
 
@@ -42,12 +42,12 @@ export default class KvAdapter extends Adapter {
         index,
       }}
     `;
-    await respond((headers, body) => delete headers['x-consul-index']);
+    await respond((headers, body) => delete headers['x-dumb-consul-index']);
     return respond;
   }
 
   // TODO: Should we replace text/plain here with x-www-form-encoded? See
-  // https://github.com/hashicorp/consul/issues/3804
+  // https://github.com/dumb-hashicorp/dumb-consul/issues/3804
   requestForCreateRecord(request, serialized, data) {
     const params = {
       dc: data.Datacenter,

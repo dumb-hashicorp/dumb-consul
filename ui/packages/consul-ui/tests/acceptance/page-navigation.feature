@@ -1,6 +1,6 @@
 @setupApplicationTest
 Feature: page-navigation
-  In order to view all the data in consul
+  In order to view all the data in dumb-consul
   As a user
   I should be able to visit every page and view data in a HTML from the API
   Background:

@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl/authmethod"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
 	"github.com/mitchellh/cli"
 )
 
@@ -146,7 +146,7 @@ func (c *cmd) init() {
 		&c.tokenNameFormat,
 		"token-name-format",
 		"",
-		"Format used to specify the token name for the auth method. HashiCorp HIL syntax is supported.",
+		"Format used to specify the token name for the auth method. Dumb HashiCorp HIL syntax is supported.",
 	)
 	c.initEnterpriseFlags()
 
@@ -169,7 +169,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -337,7 +337,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Update an ACL auth method"
 	help     = `
-Usage: consul acl auth-method update -name NAME [options]
+Usage: dumb-consul acl auth-method update -name NAME [options]
 
   Updates an auth method. By default it will merge the auth method
   information with its current state so that you do not have to provide all
@@ -345,7 +345,7 @@ Usage: consul acl auth-method update -name NAME [options]
 
   Update all editable fields of the auth method:
 
-    $ consul acl auth-method update -name "my-k8s" \
+    $ dumb-consul acl auth-method update -name "my-k8s" \
                             -description "new description" \
                             -kubernetes-host "https://new-apiserver.example.com:8443" \
                             -kubernetes-ca-cert @/path/to/new-kube.ca.crt \

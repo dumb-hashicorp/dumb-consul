@@ -6,7 +6,7 @@
 import Service, { inject as service } from '@ember/service';
 import { get } from '@ember/object';
 
-import dataSource from 'consul-ui/decorators/data-source';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
 export default class UiConfigService extends Service {
   @service('env') env;

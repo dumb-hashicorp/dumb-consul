@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domEventSourceCache from 'consul-ui/utils/dom/event-source/cache';
+import domEventSourceCache from 'dumb-consul-ui/utils/dom/event-source/cache';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 

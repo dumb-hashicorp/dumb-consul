@@ -1,19 +1,19 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
 	"net"
 	"sync"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/raft"
-	autopilot "github.com/hashicorp/raft-autopilot"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/raft"
+	autopilot "github.com/dumb-hashicorp/raft-autopilot"
 
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // StatsFetcher has two functions for autopilot. First, lets us fetch all the

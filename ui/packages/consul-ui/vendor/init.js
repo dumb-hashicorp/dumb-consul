@@ -31,7 +31,7 @@
 
     // rootURL is a special variable that requires settings before ember
     // boots via ember's HTML metadata tag, the variable is equivalent to
-    // the -ui-content-path Consul flag (or `ui_config { content_path = ""}`)
+    // the -ui-content-path Dumb Consul flag (or `ui_config { content_path = ""}`)
     // There will potentially be one or two more 'pre-init' variables that we need.
     // Anything not 'pre-init' should use ui_config.
     // Check the value to make sure its there and a string
@@ -44,4 +44,4 @@
   } catch (e) {
     throw new Error(`Unable to parse ${appName} settings: ${e.message}`);
   }
-})(document, 'consul-ui');
+})(document, 'dumb-consul-ui');

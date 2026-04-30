@@ -9,14 +9,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func testUUID() string {
@@ -146,7 +146,7 @@ func testRegisterServiceOpts(t *testing.T, s *Store, idx uint64, nodeID, service
 	testRegisterServiceWithChangeOpts(t, s, idx, nodeID, serviceID, false, opts...)
 }
 
-// testRegisterServiceWithChange registers a service and allow ensuring the consul index is updated
+// testRegisterServiceWithChange registers a service and allow ensuring the dumb-consul index is updated
 // even if service already exists if using `modifyAccordingIndex`.
 // This is done by setting the transaction ID in "version" meta so service will be updated if it already exists
 func testRegisterServiceWithChange(t *testing.T, s *Store, idx uint64, nodeID, serviceID string, modifyAccordingIndex bool) *structs.NodeService {
@@ -466,7 +466,7 @@ func TestStateStore_maxIndex(t *testing.T) {
 
 	testRegisterNode(t, s, 0, "foo")
 	testRegisterNode(t, s, 1, "bar")
-	testRegisterService(t, s, 2, "foo", "consul")
+	testRegisterService(t, s, 2, "foo", "dumb-consul")
 
 	if max := s.maxIndex(tableNodes, tableServices); max != 2 {
 		t.Fatalf("bad max: %d", max)

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -24,29 +24,29 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
-	"github.com/hashicorp/memberlist"
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/memberlist"
+	"github.com/dumb-hashicorp/raft"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/multilimiter"
-	rpcRate "github.com/hashicorp/consul/agent/consul/rate"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	grpcmiddleware "github.com/hashicorp/consul/agent/grpc-middleware"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/rpc/middleware"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/multilimiter"
+	rpcRate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	grpcmiddleware "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 const (
@@ -117,7 +117,7 @@ func waitForLeaderEstablishment(t *testing.T, servers ...*Server) {
 }
 
 func testServerConfigIPv6(t testutil.TestingTB) (string, *Config) {
-	dir := testutil.TempDir(t, "consul")
+	dir := testutil.TempDir(t, "dumb-consul")
 	config := DefaultConfig()
 
 	ports := freeport.GetN(t, 4) // {server, serf_lan, serf_wan, grpc}
@@ -194,7 +194,7 @@ func testServerConfigIPv6(t testutil.TestingTB) (string, *Config) {
 }
 
 func testServerConfig(t testutil.TestingTB) (string, *Config) {
-	dir := testutil.TempDir(t, "consul")
+	dir := testutil.TempDir(t, "dumb-consul")
 	config := DefaultConfig()
 
 	ports := freeport.GetN(t, 4) // {server, serf_lan, serf_wan, grpc}
@@ -865,7 +865,7 @@ func TestServer_JoinWAN_viaMeshGateway(t *testing.T) {
 	gwAddr := ipaddr.FormatAddressPort("127.0.0.1", port)
 
 	dir1, s1 := testServerWithConfig(t, func(c *Config) {
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.NodeName = "bob"
 		c.Datacenter = "dc1"
 		c.PrimaryDatacenter = "dc1"
@@ -884,7 +884,7 @@ func TestServer_JoinWAN_viaMeshGateway(t *testing.T) {
 	defer s1.Shutdown()
 
 	dir2, s2 := testServerWithConfig(t, func(c *Config) {
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.NodeName = "betty"
 		c.Datacenter = "dc2"
 		c.PrimaryDatacenter = "dc1"
@@ -903,7 +903,7 @@ func TestServer_JoinWAN_viaMeshGateway(t *testing.T) {
 	defer s2.Shutdown()
 
 	dir3, s3 := testServerWithConfig(t, func(c *Config) {
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.NodeName = "bonnie"
 		c.Datacenter = "dc3"
 		c.PrimaryDatacenter = "dc1"
@@ -923,9 +923,9 @@ func TestServer_JoinWAN_viaMeshGateway(t *testing.T) {
 
 	// We'll use the same gateway for all datacenters since it doesn't care.
 	var p tcpproxy.Proxy
-	p.AddSNIRoute(gwAddr, "bob.server.dc1.consul", tcpproxy.To(s1.config.RPCAddr.String()))
-	p.AddSNIRoute(gwAddr, "betty.server.dc2.consul", tcpproxy.To(s2.config.RPCAddr.String()))
-	p.AddSNIRoute(gwAddr, "bonnie.server.dc3.consul", tcpproxy.To(s3.config.RPCAddr.String()))
+	p.AddSNIRoute(gwAddr, "bob.server.dc1.dumb-consul", tcpproxy.To(s1.config.RPCAddr.String()))
+	p.AddSNIRoute(gwAddr, "betty.server.dc2.dumb-consul", tcpproxy.To(s2.config.RPCAddr.String()))
+	p.AddSNIRoute(gwAddr, "bonnie.server.dc3.dumb-consul", tcpproxy.To(s3.config.RPCAddr.String()))
 	p.AddStopACMESearch(gwAddr)
 	require.NoError(t, p.Start())
 	defer func() {
@@ -933,9 +933,9 @@ func TestServer_JoinWAN_viaMeshGateway(t *testing.T) {
 		p.Wait()
 	}()
 
-	t.Logf("routing %s => %s", "bob.server.dc1.consul", s1.config.RPCAddr.String())
-	t.Logf("routing %s => %s", "betty.server.dc2.consul", s2.config.RPCAddr.String())
-	t.Logf("routing %s => %s", "bonnie.server.dc3.consul", s3.config.RPCAddr.String())
+	t.Logf("routing %s => %s", "bob.server.dc1.dumb-consul", s1.config.RPCAddr.String())
+	t.Logf("routing %s => %s", "betty.server.dc2.dumb-consul", s2.config.RPCAddr.String())
+	t.Logf("routing %s => %s", "bonnie.server.dc3.dumb-consul", s3.config.RPCAddr.String())
 
 	// Register this into the catalog in dc1.
 	{
@@ -1154,13 +1154,13 @@ func TestServer_JoinSeparateLanAndWanAddresses(t *testing.T) {
 	// Check the router has both
 	retry.Run(t, func(r *retry.R) {
 		if len(s1.router.GetDatacenters()) != 2 {
-			r.Fatalf("remote consul missing")
+			r.Fatalf("remote dumb-consul missing")
 		}
 		if len(s2.router.GetDatacenters()) != 2 {
-			r.Fatalf("remote consul missing")
+			r.Fatalf("remote dumb-consul missing")
 		}
 		if len(s2.serverLookup.Servers()) != 2 {
-			r.Fatalf("local consul fellow s3 for s2 missing")
+			r.Fatalf("local dumb-consul fellow s3 for s2 missing")
 		}
 	})
 
@@ -1323,7 +1323,7 @@ func TestServer_RPC_MetricsIntercept_Off(t *testing.T) {
 		// "hijack" the rpc recorder for asserts;
 		// note that there will be "internal" net/rpc calls made
 		// that will still show up; those don't go thru the net/rpc interceptor;
-		// see consul.agent.rpc.middleware.RPCTypeInternal for context
+		// see dumb-consul.agent.rpc.middleware.RPCTypeInternal for context
 		deps.NewRequestRecorderFunc = func(logger hclog.Logger, isLeader func() bool, localDC string) *middleware.RequestRecorder {
 			// for the purposes of this test, we don't need isLeader or localDC
 			return &middleware.RequestRecorder{
@@ -1357,7 +1357,7 @@ func TestServer_RPC_MetricsIntercept_Off(t *testing.T) {
 		// "hijack" the rpc recorder for asserts;
 		// note that there will be "internal" net/rpc calls made
 		// that will still show up; those don't go thru the net/rpc interceptor;
-		// see consul.agent.rpc.middleware.RPCTypeInternal for context
+		// see dumb-consul.agent.rpc.middleware.RPCTypeInternal for context
 		deps.NewRequestRecorderFunc = func(logger hclog.Logger, isLeader func() bool, localDC string) *middleware.RequestRecorder {
 			// for the purposes of this test, we don't need isLeader or localDC
 			return &middleware.RequestRecorder{
@@ -2173,7 +2173,7 @@ func TestServer_ControllerDependencies(t *testing.T) {
 	// type itself will validate that no cyclical dependencies exist so this test really
 	// only produces a visual representation of the dependencies. That comes at the expense
 	// of having to maintain the golden files. What further complicates this is that
-	// Consul Enterprise will have potentially different dependencies that don't exist
+	// Dumb Consul Enterprise will have potentially different dependencies that don't exist
 	// in CE. Therefore if we want to maintain this test, we would need to have a separate
 	// Enterprise and CE golden files and any CE PR which causes regeneration of the golden
 	// file would require another commit in enterprise to regen the enterprise golden file
@@ -2192,7 +2192,7 @@ func TestServer_ControllerDependencies(t *testing.T) {
 
 	waitForLeaderEstablishment(t, s1)
 	// gotest.tools/v3 defines CLI flags which are incompatible wit the golden package
-	// Once we eliminate gotest.tools/v3 from usage within Consul we could uncomment this
+	// Once we eliminate gotest.tools/v3 from usage within Dumb Consul we could uncomment this
 	// actual := fmt.Sprintf("```mermaid\n%s\n```", s1.controllerManager.CalculateDependencies(s1.registry.Types()).ToMermaid())
 	// markdownFileName := "v2-resource-dependencies"
 	// if versiontest.IsEnterprise() {

@@ -8,7 +8,7 @@ import (
 
 	"github.com/mitchellh/go-testing-interface"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 // TestRegisterRequest returns a RegisterRequest for registering a typical service.
@@ -60,7 +60,7 @@ func TestNodeServiceWithName(name string) *NodeService {
 	}
 }
 
-const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.consul"
+const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul"
 
 func TestCheckNodeServiceWithNameInPeer(t testing.T, name, dc, peer, ip string, useHostname bool, remoteEntMeta acl.EnterpriseMeta) CheckServiceNode {
 

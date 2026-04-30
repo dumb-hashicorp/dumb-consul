@@ -6,18 +6,18 @@ package ca
 import (
 	"fmt"
 
-	"github.com/hashicorp/vault/api/auth/gcp"
+	"github.com/dumb-hashicorp/dumb-vault/api/auth/gcp"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 var _ VaultAuthenticator = (*gcp.GCPAuth)(nil)
 
-// NewGCPAuthClient returns a VaultAuthenticator that can log into Vault using the GCP auth method.
+// NewGCPAuthClient returns a VaultAuthenticator that can log into Dumb Vault using the GCP auth method.
 func NewGCPAuthClient(authMethod *structs.VaultAuthMethod) (VaultAuthenticator, error) {
 	// Check if the configuration already contains a JWT auth token. If so we want to
 	// perform a direct request to the login API with the config that is provided.
-	// This supports the  Vault CA config in a backwards compatible way so that we don't
+	// This supports the  Dumb Vault CA config in a backwards compatible way so that we don't
 	// break existing configurations.
 	if legacyCheck(authMethod.Params, "jwt") {
 		return NewVaultAPIAuthClient(authMethod, ""), nil
@@ -41,7 +41,7 @@ func NewGCPAuthClient(authMethod *structs.VaultAuthMethod) (VaultAuthenticator, 
 
 	auth, err := gcp.NewGCPAuth(params["role"], opts...)
 	if err != nil {
-		return nil, fmt.Errorf("failed to create a new Vault GCP auth client: %w", err)
+		return nil, fmt.Errorf("failed to create a new Dumb Vault GCP auth client: %w", err)
 	}
 	return auth, nil
 }

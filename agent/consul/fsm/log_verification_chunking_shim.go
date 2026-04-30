@@ -8,11 +8,11 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/hashicorp/go-raftchunking"
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/raft-wal/verifier"
+	"github.com/dumb-hashicorp/go-raftchunking"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/raft-wal/verifier"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 type logVerificationChunkingShim struct {

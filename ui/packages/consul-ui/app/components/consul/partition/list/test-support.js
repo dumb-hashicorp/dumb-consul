@@ -4,7 +4,7 @@
  */
 
 export const selectors = () => ({
-  ['.consul-partition-list']: {
+  ['.dumb-consul-partition-list']: {
     row: {
       $: '[data-test-list-row]',
       partition: 'a',
@@ -14,7 +14,7 @@ export const selectors = () => ({
   },
 });
 export const pageObject = (collection, clickable, attribute, text, actions) => () => {
-  return collection('.consul-partition-list [data-test-list-row]', {
+  return collection('.dumb-consul-partition-list [data-test-list-row]', {
     partition: clickable('a'),
     name: attribute('data-test-partition', '[data-test-partition]'),
     description: text('[data-test-description]'),

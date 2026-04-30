@@ -7,8 +7,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 type UnsupportedFSMApplyPanicError struct {

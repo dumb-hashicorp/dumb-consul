@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import RepositoryService from 'consul-ui/services/repository';
-import { PRIMARY_KEY } from 'consul-ui/models/proxy';
+import RepositoryService from 'dumb-consul-ui/services/repository';
+import { PRIMARY_KEY } from 'dumb-consul-ui/models/proxy';
 import { set } from '@ember/object';
-import dataSource from 'consul-ui/decorators/data-source';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
 const modelName = 'proxy';
 export default class ProxyService extends RepositoryService {

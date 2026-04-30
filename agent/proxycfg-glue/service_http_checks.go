@@ -6,11 +6,11 @@ package proxycfgglue
 import (
 	"context"
 
-	"github.com/hashicorp/consul/agent/cache"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/local"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // CacheHTTPChecks satisifies the proxycfg.HTTPChecks interface by sourcing

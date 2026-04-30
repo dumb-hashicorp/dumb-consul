@@ -10,7 +10,7 @@ Feature: dc / acls / auth-methods / index: ACL Auth Methods List
     ---
     Then the url should be /dc-1/acls/auth-methods
     Then I see 3 authMethod models
-    And the title should be "Auth Methods - Consul"
+    And the title should be "Auth Methods - Dumb Consul"
   Scenario: Searching the Auth Methods
     Given 1 datacenter model with the value "dc-1"
     And 3 authMethod models from yaml

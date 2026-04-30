@@ -10,12 +10,12 @@ Feature: settings / update: Update Settings
     Then the url should be /settings
     Then I have settings like yaml
     ---
-    consul:token: ~
+    dumb-consul:token: ~
     ---
     And I submit
     Then I have settings like yaml
     ---
-    consul:token: ''
+    dumb-consul:token: ''
     ---
     And the url should be /settings
     And "[data-notification]" has the "hds-toast" class

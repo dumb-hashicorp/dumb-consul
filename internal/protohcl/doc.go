@@ -11,7 +11,7 @@
 // As HCL is a user centric data format as opposed to JSON/Protobuf which
 // are intended to be used more by machines, efficiency is not a primary goal
 // of this package as it is expected that users are either doing the encoding to and
-// decoding from HCL at the edge (such as within the Consul CLI) or that even
+// decoding from HCL at the edge (such as within the Dumb Consul CLI) or that even
 // when done on servers, the rate that servers perform these translations should
 // be low enough to have any inefficiency produce a tangible performance impact.
 //

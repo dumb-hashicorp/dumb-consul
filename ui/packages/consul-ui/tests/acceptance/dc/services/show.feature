@@ -9,15 +9,15 @@ Feature: dc / services / show: Show Service
         Kind: ~
         Tags: ['Tag1', 'Tag2']
         Meta:
-          external-source: consul
+          external-source: dumb-consul
     ---
     When I visit the service page for yaml
     ---
       dc: dc1
       service: service-0
     ---
-    Then I see externalSource like "consul"
-    And the title should be "service-0 - Consul"
+    Then I see externalSource like "dumb-consul"
+    And the title should be "service-0 - Dumb Consul"
 
   Scenario: Given a service with an 'unsupported' external source, there is no logo
     Given 1 datacenter model with the value "dc1"
@@ -144,7 +144,7 @@ Feature: dc / services / show: Show Service
         Port: 8888
         Address: 3.3.3.3
         Meta:
-          external-source: vault
+          external-source: dumb-vault
       Node:
         Address: 3.4.4.4
         Meta:
@@ -160,7 +160,7 @@ Feature: dc / services / show: Show Service
     ---
       - "kubernetes"
       - "kubernetes"
-      - "vault"
+      - "dumb-vault"
     ---
     And I see nodeName on the instances like yaml
     ---

@@ -1,12 +1,12 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 {{#if (can "use acls")}}
   <AuthDialog
-    @src={{uri "settings://consul:token"}}
-    @sink={{uri "settings://consul:token"}}
+    @src={{uri "settings://dumb-consul:token"}}
+    @sink={{uri "settings://dumb-consul:token"}}
     @onchange={{this.reauthorize}}
   >
     <:unauthorized as |authDialog|>
@@ -15,13 +15,13 @@
         @name="login-toggle"
         @onclose={{this.close}}
         @onopen={{this.open}}
-        @aria={{hash label="Log in to Consul"}}
+        @aria={{hash label="Log in to Dumb Consul"}}
         as |modal|
       >
         <Ref @target={{this}} @name="modal" @value={{modal}} />
         <BlockSlot @name="header">
           <h2>
-            Log in to Consul
+            Log in to Dumb Consul
           </h2>
         </BlockSlot>
         <BlockSlot @name="body">
@@ -68,11 +68,11 @@
             "settings"
             params=(hash nspace=undefined partition=undefined)
           }}
-          @text={{t "components.hashicorp-consul.side-nav.user-menu.settings"}}
+          @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.user-menu.settings"}}
           @isHrefExternal={{false}}
         />
         <dd.Interactive
-          @text={{t "components.hashicorp-consul.side-nav.user-menu.log-in"}}
+          @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.user-menu.log-in"}}
           data-test-auth-menu-login
           {{on "click" (optional this.modal.open)}}
         />
@@ -122,7 +122,7 @@
         {{#if authDialog.token.AccessorID}}
           <dd.Description
             @text={{t
-              "components.consul.token.selector.logged-in"
+              "components.dumb-consul.token.selector.logged-in"
               token=(string-substring
                 authDialog.token.AccessorID
                 (sub authDialog.token.AccessorID.length 8)
@@ -137,11 +137,11 @@
             "settings"
             params=(hash nspace=undefined partition=undefined)
           }}
-          @text={{t "components.hashicorp-consul.side-nav.user-menu.settings"}}
+          @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.user-menu.settings"}}
           @isHrefExternal={{false}}
         />
         <dd.Interactive
-          @text={{t "components.hashicorp-consul.side-nav.user-menu.log-out"}}
+          @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.user-menu.log-out"}}
           data-test-auth-menu-logout
           {{on "click" (optional authDialog.logout)}}
         />
@@ -157,7 +157,7 @@
         "settings"
         params=(hash nspace=undefined partition=undefined)
       }}
-      @text={{t "components.hashicorp-consul.side-nav.user-menu.settings"}}
+      @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.user-menu.settings"}}
       @isHrefExternal={{false}}
     />
   </Hds::Dropdown>

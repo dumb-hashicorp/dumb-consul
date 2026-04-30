@@ -3,7 +3,7 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -13,9 +13,9 @@ import (
 	"github.com/stretchr/testify/require"
 	gogrpc "google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/proto/private/pbconfigentry"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestConfigEntryBackend_RejectsPartition(t *testing.T) {
@@ -49,7 +49,7 @@ func TestConfigEntryBackend_RejectsPartition(t *testing.T) {
 	}
 	_, err = configEntryClient.GetResolvedExportedServices(ctx, &req)
 	require.Error(t, err)
-	require.Contains(t, err.Error(), "Partitions are a Consul Enterprise feature")
+	require.Contains(t, err.Error(), "Partitions are a Dumb Consul Enterprise feature")
 }
 
 func TestConfigEntryBackend_IgnoresDefaultPartition(t *testing.T) {

@@ -12,7 +12,7 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
 )
 
 func TestValidateMultiPortWithConnectSidecarInCE(t *testing.T) {

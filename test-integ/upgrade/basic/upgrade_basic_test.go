@@ -8,9 +8,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
-	"github.com/hashicorp/consul/testing/deployer/sprawl"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl"
 )
 
 // Test_Upgrade_Standard_Basic_Agentless tests upgrading the agent servers

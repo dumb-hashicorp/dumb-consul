@@ -1,11 +1,11 @@
 # Adding a Changelog Entry
 
-Any change that a Consul user might need to know about should have a changelog entry.
+Any change that a Dumb Consul user might need to know about should have a changelog entry.
 
 What doesn't need a changelog entry?
 - Docs changes
 - Typos fixes, unless they are in a public-facing API
-- Code changes we are certain no Consul users will need to know about
+- Code changes we are certain no Dumb Consul users will need to know about
 
 To include a [changelog entry](../.changelog) in a PR, commit a text file
 named `.changelog/<PR#>.txt`, where `<PR#>` is the number associated with the open
@@ -34,7 +34,7 @@ Some common values are:
   if no more specific `<code area>` applies
 - `http`: related to the HTTP API interface and its endpoints
 - `dns`: related to DNS functionality
-- `ui`: any change related to the built-in Consul UI (`ui/` folder)
+- `ui`: any change related to the built-in Dumb Consul UI (`ui/` folder)
 
 Look in the [`.changelog/`](../.changelog) folder for examples of existing changelog entries.
 

@@ -20,7 +20,7 @@ var StatsGauges = []prometheus.GaugeDefinition{
 	},
 	{
 		Name: []string{"grpc", "client", "connections"},
-		Help: "Measures the number of active gRPC connections open from the client agent to any Consul servers.",
+		Help: "Measures the number of active gRPC connections open from the client agent to any Dumb Consul servers.",
 	},
 	{
 		Name: []string{"grpc", "server", "streams"},
@@ -30,7 +30,7 @@ var StatsGauges = []prometheus.GaugeDefinition{
 var StatsCounters = []prometheus.CounterDefinition{
 	{
 		Name: []string{"grpc", "client", "request", "count"},
-		Help: "Counts the number of gRPC requests made by the client agent to a Consul server.",
+		Help: "Counts the number of gRPC requests made by the client agent to a Dumb Consul server.",
 	},
 	{
 		Name: []string{"grpc", "server", "request", "count"},
@@ -38,7 +38,7 @@ var StatsCounters = []prometheus.CounterDefinition{
 	},
 	{
 		Name: []string{"grpc", "client", "connection", "count"},
-		Help: "Counts the number of new gRPC connections opened by the client agent to a Consul server.",
+		Help: "Counts the number of new gRPC connections opened by the client agent to a Dumb Consul server.",
 	},
 	{
 		Name: []string{"grpc", "server", "connection", "count"},

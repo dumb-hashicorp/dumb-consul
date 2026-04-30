@@ -7,7 +7,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 )
 
 type rateLimitedFileWatcher struct {

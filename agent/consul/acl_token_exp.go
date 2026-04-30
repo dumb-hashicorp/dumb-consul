@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func (s *Server) reapExpiredTokens(ctx context.Context) error {

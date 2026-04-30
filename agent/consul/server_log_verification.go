@@ -1,17 +1,17 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"errors"
 	"fmt"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/raft-wal/verifier"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/raft-wal/verifier"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 var _ verifier.IsCheckpointFn = isLogVerifyCheckpoint

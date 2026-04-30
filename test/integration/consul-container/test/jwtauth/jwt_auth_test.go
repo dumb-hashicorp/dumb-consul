@@ -9,17 +9,17 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 	"github.com/stretchr/testify/require"
 
 	"github.com/go-jose/go-jose/v3/jwt"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	libtopology "github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
-	libutils "github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
-	"github.com/hashicorp/go-cleanhttp"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	libtopology "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
+	libutils "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
+	"github.com/dumb-hashicorp/go-cleanhttp"
 	"testing"
 	"time"
 )
@@ -35,9 +35,9 @@ import (
 // - Generates another JWKS with a single JWT
 // - Configures proxy defaults, providers and intentions
 // - Creates a static-server and sidecar containers
-// - Registers the created static-server and sidecar with consul
+// - Registers the created static-server and sidecar with dumb-consul
 // - Create a static-client and sidecar containers
-// - Registers the static-client and sidecar with consul
+// - Registers the static-client and sidecar with dumb-consul
 // - Ensure client sidecar is running as expected
 // - Runs a couple of scenarios to ensure jwt validation works as expected
 func TestJWTAuthConnectService(t *testing.T) {
@@ -58,14 +58,14 @@ func TestJWTAuthConnectService(t *testing.T) {
 
 	// generate jwks and 2 jwts with different claims for provider 1
 	jwksOne, privOne := makeJWKS(t)
-	claimsOne := makeTestClaims("https://legit.issuer.internal/", "https://consul.test")
+	claimsOne := makeTestClaims("https://legit.issuer.internal/", "https://dumb-consul.test")
 	jwtOne := makeJWT(t, privOne, claimsOne, testClaimPayload{UserType: "admin", FirstName: "admin"})
 	jwtOneAdmin := makeJWT(t, privOne, claimsOne, testClaimPayload{UserType: "client", FirstName: "non-admin"})
 	provider1 := makeTestJWTProvider("okta", jwksOne, claimsOne)
 
 	// generate another jwks and jwt for provider 2
 	jwksTwo, privTwo := makeJWKS(t)
-	claimsTwo := makeTestClaims("https://another.issuer.internal/", "https://consul.test")
+	claimsTwo := makeTestClaims("https://another.issuer.internal/", "https://dumb-consul.test")
 	jwtTwo := makeJWT(t, privTwo, claimsTwo, testClaimPayload{})
 	provider2 := makeTestJWTProvider("auth0", jwksTwo, claimsTwo)
 

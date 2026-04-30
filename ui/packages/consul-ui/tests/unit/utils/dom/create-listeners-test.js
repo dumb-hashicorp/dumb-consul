@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import createListeners from 'consul-ui/utils/dom/create-listeners';
+import createListeners from 'dumb-consul-ui/utils/dom/create-listeners';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 

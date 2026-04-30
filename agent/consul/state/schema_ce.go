@@ -8,8 +8,8 @@ package state
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func partitionedIndexEntryName(entry string, _ string) string {

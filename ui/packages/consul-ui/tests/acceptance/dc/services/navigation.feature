@@ -8,7 +8,7 @@ Feature: dc / services / navigation
       dc: dc-1
     ---
     Then the url should be /dc-1/services
-    And the title should be "Services - Consul"
+    And the title should be "Services - Dumb Consul"
     Then I see 1 service models
     When I click service on the services
     And I click "[data-test-back] a"

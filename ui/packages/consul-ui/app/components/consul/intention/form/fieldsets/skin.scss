@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-.consul-intention-fieldsets {
+.dumb-consul-intention-fieldsets {
   .value-allow > :last-child::before {
     @extend %with-allow-500;
   }

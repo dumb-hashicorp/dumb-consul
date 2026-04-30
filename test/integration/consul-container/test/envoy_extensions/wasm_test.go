@@ -12,17 +12,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/go-cleanhttp"
 	"github.com/stretchr/testify/require"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
 )
 
 // TestWASMRemote Summary
@@ -146,7 +146,7 @@ func TestWASMRemote(t *testing.T) {
 	_, err = staticProxy.Exec(context.Background(), []string{"/bin/bash", "-c", bashScript})
 	require.NoError(t, err)
 
-	consul := cluster.APIClient(0)
+	dumb-consul := cluster.APIClient(0)
 	defaults := api.ServiceConfigEntry{
 		Kind:     api.ServiceDefaults,
 		Name:     "static-server",
@@ -175,7 +175,7 @@ func TestWASMRemote(t *testing.T) {
 		}},
 	}
 
-	_, _, err = consul.ConfigEntries().Set(&defaults, nil)
+	_, _, err = dumb-consul.ConfigEntries().Set(&defaults, nil)
 	require.NoError(t, err, "could not set config entries")
 
 	// Check that header is present after wasm applied
@@ -233,7 +233,7 @@ func TestWASMLocal(t *testing.T) {
 	}
 
 	// wire up the wasm filter
-	consul := cluster.APIClient(0)
+	dumb-consul := cluster.APIClient(0)
 	defaults := api.ServiceConfigEntry{
 		Kind:     api.ServiceDefaults,
 		Name:     "static-server",
@@ -256,7 +256,7 @@ func TestWASMLocal(t *testing.T) {
 		}},
 	}
 
-	_, _, err = consul.ConfigEntries().Set(&defaults, nil)
+	_, _, err = dumb-consul.ConfigEntries().Set(&defaults, nil)
 	require.NoError(t, err, "could not set config entries")
 
 	// Check that header is present after wasm applied

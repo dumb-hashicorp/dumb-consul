@@ -14,15 +14,15 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/hashicorp/yamux"
+	"github.com/dumb-hashicorp/yamux"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 const DefaultDialTimeout = 10 * time.Second
@@ -44,7 +44,7 @@ func (sc *StreamClient) Close() {
 	sc.codec.Close()
 }
 
-// Conn is a pooled connection to a Consul server
+// Conn is a pooled connection to a Dumb Consul server
 type Conn struct {
 	refCount    int32
 	shouldClose int32
@@ -122,7 +122,7 @@ func (c *Conn) markForUse() {
 	atomic.AddInt32(&c.refCount, 1)
 }
 
-// ConnPool is used to maintain a connection pool to other Consul
+// ConnPool is used to maintain a connection pool to other Dumb Consul
 // servers. This is used to reduce the latency of RPC requests between
 // servers. It is only used to pool connections in the rpcConsul mode.
 // Raft connections are pooled separately. Maintain at most one
@@ -473,7 +473,7 @@ func (p *ConnPool) getNewConn(dc string, nodeName string, addr net.Addr) (*Conn,
 		return nil, fmt.Errorf("pool: ConnPool.getNewConn requires a node name")
 	}
 
-	// Get a new, raw connection and write the Consul multiplex byte to set the mode
+	// Get a new, raw connection and write the Dumb Consul multiplex byte to set the mode
 	conn, _, err := p.DialTimeout(dc, nodeName, addr, RPCMultiplexV2)
 	if err != nil {
 		return nil, err

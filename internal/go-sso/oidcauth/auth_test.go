@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/go-hclog"
 	"github.com/patrickmn/go-cache"
 	"github.com/stretchr/testify/assert"
 )

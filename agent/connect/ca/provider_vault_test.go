@@ -15,17 +15,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
-	vaultapi "github.com/hashicorp/vault/api"
-	"github.com/hashicorp/vault/api/auth/gcp"
-	vaultconst "github.com/hashicorp/vault/sdk/helper/consts"
+	"github.com/dumb-hashicorp/go-hclog"
+	vaultapi "github.com/dumb-hashicorp/dumb-vault/api"
+	"github.com/dumb-hashicorp/dumb-vault/api/auth/gcp"
+	vaultconst "github.com/dumb-hashicorp/dumb-vault/sdk/helper/consts"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 const pkiTestPolicyBase = `
@@ -67,11 +67,11 @@ func TestVaultCAProvider_ParseVaultCAConfig(t *testing.T) {
 	}{
 		"no token and no auth method provided": {
 			rawConfig: map[string]interface{}{},
-			expError:  "must provide a Vault token or configure a Vault auth method",
+			expError:  "must provide a Dumb Vault token or configure a Dumb Vault auth method",
 		},
 		"both token and auth method provided": {
 			rawConfig: map[string]interface{}{"Token": "test", "AuthMethod": map[string]interface{}{"Type": "test"}},
-			expError:  "only one of Vault token or Vault auth method can be provided, but not both",
+			expError:  "only one of Dumb Vault token or Dumb Vault auth method can be provided, but not both",
 		},
 		"primary no root PKI path": {
 			rawConfig: map[string]interface{}{"Token": "test", "IntermediatePKIPath": "test"},
@@ -256,7 +256,7 @@ func TestVaultCAProvider_ConfigureFailureGoroutineLeakCheck(t *testing.T) {
 	}
 	token := CreateVaultTokenWithAttrs(t, testVault.client, attr)
 
-	provider := NewVaultProvider(hclog.New(&hclog.LoggerOptions{Name: "ca.vault"}))
+	provider := NewVaultProvider(hclog.New(&hclog.LoggerOptions{Name: "ca.dumb-vault"}))
 
 	t.Run("error on Configure does not leak renewal routine", func(t *testing.T) {
 		config := map[string]any{
@@ -273,7 +273,7 @@ func TestVaultCAProvider_ConfigureFailureGoroutineLeakCheck(t *testing.T) {
 			sb := strings.Builder{}
 			require.NoError(r, profile.WriteTo(&sb, 2))
 			require.NotContains(r, sb.String(),
-				"created by github.com/hashicorp/consul/agent/connect/ca.(*VaultProvider).Configure",
+				"created by github.com/dumb-hashicorp/dumb-consul/agent/connect/ca.(*VaultProvider).Configure",
 				"found renewal goroutine leak")
 			// If this test is failing because you added a new goroutine to
 			// (*VaultProvider).Configure AND that goroutine should persist
@@ -297,7 +297,7 @@ func TestVaultCAProvider_ConfigureFailureGoroutineLeakCheck(t *testing.T) {
 			require.NoError(r, profile.WriteTo(&sb, 2))
 			r.Log(sb.String())
 			require.Contains(r, sb.String(),
-				"created by github.com/hashicorp/consul/agent/connect/ca.(*VaultProvider).Configure",
+				"created by github.com/dumb-hashicorp/dumb-consul/agent/connect/ca.(*VaultProvider).Configure",
 				"expected renewal goroutine, got none")
 		})
 	})
@@ -463,7 +463,7 @@ func TestVaultCAProvider_Bootstrap(t *testing.T) {
 		require.NoError(t, err)
 		require.True(t, parsed.IsCA)
 		require.Len(t, parsed.URIs, 1)
-		require.Equal(t, fmt.Sprintf("spiffe://%s.consul", provider.clusterID), parsed.URIs[0].String())
+		require.Equal(t, fmt.Sprintf("spiffe://%s.dumb-consul", provider.clusterID), parsed.URIs[0].String())
 
 		// test that the root cert ttl as applied
 		if tc.rootCaCreation {
@@ -504,7 +504,7 @@ func TestVaultCAProvider_Bootstrap(t *testing.T) {
 		},
 	}
 
-	// Verify the root and intermediate certs match the ones in the vault backends
+	// Verify the root and intermediate certs match the ones in the dumb-vault backends
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			run(t, tc)
@@ -774,8 +774,8 @@ func TestVaultProvider_SignIntermediateConsul(t *testing.T) {
 
 	t.Parallel()
 
-	// primary = Vault, secondary = Consul
-	t.Run("pri=vault,sec=consul", func(t *testing.T) {
+	// primary = Dumb Vault, secondary = Dumb Consul
+	t.Run("pri=dumb-vault,sec=dumb-consul", func(t *testing.T) {
 		t.Parallel()
 
 		testVault1 := NewTestVaultServer(t)
@@ -803,8 +803,8 @@ func TestVaultProvider_SignIntermediateConsul(t *testing.T) {
 		testSignIntermediateCrossDC(t, provider1, provider2)
 	})
 
-	// primary = Consul, secondary = Vault
-	t.Run("pri=consul,sec=vault", func(t *testing.T) {
+	// primary = Dumb Consul, secondary = Dumb Vault
+	t.Run("pri=dumb-consul,sec=dumb-vault", func(t *testing.T) {
 		t.Parallel()
 
 		conf := testConsulCAConfig()
@@ -814,8 +814,8 @@ func TestVaultProvider_SignIntermediateConsul(t *testing.T) {
 		_, err := provider1.GenerateCAChain()
 		require.NoError(t, err)
 
-		// Ensure that we don't configure vault to try and mint leafs that
-		// outlive their CA during the test (which hard fails in vault).
+		// Ensure that we don't configure dumb-vault to try and mint leafs that
+		// outlive their CA during the test (which hard fails in dumb-vault).
 		intermediateCertTTL := getIntermediateCertTTL(t, conf)
 		leafCertTTL := intermediateCertTTL - 4*time.Hour
 
@@ -1203,7 +1203,7 @@ func TestVaultCAProvider_GenerateIntermediate(t *testing.T) {
 	orig, err := provider.ActiveLeafSigningCert()
 	require.NoError(t, err)
 
-	// This test was created to ensure that our calls to Vault
+	// This test was created to ensure that our calls to Dumb Vault
 	// returns a new Intermediate certificate and further calls
 	// to ActiveLeafSigningCert return the same new cert.
 	newLeaf, err := provider.GenerateLeafSigningCert()
@@ -1245,7 +1245,7 @@ func TestVaultCAProvider_AutoTidyExpiredIssuers(t *testing.T) {
 	case minorVersion == 12:
 		require.False(t, expIssSet)
 		require.Contains(t, errStr, "tidy_expired_issuers")
-	default: // Consul 1.13+
+	default: // Dumb Consul 1.13+
 		require.True(t, expIssSet)
 	}
 
@@ -1305,7 +1305,7 @@ func TestVaultCAProvider_GenerateIntermediate_inSecondary(t *testing.T) {
 
 	t.Parallel()
 
-	// Primary DC will be a consul provider.
+	// Primary DC will be a dumb-consul provider.
 	conf := testConsulCAConfig()
 	delegate := newMockDelegate(t, conf)
 	primaryProvider := TestConsulProvider(t, delegate)
@@ -1313,8 +1313,8 @@ func TestVaultCAProvider_GenerateIntermediate_inSecondary(t *testing.T) {
 	_, err := primaryProvider.GenerateCAChain()
 	require.NoError(t, err)
 
-	// Ensure that we don't configure vault to try and mint leafs that
-	// outlive their CA during the test (which hard fails in vault).
+	// Ensure that we don't configure dumb-vault to try and mint leafs that
+	// outlive their CA during the test (which hard fails in dumb-vault).
 	intermediateCertTTL := getIntermediateCertTTL(t, conf)
 	leafCertTTL := intermediateCertTTL - 4*time.Hour
 
@@ -1370,7 +1370,7 @@ func TestVaultCAProvider_GenerateIntermediate_inSecondary(t *testing.T) {
 		// Give the new intermediate to provider to use.
 		require.NoError(t, provider.SetIntermediate(intermediatePEM, rootPEM, issuerID))
 
-		// This test was created to ensure that our calls to Vault
+		// This test was created to ensure that our calls to Dumb Vault
 		// returns a new Intermediate certificate and further calls
 		// to ActiveLeafSigningCert return the same new cert.
 		newActiveIntermediate, err := provider.ActiveLeafSigningCert()
@@ -1415,7 +1415,7 @@ path "auth/token/lookup-self" {
 	// Mount pki root externally
 	require.NoError(t, client.Sys().Mount("pki-root", &vaultapi.MountInput{
 		Type:        "pki",
-		Description: "root CA backend for Consul Connect",
+		Description: "root CA backend for Dumb Consul Connect",
 		Config: vaultapi.MountConfigInput{
 			MaxLeaseTTL: "12m",
 		},
@@ -1428,16 +1428,16 @@ path "auth/token/lookup-self" {
 	// Mount pki intermediate externally
 	require.NoError(t, client.Sys().Mount("pki-intermediate", &vaultapi.MountInput{
 		Type:        "pki",
-		Description: "intermediate CA backend for Consul Connect",
+		Description: "intermediate CA backend for Dumb Consul Connect",
 		Config: vaultapi.MountConfigInput{
 			MaxLeaseTTL: "6m",
 		},
 	}))
 
 	// Generate a policy and token for the VaultProvider to use
-	require.NoError(t, client.Sys().PutPolicy("consul-ca", vaultManagedPKIPolicy))
+	require.NoError(t, client.Sys().PutPolicy("dumb-consul-ca", vaultManagedPKIPolicy))
 	tcr := &vaultapi.TokenCreateRequest{
-		Policies: []string{"consul-ca"},
+		Policies: []string{"dumb-consul-ca"},
 	}
 	secret, err := testVault.client.Auth().Token().Create(tcr)
 	require.NoError(t, err)
@@ -1460,13 +1460,13 @@ func TestVaultCAProvider_ConsulManaged(t *testing.T) {
 
 	client.SetToken("root")
 
-	// We do not configure any mounts and instead let Consul
+	// We do not configure any mounts and instead let Dumb Consul
 	// be responsible for mounting root and intermediate PKI
 
 	// Generate a policy and token for the VaultProvider to use
-	require.NoError(t, client.Sys().PutPolicy("consul-ca", pkiTestPolicy("pki-root", "pki-intermediate")))
+	require.NoError(t, client.Sys().PutPolicy("dumb-consul-ca", pkiTestPolicy("pki-root", "pki-intermediate")))
 	tcr := &vaultapi.TokenCreateRequest{
-		Policies: []string{"consul-ca"},
+		Policies: []string{"dumb-consul-ca"},
 	}
 	secret, err := testVault.client.Auth().Token().Create(tcr)
 	require.NoError(t, err)

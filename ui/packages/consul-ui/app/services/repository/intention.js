@@ -5,9 +5,9 @@
 
 import { set, get } from '@ember/object';
 import { inject as service } from '@ember/service';
-import RepositoryService from 'consul-ui/services/repository';
-import { PRIMARY_KEY } from 'consul-ui/models/intention';
-import dataSource from 'consul-ui/decorators/data-source';
+import RepositoryService from 'dumb-consul-ui/services/repository';
+import { PRIMARY_KEY } from 'dumb-consul-ui/models/intention';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
 const modelName = 'intention';
 export default class IntentionRepository extends RepositoryService {

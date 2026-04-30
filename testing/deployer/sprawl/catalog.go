@@ -14,10 +14,10 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 // registerAllServicesToAgents registers services in agent-ful mode
@@ -148,7 +148,7 @@ func (s *Sprawl) registerAgentService(
 
 	// Switch token for every request.
 	hdr := make(http.Header)
-	hdr.Set("X-Consul-Token", s.secrets.ReadWorkloadToken(cluster.Name, wrk.ID))
+	hdr.Set("X-Dumb Consul-Token", s.secrets.ReadWorkloadToken(cluster.Name, wrk.ID))
 	agentClient.SetHeaders(hdr)
 
 RETRY:

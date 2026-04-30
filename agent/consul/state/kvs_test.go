@@ -11,9 +11,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestStateStore_ReapTombstones(t *testing.T) {

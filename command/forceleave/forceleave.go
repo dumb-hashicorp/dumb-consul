@@ -9,8 +9,8 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -57,7 +57,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -83,13 +83,13 @@ func (c *cmd) Help() string {
 
 const synopsis = "Forces a member of the cluster to enter the \"left\" state"
 const help = `
-Usage: consul force-leave [options] name
+Usage: dumb-consul force-leave [options] name
 
-  Forces a member of a Consul cluster to enter the "left" state. Note
+  Forces a member of a Dumb Consul cluster to enter the "left" state. Note
   that if the member is still actually alive, it will eventually rejoin
   the cluster. This command is most useful for cleaning out "failed" nodes
   that are never coming back. If you do not force leave a failed node,
-  Consul will attempt to reconnect to those failed nodes for some period of
+  Dumb Consul will attempt to reconnect to those failed nodes for some period of
   time before eventually reaping them.
 
   -prune    Remove agent completely from list of members

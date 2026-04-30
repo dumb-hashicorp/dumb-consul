@@ -6,7 +6,7 @@ package impexp
 import (
 	"encoding/base64"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 type Entry struct {

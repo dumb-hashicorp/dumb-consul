@@ -3,7 +3,7 @@
 package autopilotevents
 
 import (
-	stream "github.com/hashicorp/consul/agent/consul/stream"
+	stream "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
 	mock "github.com/stretchr/testify/mock"
 )
 

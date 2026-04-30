@@ -4,19 +4,19 @@
  */
 
 import Service from '@ember/service';
-import service from 'consul-ui/sort/comparators/service';
-import serviceInstance from 'consul-ui/sort/comparators/service-instance';
-import upstreamInstance from 'consul-ui/sort/comparators/upstream-instance';
-import kv from 'consul-ui/sort/comparators/kv';
-import healthCheck from 'consul-ui/sort/comparators/health-check';
-import intention from 'consul-ui/sort/comparators/intention';
-import token from 'consul-ui/sort/comparators/token';
-import role from 'consul-ui/sort/comparators/role';
-import policy from 'consul-ui/sort/comparators/policy';
-import authMethod from 'consul-ui/sort/comparators/auth-method';
-import nspace from 'consul-ui/sort/comparators/nspace';
-import peer from 'consul-ui/sort/comparators/peer';
-import node from 'consul-ui/sort/comparators/node';
+import service from 'dumb-consul-ui/sort/comparators/service';
+import serviceInstance from 'dumb-consul-ui/sort/comparators/service-instance';
+import upstreamInstance from 'dumb-consul-ui/sort/comparators/upstream-instance';
+import kv from 'dumb-consul-ui/sort/comparators/kv';
+import healthCheck from 'dumb-consul-ui/sort/comparators/health-check';
+import intention from 'dumb-consul-ui/sort/comparators/intention';
+import token from 'dumb-consul-ui/sort/comparators/token';
+import role from 'dumb-consul-ui/sort/comparators/role';
+import policy from 'dumb-consul-ui/sort/comparators/policy';
+import authMethod from 'dumb-consul-ui/sort/comparators/auth-method';
+import nspace from 'dumb-consul-ui/sort/comparators/nspace';
+import peer from 'dumb-consul-ui/sort/comparators/peer';
+import node from 'dumb-consul-ui/sort/comparators/node';
 
 // returns an array of Property:asc, Property:desc etc etc
 const directionify = (arr) => {

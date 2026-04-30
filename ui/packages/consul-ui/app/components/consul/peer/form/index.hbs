@@ -1,23 +1,23 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<div class={{class-map "consul-peer-form"}} ...attributes>
+<div class={{class-map "dumb-consul-peer-form"}} ...attributes>
   <StateMachine
-    @src={{require "./chart.xstate" from="/components/consul/peer/form"}}
+    @src={{require "./chart.xstate" from="/components/dumb-consul/peer/form"}}
     as |fsm|
   >
 
     <TabNav
       @items={{array
         (hash
-          label=(t "components.consul.peer.form.generate-label")
+          label=(t "components.dumb-consul.peer.form.generate-label")
           selected=(state-matches fsm.state "generate")
           state="GENERATE"
         )
         (hash
-          label=(t "components.consul.peer.form.establish-label")
+          label=(t "components.dumb-consul.peer.form.establish-label")
           selected=(state-matches fsm.state "initiate")
           state="INITIATE"
         )
@@ -32,7 +32,7 @@
         as |source|
       >
         {{yield
-          (hash Form=(component "consul/peer/form/generate" item=source.data))
+          (hash Form=(component "dumb-consul/peer/form/generate" item=source.data))
         }}
       </DataSource>
 
@@ -45,7 +45,7 @@
         as |source|
       >
         {{yield
-          (hash Form=(component "consul/peer/form/initiate" item=source.data))
+          (hash Form=(component "dumb-consul/peer/form/initiate" item=source.data))
         }}
       </DataSource>
 

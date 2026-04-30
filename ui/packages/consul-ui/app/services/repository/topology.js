@@ -4,9 +4,9 @@
  */
 
 import { inject as service } from '@ember/service';
-import RepositoryService from 'consul-ui/services/repository';
+import RepositoryService from 'dumb-consul-ui/services/repository';
 import { get, set } from '@ember/object';
-import dataSource from 'consul-ui/decorators/data-source';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
 const modelName = 'topology';
 const ERROR_MESH_DISABLED = 'Connect must be enabled in order to use this endpoint';

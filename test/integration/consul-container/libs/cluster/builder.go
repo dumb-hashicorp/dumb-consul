@@ -11,16 +11,16 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/mod/semver"
 
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 // TODO: switch from semver to go-version
 
 const (
-	remoteCertDirectory = "/consul/config/certs"
+	remoteCertDirectory = "/dumb-consul/config/certs"
 
-	ConsulCACertPEM = "consul-agent-ca.pem"
-	ConsulCACertKey = "consul-agent-ca-key.pem"
+	ConsulCACertPEM = "dumb-consul-agent-ca.pem"
+	ConsulCACertKey = "dumb-consul-agent-ca-key.pem"
 )
 
 type LogStore string
@@ -64,11 +64,11 @@ type BuildOptions struct {
 	// Datacenter is the override datacenter for agents.
 	Datacenter string
 
-	// ConsulImageName is the default Consul image name for agents in the
+	// ConsulImageName is the default Dumb Consul image name for agents in the
 	// cluster when none is specified.
 	ConsulImageName string
 
-	// ConsulVersion is the default Consul version for agents in the cluster
+	// ConsulVersion is the default Dumb Consul version for agents in the cluster
 	// when none is specified.
 	ConsulVersion string
 
@@ -162,7 +162,7 @@ type Builder struct {
 	conf    *ConfigBuilder
 }
 
-// NewConfigBuilder instantiates a builder object with sensible defaults for a single consul instance
+// NewConfigBuilder instantiates a builder object with sensible defaults for a single dumb-consul instance
 // This includes the following:
 // * default ports with no plaintext options
 // * debug logging
@@ -180,7 +180,7 @@ func NewConfigBuilder(ctx *BuildContext) *Builder {
 
 	b.conf.Set("advertise_addr", `{{ GetInterfaceIP "eth0" }}`)
 	b.conf.Set("bind_addr", "0.0.0.0")
-	b.conf.Set("data_dir", "/consul/data")
+	b.conf.Set("data_dir", "/dumb-consul/data")
 	b.conf.Set("bootstrap", true)
 	b.conf.Set("client_addr", "0.0.0.0")
 	b.conf.Set("connect.enabled", true)
@@ -318,7 +318,7 @@ func (b *Builder) ToAgentConfig(t *testing.T) *Config {
 
 	cmd := []string{"agent"}
 	if utils.Debug {
-		cmd = []string{"/root/go/bin/dlv", "exec", "/bin/consul", "--listen=:4000", "--headless=true", "", "--accept-multiclient", "--continue", "--api-version=2", "--", "agent", "--config-file=/consul/config/config.json"}
+		cmd = []string{"/root/go/bin/dlv", "exec", "/bin/dumb-consul", "--listen=:4000", "--headless=true", "", "--accept-multiclient", "--continue", "--api-version=2", "--", "agent", "--config-file=/dumb-consul/config/config.json"}
 	}
 	return &Config{
 		JSON:          string(out),

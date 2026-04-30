@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/<%= dasherizedModuleName  %>';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/<%= dasherizedModuleName  %>';
 
 export default class <%= classifiedModuleName %>Serializer extends Serializer {
   primaryKey = PRIMARY_KEY;

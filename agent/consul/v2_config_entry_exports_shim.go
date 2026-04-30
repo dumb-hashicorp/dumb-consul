@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -9,15 +9,15 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/controller/queue"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto/private/pbconfigentry"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/controller/queue"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry"
+	"github.com/dumb-hashicorp/go-hclog"
 )
 
 type v1ServiceExportsShim struct {

@@ -5,7 +5,7 @@
 
 import Serializer from './application';
 import { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/node';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/node';
 import { classify } from '@ember/string';
 
 // TODO: Looks like ID just isn't used at all consider just using .Node for

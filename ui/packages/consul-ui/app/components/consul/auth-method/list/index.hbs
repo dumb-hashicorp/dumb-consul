@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <ListCollection
-  class="consul-auth-method-list"
+  class="dumb-consul-auth-method-list"
   @items={{@items}}
   as |item|
 >
@@ -20,7 +20,7 @@
   {{/if}}
   </BlockSlot>
   <BlockSlot @name="details">
-    <Consul::AuthMethod::Type @item={{item}} />
+    <Dumb Consul::AuthMethod::Type @item={{item}} />
   {{#if (not-eq item.DisplayName '')}}
     <span data-test-display-name>{{item.Name}}</span>
   {{/if}}

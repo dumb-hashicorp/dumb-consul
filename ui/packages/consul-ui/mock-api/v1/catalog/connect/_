@@ -24,7 +24,7 @@ ${typeof location.search.ns !== 'undefined' ? `
           "wan": "${fake.internet.ip()}"
         },
         "NodeMeta": {
-          "consul-network-segment": ""
+          "dumb-consul-network-segment": ""
         },
         "ServiceConnect": {},
         "ServiceKind": "connect-proxy",

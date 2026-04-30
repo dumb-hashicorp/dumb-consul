@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -9,12 +9,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/raft"
 
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestStatsFetcher(t *testing.T) {

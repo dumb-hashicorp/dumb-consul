@@ -4,9 +4,9 @@
  */
 
 import { inject as service } from '@ember/service';
-import RepositoryService from 'consul-ui/services/repository';
-import dataSource from 'consul-ui/decorators/data-source';
-import { HEADERS_DEFAULT_ACL_POLICY as DEFAULT_ACL_POLICY } from 'consul-ui/utils/http/consul';
+import RepositoryService from 'dumb-consul-ui/services/repository';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
+import { HEADERS_DEFAULT_ACL_POLICY as DEFAULT_ACL_POLICY } from 'dumb-consul-ui/utils/http/dumb-consul';
 
 const SECONDS = 1000;
 const MODEL_NAME = 'dc';

@@ -1,9 +1,9 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<App class='hashicorp-consul' ...attributes>
+<App class='dumb-hashicorp-dumb-consul' ...attributes>
 
   <:notifications as |app|>
     {{#each this.flashMessages.queue as |flash|}}
@@ -21,40 +21,40 @@
               <T.Description>
                 {{#if (eq type 'logout')}}
                   {{#if (eq status 'success')}}
-                    {{t "components.hashicorp-consul.notifications.logged-out"}}
+                    {{t "components.dumb-hashicorp-dumb-consul.notifications.logged-out"}}
                   {{else}}
-                    {{t "components.hashicorp-consul.notifications.logged-out-error"}}
+                    {{t "components.dumb-hashicorp-dumb-consul.notifications.logged-out-error"}}
                   {{/if}}
                 {{else if (eq type 'authorize')}}
                   {{#if (eq status 'success')}}
-                    {{t "components.hashicorp-consul.notifications.logged-in"}}
+                    {{t "components.dumb-hashicorp-dumb-consul.notifications.logged-in"}}
                   {{else}}
-                    {{t "components.hashicorp-consul.notifications.logged-in-error"}}
+                    {{t "components.dumb-hashicorp-dumb-consul.notifications.logged-in-error"}}
                   {{/if}}
                 {{else}}
                   {{#if (or (eq type 'use') (eq flash.model 'token'))}}
-                    <Consul::Token::Notifications
+                    <Dumb Consul::Token::Notifications
                       @type={{type}}
                       @status={{status}}
                       @item={{flash.item}}
                       @error={{flash.error}}
                     />
                   {{else if (eq flash.model 'intention')}}
-                    <Consul::Intention::Notifications
+                    <Dumb Consul::Intention::Notifications
                       @type={{type}}
                       @status={{status}}
                       @item={{flash.item}}
                       @error={{flash.error}}
                     />
                   {{else if (eq flash.model 'role')}}
-                    <Consul::Role::Notifications
+                    <Dumb Consul::Role::Notifications
                       @type={{type}}
                       @status={{status}}
                       @item={{flash.item}}
                       @error={{flash.error}}
                     />
                   {{else if (eq flash.model 'policy')}}
-                    <Consul::Policy::Notifications
+                    <Dumb Consul::Policy::Notifications
                       @type={{type}}
                       @status={{status}}
                       @item={{flash.item}}
@@ -73,39 +73,39 @@
   </:notifications>
 
   <:sideNav>
-    <Hds::AppSideNav @isResponsive={{false}} @isCollapsible={{false}} class='consul-side-nav' role="navigation" data-test-navigation>
-      <div class='consul-side-nav__header'>
+    <Hds::AppSideNav @isResponsive={{false}} @isCollapsible={{false}} class='dumb-consul-side-nav' role="navigation" data-test-navigation>
+      <div class='dumb-consul-side-nav__header'>
         <Hds::Interactive
-          class='consul-side-nav__home-link'
+          class='dumb-consul-side-nav__home-link'
           @href={{href-to 'index' params=(hash peer=undefined)}}
           @isHrefExternal={{false}}
-          aria-label='Consul'
+          aria-label='Dumb Consul'
         >
-          <Hds::Icon @name='consul-color' @stretched={{true}} />
+          <Hds::Icon @name='dumb-consul-color' @stretched={{true}} />
         </Hds::Interactive>
 
-        <div class='consul-side-nav__header-actions'>
+        <div class='dumb-consul-side-nav__header-actions'>
           <Hds::Dropdown class='hds-side-nav__dropdown' @listPosition='bottom-left' as |dd|>
             <dd.ToggleIcon @icon='help' @text='Help & Support menu' />
             <Debug::Navigation @dropdown={{dd}} />
             <dd.Interactive
               @href={{env 'CONSUL_DOCS_URL'}}
               @isHrefExternal={{true}}
-              @text={{t "components.hashicorp-consul.side-nav.support-menu.docs"}}
+              @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.support-menu.docs"}}
             />
             <dd.Interactive
-              @href={{concat (env 'CONSUL_DOCS_LEARN_URL') '/consul'}}
+              @href={{concat (env 'CONSUL_DOCS_LEARN_URL') '/dumb-consul'}}
               @isHrefExternal={{true}}
-              @text={{t "components.hashicorp-consul.side-nav.support-menu.tutorials"}}
+              @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.support-menu.tutorials"}}
             />
             <dd.Interactive
               @href={{env 'CONSUL_REPO_ISSUES_URL'}}
               @isHrefExternal={{true}}
-              @text={{t "components.hashicorp-consul.side-nav.support-menu.feedback"}}
+              @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.support-menu.feedback"}}
             />
           </Hds::Dropdown>
 
-          <Consul::Token::Selector
+          <Dumb Consul::Token::Selector
             @dc={{@dc}}
             @partition={{@partition}}
             @nspace={{@nspace}}
@@ -113,18 +113,18 @@
             as |selector|
           >
             <Ref @target={{this}} @name='tokenSelector' @value={{selector}} />
-          </Consul::Token::Selector>
+          </Dumb Consul::Token::Selector>
         </div>
       </div>
 
       <Hds::AppSideNav::List
-        class='consul-side-nav__selector-group'
+        class='dumb-consul-side-nav__selector-group'
         aria-labelledby="context selectors"
         aria-label="context selectors"
         as |SNL|
       >
         <HcpNavItem @list={{SNL}}/>
-        <Consul::Datacenter::Selector
+        <Dumb Consul::Datacenter::Selector
           @list={{SNL}}
           @dc={{@dc}}
           @partition={{@partition}}
@@ -133,7 +133,7 @@
         />
 
         {{#if (can 'use partitions')}}
-          <Consul::Partition::Selector
+          <Dumb Consul::Partition::Selector
             @dc={{@dc}}
             @partition={{@partition}}
             @nspace={{@nspace}}
@@ -142,7 +142,7 @@
             @onchange={{action (mut this.partitions) value='data'}}
           />
         {{/if}}
-        <Consul::Nspace::Selector
+        <Dumb Consul::Nspace::Selector
           @list={{SNL}}
           @dc={{@dc}}
           @partition={{@partition}}
@@ -155,7 +155,7 @@
       <Hds::AppSideNav::List aria-label="main navigation" aria-labelledby='main navigation' as |SNL|>
           {{#if (can 'access overview')}}
             <SNL.Link
-              @text={{t "components.hashicorp-consul.side-nav.overview"}}
+              @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.overview"}}
               @route='dc.show'
               @models={{array @dc.Name}}
               @query={{hash peer=undefined}}
@@ -165,7 +165,7 @@
           {{/if}}
           {{#if (can 'read services')}}
             <SNL.Link
-              @text={{t "components.hashicorp-consul.side-nav.services"}}
+              @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.services"}}
               @href={{href-to 'dc.services' @dc.Name params=(hash peer=undefined)}}
               @isHrefExternal={{false}}
               @isActive={{is-href 'dc.services' @dc.Name}}
@@ -174,7 +174,7 @@
           {{/if}}
           {{#if (can 'read nodes')}}
             <SNL.Link
-              @text={{t "components.hashicorp-consul.side-nav.nodes"}}
+              @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.nodes"}}
               @href={{href-to 'dc.nodes' @dc.Name params=(hash peer=undefined)}}
               @isHrefExternal={{false}}
               @isActive={{is-href 'dc.nodes' @dc.Name}}
@@ -183,7 +183,7 @@
           {{/if}}
           {{#if (can 'read kv')}}
             <SNL.Link
-              @text={{t "components.hashicorp-consul.side-nav.kv"}}
+              @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.kv"}}
               @href={{href-to 'dc.kv' @dc.Name params=(hash peer=undefined)}}
               @isHrefExternal={{false}}
               @isActive={{is-href 'dc.kv' @dc.Name}}
@@ -192,7 +192,7 @@
           {{/if}}
           {{#if (can 'read intentions')}}
             <SNL.Link
-              @text={{t "components.hashicorp-consul.side-nav.intentions"}}
+              @text={{t "components.dumb-hashicorp-dumb-consul.side-nav.intentions"}}
               @href={{href-to 'dc.intentions' @dc.Name params=(hash peer=undefined)}}
               @isHrefExternal={{false}}
               @isActive={{is-href 'dc.intentions' @dc.Name}}
@@ -200,13 +200,13 @@
             />
           {{/if}}
 
-          <Consul::Acl::Selector
+          <Dumb Consul::Acl::Selector
             @dc={{@dc}}
             @partition={{@partition}}
             @nspace={{@nspace}}
             @list={{SNL}}
           />
-          <Consul::Peer::Selector
+          <Dumb Consul::Peer::Selector
             @dc={{@dc}}
             @partition={{@partition}}
             @nspace={{@nspace}}
@@ -219,7 +219,7 @@
           @size='100'
           @color='disabled'
         >
-          {{t "components.hashicorp-consul.side-nav.footer" version=this.consulVersion}}
+          {{t "components.dumb-hashicorp-dumb-consul.side-nav.footer" version=this.consulVersion}}
         </Hds::Text::Display>
         {{{concat '<!-- ' (env 'CONSUL_GIT_SHA') '-->'}}}
       </div>

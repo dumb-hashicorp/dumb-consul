@@ -8,10 +8,10 @@ import Service, { inject as service } from '@ember/service';
 import lookupValidator from 'ember-changeset-validations';
 import { Changeset as createChangeset } from 'ember-changeset';
 
-import Changeset from 'consul-ui/utils/form/changeset';
+import Changeset from 'dumb-consul-ui/utils/form/changeset';
 
-import intentionPermissionValidator from 'consul-ui/validations/intention-permission';
-import intentionPermissionHttpHeaderValidator from 'consul-ui/validations/intention-permission-http-header';
+import intentionPermissionValidator from 'dumb-consul-ui/validations/intention-permission';
+import intentionPermissionHttpHeaderValidator from 'dumb-consul-ui/validations/intention-permission-http-header';
 
 const validators = {
   'intention-permission': intentionPermissionValidator,

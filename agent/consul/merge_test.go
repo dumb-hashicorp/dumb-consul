@@ -1,18 +1,18 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"testing"
 
-	uuid "github.com/hashicorp/go-uuid"
-	"github.com/hashicorp/serf/serf"
+	uuid "github.com/dumb-hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 func TestMerge_LAN(t *testing.T) {
@@ -260,7 +260,7 @@ type testMember struct {
 
 func (tm testMember) role() string {
 	if tm.server {
-		return "consul"
+		return "dumb-consul"
 	}
 	return "node"
 }

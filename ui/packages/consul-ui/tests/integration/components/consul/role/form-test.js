@@ -8,7 +8,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | consul/role/form', function (hooks) {
+module('Integration | Component | dumb-consul/role/form', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
@@ -24,7 +24,7 @@ module('Integration | Component | consul/role/form', function (hooks) {
     // Helper function to render component with common args
     this.renderRoleForm = async (extraArgs = {}) => {
       return render(hbs`
-        <Consul::Role::Form
+        <Dumb Consul::Role::Form
           @form={{this.form}}
           @item={{this.item}}
           @create={{this.create}}

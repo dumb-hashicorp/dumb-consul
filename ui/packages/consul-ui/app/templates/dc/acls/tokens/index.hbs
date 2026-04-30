@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -18,7 +18,7 @@ as |route|>
 
     <BlockSlot @name="error">
     {{#if (eq loader.error.status '401')}}
-      <Consul::Acl::Disabled />
+      <Dumb Consul::Acl::Disabled />
     {{else}}
       <AppError
         @error={{loader.error}}
@@ -73,7 +73,7 @@ as |route|>
       </BlockSlot>
       <BlockSlot @name="toolbar">
     {{#if (gt items.length 0)}}
-        <Consul::Token::SearchBar
+        <Dumb Consul::Token::SearchBar
           @search={{this.search}}
           @onsearch={{action (mut this.search) value="target.value"}}
 
@@ -102,7 +102,7 @@ as |route|>
           @items={{items}}
         as |collection|>
           <collection.Collection>
-            <Consul::Token::List
+            <Dumb Consul::Token::List
               @items={{collection.items}}
               @token={{route.model.user.token}}
               @onuse={{this.onUse}}

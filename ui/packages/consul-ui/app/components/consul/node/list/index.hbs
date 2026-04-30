@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <ListCollection
-  class="consul-node-list"
+  class="dumb-consul-node-list"
   @items={{@items}}
 as |item index|>
   <BlockSlot @name="header">
@@ -35,7 +35,7 @@ as |item index|>
     </a>
   </BlockSlot>
   <BlockSlot @name="details">
-    <Consul::Node::PeerInfo @item={{item}} />
+    <Dumb Consul::Node::PeerInfo @item={{item}} />
     {{#if (eq item.Address @leader.Address)}}
       <span class="leader" data-test-leader={{@leader.Address}}>Leader</span>
     {{/if}}
@@ -59,10 +59,10 @@ as |item index|>
         <span>ConsulVersion</span>
       </dt>
       <dd>
-          {{!-- Displaying consul version from node meta data --}}
-          {{#if item.Meta.consul-version}}
-            <Hds::Icon class='w-4 h-4' @size='24' @name='consul-color' @stretched={{true}} />
-            <span>v{{item.Meta.consul-version}}</span>
+          {{!-- Displaying dumb-consul version from node meta data --}}
+          {{#if item.Meta.dumb-consul-version}}
+            <Hds::Icon class='w-4 h-4' @size='24' @name='dumb-consul-color' @stretched={{true}} />
+            <span>v{{item.Meta.dumb-consul-version}}</span>
           {{/if}}
       </dd>
     </dl>

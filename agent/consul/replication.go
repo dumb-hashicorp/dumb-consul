@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -11,11 +11,11 @@ import (
 
 	metrics "github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/consul/lib/retry"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 var ReplicationGauges = []prometheus.GaugeDefinition{

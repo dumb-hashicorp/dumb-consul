@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <SearchBar
-  class="consul-node-search-bar"
+  class="dumb-consul-node-search-bar"
   ...attributes
   @filter={{@filter}}
 >
@@ -12,19 +12,19 @@
 
 {{#let
 
-  (t (concat "components.consul.node.search-bar." search.status.key)
+  (t (concat "components.dumb-consul.node.search-bar." search.status.key)
       default=(array
         (concat "common.search." search.status.key)
-        (concat "common.consul." search.status.key)
+        (concat "common.dumb-consul." search.status.key)
       )
   )
 
   (if search.status.value 
     search.status.value 
-    (t (concat "components.consul.node.search-bar." search.status.value)
+    (t (concat "components.dumb-consul.node.search-bar." search.status.value)
         default=(array
           (concat "common.search." search.status.value)
-          (concat "common.consul." search.status.value)
+          (concat "common.dumb-consul." search.status.value)
           (concat "common.brand." search.status.value)
         ))
   )
@@ -63,7 +63,7 @@ as |key value|}}
     {{#let components.Optgroup components.Option as |Optgroup Option|}}
             {{#each @filter.searchproperty.default as |prop|}}
               <Option @value={{prop}} @selected={{includes prop @filter.searchproperty.value}}>
-                {{t (concat "common.consul." (lowercase prop))}}
+                {{t (concat "common.dumb-consul." (lowercase prop))}}
               </Option>
             {{/each}}
     {{/let}}
@@ -80,14 +80,14 @@ as |key value|}}
       as |components|>
         <BlockSlot @name="selected">
           <span>
-            {{t "common.consul.status"}}
+            {{t "common.dumb-consul.status"}}
           </span>
         </BlockSlot>
         <BlockSlot @name="options">
   {{#let components.Optgroup components.Option as |Optgroup Option|}}
     {{#each (array "passing" "warning" "critical") as |state|}}
           <Option class="value-{{state}}" @value={{state}} @selected={{includes state @filter.status.value}}>
-            {{t (concat "common.consul." state)
+            {{t (concat "common.dumb-consul." state)
                 default=(array
                   (concat "common.search." state)
                 )
@@ -105,7 +105,7 @@ as |key value|}}
       as |components|>
         <BlockSlot @name="selected">
           <span>
-            {{t "common.consul.version"}}
+            {{t "common.dumb-consul.version"}}
           </span>
         </BlockSlot>
         <BlockSlot @name="options">
@@ -146,15 +146,15 @@ as |key value|}}
         </BlockSlot>
         <BlockSlot @name="options">
   {{#let components.Optgroup components.Option as |Optgroup Option|}}
-          <Optgroup @label={{t "common.consul.status"}}>
+          <Optgroup @label={{t "common.dumb-consul.status"}}>
             <Option @value="Status:asc" @selected={{eq "Status:asc" @sort.value}}>{{t "common.sort.status.asc"}}</Option>
             <Option @value="Status:desc" @selected={{eq "Status:desc" @sort.value}}>{{t "common.sort.status.desc"}}</Option>
           </Optgroup>
-          <Optgroup @label={{t "common.consul.node-name"}}>
+          <Optgroup @label={{t "common.dumb-consul.node-name"}}>
             <Option @value="Node:asc" @selected={{eq "Node:asc" @sort.value}}>{{t "common.sort.alpha.asc"}}</Option>
             <Option @value="Node:desc" @selected={{eq "Node:desc" @sort.value}}>{{t "common.sort.alpha.desc"}}</Option>
           </Optgroup>
-          <Optgroup @label={{t "common.consul.version"}}>
+          <Optgroup @label={{t "common.dumb-consul.version"}}>
             <Option @value="Version:asc" @selected={{eq "Version:asc" @sort.value}}>{{t "common.sort.version.asc"}}</Option>
             <Option @value="Version:desc" @selected={{eq "Version:desc" @sort.value}}>{{t "common.sort.version.desc"}}</Option>
           </Optgroup>

@@ -10,12 +10,12 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/serf/coordinate"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 // TODO(partitions): test partitioned nodes here

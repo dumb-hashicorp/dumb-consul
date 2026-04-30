@@ -11,9 +11,9 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { getOwner } from '@ember/application';
 
-import transitionable from 'consul-ui/utils/routing/transitionable';
-import wildcard from 'consul-ui/utils/routing/wildcard';
-import { routes } from 'consul-ui/router';
+import transitionable from 'dumb-consul-ui/utils/routing/transitionable';
+import wildcard from 'dumb-consul-ui/utils/routing/wildcard';
+import { routes } from 'dumb-consul-ui/router';
 import { scheduleOnce } from '@ember/runloop';
 
 const isWildcard = wildcard(routes);

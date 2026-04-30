@@ -36,7 +36,7 @@ func testCAAndLeaf(t *testing.T, keyType string, keyBits int) {
 	leaf, _ := TestLeaf(t, "web", ca)
 
 	// Create a temporary directory for storing the certs
-	td, err := os.MkdirTemp("", "consul")
+	td, err := os.MkdirTemp("", "dumb-consul")
 	require.NoError(t, err)
 	defer os.RemoveAll(td)
 
@@ -68,7 +68,7 @@ func testCAAndLeaf_xc(t *testing.T, keyType string, keyBits int) {
 	leaf2, _ := TestLeaf(t, "web", ca2)
 
 	// Create a temporary directory for storing the certs
-	td, err := os.MkdirTemp("", "consul")
+	td, err := os.MkdirTemp("", "dumb-consul")
 	assert.Nil(t, err)
 	defer os.RemoveAll(td)
 

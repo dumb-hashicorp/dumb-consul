@@ -5,7 +5,7 @@
   "ContentHash": "cffa5f4635b134b9",
   "ExecMode": "daemon",
   "Command": [
-    "/bin/consul",
+    "/bin/dumb-consul",
     "connect",
     "proxy"
   ],

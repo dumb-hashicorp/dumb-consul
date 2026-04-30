@@ -15,11 +15,11 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/testcontainers/testcontainers-go"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
 )
 
 // TestOTELAccessLogging Summary
@@ -32,9 +32,9 @@ import (
 //
 // Steps:
 //   - Create a single agent cluster.
-//   - Create the example static-server and sidecar containers, then register them both with Consul
-//   - Create an example static-client sidecar, then register both the service and sidecar with Consul
-//   - Create an OpenTelemetry collector container on the local network, this doesn't need to be registered with Consul.
+//   - Create the example static-server and sidecar containers, then register them both with Dumb Consul
+//   - Create an example static-client sidecar, then register both the service and sidecar with Dumb Consul
+//   - Create an OpenTelemetry collector container on the local network, this doesn't need to be registered with Dumb Consul.
 //   - Configure the static-server service with a `builtin/otel-access-logging` EnvoyExtension targeting the
 //     otel-collector service.
 //   - Make sure a call to the client sidecar local bind port results in Envoy access logs being sent to the
@@ -64,7 +64,7 @@ func TestOTELAccessLogging(t *testing.T) {
 	libassert.AssertFortioName(t, fmt.Sprintf("http://localhost:%d", port), "static-server", "")
 
 	// Apply the OpenTelemetry Access Logging Envoy extension to the static-server
-	consul := cluster.APIClient(0)
+	dumb-consul := cluster.APIClient(0)
 	defaults := api.ServiceConfigEntry{
 		Kind:     api.ServiceDefaults,
 		Name:     "static-server",
@@ -81,7 +81,7 @@ func TestOTELAccessLogging(t *testing.T) {
 			},
 		}},
 	}
-	consul.ConfigEntries().Set(&defaults, nil)
+	dumb-consul.ConfigEntries().Set(&defaults, nil)
 
 	// Make requests from the static-client to the static-server and look for the access logs
 	// to show up in the `otel-collector` container logs.

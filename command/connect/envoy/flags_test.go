@@ -6,7 +6,7 @@ package envoy
 import (
 	"testing"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 	"github.com/stretchr/testify/require"
 )
 

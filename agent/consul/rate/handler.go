@@ -12,14 +12,14 @@ import (
 	"reflect"
 	"sync/atomic"
 
-	"github.com/hashicorp/consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
 
 	"github.com/armon/go-metrics"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/consul/agent/consul/multilimiter"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/multilimiter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 var (

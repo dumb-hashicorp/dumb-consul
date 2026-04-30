@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domSibling from 'consul-ui/utils/dom/sibling';
+import domSibling from 'dumb-consul-ui/utils/dom/sibling';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | dom/sibling', function () {

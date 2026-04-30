@@ -8,7 +8,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { click, render } from '@ember/test-helpers';
 
-module('Integration | Component | consul node agentless-notice', function (hooks) {
+module('Integration | Component | dumb-consul node agentless-notice', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it does not display the notice if the filtered nodes are the same as the regular nodes', async function (assert) {
@@ -29,7 +29,7 @@ module('Integration | Component | consul node agentless-notice', function (hooks
     ]);
 
     await render(
-      hbs`<Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} />`
+      hbs`<Dumb Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} />`
     );
     assert
       .dom('[data-test-node-agentless-notice]')
@@ -50,7 +50,7 @@ module('Integration | Component | consul node agentless-notice', function (hooks
     this.set('filteredNodes', []);
 
     await render(
-      hbs`<Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} />`
+      hbs`<Dumb Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} />`
     );
 
     assert
@@ -82,7 +82,7 @@ module('Integration | Component | consul node agentless-notice', function (hooks
     });
 
     await render(
-      hbs`<Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} @postfix="partition" />`
+      hbs`<Dumb Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} @postfix="partition" />`
     );
 
     assert

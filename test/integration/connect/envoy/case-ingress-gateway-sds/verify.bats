@@ -31,11 +31,11 @@ load helpers
 }
 
 @test "ingress should be able to connect to s1 using Host header" {
-  assert_expected_fortio_name s1 https://s1.ingress.consul 9999
+  assert_expected_fortio_name s1 https://s1.ingress.dumb-consul 9999
 }
 
 @test "ingress should be able to connect to s2 using Host header" {
-  assert_expected_fortio_name s2 https://s2.ingress.consul 9999
+  assert_expected_fortio_name s2 https://s2.ingress.dumb-consul 9999
 }
 
 @test "ingress should be able to connect to s1 using a user-specified Host" {
@@ -46,7 +46,7 @@ load helpers
   # Make sure the Cert was the one SDS served and didn't just happen to have the
   # right domain from Connect.
   assert_cert_signed_by_ca /workdir/test-sds-server/certs/ca-root.crt \
-    localhost:9999 '*.ingress.consul'
+    localhost:9999 '*.ingress.dumb-consul'
 }
 
 @test "ingress should serve SDS-supplied cert for specific service" {

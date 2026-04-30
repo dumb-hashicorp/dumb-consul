@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { isAnonymous } from 'consul-ui/helpers/token/is-anonymous';
+import { isAnonymous } from 'dumb-consul-ui/helpers/token/is-anonymous';
 import { module, test } from 'qunit';
 
 module('Unit | Helper | token/is-anonymous', function () {

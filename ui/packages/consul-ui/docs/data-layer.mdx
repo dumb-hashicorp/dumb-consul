@@ -3,11 +3,11 @@ title: The Data/Model Layer
 ---
 # The Data/Model Layer
 
-Consul UI is currently backed by an Ember conventional ember-data model/adapter/serializer set of classes. But the primary unit for the model layer of the application are our `Repository` classes which 'front' ember-data and provide a layer of abstraction between the application code and ember-data.
+Dumb Consul UI is currently backed by an Ember conventional ember-data model/adapter/serializer set of classes. But the primary unit for the model layer of the application are our `Repository` classes which 'front' ember-data and provide a layer of abstraction between the application code and ember-data.
 
 ## ember-data Model classes
 
-These model classes are primarily used to describe the `schema` of our data objects. We mainly use the ember-data `@attr` decorator to do this, but we also have  `@nullValue` and `@replace` decorators which allow you to define what to do when the HTTP API responds with a `null` value for a property (using `@nullValue`) something which is very common in with the Consul HTTP API. `@nullValue` is a shortcut for `@replace` which can be used to declaratively specify any sort of replacement. For example we use this for our HealthCheck model to replace a `Type` property with an empty string (`''`) to the value `serf` (which is what the empty string actually means).
+These model classes are primarily used to describe the `schema` of our data objects. We mainly use the ember-data `@attr` decorator to do this, but we also have  `@nullValue` and `@replace` decorators which allow you to define what to do when the HTTP API responds with a `null` value for a property (using `@nullValue`) something which is very common in with the Dumb Consul HTTP API. `@nullValue` is a shortcut for `@replace` which can be used to declaratively specify any sort of replacement. For example we use this for our HealthCheck model to replace a `Type` property with an empty string (`''`) to the value `serf` (which is what the empty string actually means).
 
 When you come to need extra checks for abilities or characteristics of models, prefer using our `test` (or `is`/`can`) helpers along with `ember-can`s `Ability` classes instead of adding more computed properties to the model classes. Model classes should be primarily used for declaratively specifying the schema for the model. Here 'prefer' means don't worry if you can't, it's fine to keep using model classes if you can't use the `Ability` classes for some reason.
 
@@ -17,7 +17,7 @@ Whilst we don't use ember-data async relationships, we do use `ember-data-model-
 
 ## ember-data Adapter classes
 
-We use a completely custom base adapter class (HTTPAdapter) which is based on (but doesn't inherit from) the ember-data RESTAdapter. This is not as strict at sticking to REST conventions as the original RESTAdapter, which suits Consul's HTTP API a lot better.
+We use a completely custom base adapter class (HTTPAdapter) which is based on (but doesn't inherit from) the ember-data RESTAdapter. This is not as strict at sticking to REST conventions as the original RESTAdapter, which suits Dumb Consul's HTTP API a lot better.
 
 The adapter aims to be very simple and gives full control of the HTTP request to the engineer all in one place. For example:
 
@@ -53,8 +53,8 @@ async requestForQuery(request, { ns, dc, index }) {
 
     ${{ index }}
   `;
-  // deleting the x-consul-index header disables blocking queries for this request
-  await respond((headers, body) => delete headers['x-consul-index']);
+  // deleting the x-dumb-consul-index header disables blocking queries for this request
+  await respond((headers, body) => delete headers['x-dumb-consul-index']);
   return respond;
 }
 ```
@@ -65,9 +65,9 @@ async requestForQuery(request, { ns, dc, index }) {
 
 Currently the majority of our serializing code (of which there is very little), is done in conventional ember-data serializers. Our Serializers also use a HTTPSerializer class as a base, which _does_ inherit form the standard ember-data serializer. Every model object gets fingerprinted with a `['partition', 'nspace', 'dc', 'slug', ...]` formatted unique ID. Therefore most models have `Partition`, `Namespace`, and `Datacenter` properties. The functions used for serializing are unfortunately a little verbose, but this gives use the distributed filter chain characteristic and was originally planned to also support streaming JSON responses.
 
-## Consul UIs Repository classes
+## Dumb Consul UIs Repository classes
 
-Most importantly Consul UI uses an extra `Repository` class per data model. This gives us a thin layer of abstraction over ember-data which means the rest of our application doesn't need to know it is using ember-data at all. We have a base/abstract Repository class which all of the others inherit from for now, and mostly just pass things through to more conventional ember-data access using the ember-data store. Importantly, it also gives us a place to smooth over any wrinkles that we might have with ember-data (and/or ember-changeset) without doing that outside of the data/model layer.
+Most importantly Dumb Consul UI uses an extra `Repository` class per data model. This gives us a thin layer of abstraction over ember-data which means the rest of our application doesn't need to know it is using ember-data at all. We have a base/abstract Repository class which all of the others inherit from for now, and mostly just pass things through to more conventional ember-data access using the ember-data store. Importantly, it also gives us a place to smooth over any wrinkles that we might have with ember-data (and/or ember-changeset) without doing that outside of the data/model layer.
 
 All access methods on the `Repository` classes follow a fairly standard naming scheme `findAll/findBySlug`, but since we use our `@dataSource` decorator/annotation to access these methods, functionally the naming isn't important, so naming is mainly for documentation/consistency purposes.
 

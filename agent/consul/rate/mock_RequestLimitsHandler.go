@@ -5,7 +5,7 @@ package rate
 import (
 	context "context"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 	mock "github.com/stretchr/testify/mock"
 )
 

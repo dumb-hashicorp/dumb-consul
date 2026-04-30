@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -16,8 +16,8 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/google/tcpproxy"
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
-	"github.com/hashicorp/go-hclog"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
+	"github.com/dumb-hashicorp/go-hclog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
@@ -26,18 +26,18 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestLeader_PeeringSync_Lifecycle_ClientDeletion(t *testing.T) {
@@ -49,7 +49,7 @@ func TestLeader_PeeringSync_Lifecycle_ClientDeletion(t *testing.T) {
 	_, acceptor := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "acceptor"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.GRPCTLSPort = freeport.GetOne(t)
 		c.CAConfig = &structs.CAConfiguration{
 			ClusterID: connect.TestClusterID,
@@ -175,7 +175,7 @@ func TestLeader_PeeringSync_Lifecycle_UnexportWhileDown(t *testing.T) {
 	_, acceptor := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "acceptor"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.GRPCTLSPort = freeport.GetOne(t)
 		c.CAConfig = &structs.CAConfiguration{
 			ClusterID: connect.TestClusterID,
@@ -336,7 +336,7 @@ func TestLeader_PeeringSync_Lifecycle_UnexportWhileDown(t *testing.T) {
 	_, dialerRestart := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "dialer"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.GRPCPort = dialingServerPort
 		c.DataDir = dialer.config.DataDir
 		c.NodeID = dialer.config.NodeID
@@ -365,7 +365,7 @@ func TestLeader_PeeringSync_Lifecycle_ServerDeletion(t *testing.T) {
 	_, acceptor := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "acceptor"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.GRPCTLSPort = freeport.GetOne(t)
 		c.CAConfig = &structs.CAConfiguration{
 			ClusterID: connect.TestClusterID,
@@ -506,7 +506,7 @@ func TestLeader_PeeringSync_FailsForTLSError(t *testing.T) {
 	t.Run("server-name-validation", func(t *testing.T) {
 		testLeader_PeeringSync_failsForTLSError(t, func(token *structs.PeeringToken) {
 			token.ServerName = "wrong.name"
-		}, `transport: authentication handshake failed: tls: failed to verify certificate: x509: certificate is valid for server.dc1.peering.11111111-2222-3333-4444-555555555555.consul, not wrong.name`)
+		}, `transport: authentication handshake failed: tls: failed to verify certificate: x509: certificate is valid for server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul, not wrong.name`)
 	})
 	t.Run("bad-ca-roots", func(t *testing.T) {
 		wrongRoot, err := os.ReadFile("../../test/client_certs/rootca.crt")
@@ -525,7 +525,7 @@ func testLeader_PeeringSync_failsForTLSError(t *testing.T, tokenMutateFn func(to
 	_, s1 := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "bob"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.GRPCTLSPort = freeport.GetOne(t)
 		c.CAConfig = &structs.CAConfiguration{
 			ClusterID: connect.TestClusterID,
@@ -620,7 +620,7 @@ func TestLeader_Peering_DeferredDeletion(t *testing.T) {
 	_, s1 := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "s1.dc1"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.GRPCTLSPort = freeport.GetOne(t)
 	})
 	testrpc.WaitForLeader(t, s1.RPC, "dc1")
@@ -698,7 +698,7 @@ func TestLeader_Peering_RemoteInfo(t *testing.T) {
 	_, acceptingServer := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "accepting-server"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.PeeringEnabled = true
 		c.GRPCTLSPort = freeport.GetOne(t)
 		c.CAConfig = &structs.CAConfiguration{
@@ -932,7 +932,7 @@ func TestLeader_Peering_DialerReestablishesConnectionOnError(t *testing.T) {
 	_, acceptingServerRestart := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "acceptingServer.dc1"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.DataDir = acceptingServer.config.DataDir
 		c.NodeID = acceptingServer.config.NodeID
 		c.GRPCTLSPort = acceptingServerPort
@@ -1032,7 +1032,7 @@ func insertTestPeeringData(t *testing.T, store *state.Store, peer string, lastId
 	return lastIdx
 }
 
-// TODO(peering): once we move away from keeping state in stream tracker only on leaders, move this test to consul/server_test maybe
+// TODO(peering): once we move away from keeping state in stream tracker only on leaders, move this test to dumb-consul/server_test maybe
 func TestLeader_Peering_ImportedExportedServicesCount(t *testing.T) {
 	if testing.Short() {
 		t.Skip("too slow for testing.Short")
@@ -1333,7 +1333,7 @@ func TestLeader_Peering_ImportedExportedServicesCount(t *testing.T) {
 	}
 }
 
-// TODO(peering): once we move away from keeping state in stream tracker only on leaders, move this test to consul/server_test maybe
+// TODO(peering): once we move away from keeping state in stream tracker only on leaders, move this test to dumb-consul/server_test maybe
 func TestLeader_PeeringMetrics_emitPeeringMetrics(t *testing.T) {
 	if testing.Short() {
 		t.Skip("too slow for testing.Short")
@@ -1481,25 +1481,25 @@ func TestLeader_PeeringMetrics_emitPeeringMetrics(t *testing.T) {
 		intv := intervals[0]
 
 		// the keys for a Gauge value look like: {serviceName}.{prefix}.{key_name};{label=value};...
-		keyMetric1 := fmt.Sprintf("us-west.consul.peering.exported_services;peer_name=my-peer-s1;peer_id=%s", s2PeerID1)
+		keyMetric1 := fmt.Sprintf("us-west.dumb-consul.peering.exported_services;peer_name=my-peer-s1;peer_id=%s", s2PeerID1)
 		metric1, ok := intv.Gauges[keyMetric1]
 		require.True(r, ok, fmt.Sprintf("did not find the key %q", keyMetric1))
 
 		require.Equal(r, float32(3), metric1.Value) // for a, b, c services
 
-		keyMetric2 := fmt.Sprintf("us-west.consul.peering.exported_services;peer_name=my-peer-s3;peer_id=%s", s2PeerID2)
+		keyMetric2 := fmt.Sprintf("us-west.dumb-consul.peering.exported_services;peer_name=my-peer-s3;peer_id=%s", s2PeerID2)
 		metric2, ok := intv.Gauges[keyMetric2]
 		require.True(r, ok, fmt.Sprintf("did not find the key %q", keyMetric2))
 
 		require.Equal(r, float32(2), metric2.Value) // for d, e services
 
-		keyHealthyMetric2 := fmt.Sprintf("us-west.consul.peering.healthy;peer_name=my-peer-s3;peer_id=%s", s2PeerID2)
+		keyHealthyMetric2 := fmt.Sprintf("us-west.dumb-consul.peering.healthy;peer_name=my-peer-s3;peer_id=%s", s2PeerID2)
 		healthyMetric2, ok := intv.Gauges[keyHealthyMetric2]
 		require.True(r, ok, fmt.Sprintf("did not find the key %q", keyHealthyMetric2))
 
 		require.Equal(r, float32(1), healthyMetric2.Value)
 
-		keyHealthyMetric3 := fmt.Sprintf("us-west.consul.peering.healthy;peer_name=my-peer-s4;peer_id=%s", s2PeerID3)
+		keyHealthyMetric3 := fmt.Sprintf("us-west.dumb-consul.peering.healthy;peer_name=my-peer-s4;peer_id=%s", s2PeerID3)
 		healthyMetric3, ok := intv.Gauges[keyHealthyMetric3]
 		require.True(r, ok, fmt.Sprintf("did not find the key %q", keyHealthyMetric3))
 
@@ -1517,7 +1517,7 @@ func TestLeader_Peering_NoDeletionWhenPeeringDisabled(t *testing.T) {
 	_, s1 := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "s1.dc1"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.PeeringEnabled = false
 	})
 	testrpc.WaitForLeader(t, s1.RPC, "dc1")
@@ -1574,7 +1574,7 @@ func TestLeader_Peering_NoEstablishmentWhenPeeringDisabled(t *testing.T) {
 	_, s1 := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "s1.dc1"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.PeeringEnabled = false
 	})
 	testrpc.WaitForLeader(t, s1.RPC, "dc1")
@@ -1794,7 +1794,7 @@ func Test_Leader_PeeringSync_ServerAddressUpdates(t *testing.T) {
 	_, acceptor := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "acceptor"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.GRPCTLSPort = freeport.GetOne(t)
 		c.CAConfig = &structs.CAConfiguration{
 			ClusterID: connect.TestClusterID,
@@ -1936,7 +1936,7 @@ func Test_Leader_PeeringSync_PeerThroughMeshGateways_ServerFallBack(t *testing.T
 	_, acceptor := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "acceptor"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.GRPCTLSPort = freeport.GetOne(t)
 		c.CAConfig = &structs.CAConfiguration{
 			ClusterID: connect.TestClusterID,
@@ -2040,7 +2040,7 @@ func Test_Leader_PeeringSync_PeerThroughMeshGateways_Success(t *testing.T) {
 	_, acceptor := testServerWithConfig(t, func(c *Config) {
 		c.NodeName = "acceptor"
 		c.Datacenter = "dc1"
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.GRPCTLSPort = freeport.GetOne(t)
 		c.CAConfig = &structs.CAConfiguration{
 			ClusterID: connect.TestClusterID,
@@ -2112,7 +2112,7 @@ func Test_Leader_PeeringSync_PeerThroughMeshGateways_Success(t *testing.T) {
 			Addr: fmt.Sprintf("127.0.0.1:%d", acceptor.config.GRPCTLSPort),
 		},
 	}
-	proxy.AddSNIRoute(gatewayAddr, "server.dc1.peering.11111111-2222-3333-4444-555555555555.consul", target)
+	proxy.AddSNIRoute(gatewayAddr, "server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul", target)
 	proxy.AddStopACMESearch(gatewayAddr)
 
 	require.NoError(t, proxy.Start())

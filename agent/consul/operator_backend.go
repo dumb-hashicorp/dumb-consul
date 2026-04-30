@@ -1,16 +1,16 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/rpc/operator"
-	"github.com/hashicorp/consul/proto/private/pboperator"
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/operator"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pboperator"
+	"github.com/dumb-hashicorp/raft"
 )
 
 type OperatorBackend struct {

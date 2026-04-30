@@ -21,7 +21,7 @@ function supported_osarch {
 
 function refresh_docker_images {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - Which make target to invoke (optional)
    #
    # Return:
@@ -45,7 +45,7 @@ function refresh_docker_images {
 
 function build_ui {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - The docker image to run the build within (optional)
    #   $3 - Version override
    #
@@ -107,12 +107,12 @@ function build_ui {
    local ret=$?
    if test $ret -eq 0
    then
-      status "Copying the source from '${ui_dir}' to /consul-src within the container"
+      status "Copying the source from '${ui_dir}' to /dumb-consul-src within the container"
       (
-         tar -c $(ls -A | grep -v "^(node_modules\|dist\|tmp)") | docker cp - ${container_id}:/consul-src &&
+         tar -c $(ls -A | grep -v "^(node_modules\|dist\|tmp)") | docker cp - ${container_id}:/dumb-consul-src &&
          status "Running build in container" && docker start -i ${container_id} &&
          rm -rf ${1}/ui/dist &&
-         status "Copying back artifacts" && docker cp ${container_id}:/consul-src/packages/consul-ui/dist ${1}/ui/dist
+         status "Copying back artifacts" && docker cp ${container_id}:/dumb-consul-src/packages/dumb-consul-ui/dist ${1}/ui/dist
       )
       ret=$?
       docker rm ${container_id} > /dev/null
@@ -153,7 +153,7 @@ function build_ui {
 
 function build_consul_post {
    # Arguments
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Subdirectory under pkg/bin (Optional)
    #
    # Returns:
@@ -209,7 +209,7 @@ function build_consul_post {
 
 function build_consul {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Subdirectory to put binaries in under pkg/bin (optional - must specify if needing to specify the docker image)
    #   $3 - The docker image to run the build within (optional)
    #
@@ -290,13 +290,13 @@ function build_consul {
 
    if test $ret -eq 0
    then
-      status "Copying the source from '${sdir}' to /consul"
+      status "Copying the source from '${sdir}' to /dumb-consul"
       (
-         tar -c $(ls | grep -v "^(ui\|website\|bin\|pkg\|.git)") | docker cp - ${container_id}:/consul &&
+         tar -c $(ls | grep -v "^(ui\|website\|bin\|pkg\|.git)") | docker cp - ${container_id}:/dumb-consul &&
          status "Running build in container" &&
          docker start -i ${container_id} &&
          status "Copying back artifacts" &&
-         docker cp ${container_id}:/consul/pkg/bin pkg.bin.new
+         docker cp ${container_id}:/dumb-consul/pkg/bin pkg.bin.new
       )
       ret=$?
       docker rm ${container_id} > /dev/null

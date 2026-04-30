@@ -7,7 +7,7 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { set, get, computed } from '@ember/object';
 
-import { once } from 'consul-ui/utils/dom/event-source';
+import { once } from 'dumb-consul-ui/utils/dom/event-source';
 
 export default Component.extend({
   tagName: '',

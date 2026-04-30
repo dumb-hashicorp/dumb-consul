@@ -3,7 +3,7 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 func (b *V1TenancyBridge) PartitionExists(partition string) (bool, error) {
 	if partition == "default" {

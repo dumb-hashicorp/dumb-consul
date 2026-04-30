@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import I18nService, { formatOptionsSymbol } from 'consul-ui/services/i18n';
-import ucfirst from 'consul-ui/utils/ucfirst';
+import I18nService, { formatOptionsSymbol } from 'dumb-consul-ui/services/i18n';
+import ucfirst from 'dumb-consul-ui/utils/ucfirst';
 
 import faker from 'faker';
 

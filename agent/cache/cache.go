@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-// Package cache provides caching features for data from a Consul server.
+// Package cache provides caching features for data from a Dumb Consul server.
 //
 // While this is similar in some ways to the "agent/ae" package, a key
 // difference is that with anti-entropy, the agent is the authoritative
@@ -12,7 +12,7 @@
 //
 // The types of data that can be cached is configurable via the Type interface.
 // This allows specialized behavior for certain types of data. Each type of
-// Consul data (CA roots, leaf certs, intentions, KV, catalog, etc.) will
+// Dumb Consul data (CA roots, leaf certs, intentions, KV, catalog, etc.) will
 // have to be manually implemented. This usually is not much work, see
 // the "agent/cache-types" package.
 package cache
@@ -28,19 +28,19 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cacheshim"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/ttlcache"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cacheshim"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/ttlcache"
 )
 
 // TODO(kit): remove the namespace from these once the metrics themselves change
 var Gauges = []prometheus.GaugeDefinition{
 	{
-		Name: []string{"consul", "cache", "entries_count"},
+		Name: []string{"dumb-consul", "cache", "entries_count"},
 		Help: "Deprecated - please use cache_entries_count instead.",
 	},
 	{
@@ -52,7 +52,7 @@ var Gauges = []prometheus.GaugeDefinition{
 // TODO(kit): remove the namespace from these once the metrics themselves change
 var Counters = []prometheus.CounterDefinition{
 	{
-		Name: []string{"consul", "cache", "bypass"},
+		Name: []string{"dumb-consul", "cache", "bypass"},
 		Help: "Deprecated - please use cache_bypass instead.",
 	},
 	{
@@ -60,7 +60,7 @@ var Counters = []prometheus.CounterDefinition{
 		Help: "Counts how many times a request bypassed the cache because no cache-key was provided.",
 	},
 	{
-		Name: []string{"consul", "cache", "fetch_success"},
+		Name: []string{"dumb-consul", "cache", "fetch_success"},
 		Help: "Deprecated - please use cache_fetch_success instead.",
 	},
 	{
@@ -68,7 +68,7 @@ var Counters = []prometheus.CounterDefinition{
 		Help: "Counts the number of successful fetches by the cache.",
 	},
 	{
-		Name: []string{"consul", "cache", "fetch_error"},
+		Name: []string{"dumb-consul", "cache", "fetch_error"},
 		Help: "Deprecated - please use cache_fetch_error instead.",
 	},
 	{
@@ -76,7 +76,7 @@ var Counters = []prometheus.CounterDefinition{
 		Help: "Counts the number of failed fetches by the cache.",
 	},
 	{
-		Name: []string{"consul", "cache", "evict_expired"},
+		Name: []string{"dumb-consul", "cache", "evict_expired"},
 		Help: "Deprecated - please use cache_evict_expired instead.",
 	},
 	{
@@ -103,7 +103,7 @@ const (
 	DefaultEntryFetchMaxBurst = 2
 )
 
-// Cache is a agent-local cache of Consul data. Create a Cache using the
+// Cache is a agent-local cache of Dumb Consul data. Create a Cache using the
 // New function. A zero-value Cache is not ready for usage and will result
 // in a panic.
 //
@@ -255,7 +255,7 @@ type RegisterOptions struct {
 	// "refresh" mechanisms can be implemented:
 	//
 	//   * With a high timer duration and a low timeout, a timer-based
-	//     refresh can be set that minimizes load on the Consul servers.
+	//     refresh can be set that minimizes load on the Dumb Consul servers.
 	//
 	//   * With a low timer and high timeout duration, a blocking-query-based
 	//     refresh can be set so that changes in server data are recognized
@@ -318,7 +318,7 @@ func (c *Cache) ReloadOptions(options Options) bool {
 // Get, and does not correspond to the timeout of any background data
 // fetching. If the timeout is reached before data satisfying the minimum
 // index is retrieved, the last known value (maybe nil) is returned. No
-// error is returned on timeout. This matches the behavior of Consul blocking
+// error is returned on timeout. This matches the behavior of Dumb Consul blocking
 // queries.
 func (c *Cache) Get(ctx context.Context, t string, r Request) (interface{}, ResultMeta, error) {
 	c.typesLock.RLock()
@@ -405,7 +405,7 @@ func entryExceedsMaxAge(maxAge time.Duration, entry cacheEntry) bool {
 // request object.
 func (c *Cache) getWithIndex(ctx context.Context, r getOptions) (interface{}, ResultMeta, error) {
 	if r.Info.Key == "" {
-		metrics.IncrCounter([]string{"consul", "cache", "bypass"}, 1)
+		metrics.IncrCounter([]string{"dumb-consul", "cache", "bypass"}, 1)
 		metrics.IncrCounter([]string{"cache", "bypass"}, 1)
 
 		// If no key is specified, then we do not cache this request.
@@ -452,7 +452,7 @@ RETRY_GET:
 	if entryValid {
 		meta := ResultMeta{Index: entry.Index}
 		if first {
-			metrics.IncrCounter([]string{"consul", "cache", r.TypeEntry.Name, "hit"}, 1)
+			metrics.IncrCounter([]string{"dumb-consul", "cache", r.TypeEntry.Name, "hit"}, 1)
 			metrics.IncrCounter([]string{"cache", r.TypeEntry.Name, "hit"}, 1)
 			meta.Hit = true
 		}
@@ -493,7 +493,7 @@ RETRY_GET:
 	// error, we return. Note that the invariant is that if both entry.Value AND
 	// entry.Error are non-nil, the error _must_ be more recent than the Value. In
 	// other words valid fetches should reset the error. See
-	// https://github.com/hashicorp/consul/issues/4480.
+	// https://github.com/dumb-hashicorp/dumb-consul/issues/4480.
 	if !first && entry.Error != nil {
 		return entry.Value, ResultMeta{Index: entry.Index}, entry.Error
 	}
@@ -506,7 +506,7 @@ RETRY_GET:
 		if r.Info.MinIndex == 0 {
 			missKey = "miss_new"
 		}
-		metrics.IncrCounter([]string{"consul", "cache", r.TypeEntry.Name, missKey}, 1)
+		metrics.IncrCounter([]string{"dumb-consul", "cache", r.TypeEntry.Name, missKey}, 1)
 		metrics.IncrCounter([]string{"cache", r.TypeEntry.Name, missKey}, 1)
 	}
 
@@ -605,7 +605,7 @@ func (c *Cache) fetch(ctx context.Context, key string, r getOptions, allowNew bo
 	// perform multiple fetches.
 	entry.Fetching = true
 	c.entries[key] = entry
-	metrics.SetGauge([]string{"consul", "cache", "entries_count"}, float32(len(c.entries)))
+	metrics.SetGauge([]string{"dumb-consul", "cache", "entries_count"}, float32(len(c.entries)))
 	metrics.SetGauge([]string{"cache", "entries_count"}, float32(len(c.entries)))
 
 	tEntry := r.TypeEntry
@@ -688,7 +688,7 @@ func (c *Cache) fetch(ctx context.Context, key string, r getOptions, allowNew bo
 		// is _newer_ than the last good value. So if the err is nil then we need to
 		// reset to replace any _older_ errors and avoid them bubbling up. If the
 		// error is non-nil then we need to set it anyway and used to do it in the
-		// code below. See https://github.com/hashicorp/consul/issues/4480.
+		// code below. See https://github.com/dumb-hashicorp/dumb-consul/issues/4480.
 		newEntry.Error = err
 		if result.Value != nil {
 			// A new value was given, so we create a brand new entry.
@@ -729,9 +729,9 @@ func (c *Cache) fetch(ctx context.Context, key string, r getOptions, allowNew bo
 		if err == nil {
 			labels := []metrics.Label{{Name: "result_not_modified", Value: strconv.FormatBool(result.NotModified)}}
 			// TODO(kit): move tEntry.Name to a label on the first write here and deprecate the second write
-			metrics.IncrCounterWithLabels([]string{"consul", "cache", "fetch_success"}, 1, labels)
+			metrics.IncrCounterWithLabels([]string{"dumb-consul", "cache", "fetch_success"}, 1, labels)
 			metrics.IncrCounterWithLabels([]string{"cache", "fetch_success"}, 1, labels)
-			metrics.IncrCounterWithLabels([]string{"consul", "cache", tEntry.Name, "fetch_success"}, 1, labels)
+			metrics.IncrCounterWithLabels([]string{"dumb-consul", "cache", tEntry.Name, "fetch_success"}, 1, labels)
 			metrics.IncrCounterWithLabels([]string{"cache", tEntry.Name, "fetch_success"}, 1, labels)
 
 			if result.Index > 0 {
@@ -765,9 +765,9 @@ func (c *Cache) fetch(ctx context.Context, key string, r getOptions, allowNew bo
 			labels := []metrics.Label{{Name: "fatal", Value: strconv.FormatBool(preventRefresh)}}
 
 			// TODO(kit): Add tEntry.Name to label on fetch_error and deprecate second write
-			metrics.IncrCounterWithLabels([]string{"consul", "cache", "fetch_error"}, 1, labels)
+			metrics.IncrCounterWithLabels([]string{"dumb-consul", "cache", "fetch_error"}, 1, labels)
 			metrics.IncrCounterWithLabels([]string{"cache", "fetch_error"}, 1, labels)
-			metrics.IncrCounterWithLabels([]string{"consul", "cache", tEntry.Name, "fetch_error"}, 1, labels)
+			metrics.IncrCounterWithLabels([]string{"dumb-consul", "cache", tEntry.Name, "fetch_error"}, 1, labels)
 			metrics.IncrCounterWithLabels([]string{"cache", tEntry.Name, "fetch_error"}, 1, labels)
 
 			// Increment attempt counter
@@ -936,9 +936,9 @@ func (c *Cache) runExpiryLoop() {
 			c.entriesExpiryHeap.Remove(entry.Index())
 
 			// Set some metrics
-			metrics.IncrCounter([]string{"consul", "cache", "evict_expired"}, 1)
+			metrics.IncrCounter([]string{"dumb-consul", "cache", "evict_expired"}, 1)
 			metrics.IncrCounter([]string{"cache", "evict_expired"}, 1)
-			metrics.SetGauge([]string{"consul", "cache", "entries_count"}, float32(len(c.entries)))
+			metrics.SetGauge([]string{"dumb-consul", "cache", "entries_count"}, float32(len(c.entries)))
 			metrics.SetGauge([]string{"cache", "entries_count"}, float32(len(c.entries)))
 
 			c.entriesLock.Unlock()

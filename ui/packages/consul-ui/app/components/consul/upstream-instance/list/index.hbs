@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <div
-  class="consul-upstream-instance-list"
+  class="dumb-consul-upstream-instance-list"
   ...attributes
 >
   <ul>
@@ -20,7 +20,7 @@
       <div class="detail">
 
 {{#if (not-eq item.DestinationType 'prepared_query')}}
-        <Consul::Bucket::List
+        <Dumb Consul::Bucket::List
           @item={{hash
             Namespace=(or item.DestinationNamespace @nspace)
             Partition=(or item.DestinationPartition @partition)

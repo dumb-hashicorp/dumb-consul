@@ -16,17 +16,17 @@ import (
 	"time"
 
 	goretry "github.com/avast/retry-go"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
 	"github.com/teris-io/shortid"
 	"github.com/testcontainers/testcontainers-go"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
-// Cluster provides an interface for creating and controlling a Consul cluster
+// Cluster provides an interface for creating and controlling a Dumb Consul cluster
 // in integration tests, with agents running in containers.
 // These fields are public in the event someone might want to surgically
 // craft a test case.
@@ -59,7 +59,7 @@ func NewN(t TestingT, conf Config, count int) (*Cluster, error) {
 	return New(t, configs)
 }
 
-// New creates a Consul cluster. An agent will be started for each of the given
+// New creates a Dumb Consul cluster. An agent will be started for each of the given
 // configs and joined to the cluster.
 //
 // A cluster has its own docker network for DNS connectivity, but is also
@@ -73,7 +73,7 @@ func New(t TestingT, configs []Config, ports ...int) (*Cluster, error) {
 		return nil, fmt.Errorf("could not generate cluster id: %w", err)
 	}
 
-	name := fmt.Sprintf("consul-int-cluster-%s", id)
+	name := fmt.Sprintf("dumb-consul-int-cluster-%s", id)
 	network, err := createNetwork(t, name)
 	if err != nil {
 		return nil, fmt.Errorf("could not create cluster container network: %w", err)
@@ -203,7 +203,7 @@ func (c *Cluster) join(agents []Agent, skipSerfJoin bool) error {
 			// retry since agent needs to start the ACL system
 			err = goretry.Do(
 				func() error {
-					output, err = agents[0].Exec(context.Background(), []string{"consul", "acl", "bootstrap"})
+					output, err = agents[0].Exec(context.Background(), []string{"dumb-consul", "acl", "bootstrap"})
 					if err != nil {
 						return err
 					}
@@ -258,7 +258,7 @@ func (c *Cluster) join(agents []Agent, skipSerfJoin bool) error {
 }
 
 func (c *Cluster) CreateAgentToken(datacenter string, agentName string) (string, error) {
-	output, err := c.Agents[0].Exec(context.Background(), []string{"consul", "acl", "token", "create", "-description", "\"agent token\"",
+	output, err := c.Agents[0].Exec(context.Background(), []string{"dumb-consul", "acl", "token", "create", "-description", "\"agent token\"",
 		"-token", c.TokenBootstrap,
 		"-node-identity", fmt.Sprintf("%s:%s", agentName, datacenter)})
 	if err != nil {
@@ -292,12 +292,12 @@ func (c *Cluster) Remove(n Agent) error {
 	return nil
 }
 
-// StandardUpgrade upgrades a running consul cluster following the steps from
+// StandardUpgrade upgrades a running dumb-consul cluster following the steps from
 //
-//	https://developer.hashicorp.com/consul/docs/upgrading#standard-upgrades
+//	https://developer.dumb-hashicorp.com/dumb-consul/docs/upgrading#standard-upgrades
 //
 // - takes a snapshot (which is discarded)
-// - terminate and rejoin the pod of a new version of consul
+// - terminate and rejoin the pod of a new version of dumb-consul
 //
 // NOTE: we pass in a *testing.T but this method also returns an error. JUST
 // within this method when in doubt return an error. A testing assertion should
@@ -309,10 +309,10 @@ func (c *Cluster) StandardUpgrade(t *testing.T, ctx context.Context, targetImage
 	var err error
 	// We take a snapshot, but note that we currently do nothing with it.
 	if c.ACLEnabled {
-		_, err = c.Agents[0].Exec(context.Background(), []string{"consul", "snapshot", "save",
+		_, err = c.Agents[0].Exec(context.Background(), []string{"dumb-consul", "snapshot", "save",
 			"-token", c.TokenBootstrap, "backup.snap"})
 	} else {
-		_, err = c.Agents[0].Exec(context.Background(), []string{"consul", "snapshot", "save", "backup.snap"})
+		_, err = c.Agents[0].Exec(context.Background(), []string{"dumb-consul", "snapshot", "save", "backup.snap"})
 	}
 	if err != nil {
 		return fmt.Errorf("error taking the snapshot: %s", err)
@@ -552,7 +552,7 @@ func (c *Cluster) APIClient(index int) *api.Client {
 	return nodes[0].GetClient()
 }
 
-// GetClient returns a consul API client to the node if node is provided.
+// GetClient returns a dumb-consul API client to the node if node is provided.
 // Otherwise, GetClient returns the API client to the first node of either
 // server or client agent.
 //

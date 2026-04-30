@@ -4,7 +4,7 @@
  */
 
 import Service from '@ember/service';
-import { env } from 'consul-ui/env';
+import { env } from 'dumb-consul-ui/env';
 
 export default class EnvService extends Service {
   // deprecated

@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 func indexPeeringFromQuery(q Query) ([]byte, error) {

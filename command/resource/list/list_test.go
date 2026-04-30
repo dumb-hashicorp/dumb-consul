@@ -9,12 +9,12 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/command/resource/apply"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/apply"
 )
 
 func TestResourceListCommand(t *testing.T) {

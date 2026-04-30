@@ -12,10 +12,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 
-	"github.com/hashicorp/consul/agent/cacheshim"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cacheshim"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // Mock implementations for testing
@@ -57,7 +57,7 @@ func TestLeafCertRenewalFailure_RateLimitLogging(t *testing.T) {
 
 	// Setup roots
 	roots := &structs.IndexedCARoots{
-		TrustDomain: "test.consul",
+		TrustDomain: "test.dumb-consul",
 		Roots: []*structs.CARoot{
 			{
 				ID:     "root-1",
@@ -95,7 +95,7 @@ func TestLeafCertRenewalFailure_SigningErrorLogging(t *testing.T) {
 	certSigner := &mockCertSigner{}
 
 	roots := &structs.IndexedCARoots{
-		TrustDomain: "test.consul",
+		TrustDomain: "test.dumb-consul",
 		Roots: []*structs.CARoot{
 			{
 				ID:     "root-1",
@@ -142,7 +142,7 @@ func TestLeafCertManager_ThresholdConfiguration(t *testing.T) {
 			certSigner := &mockCertSigner{}
 
 			roots := &structs.IndexedCARoots{
-				TrustDomain: "test.consul",
+				TrustDomain: "test.dumb-consul",
 				Roots: []*structs.CARoot{
 					{
 						ID:     "root-1",

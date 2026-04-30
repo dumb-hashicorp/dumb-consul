@@ -5,7 +5,7 @@
 
 import Service from '@ember/service';
 import { getOwner } from '@ember/application';
-import ENV from 'consul-ui/config/environment';
+import ENV from 'dumb-consul-ui/config/environment';
 
 export function storageFor(key) {
   return function () {

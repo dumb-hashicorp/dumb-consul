@@ -1,5 +1,5 @@
 {
-  "Provider": "consul",
+  "Provider": "dumb-consul",
   "Config": {
     "PrivateKey": null,
     "RootCert": null,

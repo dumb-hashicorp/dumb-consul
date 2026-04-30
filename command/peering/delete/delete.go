@@ -10,8 +10,8 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -52,7 +52,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -79,9 +79,9 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Delete a peering connection"
 	help     = `
-Usage: consul peering delete [options] -name <peer name>
+Usage: dumb-consul peering delete [options] -name <peer name>
 
-  Delete a peering connection.  Consul deletes all data imported from the peer 
+  Delete a peering connection.  Dumb Consul deletes all data imported from the peer 
   in the background. The peering connection is removed after all associated 
   data has been deleted. Operators can still read the peering connections 
   while the data is being removed. A 'DeletedAt' field will be populated with 
@@ -89,6 +89,6 @@ Usage: consul peering delete [options] -name <peer name>
 
   Example:
 
-    $ consul peering delete -name west-dc
+    $ dumb-consul peering delete -name west-dc
 `
 )

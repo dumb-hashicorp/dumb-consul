@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import comparators from 'consul-ui/sort/comparators/node';
-import { properties } from 'consul-ui/services/sort';
+import comparators from 'dumb-consul-ui/sort/comparators/node';
+import { properties } from 'dumb-consul-ui/services/sort';
 import { module, test } from 'qunit';
 
 module('Unit | Sort | Comparator | node', function () {

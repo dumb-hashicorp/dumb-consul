@@ -19,21 +19,21 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/internal/storage"
-	raftstorage "github.com/hashicorp/consul/internal/storage/raft"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
-	"github.com/hashicorp/go-raftchunking"
-	raftchunkingtypes "github.com/hashicorp/go-raftchunking/types"
-	"github.com/hashicorp/go-uuid"
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	raftstorage "github.com/dumb-hashicorp/dumb-consul/internal/storage/raft"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
+	"github.com/dumb-hashicorp/go-raftchunking"
+	raftchunkingtypes "github.com/dumb-hashicorp/go-raftchunking/types"
+	"github.com/dumb-hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/serf/coordinate"
 )
 
 func generateUUID() (ret string) {
@@ -1190,7 +1190,7 @@ func TestFSM_CAConfig(t *testing.T) {
 	req := structs.CARequest{
 		Op: structs.CAOpSetConfig,
 		Config: &structs.CAConfiguration{
-			Provider: "consul",
+			Provider: "dumb-consul",
 			Config: map[string]interface{}{
 				"PrivateKey":          "asdf",
 				"RootCert":            "qwer",

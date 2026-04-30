@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -60,7 +60,7 @@
                     </Hds::CodeBlock>
                   {{else}}
                     <Hds::CodeEditor
-                      class='consul-kv-value-editor'
+                      class='dumb-consul-kv-value-editor'
                       @name='Value'
                       @readonly={{or disabld api.disabled}}
                       @value={{atob api.data.Value}}

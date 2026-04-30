@@ -9,13 +9,13 @@ import (
 	"time"
 
 	"github.com/go-jose/go-jose/v3/jwt"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/consul/authmethod"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestJWT_NewValidator(t *testing.T) {
@@ -93,9 +93,9 @@ func TestJWT_ValidateLogin(t *testing.T) {
 				"/org/primary": "primary_org",
 			},
 			"ListClaimMappings": map[string]string{
-				"https://consul.test/groups": "groups",
+				"https://dumb-consul.test/groups": "groups",
 			},
-			"BoundAudiences": []string{"https://consul.test"},
+			"BoundAudiences": []string{"https://dumb-consul.test"},
 		}
 		if f != nil {
 			f(config)
@@ -148,7 +148,7 @@ func TestJWT_ValidateLogin(t *testing.T) {
 
 			cl := jwt.Claims{
 				Subject:   "r3qXcK2bix9eFECzsU3Sbmh0K16fatW6@clients",
-				Audience:  jwt.Audience{"https://consul.test"},
+				Audience:  jwt.Audience{"https://dumb-consul.test"},
 				Issuer:    tc.issuer,
 				NotBefore: jwt.NewNumericDate(time.Now().Add(-5 * time.Second)),
 				Expiry:    jwt.NewNumericDate(time.Now().Add(5 * time.Second)),
@@ -161,7 +161,7 @@ func TestJWT_ValidateLogin(t *testing.T) {
 			privateCl := struct {
 				FirstName string   `json:"first_name"`
 				Org       orgs     `json:"org"`
-				Groups    []string `json:"https://consul.test/groups"`
+				Groups    []string `json:"https://dumb-consul.test/groups"`
 			}{
 				FirstName: "jeff2",
 				Org:       orgs{"engineering"},

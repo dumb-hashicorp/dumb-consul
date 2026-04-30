@@ -4,8 +4,8 @@
 package resolver
 
 import (
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // DANGER_NO_AUTH implements an ACL resolver short-circuit authorization in

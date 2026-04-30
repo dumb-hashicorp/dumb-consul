@@ -10,11 +10,11 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/resource"
-	"github.com/hashicorp/consul/command/resource/client"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/client"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -120,7 +120,7 @@ func (c *cmd) Run(args []string) int {
 	c.http.MergeOntoConfig(config)
 	resourceClient, err := client.NewClient(config)
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -148,15 +148,15 @@ const help = `
 Usage: You have two options to delete the resource specified by the given
 type, name, partition and namespace and outputs its JSON representation.
 
-consul resource delete [type] [name] -partition=<default> -namespace=<default>
-consul resource delete -f [resource_file_path]
+dumb-consul resource delete [type] [name] -partition=<default> -namespace=<default>
+dumb-consul resource delete -f [resource_file_path]
 
 But you could only use one of the approaches.
 
 Example:
 
-$ consul resource delete catalog.v2beta1.Service card-processor -partition=billing -namespace=payments
-$ consul resource delete -f resource.hcl
+$ dumb-consul resource delete catalog.v2beta1.Service card-processor -partition=billing -namespace=payments
+$ dumb-consul resource delete -f resource.hcl
 
 In resource.hcl, it could be:
 ID {

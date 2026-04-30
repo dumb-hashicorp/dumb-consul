@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
@@ -9,14 +9,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/raft"
 
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 // RaftLayer implements the raft.StreamLayer interface,
-// so that we can use a single RPC layer for Raft and Consul
+// so that we can use a single RPC layer for Raft and Dumb Consul
 type RaftLayer struct {
 	// src is the address for outgoing connections.
 	src net.Addr

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import resolve from 'consul-ui/utils/path/resolve';
+import resolve from 'dumb-consul-ui/utils/path/resolve';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | path/resolve', function () {

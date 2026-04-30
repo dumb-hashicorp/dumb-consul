@@ -11,14 +11,14 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestServiceHealthSnapshot(t *testing.T) {

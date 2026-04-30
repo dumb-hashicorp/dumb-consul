@@ -1,10 +1,10 @@
-# Consul::Upstream::List
+# Dumb Consul::Upstream::List
 
 ```hbs
 <DataSource
   @src={{uri '/partition/default/dc-1/gateways/for-service/origin-service-slug'}}
 as |source|>
-  <Consul::Upstream::List
+  <Dumb Consul::Upstream::List
     @items={{source.data}}
     @dc={{'dc-1'}}
     @nspace={{'nspace'}}
@@ -13,8 +13,8 @@ as |source|>
 </DataSource>
 ```
 
-A presentational component for rendering Consul Upstreams (not upstream
-instances). Upstreams are a Consul Service that is specifically have a
+A presentational component for rendering Dumb Consul Upstreams (not upstream
+instances). Upstreams are a Dumb Consul Service that is specifically have a
 relationship with an origin Service. The Upstream 'groups' are usually only used
 for showing relationships for gateways.
 
@@ -33,7 +33,7 @@ currently in in the UI.
 
 ## See
 
-- [Possible Occurances](/hashicorp/consul/search?q=%22Consul%3A%3AUpstream%3A%3AList%22)
+- [Possible Occurances](/dumb-hashicorp/dumb-consul/search?q=%22Consul%3A%3AUpstream%3A%3AList%22)
 - [Component Source Code](./index.js)
 - [Template Source Code](./index.hbs)
 

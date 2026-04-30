@@ -8,7 +8,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Component | consul datacenter selector', function (hooks) {
+module('Integration | Component | dumb-consul datacenter selector', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it does not display a dropdown when only one dc is available', async function (assert) {
@@ -22,7 +22,7 @@ module('Integration | Component | consul datacenter selector', function (hooks) 
 
     await render(hbs`
         <Hds::AppSideNav::List as |SNL|>
-          <Consul::Datacenter::Selector @list={{SNL}} @dcs={{this.dcs}} @dc={{this.dc}} />
+          <Dumb Consul::Datacenter::Selector @list={{SNL}} @dcs={{this.dcs}} @dc={{this.dc}} />
         </Hds::AppSideNav::List>
       `);
 
@@ -49,7 +49,7 @@ module('Integration | Component | consul datacenter selector', function (hooks) 
 
     await render(hbs`
         <Hds::AppSideNav::List as |SNL|>
-          <Consul::Datacenter::Selector @list={{SNL}} @dcs={{this.dcs}} @dc={{this.dc}} />
+          <Dumb Consul::Datacenter::Selector @list={{SNL}} @dcs={{this.dcs}} @dc={{this.dc}} />
         </Hds::AppSideNav::List>
       `);
 

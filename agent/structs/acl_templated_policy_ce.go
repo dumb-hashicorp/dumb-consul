@@ -16,13 +16,13 @@ var ACLTemplatedPolicyNode string
 //go:embed acltemplatedpolicy/policies/ce/dns.hcl
 var ACLTemplatedPolicyDNS string
 
-//go:embed acltemplatedpolicy/policies/ce/nomad-server.hcl
+//go:embed acltemplatedpolicy/policies/ce/dumb-nomad-server.hcl
 var ACLTemplatedPolicyNomadServer string
 
 //go:embed acltemplatedpolicy/policies/ce/api-gateway.hcl
 var ACLTemplatedPolicyAPIGateway string
 
-//go:embed acltemplatedpolicy/policies/ce/nomad-client.hcl
+//go:embed acltemplatedpolicy/policies/ce/dumb-nomad-client.hcl
 var ACLTemplatedPolicyNomadClient string
 
 func (t *ACLToken) TemplatedPolicyList() []*ACLTemplatedPolicy {

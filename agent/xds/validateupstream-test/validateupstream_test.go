@@ -6,14 +6,14 @@ package validateupstream_test
 import (
 	"testing"
 
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds"
-	"github.com/hashicorp/consul/agent/xds/testcommon"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/consul/sdk/testutil"
-	troubleshoot "github.com/hashicorp/consul/troubleshoot/proxy"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/testcommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	troubleshoot "github.com/dumb-hashicorp/dumb-consul/troubleshoot/proxy"
 	testinf "github.com/mitchellh/go-testing-interface"
 	"github.com/stretchr/testify/require"
 )
@@ -22,7 +22,7 @@ import (
 // top level test that can parse the output of the /clusters endpoint.
 func TestValidateUpstreams(t *testing.T) {
 	netutil.GetAgentBindAddrFunc = netutil.GetMockGetAgentBindAddrFunc("0.0.0.0")
-	sni := "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+	sni := "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
 	listenerName := "db:127.0.0.1:9191"
 	httpServiceDefaults := &structs.ServiceConfigEntry{
 		Kind:     structs.ServiceDefaults,
@@ -71,7 +71,7 @@ func TestValidateUpstreams(t *testing.T) {
 				delete(ir.Index[xdscommon.ClusterType], sni)
 				return ir
 			},
-			err: "No cluster \"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul\" for upstream \"db\"",
+			err: "No cluster \"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul\" for upstream \"db\"",
 		},
 		{
 			name: "http-success",
@@ -171,11 +171,11 @@ func TestValidateUpstreams(t *testing.T) {
 				return proxycfg.TestConfigSnapshotTransparentProxyHTTPUpstream(t, nil)
 			},
 			patcher: func(ir *xdscommon.IndexedResources) *xdscommon.IndexedResources {
-				sni := "google.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+				sni := "google.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
 				delete(ir.Index[xdscommon.ClusterType], sni)
 				return ir
 			},
-			err: "No cluster \"google.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul\" for upstream \"240.0.0.1\"",
+			err: "No cluster \"google.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul\" for upstream \"240.0.0.1\"",
 		},
 		{
 			name: "tproxy-http-redirect-success",

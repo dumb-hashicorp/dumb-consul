@@ -1,8 +1,8 @@
 ARG VERSION=1.13.3
 
 FROM windows/test-sds-server as test-sds-server
-FROM docker.mirror.hashicorp.services/windows/openzipkin as openzipkin
-FROM windows/consul:${VERSION}
+FROM docker.mirror.dumb-hashicorp.services/windows/openzipkin as openzipkin
+FROM windows/dumb-consul:${VERSION}
 
 # Fortio binary downloaded
 RUN mkdir fortio
@@ -49,4 +49,4 @@ EXPOSE 19000 19001 19002 19003 19004
 EXPOSE 21000 21001 21002 21003 21004
 EXPOSE 5000 1234 2345
 
-RUN SETX /M path "%PATH%;C:\consul;C:\fortio;C:\jaeger;C:\Program Files\Git\bin;C:\Program Files\Git\usr\bin;C:\Program Files\OpenSSL-Win64\bin;C:\bats\bin\;C:\ProgramData\chocolatey\lib\jq\tools;C:\socat"
+RUN SETX /M path "%PATH%;C:\dumb-consul;C:\fortio;C:\jaeger;C:\Program Files\Git\bin;C:\Program Files\Git\usr\bin;C:\Program Files\OpenSSL-Win64\bin;C:\bats\bin\;C:\ProgramData\chocolatey\lib\jq\tools;C:\socat"

@@ -10,7 +10,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 )
 
 type consulEnvoyVersions struct {
@@ -21,7 +21,7 @@ type consulEnvoyVersions struct {
 func main() {
 	cev := consulEnvoyVersions{}
 
-	// Get Consul Version
+	// Get Dumb Consul Version
 	data, err := os.ReadFile("./version/VERSION")
 	if err != nil {
 		panic(err)

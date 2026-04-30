@@ -5,7 +5,7 @@
 
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import { get } from 'consul-ui/tests/helpers/api';
+import { get } from 'dumb-consul-ui/tests/helpers/api';
 module('Integration | Serializer | binding-rule', function (hooks) {
   setupTest(hooks);
   const dc = 'dc-1';

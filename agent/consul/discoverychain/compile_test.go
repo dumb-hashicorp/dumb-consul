@@ -9,11 +9,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 type compileTestCase struct {
@@ -121,7 +121,7 @@ func TestCompile(t *testing.T) {
 				EvaluateInNamespace:   "default",
 				EvaluateInPartition:   "default",
 				EvaluateInDatacenter:  "dc1",
-				EvaluateInTrustDomain: "trustdomain.consul",
+				EvaluateInTrustDomain: "trustdomain.dumb-consul",
 				Entries:               tc.entries,
 			}
 			if tc.setup != nil {
@@ -3298,7 +3298,7 @@ func newTarget(opts structs.DiscoveryTargetOpts, modFn func(t *structs.Discovery
 		opts.Datacenter = "dc1"
 	}
 	t := structs.NewDiscoveryTarget(opts)
-	t.SNI = connect.TargetSNI(t, "trustdomain.consul")
+	t.SNI = connect.TargetSNI(t, "trustdomain.dumb-consul")
 	t.Name = t.SNI
 	t.ConnectTimeout = 5 * time.Second // default
 	t.PrioritizeByLocality = opts.PrioritizeByLocality

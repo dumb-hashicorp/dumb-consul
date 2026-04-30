@@ -1,17 +1,17 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
 	"net"
 
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // RaftGetConfiguration is used to retrieve the current Raft configuration.
@@ -36,7 +36,7 @@ func (op *Operator) RaftGetConfiguration(args *structs.DCSpecificRequest, reply 
 		return err
 	}
 
-	// Index the Consul information about the servers.
+	// Index the Dumb Consul information about the servers.
 	serverMap := make(map[raft.ServerAddress]serf.Member)
 	for _, member := range op.srv.serfLAN.Members() {
 		valid, parts := metadata.IsConsulServer(member)

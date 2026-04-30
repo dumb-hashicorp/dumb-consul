@@ -4,7 +4,7 @@
 package usage
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -28,7 +28,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Provides cluster-level usage information"
 const help = `
-Usage: consul operator usage <subcommand> [options] [args]
+Usage: dumb-consul operator usage <subcommand> [options] [args]
 
   This command has subcommands for displaying usage information. The subcommands
   default to working with services registered with the local datacenter.

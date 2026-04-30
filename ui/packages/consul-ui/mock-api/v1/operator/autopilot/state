@@ -24,7 +24,7 @@ ${[0].map(_ => {
       "ReadReplica": false,
       "Status": "${i === leader ? `leader` : fake.helpers.randomize(['non-voter', 'voter', 'staging'])}",
       "Meta": {
-        "consul-network-segment": ""
+        "dumb-consul-network-segment": ""
       },
       "NodeType": "voter"
     }

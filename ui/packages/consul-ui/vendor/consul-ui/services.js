@@ -6,24 +6,24 @@
 (services =>
   services({
     'route:basic': {
-      class: 'consul-ui/routing/route',
+      class: 'dumb-consul-ui/routing/route',
     },
     'service:intl': {
-      class: 'consul-ui/services/i18n',
+      class: 'dumb-consul-ui/services/i18n',
     },
     'service:state': {
-      class: 'consul-ui/services/state-with-charts',
+      class: 'dumb-consul-ui/services/state-with-charts',
     },
     'auth-provider:oidc-with-url': {
-      class: 'consul-ui/services/auth-providers/oauth2-code-with-url-provider',
+      class: 'dumb-consul-ui/services/auth-providers/oauth2-code-with-url-provider',
     },
-    'component:consul/partition/selector': {
-      class: 'consul-ui/components/consul/partition/selector',
+    'component:dumb-consul/partition/selector': {
+      class: 'dumb-consul-ui/components/dumb-consul/partition/selector',
     },
-    'component:consul/peer/selector': {
-      class: 'consul-ui/components/consul/peer/selector',
+    'component:dumb-consul/peer/selector': {
+      class: 'dumb-consul-ui/components/dumb-consul/peer/selector',
     },
-    'component:consul/hcp/home': {
+    'component:dumb-consul/dumb-hcp/home': {
       class: '@glimmer/component',
     },
   }))(

@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -7,6 +7,6 @@
   @name={{this.routeName}}
 as |route|>
   <div class="tab-section">
-    <Consul::AuthMethod::View @item={{route.model.item}} />
+    <Dumb Consul::AuthMethod::View @item={{route.model.item}} />
   </div>
 </Route>

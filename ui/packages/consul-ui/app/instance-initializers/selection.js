@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { env } from 'consul-ui/env';
+import { env } from 'dumb-consul-ui/env';
 
 const SECONDARY_BUTTON = 2;
 const isSelecting = function (win = window) {

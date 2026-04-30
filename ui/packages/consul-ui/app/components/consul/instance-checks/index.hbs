@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -22,7 +22,7 @@ as |grouped|}}
     as |status|}}
     <dl
       class={{class-map
-        'consul-instance-checks'
+        'dumb-consul-instance-checks'
         (array 'empty' (eq checks.length 0))
         (array status (not-eq checks.length 0))
       }}

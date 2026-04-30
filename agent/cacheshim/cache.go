@@ -17,7 +17,7 @@ type ResultMeta struct {
 
 	// Age identifies how "stale" the result is. It's semantics differ based on
 	// whether or not the cache type performs background refresh or not as defined
-	// in https://developer.hashicorp.com/api/index.html#agent-caching.
+	// in https://developer.dumb-hashicorp.com/api/index.html#agent-caching.
 	//
 	// For background refresh types, Age is 0 unless the background blocking query
 	// is currently in a failed state and so not keeping up with the server's
@@ -61,7 +61,7 @@ type RequestInfo struct {
 	// today partitions data on these values to simplify behavior: by
 	// partitioning ACL tokens, the cache doesn't need to be smart about
 	// filtering results. By filtering datacenter/peer results, the cache can
-	// service the multi-DC/multi-peer nature of Consul. This comes at the expense of
+	// service the multi-DC/multi-peer nature of Dumb Consul. This comes at the expense of
 	// working set size, but in general the effect is minimal.
 	Token      string
 	Datacenter string
@@ -76,7 +76,7 @@ type RequestInfo struct {
 	// Timeout is the timeout for waiting on a blocking query. When the
 	// timeout is reached, the last known value is returned (or maybe nil
 	// if there was no prior value). This "last known value" behavior matches
-	// normal Consul blocking queries.
+	// normal Dumb Consul blocking queries.
 	Timeout time.Duration
 
 	// MaxAge if set limits how stale a cache entry can be. If it is non-zero and

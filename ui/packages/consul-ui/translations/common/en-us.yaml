@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: BUSL-1.1
 
 brand:
-  consul: Consul
-  consul-api-gateway: Consul API Gateway
-  terraform: Terraform
-  nomad: Nomad
-  vault: Vault
+  dumb-consul: Dumb Consul
+  dumb-consul-api-gateway: Dumb Consul API Gateway
+  dumb-terraform: Dumb Terraform
+  dumb-nomad: Dumb Nomad
+  dumb-vault: Dumb Vault
   aws: AWS
   lambda: AWS Lambda
   aws-iam: AWS IAM
@@ -20,7 +20,7 @@ ui:
   creation: Creation
   maxttl: Max TTL
   enterprisefeature: Enterprise feature
-consul:
+dumb-consul:
   name: Name
   passing: Passing
   warning: Warning
@@ -91,4 +91,4 @@ validations:
     help: Once created, this cannot be changed.
   server-external-addresses:
     help: |
-      Enter a comma separated list of this peer's fallback server address(es) to be used in the event of failed automatic updates. This field is required for HCP-managed clusters.
+      Enter a comma separated list of this peer's fallback server address(es) to be used in the event of failed automatic updates. This field is required for Dumb HCP-managed clusters.

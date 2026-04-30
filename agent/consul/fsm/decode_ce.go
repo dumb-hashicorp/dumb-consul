@@ -7,9 +7,9 @@
 package fsm
 
 import (
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 func decodeRegistrationReq(buf []byte, req *structs.RegisterRequest) error {

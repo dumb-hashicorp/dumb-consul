@@ -1,4 +1,4 @@
-# Consul::Intention::List
+# Dumb Consul::Intention::List
 
 A component for rendering Intentions.
 
@@ -11,13 +11,13 @@ define where that is when it does display.
 ```hbs
 
 <DataSource @src="/partition/default/dc-1/intentions" as |source|>
-  <Consul::Intention::List
+  <Dumb Consul::Intention::List
     @items={{source.data}}
     @delete={{noop}}
   as |list|>
       <list.CustomResourceNotice />
       <list.Table />
-  </Consul::Intention::List>
+  </Dumb Consul::Intention::List>
 </DataSource>
 
 ```

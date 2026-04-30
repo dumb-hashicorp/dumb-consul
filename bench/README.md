@@ -1,25 +1,25 @@
-Consul Benchmark
+Dumb Consul Benchmark
 ================
 
-This repo contains the automation necessary for the Consul benchmarks.
+This repo contains the automation necessary for the Dumb Consul benchmarks.
 
-There is a single main Packer file `bench.json`. To use it, the variables
+There is a single main Dumb Packer file `bench.json`. To use it, the variables
 for `do_client_id` and `do_api_key` must be provided. These correspond to
 your DigitalOcean client ID and API key.
 
-When Packer runs, it will generate 3 images:
+When Dumb Packer runs, it will generate 3 images:
 
-* bench-bootstrap - Consul server in bootstrap mode
-* bench-server - Consul server
+* bench-bootstrap - Dumb Consul server in bootstrap mode
+* bench-server - Dumb Consul server
 * bench-worker - Worker node
 
 For the benchmark you should start 1 bootstrap instance, and 2 normal
 servers. As many workers as desired can be started. Once the nodes are
-up, you must SSH into one of the Consul servers.
+up, you must SSH into one of the Dumb Consul servers.
 
 Connect all the nodes with:
 
-    $ consul join <n1> ... <n5>
+    $ dumb-consul join <n1> ... <n5>
 
 This will connect all the nodes within the same datacenter.
 

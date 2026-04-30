@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -10,11 +10,11 @@ import (
 
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/go-version"
+	"github.com/dumb-hashicorp/go-version"
 
-	"github.com/hashicorp/consul/agent/consul/gateways"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/gateways"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 const (
@@ -32,11 +32,11 @@ var (
 	// queries when backing off.
 	maxRetryBackoff = 256
 
-	// minVirtualIPVersion is the minimum version for all Consul servers for virtual IP
+	// minVirtualIPVersion is the minimum version for all Dumb Consul servers for virtual IP
 	// assignment to be enabled.
 	minVirtualIPVersion = version.Must(version.NewVersion("1.11.0"))
 
-	// minVirtualIPVersion is the minimum version for all Consul servers for virtual IP
+	// minVirtualIPVersion is the minimum version for all Dumb Consul servers for virtual IP
 	// assignment to be enabled for terminating gateways.
 	minVirtualIPTerminatingGatewayVersion = version.Must(version.NewVersion("1.11.2"))
 

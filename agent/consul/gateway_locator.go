@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -11,22 +11,22 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
-	memdb "github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-hclog"
+	memdb "github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/agent/blockingquery"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/agent/blockingquery"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 // GatewayLocator assists in selecting an appropriate mesh gateway when wan
 // federation via mesh gateways is enabled.
 //
-// This is exclusively used by the consul server itself when it needs to tunnel
+// This is exclusively used by the dumb-consul server itself when it needs to tunnel
 // RPC or gossip through a mesh gateway to reach its ultimate destination.
 //
 // During secondary datacenter bootstrapping there is a phase where it is
@@ -38,7 +38,7 @@ import (
 // After initial datacenter federation the primary mesh gateways are only used
 // in extreme fallback situations (basically re-bootstrapping).
 //
-// For all other operations a consul server will ALWAYS contact a local mesh
+// For all other operations a dumb-consul server will ALWAYS contact a local mesh
 // gateway to ultimately forward the request through a remote mesh gateway to
 // reach its destination.
 type GatewayLocator struct {

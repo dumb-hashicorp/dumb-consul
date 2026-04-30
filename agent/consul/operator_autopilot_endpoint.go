@@ -1,15 +1,15 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
 
-	autopilot "github.com/hashicorp/raft-autopilot"
-	"github.com/hashicorp/serf/serf"
+	autopilot "github.com/dumb-hashicorp/raft-autopilot"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // AutopilotGetConfiguration is used to retrieve the current Autopilot configuration.

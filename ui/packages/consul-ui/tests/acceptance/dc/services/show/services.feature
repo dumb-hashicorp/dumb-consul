@@ -15,7 +15,7 @@ Feature: dc / services / show / services
       dc: dc1
       service: terminating-gateway-1
     ---
-    And the title should be "terminating-gateway-1 - Consul"
+    And the title should be "terminating-gateway-1 - Dumb Consul"
     And I see linkedServicesIsVisible on the tabs
     When I click linkedServices on the tabs
     And I see linkedServicesIsSelected on the tabs
@@ -26,7 +26,7 @@ Feature: dc / services / show / services
       dc: dc1
       service: terminating-gateway-1
     ---
-    And the title should be "terminating-gateway-1 - Consul"
+    And the title should be "terminating-gateway-1 - Dumb Consul"
     When I click linkedServices on the tabs
     Then I see 3 service models on the tabs.linkedServicesTab component
   Scenario: Don't see the Linked Services tab
@@ -43,7 +43,7 @@ Feature: dc / services / show / services
       dc: dc1
       service: [Name]
     ---
-    And the title should be "[Name] - Consul"
+    And the title should be "[Name] - Dumb Consul"
     And I don't see linkedServices on the tabs
     Where:
     ---------------------------------------------

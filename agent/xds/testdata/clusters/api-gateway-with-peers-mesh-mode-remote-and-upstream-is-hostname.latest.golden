@@ -3,7 +3,7 @@
   "resources": [
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "c225dc1c~paymentService.default.paymentpeer.external.1c053652-8512-4373-90cf-5a7f6263a994.consul",
+      "altStatName": "c225dc1c~paymentService.default.paymentpeer.external.1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul",
       "circuitBreakers": {},
       "commonLbConfig": {
         "healthyPanicThreshold": {}
@@ -12,7 +12,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "c225dc1c~paymentService.default.paymentpeer.external.1c053652-8512-4373-90cf-5a7f6263a994.consul",
+        "clusterName": "c225dc1c~paymentService.default.paymentpeer.external.1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -32,7 +32,7 @@
           }
         ]
       },
-      "name": "c225dc1c~paymentService.default.paymentpeer.external.1c053652-8512-4373-90cf-5a7f6263a994.consul",
+      "name": "c225dc1c~paymentService.default.paymentpeer.external.1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -54,7 +54,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://1c053652-8512-4373-90cf-5a7f6263a994.consul/ns/default/dc/paymentdc/svc/paymentService"
+                    "exact": "spiffe://1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul/ns/default/dc/paymentdc/svc/paymentService"
                   },
                   "sanType": "URI"
                 }
@@ -64,7 +64,7 @@
               }
             }
           },
-          "sni": "paymentService.default.default.paymentpeer.external.1c053652-8512-4373-90cf-5a7f6263a994.consul"
+          "sni": "paymentService.default.default.paymentpeer.external.1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul"
         }
       },
       "type": "LOGICAL_DNS"

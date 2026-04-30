@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { isLegacy } from 'consul-ui/helpers/token/is-legacy';
+import { isLegacy } from 'dumb-consul-ui/helpers/token/is-legacy';
 import { module, test } from 'qunit';
 
 module('Unit | Helper | token/is-legacy', function () {

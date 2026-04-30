@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -14,11 +14,11 @@
 {{#let (fn dispatch 'SUCCESS') (fn dispatch 'ERROR') (fn dispatch 'RESET') as |success error reset|}}
     <button
       {{with-copyable @value success=success error=error}}
-      aria-label={{t 'components.consul-copy-button.title' name=@name}}
+      aria-label={{t 'components.dumb-consul-copy-button.title' name=@name}}
       type="button"
       class="copy-btn"
       {{hds-tooltip
-        (if (state-matches state 'success') (t 'components.consul-copy-button.success' name=@name) (t 'components.consul-copy-button.error'))
+        (if (state-matches state 'success') (t 'components.dumb-consul-copy-button.success' name=@name) (t 'components.dumb-consul-copy-button.error'))
         options=(detached-tooltip-options
           trigger='manual'
           showOnCreate=(not (state-matches state 'idle'))

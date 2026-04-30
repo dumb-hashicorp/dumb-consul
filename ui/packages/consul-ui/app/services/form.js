@@ -4,13 +4,13 @@
  */
 
 import Service, { inject as service } from '@ember/service';
-import builderFactory from 'consul-ui/utils/form/builder';
+import builderFactory from 'dumb-consul-ui/utils/form/builder';
 
-import kv from 'consul-ui/forms/kv';
-import token from 'consul-ui/forms/token';
-import policy from 'consul-ui/forms/policy';
-import role from 'consul-ui/forms/role';
-import intention from 'consul-ui/forms/intention';
+import kv from 'dumb-consul-ui/forms/kv';
+import token from 'dumb-consul-ui/forms/token';
+import policy from 'dumb-consul-ui/forms/policy';
+import role from 'dumb-consul-ui/forms/role';
+import intention from 'dumb-consul-ui/forms/intention';
 
 const builder = builderFactory();
 

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 var errFederationStatesNotSupported = errors.New("Not all servers in the datacenter support federation states - preventing replication")

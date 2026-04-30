@@ -4,7 +4,7 @@
  */
 
 export default (collection, clickable, attribute, text, actions) => () => {
-  return collection('.consul-token-list [data-test-list-row]', {
+  return collection('.dumb-consul-token-list [data-test-list-row]', {
     id: attribute('data-test-token', '[data-test-token]'),
     name: text('[data-test-name]'),
     description: text('[data-test-description]'),

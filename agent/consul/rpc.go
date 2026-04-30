@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -17,28 +17,28 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-connlimit"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/go-raftchunking"
-	"github.com/hashicorp/memberlist"
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/yamux"
+	"github.com/dumb-hashicorp/go-connlimit"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-raftchunking"
+	"github.com/dumb-hashicorp/memberlist"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/yamux"
 	"google.golang.org/grpc"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/blockingquery"
-	"github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/wanfed"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/agent/rpc/middleware"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/blockingquery"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/wanfed"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 var RPCCounters = []prometheus.CounterDefinition{
@@ -56,7 +56,7 @@ var RPCCounters = []prometheus.CounterDefinition{
 	},
 	{
 		Name: []string{"rpc", "request"},
-		Help: "Increments when a server receives a Consul-related RPC request.",
+		Help: "Increments when a server receives a Dumb Consul-related RPC request.",
 	},
 	{
 		Name: []string{"rpc", "cross-dc"},
@@ -153,7 +153,7 @@ func logConn(conn net.Conn) string {
 }
 
 // handleConn is used to determine if this is a Raft or
-// Consul type RPC connection and invoke the correct handler
+// Dumb Consul type RPC connection and invoke the correct handler
 func (s *Server) handleConn(conn net.Conn, isTLS bool) {
 	// Limit how long the client can hold the connection open before they send the
 	// magic byte (and authenticate when mTLS is enabled). If `isTLS == true` then
@@ -422,7 +422,7 @@ func (s *Server) handleMultiplexV2(conn net.Conn) {
 	}
 }
 
-// handleConsulConn is used to service a single Consul RPC connection
+// handleConsulConn is used to service a single Dumb Consul RPC connection
 func (s *Server) handleConsulConn(conn net.Conn) {
 	defer conn.Close()
 	rpcCodec := msgpackrpc.NewCodecFromHandle(true, true, conn, structs.MsgpackHandle)
@@ -455,7 +455,7 @@ func (s *Server) handleConsulConn(conn net.Conn) {
 	}
 }
 
-// handleInsecureConsulConn is used to service a single Consul INSECURERPC connection
+// handleInsecureConsulConn is used to service a single Dumb Consul INSECURERPC connection
 func (s *Server) handleInsecureConn(conn net.Conn) {
 	defer conn.Close()
 	rpcCodec := msgpackrpc.NewCodecFromHandle(true, true, conn, structs.MsgpackHandle)
@@ -1025,7 +1025,7 @@ type blockingQueryResponseMeta interface {
 }
 
 // blockingQuery is a passthrough to blockingquery.Query that keeps API
-// compatibility with Server. That has RPC and FSM machinery mixed in the same consul
+// compatibility with Server. That has RPC and FSM machinery mixed in the same dumb-consul
 // package.
 func (s *Server) blockingQuery(
 	requestOpts blockingquery.RequestOptions,

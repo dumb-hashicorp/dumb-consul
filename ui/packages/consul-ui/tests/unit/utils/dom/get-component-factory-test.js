@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import getComponentFactory from 'consul-ui/utils/dom/get-component-factory';
+import getComponentFactory from 'dumb-consul-ui/utils/dom/get-component-factory';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | dom/get component factory', function () {

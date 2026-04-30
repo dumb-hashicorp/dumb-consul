@@ -4,7 +4,7 @@
  */
 
 import { helper } from '@ember/component/helper';
-import { MANAGEMENT_ID } from 'consul-ui/models/policy';
+import { MANAGEMENT_ID } from 'dumb-consul-ui/models/policy';
 
 export default helper(function policyGroup([items] /*, hash*/) {
   return items.reduce(

@@ -1,4 +1,4 @@
-# Consul::Partition::Form
+# Dumb Consul::Partition::Form
 
 ```hbs
 <DataLoader @src={{
@@ -12,7 +12,7 @@
   }}
 as |loader|>
   <BlockSlot @name="loaded">
-    <Consul::Partition::Form
+    <Dumb Consul::Partition::Form
       @item={{loader.data}}
       @dc={{'dc-1'}}
       @nspace={{'nspace'}}

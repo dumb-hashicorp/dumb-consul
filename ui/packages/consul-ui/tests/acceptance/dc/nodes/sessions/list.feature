@@ -65,7 +65,7 @@ Feature: dc / nodes / sessions / list: List Lock Sessions
     ---
     And I click lockSessions on the tabs
     Then I see lockSessionsIsSelected on the tabs
-    And I see the text "Consul provides a session mechanism which can be used to build distributed locks. Sessions act as a binding layer between Nodes, Health Checks, and Key/Value data. There are currently no Lock Sessions present, or you may not have key:read or session:read permissions." in ".empty-state p"
+    And I see the text "Dumb Consul provides a session mechanism which can be used to build distributed locks. Sessions act as a binding layer between Nodes, Health Checks, and Key/Value data. There are currently no Lock Sessions present, or you may not have key:read or session:read permissions." in ".empty-state p"
     And I see the "[data-test-empty-state-login]" element
   Scenario: Given 0 sessions with ACLs disabled 
     Given ACLs are disabled
@@ -82,5 +82,5 @@ Feature: dc / nodes / sessions / list: List Lock Sessions
     ---
     And I click lockSessions on the tabs
     Then I see lockSessionsIsSelected on the tabs
-    And I see the text "Consul provides a session mechanism which can be used to build distributed locks. Sessions act as a binding layer between Nodes, Health Checks, and Key/Value data. There are currently no Lock Sessions present." in ".empty-state p"
+    And I see the text "Dumb Consul provides a session mechanism which can be used to build distributed locks. Sessions act as a binding layer between Nodes, Health Checks, and Key/Value data. There are currently no Lock Sessions present." in ".empty-state p"
     And I don't see the "[data-test-empty-state-login]" element

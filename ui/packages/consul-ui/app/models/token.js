@@ -4,7 +4,7 @@
  */
 
 import Model, { attr } from '@ember-data/model';
-import { MANAGEMENT_ID } from 'consul-ui/models/policy';
+import { MANAGEMENT_ID } from 'dumb-consul-ui/models/policy';
 
 export const PRIMARY_KEY = 'uid';
 export const SLUG_KEY = 'AccessorID';

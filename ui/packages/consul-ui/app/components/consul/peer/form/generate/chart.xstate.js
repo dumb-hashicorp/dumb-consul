@@ -4,7 +4,7 @@
  */
 
 export default {
-  id: 'consul-peer-generate-form',
+  id: 'dumb-consul-peer-generate-form',
   initial: 'idle',
   states: {
     idle: {

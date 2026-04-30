@@ -4,9 +4,9 @@ package catalog
 
 import (
 	"context"
-	limiter "github.com/hashicorp/consul/agent/grpc-external/limiter"
-	proxycfg "github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
+	limiter "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	proxycfg "github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 	mock "github.com/stretchr/testify/mock"
 )
 

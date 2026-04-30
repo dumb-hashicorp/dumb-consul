@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -14,19 +14,19 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-bexpr"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-uuid"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/consul/auth"
-	"github.com/hashicorp/consul/agent/consul/authmethod"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/structs/aclfilter"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/auth"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs/aclfilter"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 const (

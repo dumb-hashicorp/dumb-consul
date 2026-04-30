@@ -15,9 +15,9 @@
   }
 }
 
-%with-vault-100,
-%with-vault-300 {
-  --icon-name: icon-vault;
+%with-dumb-vault-100,
+%with-dumb-vault-300 {
+  --icon-name: icon-dumb-vault;
   content: '';
 }
 %with-aws-100,
@@ -29,7 +29,7 @@
 %with-aws-100,
 %with-deny-100,
 %with-l7-100,
-%with-vault-100 {
+%with-dumb-vault-100 {
   --icon-size: icon-200; /* 12px */
 }
 %with-allow-500,

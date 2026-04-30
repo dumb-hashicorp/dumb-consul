@@ -119,15 +119,15 @@ var File_service_proto protoreflect.FileDescriptor
 
 const file_service_proto_rawDesc = "" +
 	"\n" +
-	"\rservice.proto\x127hashicorp.consul.internal.protoc_gen_grpc_clone.testing\"\x17\n" +
+	"\rservice.proto\x127hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing\"\x17\n" +
 	"\x03Req\x12\x10\n" +
 	"\x03Foo\x18\x01 \x01(\tR\x03Foo\"\x18\n" +
 	"\x04Resp\x12\x10\n" +
 	"\x03Bar\x18\x01 \x01(\tR\x03Bar2\x9f\x02\n" +
 	"\x06Simple\x12\x8a\x01\n" +
-	"\tSomething\x12<.hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Req\x1a=.hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Resp\"\x00\x12\x87\x01\n" +
-	"\x04Flow\x12<.hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Req\x1a=.hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Resp\"\x000\x01B\x8d\x03\n" +
-	";com.hashicorp.consul.internal.protoc_gen_grpc_clone.testingB\fServiceProtoP\x01ZJgithub.com/hashicorp/consul/internal/tools/protoc-gen-grpc-clone/e2e/proto\xa2\x02\x05HCIPT\xaa\x024Hashicorp.Consul.Internal.ProtocGenGrpcClone.Testing\xca\x024Hashicorp\\Consul\\Internal\\ProtocGenGrpcClone\\Testing\xe2\x02@Hashicorp\\Consul\\Internal\\ProtocGenGrpcClone\\Testing\\GPBMetadata\xea\x028Hashicorp::Consul::Internal::ProtocGenGrpcClone::Testingb\x06proto3"
+	"\tSomething\x12<.dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Req\x1a=.dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Resp\"\x00\x12\x87\x01\n" +
+	"\x04Flow\x12<.dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Req\x1a=.dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Resp\"\x000\x01B\x8d\x03\n" +
+	";com.dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testingB\fServiceProtoP\x01ZJgithub.com/dumb-hashicorp/dumb-consul/internal/tools/protoc-gen-grpc-clone/e2e/proto\xa2\x02\x05HCIPT\xaa\x024Hashicorp.Dumb Consul.Internal.ProtocGenGrpcClone.Testing\xca\x024Hashicorp\\Dumb Consul\\Internal\\ProtocGenGrpcClone\\Testing\xe2\x02@Hashicorp\\Dumb Consul\\Internal\\ProtocGenGrpcClone\\Testing\\GPBMetadata\xea\x028Hashicorp::Dumb Consul::Internal::ProtocGenGrpcClone::Testingb\x06proto3"
 
 var (
 	file_service_proto_rawDescOnce sync.Once
@@ -143,14 +143,14 @@ func file_service_proto_rawDescGZIP() []byte {
 
 var file_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_service_proto_goTypes = []any{
-	(*Req)(nil),  // 0: hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Req
-	(*Resp)(nil), // 1: hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Resp
+	(*Req)(nil),  // 0: dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Req
+	(*Resp)(nil), // 1: dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Resp
 }
 var file_service_proto_depIdxs = []int32{
-	0, // 0: hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Simple.Something:input_type -> hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Req
-	0, // 1: hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Simple.Flow:input_type -> hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Req
-	1, // 2: hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Simple.Something:output_type -> hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Resp
-	1, // 3: hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Simple.Flow:output_type -> hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Resp
+	0, // 0: dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Simple.Something:input_type -> dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Req
+	0, // 1: dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Simple.Flow:input_type -> dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Req
+	1, // 2: dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Simple.Something:output_type -> dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Resp
+	1, // 3: dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Simple.Flow:output_type -> dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Resp
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

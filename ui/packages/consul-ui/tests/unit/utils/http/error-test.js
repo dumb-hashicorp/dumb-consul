@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import HttpError from 'consul-ui/utils/http/error';
+import HttpError from 'dumb-consul-ui/utils/http/error';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | http/error', function () {

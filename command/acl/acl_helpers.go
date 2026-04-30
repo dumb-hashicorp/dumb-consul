@@ -8,11 +8,11 @@ import (
 	"strings"
 
 	"github.com/go-viper/mapstructure/v2"
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/helpers"
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
+	"github.com/dumb-hashicorp/hcl"
 )
 
 func GetTokenAccessorIDFromPartial(client *api.Client, partialAccessorID string) (string, error) {

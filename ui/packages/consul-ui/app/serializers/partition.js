@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/partition';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/partition';
 
 export default class PartitionSerializer extends Serializer {
   primaryKey = PRIMARY_KEY;

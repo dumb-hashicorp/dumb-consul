@@ -6,7 +6,7 @@ Feature: dc / services / index: List Services
     ---
       - Name: Service-0
         ExternalSources:
-          - consul
+          - dumb-consul
         ChecksPassing: 0
         ChecksWarning: 0
         ChecksCritical: 10
@@ -15,7 +15,7 @@ Feature: dc / services / index: List Services
         Kind: 'connect-proxy'
       - Name: Service-1
         ExternalSources:
-          - nomad
+          - dumb-nomad
         ChecksPassing: 0
         ChecksWarning: 0
         ChecksCritical: 9
@@ -24,7 +24,7 @@ Feature: dc / services / index: List Services
         Kind: 'connect-proxy'
       - Name: Service-2
         ExternalSources:
-          - terraform
+          - dumb-terraform
         ChecksPassing: 0
         ChecksWarning: 0
         ChecksCritical: 8
@@ -59,13 +59,13 @@ Feature: dc / services / index: List Services
       dc: dc-1
     ---
     Then the url should be /dc-1/services
-    And the title should be "Services - Consul"
+    And the title should be "Services - Dumb Consul"
     Then I see 5 service models
     And I see externalSource on the services like yaml
     ---
-    - consul
-    - nomad
-    - terraform
+    - dumb-consul
+    - dumb-nomad
+    - dumb-terraform
     - kubernetes
     - aws
     ---
@@ -100,7 +100,7 @@ Feature: dc / services / index: List Services
       dc: dc-1
     ---
     Then the url should be /dc-1/services
-    And the title should be "Services - Consul"
+    And the title should be "Services - Dumb Consul"
     Then I see 3 service models
     And I see kind on the services like yaml
     ---
@@ -135,7 +135,7 @@ Feature: dc / services / index: List Services
       dc: dc-1
     ---
     Then the url should be /dc-1/services
-    And the title should be "Services - Consul"
+    And the title should be "Services - Dumb Consul"
     Then I see 2 service models
     And I see mesh on the services.0
     And I don't see mesh on the services.1
@@ -167,7 +167,7 @@ Feature: dc / services / index: List Services
       dc: dc-1
     ---
     Then the url should be /dc-1/services
-    And the title should be "Services - Consul"
+    And the title should be "Services - Dumb Consul"
     Then I see 2 service models
     And I don't see associatedServiceCount on the services.0
     And I see associatedServiceCount on the services.1
@@ -179,9 +179,9 @@ Feature: dc / services / index: List Services
       dc: dc-1
     ---
     Then the url should be /dc-1/services
-    And the title should be "Services - Consul"
+    And the title should be "Services - Dumb Consul"
     Then I see 0 service models 
-    And I see the text "There don't seem to be any registered services in this Consul cluster, or you may not have service:read and node:read access to this view. Use Terraform, Kubernetes CRDs, Vault, or the Consul CLI to register Services." in ".empty-state p"
+    And I see the text "There don't seem to be any registered services in this Dumb Consul cluster, or you may not have service:read and node:read access to this view. Use Dumb Terraform, Kubernetes CRDs, Dumb Vault, or the Dumb Consul CLI to register Services." in ".empty-state p"
     And I see the "[data-test-empty-state-login]" element
   Scenario: Viewing the services index page with no services and ACLs disabled
     Given ACLs are disabled
@@ -192,7 +192,7 @@ Feature: dc / services / index: List Services
       dc: dc-1
     ---
     Then the url should be /dc-1/services
-    And the title should be "Services - Consul"
+    And the title should be "Services - Dumb Consul"
     Then I see 0 service models 
-    And I see the text "There don't seem to be any registered services in this Consul cluster." in ".empty-state p"
+    And I see the text "There don't seem to be any registered services in this Dumb Consul cluster." in ".empty-state p"
     And I don't see the "[data-test-empty-state-login]" element

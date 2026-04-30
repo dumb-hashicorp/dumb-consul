@@ -12,11 +12,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestStateStore_SessionCreate_SessionGet(t *testing.T) {

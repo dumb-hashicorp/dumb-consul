@@ -4,8 +4,8 @@
  */
 
 // This files export is executed from 2 places:
-// 1. consul-ui/tests/acceptance/steps/steps.js - run during testing
-// 2. consul-ui/lib/commands/lib/list.js - run when listing steps via the CLI
+// 1. dumb-consul-ui/tests/acceptance/steps/steps.js - run during testing
+// 2. dumb-consul-ui/lib/commands/lib/list.js - run when listing steps via the CLI
 
 import models from './steps/doubles/model';
 import http from './steps/doubles/http';
@@ -127,7 +127,7 @@ export default function ({
   assertForm(library, assert, utils.find, utils.getCurrentPage);
 
   return library.given(["I'm using a legacy token"], function (number, model, data) {
-    window.localStorage['consul:token'] = JSON.stringify({
+    window.localStorage['dumb-consul:token'] = JSON.stringify({
       Namespace: 'default',
       AccessorID: null,
       SecretID: 'id',

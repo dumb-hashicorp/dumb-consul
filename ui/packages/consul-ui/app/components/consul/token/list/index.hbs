@@ -1,9 +1,9 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<ListCollection class='consul-token-list' @items={{@items}} as |item|>
+<ListCollection class='dumb-consul-token-list' @items={{@items}} as |item|>
   <BlockSlot @name='header'>
     {{#if (eq item.AccessorID @token.AccessorID)}}
       <dl rel='me'>
@@ -30,7 +30,7 @@
         {{if item.Local 'local' 'global'}}
       </dd>
     </dl>
-    <Consul::Token::Ruleset::List @item={{item}} />
+    <Dumb Consul::Token::Ruleset::List @item={{item}} />
     <dl>
       <dt>Description</dt>
       <dd data-test-description>
@@ -40,8 +40,8 @@
   </BlockSlot>
   <BlockSlot @name='actions' as |Actions|>
     {{#if item.hasSecretID}}
-      <ConsulCopyButton @value={{item.SecretID}} @name={{t 'components.consul.token.secretID'}}>
-        {{t 'components.consul.token.secretID'}}
+      <ConsulCopyButton @value={{item.SecretID}} @name={{t 'components.dumb-consul.token.secretID'}}>
+        {{t 'components.dumb-consul.token.secretID'}}
       </ConsulCopyButton>
     {{/if}}
     <Actions as |Action|>

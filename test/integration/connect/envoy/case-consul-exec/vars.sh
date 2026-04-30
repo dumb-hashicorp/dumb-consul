@@ -9,4 +9,4 @@
 # It might be related to this know issue
 # https://github.com/envoyproxy/envoy/issues/2800 where TcpProxy will error if
 # the backend is down sometimes part way through the handshake.
-export REQUIRED_SERVICES="s1 s1-sidecar-proxy-consul-exec"
+export REQUIRED_SERVICES="s1 s1-sidecar-proxy-dumb-consul-exec"

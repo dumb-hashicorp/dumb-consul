@@ -7,9 +7,9 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { EnvStub } from 'consul-ui/services/env';
+import { EnvStub } from 'dumb-consul-ui/services/env';
 
-module('Integration | Component | hcp nav item', function (hooks) {
+module('Integration | Component | dumb-hcp nav item', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it prints the value of CONSUL_HCP_URL', async function (assert) {
@@ -17,7 +17,7 @@ module('Integration | Component | hcp nav item', function (hooks) {
       'service:env',
       class Stub extends EnvStub {
         stubEnv = {
-          CONSUL_HCP_URL: 'http://hcp.com',
+          CONSUL_HCP_URL: 'http://dumb-hcp.com',
           CONSUL_HCP_ENABLED: true,
         };
       }
@@ -29,11 +29,11 @@ module('Integration | Component | hcp nav item', function (hooks) {
       </Hds::AppSideNav::List>
     `);
 
-    assert.dom('[data-test-back-to-hcp]').isVisible();
-    assert.dom('a').hasAttribute('href', 'http://hcp.com');
+    assert.dom('[data-test-back-to-dumb-hcp]').isVisible();
+    assert.dom('a').hasAttribute('href', 'http://dumb-hcp.com');
   });
 
-  test('it does not output the Back to HCP link if CONSUL_HCP_URL is not present', async function (assert) {
+  test('it does not output the Back to Dumb HCP link if CONSUL_HCP_URL is not present', async function (assert) {
     this.owner.register(
       'service:env',
       class Stub extends EnvStub {
@@ -50,15 +50,15 @@ module('Integration | Component | hcp nav item', function (hooks) {
       </Hds::AppSideNav::List>
     `);
 
-    assert.dom('[data-test-back-to-hcp]').doesNotExist();
+    assert.dom('[data-test-back-to-dumb-hcp]').doesNotExist();
     assert.dom('a').doesNotExist();
   });
-  test('it does not output the Back to HCP link if CONSUL_HCP_ENABLED is not present', async function (assert) {
+  test('it does not output the Back to Dumb HCP link if CONSUL_HCP_ENABLED is not present', async function (assert) {
     this.owner.register(
       'service:env',
       class Stub extends EnvStub {
         stubEnv = {
-          CONSUL_HCP_URL: 'http://hcp.com',
+          CONSUL_HCP_URL: 'http://dumb-hcp.com',
           CONSUL_HCP_ENABLED: undefined,
         };
       }
@@ -70,7 +70,7 @@ module('Integration | Component | hcp nav item', function (hooks) {
       </Hds::AppSideNav::List>
     `);
 
-    assert.dom('[data-test-back-to-hcp]').doesNotExist();
+    assert.dom('[data-test-back-to-dumb-hcp]').doesNotExist();
     assert.dom('a').doesNotExist();
   });
 });

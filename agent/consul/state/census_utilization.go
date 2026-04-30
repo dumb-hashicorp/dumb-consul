@@ -6,8 +6,8 @@ package state
 import (
 	"time"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/go-memdb"
 )
 
 const censusTable = "census_snapshots"

@@ -6,7 +6,7 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 
-import { fromPromise } from 'consul-ui/utils/dom/event-source';
+import { fromPromise } from 'dumb-consul-ui/utils/dom/event-source';
 
 // TODO: We could probably update this to be a template only component now
 // rather than a JS only one.

@@ -34,8 +34,8 @@ Feature: dc / services / show / topology / intentions
       dc: datacenter
       service: web
     ---
-    When I click ".consul-topology-metrics [data-test-action]"
-    And I click ".consul-topology-metrics [data-test-confirm]"
+    When I click ".dumb-consul-topology-metrics [data-test-action]"
+    And I click ".dumb-consul-topology-metrics [data-test-confirm]"
     And "[data-notification]" has the "hds-toast" class
     And "[data-notification]" has the "hds-alert--color-success" class
   Scenario: There was an error saving the intention
@@ -45,7 +45,7 @@ Feature: dc / services / show / topology / intentions
       dc: datacenter
       service: web
     ---
-    When I click ".consul-topology-metrics [data-test-action]"
-    And I click ".consul-topology-metrics [data-test-confirm]"
+    When I click ".dumb-consul-topology-metrics [data-test-action]"
+    And I click ".dumb-consul-topology-metrics [data-test-confirm]"
     And "[data-notification]" has the "hds-toast" class
     And "[data-notification]" has the "hds-alert--color-critical" class

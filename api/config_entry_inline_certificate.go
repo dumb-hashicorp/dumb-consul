@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -29,11 +29,11 @@ type InlineCertificateConfigEntry struct {
 	ModifyIndex uint64
 
 	// Partition is the partition the config entry is associated with.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// Namespace is the namespace the config entry is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 }
 

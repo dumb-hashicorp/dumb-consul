@@ -5,9 +5,9 @@
 package cachemock
 
 import (
-	"github.com/hashicorp/consul/internal/controller/cache"
-	"github.com/hashicorp/consul/internal/controller/cache/index"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/index"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 	mock "github.com/stretchr/testify/mock"
 )
 

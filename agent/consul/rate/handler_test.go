@@ -9,16 +9,16 @@ import (
 	"net/netip"
 	"testing"
 
-	"github.com/hashicorp/consul/agent/metrics"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metrics"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 	"github.com/stretchr/testify/require"
 
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 	"github.com/stretchr/testify/mock"
 
-	"github.com/hashicorp/consul/agent/consul/multilimiter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/multilimiter"
 )
 
 func TestHandler(t *testing.T) {

@@ -9,10 +9,10 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 import { create } from 'ember-cli-page-object';
-import obj from 'consul-ui/components/consul/intention/permission/form/pageobject';
+import obj from 'dumb-consul-ui/components/dumb-consul/intention/permission/form/pageobject';
 
 const PermissionForm = create(obj());
-module('Integration | Component | consul/intention/permission/form', function (hooks) {
+module('Integration | Component | dumb-consul/intention/permission/form', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
@@ -20,11 +20,11 @@ module('Integration | Component | consul/intention/permission/form', function (h
     // Handle any actions with this.set('myAction', function(val) { ... });
 
     await render(hbs`
-      <Consul::Intention::Permission::Form
+      <Dumb Consul::Intention::Permission::Form
 
       as |api|>
 
-      </Consul::Intention::Permission::Form>
+      </Dumb Consul::Intention::Permission::Form>
     `);
 
     await PermissionForm.Action.option.Deny.click();

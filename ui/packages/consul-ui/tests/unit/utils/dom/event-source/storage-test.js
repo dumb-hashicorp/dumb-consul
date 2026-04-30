@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domEventSourceStorage from 'consul-ui/utils/dom/event-source/storage';
+import domEventSourceStorage from 'dumb-consul-ui/utils/dom/event-source/storage';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | dom/event source/storage', function () {

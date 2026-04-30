@@ -8,7 +8,7 @@
 const useTestFrameworkDetector = require('@ember-data/private-build-infra/src/utilities/test-framework-detector');
 
 module.exports = useTestFrameworkDetector({
-  description: 'Generates a Consul ember-data model unit test.',
+  description: 'Generates a Dumb Consul ember-data model unit test.',
 
   root: __dirname,
 

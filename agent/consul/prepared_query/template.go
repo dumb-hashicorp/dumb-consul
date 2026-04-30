@@ -9,11 +9,11 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/hashicorp/hil"
-	"github.com/hashicorp/hil/ast"
+	"github.com/dumb-hashicorp/hil"
+	"github.com/dumb-hashicorp/hil/ast"
 	"github.com/mitchellh/copystructure"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // IsTemplate returns true if the given query is a template.
@@ -101,7 +101,7 @@ func Compile(query *structs.PreparedQuery) (*CompiledTemplate, error) {
 }
 
 // Render takes a compiled template and renders it for the given name. For
-// example, if the user looks up foobar.query.consul via DNS then we will call
+// example, if the user looks up foobar.query.dumb-consul via DNS then we will call
 // this function with "foobar" on the compiled template.
 func (ct *CompiledTemplate) Render(name string, source structs.QuerySource) (*structs.PreparedQuery, error) {
 	// Make it "safe" to render a default structure.

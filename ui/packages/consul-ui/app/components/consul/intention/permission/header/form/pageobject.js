@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { input } from 'consul-ui/tests/lib/page-object';
-import powerSelect from 'consul-ui/components/power-select/pageobject';
+import { input } from 'dumb-consul-ui/tests/lib/page-object';
+import powerSelect from 'dumb-consul-ui/components/power-select/pageobject';
 
-export default (scope = '.consul-intention-permission-header-form') => {
+export default (scope = '.dumb-consul-intention-permission-header-form') => {
   return {
     scope: scope,
     HeaderType: {

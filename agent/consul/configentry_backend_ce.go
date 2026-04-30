@@ -3,7 +3,7 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
@@ -14,5 +14,5 @@ func (b *ConfigEntryBackend) enterpriseCheckPartitions(partition string) error {
 	if partition == "" || strings.EqualFold(partition, "default") {
 		return nil
 	}
-	return fmt.Errorf("Partitions are a Consul Enterprise feature")
+	return fmt.Errorf("Partitions are a Dumb Consul Enterprise feature")
 }

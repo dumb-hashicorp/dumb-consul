@@ -18,10 +18,10 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestSnapshotSaveCommand_noTabs(t *testing.T) {

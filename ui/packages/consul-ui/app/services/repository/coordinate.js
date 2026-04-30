@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import RepositoryService from 'consul-ui/services/repository';
+import RepositoryService from 'dumb-consul-ui/services/repository';
 
-import dataSource from 'consul-ui/decorators/data-source';
-import tomographyFactory from 'consul-ui/utils/tomography';
-import distance from 'consul-ui/utils/distance';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
+import tomographyFactory from 'dumb-consul-ui/utils/tomography';
+import distance from 'dumb-consul-ui/utils/distance';
 
 const tomography = tomographyFactory(distance);
 

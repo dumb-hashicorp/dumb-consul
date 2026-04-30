@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/proto/private/pbconfigentry"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry"
+	"github.com/dumb-hashicorp/go-memdb"
 )
 
 // SimplifiedExportedServices contains a version of the exported-services that has
@@ -92,7 +92,7 @@ func resolvedExportedServicesTxn(tx ReadTxn, ws memdb.WatchSet, entMeta *acl.Ent
 	var exportedServices []structs.ExportedService
 
 	for _, svc := range exports.Services {
-		// Prevent exporting the "consul" service.
+		// Prevent exporting the "dumb-consul" service.
 		if svc.Name == structs.ConsulServiceName {
 			continue
 		}
@@ -114,7 +114,7 @@ func resolvedExportedServicesTxn(tx ReadTxn, ws memdb.WatchSet, entMeta *acl.Ent
 		maxIdx = lib.MaxUint64(maxIdx, idx)
 
 		for _, sn := range typicalServices {
-			// Prevent exporting the "consul" service.
+			// Prevent exporting the "dumb-consul" service.
 			if sn.Service.Name != structs.ConsulServiceName {
 				exportedServices = append(exportedServices, structs.ExportedService{
 					Name:      sn.Service.Name,

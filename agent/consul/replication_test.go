@@ -1,16 +1,16 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/consul/lib/routine"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/lib/routine"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/go-hclog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )

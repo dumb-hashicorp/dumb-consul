@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -16,17 +16,17 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/pbpeerstream"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeerstream"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestPeeringBackend_ForwardToLeader(t *testing.T) {

@@ -5,7 +5,7 @@
 
 import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
-import repo from 'consul-ui/tests/helpers/repo';
+import repo from 'dumb-consul-ui/tests/helpers/repo';
 
 const dc = 'dc-1';
 const nspace = 'default';

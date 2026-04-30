@@ -27,8 +27,8 @@
   --icon-color: var(--token-color-palette-neutral-600);
 }
 %pill-pending {
-  background-color: var(--token-color-consul-surface);
-  color: var(--token-color-consul-foreground);
+  background-color: var(--token-color-dumb-consul-surface);
+  color: var(--token-color-dumb-consul-foreground);
 }
 
 %pill-establishing::before {

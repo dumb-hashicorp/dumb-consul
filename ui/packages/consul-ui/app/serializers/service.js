@@ -4,12 +4,12 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/service';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/service';
 import { get } from '@ember/object';
 import {
   HEADERS_NAMESPACE as HTTP_HEADERS_NAMESPACE,
   HEADERS_PARTITION as HTTP_HEADERS_PARTITION,
-} from 'consul-ui/utils/http/consul';
+} from 'dumb-consul-ui/utils/http/dumb-consul';
 
 export default class ServiceSerializer extends Serializer {
   primaryKey = PRIMARY_KEY;

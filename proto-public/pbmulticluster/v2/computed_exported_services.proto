@@ -1,21 +1,21 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 syntax = "proto3";
 
-package hashicorp.consul.multicluster.v2;
+package dumb-hashicorp.dumb-consul.multicluster.v2;
 
 import "pbresource/annotations.proto";
 import "pbresource/resource.proto";
 
 message ComputedExportedServices {
-  option (hashicorp.consul.resource.spec) = {scope: SCOPE_PARTITION};
+  option (dumb-hashicorp.dumb-consul.resource.spec) = {scope: SCOPE_PARTITION};
 
   repeated ComputedExportedService services = 1;
 }
 
 message ComputedExportedService {
-  hashicorp.consul.resource.Reference target_ref = 1;
+  dumb-hashicorp.dumb-consul.resource.Reference target_ref = 1;
   repeated ComputedExportedServiceConsumer consumers = 2;
 }
 

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -10,15 +10,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/consul/autopilotevents"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/autopilotevents"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestAutopilot_IdempotentShutdown(t *testing.T) {

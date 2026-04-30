@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"bytes"
@@ -18,21 +18,21 @@ import (
 	"testing"
 	"time"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
-	"github.com/hashicorp/memberlist"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
+	"github.com/dumb-hashicorp/memberlist"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/consul/proto/private/pbautoconf"
-	"github.com/hashicorp/consul/proto/private/pbconfig"
-	"github.com/hashicorp/consul/proto/private/pbconnect"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbautoconf"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfig"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconnect"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 
 	"github.com/go-jose/go-jose/v3/jwt"
 )
@@ -76,9 +76,9 @@ func testJWTStandardClaims() jwt.Claims {
 	now := time.Now()
 
 	return jwt.Claims{
-		Subject:   "consul",
-		Issuer:    "consul",
-		Audience:  jwt.Audience{"consul"},
+		Subject:   "dumb-consul",
+		Issuer:    "dumb-consul",
+		Audience:  jwt.Audience{"dumb-consul"},
 		NotBefore: jwt.NewNumericDate(now.Add(-1 * time.Second)),
 		Expiry:    jwt.NewNumericDate(now.Add(10 * time.Minute)),
 	}
@@ -116,7 +116,7 @@ func TestAutoConfigInitialConfiguration(t *testing.T) {
 	gossipKeyEncoded := base64.StdEncoding.EncodeToString(gossipKey)
 
 	// generate a test certificate for the server serving out the insecure RPC
-	cert, key, cacert, err := testTLSCertificates("server.dc1.consul")
+	cert, key, cacert, err := testTLSCertificates("server.dc1.dumb-consul")
 	require.NoError(t, err)
 
 	// generate a JWT signer
@@ -143,15 +143,15 @@ func TestAutoConfigInitialConfiguration(t *testing.T) {
 	altCSR, _ := connect.TestCSR(t, &altCSRID)
 
 	_, s, _ := testACLServerWithConfig(t, func(c *Config) {
-		c.TLSConfig.Domain = "consul"
+		c.TLSConfig.Domain = "dumb-consul"
 		c.AutoConfigAuthzEnabled = true
 		c.AutoConfigAuthzAuthMethod = structs.ACLAuthMethod{
 			Name:           "Auth Config Authorizer",
 			Type:           "jwt",
 			EnterpriseMeta: *structs.DefaultEnterpriseMetaInDefaultPartition(),
 			Config: map[string]interface{}{
-				"BoundAudiences":       []string{"consul"},
-				"BoundIssuer":          "consul",
+				"BoundAudiences":       []string{"dumb-consul"},
+				"BoundIssuer":          "dumb-consul",
 				"JWTValidationPubKeys": []string{pub},
 				"ClaimMappings": map[string]string{
 					"consul_node_name": "node",
@@ -423,7 +423,7 @@ func TestAutoConfig_baseConfig(t *testing.T) {
 }
 
 func TestAutoConfig_updateTLSSettingsInConfig(t *testing.T) {
-	_, _, cacert, err := testTLSCertificates("server.dc1.consul")
+	_, _, cacert, err := testTLSCertificates("server.dc1.dumb-consul")
 	require.NoError(t, err)
 
 	dir := testutil.TempDir(t, "auto-config-tls-settings")
@@ -588,7 +588,7 @@ func TestAutoConfig_updateTLSCertificatesInConfig(t *testing.T) {
 	// roots will be returned by the mock backend
 	roots := structs.IndexedCARoots{
 		ActiveRootID: ca.ID,
-		TrustDomain:  connect.TestClusterID + ".consul",
+		TrustDomain:  connect.TestClusterID + ".dumb-consul",
 		Roots: []*structs.CARoot{
 			ca,
 		},
@@ -626,7 +626,7 @@ func TestAutoConfig_updateTLSCertificatesInConfig(t *testing.T) {
 
 	// generate a CA certificate to use for specifying non-Connect
 	// certificates which come back differently in the response
-	_, _, cacert, err := testTLSCertificates("server.dc1.consul")
+	_, _, cacert, err := testTLSCertificates("server.dc1.dumb-consul")
 	require.NoError(t, err)
 
 	// write out that ca cert to disk - it is unfortunate that

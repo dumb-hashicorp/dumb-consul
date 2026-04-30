@@ -1,14 +1,14 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <ListCollection
-  class='consul-service-list'
+  class='dumb-consul-service-list'
   ...attributes
   @items={{@items}}
   @linkable='linkable service'
   as |item index|
 >
-  <Consul::Service::List::Item @item={{item}} @partition={{@partition}} @nspace={{@nspace}} />
+  <Dumb Consul::Service::List::Item @item={{item}} @partition={{@partition}} @nspace={{@nspace}} />
 </ListCollection>

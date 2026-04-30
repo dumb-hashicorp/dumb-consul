@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	memdb "github.com/hashicorp/go-memdb"
+	memdb "github.com/dumb-hashicorp/go-memdb"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestStateStore_Usage_NodeUsage(t *testing.T) {

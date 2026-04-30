@@ -15,72 +15,72 @@ import {
 } from 'ember-cli-page-object';
 
 import { alias } from 'ember-cli-page-object/macros';
-import { visitable } from 'consul-ui/tests/lib/page-object/visitable';
+import { visitable } from 'dumb-consul-ui/tests/lib/page-object/visitable';
 
 // utils
-import createDeletable from 'consul-ui/tests/lib/page-object/createDeletable';
-import createSubmitable from 'consul-ui/tests/lib/page-object/createSubmitable';
-import createCreatable from 'consul-ui/tests/lib/page-object/createCreatable';
-import createCancelable from 'consul-ui/tests/lib/page-object/createCancelable';
+import createDeletable from 'dumb-consul-ui/tests/lib/page-object/createDeletable';
+import createSubmitable from 'dumb-consul-ui/tests/lib/page-object/createSubmitable';
+import createCreatable from 'dumb-consul-ui/tests/lib/page-object/createCreatable';
+import createCancelable from 'dumb-consul-ui/tests/lib/page-object/createCancelable';
 
 // components
-import intentionPermissionForm from 'consul-ui/components/consul/intention/permission/form/pageobject';
-import intentionPermissionList from 'consul-ui/components/consul/intention/permission/list/pageobject';
-import pageFactory from 'consul-ui/components/hashicorp-consul/pageobject';
+import intentionPermissionForm from 'dumb-consul-ui/components/dumb-consul/intention/permission/form/pageobject';
+import intentionPermissionList from 'dumb-consul-ui/components/dumb-consul/intention/permission/list/pageobject';
+import pageFactory from 'dumb-consul-ui/components/dumb-hashicorp-dumb-consul/pageobject';
 
-import radiogroup from 'consul-ui/components/radio-group/pageobject';
-import tabgroup from 'consul-ui/components/tab-nav/pageobject';
-import authFormFactory from 'consul-ui/components/auth-form/pageobject';
+import radiogroup from 'dumb-consul-ui/components/radio-group/pageobject';
+import tabgroup from 'dumb-consul-ui/components/tab-nav/pageobject';
+import authFormFactory from 'dumb-consul-ui/components/auth-form/pageobject';
 
-import emptyStateFactory from 'consul-ui/components/empty-state/pageobject';
+import emptyStateFactory from 'dumb-consul-ui/components/empty-state/pageobject';
 
-import policyFormFactory from 'consul-ui/components/policy-form/pageobject';
-import policySelectorFactory from 'consul-ui/components/policy-selector/pageobject';
-import roleFormFactory from 'consul-ui/components/role-form/pageobject';
-import roleSelectorFactory from 'consul-ui/components/role-selector/pageobject';
+import policyFormFactory from 'dumb-consul-ui/components/policy-form/pageobject';
+import policySelectorFactory from 'dumb-consul-ui/components/policy-selector/pageobject';
+import roleFormFactory from 'dumb-consul-ui/components/role-form/pageobject';
+import roleSelectorFactory from 'dumb-consul-ui/components/role-selector/pageobject';
 
-import popoverSelectFactory from 'consul-ui/components/popover-select/pageobject';
-import morePopoverMenuFactory from 'consul-ui/components/more-popover-menu/pageobject';
+import popoverSelectFactory from 'dumb-consul-ui/components/popover-select/pageobject';
+import morePopoverMenuFactory from 'dumb-consul-ui/components/more-popover-menu/pageobject';
 
-import tokenListFactory from 'consul-ui/components/token-list/pageobject';
-import consulHealthCheckListFactory from 'consul-ui/components/consul/health-check/list/pageobject';
-import consulUpstreamInstanceListFactory from 'consul-ui/components/consul/upstream-instance/list/pageobject';
-import consulTokenListFactory from 'consul-ui/components/consul/token/list/pageobject';
-import consulRoleListFactory from 'consul-ui/components/consul/role/list/pageobject';
-import consulPolicyListFactory from 'consul-ui/components/consul/policy/list/pageobject';
-import consulAuthMethodListFactory from 'consul-ui/components/consul/auth-method/list/pageobject';
-import consulIntentionListFactory from 'consul-ui/components/consul/intention/list/pageobject';
-import consulNspaceListFactory from 'consul-ui/components/consul/nspace/list/pageobject';
-import consulPeerListFactory from 'consul-ui/components/consul/peer/list/test-support';
-import consulKvListFactory from 'consul-ui/components/consul/kv/list/pageobject';
+import tokenListFactory from 'dumb-consul-ui/components/token-list/pageobject';
+import consulHealthCheckListFactory from 'dumb-consul-ui/components/dumb-consul/health-check/list/pageobject';
+import consulUpstreamInstanceListFactory from 'dumb-consul-ui/components/dumb-consul/upstream-instance/list/pageobject';
+import consulTokenListFactory from 'dumb-consul-ui/components/dumb-consul/token/list/pageobject';
+import consulRoleListFactory from 'dumb-consul-ui/components/dumb-consul/role/list/pageobject';
+import consulPolicyListFactory from 'dumb-consul-ui/components/dumb-consul/policy/list/pageobject';
+import consulAuthMethodListFactory from 'dumb-consul-ui/components/dumb-consul/auth-method/list/pageobject';
+import consulIntentionListFactory from 'dumb-consul-ui/components/dumb-consul/intention/list/pageobject';
+import consulNspaceListFactory from 'dumb-consul-ui/components/dumb-consul/nspace/list/pageobject';
+import consulPeerListFactory from 'dumb-consul-ui/components/dumb-consul/peer/list/test-support';
+import consulKvListFactory from 'dumb-consul-ui/components/dumb-consul/kv/list/pageobject';
 
 // pages
-import index from 'consul-ui/tests/pages/index';
-import dcs from 'consul-ui/tests/pages/dc';
-import settings from 'consul-ui/tests/pages/settings';
-import routingConfig from 'consul-ui/tests/pages/dc/routing-config';
-import services from 'consul-ui/tests/pages/dc/services/index';
-import service from 'consul-ui/tests/pages/dc/services/show';
-import instance from 'consul-ui/tests/pages/dc/services/instance';
-import nodes from 'consul-ui/tests/pages/dc/nodes/index';
-import node from 'consul-ui/tests/pages/dc/nodes/show';
-import kvs from 'consul-ui/tests/pages/dc/kv/index';
-import kv from 'consul-ui/tests/pages/dc/kv/edit';
-import acls from 'consul-ui/tests/pages/dc/acls/index';
-import acl from 'consul-ui/tests/pages/dc/acls/edit';
-import policies from 'consul-ui/tests/pages/dc/acls/policies/index';
-import policy from 'consul-ui/tests/pages/dc/acls/policies/edit';
-import roles from 'consul-ui/tests/pages/dc/acls/roles/index';
-import role from 'consul-ui/tests/pages/dc/acls/roles/edit';
-import tokens from 'consul-ui/tests/pages/dc/acls/tokens/index';
-import token from 'consul-ui/tests/pages/dc/acls/tokens/edit';
-import authMethods from 'consul-ui/tests/pages/dc/acls/auth-methods/index';
-import intentions from 'consul-ui/tests/pages/dc/intentions/index';
-import intention from 'consul-ui/tests/pages/dc/intentions/edit';
-import nspaces from 'consul-ui/tests/pages/dc/nspaces/index';
-import nspace from 'consul-ui/tests/pages/dc/nspaces/edit';
-import peers from 'consul-ui/tests/pages/dc/peers/index';
-import peersShow from 'consul-ui/tests/pages/dc/peers/show';
+import index from 'dumb-consul-ui/tests/pages/index';
+import dcs from 'dumb-consul-ui/tests/pages/dc';
+import settings from 'dumb-consul-ui/tests/pages/settings';
+import routingConfig from 'dumb-consul-ui/tests/pages/dc/routing-config';
+import services from 'dumb-consul-ui/tests/pages/dc/services/index';
+import service from 'dumb-consul-ui/tests/pages/dc/services/show';
+import instance from 'dumb-consul-ui/tests/pages/dc/services/instance';
+import nodes from 'dumb-consul-ui/tests/pages/dc/nodes/index';
+import node from 'dumb-consul-ui/tests/pages/dc/nodes/show';
+import kvs from 'dumb-consul-ui/tests/pages/dc/kv/index';
+import kv from 'dumb-consul-ui/tests/pages/dc/kv/edit';
+import acls from 'dumb-consul-ui/tests/pages/dc/acls/index';
+import acl from 'dumb-consul-ui/tests/pages/dc/acls/edit';
+import policies from 'dumb-consul-ui/tests/pages/dc/acls/policies/index';
+import policy from 'dumb-consul-ui/tests/pages/dc/acls/policies/edit';
+import roles from 'dumb-consul-ui/tests/pages/dc/acls/roles/index';
+import role from 'dumb-consul-ui/tests/pages/dc/acls/roles/edit';
+import tokens from 'dumb-consul-ui/tests/pages/dc/acls/tokens/index';
+import token from 'dumb-consul-ui/tests/pages/dc/acls/tokens/edit';
+import authMethods from 'dumb-consul-ui/tests/pages/dc/acls/auth-methods/index';
+import intentions from 'dumb-consul-ui/tests/pages/dc/intentions/index';
+import intention from 'dumb-consul-ui/tests/pages/dc/intentions/edit';
+import nspaces from 'dumb-consul-ui/tests/pages/dc/nspaces/index';
+import nspace from 'dumb-consul-ui/tests/pages/dc/nspaces/edit';
+import peers from 'dumb-consul-ui/tests/pages/dc/peers/index';
+import peersShow from 'dumb-consul-ui/tests/pages/dc/peers/show';
 
 // utils
 const deletable = createDeletable(clickable);

@@ -4,7 +4,7 @@
  */
 
 import { inject as service } from '@ember/service';
-import Route from 'consul-ui/routing/route';
+import Route from 'dumb-consul-ui/routing/route';
 
 // TODO: We should potentially move all these nspace related things
 // up a level to application.js

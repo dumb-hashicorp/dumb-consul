@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 
 // Package config contains the command line and config file code for the
-// consul agent.
+// dumb-consul agent.
 //
-// The consul agent configuration is generated from multiple sources:
+// The dumb-consul agent configuration is generated from multiple sources:
 //
 //  * config files
 //  * environment variables (which?)
@@ -20,7 +20,7 @@
 // setup.
 //
 // The runtime configuration is the merged, validated and mangled
-// configuration structure suitable for the consul agent. Both structures
+// configuration structure suitable for the dumb-consul agent. Both structures
 // are similar but different and the runtime configuration can be
 // refactored at will without affecting the user configuration format.
 //

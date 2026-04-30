@@ -8,18 +8,18 @@ import (
 	"testing"
 	"time"
 
-	memdb "github.com/hashicorp/go-memdb"
+	memdb "github.com/dumb-hashicorp/go-memdb"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestStore_ConfigEntry(t *testing.T) {
@@ -2883,7 +2883,7 @@ func TestSourcesForTarget(t *testing.T) {
 			ws := memdb.NewWatchSet()
 
 			ca := &structs.CAConfiguration{
-				Provider: "consul",
+				Provider: "dumb-consul",
 			}
 			err := s.CASetConfig(0, ca)
 			require.NoError(t, err)
@@ -3085,7 +3085,7 @@ func TestTargetsForSource(t *testing.T) {
 			ws := memdb.NewWatchSet()
 
 			ca := &structs.CAConfiguration{
-				Provider: "consul",
+				Provider: "dumb-consul",
 			}
 			err := s.CASetConfig(0, ca)
 			require.NoError(t, err)
@@ -3703,7 +3703,7 @@ func TestStateStore_DiscoveryChain_AttachVirtualIPs(t *testing.T) {
 	setVirtualIPFlags(t, s)
 
 	ca := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 	}
 	err := s.CASetConfig(0, ca)
 	require.NoError(t, err)

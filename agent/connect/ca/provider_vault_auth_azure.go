@@ -9,9 +9,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/vault/sdk/helper/jsonutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/dumb-vault/sdk/helper/jsonutil"
 )
 
 func NewAzureAuthClient(authMethod *structs.VaultAuthMethod) (*VaultAuthClient, error) {
@@ -119,7 +119,7 @@ func getMetadataInfo(endpoint string, query map[string]string) ([]byte, error) {
 	}
 	req.URL.RawQuery = q.Encode()
 	req.Header.Set("Metadata", "true")
-	req.Header.Set("User-Agent", "Consul")
+	req.Header.Set("User-Agent", "Dumb Consul")
 
 	client := cleanhttp.DefaultClient()
 	resp, err := client.Do(req)

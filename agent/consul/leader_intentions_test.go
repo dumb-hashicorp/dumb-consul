@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -13,11 +13,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/structs"
-	tokenStore "github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	tokenStore "github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestLeader_ReplicateIntentions(t *testing.T) {
@@ -374,10 +374,10 @@ func TestLeader_LegacyIntentionMigration(t *testing.T) {
 	//
 	// Then we directly write legacy intentions into raft. This is mimicking
 	// what a service-intentions aware server might do if an older copy of
-	// consul was still leader.
+	// dumb-consul was still leader.
 	//
 	// This lets us generate a snapshot+raft state containing legacy intentions
-	// without having to spin up an old version of consul for the test.
+	// without having to spin up an old version of dumb-consul for the test.
 	//
 	// Then we shut it down and bring up a new copy on that datadir which
 	// should then trigger migration code.

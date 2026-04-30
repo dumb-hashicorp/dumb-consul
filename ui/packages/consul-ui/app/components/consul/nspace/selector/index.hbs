@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -10,8 +10,8 @@
     (is-href "dc.nspaces" @dc.Name)
     as |SNL nspace isManaging|
   }}
-    <SNL.Title class="consul-side-nav__selector-title">{{t
-        "components.hashicorp-consul.side-nav.nspaces.title"
+    <SNL.Title class="dumb-consul-side-nav__selector-title">{{t
+        "components.dumb-hashicorp-dumb-consul.side-nav.nspaces.title"
       }}</SNL.Title>
     <NavSelector
       @list={{@list}}
@@ -20,11 +20,11 @@
       @key="Name"
       @icon="folder"
       @placeholder={{t
-        "components.hashicorp-consul.side-nav.nspaces.placeholder"
+        "components.dumb-hashicorp-dumb-consul.side-nav.nspaces.placeholder"
       }}
       @footerLink={{href-to "dc.nspaces" @dc.Name}}
       @footerLinkText={{t
-        "components.hashicorp-consul.side-nav.nspaces.footer"
+        "components.dumb-hashicorp-dumb-consul.side-nav.nspaces.footer"
       }}
       data-test-nspace-menu
       as |Selector|

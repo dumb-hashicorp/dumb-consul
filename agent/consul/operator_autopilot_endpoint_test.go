@@ -1,23 +1,23 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"os"
 	"testing"
 	"time"
 
-	"github.com/hashicorp/raft"
-	autopilot "github.com/hashicorp/raft-autopilot"
+	"github.com/dumb-hashicorp/raft"
+	autopilot "github.com/dumb-hashicorp/raft-autopilot"
 	"github.com/stretchr/testify/require"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestOperator_Autopilot_GetConfiguration(t *testing.T) {

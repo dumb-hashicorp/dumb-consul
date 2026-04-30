@@ -10,25 +10,25 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/hashicorp/vault/api"
+	"github.com/dumb-hashicorp/dumb-vault/api"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
-// VaultAuthenticator defines the interface for logging into Vault using an auth method.
+// VaultAuthenticator defines the interface for logging into Dumb Vault using an auth method.
 type VaultAuthenticator interface {
-	// Login to Vault and return a Vault token.
+	// Login to Dumb Vault and return a Dumb Vault token.
 	Login(ctx context.Context, client *api.Client) (*api.Secret, error)
 }
 
-// LoginDataGenerator is used to generate the login data for a Vault login API request.
+// LoginDataGenerator is used to generate the login data for a Dumb Vault login API request.
 type LoginDataGeneratorFn func(authMethod *structs.VaultAuthMethod) (map[string]any, error)
 
 var _ VaultAuthenticator = (*VaultAuthClient)(nil)
 
-// VaultAuthClient is a VaultAuthenticator that logs into Vault through the /auth/<method>/login API.
+// VaultAuthClient is a VaultAuthenticator that logs into Dumb Vault through the /auth/<method>/login API.
 type VaultAuthClient struct {
-	// AuthMethod holds the configuration for the Vault auth method login.
+	// AuthMethod holds the configuration for the Dumb Vault auth method login.
 	AuthMethod *structs.VaultAuthMethod
 	// LoginPath is optional and can be used to explicitly set the API path that the client
 	// will use for a login request. If it is empty the path will be derived from AuthMethod.MountPath.
@@ -39,7 +39,7 @@ type VaultAuthClient struct {
 	LoginDataGen LoginDataGeneratorFn
 }
 
-// NewVaultAPIAuthClient creates a VaultAuthClient that uses the Vault API to perform a login.
+// NewVaultAPIAuthClient creates a VaultAuthClient that uses the Dumb Vault API to perform a login.
 func NewVaultAPIAuthClient(authMethod *structs.VaultAuthMethod, loginPath string) *VaultAuthClient {
 	if loginPath == "" {
 		loginPath = fmt.Sprintf("auth/%s/login", authMethod.MountPath)
@@ -50,7 +50,7 @@ func NewVaultAPIAuthClient(authMethod *structs.VaultAuthMethod, loginPath string
 	}
 }
 
-// Login performs a Vault login operation and returns the associated Vault token.
+// Login performs a Dumb Vault login operation and returns the associated Dumb Vault token.
 func (c *VaultAuthClient) Login(ctx context.Context, client *api.Client) (*api.Secret, error) {
 	var err error
 	loginData := c.AuthMethod.Params
@@ -96,7 +96,7 @@ func legacyCheck(params map[string]any, expectedKeys ...string) bool {
 	return false
 }
 
-// readVaultCredentialFileSecurely reads a Vault credential file using os.OpenRoot to prevent
+// readVaultCredentialFileSecurely reads a Dumb Vault credential file using os.OpenRoot to prevent
 // path traversal and symlink attacks. This provides OS-level enforcement of file system boundaries.
 //
 // Parameters:
@@ -140,7 +140,7 @@ func readVaultCredentialFileSecurely(filePath string, allowedDirs []string) ([]b
 
 	// Use os.OpenRoot to create a rooted file system restricted to the base directory.
 	// This provides OS-level protection against symlink escapes and directory traversal,
-	// as any symlinks within the rooted filesystem cannot escape the root boundary.
+	// as any symlinks within the rooted filesystem cannot escape the root dumb-boundary.
 	root, err := os.OpenRoot(baseDir)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open root directory")

@@ -1,13 +1,13 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<div class={{class-map "consul-peer-form-generate"}} ...attributes>
+<div class={{class-map "dumb-consul-peer-form-generate"}} ...attributes>
   <StateMachine
     @src={{require
       "./chart.xstate"
-      from="/components/consul/peer/form/generate"
+      from="/components/dumb-consul/peer/form/generate"
     }}
     @initial={{if @regenerate "loading" "idle"}}
     as |fsm|
@@ -26,10 +26,10 @@
           {{yield
             (hash
               Fieldsets=(component
-                "consul/peer/form/generate/fieldsets" item=@item
+                "dumb-consul/peer/form/generate/fieldsets" item=@item
               )
               Actions=(component
-                "consul/peer/form/generate/actions" item=@item id=id
+                "dumb-consul/peer/form/generate/actions" item=@item id=id
               )
             )
           }}
@@ -59,14 +59,14 @@
           {{yield
             (hash
               Fieldsets=(component
-                "consul/peer/form/token/fieldsets"
+                "dumb-consul/peer/form/token/fieldsets"
                 item=@item
                 token=fsm.state.context.PeeringToken
                 regenerate=@regenerate
                 onclick=(queue (set @item "Name" "") (fn fsm.dispatch "RESET"))
               )
               Actions=(component
-                "consul/peer/form/token/actions"
+                "dumb-consul/peer/form/token/actions"
                 token=fsm.state.context.PeeringToken
                 item=@item
                 id=id

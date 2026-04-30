@@ -7,17 +7,17 @@ import (
 	"testing"
 	time "time"
 
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/raft"
-	autopilot "github.com/hashicorp/raft-autopilot"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/raft"
+	autopilot "github.com/dumb-hashicorp/raft-autopilot"
 	mock "github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	structs "github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
-	types "github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	structs "github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
+	types "github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 var testTime = time.Date(2022, 4, 14, 10, 56, 00, 0, time.UTC)
