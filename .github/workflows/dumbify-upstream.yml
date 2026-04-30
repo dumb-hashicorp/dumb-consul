@@ -15,7 +15,6 @@ permissions:
 jobs:
   dumbify-process:
     runs-on: ubuntu-latest
-    # Prevent infinite loops by ignoring ANY branch that starts with 'dumbify-upstream-'
     if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'dumbify-upstream-')
     
     steps:
@@ -32,7 +31,6 @@ jobs:
       - name: Purge Old Dumbify Branches
         run: |
           echo "Scanning for previous dumbify branches..."
-          # Find all remote branches starting with 'dumbify-upstream-' and delete them
           for branch in $(git ls-remote --heads origin | grep 'refs/heads/dumbify-upstream-' | awk '{print $2}' | sed 's|refs/heads/||'); do
             echo "Deleting remote branch: $branch"
             git push origin --delete "$branch" || true
@@ -41,17 +39,11 @@ jobs:
       - name: Calculate Dynamic Upstream and Timestamp
         id: vars
         run: |
-          # Grab the current repository (e.g., 'dumb-hashicorp/dumb-consul')
           CURRENT_REPO="${{ github.repository }}"
-          
-          # Globally replace 'dumb-' with an empty string (results in 'hashicorp/consul')
           UPSTREAM_REPO="${CURRENT_REPO//dumb-/}"
           UPSTREAM_URL="https://github.com/${UPSTREAM_REPO}.git"
-          
-          # Generate a timestamped branch name (YYYYMMDDHHMMSS)
           TIMESTAMP_BRANCH="dumbify-upstream-$(date +%Y%m%d%H%M%S)"
           
-          # Output variables for subsequent steps
           echo "upstream_url=$UPSTREAM_URL" >> $GITHUB_OUTPUT
           echo "branch_name=$TIMESTAMP_BRANCH" >> $GITHUB_OUTPUT
           
@@ -61,21 +53,17 @@ jobs:
       - name: Fetch, Reset, and Purge Upstream
         run: |
           UPSTREAM_URL="${{ steps.vars.outputs.upstream_url }}"
-          BRANCH_NAME="${{ steps.vars.outputs.branch_name }}"
           
-          # Maintain 'upstream' as the remote ref pointing to the dynamically calculated URL
           git remote add upstream "$UPSTREAM_URL"
           git fetch upstream
           
-          # Checkout the timestamped branch tracking the upstream main
-          git checkout -B "$BRANCH_NAME" upstream/main
+          git reset --hard upstream/main
 
-          # Delete HashiCorp's workflows to prevent them from running on our fork
           rm -rf .github/workflows/*
 
-      - name: Dumbify Trademarks
+      - name: Dumbify Words
         run: |
-          declare -A trademarks=(
+          declare -A dumb_words=(
             ["Terraform"]="Dumb Terraform"
             ["Consul"]="Dumb Consul"
             ["Vault"]="Dumb Vault"
@@ -88,10 +76,10 @@ jobs:
             ["HCP"]="Dumb HCP"
           )
 
-          for tm in "${!trademarks[@]}"; do
-            replacement=${trademarks[$tm]}
-            echo "Dumbifying trademark: '$tm' -> '$replacement'"
-            find . -type f -not -path '*/.*' -exec sed -i "s/\b$tm\b/$replacement/g" {} +
+          for word in "${!dumb_words[@]}"; do
+            dumb_word=${dumb_words[$word]}
+            echo "Dumbifying word: '$word' -> '$dumb_word'"
+            find . -type f -not -path '*/.*' -exec sed -i "s/\b$word\b/$dumb_word/g" {} +
           done
 
       - name: Validate Changes
@@ -103,20 +91,11 @@ jobs:
             echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Commit and Force Push
-        if: steps.validate.outputs.has_changes == 'true'
-        run: |
-          BRANCH_NAME="${{ steps.vars.outputs.branch_name }}"
-          git add .
-          git commit -m "chore: successfully dumbified upstream updates"
-          git push origin "$BRANCH_NAME" --force
-          
-          echo "Successfully pushed dumbified code to $BRANCH_NAME."
-
       - name: Create Dumbify PR
         if: steps.validate.outputs.has_changes == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
+          commit-message: "chore: successfully dumbified upstream updates"
           branch: ${{ steps.vars.outputs.branch_name }}
           base: main
           title: "Weekly Dumbification: Freshly Degraded Code"
