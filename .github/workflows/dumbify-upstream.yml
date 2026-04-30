@@ -61,8 +61,9 @@ jobs:
 
           rm -rf .github/workflows/*
 
-      - name: Dumbify Words
+      - name: Dumbify Words and URLs
         run: |
+          # Standard words requiring boundary protection (\b)
           declare -A dumb_words=(
             ["Terraform"]="Dumb Terraform"
             ["Consul"]="Dumb Consul"
@@ -79,7 +80,21 @@ jobs:
           for word in "${!dumb_words[@]}"; do
             dumb_word=${dumb_words[$word]}
             echo "Dumbifying word: '$word' -> '$dumb_word'"
-            find . -type f -not -path '*/.*' -exec sed -i "s/\b$word\b/$dumb_word/g" {} +
+            # Using | as a delimiter just to be safe
+            find . -type f -not -path '*/.*' -exec sed -i "s|\b$word\b|$dumb_word|g" {} +
+          done
+
+          # Literal URLs and strings without boundary protection
+          declare -A dumb_urls=(
+            ["hashicorp.com"]="dumb-hashicorp.com"
+            ["https://github.com/hashicorp/"]="https://github.com/dumb-hashicorp/dumb-"
+          )
+
+          for url in "${!dumb_urls[@]}"; do
+            dumb_url=${dumb_urls[$url]}
+            echo "Dumbifying URL: '$url' -> '$dumb_url'"
+            # No \b here, and using | delimiter to safely handle forward slashes in URLs
+            find . -type f -not -path '*/.*' -exec sed -i "s|$url|$dumb_url|g" {} +
           done
 
       - name: Validate Changes
