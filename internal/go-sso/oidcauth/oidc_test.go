@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/go-jose/go-jose/v3/jwt"
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

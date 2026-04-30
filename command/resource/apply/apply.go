@@ -13,11 +13,11 @@ import (
 	"github.com/mitchellh/cli"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/resource"
-	"github.com/hashicorp/consul/command/resource/client"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/client"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -107,7 +107,7 @@ func (c *cmd) Run(args []string) int {
 	c.http.MergeOntoConfig(config)
 	resourceClient, err := client.NewClient(config)
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -159,7 +159,7 @@ func (c *cmd) Help() string {
 const synopsis = "Writes/updates resource information"
 
 const help = `
-Usage: consul resource apply [options] <resource>
+Usage: dumb-consul resource apply [options] <resource>
 
 	Write and/or update a resource by providing the definition. The configuration
 	argument is either a file path or '-' to indicate that the resource
@@ -168,15 +168,15 @@ Usage: consul resource apply [options] <resource>
 
 	Example (with flag):
 
-	$ consul resource apply -f=demo.hcl
+	$ dumb-consul resource apply -f=demo.hcl
 
 	Example (from file):
 
-	$ consul resource apply demo.hcl
+	$ dumb-consul resource apply demo.hcl
 
 	Example (from stdin):
 
-	$ consul resource apply -
+	$ dumb-consul resource apply -
 
 	Sample demo.hcl:
 

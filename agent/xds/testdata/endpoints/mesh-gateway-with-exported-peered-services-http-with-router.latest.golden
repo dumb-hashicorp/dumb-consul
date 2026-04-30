@@ -3,7 +3,7 @@
   "resources": [
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "alt.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "alt.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -37,7 +37,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -71,7 +71,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -105,7 +105,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "exported~alt.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "exported~alt.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -139,7 +139,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "exported~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "exported~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -173,7 +173,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "exported~v2.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "exported~v2.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -195,7 +195,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "v1.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "v1.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -217,7 +217,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "v2.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "v2.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [

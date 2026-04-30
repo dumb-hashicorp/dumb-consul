@@ -7,8 +7,8 @@ import (
 	"bytes"
 	"text/template"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
+	"github.com/dumb-hashicorp/hcl/v2/hclwrite"
 )
 
 type FileResource struct {

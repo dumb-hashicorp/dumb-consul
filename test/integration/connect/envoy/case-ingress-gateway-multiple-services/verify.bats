@@ -73,11 +73,11 @@ load helpers
 }
 
 @test "ingress should be able to connect to s1 using Host header" {
-  assert_expected_fortio_name s1 s1.ingress.consul 9999
+  assert_expected_fortio_name s1 s1.ingress.dumb-consul 9999
 }
 
 @test "ingress should be able to connect to s2 using Host header" {
-  assert_expected_fortio_name s2 s2.ingress.consul 9999
+  assert_expected_fortio_name s2 s2.ingress.dumb-consul 9999
 }
 
 @test "ingress should be able to connect to s1 using a user-specified Host" {

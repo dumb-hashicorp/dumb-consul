@@ -11,17 +11,17 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/hashicorp/consul/acl"
-	svctest "github.com/hashicorp/consul/agent/grpc-external/services/resource/testing"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/multicluster/internal/types"
-	"github.com/hashicorp/consul/internal/resource"
-	rtest "github.com/hashicorp/consul/internal/resource/resourcetest"
-	pbmulticluster "github.com/hashicorp/consul/proto-public/pbmulticluster/v2"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/version/versiontest"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	svctest "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource/testing"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/multicluster/internal/types"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	rtest "github.com/dumb-hashicorp/dumb-consul/internal/resource/resourcetest"
+	pbmulticluster "github.com/dumb-hashicorp/dumb-consul/proto-public/pbmulticluster/v2"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/version/versiontest"
 )
 
 type controllerSuite struct {

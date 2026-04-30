@@ -11,10 +11,10 @@ import (
 
 	mcli "github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command"
-	"github.com/hashicorp/consul/command/cli"
-	"github.com/hashicorp/consul/command/version"
-	_ "github.com/hashicorp/consul/service_os"
+	"github.com/dumb-hashicorp/dumb-consul/command"
+	"github.com/dumb-hashicorp/dumb-consul/command/cli"
+	"github.com/dumb-hashicorp/dumb-consul/command/version"
+	_ "github.com/dumb-hashicorp/dumb-consul/service_os"
 )
 
 func main() {
@@ -37,8 +37,8 @@ func realMain() int {
 		Args:         os.Args[1:],
 		Commands:     cmds,
 		Autocomplete: true,
-		Name:         "consul",
-		HelpFunc:     mcli.FilteredHelpFunc(names, mcli.BasicHelpFunc("consul")),
+		Name:         "dumb-consul",
+		HelpFunc:     mcli.FilteredHelpFunc(names, mcli.BasicHelpFunc("dumb-consul")),
 		HelpWriter:   os.Stdout,
 		ErrorWriter:  os.Stderr,
 	}

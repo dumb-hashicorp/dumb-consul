@@ -6,10 +6,10 @@ package controller
 import (
 	"context"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 
-	"github.com/hashicorp/consul/internal/controller/cache"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // TestController is most useful when writing unit tests for a controller where

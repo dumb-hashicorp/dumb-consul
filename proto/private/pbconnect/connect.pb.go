@@ -10,7 +10,7 @@
 package pbconnect
 
 import (
-	pbcommon "github.com/hashicorp/consul/proto/private/pbcommon"
+	pbcommon "github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -30,7 +30,7 @@ const (
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IndexedCARoots
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IndexedCARoots
 // output=connect.gen.go
 // name=StructsIndexedCARoots
 type CARoots struct {
@@ -39,7 +39,7 @@ type CARoots struct {
 	// Other roots are still valid if they're in the Roots list but are in
 	// the process of being rotated out.
 	ActiveRootID string `protobuf:"bytes,1,opt,name=ActiveRootID,proto3" json:"ActiveRootID,omitempty"`
-	// TrustDomain is the identification root for this Consul cluster. All
+	// TrustDomain is the identification root for this Dumb Consul cluster. All
 	// certificates signed by the cluster's CA must have their identifying URI in
 	// this domain.
 	//
@@ -56,9 +56,9 @@ type CARoots struct {
 	// Note that we DON'T validate trust domain during AuthZ since it causes
 	// issues of loss of connectivity during migration between trust domains. The
 	// only time the additional validation adds value is where the cluster shares
-	// an external root (e.g. organization-wide root) with another distinct Consul
+	// an external root (e.g. organization-wide root) with another distinct Dumb Consul
 	// cluster or PKI system. In this case, x509 Name Constraints can be added to
-	// enforce that Consul's CA can only validly sign or trust certs within the
+	// enforce that Dumb Consul's CA can only validly sign or trust certs within the
 	// same trust-domain. Name constraints as enforced by TLS handshake also allow
 	// seamless rotation between trust domains thanks to cross-signing.
 	TrustDomain string `protobuf:"bytes,2,opt,name=TrustDomain,proto3" json:"TrustDomain,omitempty"`
@@ -134,7 +134,7 @@ func (x *CARoots) GetQueryMeta() *pbcommon.QueryMeta {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.CARoot
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.CARoot
 // output=connect.gen.go
 // name=StructsCARoot
 type CARoot struct {
@@ -142,7 +142,7 @@ type CARoot struct {
 	// ID is a globally unique ID (UUID) representing this CA root.
 	ID string `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
 	// Name is a human-friendly name for this CA root. This value is
-	// opaque to Consul and is not used for anything internally.
+	// opaque to Dumb Consul and is not used for anything internally.
 	Name string `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
 	// SerialNumber is the x509 serial number of the certificate.
 	SerialNumber uint64 `protobuf:"varint,3,opt,name=SerialNumber,proto3" json:"SerialNumber,omitempty"`
@@ -346,7 +346,7 @@ func (x *CARoot) GetRaftIndex() *pbcommon.RaftIndex {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IssuedCert
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IssuedCert
 // output=connect.gen.go
 // name=StructsIssuedCert
 type IssuedCert struct {
@@ -373,7 +373,7 @@ type IssuedCert struct {
 	// KindURI is the cert URI value.
 	KindURI string `protobuf:"bytes,13,opt,name=KindURI,proto3" json:"KindURI,omitempty"`
 	// ServerURI is the URI value of a cert issued for a server agent.
-	// The same URI is shared by all servers in a Consul datacenter.
+	// The same URI is shared by all servers in a Dumb Consul datacenter.
 	ServerURI string `protobuf:"bytes,14,opt,name=ServerURI,proto3" json:"ServerURI,omitempty"`
 	// ValidAfter and ValidBefore are the validity periods for the
 	// certificate.
@@ -381,7 +381,7 @@ type IssuedCert struct {
 	ValidAfter *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=ValidAfter,proto3" json:"ValidAfter,omitempty"`
 	// mog: func-to=structs.TimeFromProto func-from=structs.TimeToProto
 	ValidBefore *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=ValidBefore,proto3" json:"ValidBefore,omitempty"`
-	// EnterpriseMeta is the Consul Enterprise specific metadata
+	// EnterpriseMeta is the Dumb Consul Enterprise specific metadata
 	// mog: func-to=EnterpriseMetaTo func-from=EnterpriseMetaFrom
 	EnterpriseMeta *pbcommon.EnterpriseMeta `protobuf:"bytes,10,opt,name=EnterpriseMeta,proto3" json:"EnterpriseMeta,omitempty"`
 	// mog: func-to=RaftIndexTo func-from=RaftIndexFrom
@@ -522,12 +522,12 @@ var File_private_pbconnect_connect_proto protoreflect.FileDescriptor
 
 const file_private_pbconnect_connect_proto_rawDesc = "" +
 	"\n" +
-	"\x1fprivate/pbconnect/connect.proto\x12!hashicorp.consul.internal.connect\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dprivate/pbcommon/common.proto\"\xdb\x01\n" +
+	"\x1fprivate/pbconnect/connect.proto\x12!dumb-hashicorp.dumb-consul.internal.connect\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dprivate/pbcommon/common.proto\"\xdb\x01\n" +
 	"\aCARoots\x12\"\n" +
 	"\fActiveRootID\x18\x01 \x01(\tR\fActiveRootID\x12 \n" +
 	"\vTrustDomain\x18\x02 \x01(\tR\vTrustDomain\x12?\n" +
-	"\x05Roots\x18\x03 \x03(\v2).hashicorp.consul.internal.connect.CARootR\x05Roots\x12I\n" +
-	"\tQueryMeta\x18\x04 \x01(\v2+.hashicorp.consul.internal.common.QueryMetaR\tQueryMeta\"\x97\x05\n" +
+	"\x05Roots\x18\x03 \x03(\v2).dumb-hashicorp.dumb-consul.internal.connect.CARootR\x05Roots\x12I\n" +
+	"\tQueryMeta\x18\x04 \x01(\v2+.dumb-hashicorp.dumb-consul.internal.common.QueryMetaR\tQueryMeta\"\x97\x05\n" +
 	"\x06CARoot\x12\x0e\n" +
 	"\x02ID\x18\x01 \x01(\tR\x02ID\x12\x12\n" +
 	"\x04Name\x18\x02 \x01(\tR\x04Name\x12\"\n" +
@@ -547,7 +547,7 @@ const file_private_pbconnect_connect_proto_rawDesc = "" +
 	"\fRotatedOutAt\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\fRotatedOutAt\x12&\n" +
 	"\x0ePrivateKeyType\x18\x0e \x01(\tR\x0ePrivateKeyType\x12&\n" +
 	"\x0ePrivateKeyBits\x18\x0f \x01(\x05R\x0ePrivateKeyBits\x12I\n" +
-	"\tRaftIndex\x18\x10 \x01(\v2+.hashicorp.consul.internal.common.RaftIndexR\tRaftIndex\"\xd3\x04\n" +
+	"\tRaftIndex\x18\x10 \x01(\v2+.dumb-hashicorp.dumb-consul.internal.common.RaftIndexR\tRaftIndex\"\xd3\x04\n" +
 	"\n" +
 	"IssuedCert\x12\"\n" +
 	"\fSerialNumber\x18\x01 \x01(\tR\fSerialNumber\x12\x18\n" +
@@ -567,9 +567,9 @@ const file_private_pbconnect_connect_proto_rawDesc = "" +
 	"ValidAfter\x12<\n" +
 	"\vValidBefore\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\vValidBefore\x12X\n" +
 	"\x0eEnterpriseMeta\x18\n" +
-	" \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12I\n" +
-	"\tRaftIndex\x18\v \x01(\v2+.hashicorp.consul.internal.common.RaftIndexR\tRaftIndexJ\x04\b\x0f\x10\x10J\x04\b\x10\x10\x11B\x92\x02\n" +
-	"%com.hashicorp.consul.internal.connectB\fConnectProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbconnect\xa2\x02\x04HCIC\xaa\x02!Hashicorp.Consul.Internal.Connect\xca\x02!Hashicorp\\Consul\\Internal\\Connect\xe2\x02-Hashicorp\\Consul\\Internal\\Connect\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Connectb\x06proto3"
+	" \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12I\n" +
+	"\tRaftIndex\x18\v \x01(\v2+.dumb-hashicorp.dumb-consul.internal.common.RaftIndexR\tRaftIndexJ\x04\b\x0f\x10\x10J\x04\b\x10\x10\x11B\x92\x02\n" +
+	"%com.dumb-hashicorp.dumb-consul.internal.connectB\fConnectProtoP\x01Z3github.com/dumb-hashicorp/dumb-consul/proto/private/pbconnect\xa2\x02\x04HCIC\xaa\x02!Hashicorp.Dumb Consul.Internal.Connect\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Connect\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Connect\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Connectb\x06proto3"
 
 var (
 	file_private_pbconnect_connect_proto_rawDescOnce sync.Once
@@ -585,25 +585,25 @@ func file_private_pbconnect_connect_proto_rawDescGZIP() []byte {
 
 var file_private_pbconnect_connect_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_private_pbconnect_connect_proto_goTypes = []any{
-	(*CARoots)(nil),                 // 0: hashicorp.consul.internal.connect.CARoots
-	(*CARoot)(nil),                  // 1: hashicorp.consul.internal.connect.CARoot
-	(*IssuedCert)(nil),              // 2: hashicorp.consul.internal.connect.IssuedCert
-	(*pbcommon.QueryMeta)(nil),      // 3: hashicorp.consul.internal.common.QueryMeta
+	(*CARoots)(nil),                 // 0: dumb-hashicorp.dumb-consul.internal.connect.CARoots
+	(*CARoot)(nil),                  // 1: dumb-hashicorp.dumb-consul.internal.connect.CARoot
+	(*IssuedCert)(nil),              // 2: dumb-hashicorp.dumb-consul.internal.connect.IssuedCert
+	(*pbcommon.QueryMeta)(nil),      // 3: dumb-hashicorp.dumb-consul.internal.common.QueryMeta
 	(*timestamppb.Timestamp)(nil),   // 4: google.protobuf.Timestamp
-	(*pbcommon.RaftIndex)(nil),      // 5: hashicorp.consul.internal.common.RaftIndex
-	(*pbcommon.EnterpriseMeta)(nil), // 6: hashicorp.consul.internal.common.EnterpriseMeta
+	(*pbcommon.RaftIndex)(nil),      // 5: dumb-hashicorp.dumb-consul.internal.common.RaftIndex
+	(*pbcommon.EnterpriseMeta)(nil), // 6: dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
 }
 var file_private_pbconnect_connect_proto_depIdxs = []int32{
-	1,  // 0: hashicorp.consul.internal.connect.CARoots.Roots:type_name -> hashicorp.consul.internal.connect.CARoot
-	3,  // 1: hashicorp.consul.internal.connect.CARoots.QueryMeta:type_name -> hashicorp.consul.internal.common.QueryMeta
-	4,  // 2: hashicorp.consul.internal.connect.CARoot.NotBefore:type_name -> google.protobuf.Timestamp
-	4,  // 3: hashicorp.consul.internal.connect.CARoot.NotAfter:type_name -> google.protobuf.Timestamp
-	4,  // 4: hashicorp.consul.internal.connect.CARoot.RotatedOutAt:type_name -> google.protobuf.Timestamp
-	5,  // 5: hashicorp.consul.internal.connect.CARoot.RaftIndex:type_name -> hashicorp.consul.internal.common.RaftIndex
-	4,  // 6: hashicorp.consul.internal.connect.IssuedCert.ValidAfter:type_name -> google.protobuf.Timestamp
-	4,  // 7: hashicorp.consul.internal.connect.IssuedCert.ValidBefore:type_name -> google.protobuf.Timestamp
-	6,  // 8: hashicorp.consul.internal.connect.IssuedCert.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	5,  // 9: hashicorp.consul.internal.connect.IssuedCert.RaftIndex:type_name -> hashicorp.consul.internal.common.RaftIndex
+	1,  // 0: dumb-hashicorp.dumb-consul.internal.connect.CARoots.Roots:type_name -> dumb-hashicorp.dumb-consul.internal.connect.CARoot
+	3,  // 1: dumb-hashicorp.dumb-consul.internal.connect.CARoots.QueryMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.QueryMeta
+	4,  // 2: dumb-hashicorp.dumb-consul.internal.connect.CARoot.NotBefore:type_name -> google.protobuf.Timestamp
+	4,  // 3: dumb-hashicorp.dumb-consul.internal.connect.CARoot.NotAfter:type_name -> google.protobuf.Timestamp
+	4,  // 4: dumb-hashicorp.dumb-consul.internal.connect.CARoot.RotatedOutAt:type_name -> google.protobuf.Timestamp
+	5,  // 5: dumb-hashicorp.dumb-consul.internal.connect.CARoot.RaftIndex:type_name -> dumb-hashicorp.dumb-consul.internal.common.RaftIndex
+	4,  // 6: dumb-hashicorp.dumb-consul.internal.connect.IssuedCert.ValidAfter:type_name -> google.protobuf.Timestamp
+	4,  // 7: dumb-hashicorp.dumb-consul.internal.connect.IssuedCert.ValidBefore:type_name -> google.protobuf.Timestamp
+	6,  // 8: dumb-hashicorp.dumb-consul.internal.connect.IssuedCert.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	5,  // 9: dumb-hashicorp.dumb-consul.internal.connect.IssuedCert.RaftIndex:type_name -> dumb-hashicorp.dumb-consul.internal.common.RaftIndex
 	10, // [10:10] is the sub-list for method output_type
 	10, // [10:10] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name

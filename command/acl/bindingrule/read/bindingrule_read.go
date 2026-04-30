@@ -10,9 +10,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/bindingrule"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/bindingrule"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -78,7 +78,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -127,13 +127,13 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Read an ACL binding rule"
 	help     = `
-Usage: consul acl binding-rule read -id ID [options]
+Usage: dumb-consul acl binding-rule read -id ID [options]
 
   This command will retrieve and print out the details of a single binding
   rule.
 
   Read a binding rule:
 
-    $ consul acl binding-rule read -id fdabbcb5-9de5-4b1a-961f-77214ae88cba
+    $ dumb-consul acl binding-rule read -id fdabbcb5-9de5-4b1a-961f-77214ae88cba
 `
 )

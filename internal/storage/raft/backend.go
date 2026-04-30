@@ -12,13 +12,13 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/internal/storage/inmem"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	pbstorage "github.com/hashicorp/consul/proto/private/pbstorage"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage/inmem"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	pbstorage "github.com/dumb-hashicorp/dumb-consul/proto/private/pbstorage"
 )
 
 // NewBackend returns a storage backend that uses Raft for durable persistence
@@ -41,11 +41,11 @@ import (
 // a new leader, you must call LeaderChanged to refresh the connection. Leaders
 // must accept connections and hand them off by calling Backend.HandleConnection.
 // Backend's gRPC client and server *DO NOT* handle TLS themselves, as they are
-// intended to communicate over Consul's multiplexed server port (which handles
+// intended to communicate over Dumb Consul's multiplexed server port (which handles
 // TLS).
 //
 // For more information, see here:
-// https://github.com/hashicorp/consul/tree/main/docs/resources#raft-storage-backend
+// https://github.com/dumb-hashicorp/dumb-consul/tree/main/docs/resources#raft-storage-backend
 //
 // You must call Run before using the backend.
 func NewBackend(h Handle, l hclog.Logger) (*Backend, error) {
@@ -60,7 +60,7 @@ func NewBackend(h Handle, l hclog.Logger) (*Backend, error) {
 }
 
 // Handle provides glue for interacting with the Raft subsystem via existing
-// machinery on consul.Server.
+// machinery on dumb-consul.Server.
 type Handle interface {
 	// Apply the given log message.
 	Apply(msg []byte) (any, error)
@@ -232,7 +232,7 @@ func isRetiredType(typ *pbresource.Type) bool {
 	switch typ.GetGroupVersion() {
 	case "v2":
 		switch typ.GetGroup() {
-		case "hcp":
+		case "dumb-hcp":
 			return true
 		}
 	case "v2beta1":
@@ -244,7 +244,7 @@ func isRetiredType(typ *pbresource.Type) bool {
 	return false
 }
 
-// Apply is called by the FSM with the bytes of a Raft log entry, with Consul's
+// Apply is called by the FSM with the bytes of a Raft log entry, with Dumb Consul's
 // envelope (i.e. type prefix and msgpack wrapper) stripped off.
 func (b *Backend) Apply(buf []byte, idx uint64) any {
 	var req pbstorage.Log

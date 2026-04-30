@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package watch_test
@@ -20,9 +20,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/api/watch"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api/watch"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/stretchr/testify/require"
 )
 
@@ -82,7 +82,7 @@ func updateConnectCA(t *testing.T, client *api.Client) {
 	template := x509.Certificate{
 		SerialNumber:          big.NewInt(42),
 		Subject:               pkix.Name{CommonName: "CA Modified"},
-		URIs:                  []*url.URL{{Scheme: "spiffe", Host: fmt.Sprintf("11111111-2222-3333-4444-555555555555.%s", "consul")}},
+		URIs:                  []*url.URL{{Scheme: "spiffe", Host: fmt.Sprintf("11111111-2222-3333-4444-555555555555.%s", "dumb-consul")}},
 		BasicConstraintsValid: true,
 		KeyUsage: x509.KeyUsageCertSign |
 			x509.KeyUsageCRLSign |
@@ -364,13 +364,13 @@ func TestServicesWatch(t *testing.T) {
 	{
 		v := wakeups[0]
 		require.Len(t, v, 1)
-		_, ok := v["consul"]
+		_, ok := v["dumb-consul"]
 		require.True(t, ok)
 	}
 	{
 		v := wakeups[1]
 		require.Len(t, v, 2)
-		_, ok := v["consul"]
+		_, ok := v["dumb-consul"]
 		require.True(t, ok)
 		_, ok = v["foo"]
 		require.True(t, ok)

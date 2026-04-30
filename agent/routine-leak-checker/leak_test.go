@@ -12,10 +12,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 func testTLSCertificates(serverName string) (cert string, key string, cacert string, err error) {
@@ -47,7 +47,7 @@ func testTLSCertificates(serverName string) (cert string, key string, cacert str
 func setupPrimaryServer(t *testing.T) *agent.TestAgent {
 	d := testutil.TempDir(t, "leaks-primary-server")
 
-	certPEM, keyPEM, caPEM, err := testTLSCertificates("server.primary.consul")
+	certPEM, keyPEM, caPEM, err := testTLSCertificates("server.primary.dumb-consul")
 	require.NoError(t, err)
 
 	certPath := filepath.Join(d, "cert.pem")
@@ -89,7 +89,7 @@ func TestAgentLeaks_Server(t *testing.T) {
 
 	/*
 		Eventually go routine leak checking should be moved into other packages such as the agent
-		and agent/consul packages. However there are too many leaks for the test to run properly.
+		and agent/dumb-consul packages. However there are too many leaks for the test to run properly.
 
 		Many of the leaks are due to blocking queries from clients to servers being uncancellable.
 		Until we can move away from net/rpc and fix some of the other issues we don't want a
@@ -107,7 +107,7 @@ func TestAgentLeaks_Server(t *testing.T) {
 			goleak.VerifyTestMain(m,
 				goleak.IgnoreTopFunction("k8s.io/klog.(*loggingT).flushDaemon"),
 				goleak.IgnoreTopFunction("go.opencensus.io/stats/view.(*worker).start"),
-				goleak.IgnoreTopFunction("github.com/hashicorp/consul/sdk/freeport.checkFreedPorts"),
+				goleak.IgnoreTopFunction("github.com/dumb-hashicorp/dumb-consul/sdk/freeport.checkFreedPorts"),
 			)
 		}
 	*/
@@ -115,7 +115,7 @@ func TestAgentLeaks_Server(t *testing.T) {
 	defer goleak.VerifyNone(t,
 		goleak.IgnoreTopFunction("k8s.io/klog.(*loggingT).flushDaemon"),
 		goleak.IgnoreTopFunction("go.opencensus.io/stats/view.(*worker).start"),
-		goleak.IgnoreTopFunction("github.com/hashicorp/consul/sdk/freeport.checkFreedPorts"),
+		goleak.IgnoreTopFunction("github.com/dumb-hashicorp/dumb-consul/sdk/freeport.checkFreedPorts"),
 	)
 
 	primaryServer := setupPrimaryServer(t)

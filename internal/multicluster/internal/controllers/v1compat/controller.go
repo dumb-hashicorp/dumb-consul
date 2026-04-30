@@ -11,19 +11,19 @@ import (
 
 	"golang.org/x/exp/maps"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/controller/cache"
-	"github.com/hashicorp/consul/internal/controller/cache/index"
-	"github.com/hashicorp/consul/internal/multicluster/internal/types"
-	"github.com/hashicorp/consul/internal/resource"
-	pbmulticluster "github.com/hashicorp/consul/proto-public/pbmulticluster/v2"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/index"
+	"github.com/dumb-hashicorp/dumb-consul/internal/multicluster/internal/types"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	pbmulticluster "github.com/dumb-hashicorp/dumb-consul/proto-public/pbmulticluster/v2"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 const (
-	ControllerName    = "consul.io/exported-services-v1-compat"
+	ControllerName    = "dumb-consul.io/exported-services-v1-compat"
 	controllerMetaKey = "managed-by-controller"
 )
 

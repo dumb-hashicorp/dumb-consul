@@ -9,14 +9,14 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 type apiHandler struct{}
 
 func (apiHandler) ServeHTTP(http.ResponseWriter, *http.Request) {}
 
-// Note: this assumes a suitable Consul ACL token with 'service:write' for
+// Note: this assumes a suitable Dumb Consul ACL token with 'service:write' for
 // service 'web' is set in CONSUL_HTTP_TOKEN ENV var.
 func ExampleService_ServerTLSConfig_hTTP() {
 	client, _ := api.NewClient(api.DefaultConfig())
@@ -33,7 +33,7 @@ func ExampleService_ServerTLSConfig_hTTP() {
 
 func acceptLoop(l net.Listener) {}
 
-// Note: this assumes a suitable Consul ACL token with 'service:write' for
+// Note: this assumes a suitable Dumb Consul ACL token with 'service:write' for
 // service 'web' is set in CONSUL_HTTP_TOKEN ENV var.
 func ExampleService_ServerTLSConfig_tLS() {
 	client, _ := api.NewClient(api.DefaultConfig())
@@ -44,13 +44,13 @@ func ExampleService_ServerTLSConfig_tLS() {
 
 func handleResponse(r *http.Response) {}
 
-// Note: this assumes a suitable Consul ACL token with 'service:write' for
+// Note: this assumes a suitable Dumb Consul ACL token with 'service:write' for
 // service 'web' is set in CONSUL_HTTP_TOKEN ENV var.
 func ExampleService_HTTPClient() {
 	client, _ := api.NewClient(api.DefaultConfig())
 	svc, _ := NewService("web", client)
 
 	httpClient := svc.HTTPClient()
-	resp, _ := httpClient.Get("https://web.service.consul/foo/bar")
+	resp, _ := httpClient.Get("https://web.service.dumb-consul/foo/bar")
 	handleResponse(resp)
 }

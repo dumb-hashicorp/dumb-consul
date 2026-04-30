@@ -9,11 +9,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/go-discover"
-	discoverk8s "github.com/hashicorp/go-discover/provider/k8s"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/go-discover"
+	discoverk8s "github.com/dumb-hashicorp/go-discover/provider/k8s"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 )
 
 func (ac *AutoConfig) discoverServers(servers []string) ([]string, error) {

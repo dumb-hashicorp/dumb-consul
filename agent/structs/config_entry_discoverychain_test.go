@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 func TestConfigEntries_ListRelatedServices_AndACLs(t *testing.T) {
@@ -1829,7 +1829,7 @@ func TestServiceResolverConfigEntry_LoadBalancer(t *testing.T) {
 					HashPolicies: []HashPolicy{
 						{
 							Field:      "header",
-							FieldValue: "X-Consul-Token",
+							FieldValue: "X-Dumb Consul-Token",
 						},
 					},
 				},
@@ -1877,7 +1877,7 @@ func TestServiceResolverConfigEntry_LoadBalancer(t *testing.T) {
 					Policy: LBPolicyMaglev,
 					HashPolicies: []HashPolicy{
 						{
-							FieldValue: "X-Consul-Token",
+							FieldValue: "X-Dumb Consul-Token",
 							SourceIP:   true,
 						},
 					},

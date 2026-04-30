@@ -8,7 +8,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/hcl"
 )
 
 // hclDecode is a modified version of hcl.Decode just for the super general

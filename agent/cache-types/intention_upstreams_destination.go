@@ -7,8 +7,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // IntentionUpstreamsDestinationName Recommended name for registration.

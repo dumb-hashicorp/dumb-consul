@@ -12,7 +12,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestLogFile_Rotation_MaxDuration(t *testing.T) {
@@ -22,7 +22,7 @@ func TestLogFile_Rotation_MaxDuration(t *testing.T) {
 
 	tempDir := testutil.TempDir(t, "")
 	logFile := LogFile{
-		fileName: "consul.log",
+		fileName: "dumb-consul.log",
 		logPath:  tempDir,
 		duration: 50 * time.Millisecond,
 	}
@@ -35,7 +35,7 @@ func TestLogFile_Rotation_MaxDuration(t *testing.T) {
 
 func TestLogFile_openNew(t *testing.T) {
 	logFile := LogFile{
-		fileName: "consul.log",
+		fileName: "dumb-consul.log",
 		logPath:  testutil.TempDir(t, ""),
 		duration: defaultRotateDuration,
 	}
@@ -53,7 +53,7 @@ func TestLogFile_openNew(t *testing.T) {
 
 func TestLogFile_renameCurrentFile(t *testing.T) {
 	logFile := LogFile{
-		fileName: "consul.log",
+		fileName: "dumb-consul.log",
 		logPath:  testutil.TempDir(t, ""),
 		duration: defaultRotateDuration,
 	}
@@ -83,7 +83,7 @@ func TestLogFile_Rotation_MaxBytes(t *testing.T) {
 func TestLogFile_PruneFiles(t *testing.T) {
 	tempDir := testutil.TempDir(t, t.Name())
 	logFile := LogFile{
-		fileName: "consul.log",
+		fileName: "dumb-consul.log",
 		logPath:  tempDir,
 		MaxBytes: 10,
 		duration: defaultRotateDuration,
@@ -124,7 +124,7 @@ func TestLogFile_PruneFiles_Disabled(t *testing.T) {
 func TestLogFile_FileRotation_Disabled(t *testing.T) {
 	tempDir := testutil.TempDir(t, t.Name())
 	logFile := LogFile{
-		fileName: "consul.log",
+		fileName: "dumb-consul.log",
 		logPath:  tempDir,
 		MaxBytes: 10,
 		MaxFiles: -1,

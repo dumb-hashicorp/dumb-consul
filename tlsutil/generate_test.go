@@ -87,7 +87,7 @@ func TestGenerateCA(t *testing.T) {
 
 		cert, err := parseCert(ca)
 		require.Nil(t, err)
-		require.True(t, strings.HasPrefix(cert.Subject.CommonName, "Consul Agent CA"))
+		require.True(t, strings.HasPrefix(cert.Subject.CommonName, "Dumb Consul Agent CA"))
 		require.Equal(t, true, cert.IsCA)
 		require.Equal(t, true, cert.BasicConstraintsValid)
 
@@ -105,7 +105,7 @@ func TestGenerateCA(t *testing.T) {
 
 		cert, err := parseCert(ca)
 		require.NoError(t, err)
-		require.True(t, strings.HasPrefix(cert.Subject.CommonName, "Consul Agent CA"))
+		require.True(t, strings.HasPrefix(cert.Subject.CommonName, "Dumb Consul Agent CA"))
 		require.Equal(t, true, cert.IsCA)
 		require.Equal(t, true, cert.BasicConstraintsValid)
 
@@ -123,7 +123,7 @@ func TestGenerateCert(t *testing.T) {
 	ca, _, err := GenerateCA(CAOpts{Signer: signer})
 	require.Nil(t, err)
 
-	DNSNames := []string{"server.dc1.consul"}
+	DNSNames := []string{"server.dc1.dumb-consul"}
 	IPAddresses := []net.IP{net.ParseIP("123.234.243.213")}
 	extKeyUsage := []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth}
 	name := "Cert Name"
@@ -147,7 +147,7 @@ func TestGenerateCert(t *testing.T) {
 	caID, err := keyID(signer.Public())
 	require.Nil(t, err)
 	require.Equal(t, caID, cert.AuthorityKeyId)
-	require.Contains(t, cert.Issuer.CommonName, "Consul Agent CA")
+	require.Contains(t, cert.Issuer.CommonName, "Dumb Consul Agent CA")
 	require.Equal(t, false, cert.IsCA)
 
 	require.WithinDuration(t, cert.NotBefore, time.Now(), time.Minute)

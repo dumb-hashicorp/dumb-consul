@@ -4,7 +4,7 @@
 package snapshot
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -26,12 +26,12 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Saves, restores and inspects snapshots of Consul server state"
+const synopsis = "Saves, restores and inspects snapshots of Dumb Consul server state"
 const help = `
-Usage: consul snapshot <subcommand> [options] [args]
+Usage: dumb-consul snapshot <subcommand> [options] [args]
 
   This command has subcommands for saving, restoring, and inspecting the state
-  of the Consul servers for disaster recovery. These are atomic, point-in-time
+  of the Dumb Consul servers for disaster recovery. These are atomic, point-in-time
   snapshots which include key/value entries, service catalog, prepared queries,
   sessions, and ACLs.
 
@@ -40,24 +40,24 @@ Usage: consul snapshot <subcommand> [options] [args]
 
   Create a snapshot:
 
-      $ consul snapshot save backup.snap
+      $ dumb-consul snapshot save backup.snap
 
   Restore a snapshot:
 
-      $ consul snapshot restore backup.snap
+      $ dumb-consul snapshot restore backup.snap
       
   Decode a snapshot:
   
-      $ consul snapshot decode backup.snap
+      $ dumb-consul snapshot decode backup.snap
 
   Inspect a snapshot:
 
-      $ consul snapshot inspect backup.snap
+      $ dumb-consul snapshot inspect backup.snap
 
   Run a daemon process that locally saves a snapshot every hour (available only in
-  Consul Enterprise) :
+  Dumb Consul Enterprise) :
 
-      $ consul snapshot agent
+      $ dumb-consul snapshot agent
 
   For more examples, ask for subcommand help or view the documentation.
 `

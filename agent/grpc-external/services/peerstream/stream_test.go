@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/grpc"
@@ -23,24 +23,24 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/pbpeerstream"
-	"github.com/hashicorp/consul/proto/private/pbservice"
-	"github.com/hashicorp/consul/proto/private/pbstatus"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeerstream"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbstatus"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 const (
@@ -993,8 +993,8 @@ func TestStreamResources_Server_ServiceUpdates(t *testing.T) {
 				pm := nodes.Nodes[0].Service.Connect.PeerMeta
 				require.Equal(t, "tcp", pm.Protocol)
 				spiffeIDs := []string{
-					"spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/mysql",
-					"spiffe://11111111-2222-3333-4444-555555555555.consul/gateway/mesh/dc/dc1",
+					"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/mysql",
+					"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/gateway/mesh/dc/dc1",
 				}
 				require.Equal(t, spiffeIDs, pm.SpiffeID)
 			},
@@ -1020,8 +1020,8 @@ func TestStreamResources_Server_ServiceUpdates(t *testing.T) {
 				pm := nodes.Nodes[0].Service.Connect.PeerMeta
 				require.Equal(t, "grpc", pm.Protocol)
 				spiffeIDs := []string{
-					"spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/mongo",
-					"spiffe://11111111-2222-3333-4444-555555555555.consul/gateway/mesh/dc/dc1",
+					"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/mongo",
+					"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/gateway/mesh/dc/dc1",
 				}
 				require.Equal(t, spiffeIDs, pm.SpiffeID)
 			},
@@ -1670,18 +1670,18 @@ func Test_processResponse_Validation(t *testing.T) {
 		{
 			name: "invalid resource url",
 			in: &pbpeerstream.ReplicationMessage_Response{
-				ResourceURL: "nomad.Job",
+				ResourceURL: "dumb-nomad.Job",
 				Nonce:       "1",
 				Operation:   pbpeerstream.Operation_OPERATION_UNSPECIFIED,
 			},
 			expect: &pbpeerstream.ReplicationMessage{
 				Payload: &pbpeerstream.ReplicationMessage_Request_{
 					Request: &pbpeerstream.ReplicationMessage_Request{
-						ResourceURL:   "nomad.Job",
+						ResourceURL:   "dumb-nomad.Job",
 						ResponseNonce: "1",
 						Error: &pbstatus.Status{
 							Code:    int32(code.Code_INVALID_ARGUMENT),
-							Message: `received response for unknown resource type "nomad.Job"`,
+							Message: `received response for unknown resource type "dumb-nomad.Job"`,
 						},
 					},
 				},

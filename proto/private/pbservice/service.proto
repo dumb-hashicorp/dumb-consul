@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.service;
+package dumb-hashicorp.dumb-consul.internal.service;
 
 import "google/protobuf/struct.proto";
 import "private/pbcommon/common.proto";
@@ -17,7 +17,7 @@ import "private/pbservice/healthcheck.proto";
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ConnectProxyConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ConnectProxyConfig
 // output=service.gen.go
 // name=Structs
 // ignore-fields=MutualTLSMode
@@ -79,7 +79,7 @@ message ConnectProxyConfig {
   string LocalServiceSocketPath = 11;
 
   // mog: func-to=EnvoyExtensionsToStructs func-from=EnvoyExtensionsFromStructs
-  repeated hashicorp.consul.internal.common.EnvoyExtension EnvoyExtensions = 12;
+  repeated dumb-hashicorp.dumb-consul.internal.common.EnvoyExtension EnvoyExtensions = 12;
 
   // AccessLogsConfig defines envoys access log configuration.
   AccessLogsConfig AccessLogs = 13;
@@ -92,7 +92,7 @@ message ConnectProxyConfig {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Upstream
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Upstream
 // output=service.gen.go
 // name=Structs
 // ignore-fields=IngressHosts
@@ -148,7 +148,7 @@ message Upstream {
 // definitions from the agent to the state store.
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceConnect
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceConnect
 // output=service.gen.go
 // name=Structs
 message ServiceConnect {
@@ -174,7 +174,7 @@ message ServiceConnect {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.PeeringServiceMeta
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.PeeringServiceMeta
 // output=service.gen.go
 // name=Structs
 message PeeringServiceMeta {
@@ -188,11 +188,11 @@ message PeeringServiceMeta {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExposeConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExposeConfig
 // output=service.gen.go
 // name=Structs
 message ExposeConfig {
-  // Checks defines whether paths associated with Consul checks will be exposed.
+  // Checks defines whether paths associated with Dumb Consul checks will be exposed.
   // This flag triggers exposing all HTTP and GRPC check paths registered for the service.
   bool Checks = 1;
 
@@ -203,7 +203,7 @@ message ExposeConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExposePath
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExposePath
 // output=service.gen.go
 // name=Structs
 message ExposePath {
@@ -228,7 +228,7 @@ message ExposePath {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshGatewayConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshGatewayConfig
 // output=service.gen.go
 // name=Structs
 message MeshGatewayConfig {
@@ -238,7 +238,7 @@ message MeshGatewayConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TransparentProxyConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TransparentProxyConfig
 // output=service.gen.go
 // name=Structs
 message TransparentProxyConfig {
@@ -253,7 +253,7 @@ message TransparentProxyConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.AccessLogsConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.AccessLogsConfig
 // output=service.gen.go
 // name=Structs
 message AccessLogsConfig {
@@ -274,7 +274,7 @@ message AccessLogsConfig {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceDefinition
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceDefinition
 // output=service.gen.go
 // name=Structs
 message ServiceDefinition {
@@ -330,7 +330,7 @@ message ServiceDefinition {
 // ServicePort contains the port information for a service.
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServicePort
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServicePort
 // output=service.gen.go
 // name=Structs
 message ServicePort {

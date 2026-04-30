@@ -14,14 +14,14 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 
-	"github.com/hashicorp/consul/agent/consul/controller/queue"
-	"github.com/hashicorp/consul/internal/controller/cache"
-	"github.com/hashicorp/consul/internal/protoutil"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/controller/queue"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache"
+	"github.com/dumb-hashicorp/dumb-consul/internal/protoutil"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // Runtime contains the dependencies required by reconcilers.

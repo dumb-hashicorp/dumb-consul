@@ -3,7 +3,7 @@
   "resources": [
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -37,7 +37,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "exported~bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "exported~bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -71,7 +71,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "exported~foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "exported~foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -105,7 +105,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "exported~gir.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "exported~gir.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -139,7 +139,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -173,7 +173,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "gir.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "gir.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [

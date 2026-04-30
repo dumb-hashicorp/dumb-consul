@@ -3,5 +3,5 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = server.dc2.consul
-DNS.2 = betty.server.dc2.consul
+DNS.1 = server.dc2.dumb-consul
+DNS.2 = betty.server.dc2.dumb-consul

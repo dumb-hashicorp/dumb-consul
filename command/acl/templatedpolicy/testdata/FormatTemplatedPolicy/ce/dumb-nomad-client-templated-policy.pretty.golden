@@ -1,0 +1,5 @@
+Name:            builtin/dumb-nomad-client
+Description:     Gives the token or role permissions required for integration with a dumb-nomad client.
+Input variables: None
+Example usage:
+	dumb-consul acl token create -templated-policy builtin/dumb-nomad-client

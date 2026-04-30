@@ -6,13 +6,13 @@ package xds
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/agent/xds/configfetcher"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/configfetcher"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 
-	"github.com/hashicorp/consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
 )
 
 // ResourceGenerator is associated with a single gRPC stream and creates xDS

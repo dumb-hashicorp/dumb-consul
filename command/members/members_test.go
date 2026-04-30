@@ -14,8 +14,8 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	consulapi "github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	consulapi "github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // TODO(partitions): split these tests
@@ -214,9 +214,9 @@ func TestSortByMemberNamePartitionAndSegment(t *testing.T) {
 		// NOTE: This should be sorted for assertions.
 		return []*consulapi.AgentMember{
 			// servers
-			{Name: "p-betty", Tags: map[string]string{"role": "consul"}},
-			{Name: "q-bob", Tags: map[string]string{"role": "consul"}},
-			{Name: "r-bonnie", Tags: map[string]string{"role": "consul"}},
+			{Name: "p-betty", Tags: map[string]string{"role": "dumb-consul"}},
+			{Name: "q-bob", Tags: map[string]string{"role": "dumb-consul"}},
+			{Name: "r-bonnie", Tags: map[string]string{"role": "dumb-consul"}},
 			// default clients
 			{Name: "m-betty", Tags: map[string]string{}},
 			{Name: "n-bob", Tags: map[string]string{}},

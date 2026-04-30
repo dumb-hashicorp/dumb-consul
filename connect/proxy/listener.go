@@ -13,11 +13,11 @@ import (
 	"time"
 
 	metrics "github.com/armon/go-metrics"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/connect"
-	"github.com/hashicorp/consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/connect"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
 )
 
 const (

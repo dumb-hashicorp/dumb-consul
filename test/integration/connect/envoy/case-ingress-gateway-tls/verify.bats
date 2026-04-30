@@ -23,12 +23,12 @@ load helpers
 }
 
 @test "should be able to connect to s1 through the TLS-enabled ingress port" {
-  assert_dnssan_in_cert localhost:9998 '\*.ingress.consul'
+  assert_dnssan_in_cert localhost:9998 '\*.ingress.dumb-consul'
   # Use the --resolve argument to fake dns resolution for now so we can use the
-  # s1.ingress.consul domain to validate the cert
+  # s1.ingress.dumb-consul domain to validate the cert
   run retry_default curl --cacert <(get_ca_root) -s -f -d hello \
-    --resolve s1.ingress.consul:9998:127.0.0.1 \
-    https://s1.ingress.consul:9998
+    --resolve s1.ingress.dumb-consul:9998:127.0.0.1 \
+    https://s1.ingress.dumb-consul:9998
     [ "$status" -eq 0 ]
     [[ "$output" == *"hello"* ]]
 }

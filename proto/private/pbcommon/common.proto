@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.common;
+package dumb-hashicorp.dumb-consul.internal.common;
 
 import "google/protobuf/duration.proto";
 import "google/protobuf/struct.proto";
@@ -13,7 +13,7 @@ import "google/protobuf/struct.proto";
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RaftIndex
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RaftIndex
 // output=common.gen.go
 // name=Structs
 // ignore-fields=state,sizeCache,unknownFields
@@ -25,14 +25,14 @@ message RaftIndex {
 }
 
 // TargetDatacenter is intended to be used within other messages used for RPC routing
-// amongst the various Consul datacenters
+// amongst the various Dumb Consul datacenters
 message TargetDatacenter {
   string Datacenter = 1;
 }
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.WriteRequest
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.WriteRequest
 // output=common.gen.go
 // name=Structs
 // ignore-fields=state,sizeCache,unknownFields
@@ -61,7 +61,7 @@ message ReadRequest {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.QueryOptions
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.QueryOptions
 // output=common.gen.go
 // name=Structs
 // ignore-fields=StaleIfError,AllowNotModifiedResponse,state,sizeCache,unknownFields
@@ -107,7 +107,7 @@ message QueryOptions {
   // returned. Clients that wish to allow for stale results on error can set
   // StaleIfError to a longer duration to change this behavior. It is ignored
   // if the endpoint supports background refresh caching. See
-  // https://developer.hashicorp.com/api/index.html#agent-caching for more details.
+  // https://developer.dumb-hashicorp.com/api/index.html#agent-caching for more details.
   // mog: func-to=structs.DurationFromProto func-from=structs.DurationToProto
   google.protobuf.Duration MaxAge = 8;
 
@@ -122,7 +122,7 @@ message QueryOptions {
   // if the servers are unavailable to fetch a fresh one. Only makes sense when
   // UseCache is true and MaxAge is set to a lower, non-zero value. It is
   // ignored if the endpoint supports background refresh caching. See
-  // https://developer.hashicorp.com/api/index.html#agent-caching for more details.
+  // https://developer.dumb-hashicorp.com/api/index.html#agent-caching for more details.
   google.protobuf.Duration StaleIfError = 10;
 
   // Filter specifies the go-bexpr filter expression to be used for
@@ -135,7 +135,7 @@ message QueryOptions {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.QueryMeta
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.QueryMeta
 // output=common.gen.go
 // name=Structs
 // ignore-fields=NotModified,Backend,state,sizeCache,unknownFields
@@ -167,7 +167,7 @@ message QueryMeta {
 }
 
 // EnterpriseMeta contains metadata that is only used by the Enterprise version
-// of Consul.
+// of Dumb Consul.
 message EnterpriseMeta {
   // Namespace in which the entity exists.
   string Namespace = 1;
@@ -177,7 +177,7 @@ message EnterpriseMeta {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.EnvoyExtension
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.EnvoyExtension
 // output=common.gen.go
 // name=Structs
 message EnvoyExtension {
@@ -191,7 +191,7 @@ message EnvoyExtension {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Locality
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Locality
 // output=common.gen.go
 // name=Structs
 message Locality {

@@ -14,17 +14,17 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 	"github.com/mitchellh/go-testing-interface"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/cache"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 func TestPeerTrustBundles(t testing.T) *pbpeering.TrustBundleListByServiceResponse {
@@ -32,7 +32,7 @@ func TestPeerTrustBundles(t testing.T) *pbpeering.TrustBundleListByServiceRespon
 		Bundles: []*pbpeering.PeeringTrustBundle{
 			{
 				PeerName:    "peer-a",
-				TrustDomain: "1c053652-8512-4373-90cf-5a7f6263a994.consul",
+				TrustDomain: "1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul",
 				RootPEMs: []string{`-----BEGIN CERTIFICATE-----
 MIICczCCAdwCCQC3BLnEmLCrSjANBgkqhkiG9w0BAQsFADB+MQswCQYDVQQGEwJV
 UzELMAkGA1UECAwCQVoxEjAQBgNVBAcMCUZsYWdzdGFmZjEMMAoGA1UECgwDRm9v
@@ -52,7 +52,7 @@ ZAuKN1aoKA==
 			},
 			{
 				PeerName:    "peer-b",
-				TrustDomain: "d89ac423-e95a-475d-94f2-1c557c57bf31.consul",
+				TrustDomain: "d89ac423-e95a-475d-94f2-1c557c57bf31.dumb-consul",
 				RootPEMs: []string{`-----BEGIN CERTIFICATE-----
 MIICcTCCAdoCCQDyGxC08cD0BDANBgkqhkiG9w0BAQsFADB9MQswCQYDVQQGEwJV
 UzELMAkGA1UECAwCQ0ExETAPBgNVBAcMCENhcmxzYmFkMQwwCgYDVQQKDANGb28x
@@ -82,7 +82,7 @@ func TestCerts(t testing.T) (*structs.IndexedCARoots, *structs.IssuedCert) {
 	ca := connect.TestCA(t, nil)
 	roots := &structs.IndexedCARoots{
 		ActiveRootID: ca.ID,
-		TrustDomain:  fmt.Sprintf("%s.consul", connect.TestClusterID),
+		TrustDomain:  fmt.Sprintf("%s.dumb-consul", connect.TestClusterID),
 		Roots:        []*structs.CARoot{ca},
 	}
 	return roots, TestLeafForCA(t, ca)
@@ -115,7 +115,7 @@ func TestCertsForMeshGateway(t testing.T) (*structs.IndexedCARoots, *structs.Iss
 	ca := connect.TestCA(t, nil)
 	roots := &structs.IndexedCARoots{
 		ActiveRootID: ca.ID,
-		TrustDomain:  fmt.Sprintf("%s.consul", connect.TestClusterID),
+		TrustDomain:  fmt.Sprintf("%s.dumb-consul", connect.TestClusterID),
 		Roots:        []*structs.CARoot{ca},
 	}
 	return roots, TestMeshGatewayLeafForCA(t, ca)
@@ -801,7 +801,7 @@ func testConfigSnapshotFixture(
 			ExportedPeeredServices:          &noopDataSource[*structs.DCSpecificRequest]{},
 		},
 		dnsConfig: DNSConfig{ // TODO: make configurable
-			Domain:    "consul",
+			Domain:    "dumb-consul",
 			AltDomain: "",
 		},
 		serverSNIFn:           serverSNIFn,
@@ -962,7 +962,7 @@ func (ct *ControllableCacheType) RegisterOptions() cache.RegisterOptions {
 	}
 }
 
-// golden is used to read golden files stores in consul/agent/xds/testdata
+// golden is used to read golden files stores in dumb-consul/agent/xds/testdata
 func golden(t testing.T, name string) string {
 	t.Helper()
 

@@ -14,10 +14,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestDiscoveryChainRead(t *testing.T) {
@@ -42,7 +42,7 @@ func TestDiscoveryChainRead(t *testing.T) {
 			opts.Datacenter = "dc1"
 		}
 		t := structs.NewDiscoveryTarget(opts)
-		t.SNI = connect.TargetSNI(t, connect.TestClusterID+".consul")
+		t.SNI = connect.TargetSNI(t, connect.TestClusterID+".dumb-consul")
 		t.Name = t.SNI
 		t.ConnectTimeout = 5 * time.Second // default
 		return t

@@ -10,11 +10,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/types"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/types"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/shirou/gopsutil/v3/host"
 )
 

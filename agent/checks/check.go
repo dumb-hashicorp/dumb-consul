@@ -21,14 +21,14 @@ import (
 
 	http2 "golang.org/x/net/http2"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 
 	"github.com/armon/circbuf"
-	"github.com/hashicorp/consul/agent/exec"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/dumb-consul/agent/exec"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/go-cleanhttp"
 )
 
 const (
@@ -44,7 +44,7 @@ const (
 
 	// UserAgent is the value of the User-Agent header
 	// for HTTP health checks.
-	UserAgent = "Consul Health Check"
+	UserAgent = "Dumb Consul Health Check"
 )
 
 // RPC is an interface that an RPC client must implement. This is a helper

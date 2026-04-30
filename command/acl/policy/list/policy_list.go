@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/command/acl/policy"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/policy"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -54,7 +54,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -92,12 +92,12 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Lists ACL policies"
 	help     = `
-Usage: consul acl policy list [options]
+Usage: dumb-consul acl policy list [options]
 
     Lists all the ACL policies
 
     Example:
 
-        $ consul acl policy list
+        $ dumb-consul acl policy list
 `
 )

@@ -10,14 +10,14 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	svctest "github.com/hashicorp/consul/agent/grpc-external/services/resource/testing"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/demo"
-	rtest "github.com/hashicorp/consul/internal/resource/resourcetest"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	pbdemo "github.com/hashicorp/consul/proto/private/pbdemo/v2"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
+	svctest "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource/testing"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/demo"
+	rtest "github.com/dumb-hashicorp/dumb-consul/internal/resource/resourcetest"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	pbdemo "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v2"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestGetDecodedResource(t *testing.T) {

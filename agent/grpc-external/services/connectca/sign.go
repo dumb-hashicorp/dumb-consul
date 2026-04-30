@@ -11,11 +11,11 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbconnectca"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbconnectca"
 )
 
 // Sign a leaf certificate for the service or agent identified by the SPIFFE
@@ -91,7 +91,7 @@ func (s *Server) Sign(ctx context.Context, req *pbconnectca.SignRequest) (*pbcon
 	}, nil
 }
 
-// TODO(agentless): CAManager currently lives in the `agent/consul` package and
+// TODO(agentless): CAManager currently lives in the `agent/dumb-consul` package and
 // returns ErrRateLimited which we can't reference directly here because it'd
 // create an import cycle. Checking the error message like this is fragile, but
 // because of net/rpc's limited error handling support it's what we already do

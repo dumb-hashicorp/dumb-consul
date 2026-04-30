@@ -3,7 +3,7 @@
 package logdrop
 
 import (
-	hclog "github.com/hashicorp/go-hclog"
+	hclog "github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 	mock "github.com/stretchr/testify/mock"
 
 	testing "testing"

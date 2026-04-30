@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -118,7 +118,7 @@ type PeeringGenerateTokenRequest struct {
 	Meta map[string]string `json:",omitempty"`
 	// ServerExternalAddresses is a list of addresses to put into the generated token. This could be used to specify
 	// load balancer(s) or external IPs to reach the servers from the dialing side, and will override any server
-	// addresses obtained from the "consul" service.
+	// addresses obtained from the "dumb-consul" service.
 	ServerExternalAddresses []string `json:",omitempty"`
 }
 

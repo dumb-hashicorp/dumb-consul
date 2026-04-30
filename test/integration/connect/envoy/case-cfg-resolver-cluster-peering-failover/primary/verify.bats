@@ -27,7 +27,7 @@ load helpers
 }
 
 @test "gateway-alpha should be up and listening" {
-  retry_long nc -z consul-alpha-client:4432
+  retry_long nc -z dumb-consul-alpha-client:4432
 }
 
 @test "s1 proxy listener should be up and have right cert" {
@@ -78,7 +78,7 @@ load helpers
 }
 
 @test "gateway-alpha should have healthy endpoints for s2" {
-  assert_upstream_has_endpoints_in_status consul-alpha-client:19003 exported~s2.default.alpha HEALTHY 1
+  assert_upstream_has_endpoints_in_status dumb-consul-alpha-client:19003 exported~s2.default.alpha HEALTHY 1
 }
 
 @test "s1 upstream should be able to connect to s2 in the failover cluster peer" {

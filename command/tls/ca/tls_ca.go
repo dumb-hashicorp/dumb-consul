@@ -6,7 +6,7 @@ package ca
 import (
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New() *cmd {
@@ -29,7 +29,7 @@ func (c *cmd) Help() string {
 
 const synopsis = `Helpers for CAs`
 const help = `
-Usage: consul tls ca <subcommand> [options]
+Usage: dumb-consul tls ca <subcommand> [options]
 
   This command has subcommands for interacting with Certificate Authorities.
 
@@ -38,9 +38,9 @@ Usage: consul tls ca <subcommand> [options]
 
   Create a CA
 
-    $ consul tls ca create
-    ==> saved consul-agent-ca.pem
-    ==> saved consul-agent-ca-key.pem
+    $ dumb-consul tls ca create
+    ==> saved dumb-consul-agent-ca.pem
+    ==> saved dumb-consul-agent-ca-key.pem
 
   For more examples, ask for subcommand help or view the documentation.
 `

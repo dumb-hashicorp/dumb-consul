@@ -3,7 +3,7 @@
   "resources": [
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "circuitBreakers": {},
       "commonLbConfig": {
         "healthyPanicThreshold": {}
@@ -16,7 +16,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -38,7 +38,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/db"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/db"
                   },
                   "sanType": "URI"
                 }
@@ -48,14 +48,14 @@
               }
             }
           },
-          "sni": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"
     },
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "commonLbConfig": {
         "healthyPanicThreshold": {}
       },
@@ -67,7 +67,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -89,7 +89,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/kafka"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/kafka"
                   },
                   "sanType": "URI"
                 }
@@ -99,14 +99,14 @@
               }
             }
           },
-          "sni": "destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"
     },
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "destination.192-168-2-2.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "destination.192-168-2-2.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "commonLbConfig": {
         "healthyPanicThreshold": {}
       },
@@ -118,7 +118,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "destination.192-168-2-2.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.192-168-2-2.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -140,7 +140,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/kafka2"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/kafka2"
                   },
                   "sanType": "URI"
                 }
@@ -150,14 +150,14 @@
               }
             }
           },
-          "sni": "destination.192-168-2-2.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "destination.192-168-2-2.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"
     },
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "destination.192-168-2-3.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "destination.192-168-2-3.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "commonLbConfig": {
         "healthyPanicThreshold": {}
       },
@@ -169,7 +169,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "destination.192-168-2-3.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.192-168-2-3.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -191,7 +191,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/kafka2"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/kafka2"
                   },
                   "sanType": "URI"
                 }
@@ -201,14 +201,14 @@
               }
             }
           },
-          "sni": "destination.192-168-2-3.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "destination.192-168-2-3.kafka2.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"
     },
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "commonLbConfig": {
         "healthyPanicThreshold": {}
       },
@@ -220,7 +220,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -242,7 +242,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/google"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/google"
                   },
                   "sanType": "URI"
                 }
@@ -252,7 +252,7 @@
               }
             }
           },
-          "sni": "destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"
@@ -268,7 +268,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+      "name": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -290,13 +290,13 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/geo-cache-target"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/geo-cache-target"
                   },
                   "sanType": "URI"
                 },
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc2/svc/geo-cache-target"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc2/svc/geo-cache-target"
                   },
                   "sanType": "URI"
                 }
@@ -306,7 +306,7 @@
               }
             }
           },
-          "sni": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"

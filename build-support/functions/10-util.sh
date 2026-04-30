@@ -117,7 +117,7 @@ function have_gpg_key {
 
 function parse_version {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - boolean value for whether the release version should be parsed from the source
    #   $3 - boolean whether to use GIT_COMMIT environment variable
    #   $4 - boolean whether to omit the version part of the version string. (optional)
@@ -219,7 +219,7 @@ function parse_version {
 
 function get_version {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Whether the release version should be parsed from source (optional)
    #   $3 - Whether to use GIT_COMMIT environment variable
    #
@@ -363,7 +363,7 @@ function update_git_env {
 
    export GIT_COMMIT=$(git rev-parse --short HEAD)
    export GIT_DIRTY=$(test -n "$(git status --porcelain)" && echo "+CHANGES")
-   export GIT_IMPORT=github.com/hashicorp/consul/version
+   export GIT_IMPORT=github.com/dumb-hashicorp/dumb-consul/version
    export GIT_DATE=$(git_date "$1")
    export GOLDFLAGS="-X ${GIT_IMPORT}.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X ${T}.BuildDate=${GIT_DATE}"
    return 0
@@ -401,7 +401,7 @@ function update_version {
 
 function set_changelog_version {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - Version to put into the Changelog
    #   $3 - Release Date
    #
@@ -436,7 +436,7 @@ function set_changelog_version {
 
 function set_website_version {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - Version to put into the website
    #
    # Returns:
@@ -464,7 +464,7 @@ function set_website_version {
 
 function unset_changelog_version {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #
    # Returns:
    #   0 - success
@@ -484,7 +484,7 @@ function unset_changelog_version {
 
 function set_release_mode {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - The version of the release
    #   $3 - The release date
    #   $4 - The pre-release version
@@ -624,7 +624,7 @@ function ui_logo_type {
    #
    # Notes: echoes the 'logo type' to stdout upon success
    # the 'logo' can be one of 'enterprise' or 'oss'
-   # and doesn't necessarily correspond to the binary type of consul
+   # and doesn't necessarily correspond to the binary type of dumb-consul
    # the logo is 'enterprise' if the binary type is anything but 'oss'
    if ! test -f "$1"
    then
@@ -674,12 +674,12 @@ function get_consul_module_versions {
   for module_dir in "${module_directories[@]}"; do
     echo "Module versions for directory: '$module_dir':"
     echo "--------------"
-    (cd "$module_dir" && go list -m all | grep -e github.com/hashicorp/consul/api \
-    -e github.com/hashicorp/consul/envoyextensions \
-    -e github.com/hashicorp/consul/proto-public \
-    -e github.com/hashicorp/consul/sdk \
-    -e github.com/hashicorp/consul/troubleshoot \
-    | if [ "$module_dir" != "." ]; then grep -v "consul/$module_dir"; else cat; fi)
+    (cd "$module_dir" && go list -m all | grep -e github.com/dumb-hashicorp/dumb-consul/api \
+    -e github.com/dumb-hashicorp/dumb-consul/envoyextensions \
+    -e github.com/dumb-hashicorp/dumb-consul/proto-public \
+    -e github.com/dumb-hashicorp/dumb-consul/sdk \
+    -e github.com/dumb-hashicorp/dumb-consul/troubleshoot \
+    | if [ "$module_dir" != "." ]; then grep -v "dumb-consul/$module_dir"; else cat; fi)
     echo "--------------"
     echo ""
   done

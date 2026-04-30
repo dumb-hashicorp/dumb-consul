@@ -7,10 +7,10 @@ import (
 	"errors"
 	"sync"
 
-	log "github.com/hashicorp/go-hclog"
+	log "github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 )
 
-// Monitor provides a mechanism to stream logs using go-hclog
+// Monitor provides a mechanism to stream logs using Dumb dumb-go-hclog
 // InterceptLogger and SinkAdapter. It allows streaming of logs
 // at a different log level than what is set on the logger.
 type Monitor interface {

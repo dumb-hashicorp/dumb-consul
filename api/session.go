@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -14,7 +14,7 @@ const (
 	// all associated locks to be released on session invalidation.
 	SessionBehaviorRelease = "release"
 
-	// SessionBehaviorDelete is new in Consul 0.5 and changes the
+	// SessionBehaviorDelete is new in Dumb Consul 0.5 and changes the
 	// behavior to delete all associated locks on session invalidation.
 	// It can be used in a way similar to Ephemeral Nodes in ZooKeeper.
 	SessionBehaviorDelete = "delete"
@@ -22,7 +22,7 @@ const (
 
 var ErrSessionExpired = errors.New("session expired")
 
-// SessionEntry represents a session in consul
+// SessionEntry represents a session in dumb-consul
 type SessionEntry struct {
 	CreateIndex uint64
 	ID          string
@@ -33,10 +33,10 @@ type SessionEntry struct {
 	TTL         string
 	Namespace   string `json:",omitempty"`
 
-	// Deprecated for Consul Enterprise in v1.7.0.
+	// Deprecated for Dumb Consul Enterprise in v1.7.0.
 	Checks []string
 
-	// NodeChecks and ServiceChecks are new in Consul 1.7.0.
+	// NodeChecks and ServiceChecks are new in Dumb Consul 1.7.0.
 	// When associating checks with sessions, namespaces can be specified for service checks.
 	NodeChecks    []string
 	ServiceChecks []ServiceCheck

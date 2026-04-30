@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/consul/internal/testing/errors"
+	"github.com/dumb-hashicorp/dumb-consul/internal/testing/errors"
 )
 
 var (

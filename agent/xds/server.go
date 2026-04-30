@@ -16,15 +16,15 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/grpc-external/limiter"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/configfetcher"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/configfetcher"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 )
 
 var (

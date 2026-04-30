@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-// File containing the canonical range of supported Envoy versions for this version of Consul.
+// File containing the canonical range of supported Envoy versions for this version of Dumb Consul.
 // This file should contain exactly one point release for each major release of Envoy, per line.
 // All other contents must be blank lines or comments. Comments must be on their own line starting with '#'.
 //
@@ -67,7 +67,7 @@ func parseEnvoyVersions(raw string) ([]string, error) {
 // This list must be sorted by semver descending. Only one point release for
 // each major release should be present.
 //
-// see: https://developer.hashicorp.com/docs/connect/proxies/envoy#supported-versions
+// see: https://developer.dumb-hashicorp.com/docs/connect/proxies/envoy#supported-versions
 var EnvoyVersions = initEnvoyVersions()
 
 // UnsupportedEnvoyVersions lists any unsupported Envoy versions (mainly minor versions) that fall
@@ -76,7 +76,7 @@ var EnvoyVersions = initEnvoyVersions()
 // even though 1.21 is a supported major release, you would then add 1.21.3 to this list.
 // This list will be empty in most cases.
 //
-// see: https://developer.hashicorp.com/docs/connect/proxies/envoy#supported-versions
+// see: https://developer.dumb-hashicorp.com/docs/connect/proxies/envoy#supported-versions
 var UnsupportedEnvoyVersions = []string{}
 
 // GetMaxEnvoyMajorVersion grabs the first value in EnvoyVersions and strips the last number off in order

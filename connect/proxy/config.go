@@ -11,14 +11,14 @@ import (
 
 	"github.com/go-viper/mapstructure/v2"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/api/watch"
-	"github.com/hashicorp/consul/connect"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api/watch"
+	"github.com/dumb-hashicorp/dumb-consul/connect"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 const (
@@ -153,7 +153,7 @@ func (uc *UpstreamConfig) String() string {
 	return fmt.Sprintf("%s?port=%s", base, uc.DestinationPort)
 }
 
-// UpstreamResolverFuncFromClient returns a closure that captures a consul
+// UpstreamResolverFuncFromClient returns a closure that captures a dumb-consul
 // client and when called provides a ConsulResolver that can resolve the given
 // UpstreamConfig using the provided api.Client dependency.
 func UpstreamResolverFuncFromClient(client *api.Client) func(cfg UpstreamConfig) (connect.Resolver, error) {
@@ -210,7 +210,7 @@ func (sc *StaticConfigWatcher) Watch() <-chan *Config {
 	return sc.ch
 }
 
-// AgentConfigWatcher watches the local Consul agent for proxy config changes.
+// AgentConfigWatcher watches the local Dumb Consul agent for proxy config changes.
 type AgentConfigWatcher struct {
 	client  *api.Client
 	proxyID string

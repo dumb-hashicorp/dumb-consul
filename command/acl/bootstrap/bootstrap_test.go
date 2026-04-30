@@ -9,9 +9,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -112,7 +112,7 @@ func TestBootstrapCommand_Initial(t *testing.T) {
 	cmd := New(ui)
 
 	// Create temp file
-	f, err := os.CreateTemp("", "consul-token.token")
+	f, err := os.CreateTemp("", "dumb-consul-token.token")
 	assert.Nil(t, err)
 	defer os.Remove(f.Name())
 

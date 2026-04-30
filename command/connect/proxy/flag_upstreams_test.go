@@ -7,7 +7,7 @@ import (
 	"flag"
 	"testing"
 
-	"github.com/hashicorp/consul/connect/proxy"
+	"github.com/dumb-hashicorp/dumb-consul/connect/proxy"
 	"github.com/stretchr/testify/require"
 )
 

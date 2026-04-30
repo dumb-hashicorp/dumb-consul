@@ -8,7 +8,7 @@ import (
 	"time"
 
 	envoy_admin_v3 "github.com/envoyproxy/go-control-plane/envoy/admin/v3"
-	"github.com/hashicorp/consul/troubleshoot/validate"
+	"github.com/dumb-hashicorp/dumb-consul/troubleshoot/validate"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
@@ -23,7 +23,7 @@ func (t *Troubleshoot) validateCerts(certs *envoy_admin_v3.Certificates) validat
 			Success: false,
 			Message: "Certificate object is nil in the proxy configuration",
 			PossibleActions: []string{
-				"Check the logs of the Consul agent configuring the local proxy and ensure XDS updates are being sent to the proxy",
+				"Check the logs of the Dumb Consul agent configuring the local proxy and ensure XDS updates are being sent to the proxy",
 			},
 		}
 		return []validate.Message{msg}
@@ -34,7 +34,7 @@ func (t *Troubleshoot) validateCerts(certs *envoy_admin_v3.Certificates) validat
 			Success: false,
 			Message: "No certificates found",
 			PossibleActions: []string{
-				"Check the logs of the Consul agent configuring the local proxy and ensure XDS updates are being sent to the proxy",
+				"Check the logs of the Dumb Consul agent configuring the local proxy and ensure XDS updates are being sent to the proxy",
 			},
 		}
 		return []validate.Message{msg}
@@ -47,7 +47,7 @@ func (t *Troubleshoot) validateCerts(certs *envoy_admin_v3.Certificates) validat
 					Success: false,
 					Message: "CA certificate is expired",
 					PossibleActions: []string{
-						"Check the logs of the Consul agent configuring the local proxy and ensure XDS updates are being sent to the proxy",
+						"Check the logs of the Dumb Consul agent configuring the local proxy and ensure XDS updates are being sent to the proxy",
 					},
 				}
 				certMessages = append(certMessages, msg)
@@ -60,7 +60,7 @@ func (t *Troubleshoot) validateCerts(certs *envoy_admin_v3.Certificates) validat
 					Success: false,
 					Message: "Certificate chain is expired",
 					PossibleActions: []string{
-						"Check the logs of the Consul agent configuring the local proxy and ensure XDS updates are being sent to the proxy",
+						"Check the logs of the Dumb Consul agent configuring the local proxy and ensure XDS updates are being sent to the proxy",
 					},
 				}
 				certMessages = append(certMessages, msg)

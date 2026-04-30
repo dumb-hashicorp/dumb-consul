@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -20,7 +20,7 @@ func (c *Client) Txn() *Txn {
 	return &Txn{c}
 }
 
-// TxnOp is the internal format we send to Consul. Currently only K/V and
+// TxnOp is the internal format we send to Dumb Consul. Currently only K/V and
 // check operations are supported.
 type TxnOp struct {
 	KV      *KVTxnOp
@@ -32,7 +32,7 @@ type TxnOp struct {
 // TxnOps is a list of transaction operations.
 type TxnOps []*TxnOp
 
-// TxnResult is the internal format we receive from Consul.
+// TxnResult is the internal format we receive from Dumb Consul.
 type TxnResult struct {
 	KV      *KVPair
 	Node    *Node
@@ -52,7 +52,7 @@ type TxnError struct {
 // TxnErrors is a list of TxnError objects.
 type TxnErrors []*TxnError
 
-// TxnResponse is the internal format we receive from Consul.
+// TxnResponse is the internal format we receive from Dumb Consul.
 type TxnResponse struct {
 	Results TxnResults
 	Errors  TxnErrors
@@ -171,7 +171,7 @@ const (
 	CensusPrune CensusOp = "prune"
 )
 
-// Txn is used to apply multiple Consul operations in a single, atomic transaction.
+// Txn is used to apply multiple Dumb Consul operations in a single, atomic transaction.
 //
 // Note that Go will perform the required base64 encoding on the values
 // automatically because the type is a byte slice. Transactions are defined as a
@@ -181,7 +181,7 @@ const (
 //
 // Even though this is generally a write operation, we take a QueryOptions input
 // and return a QueryMeta output. If the transaction contains only read ops, then
-// Consul will fast-path it to a different endpoint internally which supports
+// Dumb Consul will fast-path it to a different endpoint internally which supports
 // consistency controls, but not blocking. If there are write operations then
 // the request will always be routed through raft and any consistency settings
 // will be ignored.

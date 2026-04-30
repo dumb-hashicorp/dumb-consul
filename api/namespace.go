@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// Namespace is the configuration of a single namespace. Namespacing is a Consul Enterprise feature.
+// Namespace is the configuration of a single namespace. Namespacing is a Dumb Consul Enterprise feature.
 type Namespace struct {
 	// Name is the name of the Namespace. It must be unique and
 	// must be a DNS hostname. There are also other reserved names
@@ -93,7 +93,7 @@ func (n *NamespaceACLConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Namespaces can be used to manage Namespaces in Consul Enterprise..
+// Namespaces can be used to manage Namespaces in Dumb Consul Enterprise..
 type Namespaces struct {
 	c *Client
 }

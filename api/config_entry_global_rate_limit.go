@@ -1,10 +1,10 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
 
 // GlobalRateLimitConfigEntry defines a global rate limit that applies across
-// all Consul servers in the cluster.
+// all Dumb Consul servers in the cluster.
 type GlobalRateLimitConfigEntry struct {
 	// Kind must be "rate-limit"
 	Kind string
@@ -16,11 +16,11 @@ type GlobalRateLimitConfigEntry struct {
 	Config *GlobalRateLimitConfig `json:"config,omitempty" alias:"config"`
 
 	// Partition is the partition the config entry is associated with.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// Namespace is the namespace the config entry is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Meta is a map of arbitrary key-value pairs

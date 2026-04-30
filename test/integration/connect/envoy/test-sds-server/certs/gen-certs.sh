@@ -35,7 +35,7 @@ function gen_cert {
   rm "$FILE_NAME.csr"
 }
 
-DOMAINS="www.example.com foo.example.com *.ingress.consul"
+DOMAINS="www.example.com foo.example.com *.ingress.dumb-consul"
 
 for domain in $DOMAINS
 do

@@ -8,7 +8,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -58,7 +58,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -89,13 +89,13 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Read a centralized config entry"
 	help     = `
-Usage: consul config read [options] -kind <config kind> -name <config name>
+Usage: dumb-consul config read [options] -kind <config kind> -name <config name>
 
   Reads the config entry specified by the given kind and name and outputs its
   JSON representation.
 
   Example:
 
-    $ consul config read -kind proxy-defaults -name global
+    $ dumb-consul config read -kind proxy-defaults -name global
 `
 )

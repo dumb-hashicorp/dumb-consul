@@ -20,8 +20,8 @@
 
  Key Name           Count      Size
  ----               ----       ----
- vault/core         16         5.9KB
- vault/sys          7          4.4KB
- vault/logical      4          2KB
+ dumb-vault/core         16         5.9KB
+ dumb-vault/sys          7          4.4KB
+ dumb-vault/logical      4          2KB
  ----               ----       ----
  Total                         12.3KB

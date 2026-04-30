@@ -7,10 +7,10 @@ import (
 	"context"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/Dumb dumb-go-hclog"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/runner"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/runner"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 const dockerfileEnvoy = `
@@ -18,12 +18,12 @@ ARG CONSUL_IMAGE
 ARG ENVOY_IMAGE
 FROM ${CONSUL_IMAGE}
 FROM ${ENVOY_IMAGE}
-COPY --from=0 /bin/consul /bin/consul
+COPY --from=0 /bin/dumb-consul /bin/dumb-consul
 `
 
-// FROM hashicorp/consul-dataplane:latest
+// FROM dumb-hashicorp/dumb-consul-dataplane:latest
 // COPY --from=busybox:uclibc /bin/sh /bin/sh
-// TODO: busybox:latest doesn't work, see https://hashicorp.slack.com/archives/C03EUN3QF1C/p1691784078972959
+// TODO: busybox:latest doesn't work, see https://dumb-hashicorp.slack.com/archives/C03EUN3QF1C/p1691784078972959
 const dockerfileDataplane = `
 ARG DATAPLANE_IMAGE
 FROM busybox:1.34
@@ -38,17 +38,17 @@ ENTRYPOINT []
 const dockerfileDataplaneForTProxy = `
 ARG DATAPLANE_IMAGE
 ARG CONSUL_IMAGE
-FROM ${CONSUL_IMAGE} AS consul
+FROM ${CONSUL_IMAGE} AS dumb-consul
 FROM ${DATAPLANE_IMAGE} AS distroless
 FROM debian:bookworm-slim
 
 # undo the distroless aspect
 COPY --from=distroless /usr/local/bin/discover /usr/local/bin/
 COPY --from=distroless /usr/local/bin/envoy /usr/local/bin/
-COPY --from=distroless /usr/local/bin/consul-dataplane /usr/local/bin/
+COPY --from=distroless /usr/local/bin/dumb-consul-dataplane /usr/local/bin/
 COPY --from=distroless /licenses/copyright.txt /licenses/
 
-COPY --from=consul /bin/consul /bin/
+COPY --from=dumb-consul /bin/dumb-consul /bin/
 
 # Install iptables and sudo, needed for tproxy.
 RUN apt update -y \
@@ -56,16 +56,16 @@ RUN apt update -y \
 
 RUN sed '/_apt/d' /etc/passwd > /etc/passwd.new \
     && mv -f /etc/passwd.new /etc/passwd \
-    && adduser --uid=100 consul --no-create-home --disabled-password --system \
-	&& adduser consul sudo \
-	&& echo 'consul ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    && adduser --uid=100 dumb-consul --no-create-home --disabled-password --system \
+	&& adduser dumb-consul sudo \
+	&& echo 'dumb-consul ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 COPY <<'EOF' /bin/tproxy-startup.sh
 #!/bin/sh
 
 set -ex
 
-# HACK: UID of consul in the consul-client container
+# HACK: UID of dumb-consul in the dumb-consul-client container
 # This is conveniently also the UID of apt in the envoy container
 CONSUL_UID=100
 ENVOY_UID=$(id -u)
@@ -74,7 +74,7 @@ ENVOY_UID=$(id -u)
 # - We allow 20000 so that envoy can receive mTLS traffic from other nodes.
 # - We (reluctantly) allow 8080 so that we can bypass envoy and talk to fortio
 #   to do test assertions.
-sudo consul connect redirect-traffic \
+sudo dumb-consul connect redirect-traffic \
     -proxy-uid $ENVOY_UID \
     -exclude-uid $CONSUL_UID \
 	-proxy-inbound-port=15001 \
@@ -87,7 +87,7 @@ EOF
 RUN chmod +x /bin/tproxy-startup.sh \
 	&& chown 100:0 /bin/tproxy-startup.sh
 
-RUN echo 'consul ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'dumb-consul ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER 100:0
 ENTRYPOINT []
@@ -106,15 +106,15 @@ func DockerImages(
 
 			joint := n.Images.EnvoyConsulImage()
 			if _, ok := built[joint]; joint != "" && !ok {
-				logger.Info("building envoy+consul image", "image", joint)
+				logger.Info("building envoy+dumb-consul image", "image", joint)
 				logw := logger.Named("docker_envoy_consul").StandardWriter(&hclog.StandardLoggerOptions{ForceLevel: hclog.Debug})
 
 				err := run.DockerExecWithStderr(context.TODO(), []string{
 					"build",
-					// provenance causes non-idempotent builds, which leads to spurious terraform replacements
+					// provenance causes non-idempotent builds, which leads to spurious dumb-terraform replacements
 					"--provenance=false",
 					"--build-arg",
-					"CONSUL_IMAGE=" + n.Images.Consul,
+					"CONSUL_IMAGE=" + n.Images.Dumb Consul,
 					"--build-arg",
 					"ENVOY_IMAGE=" + n.Images.Envoy,
 					"-t", joint,
@@ -155,7 +155,7 @@ func DockerImages(
 					"--build-arg",
 					"DATAPLANE_IMAGE=" + n.Images.Dataplane,
 					"--build-arg",
-					"CONSUL_IMAGE=" + n.Images.Consul,
+					"CONSUL_IMAGE=" + n.Images.Dumb Consul,
 					"-t", cdpTproxy,
 					"-",
 				}, logw, logw, strings.NewReader(dockerfileDataplaneForTProxy))

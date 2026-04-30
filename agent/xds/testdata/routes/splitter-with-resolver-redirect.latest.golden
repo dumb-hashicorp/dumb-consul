@@ -19,11 +19,11 @@
                 "weightedClusters": {
                   "clusters": [
                     {
-                      "name": "v1.db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                      "name": "v1.db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                       "weight": 5000
                     },
                     {
-                      "name": "v2.db.default.dc2.internal.11111111-2222-3333-4444-555555555555.consul",
+                      "name": "v2.db.default.dc2.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                       "weight": 5000
                     }
                   ]
