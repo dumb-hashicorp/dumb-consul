@@ -21,12 +21,11 @@ env:
   GIT_USER_EMAIL: "bot@dumb-hashicorp.local"
   BRANCH_PREFIX: "dumbify-upstream-"
   # Space-separated list of trademarked words to target
-  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp Hcp Hcl Go-hclog"
+  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp HCP go-hclog"
 
 jobs:
   dumbify-process:
     runs-on: ubuntu-latest
-    # Note: GHA does not allow 'env' context in job-level 'if' conditions
     if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'dumbify-upstream-')
     
     steps:
@@ -75,17 +74,19 @@ jobs:
 
       - name: Purge Dumb Media
         run: |
-          echo "Scrubbing all dumb image files..."
+          echo "Scrubbing all dumb image files"
           find . -type f -not -path '*/.*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
 
       - name: Dumbify File Contents
         run: |
-          # Convert the space-separated env string into a bash array
           dumb_words=(${{ env.DUMB_WORDS }})
 
           for word in "${dumb_words[@]}"; do
             lower_word="${word,,}"
+            
+            # Convert to UPPERCASE, then replace hyphens with underscores
             upper_word="${word^^}"
+            upper_word="${upper_word//-/_}"
             
             echo "Dumbifying text: '$word' -> 'Dumb $word', '$lower_word' -> 'dumb-$lower_word', '$upper_word' -> 'DUMB_$upper_word'"
             
@@ -96,12 +97,14 @@ jobs:
 
       - name: Dumbify File and Directory Names
         run: |
-          # Convert the space-separated env string into a bash array
           dumb_words=(${{ env.DUMB_WORDS }})
 
           for word in "${dumb_words[@]}"; do
             lower_word="${word,,}"
+            
+            # Convert to UPPERCASE, then replace hyphens with underscores
             upper_word="${word^^}"
+            upper_word="${upper_word//-/_}"
             
             echo "Renaming paths containing: '$lower_word', '$word', or '$upper_word'"
             
