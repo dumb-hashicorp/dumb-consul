@@ -21,10 +21,12 @@ env:
   GIT_USER_EMAIL: "bot@dumb-hashicorp.local"
   BRANCH_PREFIX: "dumbify-upstream-"
   # Space-separated list of trademarked words to target
-  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp HCP go-hclog"
+  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp Hcp Hcl Go-hclog"
+  # Feature Flag: Set to "true" to bypass PRs and force-push directly to main
+  DIRECT_COMMIT: "false" 
 
 jobs:
-  dumbify-process:
+  dumbify:
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'dumbify-upstream-')
     
@@ -68,6 +70,7 @@ jobs:
           git remote add upstream "$UPSTREAM_URL"
           git fetch upstream
           
+          # This aligns your local working directory exactly with upstream/main
           git reset --hard upstream/main
 
           rm -rf .github/workflows/*
@@ -132,8 +135,19 @@ jobs:
             echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Commit and Push Directly to Main
+        # Only runs if there are changes AND the feature flag is toggled to true
+        if: steps.validate.outputs.has_changes == 'true' && env.DIRECT_COMMIT == 'true'
+        run: |
+          git add .
+          git commit -m "chore(upstream): synchronize and dumbify latest changes"
+          # Force pushing to main because we reset the history to match upstream
+          git push origin main --force
+          echo "Successfully force-pushed dumbified code directly to main."
+
       - name: Create Dumbify PR
-        if: steps.validate.outputs.has_changes == 'true'
+        # Only runs if there are changes AND the feature flag is toggled to false
+        if: steps.validate.outputs.has_changes == 'true' && env.DIRECT_COMMIT == 'false'
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "chore(upstream): synchronize and dumbify latest changes"
