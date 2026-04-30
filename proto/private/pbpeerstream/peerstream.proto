@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.peerstream;
+package dumb-hashicorp.dumb-consul.internal.peerstream;
 
 import "annotations/ratelimit/ratelimit.proto";
 import "google/protobuf/any.proto";
@@ -23,7 +23,7 @@ service PeerStreamService {
   // buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
   // buf:lint:ignore RPC_REQUEST_RESPONSE_UNIQUE
   rpc StreamResources(stream ReplicationMessage) returns (stream ReplicationMessage) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_PEER_STREAM
     };
@@ -32,7 +32,7 @@ service PeerStreamService {
   // ExchangeSecret is a unary RPC for exchanging the one-time establishment secret
   // for a long-lived stream secret.
   rpc ExchangeSecret(ExchangeSecretRequest) returns (ExchangeSecretResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_WRITE
       operation_category: OPERATION_CATEGORY_PEER_STREAM
     };
@@ -58,7 +58,7 @@ message ReplicationMessage {
     string StreamSecretID = 2;
 
     // Remote contains metadata about the remote peer.
-    hashicorp.consul.internal.peering.RemoteInfo Remote = 3;
+    dumb-hashicorp.dumb-consul.internal.peering.RemoteInfo Remote = 3;
   }
 
   // A Request requests to subscribe to a resource of a given type.
@@ -116,7 +116,7 @@ enum Operation {
   OPERATION_UPSERT = 1;
 }
 
-// LeaderAddress is sent when the peering service runs on a consul node
+// LeaderAddress is sent when the peering service runs on a dumb-consul node
 // that is not a leader. The node either lost leadership, or never was a leader.
 message LeaderAddress {
   // address is an ip:port best effort hint at what could be the cluster leader's address
@@ -125,7 +125,7 @@ message LeaderAddress {
 
 // ExportedService is one of the types of data returned via peer stream replication.
 message ExportedService {
-  repeated hashicorp.consul.internal.service.CheckServiceNode Nodes = 1;
+  repeated dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode Nodes = 1;
 }
 
 // ExportedServiceList is one of the types of data returned via peer stream replication.

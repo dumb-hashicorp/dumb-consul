@@ -16,9 +16,9 @@ func TestNewContextFromGRPCContext(t *testing.T) {
 
 	md := metadata.MD{}
 	testMeta := map[string]string{
-		"x-consul-token":     "test-token",
-		"x-consul-namespace": "test-namespace",
-		"x-consul-partition": "test-partition",
+		"x-dumb-consul-token":     "test-token",
+		"x-dumb-consul-namespace": "test-namespace",
+		"x-dumb-consul-partition": "test-partition",
 	}
 
 	for k, v := range testMeta {

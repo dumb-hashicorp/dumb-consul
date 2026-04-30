@@ -6,17 +6,17 @@ package envoyextensions
 import (
 	"fmt"
 
-	"github.com/hashicorp/go-multierror"
-	"github.com/hashicorp/go-version"
+	"github.com/dumb-hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-version"
 
-	awslambda "github.com/hashicorp/consul/agent/envoyextensions/builtin/aws-lambda"
-	extauthz "github.com/hashicorp/consul/agent/envoyextensions/builtin/ext-authz"
-	"github.com/hashicorp/consul/agent/envoyextensions/builtin/lua"
-	otelaccesslogging "github.com/hashicorp/consul/agent/envoyextensions/builtin/otel-access-logging"
-	propertyoverride "github.com/hashicorp/consul/agent/envoyextensions/builtin/property-override"
-	"github.com/hashicorp/consul/agent/envoyextensions/builtin/wasm"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
+	awslambda "github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions/builtin/aws-lambda"
+	extauthz "github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions/builtin/ext-authz"
+	"github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions/builtin/lua"
+	otelaccesslogging "github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions/builtin/otel-access-logging"
+	propertyoverride "github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions/builtin/property-override"
+	"github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions/builtin/wasm"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
 )
 
 type extensionConstructor func(api.EnvoyExtension) (extensioncommon.EnvoyExtender, error)

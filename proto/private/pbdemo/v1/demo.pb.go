@@ -8,12 +8,12 @@
 // source: private/pbdemo/v1/demo.proto
 
 // This package contains fake resource types, which are useful for working on
-// Consul's generic storage APIs.
+// Dumb Consul's generic storage APIs.
 
 package demov1
 
 import (
-	_ "github.com/hashicorp/consul/proto-public/pbresource"
+	_ "github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -210,7 +210,7 @@ type Artist struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	Genre         Genre                  `protobuf:"varint,3,opt,name=genre,proto3,enum=hashicorp.consul.internal.demo.v1.Genre" json:"genre,omitempty"`
+	Genre         Genre                  `protobuf:"varint,3,opt,name=genre,proto3,enum=dumb-hashicorp.dumb-consul.internal.demo.v1.Genre" json:"genre,omitempty"`
 	GroupMembers  int32                  `protobuf:"varint,4,opt,name=group_members,json=groupMembers,proto3" json:"group_members,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -382,7 +382,7 @@ var File_private_pbdemo_v1_demo_proto protoreflect.FileDescriptor
 
 const file_private_pbdemo_v1_demo_proto_rawDesc = "" +
 	"\n" +
-	"\x1cprivate/pbdemo/v1/demo.proto\x12!hashicorp.consul.internal.demo.v1\x1a\x1cpbresource/annotations.proto\"/\n" +
+	"\x1cprivate/pbdemo/v1/demo.proto\x12!dumb-hashicorp.dumb-consul.internal.demo.v1\x1a\x1cpbresource/annotations.proto\"/\n" +
 	"\tExecutive\x12\x1a\n" +
 	"\bposition\x18\x01 \x01(\tR\bposition:\x06\xa2\x93\x04\x02\b\x01\"K\n" +
 	"\vRecordLabel\x12\x12\n" +
@@ -391,7 +391,7 @@ const file_private_pbdemo_v1_demo_proto_rawDesc = "" +
 	"\x06Artist\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\x12>\n" +
-	"\x05genre\x18\x03 \x01(\x0e2(.hashicorp.consul.internal.demo.v1.GenreR\x05genre\x12#\n" +
+	"\x05genre\x18\x03 \x01(\x0e2(.dumb-hashicorp.dumb-consul.internal.demo.v1.GenreR\x05genre\x12#\n" +
 	"\rgroup_members\x18\x04 \x01(\x05R\fgroupMembers:\x06\xa2\x93\x04\x02\b\x03\"\x96\x01\n" +
 	"\x05Album\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12&\n" +
@@ -417,7 +417,7 @@ const file_private_pbdemo_v1_demo_proto_rawDesc = "" +
 	"\x12\x11\n" +
 	"\rGENRE_HIP_HOP\x10\v\x12\x0f\n" +
 	"\vGENRE_INDIE\x10\fB\x97\x02\n" +
-	"%com.hashicorp.consul.internal.demo.v1B\tDemoProtoP\x01Z:github.com/hashicorp/consul/proto/private/pbdemo/v1;demov1\xa2\x02\x04HCID\xaa\x02!Hashicorp.Consul.Internal.Demo.V1\xca\x02!Hashicorp\\Consul\\Internal\\Demo\\V1\xe2\x02-Hashicorp\\Consul\\Internal\\Demo\\V1\\GPBMetadata\xea\x02%Hashicorp::Consul::Internal::Demo::V1b\x06proto3"
+	"%com.dumb-hashicorp.dumb-consul.internal.demo.v1B\tDemoProtoP\x01Z:github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v1;demov1\xa2\x02\x04HCID\xaa\x02!Hashicorp.Dumb Consul.Internal.Demo.V1\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Demo\\V1\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Demo\\V1\\GPBMetadata\xea\x02%Hashicorp::Dumb Consul::Internal::Demo::V1b\x06proto3"
 
 var (
 	file_private_pbdemo_v1_demo_proto_rawDescOnce sync.Once
@@ -434,15 +434,15 @@ func file_private_pbdemo_v1_demo_proto_rawDescGZIP() []byte {
 var file_private_pbdemo_v1_demo_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_private_pbdemo_v1_demo_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_private_pbdemo_v1_demo_proto_goTypes = []any{
-	(Genre)(0),          // 0: hashicorp.consul.internal.demo.v1.Genre
-	(*Executive)(nil),   // 1: hashicorp.consul.internal.demo.v1.Executive
-	(*RecordLabel)(nil), // 2: hashicorp.consul.internal.demo.v1.RecordLabel
-	(*Artist)(nil),      // 3: hashicorp.consul.internal.demo.v1.Artist
-	(*Album)(nil),       // 4: hashicorp.consul.internal.demo.v1.Album
-	(*Concept)(nil),     // 5: hashicorp.consul.internal.demo.v1.Concept
+	(Genre)(0),          // 0: dumb-hashicorp.dumb-consul.internal.demo.v1.Genre
+	(*Executive)(nil),   // 1: dumb-hashicorp.dumb-consul.internal.demo.v1.Executive
+	(*RecordLabel)(nil), // 2: dumb-hashicorp.dumb-consul.internal.demo.v1.RecordLabel
+	(*Artist)(nil),      // 3: dumb-hashicorp.dumb-consul.internal.demo.v1.Artist
+	(*Album)(nil),       // 4: dumb-hashicorp.dumb-consul.internal.demo.v1.Album
+	(*Concept)(nil),     // 5: dumb-hashicorp.dumb-consul.internal.demo.v1.Concept
 }
 var file_private_pbdemo_v1_demo_proto_depIdxs = []int32{
-	0, // 0: hashicorp.consul.internal.demo.v1.Artist.genre:type_name -> hashicorp.consul.internal.demo.v1.Genre
+	0, // 0: dumb-hashicorp.dumb-consul.internal.demo.v1.Artist.genre:type_name -> dumb-hashicorp.dumb-consul.internal.demo.v1.Genre
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

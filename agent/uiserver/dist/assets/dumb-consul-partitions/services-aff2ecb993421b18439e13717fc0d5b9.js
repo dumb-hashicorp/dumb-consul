@@ -1,0 +1,1 @@
+((e,t=("undefined"!=typeof document?document.currentScript.dataset:module.exports))=>{t.services=JSON.stringify(e)})({"component:dumb-consul/partition/selector":{class:"dumb-consul-ui/components/dumb-consul/partition/selector"}})

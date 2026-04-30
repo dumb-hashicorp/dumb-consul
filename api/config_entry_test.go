@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestAPI_ConfigEntries(t *testing.T) {
@@ -1183,7 +1183,7 @@ func TestDecodeConfigEntry(t *testing.T) {
 					{
 						"Name": "foo",
 						"Action": "deny",
-						"Type": "consul",
+						"Type": "dumb-consul",
 						"Description": "foo desc"
 					},
 					{
@@ -1264,7 +1264,7 @@ func TestDecodeConfigEntry(t *testing.T) {
 					{
 						Name:        "foo",
 						Action:      "deny",
-						Type:        "consul",
+						Type:        "dumb-consul",
 						Description: "foo desc",
 					},
 					{

@@ -11,10 +11,10 @@ import (
 
 	"github.com/go-viper/mapstructure/v2"
 
-	"github.com/hashicorp/consul/acl"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib/decode"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib/decode"
 )
 
 func (s *HTTPHandlers) DiscoveryChainRead(resp http.ResponseWriter, req *http.Request) (interface{}, error) {

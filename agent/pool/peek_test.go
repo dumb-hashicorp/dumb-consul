@@ -15,7 +15,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 func TestPeekForTLS_not_TLS(t *testing.T) {
@@ -100,7 +100,7 @@ func TestPeekForTLS_actual_TLS(t *testing.T) {
 func testPeekForTLS_withTLS(t *testing.T, connData []byte) {
 	t.Helper()
 
-	cert, caPEM, err := generateTestCert("server.dc1.consul")
+	cert, caPEM, err := generateTestCert("server.dc1.dumb-consul")
 	require.NoError(t, err)
 
 	roots := x509.NewCertPool()
@@ -119,7 +119,7 @@ func testPeekForTLS_withTLS(t *testing.T, connData []byte) {
 		config := &tls.Config{
 			MinVersion: tls.VersionTLS12,
 			RootCAs:    roots,
-			ServerName: "server.dc1.consul",
+			ServerName: "server.dc1.dumb-consul",
 			NextProtos: []string{"foo/bar"},
 		}
 
@@ -151,7 +151,7 @@ func testPeekForTLS_withTLS(t *testing.T, connData []byte) {
 			MinVersion:   tls.VersionTLS12,
 			RootCAs:      roots,
 			Certificates: []tls.Certificate{cert},
-			ServerName:   "server.dc1.consul",
+			ServerName:   "server.dc1.dumb-consul",
 			NextProtos:   []string{"foo/bar"},
 		}
 

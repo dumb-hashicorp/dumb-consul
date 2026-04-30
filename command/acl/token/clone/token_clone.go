@@ -10,9 +10,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/token"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/token"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -76,7 +76,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -120,13 +120,13 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Clone an ACL token"
 	help     = `
-Usage: consul acl token clone [options]
+Usage: dumb-consul acl token clone [options]
 
     This command will clone a token. When cloning an alternate description may be given
     for use with the new token.
 
     Example:
 
-        $ consul acl token clone -accessor-id abcd -description "replication"
+        $ dumb-consul acl token clone -accessor-id abcd -description "replication"
 `
 )

@@ -9,8 +9,8 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -54,7 +54,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -89,17 +89,17 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Delete an ACL role"
 	help     = `
-Usage: consul acl role delete [options] -id ROLE
+Usage: dumb-consul acl role delete [options] -id ROLE
 
     Deletes an ACL role by providing the ID or a unique ID prefix.
 
     Delete by prefix:
 
-        $ consul acl role delete -id b6b85
+        $ dumb-consul acl role delete -id b6b85
 
     Delete by full ID:
 
-        $ consul acl role delete -id b6b856da-5193-4e78-845a-7d61ca8371ba
+        $ dumb-consul acl role delete -id b6b856da-5193-4e78-845a-7d61ca8371ba
 
 `
 )

@@ -9,9 +9,9 @@ import (
 	"math/rand"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
 )
 
 // Resolver is the interface implemented by a service discovery mechanism to get
@@ -60,9 +60,9 @@ const (
 	ConsulResolverTypePreparedQuery
 )
 
-// ConsulResolver queries Consul for a service instance.
+// ConsulResolver queries Dumb Consul for a service instance.
 type ConsulResolver struct {
-	// Client is the Consul API client to use. Must be non-nil or Resolve will
+	// Client is the Dumb Consul API client to use. Must be non-nil or Resolve will
 	// panic.
 	Client *api.Client
 
@@ -86,7 +86,7 @@ type ConsulResolver struct {
 	Filter string
 }
 
-// Resolve performs service discovery against the local Consul agent and returns
+// Resolve performs service discovery against the local Dumb Consul agent and returns
 // the address and expected identity of a suitable service instance.
 func (cr *ConsulResolver) Resolve(ctx context.Context) (string, connect.CertURI, error) {
 	switch cr.Type {
@@ -185,8 +185,8 @@ func (cr *ConsulResolver) queryOptions(ctx context.Context) *api.QueryOptions {
 }
 
 // ConsulResolverFromAddrFunc returns a function for constructing ConsulResolver
-// from a consul DNS formatted hostname (e.g. foo.service.consul or
-// foo.query.consul).
+// from a dumb-consul DNS formatted hostname (e.g. foo.service.dumb-consul or
+// foo.query.dumb-consul).
 //
 // Note, the returned ConsulResolver resolves the query via regular agent HTTP
 // discovery API. DNS is not needed or used for discovery, only the hostname
@@ -197,16 +197,16 @@ func ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver,
 		// Http clients might provide hostname and port
 		host := strings.ToLower(stripPort(addr))
 
-		// For now we force use of `.consul` TLD regardless of the configured domain
+		// For now we force use of `.dumb-consul` TLD regardless of the configured domain
 		// on the cluster. That's because we don't know that domain here and it
 		// would be really complicated to discover it inline here. We do however
 		// need to be able to distinguish a hostname with the optional datacenter
 		// segment which we can't do unambiguously if we allow arbitrary trailing
 		// domains.
-		domain := ".consul"
+		domain := ".dumb-consul"
 		if !strings.HasSuffix(host, domain) {
-			return nil, fmt.Errorf("invalid Consul DNS domain: note Connect SDK " +
-				"currently requires use of .consul domain even if cluster is " +
+			return nil, fmt.Errorf("invalid Dumb Consul DNS domain: note Connect SDK " +
+				"currently requires use of .dumb-consul domain even if cluster is " +
 				"configured with a different domain.")
 		}
 
@@ -222,8 +222,8 @@ func ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver,
 		}
 
 		// Note that 3 segments may be a valid DNS name like
-		// <tag>.<service>.service.consul but not one we support, it might also be
-		// <service>.service.<datacenter>.consul which we do want to support so we
+		// <tag>.<service>.service.dumb-consul but not one we support, it might also be
+		// <service>.service.<datacenter>.dumb-consul which we do want to support so we
 		// have to figure out if the last segment is supported keyword and if not
 		// check if the supported keyword is further up...
 
@@ -232,9 +232,9 @@ func ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver,
 		//  <name>.[service|query]
 		//  <name>.[service|query].<dc>
 		if numParts < 2 || numParts > 3 || !supportedTypeLabel(parts[1]) {
-			return nil, fmt.Errorf("unsupported Consul DNS domain: must be either " +
-				"<name>.service[.<datacenter>].consul or " +
-				"<name>.query[.<datacenter>].consul")
+			return nil, fmt.Errorf("unsupported Dumb Consul DNS domain: must be either " +
+				"<name>.service[.<datacenter>].dumb-consul or " +
+				"<name>.query[.<datacenter>].dumb-consul")
 		}
 
 		if numParts == 3 {

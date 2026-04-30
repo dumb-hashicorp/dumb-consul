@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 	"github.com/stretchr/testify/require"
 )
 

@@ -10,7 +10,7 @@ import (
 )
 
 // PeekForTLS will read the first byte on the conn to determine if the client
-// request is a TLS connection request or a consul-specific framed rpc request.
+// request is a TLS connection request or a dumb-consul-specific framed rpc request.
 //
 // This function does not close the conn on an error.
 //

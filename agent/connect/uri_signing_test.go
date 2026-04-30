@@ -12,9 +12,9 @@ import (
 )
 
 func TestSpiffeIDSigningForCluster(t *testing.T) {
-	// For now it should just append .consul to the ID.
+	// For now it should just append .dumb-consul to the ID.
 	id := SpiffeIDSigningForCluster(TestClusterID)
-	assert.Equal(t, id.URI().String(), "spiffe://"+TestClusterID+".consul")
+	assert.Equal(t, id.URI().String(), "spiffe://"+TestClusterID+".dumb-consul")
 }
 
 // fakeCertURI is a CertURI implementation that our implementation doesn't know
@@ -29,7 +29,7 @@ func TestSpiffeIDSigning_CanSign(t *testing.T) {
 
 	testSigning := &SpiffeIDSigning{
 		ClusterID: TestClusterID,
-		Domain:    "consul",
+		Domain:    "dumb-consul",
 	}
 
 	tests := []struct {
@@ -49,7 +49,7 @@ func TestSpiffeIDSigning_CanSign(t *testing.T) {
 			id:   testSigning,
 			input: &SpiffeIDSigning{
 				ClusterID: "fakedomain",
-				Domain:    "consul",
+				Domain:    "dumb-consul",
 			},
 			want: false,
 		},
@@ -77,7 +77,7 @@ func TestSpiffeIDSigning_CanSign(t *testing.T) {
 		{
 			name:  "service - good",
 			id:    testSigning,
-			input: &SpiffeIDService{Host: TestClusterID + ".consul", Namespace: "default", Datacenter: "dc1", Service: "web"},
+			input: &SpiffeIDService{Host: TestClusterID + ".dumb-consul", Namespace: "default", Datacenter: "dc1", Service: "web"},
 			want:  true,
 		},
 		{
@@ -89,7 +89,7 @@ func TestSpiffeIDSigning_CanSign(t *testing.T) {
 		{
 			name:  "service - different cluster",
 			id:    testSigning,
-			input: &SpiffeIDService{Host: "55555555-4444-3333-2222-111111111111.consul", Namespace: "default", Datacenter: "dc1", Service: "web"},
+			input: &SpiffeIDService{Host: "55555555-4444-3333-2222-111111111111.dumb-consul", Namespace: "default", Datacenter: "dc1", Service: "web"},
 			want:  false,
 		},
 		{
@@ -101,7 +101,7 @@ func TestSpiffeIDSigning_CanSign(t *testing.T) {
 		{
 			name:  "mesh gateway - good",
 			id:    testSigning,
-			input: &SpiffeIDMeshGateway{Host: TestClusterID + ".consul", Datacenter: "dc1"},
+			input: &SpiffeIDMeshGateway{Host: TestClusterID + ".dumb-consul", Datacenter: "dc1"},
 			want:  true,
 		},
 		{
@@ -113,7 +113,7 @@ func TestSpiffeIDSigning_CanSign(t *testing.T) {
 		{
 			name:  "mesh gateway - different cluster",
 			id:    testSigning,
-			input: &SpiffeIDMeshGateway{Host: "55555555-4444-3333-2222-111111111111.consul", Datacenter: "dc1"},
+			input: &SpiffeIDMeshGateway{Host: "55555555-4444-3333-2222-111111111111.dumb-consul", Datacenter: "dc1"},
 			want:  false,
 		},
 		{
@@ -125,7 +125,7 @@ func TestSpiffeIDSigning_CanSign(t *testing.T) {
 		{
 			name:  "server - good",
 			id:    testSigning,
-			input: &SpiffeIDServer{Host: TestClusterID + ".consul", Datacenter: "dc1"},
+			input: &SpiffeIDServer{Host: TestClusterID + ".dumb-consul", Datacenter: "dc1"},
 			want:  true,
 		},
 		{
@@ -137,7 +137,7 @@ func TestSpiffeIDSigning_CanSign(t *testing.T) {
 		{
 			name:  "server - different cluster",
 			id:    testSigning,
-			input: &SpiffeIDServer{Host: "55555555-4444-3333-2222-111111111111.consul", Datacenter: "dc1"},
+			input: &SpiffeIDServer{Host: "55555555-4444-3333-2222-111111111111.dumb-consul", Datacenter: "dc1"},
 			want:  false,
 		},
 		{

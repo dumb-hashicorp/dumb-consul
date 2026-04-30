@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestPeeredUpstreams(t *testing.T) {

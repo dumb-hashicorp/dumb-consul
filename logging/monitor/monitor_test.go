@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	log "github.com/hashicorp/go-hclog"
+	log "github.com/dumb-hashicorp/dumb-go-hclog"
 	"github.com/stretchr/testify/require"
 )
 

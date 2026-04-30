@@ -15,12 +15,12 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/lib/retry"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 type Server struct {
@@ -67,7 +67,7 @@ func tokenFromContext(ctx context.Context) string {
 		return acl.AnonymousTokenID
 	}
 
-	vals := md.Get("x-consul-token")
+	vals := md.Get("x-dumb-consul-token")
 	if len(vals) == 0 {
 		return acl.AnonymousTokenID
 	}
@@ -91,7 +91,7 @@ func readConsistencyFrom(ctx context.Context) storage.ReadConsistency {
 		return storage.EventualConsistency
 	}
 
-	vals := md.Get("x-consul-consistency-mode")
+	vals := md.Get("x-dumb-consul-consistency-mode")
 	if len(vals) == 0 {
 		return storage.EventualConsistency
 	}

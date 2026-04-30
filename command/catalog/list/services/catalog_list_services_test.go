@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 	"github.com/mitchellh/cli"
 )
 
@@ -66,7 +66,7 @@ func TestCatalogListServicesCommand(t *testing.T) {
 			t.Fatalf("bad exit code %d: %s", code, ui.ErrorWriter.String())
 		}
 		output := ui.OutputWriter.String()
-		if expected := "consul\ntesting\n"; output != expected {
+		if expected := "dumb-consul\ntesting\n"; output != expected {
 			t.Errorf("expected %q to be %q", output, expected)
 		}
 	})
@@ -117,7 +117,7 @@ func TestCatalogListServicesCommand(t *testing.T) {
 			t.Fatalf("bad exit code %d: %s", code, ui.ErrorWriter.String())
 		}
 		output := ui.OutputWriter.String()
-		if expected := "consul\ntesting\n"; !strings.Contains(output, expected) {
+		if expected := "dumb-consul\ntesting\n"; !strings.Contains(output, expected) {
 			t.Errorf("expected %q to contain %q", output, expected)
 		}
 	})

@@ -8,7 +8,7 @@ package logging
 import (
 	"testing"
 
-	gsyslog "github.com/hashicorp/go-syslog"
+	gsyslog "github.com/dumb-hashicorp/go-syslog"
 	"github.com/stretchr/testify/require"
 )
 

@@ -8,15 +8,15 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 func TestIsRetiredType(t *testing.T) {
 	var retired []*pbresource.Type
 	{
 		const (
-			GroupName = "hcp"
+			GroupName = "dumb-hcp"
 			Version   = "v2"
 
 			LinkKind           = "Link"

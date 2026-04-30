@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 type HTTPFlags struct {
@@ -35,7 +35,7 @@ type HTTPFlags struct {
 func (f *HTTPFlags) ClientFlags() *flag.FlagSet {
 	fs := flag.NewFlagSet("", flag.ContinueOnError)
 	fs.Var(&f.address, "http-addr",
-		"The `address` and port of the Consul HTTP agent. The value can be an IP "+
+		"The `address` and port of the Dumb Consul HTTP agent. The value can be an IP "+
 			"address or DNS address, but it must also include the port. This can "+
 			"also be specified via the CONSUL_HTTP_ADDR environment variable. The "+
 			"default value is http://localhost:8500. The scheme can also be set to "+
@@ -43,17 +43,17 @@ func (f *HTTPFlags) ClientFlags() *flag.FlagSet {
 	fs.Var(&f.token, "token",
 		"ACL token to use in the request. This can also be specified via the "+
 			"CONSUL_HTTP_TOKEN environment variable. If unspecified, the query will "+
-			"default to the token of the Consul agent at the HTTP address.")
+			"default to the token of the Dumb Consul agent at the HTTP address.")
 	fs.Var(&f.tokenFile, "token-file",
 		"File containing the ACL token to use in the request instead of one specified "+
 			"via the -token argument or CONSUL_HTTP_TOKEN environment variable. "+
 			"This can also be specified via the CONSUL_HTTP_TOKEN_FILE environment variable.")
 	fs.Var(&f.caFile, "ca-file",
-		"Path to a CA file to use for TLS when communicating with Consul. This "+
+		"Path to a CA file to use for TLS when communicating with Dumb Consul. This "+
 			"can also be specified via the CONSUL_CACERT environment variable.")
 	fs.Var(&f.caPath, "ca-path",
 		"Path to a directory of CA certificates to use for TLS when communicating "+
-			"with Consul. This can also be specified via the CONSUL_CAPATH environment variable.")
+			"with Dumb Consul. This can also be specified via the CONSUL_CAPATH environment variable.")
 	fs.Var(&f.certFile, "client-cert",
 		"Path to a client cert file to use for TLS when 'verify_incoming' is enabled. This "+
 			"can also be specified via the CONSUL_CLIENT_CERT environment variable.")
@@ -72,7 +72,7 @@ func (f *HTTPFlags) ServerFlags() *flag.FlagSet {
 		"Name of the datacenter to query. If unspecified, this will default to "+
 			"the datacenter of the queried agent.")
 	fs.Var(&f.stale, "stale",
-		"Permit any Consul server (non-leader) to respond to this request. This "+
+		"Permit any Dumb Consul server (non-leader) to respond to this request. This "+
 			"allows for lower latency and higher throughput, but can result in "+
 			"stale data. This option has no effect on non-read operations. The "+
 			"default value is false.")
@@ -84,7 +84,7 @@ func (f *HTTPFlags) MultiTenancyFlags() *flag.FlagSet {
 	fs.Var(&f.namespace, "namespace",
 		"Specifies the namespace to query. If not provided, the namespace will be inferred "+
 			"from the request's ACL token, or will default to the `default` namespace. "+
-			"Namespaces are a Consul Enterprise feature.")
+			"Namespaces are a Dumb Consul Enterprise feature.")
 	f.AddPartitionFlag(fs)
 	return fs
 }
@@ -184,7 +184,7 @@ func (f *HTTPFlags) AddPartitionFlag(fs *flag.FlagSet) {
 	fs.Var(&f.partition, "partition",
 		"Specifies the admin partition to query. If not provided, the admin partition will be inferred "+
 			"from the request's ACL token, or will default to the `default` admin partition. "+
-			"Admin Partitions are a Consul Enterprise feature.")
+			"Admin Partitions are a Dumb Consul Enterprise feature.")
 }
 
 func (f *HTTPFlags) AddPeerName() *flag.FlagSet {

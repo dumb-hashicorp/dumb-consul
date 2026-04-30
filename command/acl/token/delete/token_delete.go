@@ -9,8 +9,8 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -64,7 +64,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -94,16 +94,16 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Delete an ACL token"
 	help     = `
-Usage: consul acl token delete [options] -accessor-id TOKEN
+Usage: dumb-consul acl token delete [options] -accessor-id TOKEN
 
   Deletes an ACL token by providing either the ID or a unique ID prefix.
 
       Delete by prefix:
 
-          $ consul acl token delete -accessor-id b6b85
+          $ dumb-consul acl token delete -accessor-id b6b85
 
       Delete by full ID:
 
-          $ consul acl token delete -accessor-id b6b856da-5193-4e78-845a-7d61ca8371ba
+          $ dumb-consul acl token delete -accessor-id b6b856da-5193-4e78-845a-7d61ca8371ba
 `
 )

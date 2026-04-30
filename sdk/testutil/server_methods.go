@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package testutil
@@ -82,7 +82,7 @@ func (s *TestServer) GetKVString(t testing.TB, key string) string {
 	return string(s.GetKV(t, key))
 }
 
-// PopulateKV fills the Consul KV with data from a generic map.
+// PopulateKV fills the Dumb Consul KV with data from a generic map.
 func (s *TestServer) PopulateKV(t testing.TB, data map[string][]byte) {
 	for k, v := range data {
 		s.SetKV(t, k, v)
@@ -107,14 +107,14 @@ func (s *TestServer) ListKV(t testing.TB, prefix string) []string {
 	return result
 }
 
-// AddService adds a new service to the Consul instance. It also
+// AddService adds a new service to the Dumb Consul instance. It also
 // automatically adds a health check with the given status, which
 // can be one of "passing", "warning", or "critical".
 func (s *TestServer) AddService(t testing.TB, name, status string, tags []string) {
 	s.AddAddressableService(t, name, status, "", 0, tags) // set empty address and 0 as port for non-accessible service
 }
 
-// AddAddressableService adds a new service to the Consul instance by
+// AddAddressableService adds a new service to the Dumb Consul instance by
 // passing "address" and "port". It is helpful when you need to prepare a fakeService
 // that maybe accessed with in target source code.
 // It also automatically adds a health check with the given status, which
@@ -156,7 +156,7 @@ func (s *TestServer) AddAddressableService(t testing.TB, name, status, address s
 	}
 }
 
-// AddCheck adds a check to the Consul instance. If the serviceID is
+// AddCheck adds a check to the Dumb Consul instance. If the serviceID is
 // left empty (""), then the check will be associated with the node.
 // The check status may be "passing", "warning", or "critical".
 func (s *TestServer) AddCheck(t testing.TB, name, serviceID, status string) {
@@ -229,7 +229,7 @@ func (s *TestServer) encodePayload(payload interface{}) (io.Reader, error) {
 }
 
 // url is a helper function which takes a relative URL and
-// makes it into a proper URL against the local Consul server.
+// makes it into a proper URL against the local Dumb Consul server.
 func (s *TestServer) url(path string) string {
 	if s == nil {
 		log.Fatal("s is nil")

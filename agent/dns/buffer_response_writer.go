@@ -4,7 +4,7 @@
 package dns
 
 import (
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 	"github.com/miekg/dns"
 	"net"
 )

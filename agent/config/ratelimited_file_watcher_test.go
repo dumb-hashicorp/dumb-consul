@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/stretchr/testify/require"
 )
 

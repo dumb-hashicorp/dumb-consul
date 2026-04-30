@@ -5,8 +5,8 @@ package agent
 
 import (
 	"context"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -50,7 +50,7 @@ func TestDNS_ReverseLookup(t *testing.T) {
 	if !ok {
 		t.Fatalf("Bad: %#v", in.Answer[0])
 	}
-	if ptrRec.Ptr != "foo2.node.dc1.consul." {
+	if ptrRec.Ptr != "foo2.node.dc1.dumb-consul." {
 		t.Fatalf("Bad: %#v", ptrRec)
 	}
 }
@@ -138,7 +138,7 @@ func TestDNS_ReverseLookup_IPV6(t *testing.T) {
 	if !ok {
 		t.Fatalf("Bad: %#v", in.Answer[0])
 	}
-	if ptrRec.Ptr != "bar.node.dc1.consul." {
+	if ptrRec.Ptr != "bar.node.dc1.dumb-consul." {
 		t.Fatalf("Bad: %#v", ptrRec)
 	}
 }
@@ -244,7 +244,7 @@ func TestDNS_ServiceReverseLookup(t *testing.T) {
 	if !ok {
 		t.Fatalf("Bad: %#v", in.Answer[0])
 	}
-	if ptrRec.Ptr != serviceCanonicalDNSName("db", "service", "dc1", "consul", nil)+"." {
+	if ptrRec.Ptr != serviceCanonicalDNSName("db", "service", "dc1", "dumb-consul", nil)+"." {
 		t.Fatalf("Bad: %#v", ptrRec)
 	}
 }
@@ -295,7 +295,7 @@ func TestDNS_ServiceReverseLookup_IPV6(t *testing.T) {
 	if !ok {
 		t.Fatalf("Bad: %#v", in.Answer[0])
 	}
-	if ptrRec.Ptr != serviceCanonicalDNSName("db", "service", "dc1", "consul", nil)+"." {
+	if ptrRec.Ptr != serviceCanonicalDNSName("db", "service", "dc1", "dumb-consul", nil)+"." {
 		t.Fatalf("Bad: %#v", ptrRec)
 	}
 }
@@ -399,7 +399,7 @@ func TestDNS_ServiceReverseLookupNodeAddress(t *testing.T) {
 	if !ok {
 		t.Fatalf("Bad: %#v", in.Answer[0])
 	}
-	if ptrRec.Ptr != "foo.node.dc1.consul." {
+	if ptrRec.Ptr != "foo.node.dc1.dumb-consul." {
 		t.Fatalf("Bad: %#v", ptrRec)
 	}
 }
@@ -434,6 +434,6 @@ func TestDNS_ReverseLookup_NotFound(t *testing.T) {
 
 	soa, ok := in.Ns[0].(*dns.SOA)
 	require.True(t, ok)
-	require.Equal(t, "ns.consul.", soa.Ns)
-	require.Equal(t, "hostmaster.consul.", soa.Mbox)
+	require.Equal(t, "ns.dumb-consul.", soa.Ns)
+	require.Equal(t, "hostmaster.dumb-consul.", soa.Mbox)
 }

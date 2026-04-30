@@ -15,16 +15,16 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 
-	"github.com/hashicorp/consul/acl"
-	resolver "github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/connect"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbconnectca"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	resolver "github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbconnectca"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 const testACLToken = "acl-token"
@@ -79,7 +79,7 @@ func TestWatchRoots_Success(t *testing.T) {
 
 	// Expect an initial message containing current roots (provided by the snapshot).
 	roots := mustGetRoots(t, rspCh)
-	require.Equal(t, "cluster-id.consul", roots.TrustDomain)
+	require.Equal(t, "cluster-id.dumb-consul", roots.TrustDomain)
 	require.Equal(t, rootA.ID, roots.ActiveRootId)
 	require.Len(t, roots.Roots, 1)
 	require.Equal(t, rootA.ID, roots.Roots[0].Id)
@@ -91,7 +91,7 @@ func TestWatchRoots_Success(t *testing.T) {
 
 	// Expect another event containing the new roots.
 	roots = mustGetRoots(t, rspCh)
-	require.Equal(t, "cluster-id.consul", roots.TrustDomain)
+	require.Equal(t, "cluster-id.dumb-consul", roots.TrustDomain)
 	require.Equal(t, rootB.ID, roots.ActiveRootId)
 	require.Len(t, roots.Roots, 1)
 	require.Equal(t, rootB.ID, roots.Roots[0].Id)
@@ -254,7 +254,7 @@ func TestWatchRoots_StateStoreAbandoned(t *testing.T) {
 
 	// Expect to get the new store's roots.
 	newRoots := mustGetRoots(t, rspCh)
-	require.Equal(t, "cluster-b.consul", newRoots.TrustDomain)
+	require.Equal(t, "cluster-b.dumb-consul", newRoots.TrustDomain)
 	require.Len(t, newRoots.Roots, 1)
 	require.Equal(t, rootB.ID, newRoots.ActiveRootId)
 }

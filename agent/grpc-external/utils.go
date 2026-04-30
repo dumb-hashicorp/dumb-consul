@@ -4,12 +4,12 @@
 package external
 
 import (
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
 )
 
 // We tag logs with a unique identifier to ease debugging. In the future this
@@ -29,7 +29,7 @@ type ACLResolver interface {
 // RequireAnyValidACLToken checks that the caller provided a valid ACL token
 // without requiring any specific permissions. This is useful for endpoints
 // that are used by all/most consumers of our API, such as those called by the
-// consul-server-connection-manager library when establishing a new connection.
+// dumb-consul-server-connection-manager library when establishing a new connection.
 //
 // Note: no token is required if ACLs are disabled.
 func RequireAnyValidACLToken(resolver ACLResolver, token string) error {
@@ -39,7 +39,7 @@ func RequireAnyValidACLToken(resolver ACLResolver, token string) error {
 	}
 
 	if id := authz.ACLIdentity; id != nil && id.ID() == acl.AnonymousTokenID {
-		return status.Error(codes.Unauthenticated, "An ACL token must be provided (via the `x-consul-token` metadata field) to call this endpoint")
+		return status.Error(codes.Unauthenticated, "An ACL token must be provided (via the `x-dumb-consul-token` metadata field) to call this endpoint")
 	}
 
 	return nil

@@ -8,8 +8,8 @@
 // such as the xDS server can then subscribe to receive snapshots of this
 // data whenever it changes.
 //
-// Consul client agents support the configuration of proxies locally
-// registered to them, whereas Consul servers support both this and proxies
+// Dumb Consul client agents support the configuration of proxies locally
+// registered to them, whereas Dumb Consul servers support both this and proxies
 // in the catalog.
 //
 // The following diagram depicts the component relationships on a server, as

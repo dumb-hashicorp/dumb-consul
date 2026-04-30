@@ -6,7 +6,7 @@ package tfgen
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 type terraformPod struct {
@@ -62,12 +62,12 @@ func (g *Generator) generateNodeContainers(
 			containers = append(containers, Eval(tfConsulT, struct {
 				terraformPod
 				ImageResource     string
-				HCL               string
+				Dumb HCL               string
 				EnterpriseLicense string
 			}{
 				terraformPod:      pod,
-				ImageResource:     DockerImageResourceName(node.Images.Consul),
-				HCL:               g.generateAgentHCL(node),
+				ImageResource:     DockerImageResourceName(node.Images.Dumb Consul),
+				Dumb HCL:               g.generateAgentHCL(node),
 				EnterpriseLicense: g.license,
 			}))
 		}

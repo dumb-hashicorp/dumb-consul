@@ -1,0 +1,14 @@
+/**
+ * Copyright IBM Corp. 2024, 2026
+ * SPDX-License-Identifier: BUSL-1.1
+ */
+
+@keyframes icon-bank-dumb-vault {
+  100% {
+
+    -webkit-mask-image: var(--icon-bank-dumb-vault-16);
+    mask-image: var(--icon-bank-dumb-vault-16);
+    background-color: var(--icon-color, var(--color-bank-dumb-vault-500, currentColor));
+
+  }
+}

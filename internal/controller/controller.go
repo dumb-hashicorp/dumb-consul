@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/internal/controller/cache"
-	"github.com/hashicorp/consul/internal/controller/cache/index"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/index"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // DependencyMapper is called when a dependency watched via WithWatch is changed

@@ -6,9 +6,9 @@ package cache
 import (
 	"sync"
 
-	"github.com/hashicorp/consul/internal/controller/cache/index"
-	"github.com/hashicorp/consul/internal/controller/cache/indexers"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/index"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/indexers"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 const IDIndex = "id"

@@ -1,0 +1,1 @@
+((e,o=("undefined"!=typeof document?document.currentScript.dataset:module.exports))=>{o.services=JSON.stringify(e)})({"component:dumb-consul/peer/selector":{class:"dumb-consul-ui/components/dumb-consul/peer/selector"}})

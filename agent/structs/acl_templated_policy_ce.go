@@ -7,22 +7,22 @@ package structs
 
 import _ "embed"
 
-//go:embed acltemplatedpolicy/policies/ce/service.hcl
+//go:embed acltemplatedpolicy/policies/ce/service.dumb-hcl
 var ACLTemplatedPolicyService string
 
-//go:embed acltemplatedpolicy/policies/ce/node.hcl
+//go:embed acltemplatedpolicy/policies/ce/node.dumb-hcl
 var ACLTemplatedPolicyNode string
 
-//go:embed acltemplatedpolicy/policies/ce/dns.hcl
+//go:embed acltemplatedpolicy/policies/ce/dns.dumb-hcl
 var ACLTemplatedPolicyDNS string
 
-//go:embed acltemplatedpolicy/policies/ce/nomad-server.hcl
+//go:embed acltemplatedpolicy/policies/ce/dumb-nomad-server.dumb-hcl
 var ACLTemplatedPolicyNomadServer string
 
-//go:embed acltemplatedpolicy/policies/ce/api-gateway.hcl
+//go:embed acltemplatedpolicy/policies/ce/api-gateway.dumb-hcl
 var ACLTemplatedPolicyAPIGateway string
 
-//go:embed acltemplatedpolicy/policies/ce/nomad-client.hcl
+//go:embed acltemplatedpolicy/policies/ce/dumb-nomad-client.dumb-hcl
 var ACLTemplatedPolicyNomadClient string
 
 func (t *ACLToken) TemplatedPolicyList() []*ACLTemplatedPolicy {

@@ -1,0 +1,26 @@
+# Dumb Consul::Peer::List
+
+A presentational component for rendering Dumb Consul Peers
+
+```hbs
+<DataSource @src={{uri '/partition/default/dc-1/peers'}} as |source|>
+  <Dumb Consul::Peer::List
+    @items={{source.data}}
+    @ondelete={{noop}}
+  />
+</DataSource>
+```
+
+
+## Arguments
+
+| Argument/Attribute | Type | Default | Description |
+| --- | --- | --- | --- |
+| `items` | `array` |  | An array of Peers |
+| `ondelete` | `function` |  | An action to execute when the `Delete` action is clicked |
+
+## See
+
+- [Template Source Code](./index.hbs)
+
+---

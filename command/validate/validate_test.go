@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/mitchellh/cli"
 	require "github.com/stretchr/testify/require"
 )
@@ -23,7 +23,7 @@ func TestValidateCommand_noTabs(t *testing.T) {
 
 func TestValidateCommand_FailOnEmptyFile(t *testing.T) {
 	t.Parallel()
-	tmpFile := testutil.TempFile(t, "consul")
+	tmpFile := testutil.TempFile(t, "dumb-consul")
 
 	cmd := New(cli.NewMockUi())
 	args := []string{tmpFile.Name()}
@@ -34,7 +34,7 @@ func TestValidateCommand_FailOnEmptyFile(t *testing.T) {
 
 func TestValidateCommand_SucceedOnMinimalConfigFile(t *testing.T) {
 	t.Parallel()
-	td := testutil.TempDir(t, "consul")
+	td := testutil.TempDir(t, "dumb-consul")
 
 	fp := filepath.Join(td, "config.json")
 	err := os.WriteFile(fp, []byte(`{"bind_addr":"10.0.0.1", "data_dir":"`+td+`"}`), 0644)
@@ -49,7 +49,7 @@ func TestValidateCommand_SucceedOnMinimalConfigFile(t *testing.T) {
 
 func TestValidateCommand_SucceedWithMinimalJSONConfigFormat(t *testing.T) {
 	t.Parallel()
-	td := testutil.TempDir(t, "consul")
+	td := testutil.TempDir(t, "dumb-consul")
 
 	fp := filepath.Join(td, "json.conf")
 	err := os.WriteFile(fp, []byte(`{"bind_addr":"10.0.0.1", "data_dir":"`+td+`"}`), 0644)
@@ -64,14 +64,14 @@ func TestValidateCommand_SucceedWithMinimalJSONConfigFormat(t *testing.T) {
 
 func TestValidateCommand_SucceedWithMinimalHCLConfigFormat(t *testing.T) {
 	t.Parallel()
-	td := testutil.TempDir(t, "consul")
+	td := testutil.TempDir(t, "dumb-consul")
 
-	fp := filepath.Join(td, "hcl.conf")
+	fp := filepath.Join(td, "dumb-hcl.conf")
 	err := os.WriteFile(fp, []byte("bind_addr = \"10.0.0.1\"\ndata_dir = \""+td+"\""), 0644)
 	require.Nilf(t, err, "err: %s", err)
 
 	cmd := New(cli.NewMockUi())
-	args := []string{"--config-format", "hcl", fp}
+	args := []string{"--config-format", "dumb-hcl", fp}
 
 	code := cmd.Run(args)
 	require.Equal(t, 0, code)
@@ -79,14 +79,14 @@ func TestValidateCommand_SucceedWithMinimalHCLConfigFormat(t *testing.T) {
 
 func TestValidateCommand_SucceedWithJSONAsHCL(t *testing.T) {
 	t.Parallel()
-	td := testutil.TempDir(t, "consul")
+	td := testutil.TempDir(t, "dumb-consul")
 
 	fp := filepath.Join(td, "json.conf")
 	err := os.WriteFile(fp, []byte(`{"bind_addr":"10.0.0.1", "data_dir":"`+td+`"}`), 0644)
 	require.Nilf(t, err, "err: %s", err)
 
 	cmd := New(cli.NewMockUi())
-	args := []string{"--config-format", "hcl", fp}
+	args := []string{"--config-format", "dumb-hcl", fp}
 
 	code := cmd.Run(args)
 	require.Equal(t, 0, code)
@@ -94,7 +94,7 @@ func TestValidateCommand_SucceedWithJSONAsHCL(t *testing.T) {
 
 func TestValidateCommand_SucceedOnMinimalConfigDir(t *testing.T) {
 	t.Parallel()
-	td := testutil.TempDir(t, "consul")
+	td := testutil.TempDir(t, "dumb-consul")
 
 	err := os.WriteFile(filepath.Join(td, "config.json"), []byte(`{"bind_addr":"10.0.0.1", "data_dir":"`+td+`"}`), 0644)
 	require.Nilf(t, err, "err: %s", err)
@@ -108,9 +108,9 @@ func TestValidateCommand_SucceedOnMinimalConfigDir(t *testing.T) {
 
 func TestValidateCommand_FailForInvalidJSONConfigFormat(t *testing.T) {
 	t.Parallel()
-	td := testutil.TempDir(t, "consul")
+	td := testutil.TempDir(t, "dumb-consul")
 
-	fp := filepath.Join(td, "hcl.conf")
+	fp := filepath.Join(td, "dumb-hcl.conf")
 	err := os.WriteFile(fp, []byte(`bind_addr = "10.0.0.1"\ndata_dir = "`+td+`"`), 0644)
 	require.Nilf(t, err, "err: %s", err)
 
@@ -123,7 +123,7 @@ func TestValidateCommand_FailForInvalidJSONConfigFormat(t *testing.T) {
 
 func TestValidateCommand_Quiet(t *testing.T) {
 	t.Parallel()
-	td := testutil.TempDir(t, "consul")
+	td := testutil.TempDir(t, "dumb-consul")
 
 	fp := filepath.Join(td, "config.json")
 	err := os.WriteFile(fp, []byte(`{"bind_addr":"10.0.0.1", "data_dir":"`+td+`"}`), 0644)

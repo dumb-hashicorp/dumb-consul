@@ -14,9 +14,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestServiceManager_RegisterService(t *testing.T) {
@@ -315,7 +315,7 @@ func TestServiceManager_PersistService_API(t *testing.T) {
 		server = false
 		bootstrap = false
 	`
-	a := StartTestAgent(t, TestAgent{HCL: cfg})
+	a := StartTestAgent(t, TestAgent{Dumb HCL: cfg})
 	defer a.Shutdown()
 
 	// Join first
@@ -502,7 +502,7 @@ func TestServiceManager_PersistService_API(t *testing.T) {
 	serverAgent.Shutdown()
 
 	// Should load it back during later start.
-	a2 := StartTestAgent(t, TestAgent{HCL: cfg, DataDir: a.DataDir})
+	a2 := StartTestAgent(t, TestAgent{Dumb HCL: cfg, DataDir: a.DataDir})
 	defer a2.Shutdown()
 
 	{
@@ -578,7 +578,7 @@ func TestServiceManager_PersistService_ConfigFiles(t *testing.T) {
 		bootstrap = false
 	` + serviceSnippet
 
-	a := StartTestAgent(t, TestAgent{HCL: cfg})
+	a := StartTestAgent(t, TestAgent{Dumb HCL: cfg})
 	defer a.Shutdown()
 
 	// Join first
@@ -681,7 +681,7 @@ func TestServiceManager_PersistService_ConfigFiles(t *testing.T) {
 	serverAgent.Shutdown()
 
 	// Should load it back during later start.
-	a2 := StartTestAgent(t, TestAgent{HCL: cfg, DataDir: a.DataDir})
+	a2 := StartTestAgent(t, TestAgent{Dumb HCL: cfg, DataDir: a.DataDir})
 	defer a2.Shutdown()
 
 	{

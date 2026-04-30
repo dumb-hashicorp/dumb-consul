@@ -8,9 +8,9 @@ package proxycfg
 import (
 	"context"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func (s *handlerMeshGateway) initializeEntWatches(_ context.Context) error {

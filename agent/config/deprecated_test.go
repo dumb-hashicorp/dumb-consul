@@ -10,13 +10,13 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestLoad_DeprecatedConfig(t *testing.T) {
 	opts := LoadOpts{
-		HCL: []string{`
+		Dumb HCL: []string{`
 data_dir = "/foo"
 
 acl_datacenter = "dcone"
@@ -114,7 +114,7 @@ raft_boltdb {
 
 func TestLoad_DeprecatedConfig_ACLReplication(t *testing.T) {
 	opts := LoadOpts{
-		HCL: []string{`
+		Dumb HCL: []string{`
 data_dir = "/foo"
 
 enable_acl_replication = true
@@ -142,7 +142,7 @@ func TestLoad_DeprecatedConfig_ACLMasterTokens(t *testing.T) {
 	t.Run("top-level fields", func(t *testing.T) {
 
 		opts := LoadOpts{
-			HCL: []string{`
+			Dumb HCL: []string{`
 				data_dir = "/foo"
 
 				acl_master_token = "token1"
@@ -168,7 +168,7 @@ func TestLoad_DeprecatedConfig_ACLMasterTokens(t *testing.T) {
 	t.Run("embedded in tokens struct", func(t *testing.T) {
 
 		opts := LoadOpts{
-			HCL: []string{`
+			Dumb HCL: []string{`
 				data_dir = "/foo"
 
 				acl {
@@ -198,7 +198,7 @@ func TestLoad_DeprecatedConfig_ACLMasterTokens(t *testing.T) {
 	t.Run("both", func(t *testing.T) {
 
 		opts := LoadOpts{
-			HCL: []string{`
+			Dumb HCL: []string{`
 				data_dir = "/foo"
 
 				acl_master_token = "token1"

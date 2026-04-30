@@ -10,8 +10,8 @@ import (
 	"net"
 	"strings"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 const (
@@ -428,7 +428,7 @@ func (c *ConnectProxyConfig) MarshalJSON() ([]byte, error) {
 }
 
 // ToAPI returns the api struct with the same fields. We have duplicates to
-// avoid the api package depending on this one which imports a ton of Consul's
+// avoid the api package depending on this one which imports a ton of Dumb Consul's
 // core which you don't want if you are just trying to use our client in your
 // app.
 func (c *ConnectProxyConfig) ToAPI() *api.AgentServiceConnectProxyConfig {
@@ -457,7 +457,7 @@ const (
 type Upstreams []Upstream
 
 // ToAPI returns the api structs with the same fields. We have duplicates to
-// avoid the api package depending on this one which imports a ton of Consul's
+// avoid the api package depending on this one which imports a ton of Dumb Consul's
 // core which you don't want if you are just trying to use our client in your
 // app.
 func (us Upstreams) ToAPI() []api.Upstream {
@@ -627,7 +627,7 @@ func (u *Upstream) Validate() error {
 }
 
 // ToAPI returns the api structs with the same fields. We have duplicates to
-// avoid the api package depending on this one which imports a ton of Consul's
+// avoid the api package depending on this one which imports a ton of Dumb Consul's
 // core which you don't want if you are just trying to use our client in your
 // app.
 func (u *Upstream) ToAPI() api.Upstream {
@@ -765,7 +765,7 @@ func UpstreamFromAPI(u api.Upstream) Upstream {
 // ExposeConfig describes HTTP paths to expose through Envoy outside of Connect.
 // Users can expose individual paths and/or all HTTP/GRPC paths for checks.
 type ExposeConfig struct {
-	// Checks defines whether paths associated with Consul checks will be exposed.
+	// Checks defines whether paths associated with Dumb Consul checks will be exposed.
 	// This flag triggers exposing all HTTP and GRPC check paths registered for the service.
 	Checks bool `json:",omitempty"`
 

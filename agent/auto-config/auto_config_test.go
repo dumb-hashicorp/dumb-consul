@@ -17,19 +17,19 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/cache"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/lib/retry"
-	"github.com/hashicorp/consul/proto/private/pbautoconf"
-	"github.com/hashicorp/consul/proto/private/pbconfig"
-	"github.com/hashicorp/consul/sdk/testutil"
-	testretry "github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbautoconf"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfig"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	testretry "github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 type configLoader struct {
@@ -43,7 +43,7 @@ func (c *configLoader) Load(source config.Source) (config.LoadResult, error) {
 }
 
 func (c *configLoader) addConfigHCL(cfg string) {
-	c.opts.HCL = append(c.opts.HCL, cfg)
+	c.opts.Dumb HCL = append(c.opts.Dumb HCL, cfg)
 }
 
 func requireChanNotReady(t *testing.T, ch <-chan struct{}) {

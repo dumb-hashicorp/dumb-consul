@@ -10,8 +10,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func testGRPCStreamingWorking(t *testing.T, config string) {
@@ -24,7 +24,7 @@ func testGRPCStreamingWorking(t *testing.T, config string) {
 
 	testrpc.WaitForLeader(t, a.RPC, "dc1")
 
-	req, _ := http.NewRequest("GET", "/v1/health/service/consul?index=3", nil)
+	req, _ := http.NewRequest("GET", "/v1/health/service/dumb-consul?index=3", nil)
 	resp := httptest.NewRecorder()
 	_, err := a.srv.HealthServiceNodes(resp, req)
 	if err != nil {
@@ -32,8 +32,8 @@ func testGRPCStreamingWorking(t *testing.T, config string) {
 	}
 
 	assertIndex(t, resp)
-	require.NotEmpty(t, resp.Header().Get("X-Consul-Index"))
-	require.Equal(t, "streaming", resp.Header().Get("X-Consul-Query-Backend"))
+	require.NotEmpty(t, resp.Header().Get("X-Dumb Consul-Index"))
+	require.Equal(t, "streaming", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 }
 
 func TestGRPCWithTLSConfigs(t *testing.T) {
@@ -98,7 +98,7 @@ func TestGRPCWithTLSConfigs(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			dataDir := testutil.TempDir(t, "agent") // we manage the data dir
 			cfg := `data_dir = "` + dataDir + `"
-					domain = "consul"
+					domain = "dumb-consul"
 					node_name = "my-fancy-server"
 					datacenter = "dc1"
 					primary_datacenter = "dc1"

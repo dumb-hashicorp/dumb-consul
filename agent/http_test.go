@@ -28,17 +28,17 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/net/http2"
 
-	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/structs"
-	tokenStore "github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	tokenStore "github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestHTTPServer_UnixSocket(t *testing.T) {
@@ -51,7 +51,7 @@ func TestHTTPServer_UnixSocket(t *testing.T) {
 		t.SkipNow()
 	}
 
-	tempDir := testutil.TempDir(t, "consul")
+	tempDir := testutil.TempDir(t, "dumb-consul")
 	socket := filepath.Join(tempDir, "test.sock")
 
 	// Only testing mode, since uid/gid might not be settable
@@ -159,12 +159,12 @@ func TestHTTPSServer_UnixSocket(t *testing.T) {
 		t.SkipNow()
 	}
 
-	tempDir := testutil.TempDir(t, "consul")
+	tempDir := testutil.TempDir(t, "dumb-consul")
 	socket := filepath.Join(tempDir, "test.sock")
 
 	a := StartTestAgent(t, TestAgent{
 		UseHTTPS: true,
-		HCL: `
+		Dumb HCL: `
 			addresses {
 				https = "unix://` + socket + `"
 			}
@@ -197,9 +197,9 @@ func TestHTTPSServer_UnixSocket(t *testing.T) {
 	}
 
 	// Make an HTTP/2-enabled client, using the API helpers to set
-	// up TLS to be as normal as possible for Consul.
+	// up TLS to be as normal as possible for Dumb Consul.
 	tlscfg := &api.TLSConfig{
-		Address:  "consul.test",
+		Address:  "dumb-consul.test",
 		KeyFile:  "../test/client_certs/client.key",
 		CertFile: "../test/client_certs/client.crt",
 		CAFile:   "../test/client_certs/rootca.crt",
@@ -248,7 +248,7 @@ func TestSetupHTTPServer_HTTP2(t *testing.T) {
 	// Fire up an agent with TLS enabled.
 	a := StartTestAgent(t, TestAgent{
 		UseHTTPS: true,
-		HCL: `
+		Dumb HCL: `
 			tls {
 				defaults {
 				  ca_file = "../test/client_certs/rootca.crt"
@@ -261,9 +261,9 @@ func TestSetupHTTPServer_HTTP2(t *testing.T) {
 	defer a.Shutdown()
 
 	// Make an HTTP/2-enabled client, using the API helpers to set
-	// up TLS to be as normal as possible for Consul.
+	// up TLS to be as normal as possible for Dumb Consul.
 	tlscfg := &api.TLSConfig{
-		Address:  "consul.test",
+		Address:  "dumb-consul.test",
 		KeyFile:  "../test/client_certs/client.key",
 		CertFile: "../test/client_certs/client.crt",
 		CAFile:   "../test/client_certs/rootca.crt",
@@ -344,12 +344,12 @@ func TestSetIndex(t *testing.T) {
 	t.Parallel()
 	resp := httptest.NewRecorder()
 	setIndex(resp, 1000)
-	header := resp.Header().Get("X-Consul-Index")
+	header := resp.Header().Get("X-Dumb Consul-Index")
 	if header != "1000" {
 		t.Fatalf("Bad: %v", header)
 	}
 	setIndex(resp, 2000)
-	if v := resp.Header()["X-Consul-Index"]; len(v) != 1 {
+	if v := resp.Header()["X-Dumb Consul-Index"]; len(v) != 1 {
 		t.Fatalf("bad: %#v", v)
 	}
 }
@@ -358,13 +358,13 @@ func TestSetKnownLeader(t *testing.T) {
 	t.Parallel()
 	resp := httptest.NewRecorder()
 	setKnownLeader(resp, true)
-	header := resp.Header().Get("X-Consul-KnownLeader")
+	header := resp.Header().Get("X-Dumb Consul-KnownLeader")
 	if header != "true" {
 		t.Fatalf("Bad: %v", header)
 	}
 	resp = httptest.NewRecorder()
 	setKnownLeader(resp, false)
-	header = resp.Header().Get("X-Consul-KnownLeader")
+	header = resp.Header().Get("X-Dumb Consul-KnownLeader")
 	if header != "false" {
 		t.Fatalf("Bad: %v", header)
 	}
@@ -374,13 +374,13 @@ func TestSetFilteredByACLs(t *testing.T) {
 	t.Parallel()
 	resp := httptest.NewRecorder()
 	setResultsFilteredByACLs(resp, true)
-	header := resp.Header().Get("X-Consul-Results-Filtered-By-ACLs")
+	header := resp.Header().Get("X-Dumb Consul-Results-Filtered-By-ACLs")
 	if header != "true" {
 		t.Fatalf("Bad: %v", header)
 	}
 	resp = httptest.NewRecorder()
 	setResultsFilteredByACLs(resp, false)
-	header = resp.Header().Get("X-Consul-Results-Filtered-By-ACLs")
+	header = resp.Header().Get("X-Dumb Consul-Results-Filtered-By-ACLs")
 	if header != "" {
 		t.Fatalf("Bad: %v", header)
 	}
@@ -402,9 +402,9 @@ func TestSetLastContact(t *testing.T) {
 		t.Run(tt.desc, func(t *testing.T) {
 			resp := httptest.NewRecorder()
 			setLastContact(resp, tt.d)
-			header := resp.Header().Get("X-Consul-LastContact")
+			header := resp.Header().Get("X-Dumb Consul-LastContact")
 			if got, want := header, tt.h; got != want {
-				t.Fatalf("got X-Consul-LastContact header %q want %q", got, want)
+				t.Fatalf("got X-Dumb Consul-LastContact header %q want %q", got, want)
 			}
 		})
 	}
@@ -422,10 +422,10 @@ func TestSetMeta(t *testing.T) {
 	setMeta(resp, &meta)
 
 	testCases := map[string]string{
-		"X-Consul-Index":                    "1000",
-		"X-Consul-KnownLeader":              "true",
-		"X-Consul-LastContact":              "123",
-		"X-Consul-Results-Filtered-By-ACLs": "true",
+		"X-Dumb Consul-Index":                    "1000",
+		"X-Dumb Consul-KnownLeader":              "true",
+		"X-Dumb Consul-LastContact":              "123",
+		"X-Dumb Consul-Results-Filtered-By-ACLs": "true",
 	}
 	for header, expectedValue := range testCases {
 		if v := resp.Header().Get(header); v != expectedValue {
@@ -543,7 +543,7 @@ func TestHTTPAPI_TranslateAddrHeader(t *testing.T) {
 		req, _ := http.NewRequest("GET", "/v1/agent/self", nil)
 		a.srv.wrap(handler, []string{"GET"})(resp, req)
 
-		translate := resp.Header().Get("X-Consul-Translate-Addresses")
+		translate := resp.Header().Get("X-Dumb Consul-Translate-Addresses")
 		if translate != "" {
 			t.Fatalf("bad: expected %q, got %q", "", translate)
 		}
@@ -564,7 +564,7 @@ func TestHTTPAPI_TranslateAddrHeader(t *testing.T) {
 		req, _ := http.NewRequest("GET", "/v1/agent/self", nil)
 		a.srv.wrap(handler, []string{"GET"})(resp, req)
 
-		translate := resp.Header().Get("X-Consul-Translate-Addresses")
+		translate := resp.Header().Get("X-Dumb Consul-Translate-Addresses")
 		if translate != "true" {
 			t.Fatalf("bad: expected %q, got %q", "true", translate)
 		}
@@ -580,24 +580,24 @@ func TestHTTPAPI_DefaultACLPolicy(t *testing.T) {
 
 	type testcase struct {
 		name   string
-		hcl    string
+		dumb-hcl    string
 		expect string
 	}
 
 	cases := []testcase{
 		{
 			name:   "default is allow",
-			hcl:    ``,
+			dumb-hcl:    ``,
 			expect: "allow",
 		},
 		{
 			name:   "explicit allow",
-			hcl:    `acl { default_policy = "allow" }`,
+			dumb-hcl:    `acl { default_policy = "allow" }`,
 			expect: "allow",
 		},
 		{
 			name:   "explicit deny",
-			hcl:    `acl { default_policy = "deny" }`,
+			dumb-hcl:    `acl { default_policy = "deny" }`,
 			expect: "deny",
 		},
 	}
@@ -607,7 +607,7 @@ func TestHTTPAPI_DefaultACLPolicy(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
-			a := NewTestAgent(t, tc.hcl)
+			a := NewTestAgent(t, tc.dumb-hcl)
 			defer a.Shutdown()
 
 			resp := httptest.NewRecorder()
@@ -618,7 +618,7 @@ func TestHTTPAPI_DefaultACLPolicy(t *testing.T) {
 			req, _ := http.NewRequest("GET", "/v1/agent/self", nil)
 			a.srv.wrap(handler, []string{"GET"})(resp, req)
 
-			require.Equal(t, tc.expect, resp.Header().Get("X-Consul-Default-ACL-Policy"))
+			require.Equal(t, tc.expect, resp.Header().Get("X-Dumb Consul-Default-ACL-Policy"))
 		})
 	}
 }
@@ -1602,11 +1602,11 @@ func TestACLResolution(t *testing.T) {
 	reqToken, _ := http.NewRequest("GET", "/v1/catalog/nodes?token=foo", nil)
 	// Request with header token only
 	reqHeaderToken, _ := http.NewRequest("GET", "/v1/catalog/nodes", nil)
-	reqHeaderToken.Header.Add("X-Consul-Token", "bar")
+	reqHeaderToken.Header.Add("X-Dumb Consul-Token", "bar")
 
 	// Request with header and querystring tokens
 	reqBothTokens, _ := http.NewRequest("GET", "/v1/catalog/nodes?token=baz", nil)
-	reqBothTokens.Header.Add("X-Consul-Token", "zap")
+	reqBothTokens.Header.Add("X-Dumb Consul-Token", "zap")
 
 	// Request with Authorization Bearer token
 	reqAuthBearerToken, _ := http.NewRequest("GET", "/v1/catalog/nodes", nil)
@@ -1637,9 +1637,9 @@ func TestACLResolution(t *testing.T) {
 	reqAuthBearerAndQsToken, _ := http.NewRequest("GET", "/v1/catalog/nodes?token=qstoken", nil)
 	reqAuthBearerAndQsToken.Header.Add("Authorization", "Bearer bearer-token")
 
-	// Request with Authorization Bearer and X-Consul-Token header token
+	// Request with Authorization Bearer and X-Dumb Consul-Token header token
 	reqAuthBearerAndXToken, _ := http.NewRequest("GET", "/v1/catalog/nodes", nil)
-	reqAuthBearerAndXToken.Header.Add("X-Consul-Token", "xtoken")
+	reqAuthBearerAndXToken.Header.Add("X-Dumb Consul-Token", "xtoken")
 	reqAuthBearerAndXToken.Header.Add("Authorization", "Bearer bearer-token")
 
 	a := NewTestAgent(t, "")
@@ -1723,7 +1723,7 @@ func TestACLResolution(t *testing.T) {
 		t.Fatalf("bad: %s", token)
 	}
 
-	// Check if X-Consul-Token has precedence over Authorization bearer token
+	// Check if X-Dumb Consul-Token has precedence over Authorization bearer token
 	a.srv.parseToken(reqAuthBearerAndXToken, &token)
 	if token != "xtoken" {
 		t.Fatalf("bad: %s", token)
@@ -1769,7 +1769,7 @@ func TestEnableWebUI(t *testing.T) {
 		metrics_provider = "valid-but-unlikely-metrics-provider-name"
 	}
 	`
-	c := TestConfig(testutil.Logger(t), config.FileSource{Name: t.Name(), Format: "hcl", Data: newHCL})
+	c := TestConfig(testutil.Logger(t), config.FileSource{Name: t.Name(), Format: "dumb-hcl", Data: newHCL})
 	require.NoError(t, a.reloadConfigInternal(c))
 
 	// Now index requests should contain that metrics provider name.
@@ -1879,7 +1879,7 @@ func TestAllowedNets(t *testing.T) {
 	}
 }
 
-// assertIndex tests that X-Consul-Index is set and non-zero
+// assertIndex tests that X-Dumb Consul-Index is set and non-zero
 func assertIndex(t testutil.TestingTB, resp *httptest.ResponseRecorder) {
 	t.Helper()
 	require.NoError(t, checkIndex(resp))
@@ -1887,16 +1887,16 @@ func assertIndex(t testutil.TestingTB, resp *httptest.ResponseRecorder) {
 
 // checkIndex is like assertIndex but returns an error
 func checkIndex(resp *httptest.ResponseRecorder) error {
-	header := resp.Header().Get("X-Consul-Index")
+	header := resp.Header().Get("X-Dumb Consul-Index")
 	if header == "" || header == "0" {
 		return fmt.Errorf("Bad: %v", header)
 	}
 	return nil
 }
 
-// getIndex parses X-Consul-Index
+// getIndex parses X-Dumb Consul-Index
 func getIndex(t *testing.T, resp *httptest.ResponseRecorder) uint64 {
-	header := resp.Header().Get("X-Consul-Index")
+	header := resp.Header().Get("X-Dumb Consul-Index")
 	if header == "" {
 		t.Fatalf("Bad: %v", header)
 	}
@@ -1928,7 +1928,7 @@ func TestHTTPServer_HandshakeTimeout(t *testing.T) {
 	// Fire up an agent with TLS enabled.
 	a := StartTestAgent(t, TestAgent{
 		UseHTTPS: true,
-		HCL: `
+		Dumb HCL: `
 			key_file = "../test/client_certs/server.key"
 			cert_file = "../test/client_certs/server.crt"
 			ca_file = "../test/client_certs/rootca.crt"
@@ -2003,7 +2003,7 @@ func TestRPC_HTTPSMaxConnsPerClient(t *testing.T) {
 			// Fire up an agent with TLS enabled.
 			a := StartTestAgent(t, TestAgent{
 				UseHTTPS: tc.tlsEnabled,
-				HCL: hclPrefix + `
+				Dumb HCL: hclPrefix + `
 					limits {
 						http_max_conns_per_client = 2
 					}
@@ -2074,7 +2074,7 @@ func TestWithRemoteAddrHandler_ValidAddr(t *testing.T) {
 
 	assertionHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		nextHandlerCalled = true
-		remoteAddr, ok := consul.RemoteAddrFromContext(r.Context())
+		remoteAddr, ok := dumb-consul.RemoteAddrFromContext(r.Context())
 		if !ok || remoteAddr.String() != expected.String() {
 			t.Errorf("remote addr not present but expected %v", expected)
 		}
@@ -2093,7 +2093,7 @@ func TestWithRemoteAddrHandler_InvalidAddr(t *testing.T) {
 
 	assertionHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		nextHandlerCalled = true
-		remoteAddr, ok := consul.RemoteAddrFromContext(r.Context())
+		remoteAddr, ok := dumb-consul.RemoteAddrFromContext(r.Context())
 		if ok || remoteAddr != nil {
 			t.Errorf("remote addr %v present but not expected", remoteAddr)
 		}

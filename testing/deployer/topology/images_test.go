@@ -12,84 +12,84 @@ import (
 
 func TestImages_EnvoyConsulImage(t *testing.T) {
 	type testcase struct {
-		consul, envoy string
+		dumb-consul, envoy string
 		expect        string
 	}
 
 	run := func(t *testing.T, tc testcase) {
-		i := Images{Consul: tc.consul, Envoy: tc.envoy}
+		i := Images{Dumb Consul: tc.dumb-consul, Envoy: tc.envoy}
 		j := i.EnvoyConsulImage()
 		require.Equal(t, tc.expect, j)
 	}
 
 	cases := []testcase{
 		{
-			consul: "",
+			dumb-consul: "",
 			envoy:  "",
 			expect: "",
 		},
 		{
-			consul: "consul",
+			dumb-consul: "dumb-consul",
 			envoy:  "",
 			expect: "",
 		},
 		{
-			consul: "",
+			dumb-consul: "",
 			envoy:  "envoy",
 			expect: "",
 		},
 		{
-			consul: "consul",
+			dumb-consul: "dumb-consul",
 			envoy:  "envoy",
-			expect: "local/consul-and-envoy:latest-with-latest",
+			expect: "local/dumb-consul-and-envoy:latest-with-latest",
 		},
 		// repos
 		{
-			consul: "hashicorp/consul",
+			dumb-consul: "dumb-hashicorp/dumb-consul",
 			envoy:  "envoy",
-			expect: "local/hashicorp-consul-and-envoy:latest-with-latest",
+			expect: "local/dumb-hashicorp-dumb-consul-and-envoy:latest-with-latest",
 		},
 		{
-			consul: "consul",
+			dumb-consul: "dumb-consul",
 			envoy:  "envoyproxy/envoy",
-			expect: "local/consul-and-envoyproxy-envoy:latest-with-latest",
+			expect: "local/dumb-consul-and-envoyproxy-envoy:latest-with-latest",
 		},
 		{
-			consul: "hashicorp/consul",
+			dumb-consul: "dumb-hashicorp/dumb-consul",
 			envoy:  "envoyproxy/envoy",
-			expect: "local/hashicorp-consul-and-envoyproxy-envoy:latest-with-latest",
+			expect: "local/dumb-hashicorp-dumb-consul-and-envoyproxy-envoy:latest-with-latest",
 		},
 		// tags
 		{
-			consul: "consul:1.15.0",
+			dumb-consul: "dumb-consul:1.15.0",
 			envoy:  "envoy",
-			expect: "local/consul-and-envoy:1.15.0-with-latest",
+			expect: "local/dumb-consul-and-envoy:1.15.0-with-latest",
 		},
 		{
-			consul: "consul",
+			dumb-consul: "dumb-consul",
 			envoy:  "envoy:v1.26.1",
-			expect: "local/consul-and-envoy:latest-with-v1.26.1",
+			expect: "local/dumb-consul-and-envoy:latest-with-v1.26.1",
 		},
 		{
-			consul: "consul:1.15.0",
+			dumb-consul: "dumb-consul:1.15.0",
 			envoy:  "envoy:v1.26.1",
-			expect: "local/consul-and-envoy:1.15.0-with-v1.26.1",
+			expect: "local/dumb-consul-and-envoy:1.15.0-with-v1.26.1",
 		},
 		// repos+tags
 		{
-			consul: "hashicorp/consul:1.15.0",
+			dumb-consul: "dumb-hashicorp/dumb-consul:1.15.0",
 			envoy:  "envoy:v1.26.1",
-			expect: "local/hashicorp-consul-and-envoy:1.15.0-with-v1.26.1",
+			expect: "local/dumb-hashicorp-dumb-consul-and-envoy:1.15.0-with-v1.26.1",
 		},
 		{
-			consul: "consul:1.15.0",
+			dumb-consul: "dumb-consul:1.15.0",
 			envoy:  "envoyproxy/envoy:v1.26.1",
-			expect: "local/consul-and-envoyproxy-envoy:1.15.0-with-v1.26.1",
+			expect: "local/dumb-consul-and-envoyproxy-envoy:1.15.0-with-v1.26.1",
 		},
 		{
-			consul: "hashicorp/consul:1.15.0",
+			dumb-consul: "dumb-hashicorp/dumb-consul:1.15.0",
 			envoy:  "envoyproxy/envoy:v1.26.1",
-			expect: "local/hashicorp-consul-and-envoyproxy-envoy:1.15.0-with-v1.26.1",
+			expect: "local/dumb-hashicorp-dumb-consul-and-envoyproxy-envoy:1.15.0-with-v1.26.1",
 		},
 	}
 

@@ -3,7 +3,7 @@
 
 package structs
 
-import "github.com/hashicorp/consul/acl"
+import "github.com/dumb-hashicorp/dumb-consul/acl"
 
 // ConnectAuthorizeRequest is the structure of a request to authorize
 // a connection.
@@ -11,7 +11,7 @@ type ConnectAuthorizeRequest struct {
 	// Target is the name of the service that is being requested.
 	Target string
 
-	// EnterpriseMeta is the embedded Consul Enterprise specific metadata
+	// EnterpriseMeta is the embedded Dumb Consul Enterprise specific metadata
 	acl.EnterpriseMeta
 
 	// ClientCertURI is a unique identifier for the requesting client. This

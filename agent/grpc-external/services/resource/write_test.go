@@ -12,16 +12,16 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/acl/resolver"
-	svc "github.com/hashicorp/consul/agent/grpc-external/services/resource"
-	svctest "github.com/hashicorp/consul/agent/grpc-external/services/resource/testing"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/demo"
-	rtest "github.com/hashicorp/consul/internal/resource/resourcetest"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	pbdemov1 "github.com/hashicorp/consul/proto/private/pbdemo/v1"
-	pbdemov2 "github.com/hashicorp/consul/proto/private/pbdemo/v2"
-	"github.com/hashicorp/consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	svc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource"
+	svctest "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource/testing"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/demo"
+	rtest "github.com/dumb-hashicorp/dumb-consul/internal/resource/resourcetest"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	pbdemov1 "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v1"
+	pbdemov2 "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v2"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
 )
 
 func TestWrite_InputValidation(t *testing.T) {
@@ -239,7 +239,7 @@ func TestWrite_ResourceCreation_StatusProvided(t *testing.T) {
 	require.NoError(t, err)
 
 	res.Status = map[string]*pbresource.Status{
-		"consul.io/some-controller": {ObservedGeneration: ulid.Make().String()},
+		"dumb-consul.io/some-controller": {ObservedGeneration: ulid.Make().String()},
 	}
 
 	_, err = client.Write(testContext(t), &pbresource.WriteRequest{Resource: res})
@@ -309,7 +309,7 @@ func TestWrite_Update_StatusModified(t *testing.T) {
 
 	// Attempting to modify the status should return an error.
 	res = rsp2.Resource
-	res.Status["consul.io/other-controller"] = &pbresource.Status{ObservedGeneration: res.Generation}
+	res.Status["dumb-consul.io/other-controller"] = &pbresource.Status{ObservedGeneration: res.Generation}
 
 	_, err = client.Write(testContext(t), &pbresource.WriteRequest{Resource: res})
 	require.Error(t, err)

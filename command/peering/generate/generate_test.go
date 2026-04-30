@@ -13,9 +13,9 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestGenerateCommand_noTabs(t *testing.T) {
@@ -81,7 +81,7 @@ func TestGenerateCommand(t *testing.T) {
 		require.Equal(t, 0, code)
 		token, err := base64.StdEncoding.DecodeString(ui.OutputWriter.String())
 		require.NoError(t, err, "error decoding token")
-		require.Contains(t, string(token), "\"ServerName\":\"server.dc1.peering.11111111-2222-3333-4444-555555555555.consul\"")
+		require.Contains(t, string(token), "\"ServerName\":\"server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul\"")
 	})
 
 	t.Run("generate token with options", func(t *testing.T) {
@@ -100,7 +100,7 @@ func TestGenerateCommand(t *testing.T) {
 		require.Equal(t, 0, code)
 		token, err := base64.StdEncoding.DecodeString(ui.OutputWriter.String())
 		require.NoError(t, err, "error decoding token")
-		require.Contains(t, string(token), "\"ServerName\":\"server.dc1.peering.11111111-2222-3333-4444-555555555555.consul\"")
+		require.Contains(t, string(token), "\"ServerName\":\"server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul\"")
 
 		// ServerExternalAddresses
 		require.Contains(t, string(token), "1.2.3.4")
@@ -139,6 +139,6 @@ func TestGenerateCommand(t *testing.T) {
 
 		token, err := base64.StdEncoding.DecodeString(outputRes.PeeringToken)
 		require.NoError(t, err, "error decoding token")
-		require.Contains(t, string(token), "\"ServerName\":\"server.dc1.peering.11111111-2222-3333-4444-555555555555.consul\"")
+		require.Contains(t, string(token), "\"ServerName\":\"server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul\"")
 	})
 }

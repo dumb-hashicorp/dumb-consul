@@ -12,17 +12,17 @@ import (
 	"path"
 	"strings"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
-	"github.com/hashicorp/consul/agent/consul/fsm"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/snapshot"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-raftchunking"
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/fsm"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/snapshot"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/go-raftchunking"
+	"github.com/dumb-hashicorp/raft"
 	"github.com/mitchellh/cli"
 )
 
@@ -207,7 +207,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Decodes the binary"
 const help = `
-Usage: consul snapshot decode [options] FILE
+Usage: dumb-consul snapshot decode [options] FILE
 
   Decodes snapshot data and outputs a stream of line delimited JSON objects of the form:
   

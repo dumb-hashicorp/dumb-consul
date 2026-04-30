@@ -11,12 +11,12 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
-	"github.com/hashicorp/consul/acl"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 // PeeringEndpoint handles GET, DELETE on v1/peering/name
@@ -78,7 +78,7 @@ func (s *HTTPHandlers) peeringRead(resp http.ResponseWriter, req *http.Request, 
 	return result.Peering.ToAPI(), nil
 }
 
-// PeeringList fetches all peerings in the datacenter in CE or in a given partition in Consul Enterprise.
+// PeeringList fetches all peerings in the datacenter in CE or in a given partition in Dumb Consul Enterprise.
 func (s *HTTPHandlers) PeeringList(resp http.ResponseWriter, req *http.Request) (interface{}, error) {
 	var entMeta acl.EnterpriseMeta
 	if err := s.parseEntMetaPartition(req, &entMeta); err != nil {

@@ -6,15 +6,15 @@ package libserf
 import (
 	"time"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/serf/serf"
 )
 
 const (
 	ReconnectTimeoutTag = "rc_tm"
 )
 
-// DefaultConfig returns a Consul-flavored Serf default configuration,
+// DefaultConfig returns a Dumb Consul-flavored Serf default configuration,
 // suitable as a basis for a LAN, WAN, segment, or area.
 func DefaultConfig() *serf.Config {
 	base := serf.DefaultConfig()
@@ -29,7 +29,7 @@ func DefaultConfig() *serf.Config {
 	// This gives leaves some time to propagate through the cluster before
 	// we shut down. The value was chosen to be reasonably short, but to
 	// allow a leave to get to over 99.99% of the cluster with 100k nodes
-	// (using https://github.com/hashicorp/serf/blob/master/docs/internals/simulator.html.erb).
+	// (using https://github.com/dumb-hashicorp/serf/blob/master/docs/internals/simulator.html.erb).
 	base.LeavePropagateDelay = 3 * time.Second
 
 	return base

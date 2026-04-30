@@ -5,7 +5,7 @@ package controller
 
 import (
 	"context"
-	mockpbresource "github.com/hashicorp/consul/grpcmocks/proto-public/pbresource"
+	mockpbresource "github.com/dumb-hashicorp/dumb-consul/grpcmocks/proto-public/pbresource"
 	"sync"
 	"testing"
 	"time"
@@ -14,12 +14,12 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/resourcetest"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/resourcetest"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 var (

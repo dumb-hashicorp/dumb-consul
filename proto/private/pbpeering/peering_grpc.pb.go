@@ -22,14 +22,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PeeringService_GenerateToken_FullMethodName            = "/hashicorp.consul.internal.peering.PeeringService/GenerateToken"
-	PeeringService_Establish_FullMethodName                = "/hashicorp.consul.internal.peering.PeeringService/Establish"
-	PeeringService_PeeringRead_FullMethodName              = "/hashicorp.consul.internal.peering.PeeringService/PeeringRead"
-	PeeringService_PeeringList_FullMethodName              = "/hashicorp.consul.internal.peering.PeeringService/PeeringList"
-	PeeringService_PeeringDelete_FullMethodName            = "/hashicorp.consul.internal.peering.PeeringService/PeeringDelete"
-	PeeringService_PeeringWrite_FullMethodName             = "/hashicorp.consul.internal.peering.PeeringService/PeeringWrite"
-	PeeringService_TrustBundleListByService_FullMethodName = "/hashicorp.consul.internal.peering.PeeringService/TrustBundleListByService"
-	PeeringService_TrustBundleRead_FullMethodName          = "/hashicorp.consul.internal.peering.PeeringService/TrustBundleRead"
+	PeeringService_GenerateToken_FullMethodName            = "/dumb-hashicorp.dumb-consul.internal.peering.PeeringService/GenerateToken"
+	PeeringService_Establish_FullMethodName                = "/dumb-hashicorp.dumb-consul.internal.peering.PeeringService/Establish"
+	PeeringService_PeeringRead_FullMethodName              = "/dumb-hashicorp.dumb-consul.internal.peering.PeeringService/PeeringRead"
+	PeeringService_PeeringList_FullMethodName              = "/dumb-hashicorp.dumb-consul.internal.peering.PeeringService/PeeringList"
+	PeeringService_PeeringDelete_FullMethodName            = "/dumb-hashicorp.dumb-consul.internal.peering.PeeringService/PeeringDelete"
+	PeeringService_PeeringWrite_FullMethodName             = "/dumb-hashicorp.dumb-consul.internal.peering.PeeringService/PeeringWrite"
+	PeeringService_TrustBundleListByService_FullMethodName = "/dumb-hashicorp.dumb-consul.internal.peering.PeeringService/TrustBundleListByService"
+	PeeringService_TrustBundleRead_FullMethodName          = "/dumb-hashicorp.dumb-consul.internal.peering.PeeringService/TrustBundleRead"
 )
 
 // PeeringServiceClient is the client API for PeeringService service.
@@ -37,7 +37,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
 // PeeringService handles operations for establishing peering relationships
-// between disparate Consul clusters.
+// between disparate Dumb Consul clusters.
 type PeeringServiceClient interface {
 	GenerateToken(ctx context.Context, in *GenerateTokenRequest, opts ...grpc.CallOption) (*GenerateTokenResponse, error)
 	Establish(ctx context.Context, in *EstablishRequest, opts ...grpc.CallOption) (*EstablishResponse, error)
@@ -145,7 +145,7 @@ func (c *peeringServiceClient) TrustBundleRead(ctx context.Context, in *TrustBun
 // for forward compatibility.
 //
 // PeeringService handles operations for establishing peering relationships
-// between disparate Consul clusters.
+// between disparate Dumb Consul clusters.
 type PeeringServiceServer interface {
 	GenerateToken(context.Context, *GenerateTokenRequest) (*GenerateTokenResponse, error)
 	Establish(context.Context, *EstablishRequest) (*EstablishResponse, error)
@@ -359,7 +359,7 @@ func _PeeringService_TrustBundleRead_Handler(srv interface{}, ctx context.Contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PeeringService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "hashicorp.consul.internal.peering.PeeringService",
+	ServiceName: "dumb-hashicorp.dumb-consul.internal.peering.PeeringService",
 	HandlerType: (*PeeringServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

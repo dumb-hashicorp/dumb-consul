@@ -1708,7 +1708,7 @@
     "static_resources": {
      "clusters": [
       {
-       "name": "consul-dataplane",
+       "name": "dumb-consul-dataplane",
        "type": "STATIC",
        "connect_timeout": "1s",
        "typed_extension_protocol_options": {
@@ -1720,7 +1720,7 @@
         }
        },
        "load_assignment": {
-        "cluster_name": "consul-dataplane",
+        "cluster_name": "dumb-consul-dataplane",
         "endpoints": [
          {
           "lb_endpoints": [
@@ -1755,11 +1755,11 @@
       "grpc_services": [
        {
         "envoy_grpc": {
-         "cluster_name": "consul-dataplane"
+         "cluster_name": "dumb-consul-dataplane"
         },
         "initial_metadata": [
          {
-          "key": "x-consul-token"
+          "key": "x-dumb-consul-token"
          }
         ]
        }
@@ -1787,67 +1787,67 @@
     "stats_config": {
      "stats_tags": [
       {
-       "tag_name": "consul.destination.custom_hash",
-       "regex": "^cluster\\.(?:passthrough~)?((?:([^.]+)~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.custom_hash",
+       "regex": "^cluster\\.(?:passthrough~)?((?:([^.]+)~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.service_subset",
-       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:([^.]+)\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.service_subset",
+       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:([^.]+)\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.service",
-       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?([^.]+)\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.service",
+       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?([^.]+)\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.namespace",
-       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.namespace",
+       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.partition",
-       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:([^.]+)\\.)?[^.]+\\.internal[^.]*\\.[^.]+\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.partition",
+       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:([^.]+)\\.)?[^.]+\\.internal[^.]*\\.[^.]+\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.datacenter",
-       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?([^.]+)\\.internal[^.]*\\.[^.]+\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.datacenter",
+       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?([^.]+)\\.internal[^.]*\\.[^.]+\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.peer",
-       "regex": "^cluster\\.([^.]+\\.(?:[^.]+\\.)?([^.]+)\\.external\\.[^.]+\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.peer",
+       "regex": "^cluster\\.([^.]+\\.(?:[^.]+\\.)?([^.]+)\\.external\\.[^.]+\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.routing_type",
-       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.[^.]+\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.routing_type",
+       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.[^.]+\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.trust_domain",
-       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.([^.]+)\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.trust_domain",
+       "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.([^.]+)\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.target",
-       "regex": "^cluster\\.(?:passthrough~)?(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+)\\.[^.]+\\.[^.]+\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.target",
+       "regex": "^cluster\\.(?:passthrough~)?(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+)\\.[^.]+\\.[^.]+\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.destination.full_target",
-       "regex": "^cluster\\.(?:passthrough~)?(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+)\\.consul\\.)"
+       "tag_name": "dumb-consul.destination.full_target",
+       "regex": "^cluster\\.(?:passthrough~)?(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+)\\.dumb-consul\\.)"
       },
       {
-       "tag_name": "consul.upstream.service",
+       "tag_name": "dumb-consul.upstream.service",
        "regex": "^(?:tcp|http)\\.upstream(?:_peered)?\\.(([^.]+)(?:\\.[^.]+)?(?:\\.[^.]+)?\\.[^.]+\\.)"
       },
       {
-       "tag_name": "consul.upstream.datacenter",
+       "tag_name": "dumb-consul.upstream.datacenter",
        "regex": "^(?:tcp|http)\\.upstream\\.([^.]+(?:\\.[^.]+)?(?:\\.[^.]+)?\\.([^.]+)\\.)"
       },
       {
-       "tag_name": "consul.upstream.peer",
+       "tag_name": "dumb-consul.upstream.peer",
        "regex": "^(?:tcp|http)\\.upstream_peered\\.([^.]+(?:\\.[^.]+)?\\.([^.]+)\\.)"
       },
       {
-       "tag_name": "consul.upstream.namespace",
+       "tag_name": "dumb-consul.upstream.namespace",
        "regex": "^(?:tcp|http)\\.upstream(?:_peered)?\\.([^.]+(?:\\.([^.]+))?(?:\\.[^.]+)?\\.[^.]+\\.)"
       },
       {
-       "tag_name": "consul.upstream.partition",
+       "tag_name": "dumb-consul.upstream.partition",
        "regex": "^(?:tcp|http)\\.upstream\\.([^.]+(?:\\.[^.]+)?(?:\\.([^.]+))?\\.[^.]+\\.)"
       },
       {
@@ -1855,19 +1855,19 @@
        "fixed_value": "frontend"
       },
       {
-       "tag_name": "consul.source.service",
+       "tag_name": "dumb-consul.source.service",
        "fixed_value": "frontend"
       },
       {
-       "tag_name": "consul.source.namespace",
+       "tag_name": "dumb-consul.source.namespace",
        "fixed_value": "default"
       },
       {
-       "tag_name": "consul.source.partition",
+       "tag_name": "dumb-consul.source.partition",
        "fixed_value": "default"
       },
       {
-       "tag_name": "consul.source.datacenter",
+       "tag_name": "dumb-consul.source.datacenter",
        "fixed_value": "dc1"
       }
      ],
@@ -1892,7 +1892,7 @@
     {
      "cluster": {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "name": "consul-dataplane",
+      "name": "dumb-consul-dataplane",
       "type": "STATIC",
       "connect_timeout": "1s",
       "typed_extension_protocol_options": {
@@ -1904,7 +1904,7 @@
        }
       },
       "load_assignment": {
-       "cluster_name": "consul-dataplane",
+       "cluster_name": "dumb-consul-dataplane",
        "endpoints": [
         {
          "lb_endpoints": [
@@ -1931,7 +1931,7 @@
      "version_info": "6add28f52b1d69488a0dedb6385b5a5a4081b6806691a47efe1c646310a64e22",
      "cluster": {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "name": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.consul",
+      "name": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul",
       "type": "EDS",
       "eds_cluster_config": {
        "eds_config": {
@@ -1966,19 +1966,19 @@
            {
             "san_type": "URI",
             "matcher": {
-             "exact": "spiffe://7838b4bd-58b3-8117-3df1-60584910541b.consul/ns/default/dc/dc1/svc/backend"
+             "exact": "spiffe://7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul/ns/default/dc/dc1/svc/backend"
             }
            }
           ]
          }
         },
-        "sni": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.consul"
+        "sni": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul"
        }
       },
       "common_lb_config": {
        "healthy_panic_threshold": {}
       },
-      "alt_stat_name": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.consul"
+      "alt_stat_name": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul"
      },
      "last_updated": "2023-01-27T17:31:49.076Z"
     },
@@ -1986,7 +1986,7 @@
      "version_info": "aae09a3b93290921914419f0b6a077ebe71a70a6ab4907ccc179f4fdb15c13d2",
      "cluster": {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "name": "backend2.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.consul",
+      "name": "backend2.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul",
       "type": "EDS",
       "eds_cluster_config": {
        "eds_config": {
@@ -2021,19 +2021,19 @@
            {
             "san_type": "URI",
             "matcher": {
-             "exact": "spiffe://7838b4bd-58b3-8117-3df1-60584910541b.consul/ns/default/dc/dc1/svc/backend"
+             "exact": "spiffe://7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul/ns/default/dc/dc1/svc/backend"
             }
            }
           ]
          }
         },
-        "sni": "backend2.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.consul"
+        "sni": "backend2.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul"
        }
       },
       "common_lb_config": {
        "healthy_panic_threshold": {}
       },
-      "alt_stat_name": "backend2.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.consul"
+      "alt_stat_name": "backend2.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul"
      },
      "last_updated": "2023-01-27T17:32:09.414Z"
     },
@@ -2209,7 +2209,7 @@
            "prefix": "/"
           },
           "route": {
-           "cluster": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.consul"
+           "cluster": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul"
           }
          }
         ]
@@ -2240,11 +2240,11 @@
            "weighted_clusters": {
             "clusters": [
              {
-              "name": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.consul",
+              "name": "backend.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul",
               "weight": 5000
              },
              {
-              "name": "backend2.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.consul",
+              "name": "backend2.default.dc1.internal.7838b4bd-58b3-8117-3df1-60584910541b.dumb-consul",
               "weight": 5000
              }
             ],

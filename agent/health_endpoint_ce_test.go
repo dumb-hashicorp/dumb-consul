@@ -6,7 +6,7 @@
 package agent
 
 import (
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/stretchr/testify/require"
 	"net/http"
 	"net/http/httptest"
@@ -23,8 +23,8 @@ func TestHealthServiceNodes_SamenessGroup_ErrorsOnCE(t *testing.T) {
 	defer a.Shutdown()
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
-	req, _ := http.NewRequest("GET", "/v1/health/service/consul?dc=dc1&sameness-group=foo", nil)
+	req, _ := http.NewRequest("GET", "/v1/health/service/dumb-consul?dc=dc1&sameness-group=foo", nil)
 	resp := httptest.NewRecorder()
 	_, err := a.srv.HealthServiceNodes(resp, req)
-	require.ErrorContains(t, err, "sameness groups are not supported in consul CE")
+	require.ErrorContains(t, err, "sameness groups are not supported in dumb-consul CE")
 }

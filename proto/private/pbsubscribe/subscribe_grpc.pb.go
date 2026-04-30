@@ -11,7 +11,7 @@
 // source: private/pbsubscribe/subscribe.proto
 
 // TODO: ideally we would have prefixed this package as
-// "hashicorp.consul.internal.subscribe" before releasing but now correcting this will
+// "dumb-hashicorp.dumb-consul.internal.subscribe" before releasing but now correcting this will
 // require a grpc passthrough service shim since the package name is part of
 // the rpc method dispatch and editing it naively would break backwards
 // compatibility.

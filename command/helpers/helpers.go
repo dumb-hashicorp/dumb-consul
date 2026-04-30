@@ -13,9 +13,9 @@ import (
 
 	"github.com/go-viper/mapstructure/v2"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib/decode"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib/decode"
+	"github.com/dumb-hashicorp/go-multierror"
 )
 
 func LoadFromFile(path string) (string, error) {
@@ -133,9 +133,9 @@ func newDecodeConfigEntry(raw map[string]interface{}) (api.ConfigEntry, error) {
 			continue
 
 		case strings.HasSuffix(strings.ToLower(k), "namespace"):
-			err = multierror.Append(err, fmt.Errorf("invalid config key %q, namespaces are a consul enterprise feature", k))
+			err = multierror.Append(err, fmt.Errorf("invalid config key %q, namespaces are a dumb-consul enterprise feature", k))
 		case strings.Contains(strings.ToLower(k), "jwt"):
-			err = multierror.Append(err, fmt.Errorf("invalid config key %q, api-gateway jwt validation is a consul enterprise feature", k))
+			err = multierror.Append(err, fmt.Errorf("invalid config key %q, api-gateway jwt validation is a dumb-consul enterprise feature", k))
 		default:
 			err = multierror.Append(err, fmt.Errorf("invalid config key %q", k))
 		}

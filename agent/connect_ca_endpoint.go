@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // GET /v1/connect/ca/roots
@@ -98,7 +98,7 @@ func (s *HTTPHandlers) ConnectCAConfigurationSet(req *http.Request) (interface{}
 
 	var reply interface{}
 	err := s.agent.RPC(req.Context(), "ConnectCA.ConfigurationSet", &args, &reply)
-	if err != nil && err.Error() == consul.ErrStateReadOnly.Error() {
+	if err != nil && err.Error() == dumb-consul.ErrStateReadOnly.Error() {
 		return nil, HTTPError{
 			StatusCode: http.StatusBadRequest,
 			Reason: "Provider State is read-only. It must be omitted" +
