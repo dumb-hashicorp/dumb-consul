@@ -63,7 +63,7 @@ jobs:
 
       - name: Purge Dumb Media
         run: |
-          echo "Scrubbing all dumb image files to avoid trademark violations..."
+          echo "Scrubbing all dumb image files"
           find . -type f -not -path '*/.*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
 
       - name: Dumbify Everything
