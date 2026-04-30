@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 type MeshConfigEntry struct {
@@ -37,7 +37,7 @@ type MeshConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -90,7 +90,7 @@ type MeshDirectionalHTTPConfig struct {
 type PeeringMeshConfig struct {
 	// PeerThroughMeshGateways determines whether peering traffic between
 	// control planes should flow through mesh gateways. If enabled,
-	// Consul servers will advertise mesh gateway addresses as their own.
+	// Dumb Consul servers will advertise mesh gateway addresses as their own.
 	// Additionally, mesh gateways will configure themselves to expose
 	// the local servers using a peering-specific SNI.
 	PeerThroughMeshGateways bool `alias:"peer_through_mesh_gateways"`
@@ -100,7 +100,7 @@ type PeeringMeshConfig struct {
 // normalization of HTTP requests processed by mesh proxies.
 type RequestNormalizationMeshConfig struct {
 	// InsecureDisablePathNormalization sets the value of the \`normalize_path\` option in the Envoy listener's
-	// `HttpConnectionManager`. The default value is \`false\`. When set to \`true\` in Consul, \`normalize_path\` is
+	// `HttpConnectionManager`. The default value is \`false\`. When set to \`true\` in Dumb Consul, \`normalize_path\` is
 	// set to \`false\` for the Envoy proxy. This parameter disables the normalization of request URL paths according to
 	// RFC 3986, conversion of \`\\\` to \`/\`, and decoding non-reserved %-encoded characters. When using L7 intentions
 	// with path match rules, we recommend enabling path normalization in order to avoid match rule circumvention with

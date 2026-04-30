@@ -19,17 +19,17 @@ import (
 
 	"github.com/mitchellh/go-testing-interface"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
-// TestClusterID is the Consul cluster ID for testing.
+// TestClusterID is the Dumb Consul cluster ID for testing.
 //
 // NOTE: this is duplicated in the api package as testClusterID
 const TestClusterID = "11111111-2222-3333-4444-555555555555"
-const TestTrustDomain = TestClusterID + ".consul"
+const TestTrustDomain = TestClusterID + ".dumb-consul"
 
 // testCACounter is just an atomically incremented counter for creating
 // unique names for the CA certs.
@@ -81,7 +81,7 @@ func testCA(t testing.T, xc *structs.CARoot, keyType string, keyBits int, ttl ti
 	}
 
 	// The URI (SPIFFE compatible) for the cert
-	id := &SpiffeIDSigning{ClusterID: TestClusterID, Domain: "consul"}
+	id := &SpiffeIDSigning{ClusterID: TestClusterID, Domain: "dumb-consul"}
 
 	// Create the CA cert
 	now := time.Now()
@@ -141,7 +141,7 @@ func testCA(t testing.T, xc *structs.CARoot, keyType string, keyBits int, ttl ti
 
 		// Set the authority key to be the previous one.
 		// NOTE(mitchellh): From Paul Banks:  if we have to cross-sign a cert
-		// that came from outside (e.g. vault) we can't rely on them using the
+		// that came from outside (e.g. dumb-vault) we can't rely on them using the
 		// same KeyID hashing algo we do so we'd need to actually copy this
 		// from the xc cert's subjectKeyIdentifier extension.
 		template.AuthorityKeyId = testKeyID(t, xcsigner.Public())
@@ -270,7 +270,7 @@ func testLeafWithID(t testing.T, spiffeId CertURI, dnsSAN string, root *structs.
 func TestAgentLeaf(t testing.T, node string, datacenter string, root *structs.CARoot, expiration time.Duration) (string, string, error) {
 	// Build the SPIFFE ID
 	spiffeId := &SpiffeIDAgent{
-		Host:       fmt.Sprintf("%s.consul", TestClusterID),
+		Host:       fmt.Sprintf("%s.dumb-consul", TestClusterID),
 		Datacenter: datacenter,
 		Agent:      node,
 	}
@@ -281,7 +281,7 @@ func TestAgentLeaf(t testing.T, node string, datacenter string, root *structs.CA
 func testLeaf(t testing.T, service string, namespace string, root *structs.CARoot, keyType string, keyBits int) (string, string, error) {
 	// Build the SPIFFE ID
 	spiffeId := &SpiffeIDService{
-		Host:       fmt.Sprintf("%s.consul", TestClusterID),
+		Host:       fmt.Sprintf("%s.dumb-consul", TestClusterID),
 		Namespace:  namespace,
 		Datacenter: "dc1",
 		Service:    service,
@@ -312,7 +312,7 @@ func TestLeafWithNamespace(t testing.T, service, namespace string, root *structs
 func TestMeshGatewayLeaf(t testing.T, partition string, root *structs.CARoot) (string, string) {
 	// Build the SPIFFE ID
 	spiffeId := &SpiffeIDMeshGateway{
-		Host:       fmt.Sprintf("%s.consul", TestClusterID),
+		Host:       fmt.Sprintf("%s.dumb-consul", TestClusterID),
 		Partition:  acl.PartitionOrDefault(partition),
 		Datacenter: "dc1",
 	}
@@ -329,7 +329,7 @@ func TestServerLeaf(t testing.T, dc string, root *structs.CARoot) (string, strin
 
 	spiffeID := &SpiffeIDServer{
 		Datacenter: dc,
-		Host:       fmt.Sprintf("%s.consul", TestClusterID),
+		Host:       fmt.Sprintf("%s.dumb-consul", TestClusterID),
 	}
 	san := PeeringServerSAN(dc, TestTrustDomain)
 
@@ -444,7 +444,7 @@ func testCAConfigSet(t testing.T, a TestAgentRPC,
 		ca = TestCAWithKeyType(t, nil, keyType, keyBits)
 	}
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"PrivateKey":          ca.SigningKey,
 			"RootCert":            ca.RootCert,

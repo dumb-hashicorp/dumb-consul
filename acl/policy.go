@@ -56,42 +56,42 @@ func AccessLevelFromString(level string) (AccessLevel, error) {
 }
 
 type PolicyRules struct {
-	ACL                   string               `hcl:"acl,expand"`
-	Agents                []*AgentRule         `hcl:"agent,expand"`
-	AgentPrefixes         []*AgentRule         `hcl:"agent_prefix,expand"`
-	Keys                  []*KeyRule           `hcl:"key,expand"`
-	KeyPrefixes           []*KeyRule           `hcl:"key_prefix,expand"`
-	Nodes                 []*NodeRule          `hcl:"node,expand"`
-	NodePrefixes          []*NodeRule          `hcl:"node_prefix,expand"`
-	Services              []*ServiceRule       `hcl:"service,expand"`
-	ServicePrefixes       []*ServiceRule       `hcl:"service_prefix,expand"`
-	Sessions              []*SessionRule       `hcl:"session,expand"`
-	SessionPrefixes       []*SessionRule       `hcl:"session_prefix,expand"`
-	Events                []*EventRule         `hcl:"event,expand"`
-	EventPrefixes         []*EventRule         `hcl:"event_prefix,expand"`
-	PreparedQueries       []*PreparedQueryRule `hcl:"query,expand"`
-	PreparedQueryPrefixes []*PreparedQueryRule `hcl:"query_prefix,expand"`
-	Keyring               string               `hcl:"keyring"`
-	Operator              string               `hcl:"operator"`
-	Mesh                  string               `hcl:"mesh"`
-	Peering               string               `hcl:"peering"`
+	ACL                   string               `dumb-hcl:"acl,expand"`
+	Agents                []*AgentRule         `dumb-hcl:"agent,expand"`
+	AgentPrefixes         []*AgentRule         `dumb-hcl:"agent_prefix,expand"`
+	Keys                  []*KeyRule           `dumb-hcl:"key,expand"`
+	KeyPrefixes           []*KeyRule           `dumb-hcl:"key_prefix,expand"`
+	Nodes                 []*NodeRule          `dumb-hcl:"node,expand"`
+	NodePrefixes          []*NodeRule          `dumb-hcl:"node_prefix,expand"`
+	Services              []*ServiceRule       `dumb-hcl:"service,expand"`
+	ServicePrefixes       []*ServiceRule       `dumb-hcl:"service_prefix,expand"`
+	Sessions              []*SessionRule       `dumb-hcl:"session,expand"`
+	SessionPrefixes       []*SessionRule       `dumb-hcl:"session_prefix,expand"`
+	Events                []*EventRule         `dumb-hcl:"event,expand"`
+	EventPrefixes         []*EventRule         `dumb-hcl:"event_prefix,expand"`
+	PreparedQueries       []*PreparedQueryRule `dumb-hcl:"query,expand"`
+	PreparedQueryPrefixes []*PreparedQueryRule `dumb-hcl:"query_prefix,expand"`
+	Keyring               string               `dumb-hcl:"keyring"`
+	Operator              string               `dumb-hcl:"operator"`
+	Mesh                  string               `dumb-hcl:"mesh"`
+	Peering               string               `dumb-hcl:"peering"`
 
 	// Deprecated: exists just to track the former field for decoding
-	Identities []*IdentityRule `hcl:"identity,expand"`
+	Identities []*IdentityRule `dumb-hcl:"identity,expand"`
 	// Deprecated: exists just to track the former field for decoding
-	IdentityPrefixes []*IdentityRule `hcl:"identity_prefix,expand"`
+	IdentityPrefixes []*IdentityRule `dumb-hcl:"identity_prefix,expand"`
 }
 
 // Policy is used to represent the policy specified by an ACL configuration.
 type Policy struct {
-	PolicyRules           `hcl:",squash"`
-	EnterprisePolicyRules `hcl:",squash"`
+	PolicyRules           `dumb-hcl:",squash"`
+	EnterprisePolicyRules `dumb-hcl:",squash"`
 }
 
 // AgentRule represents a rule for working with agent endpoints on nodes
 // with specific name prefixes.
 type AgentRule struct {
-	Node   string `hcl:",key"`
+	Node   string `dumb-hcl:",key"`
 	Policy string
 }
 
@@ -99,7 +99,7 @@ type AgentRule struct {
 //
 // Deprecated: exists just to track the former field for decoding
 type IdentityRule struct {
-	Name   string `hcl:",key"`
+	Name   string `dumb-hcl:",key"`
 	Policy string
 
 	// Intentions is the policy for intentions where this workload identity
@@ -107,28 +107,28 @@ type IdentityRule struct {
 	// the intentions policy.
 	Intentions string
 
-	EnterpriseRule `hcl:",squash"`
+	EnterpriseRule `dumb-hcl:",squash"`
 }
 
 // KeyRule represents a rule for a key
 type KeyRule struct {
-	Prefix string `hcl:",key"`
+	Prefix string `dumb-hcl:",key"`
 	Policy string
 
-	EnterpriseRule `hcl:",squash"`
+	EnterpriseRule `dumb-hcl:",squash"`
 }
 
 // NodeRule represents a rule for a node
 type NodeRule struct {
-	Name   string `hcl:",key"`
+	Name   string `dumb-hcl:",key"`
 	Policy string
 
-	EnterpriseRule `hcl:",squash"`
+	EnterpriseRule `dumb-hcl:",squash"`
 }
 
 // ServiceRule represents a policy for a service
 type ServiceRule struct {
-	Name   string `hcl:",key"`
+	Name   string `dumb-hcl:",key"`
 	Policy string
 
 	// Intentions is the policy for intentions where this service is the
@@ -136,25 +136,25 @@ type ServiceRule struct {
 	// the intentions policy.
 	Intentions string
 
-	EnterpriseRule `hcl:",squash"`
+	EnterpriseRule `dumb-hcl:",squash"`
 }
 
 // SessionRule represents a rule for making sessions tied to specific node
 // name prefixes.
 type SessionRule struct {
-	Node   string `hcl:",key"`
+	Node   string `dumb-hcl:",key"`
 	Policy string
 }
 
 // EventRule represents a user event rule.
 type EventRule struct {
-	Event  string `hcl:",key"`
+	Event  string `dumb-hcl:",key"`
 	Policy string
 }
 
 // PreparedQueryRule represents a prepared query rule.
 type PreparedQueryRule struct {
-	Prefix string `hcl:",key"`
+	Prefix string `dumb-hcl:",key"`
 	Policy string
 }
 

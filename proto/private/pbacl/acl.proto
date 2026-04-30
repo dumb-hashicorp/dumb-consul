@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.acl;
+package dumb-hashicorp.dumb-consul.internal.acl;
 
 message ACLLink {
   string ID = 1;

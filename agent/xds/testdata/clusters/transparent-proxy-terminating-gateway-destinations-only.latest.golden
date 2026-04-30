@@ -5,7 +5,7 @@
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
       "connectTimeout": "5s",
       "loadAssignment": {
-        "clusterName": "destination.192-168-0-1.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.192-168-0-1.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -23,7 +23,7 @@
           }
         ]
       },
-      "name": "destination.192-168-0-1.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.192-168-0-1.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "STATIC"
     },
@@ -31,7 +31,7 @@
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
       "connectTimeout": "5s",
       "loadAssignment": {
-        "clusterName": "destination.192-168-0-2.external-IP-HTTP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.192-168-0-2.external-IP-HTTP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -49,7 +49,7 @@
           }
         ]
       },
-      "name": "destination.192-168-0-2.external-IP-HTTP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.192-168-0-2.external-IP-HTTP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "STATIC"
     },
@@ -57,7 +57,7 @@
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
       "connectTimeout": "5s",
       "loadAssignment": {
-        "clusterName": "destination.192-168-0-2.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.192-168-0-2.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -75,7 +75,7 @@
           }
         ]
       },
-      "name": "destination.192-168-0-2.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.192-168-0-2.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "STATIC"
     },
@@ -83,7 +83,7 @@
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
       "connectTimeout": "5s",
       "loadAssignment": {
-        "clusterName": "destination.192-168-0-3.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.192-168-0-3.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -101,7 +101,7 @@
           }
         ]
       },
-      "name": "destination.192-168-0-3.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.192-168-0-3.external-IP-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "STATIC"
     },
@@ -111,7 +111,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "destination.api-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.api-dumb-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -119,7 +119,7 @@
                 "endpoint": {
                   "address": {
                     "socketAddress": {
-                      "address": "api.hashicorp.com",
+                      "address": "api.dumb-hashicorp.com",
                       "portValue": 8089
                     }
                   }
@@ -129,7 +129,7 @@
           }
         ]
       },
-      "name": "destination.api-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.api-dumb-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     },
@@ -139,7 +139,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "destination.api-test-com.external-hostname-with-SNI.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.api-test-com.external-hostname-with-SNI.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -157,7 +157,7 @@
           }
         ]
       },
-      "name": "destination.api-test-com.external-hostname-with-SNI.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.api-test-com.external-hostname-with-SNI.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -222,7 +222,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "destination.httpbin-org.external-hostname-HTTP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.httpbin-org.external-hostname-HTTP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -240,7 +240,7 @@
           }
         ]
       },
-      "name": "destination.httpbin-org.external-hostname-HTTP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.httpbin-org.external-hostname-HTTP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     },
@@ -250,7 +250,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "destination.web-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.web-dumb-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -258,7 +258,7 @@
                 "endpoint": {
                   "address": {
                     "socketAddress": {
-                      "address": "web.hashicorp.com",
+                      "address": "web.dumb-hashicorp.com",
                       "portValue": 8089
                     }
                   }
@@ -268,7 +268,7 @@
           }
         ]
       },
-      "name": "destination.web-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.web-dumb-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     }

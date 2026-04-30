@@ -13,19 +13,19 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-multierror"
 	"github.com/mitchellh/copystructure"
 )
 
@@ -172,9 +172,9 @@ type rpc interface {
 type State struct {
 	sync.RWMutex
 
-	// Delegate the RPC interface to the consul server or agent.
+	// Delegate the RPC interface to the dumb-consul server or agent.
 	//
-	// It is set after both the state and the consul server/agent have
+	// It is set after both the state and the dumb-consul server/agent have
 	// been created.
 	Delegate rpc
 
@@ -1103,7 +1103,7 @@ func (l *State) updateSyncState() error {
 	for id, rs := range remoteServices {
 		ls := l.services[id]
 		if ls == nil {
-			// The consul service is managed automatically and does
+			// The dumb-consul service is managed automatically and does
 			// not need to be deregistered
 			if structs.IsConsulServiceID(id) {
 				continue
@@ -1133,7 +1133,7 @@ func (l *State) updateSyncState() error {
 			changed = true
 		}
 
-		// Merge any tagged addresses with the consul- prefix (set by the server)
+		// Merge any tagged addresses with the dumb-consul- prefix (set by the server)
 		// back into the local state.
 		if !reflect.DeepEqual(nextService.TaggedAddresses, rs.TaggedAddresses) {
 			// Make a copy of TaggedAddresses to prevent races when writing
@@ -1467,7 +1467,7 @@ func (l *State) syncService(key structs.ServiceID) error {
 		SkipNodeUpdate:  l.nodeInfoInSync,
 	}
 
-	// Backwards-compatibility for Consul < 0.5
+	// Backwards-compatibility for Dumb Consul < 0.5
 	if len(checks) == 1 {
 		req.Check = checks[0]
 	} else {

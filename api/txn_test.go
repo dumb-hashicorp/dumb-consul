@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
 
 	"github.com/stretchr/testify/require"
 )
@@ -402,8 +402,8 @@ func TestAPI_ClientTxn(t *testing.T) {
 						"wan_ipv4": s.Config.Bind,
 					},
 					Meta: map[string]string{
-						"consul-network-segment": "",
-						"consul-version":         s.Config.Version,
+						"dumb-consul-network-segment": "",
+						"dumb-consul-version":         s.Config.Version,
 					},
 					CreateIndex: ret.Results[1].Node.CreateIndex,
 					ModifyIndex: ret.Results[1].Node.ModifyIndex,
@@ -761,7 +761,7 @@ func TestAPI_ClientTxnWrite(t *testing.T) {
 	require.NoError(t, err)
 
 	expectedServices := map[string][]string{
-		"consul": {},
+		"dumb-consul": {},
 		"s2":     {"tag3"},
 	}
 	require.Equal(t, expectedServices, services)

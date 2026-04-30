@@ -8,7 +8,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 )
 
 type Routine func(ctx context.Context) error

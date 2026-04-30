@@ -29,7 +29,7 @@ type Type interface {
 	//
 	// On timeout, FetchResult can behave one of two ways. First, it can return
 	// the last known value. This is the default behavior of blocking RPC calls in
-	// Consul so this allows cache types to be implemented with no extra logic.
+	// Dumb Consul so this allows cache types to be implemented with no extra logic.
 	// Second, FetchResult can return an unset value and index. In this case, the
 	// cache will reuse the last value automatically. If an unset Value is
 	// returned, the State field will still be updated which allows maintaining

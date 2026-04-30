@@ -23,7 +23,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/dumb-raft"
 )
 
 // hashList manages a list of filenames and their hashes.

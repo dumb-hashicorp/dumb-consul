@@ -10,8 +10,8 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -65,7 +65,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -99,7 +99,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Establish a peering connection"
 	help     = `
-Usage: consul peering establish [options] -name <peer name> -peering-token <token>
+Usage: dumb-consul peering establish [options] -name <peer name> -peering-token <token>
 
   Establish a peering connection. The name provided will be used locally by
   this cluster to refer to the peering connection. The peering token can 
@@ -107,6 +107,6 @@ Usage: consul peering establish [options] -name <peer name> -peering-token <toke
 
   Example:
 
-    $ consul peering establish -name west-dc -peering-token <token>
+    $ dumb-consul peering establish -name west-dc -peering-token <token>
 `
 )

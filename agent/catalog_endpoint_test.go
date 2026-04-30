@@ -15,13 +15,13 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/dumb-serf/coordinate"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func addQueryParam(req *http.Request, param, value string) {
@@ -51,7 +51,7 @@ func TestCatalogRegister_PeeringRegistration(t *testing.T) {
 		require.Nil(t, obj)
 	})
 
-	t.Run("cannot hcl set the peer registrations config", func(t *testing.T) {
+	t.Run("cannot dumb-hcl set the peer registrations config", func(t *testing.T) {
 		// this will have no effect, as the value is overriden in non user source
 		a := NewTestAgent(t, "peering = { test_allow_peer_registrations = true }")
 		defer a.Shutdown()
@@ -68,7 +68,7 @@ func TestCatalogRegister_PeeringRegistration(t *testing.T) {
 
 	t.Run("allow peer registrations with test overrides", func(t *testing.T) {
 		// the only way to set the config in the agent is via the overrides
-		a := StartTestAgent(t, TestAgent{HCL: ``, Overrides: `peering = { test_allow_peer_registrations = true }`})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: ``, Overrides: `peering = { test_allow_peer_registrations = true }`})
 		defer a.Shutdown()
 
 		// Register request with peer
@@ -970,7 +970,7 @@ func TestCatalogServiceNodes_PeerFilter(t *testing.T) {
 	}
 
 	t.Parallel()
-	a := StartTestAgent(t, TestAgent{HCL: "", Overrides: `peering = { test_allow_peer_registrations = true }`})
+	a := StartTestAgent(t, TestAgent{DUMB_HCL: "", Overrides: `peering = { test_allow_peer_registrations = true }`})
 	defer a.Shutdown()
 
 	peerName := "test"
@@ -1989,7 +1989,7 @@ func TestCatalog_GatewayServices_Terminating(t *testing.T) {
 		obj, err := a.srv.CatalogGatewayServices(resp, req)
 		assert.NoError(r, err)
 
-		header := resp.Header().Get("X-Consul-Index")
+		header := resp.Header().Get("X-Dumb Consul-Index")
 		if header == "" || header == "0" {
 			r.Fatalf("Bad: %v", header)
 		}
@@ -2076,7 +2076,7 @@ func TestCatalog_GatewayServices_Ingress(t *testing.T) {
 		obj, err := a.srv.CatalogGatewayServices(resp, req)
 		require.NoError(r, err)
 
-		header := resp.Header().Get("X-Consul-Index")
+		header := resp.Header().Get("X-Dumb Consul-Index")
 		if header == "" || header == "0" {
 			r.Fatalf("Bad: %v", header)
 		}

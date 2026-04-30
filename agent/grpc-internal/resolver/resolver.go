@@ -10,8 +10,8 @@ import (
 
 	"google.golang.org/grpc/resolver"
 
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // ServerResolverBuilder tracks the current server list and keeps any
@@ -77,7 +77,7 @@ func (s *ServerResolverBuilder) ServerForGlobalAddr(globalAddr string) (*metadat
 		}
 	}
 
-	return nil, fmt.Errorf("failed to find Consul server for global address %q", globalAddr)
+	return nil, fmt.Errorf("failed to find Dumb Consul server for global address %q", globalAddr)
 }
 
 // Build returns a new serverResolver for the given ClientConn. The resolver

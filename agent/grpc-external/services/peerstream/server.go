@@ -6,17 +6,17 @@ package peerstream
 import (
 	"time"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-memdb"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/pbpeerstream"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeerstream"
 )
 
 // TODO(peering): fix up these interfaces to be more testable now that they are
@@ -39,7 +39,7 @@ type Config struct {
 	Logger      hclog.Logger
 	ForwardRPC  func(structs.RPCInfo, func(*grpc.ClientConn) error) (bool, error)
 	ACLResolver ACLResolver
-	// Datacenter of the Consul server this gRPC server is hosted on
+	// Datacenter of the Dumb Consul server this gRPC server is hosted on
 	Datacenter     string
 	ConnectEnabled bool
 
@@ -90,11 +90,11 @@ func (s *Server) Register(registrar grpc.ServiceRegistrar) {
 type Backend interface {
 	Subscribe(req *stream.SubscribeRequest) (*stream.Subscription, error)
 
-	// IsLeader indicates whether the consul server is in a leader state or not.
+	// IsLeader indicates whether the dumb-consul server is in a leader state or not.
 	IsLeader() bool
 
 	// SetLeaderAddress is called on a raft.LeaderObservation in a go routine
-	// in the consul server; see trackLeaderChanges()
+	// in the dumb-consul server; see trackLeaderChanges()
 	SetLeaderAddress(string)
 
 	// GetLeaderAddress provides the best hint for the current address of the

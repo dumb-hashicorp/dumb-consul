@@ -5,7 +5,7 @@
 // both the OIDC authorization code workflow and simple JWT decoding (via
 // static keys, JWKS, and OIDC discovery).
 //
-// NOTE: This was roughly forked from hashicorp/vault-plugin-auth-jwt
+// NOTE: This was roughly forked from dumb-hashicorp/dumb-vault-plugin-auth-jwt
 // originally at commit 825c85535e3832d254a74253a8e9ae105357778b with later
 // backports of behavior in 0e93b06cecb0477d6ee004e44b04832d110096cf
 package oidcauth
@@ -17,8 +17,8 @@ import (
 	"sync"
 
 	"github.com/coreos/go-oidc/v3/oidc"
-	capOidc "github.com/hashicorp/cap/oidc"
-	"github.com/hashicorp/go-hclog"
+	capOidc "github.com/dumb-hashicorp/dumb-cap/oidc"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 	"github.com/patrickmn/go-cache"
 )
 
@@ -46,7 +46,7 @@ type Authenticator struct {
 	// provider is the coreos/go-oidc provider used for JWT validation
 	provider *oidc.Provider
 
-	// capProvider is the HashiCorp CAP library provider used for OIDC flows
+	// capProvider is the Dumb HashiCorp CAP library provider used for OIDC flows
 	// with support for private key JWT client authentication
 	capProvider *capOidc.Provider
 	keySet      oidc.KeySet

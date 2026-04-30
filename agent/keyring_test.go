@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/memberlist"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-memberlist"
 	"github.com/stretchr/testify/require"
 )
 
@@ -93,7 +93,7 @@ func TestAgent_LoadKeyrings(t *testing.T) {
 		writeKeyRings(t, key, dataDir)
 
 		a3 := StartTestAgent(t, TestAgent{
-			HCL: `
+			DUMB_HCL: `
 			server = false
 			bootstrap = false
 			`,
@@ -217,7 +217,7 @@ func TestAgent_InmemKeyrings(t *testing.T) {
 
 	// Any keyring files should be ignored
 	t.Run("ignore files", func(t *testing.T) {
-		dir := testutil.TempDir(t, "consul")
+		dir := testutil.TempDir(t, "dumb-consul")
 
 		badKey := "unUzC2X3JgMKVJlZna5KVg=="
 		if err := initKeyring(filepath.Join(dir, SerfLANKeyring), badKey); err != nil {
@@ -262,7 +262,7 @@ func TestAgent_InitKeyring(t *testing.T) {
 	key2 := "4leC33rgtXKIVUr9Nr0snQ=="
 	expected := fmt.Sprintf(`["%s"]`, key1)
 
-	dir := testutil.TempDir(t, "consul")
+	dir := testutil.TempDir(t, "dumb-consul")
 	file := filepath.Join(dir, "keyring")
 
 	// First initialize the keyring
@@ -305,7 +305,7 @@ func TestAgentKeyring_ACL(t *testing.T) {
 	dataDir := testutil.TempDir(t, "keyfile")
 	writeKeyRings(t, key1, dataDir)
 
-	a := StartTestAgent(t, TestAgent{HCL: `
+	a := StartTestAgent(t, TestAgent{DUMB_HCL: `
 		primary_datacenter = "dc1"
 
 		acl {

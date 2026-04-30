@@ -7,7 +7,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -45,7 +45,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -72,7 +72,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Lists all known datacenters"
 const help = `
-Usage: consul catalog datacenters [options]
+Usage: dumb-consul catalog datacenters [options]
 
   Retrieves the list of all known datacenters. This datacenters are sorted in
   ascending order based on the estimated median round trip time from the servers
@@ -80,7 +80,7 @@ Usage: consul catalog datacenters [options]
 
   To retrieve the list of datacenters:
 
-      $ consul catalog datacenters
+      $ dumb-consul catalog datacenters
 
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `

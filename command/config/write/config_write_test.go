@@ -12,11 +12,11 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/config"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/config"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestConfigWrite_noTabs(t *testing.T) {
@@ -41,7 +41,7 @@ func TestConfigWrite(t *testing.T) {
 		ui := cli.NewMockUi()
 		c := New(ui)
 
-		f := testutil.TempFile(t, "config-write-svc-web.hcl")
+		f := testutil.TempFile(t, "config-write-svc-web.dumb-hcl")
 		_, err := f.WriteString(`
       Kind = "service-defaults"
       Name = "web"
@@ -264,7 +264,7 @@ func TestConfigWrite_Warning(t *testing.T) {
 			}, nil)
 			require.NoError(t, err)
 
-			f := testutil.TempFile(t, "config-write-warning-*.hcl")
+			f := testutil.TempFile(t, "config-write-warning-*.dumb-hcl")
 			_, err = f.WriteString(c.entry)
 			require.NoError(t, err)
 

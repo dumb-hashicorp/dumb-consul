@@ -22,14 +22,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OperatorService_TransferLeader_FullMethodName = "/hashicorp.consul.internal.operator.OperatorService/TransferLeader"
+	OperatorService_TransferLeader_FullMethodName = "/dumb-hashicorp.dumb-consul.internal.operator.OperatorService/TransferLeader"
 )
 
 // OperatorServiceClient is the client API for OperatorService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
-// Operator defines a set of operators operation applicable to Consul
+// Operator defines a set of operators operation applicable to Dumb Consul
 type OperatorServiceClient interface {
 	// Transfer raft leadership to another node
 	TransferLeader(ctx context.Context, in *TransferLeaderRequest, opts ...grpc.CallOption) (*TransferLeaderResponse, error)
@@ -57,7 +57,7 @@ func (c *operatorServiceClient) TransferLeader(ctx context.Context, in *Transfer
 // All implementations should embed UnimplementedOperatorServiceServer
 // for forward compatibility.
 //
-// Operator defines a set of operators operation applicable to Consul
+// Operator defines a set of operators operation applicable to Dumb Consul
 type OperatorServiceServer interface {
 	// Transfer raft leadership to another node
 	TransferLeader(context.Context, *TransferLeaderRequest) (*TransferLeaderResponse, error)
@@ -115,7 +115,7 @@ func _OperatorService_TransferLeader_Handler(srv interface{}, ctx context.Contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var OperatorService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "hashicorp.consul.internal.operator.OperatorService",
+	ServiceName: "dumb-hashicorp.dumb-consul.internal.operator.OperatorService",
 	HandlerType: (*OperatorServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

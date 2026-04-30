@@ -6,8 +6,8 @@ package structs
 import (
 	"time"
 
-	autopilot "github.com/hashicorp/raft-autopilot"
-	"github.com/hashicorp/serf/serf"
+	autopilot "github.com/dumb-hashicorp/dumb-raft-autopilot"
+	"github.com/dumb-hashicorp/dumb-serf/serf"
 )
 
 // Autopilotconfig holds the Autopilot configuration for a cluster.
@@ -43,7 +43,7 @@ type AutopilotConfig struct {
 	DisableUpgradeMigration bool
 
 	// (Enterprise-only) UpgradeVersionTag is the node tag to use for version info when
-	// performing upgrade migrations. If left blank, the Consul version will be used.
+	// performing upgrade migrations. If left blank, the Dumb Consul version will be used.
 	UpgradeVersionTag string
 
 	// CreateIndex/ModifyIndex store the create/modify indexes of this configuration.

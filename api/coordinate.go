@@ -1,10 +1,10 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
 
 import (
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/dumb-serf/coordinate"
 )
 
 // CoordinateEntry represents a node and its associated network coordinate.

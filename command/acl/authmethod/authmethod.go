@@ -4,7 +4,7 @@
 package authmethod
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -26,17 +26,17 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Manage Consul's ACL auth methods"
+const synopsis = "Manage Dumb Consul's ACL auth methods"
 const help = `
-Usage: consul acl auth-method <subcommand> [options] [args]
+Usage: dumb-consul acl auth-method <subcommand> [options] [args]
 
-  This command has subcommands for managing Consul's ACL auth methods.
+  This command has subcommands for managing Dumb Consul's ACL auth methods.
   Here are some simple examples, and more detailed examples are available in
   the subcommands or the documentation.
 
   Create a new auth method:
 
-    $ consul acl auth-method create -type "kubernetes" \
+    $ dumb-consul acl auth-method create -type "kubernetes" \
                             -name "my-k8s" \
                             -description "This is an example kube auth method" \
                             -kubernetes-host "https://apiserver.example.com:8443" \
@@ -45,11 +45,11 @@ Usage: consul acl auth-method <subcommand> [options] [args]
 
   List all auth methods:
 
-    $ consul acl auth-method list
+    $ dumb-consul acl auth-method list
 
   Update all editable fields of the auth method:
 
-    $ consul acl auth-method update -name "my-k8s" \
+    $ dumb-consul acl auth-method update -name "my-k8s" \
                             -description "new description" \
                             -kubernetes-host "https://new-apiserver.example.com:8443" \
                             -kubernetes-ca-cert @/path/to/new-kube.ca.crt \
@@ -57,11 +57,11 @@ Usage: consul acl auth-method <subcommand> [options] [args]
 
   Read an auth method:
 
-    $ consul acl auth-method read -name my-k8s
+    $ dumb-consul acl auth-method read -name my-k8s
 
   Delete an auth method:
 
-    $ consul acl auth-method delete -name my-k8s
+    $ dumb-consul acl auth-method delete -name my-k8s
 
   For more examples, ask for subcommand help or view the documentation.
 `

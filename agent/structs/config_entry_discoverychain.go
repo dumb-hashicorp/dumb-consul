@@ -15,15 +15,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-bexpr"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-go-bexpr"
+	"github.com/dumb-hashicorp/dumb-go-multierror"
 	"github.com/mitchellh/copystructure"
 	"github.com/mitchellh/hashstructure"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/maps"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/maps"
 )
 
 const (
@@ -81,7 +81,7 @@ type ServiceRouterConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -665,7 +665,7 @@ type ServiceSplitterConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -1036,7 +1036,7 @@ type ServiceResolverConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -1499,7 +1499,7 @@ func (e *ServiceResolverConfigEntry) ListRelatedServices() []ServiceID {
 	return out
 }
 
-// ServiceResolverSubset defines a way to select a portion of the Consul
+// ServiceResolverSubset defines a way to select a portion of the Dumb Consul
 // catalog during service discovery. Anything that affects the ultimate catalog
 // query performed OR post-processing on the results of that sort of query
 // should be defined here.

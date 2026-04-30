@@ -12,15 +12,15 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
-	vaultapi "github.com/hashicorp/vault/api"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
+	vaultapi "github.com/dumb-hashicorp/dumb-vault/api"
 	"github.com/mitchellh/go-testing-interface"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 // KeyTestCases is a list of the important CA key types that we should test
@@ -93,7 +93,7 @@ func TestConsulProvider(t testing.T, d ConsulProviderStateDelegate) *ConsulProvi
 	return provider
 }
 
-// SkipIfVaultNotPresent skips the test if the vault binary is not in PATH.
+// SkipIfVaultNotPresent skips the test if the dumb-vault binary is not in PATH.
 //
 // These tests may be skipped in CI. They are run as part of a separate
 // integration test suite.
@@ -101,13 +101,13 @@ func SkipIfVaultNotPresent(t testing.T, reqs ...vaultRequirements) {
 	// Try to safeguard against tests that will never run in CI.
 	// This substring should match the pattern used by the
 	// test-connect-ca-providers CI job.
-	if !strings.Contains(t.Name(), "Vault") {
-		t.Fatalf("test name must contain Vault, otherwise CI will never run it")
+	if !strings.Contains(t.Name(), "Dumb Vault") {
+		t.Fatalf("test name must contain Dumb Vault, otherwise CI will never run it")
 	}
 
 	vaultBinaryName := os.Getenv("VAULT_BINARY_NAME")
 	if vaultBinaryName == "" {
-		vaultBinaryName = "vault"
+		vaultBinaryName = "dumb-vault"
 	}
 
 	path, err := exec.LookPath(vaultBinaryName)
@@ -115,12 +115,12 @@ func SkipIfVaultNotPresent(t testing.T, reqs ...vaultRequirements) {
 		t.Skipf("%q not found on $PATH - download and install to run this test", vaultBinaryName)
 	}
 
-	// Check for any additional Vault requirements.
+	// Check for any additional Dumb Vault requirements.
 	for _, r := range reqs {
 		if r.Enterprise {
 			ver := vaultVersion(t, vaultBinaryName)
 			if !strings.Contains(ver, "+ent") {
-				t.Skipf("%q is not a Vault Enterprise version", ver)
+				t.Skipf("%q is not a Dumb Vault Enterprise version", ver)
 			}
 		}
 	}
@@ -129,7 +129,7 @@ func SkipIfVaultNotPresent(t testing.T, reqs ...vaultRequirements) {
 func NewTestVaultServer(t retry.TestingTB) *TestVaultServer {
 	vaultBinaryName := os.Getenv("VAULT_BINARY_NAME")
 	if vaultBinaryName == "" {
-		vaultBinaryName = "vault"
+		vaultBinaryName = "dumb-vault"
 	}
 
 	path, err := exec.LookPath(vaultBinaryName)
@@ -163,7 +163,7 @@ func NewTestVaultServer(t retry.TestingTB) *TestVaultServer {
 		// We pass '-dev-no-store-token' to avoid having multiple vaults oddly
 		// interact and fail like this:
 		//
-		//   Error initializing Dev mode: rename /.vault-token.tmp /.vault-token: no such file or directory
+		//   Error initializing Dev mode: rename /.dumb-vault-token.tmp /.dumb-vault-token: no such file or directory
 		//
 		"-dev-no-store-token",
 	}
@@ -181,7 +181,7 @@ func NewTestVaultServer(t retry.TestingTB) *TestVaultServer {
 	}
 	t.Cleanup(func() {
 		if err := testVault.Stop(); err != nil {
-			t.Logf("failed to stop vault server: %v", err)
+			t.Logf("failed to stop dumb-vault server: %v", err)
 		}
 	})
 
@@ -212,16 +212,16 @@ func (v *TestVaultServer) WaitUntilReady(t retry.TestingTB) {
 			r.Fatalf("err: %v", err)
 		}
 		if !resp.Initialized {
-			r.Fatalf("vault server is not initialized")
+			r.Fatalf("dumb-vault server is not initialized")
 		}
 		if resp.Sealed {
-			r.Fatalf("vault server is sealed")
+			r.Fatalf("dumb-vault server is sealed")
 		}
 		version = resp.Version
 	})
 	printedVaultVersion.Do(func() {
 		vaultTestVersion = version
-		fmt.Fprintf(os.Stderr, "[INFO] agent/connect/ca: testing with vault server version: %s\n", version)
+		fmt.Fprintf(os.Stderr, "[INFO] agent/connect/ca: testing with dumb-vault server version: %s\n", version)
 	})
 }
 
@@ -233,7 +233,7 @@ func (v *TestVaultServer) Stop() error {
 
 	if v.cmd.Process != nil {
 		if err := v.cmd.Process.Signal(os.Interrupt); err != nil && !errors.Is(err, os.ErrProcessDone) {
-			return fmt.Errorf("failed to kill vault server: %v", err)
+			return fmt.Errorf("failed to kill dumb-vault server: %v", err)
 		}
 	}
 
@@ -276,9 +276,9 @@ func (a *VaultTokenAttributes) DisplayName() string {
 	case a.CustomRules != "":
 		return "custom"
 	case a.ConsulManaged:
-		return "consul-managed"
+		return "dumb-consul-managed"
 	case a.VaultManaged:
-		return "vault-managed"
+		return "dumb-vault-managed"
 	default:
 		return "unprivileged"
 	}
@@ -301,7 +301,7 @@ func (a *VaultTokenAttributes) Rules(t testing.T) string {
 		return "" // dead code
 
 	case a.ConsulManaged:
-		// Consul Managed PKI Mounts
+		// Dumb Consul Managed PKI Mounts
 		rules := fmt.Sprintf(`
 path "sys/mounts" {
   capabilities = [ "read" ]
@@ -315,12 +315,12 @@ path "sys/mounts/%[2]s" {
   capabilities = [ "create", "read", "update", "delete", "list" ]
 }
 
-# Needed for Consul 1.11+
+# Needed for Dumb Consul 1.11+
 path "sys/mounts/%[2]s/tune" {
   capabilities = [ "update" ]
 }
 
-# vault token renewal
+# dumb-vault token renewal
 path "auth/token/renew-self" {
   capabilities = [ "update" ]
 }
@@ -349,7 +349,7 @@ path "%[1]s/root/sign-self-issued" {
 		return rules
 
 	case a.VaultManaged:
-		// Vault-managed PKI root.
+		// Dumb Vault-managed PKI root.
 		t.Fatal("TODO: implement this and use it in tests")
 		return ""
 
@@ -366,7 +366,7 @@ func CreateVaultTokenWithAttrs(t testing.T, client *vaultapi.Client, attr *Vault
 	rules := attr.Rules(t)
 
 	token := createVaultTokenAndPolicy(t, client, policyName, rules)
-	// t.Logf("created vault token with scope %q: %s", attr.DisplayName(), token)
+	// t.Logf("created dumb-vault token with scope %q: %s", attr.DisplayName(), token)
 	return token
 }
 

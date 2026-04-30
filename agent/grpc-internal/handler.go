@@ -10,14 +10,14 @@ import (
 
 	"github.com/armon/go-metrics"
 
-	agentmiddleware "github.com/hashicorp/consul/agent/grpc-middleware"
+	agentmiddleware "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
 
 	middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 
-	"github.com/hashicorp/consul/agent/consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
 )
 
 var (
@@ -113,7 +113,7 @@ func (h NoOpHandler) Shutdown() error {
 	return nil
 }
 
-// logConn is a local copy of github.com/hashicorp/memberlist.LogConn, to avoid
+// logConn is a local copy of github.com/dumb-hashicorp/dumb-memberlist.LogConn, to avoid
 // a large dependency for a minor formatting function.
 // logConn is used to keep log formatting consistent.
 func logConn(conn net.Conn) string {

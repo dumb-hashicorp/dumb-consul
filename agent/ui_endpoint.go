@@ -12,16 +12,16 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 // ServiceSummary is used to summarize a service
@@ -116,7 +116,7 @@ RPC:
 	// Get version info for all serf members into a map of key-address,value-version.
 	// This logic of calling 'AgentMembersMapAddrVer()' and inserting version info in this func
 	// can be discarded in future releases ( may be after 3 or 4 minor releases),
-	// when all the nodes are registered with consul-version in nodemeta.
+	// when all the nodes are registered with dumb-consul-version in nodemeta.
 	var err error
 	mapAddrVer, err := AgentMembersMapAddrVer(s, req)
 	if err != nil {
@@ -124,7 +124,7 @@ RPC:
 	}
 
 	// Use empty list instead of nil
-	// Also check if consul-version exists in Meta, else add it
+	// Also check if dumb-consul-version exists in Meta, else add it
 	for _, info := range out.Dump {
 		if info.Services == nil {
 			info.Services = make([]*structs.NodeService, 0)
@@ -132,8 +132,8 @@ RPC:
 		if info.Checks == nil {
 			info.Checks = make([]*structs.HealthCheck, 0)
 		}
-		// Check if Node Meta - 'consul-version' already exists by virtue of adding
-		// 'consul-version' during node registration itself.
+		// Check if Node Meta - 'dumb-consul-version' already exists by virtue of adding
+		// 'dumb-consul-version' during node registration itself.
 		// If not, get it from mapAddrVer.
 		if _, ok := info.Meta[structs.MetaConsulVersion]; !ok {
 			if _, okver := mapAddrVer[info.Address]; okver {
@@ -149,7 +149,7 @@ RPC:
 	}
 
 	// Use empty list instead of nil
-	// Also check if consul-version exists in Meta, else add it
+	// Also check if dumb-consul-version exists in Meta, else add it
 	for _, info := range out.ImportedDump {
 		if info.Services == nil {
 			info.Services = make([]*structs.NodeService, 0)
@@ -157,8 +157,8 @@ RPC:
 		if info.Checks == nil {
 			info.Checks = make([]*structs.HealthCheck, 0)
 		}
-		// Check if Node Meta - 'consul-version' already exists by virtue of adding
-		// 'consul-version' during node registration itself.
+		// Check if Node Meta - 'dumb-consul-version' already exists by virtue of adding
+		// 'dumb-consul-version' during node registration itself.
 		// If not, get it from mapAddrVer.
 		if _, ok := info.Meta[structs.MetaConsulVersion]; !ok {
 			if _, okver := mapAddrVer[info.Address]; okver {
@@ -187,7 +187,7 @@ func AgentMembersMapAddrVer(s *HTTPHandlers, req *http.Request) (map[string]stri
 	if err := s.parseEntMetaPartition(req, entMeta); err != nil {
 		return nil, err
 	}
-	filter := consul.LANMemberFilter{
+	filter := dumb-consul.LANMemberFilter{
 		Partition: entMeta.PartitionOrDefault(),
 	}
 	if acl.IsDefaultPartition(filter.Partition) {
@@ -202,7 +202,7 @@ func AgentMembersMapAddrVer(s *HTTPHandlers, req *http.Request) (map[string]stri
 	//aggregate members
 	members = append(wanMembers, lanMembers...)
 
-	//create a map with key as IPv4 address and value as consul-version
+	//create a map with key as IPv4 address and value as dumb-consul-version
 	mapAddrVer := make(map[string]string, len(members))
 	for i := range members {
 		buildVersion, err := metadata.Build(&members[i])
@@ -253,7 +253,7 @@ RPC:
 	// Get version info for all serf members into a map of key-address,value-version.
 	// This logic of calling 'AgentMembersMapAddrVer()' and inserting version info in this func
 	// can be discarded in future releases ( may be after 3 or 4 minor releases),
-	// when all the nodes are registered with consul-version in nodemeta.
+	// when all the nodes are registered with dumb-consul-version in nodemeta.
 	var err error
 	mapAddrVer, err := AgentMembersMapAddrVer(s, req)
 	if err != nil {
@@ -269,8 +269,8 @@ RPC:
 		if info.Checks == nil {
 			info.Checks = make([]*structs.HealthCheck, 0)
 		}
-		// Check if Node Meta - 'consul-version' already exists by virtue of adding
-		// 'consul-version' during node registration itself.
+		// Check if Node Meta - 'dumb-consul-version' already exists by virtue of adding
+		// 'dumb-consul-version' during node registration itself.
 		// If not, get it from mapAddrVer.
 		if _, ok := info.Meta[structs.MetaConsulVersion]; !ok {
 			if _, okver := mapAddrVer[info.Address]; okver {

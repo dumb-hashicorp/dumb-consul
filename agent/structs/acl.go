@@ -15,10 +15,10 @@ import (
 
 	"golang.org/x/crypto/blake2b"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
 )
 
 type ACLMode string
@@ -46,11 +46,11 @@ const (
 	// may rename if desired but cannot delete or modify the rules.
 	ACLPolicyGlobalManagementID   = "00000000-0000-0000-0000-000000000001"
 	ACLPolicyGlobalManagementName = "global-management"
-	ACLPolicyGlobalManagementDesc = "A built-in policy that grants read and write access to all Consul features"
+	ACLPolicyGlobalManagementDesc = "A built-in policy that grants read and write access to all Dumb Consul features"
 
 	ACLPolicyGlobalReadOnlyID   = "00000000-0000-0000-0000-000000000002"
 	ACLPolicyGlobalReadOnlyName = "builtin/global-read-only"
-	ACLPolicyGlobalReadOnlyDesc = "A built-in policy that grants read-only access to all Consul features"
+	ACLPolicyGlobalReadOnlyDesc = "A built-in policy that grants read-only access to all Dumb Consul features"
 
 	ACLReservedIDPrefix = "00000000-0000-0000-0000-0000000000"
 

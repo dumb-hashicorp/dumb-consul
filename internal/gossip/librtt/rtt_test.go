@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/dumb-serf/coordinate"
 )
 
 func TestRTT_ComputeDistance(t *testing.T) {

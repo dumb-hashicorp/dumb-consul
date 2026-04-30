@@ -9,15 +9,15 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
-// enterpriseAgent embeds fields that we only access in consul-enterprise builds
+// enterpriseAgent embeds fields that we only access in dumb-consul-enterprise builds
 type enterpriseAgent struct{}
 
 // fillAgentServiceEnterpriseMeta is a noop stub for the func defined agent_ent.go
@@ -27,7 +27,7 @@ func fillAgentServiceEnterpriseMeta(_ *api.AgentService, _ *acl.EnterpriseMeta) 
 func fillHealthCheckEnterpriseMeta(_ *api.HealthCheck, _ *acl.EnterpriseMeta) {}
 
 // initEnterprise is a noop stub for the func defined agent_ent.go
-func (a *Agent) initEnterprise(consulCfg *consul.Config) error {
+func (a *Agent) initEnterprise(consulCfg *dumb-consul.Config) error {
 	return nil
 }
 
@@ -37,7 +37,7 @@ func (a *Agent) reloadEnterprise(conf *config.RuntimeConfig) error {
 }
 
 // enterpriseConsulConfig is a noop stub for the func defined in agent_ent.go
-func enterpriseConsulConfig(_ *consul.Config, _ *config.RuntimeConfig) {
+func enterpriseConsulConfig(_ *dumb-consul.Config, _ *config.RuntimeConfig) {
 }
 
 // validateFIPSConfig is a noop stub for the func defined in agent_ent.go
@@ -57,7 +57,7 @@ func (a *Agent) startLicenseManager(_ context.Context) error {
 // stopLicenseManager is used to stop the license management go routines
 func (a *Agent) stopLicenseManager() {}
 
-// enterpriseStats outputs all the Agent stats specific to Consul Enterprise
+// enterpriseStats outputs all the Agent stats specific to Dumb Consul Enterprise
 func (a *Agent) enterpriseStats() map[string]map[string]string {
 	return nil
 }
@@ -81,17 +81,17 @@ func validateEnterpriseMeshPortConfig(service *structs.NodeService) error {
 
 	if len(service.Ports) > 0 {
 		if service.LocallyRegisteredAsSidecar || service.Kind == structs.ServiceKindConnectProxy || service.Connect.SidecarService != nil {
-			return fmt.Errorf("named service ports in the service mesh require Consul Enterprise")
+			return fmt.Errorf("named service ports in the service mesh require Dumb Consul Enterprise")
 		}
 	}
 
 	if service.Kind == structs.ServiceKindConnectProxy {
 		if len(service.Proxy.LocalServicePorts) > 0 {
-			return fmt.Errorf("named service ports in the service mesh require Consul Enterprise")
+			return fmt.Errorf("named service ports in the service mesh require Dumb Consul Enterprise")
 		}
 		for _, upstream := range service.Proxy.Upstreams {
 			if upstream.DestinationPort != "" {
-				return fmt.Errorf("destination port routing requires Consul Enterprise")
+				return fmt.Errorf("destination port routing requires Dumb Consul Enterprise")
 			}
 		}
 	}

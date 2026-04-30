@@ -12,10 +12,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/resource"
-	"github.com/hashicorp/consul/command/resource/client"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/client"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -117,7 +117,7 @@ func (c *cmd) Run(args []string) int {
 	c.http.MergeOntoConfig(config)
 	resourceClient, err := client.NewClient(config)
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -171,20 +171,20 @@ func (c *cmd) Help() string {
 
 const synopsis = "Reads all resources by type"
 const help = `
-Usage: consul resource list [type] -partition=<default> -namespace=<default>
+Usage: dumb-consul resource list [type] -partition=<default> -namespace=<default>
 or
-consul resource list -f [path/to/file.hcl]
+dumb-consul resource list -f [path/to/file.dumb-hcl]
 
 Lists all the resources specified by the type under the given partition and namespace
 and outputs in JSON format.
 
 Example:
 
-$ consul resource list catalog.v2beta1.Service card-processor -partition=billing -namespace=payments
+$ dumb-consul resource list catalog.v2beta1.Service card-processor -partition=billing -namespace=payments
 
-$ consul resource list -f=demo.hcl
+$ dumb-consul resource list -f=demo.dumb-hcl
 
-Sample demo.hcl:
+Sample demo.dumb-hcl:
 
 ID {
 	Type = gvk("group.version.kind")

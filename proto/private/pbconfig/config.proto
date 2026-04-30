@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.config;
+package dumb-hashicorp.dumb-consul.internal.config;
 
 message Config {
   string Datacenter = 1;

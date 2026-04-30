@@ -10,10 +10,10 @@ import (
 	"time"
 
 	"github.com/armon/go-metrics"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-go-memdb"
 
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 // Sentinel errors that must be used with blockingQuery
@@ -49,7 +49,7 @@ type ResponseMeta interface {
 	SetResultsFilteredByACLs(bool)
 }
 
-// FSMServer is interface into the stateful components of a Consul server, such
+// FSMServer is interface into the stateful components of a Dumb Consul server, such
 // as memdb or raft leadership.
 //
 //go:generate mockery --name FSMServer --inpackage

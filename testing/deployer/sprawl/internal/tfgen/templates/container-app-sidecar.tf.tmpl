@@ -13,12 +13,12 @@ resource "docker_container" "{{.Node.DockerName}}-{{.Workload.ID.TFString}}-side
 
   volumes {
     volume_name    = "{{.TLSVolumeName}}"
-    container_path = "/consul/config/certs"
+    container_path = "/dumb-consul/config/certs"
     read_only      = true
   }
 
   command = [
-    "consul", "connect", "envoy",
+    "dumb-consul", "connect", "envoy",
     "-sidecar-for={{.Workload.ID.Name}}",
     "-grpc-addr=http://127.0.0.1:8502",
     // for demo purposes (TODO: huh?)

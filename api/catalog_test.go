@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -11,8 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestAPI_CatalogDatacenters(t *testing.T) {
@@ -64,8 +64,8 @@ func TestAPI_CatalogNodes(t *testing.T) {
 				"wan_ipv4": "127.0.0.1",
 			},
 			Meta: map[string]string{
-				"consul-network-segment": "",
-				"consul-version":         s.Config.Version,
+				"dumb-consul-network-segment": "",
+				"dumb-consul-version":         s.Config.Version,
 			},
 		}
 		require.Equal(r, want, got)
@@ -295,7 +295,7 @@ func TestAPI_CatalogService(t *testing.T) {
 	catalog := c.Catalog()
 
 	retry.Run(t, func(r *retry.R) {
-		services, meta, err := catalog.Service("consul", "", nil)
+		services, meta, err := catalog.Service("dumb-consul", "", nil)
 		if err != nil {
 			r.Fatal(err)
 		}
@@ -363,7 +363,7 @@ func TestAPI_CatalogServiceCached(t *testing.T) {
 	}
 
 	retry.Run(t, func(r *retry.R) {
-		services, meta, err := catalog.Service("consul", "", q)
+		services, meta, err := catalog.Service("dumb-consul", "", q)
 		if err != nil {
 			r.Fatal(err)
 		}
@@ -382,7 +382,7 @@ func TestAPI_CatalogServiceCached(t *testing.T) {
 	})
 
 	// Got success, next hit must be cache hit
-	_, meta, err := catalog.Service("consul", "", q)
+	_, meta, err := catalog.Service("dumb-consul", "", q)
 	require.NoError(t, err)
 	require.True(t, meta.CacheHit)
 	require.Equal(t, time.Duration(0), meta.CacheAge)
@@ -478,7 +478,7 @@ func TestAPI_CatalogService_NodeMetaFilter(t *testing.T) {
 
 	catalog := c.Catalog()
 	retry.Run(t, func(r *retry.R) {
-		services, meta, err := catalog.Service("consul", "", &QueryOptions{NodeMeta: meta})
+		services, meta, err := catalog.Service("dumb-consul", "", &QueryOptions{NodeMeta: meta})
 		if err != nil {
 			r.Fatal(err)
 		}
@@ -907,7 +907,7 @@ func TestAPI_CatalogRegistration(t *testing.T) {
 		Address:    "192.168.10.10",
 		NodeMeta:   map[string]string{"somekey": "somevalue"},
 		Service:    service,
-		// Specifying both Check and Checks is accepted by Consul
+		// Specifying both Check and Checks is accepted by Dumb Consul
 		Check:  check,
 		Checks: checks,
 	}

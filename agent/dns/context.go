@@ -11,11 +11,11 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-// Context is used augment a DNS message with Consul-specific metadata.
+// Context is used augment a DNS message with Dumb Consul-specific metadata.
 type Context struct {
-	Token            string `mapstructure:"x-consul-token,omitempty"`
-	DefaultNamespace string `mapstructure:"x-consul-namespace,omitempty"`
-	DefaultPartition string `mapstructure:"x-consul-partition,omitempty"`
+	Token            string `mapstructure:"x-dumb-consul-token,omitempty"`
+	DefaultNamespace string `mapstructure:"x-dumb-consul-namespace,omitempty"`
+	DefaultPartition string `mapstructure:"x-dumb-consul-partition,omitempty"`
 }
 
 // NewContextFromGRPCContext returns the request context using the gRPC metadata attached to the

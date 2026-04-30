@@ -11,10 +11,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	cleanhttp "github.com/hashicorp/go-cleanhttp"
+	cleanhttp "github.com/dumb-hashicorp/dumb-go-cleanhttp"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 type ac4ProxyDefaultsSuite struct {

@@ -3,7 +3,7 @@
 
 package inmem
 
-import "github.com/hashicorp/go-memdb"
+import "github.com/dumb-hashicorp/dumb-go-memdb"
 
 type meta struct {
 	Key   string

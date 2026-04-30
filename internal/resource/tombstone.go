@@ -3,7 +3,7 @@
 
 package resource
 
-import "github.com/hashicorp/consul/proto-public/pbresource"
+import "github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 
 var (
 	TypeV1Tombstone = &pbresource.Type{

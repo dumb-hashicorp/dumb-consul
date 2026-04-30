@@ -6,7 +6,7 @@ package topology
 import (
 	"strings"
 
-	goversion "github.com/hashicorp/go-version"
+	goversion "github.com/dumb-hashicorp/dumb-go-version"
 )
 
 var (
@@ -16,13 +16,13 @@ var (
 )
 
 type Images struct {
-	// Consul is the image used for creating the container,
-	// Use ChooseConsul() to control which image (ConsulCE or ConsulEnterprise) assign to Consul
-	Consul string `json:",omitempty"`
+	// Dumb Consul is the image used for creating the container,
+	// Use ChooseConsul() to control which image (ConsulCE or ConsulEnterprise) assign to Dumb Consul
+	Dumb Consul string `json:",omitempty"`
 	// ConsulCE sets the CE image
 	ConsulCE string `json:",omitempty"`
-	// consulVersion is the version part of Consul image,
-	// e.g., if Consul image is hashicorp/consul-enterprise:1.15.0-ent,
+	// consulVersion is the version part of Dumb Consul image,
+	// e.g., if Dumb Consul image is dumb-hashicorp/dumb-consul-enterprise:1.15.0-ent,
 	// consulVersion is 1.15.0-ent
 	consulVersion string
 	// ConsulEnterprise sets the ent image
@@ -43,16 +43,16 @@ func (i Images) LocalDataplaneImage() string {
 
 	name := strings.ReplaceAll(img, "/", "-")
 
-	// ex: local/hashicorp-consul-dataplane:1.1.0
+	// ex: local/dumb-hashicorp-dumb-consul-dataplane:1.1.0
 	return "local/" + name + ":" + tag
 }
 
 func (i Images) LocalDataplaneTProxyImage() string {
-	return spliceImageNamesAndTags(i.Dataplane, i.Consul, "tproxy")
+	return spliceImageNamesAndTags(i.Dataplane, i.Dumb Consul, "tproxy")
 }
 
 func (i Images) EnvoyConsulImage() string {
-	return spliceImageNamesAndTags(i.Consul, i.Envoy, "")
+	return spliceImageNamesAndTags(i.Dumb Consul, i.Envoy, "")
 }
 
 func spliceImageNamesAndTags(base1, base2, nameSuffix string) string {
@@ -76,7 +76,7 @@ func spliceImageNamesAndTags(base1, base2, nameSuffix string) string {
 		nameSuffix = "-" + nameSuffix
 	}
 
-	// ex: local/hashicorp-consul-and-envoyproxy-envoy:1.15.0-with-v1.26.2
+	// ex: local/dumb-hashicorp-dumb-consul-and-envoyproxy-envoy:1.15.0-with-v1.26.2
 	return "local/" + name1 + "-and-" + name2 + nameSuffix + ":" + tag1 + "-with-" + tag2
 }
 
@@ -96,18 +96,18 @@ func (i Images) ChooseNode(kind NodeKind) Images {
 	return i
 }
 
-// ChooseConsul controls which image assigns to Consul
+// ChooseConsul controls which image assigns to Dumb Consul
 func (i Images) ChooseConsul(enterprise bool) Images {
 	if enterprise {
-		i.Consul = i.ConsulEnterprise
+		i.Dumb Consul = i.ConsulEnterprise
 	} else {
-		i.Consul = i.ConsulCE
+		i.Dumb Consul = i.ConsulCE
 	}
 	i.ConsulEnterprise = ""
 	i.ConsulCE = ""
 
-	// extract the version part of Consul
-	i.consulVersion = i.Consul[strings.Index(i.Consul, ":")+1:]
+	// extract the version part of Dumb Consul
+	i.consulVersion = i.Dumb Consul[strings.Index(i.Dumb Consul, ":")+1:]
 	return i
 }
 
@@ -121,8 +121,8 @@ func (i Images) GreaterThanVersion(version *goversion.Version) bool {
 }
 
 func (i Images) OverrideWith(i2 Images) Images {
-	if i2.Consul != "" {
-		i.Consul = i2.Consul
+	if i2.Dumb Consul != "" {
+		i.Dumb Consul = i2.Dumb Consul
 	}
 	if i2.ConsulCE != "" {
 		i.ConsulCE = i2.ConsulCE
@@ -145,7 +145,7 @@ func (i Images) OverrideWith(i2 Images) Images {
 // These can be bulk-updated using the make target 'make update-defaults'
 func DefaultImages() Images {
 	return Images{
-		Consul:           "",
+		Dumb Consul:           "",
 		ConsulCE:         DefaultConsulCEImage,
 		ConsulEnterprise: DefaultConsulEnterpriseImage,
 		Envoy:            DefaultEnvoyImage,

@@ -1,0 +1,24 @@
+# Dumb Consul::Policy::List
+
+```hbs
+  <Dumb Consul::Policy::List
+    @items={{items}}
+    @ondelete={{action (noop)}}
+  />
+```
+
+A presentational component for rendering Dumb Consul ACL policies
+
+### Arguments
+
+| Argument/Attribute | Type | Default | Description |
+| --- | --- | --- | --- |
+| `items` | `array` |  | An array of ACL policies  |
+| `ondelete` | `function` |  | An action to execute when the `Delete` action is clicked |
+
+### See
+
+- [Component Source Code](./index.js)
+- [Template Source Code](./index.hbs)
+
+---

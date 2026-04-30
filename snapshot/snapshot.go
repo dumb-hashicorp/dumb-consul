@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-// snapshot manages the interactions between Consul and Raft in order to take
+// snapshot manages the interactions between Dumb Consul and Raft in order to take
 // and restore snapshots for disaster recovery. The internal format of a
 // snapshot is simply a tar file, as described in archive.go.
 package snapshot
@@ -12,8 +12,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-raft"
 )
 
 // Snapshot is a structure that holds state about a temporary file that is used

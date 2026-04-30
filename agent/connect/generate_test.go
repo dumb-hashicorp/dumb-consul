@@ -13,7 +13,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 type KeyConfig struct {
@@ -142,7 +142,7 @@ func TestSignatureMismatches(t *testing.T) {
 				ca := TestCAWithKeyType(t, nil, p1.keyType, p1.keyBits)
 				require.Equal(t, p1.keyType, ca.PrivateKeyType)
 				require.Equal(t, p1.keyBits, ca.PrivateKeyBits)
-				certPEM, keyPEM, err := testLeaf(t, "foobar.service.consul", "default", ca, p2.keyType, p2.keyBits)
+				certPEM, keyPEM, err := testLeaf(t, "foobar.service.dumb-consul", "default", ca, p2.keyType, p2.keyBits)
 				require.NoError(t, err)
 				_, err = ParseCert(certPEM)
 				require.NoError(t, err)

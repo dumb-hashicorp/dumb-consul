@@ -12,12 +12,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/dumb-serf/coordinate"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestCoordinate_Disabled_Response(t *testing.T) {
@@ -346,7 +346,7 @@ func TestCoordinate_Update_ACLDeny(t *testing.T) {
 
 	t.Run("valid token", func(t *testing.T) {
 		req, _ := http.NewRequest("PUT", "/v1/coordinate/update", jsonReader(body))
-		req.Header.Add("X-Consul-Token", "root")
+		req.Header.Add("X-Dumb Consul-Token", "root")
 		if _, err := a.srv.CoordinateUpdate(nil, req); err != nil {
 			t.Fatalf("err: %v", err)
 		}

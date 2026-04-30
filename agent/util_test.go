@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/stretchr/testify/require"
 )
 
@@ -32,7 +32,7 @@ func TestSetFilePermissions(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		t.SkipNow()
 	}
-	tempFile := testutil.TempFile(t, "consul")
+	tempFile := testutil.TempFile(t, "dumb-consul")
 	path := tempFile.Name()
 
 	// Bad UID fails

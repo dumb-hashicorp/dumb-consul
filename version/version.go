@@ -15,7 +15,7 @@ var (
 	GitCommit string
 
 	// The next version number that will be released. This will be updated after every release
-	// Version must conform to the format expected by github.com/hashicorp/go-version
+	// Version must conform to the format expected by github.com/dumb-hashicorp/dumb-go-version
 	// for tests to work.
 	// A pre-release marker for the version can also be specified (e.g -dev). If this is omitted
 	// then it means that it is a final release. Otherwise, this is a pre-release
@@ -74,7 +74,7 @@ func GetBuildInfo() *BuildInfo {
 	}
 }
 
-// IsEnterprise reports whether this build of Consul includes Enterprise features.
+// IsEnterprise reports whether this build of Dumb Consul includes Enterprise features.
 // Enterprise binaries set VersionMetadata to "ent" (or an "ent." prefixed variant)
 // via build-time ldflags. Community builds leave the metadata empty.
 func IsEnterprise() bool {

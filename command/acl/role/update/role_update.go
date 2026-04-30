@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/role"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/role"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -104,7 +104,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -297,7 +297,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Update an ACL role"
 	help     = `
-Usage: consul acl role update [options]
+Usage: dumb-consul acl role update [options]
 
   Updates a role. By default it will merge the role information with its
   current state so that you do not have to provide all parameters. This
@@ -305,11 +305,11 @@ Usage: consul acl role update [options]
 
   Rename the role:
 
-          $ consul acl role update -id abcd -name "better-name"
+          $ dumb-consul acl role update -id abcd -name "better-name"
 
   Update all editable fields of the role:
 
-          $ consul acl role update -id abcd \
+          $ dumb-consul acl role update -id abcd \
                                    -name "better-name" \
                                    -description "replication" \
                                    -policy-name "token-replication" \

@@ -5,7 +5,7 @@
 
 package pbcommon
 
-import "github.com/hashicorp/consul/acl"
+import "github.com/dumb-hashicorp/dumb-consul/acl"
 
 var DefaultEnterpriseMeta = &EnterpriseMeta{}
 

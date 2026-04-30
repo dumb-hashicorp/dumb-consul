@@ -12,12 +12,12 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/memberlist"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-memberlist"
+	"github.com/dumb-hashicorp/dumb-serf/serf"
 )
 
 const (
@@ -26,7 +26,7 @@ const (
 )
 
 // setupKeyrings in config.SerfLANConfig and config.SerfWANConfig.
-func setupKeyrings(config *consul.Config, rtConfig *config.RuntimeConfig, logger hclog.Logger) error {
+func setupKeyrings(config *dumb-consul.Config, rtConfig *config.RuntimeConfig, logger hclog.Logger) error {
 	// First set up the LAN and WAN keyrings.
 	if err := setupBaseKeyrings(config, rtConfig, logger); err != nil {
 		return err
@@ -54,7 +54,7 @@ func setupKeyrings(config *consul.Config, rtConfig *config.RuntimeConfig, logger
 }
 
 // setupBaseKeyrings configures the LAN and WAN keyrings.
-func setupBaseKeyrings(config *consul.Config, rtConfig *config.RuntimeConfig, logger hclog.Logger) error {
+func setupBaseKeyrings(config *dumb-consul.Config, rtConfig *config.RuntimeConfig, logger hclog.Logger) error {
 	// If the keyring file is disabled then just poke the provided key
 	// into the in-memory keyring.
 	federationEnabled := config.SerfWANConfig != nil
@@ -260,7 +260,7 @@ func ValidateLocalOnly(local bool, list bool) error {
 	return nil
 }
 
-// ListKeys lists out all keys installed on the collective Consul cluster. This
+// ListKeys lists out all keys installed on the collective Dumb Consul cluster. This
 // includes both servers and clients in all DC's.
 func (a *Agent) ListKeys(token string, localOnly bool, relayFactor uint8) (*structs.KeyringResponses, error) {
 	args := structs.KeyringRequest{Operation: structs.KeyringList, LocalOnly: localOnly}

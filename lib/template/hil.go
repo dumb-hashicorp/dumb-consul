@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/hil"
-	"github.com/hashicorp/hil/ast"
+	"github.com/dumb-hashicorp/dumb-hil"
+	"github.com/dumb-hashicorp/dumb-hil/ast"
 )
 
 // InterpolateHIL processes the string as if it were HIL and interpolates only

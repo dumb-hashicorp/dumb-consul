@@ -18,15 +18,15 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/dumb-serf/coordinate"
 
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestHealthChecksInState(t *testing.T) {
@@ -351,7 +351,7 @@ func TestHealthServiceChecks(t *testing.T) {
 	defer a.Shutdown()
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
-	req, _ := http.NewRequest("GET", "/v1/health/checks/consul?dc=dc1", nil)
+	req, _ := http.NewRequest("GET", "/v1/health/checks/dumb-consul?dc=dc1", nil)
 	resp := httptest.NewRecorder()
 	obj, err := a.srv.HealthServiceChecks(resp, req)
 	if err != nil {
@@ -372,8 +372,8 @@ func TestHealthServiceChecks(t *testing.T) {
 		Address:    "127.0.0.1",
 		Check: &structs.HealthCheck{
 			Node:      a.Config.NodeName,
-			Name:      "consul check",
-			ServiceID: "consul",
+			Name:      "dumb-consul check",
+			ServiceID: "dumb-consul",
 			Type:      "grpc",
 		},
 	}
@@ -383,7 +383,7 @@ func TestHealthServiceChecks(t *testing.T) {
 		t.Fatalf("err: %v", err)
 	}
 
-	req, _ = http.NewRequest("GET", "/v1/health/checks/consul?dc=dc1", nil)
+	req, _ = http.NewRequest("GET", "/v1/health/checks/dumb-consul?dc=dc1", nil)
 	resp = httptest.NewRecorder()
 	obj, err = a.srv.HealthServiceChecks(resp, req)
 	if err != nil {
@@ -391,7 +391,7 @@ func TestHealthServiceChecks(t *testing.T) {
 	}
 	assertIndex(t, resp)
 
-	// Should be 1 health check for consul
+	// Should be 1 health check for dumb-consul
 	nodes = obj.(structs.HealthChecks)
 	if len(nodes) != 1 {
 		t.Fatalf("bad: %v", obj)
@@ -411,7 +411,7 @@ func TestHealthServiceChecks_NodeMetaFilter(t *testing.T) {
 	defer a.Shutdown()
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
-	req, _ := http.NewRequest("GET", "/v1/health/checks/consul?dc=dc1&node-meta=somekey:somevalue", nil)
+	req, _ := http.NewRequest("GET", "/v1/health/checks/dumb-consul?dc=dc1&node-meta=somekey:somevalue", nil)
 	resp := httptest.NewRecorder()
 	obj, err := a.srv.HealthServiceChecks(resp, req)
 	if err != nil {
@@ -433,8 +433,8 @@ func TestHealthServiceChecks_NodeMetaFilter(t *testing.T) {
 		NodeMeta:   map[string]string{"somekey": "somevalue"},
 		Check: &structs.HealthCheck{
 			Node:      a.Config.NodeName,
-			Name:      "consul check",
-			ServiceID: "consul",
+			Name:      "dumb-consul check",
+			ServiceID: "dumb-consul",
 		},
 	}
 
@@ -444,7 +444,7 @@ func TestHealthServiceChecks_NodeMetaFilter(t *testing.T) {
 	}
 
 	retry.Run(t, func(r *retry.R) {
-		req, _ = http.NewRequest("GET", "/v1/health/checks/consul?dc=dc1&node-meta=somekey:somevalue", nil)
+		req, _ = http.NewRequest("GET", "/v1/health/checks/dumb-consul?dc=dc1&node-meta=somekey:somevalue", nil)
 		resp = httptest.NewRecorder()
 		obj, err = a.srv.HealthServiceChecks(resp, req)
 		if err != nil {
@@ -452,7 +452,7 @@ func TestHealthServiceChecks_NodeMetaFilter(t *testing.T) {
 		}
 		assertIndex(r, resp)
 
-		// Should be 1 health check for consul
+		// Should be 1 health check for dumb-consul
 		nodes = obj.(structs.HealthChecks)
 		if len(nodes) != 1 {
 			r.Fatalf("bad: %v", obj)
@@ -470,7 +470,7 @@ func TestHealthServiceChecks_Filtering(t *testing.T) {
 	defer a.Shutdown()
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
-	req, _ := http.NewRequest("GET", "/v1/health/checks/consul?dc=dc1&node-meta=somekey:somevalue", nil)
+	req, _ := http.NewRequest("GET", "/v1/health/checks/dumb-consul?dc=dc1&node-meta=somekey:somevalue", nil)
 	resp := httptest.NewRecorder()
 	obj, err := a.srv.HealthServiceChecks(resp, req)
 	require.NoError(t, err)
@@ -487,8 +487,8 @@ func TestHealthServiceChecks_Filtering(t *testing.T) {
 		NodeMeta:   map[string]string{"somekey": "somevalue"},
 		Check: &structs.HealthCheck{
 			Node:      a.Config.NodeName,
-			Name:      "consul check",
-			ServiceID: "consul",
+			Name:      "dumb-consul check",
+			ServiceID: "dumb-consul",
 		},
 		SkipNodeUpdate: true,
 	}
@@ -503,24 +503,24 @@ func TestHealthServiceChecks_Filtering(t *testing.T) {
 		Address:    "127.0.0.2",
 		NodeMeta:   map[string]string{"somekey": "somevalue"},
 		Service: &structs.NodeService{
-			ID:      "consul",
-			Service: "consul",
+			ID:      "dumb-consul",
+			Service: "dumb-consul",
 		},
 		Check: &structs.HealthCheck{
 			Node:      "test-health-node",
-			Name:      "consul check",
-			ServiceID: "consul",
+			Name:      "dumb-consul check",
+			ServiceID: "dumb-consul",
 		},
 	}
 	require.NoError(t, a.RPC(context.Background(), "Catalog.Register", args, &out))
 
-	req, _ = http.NewRequest("GET", "/v1/health/checks/consul?dc=dc1&filter="+url.QueryEscape("Node == `test-health-node`"), nil)
+	req, _ = http.NewRequest("GET", "/v1/health/checks/dumb-consul?dc=dc1&filter="+url.QueryEscape("Node == `test-health-node`"), nil)
 	resp = httptest.NewRecorder()
 	obj, err = a.srv.HealthServiceChecks(resp, req)
 	require.NoError(t, err)
 	assertIndex(t, resp)
 
-	// Should be 1 health check for consul
+	// Should be 1 health check for dumb-consul
 	nodes = obj.(structs.HealthChecks)
 	require.Len(t, nodes, 1)
 }
@@ -656,7 +656,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 	}
 
 	t.Parallel()
-	a := StartTestAgent(t, TestAgent{HCL: backendCfg.config, Overrides: `peering = { test_allow_peer_registrations = true }`})
+	a := StartTestAgent(t, TestAgent{DUMB_HCL: backendCfg.config, Overrides: `peering = { test_allow_peer_registrations = true }`})
 	defer a.Shutdown()
 
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
@@ -664,7 +664,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 	testingPeerNames := []string{"", "my-peer"}
 
 	for _, peerName := range testingPeerNames {
-		req, err := http.NewRequest("GET", "/v1/health/service/consul?dc=dc1"+peerQuerySuffix(peerName), nil)
+		req, err := http.NewRequest("GET", "/v1/health/service/dumb-consul?dc=dc1"+peerQuerySuffix(peerName), nil)
 		require.NoError(t, err)
 		resp := httptest.NewRecorder()
 		obj, err := a.srv.HealthServiceNodes(resp, req)
@@ -674,7 +674,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 
 		nodes := obj.(structs.CheckServiceNodes)
 		if peerName == "" {
-			// Should be 1 health check for consul
+			// Should be 1 health check for dumb-consul
 			require.Len(t, nodes, 1)
 		} else {
 			require.NotNil(t, nodes)
@@ -757,7 +757,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 				require.Equal(t, "MISS", resp.Header().Get("X-Cache"))
 			}
 
-			require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+			require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 		}
 
 		{
@@ -778,7 +778,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 				require.Equal(t, "HIT", resp.Header().Get("X-Cache"))
 			}
 
-			require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+			require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 		}
 	}
 
@@ -810,7 +810,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 				nodes := obj.(structs.CheckServiceNodes)
 				require.Len(r, nodes, 2)
 
-				header := resp.Header().Get("X-Consul-Index")
+				header := resp.Header().Get("X-Dumb Consul-Index")
 				if header == "" || header == "0" {
 					r.Fatalf("Want non-zero header: %q", header)
 				}
@@ -825,7 +825,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 						r.Fatalf("should be a cache hit")
 					}
 				}
-				require.Equal(r, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(r, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 			})
 		}
 	}
@@ -844,19 +844,19 @@ func TestHealthServiceNodes_Blocking(t *testing.T) {
 func testHealthServiceNodes_Blocking(t *testing.T, peerName string) {
 	cases := []struct {
 		name         string
-		hcl          string
+		dumb-hcl          string
 		grpcMetrics  bool
 		queryBackend string
 	}{
 		{
 			name:         "no streaming",
 			queryBackend: "blocking-query",
-			hcl:          `use_streaming_backend = false`,
+			dumb-hcl:          `use_streaming_backend = false`,
 		},
 		{
 			name:        "streaming",
 			grpcMetrics: true,
-			hcl: `
+			dumb-hcl: `
 rpc { enable_streaming = true }
 use_streaming_backend = true
 `,
@@ -887,7 +887,7 @@ use_streaming_backend = true
 				AllowedPrefixes: []string{"testing.grpc."},
 			}, sink)
 
-			a := StartTestAgent(t, TestAgent{HCL: tc.hcl, Overrides: `peering = { test_allow_peer_registrations = true }`})
+			a := StartTestAgent(t, TestAgent{DUMB_HCL: tc.dumb-hcl, Overrides: `peering = { test_allow_peer_registrations = true }`})
 			defer a.Shutdown()
 
 			testrpc.WaitForTestAgent(t, a.RPC, "dc1")
@@ -986,7 +986,7 @@ use_streaming_backend = true
 				require.True(t, idx < newIdx, "index should have increased."+
 					"idx=%d, newIdx=%d", idx, newIdx)
 
-				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 
 				idx = newIdx
 
@@ -1014,7 +1014,7 @@ use_streaming_backend = true
 
 				newIdx := getIndex(t, resp)
 				require.Equal(t, idx, newIdx)
-				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 			}
 
 			if tc.grpcMetrics {
@@ -1043,17 +1043,17 @@ func TestHealthServiceNodes_Blocking_withFilter(t *testing.T) {
 func testHealthServiceNodes_Blocking_withFilter(t *testing.T, peerName string) {
 	cases := []struct {
 		name         string
-		hcl          string
+		dumb-hcl          string
 		queryBackend string
 	}{
 		{
 			name:         "no streaming",
 			queryBackend: "blocking-query",
-			hcl:          `use_streaming_backend = false`,
+			dumb-hcl:          `use_streaming_backend = false`,
 		},
 		{
 			name: "streaming",
-			hcl: `
+			dumb-hcl: `
 rpc { enable_streaming = true }
 use_streaming_backend = true
 `,
@@ -1084,7 +1084,7 @@ use_streaming_backend = true
 	for _, tc := range cases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			a := StartTestAgent(t, TestAgent{HCL: tc.hcl, Overrides: `peering = { test_allow_peer_registrations = true }`})
+			a := StartTestAgent(t, TestAgent{DUMB_HCL: tc.dumb-hcl, Overrides: `peering = { test_allow_peer_registrations = true }`})
 			defer a.Shutdown()
 
 			testrpc.WaitForTestAgent(t, a.RPC, "dc1")
@@ -1115,7 +1115,7 @@ use_streaming_backend = true
 				require.Equal(t, "web", node.Service.Service)
 				require.Equal(t, []string{"foo"}, node.Service.Tags)
 
-				require.Equal(t, "blocking-query", resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, "blocking-query", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 
 				idx := getIndex(t, resp)
 				require.True(t, idx > 0)
@@ -1160,7 +1160,7 @@ use_streaming_backend = true
 				}
 
 				require.Len(t, out, 0)
-				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 			})
 		})
 	}
@@ -1273,7 +1273,7 @@ func TestHealthServiceNodes_NodeMetaFilter(t *testing.T) {
 				require.NotNil(t, nodes[0].Checks)
 				require.Empty(t, nodes[0].Checks)
 
-				require.Equal(t, tst.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, tst.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 			})
 		})
 	}
@@ -1297,7 +1297,7 @@ func testHealthServiceNodes_Filter(t *testing.T, backendCfg *queryBackendConfigu
 	defer a.Shutdown()
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
-	req, _ := http.NewRequest("GET", "/v1/health/service/consul?dc=dc1&filter="+url.QueryEscape("Node.Node == `test-health-node`"), nil)
+	req, _ := http.NewRequest("GET", "/v1/health/service/dumb-consul?dc=dc1&filter="+url.QueryEscape("Node.Node == `test-health-node`"), nil)
 	resp := httptest.NewRecorder()
 	obj, err := a.srv.HealthServiceNodes(resp, req)
 	require.NoError(t, err)
@@ -1314,8 +1314,8 @@ func testHealthServiceNodes_Filter(t *testing.T, backendCfg *queryBackendConfigu
 		NodeMeta:   map[string]string{"somekey": "somevalue"},
 		Check: &structs.HealthCheck{
 			Node:      a.Config.NodeName,
-			Name:      "consul check",
-			ServiceID: "consul",
+			Name:      "dumb-consul check",
+			ServiceID: "dumb-consul",
 		},
 	}
 
@@ -1329,18 +1329,18 @@ func testHealthServiceNodes_Filter(t *testing.T, backendCfg *queryBackendConfigu
 		Address:    "127.0.0.2",
 		NodeMeta:   map[string]string{"somekey": "somevalue"},
 		Service: &structs.NodeService{
-			ID:      "consul",
-			Service: "consul",
+			ID:      "dumb-consul",
+			Service: "dumb-consul",
 		},
 		Check: &structs.HealthCheck{
 			Node:      "test-health-node",
-			Name:      "consul check",
-			ServiceID: "consul",
+			Name:      "dumb-consul check",
+			ServiceID: "dumb-consul",
 		},
 	}
 	require.NoError(t, a.RPC(context.Background(), "Catalog.Register", args, &out))
 
-	req, _ = http.NewRequest("GET", "/v1/health/service/consul?dc=dc1&filter="+url.QueryEscape("Node.Node == `test-health-node`"), nil)
+	req, _ = http.NewRequest("GET", "/v1/health/service/dumb-consul?dc=dc1&filter="+url.QueryEscape("Node.Node == `test-health-node`"), nil)
 	if backendCfg.cached {
 		addQueryParam(req, "cached", "true")
 	}
@@ -1355,7 +1355,7 @@ func testHealthServiceNodes_Filter(t *testing.T, backendCfg *queryBackendConfigu
 	require.Len(t, nodes, 1)
 	require.Len(t, nodes[0].Checks, 1)
 
-	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 }
 
 func TestHealthServiceNodes_DistanceSort(t *testing.T) {
@@ -1466,8 +1466,8 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 		Address:    "127.0.0.1",
 		Check: &structs.HealthCheck{
 			Node:      a.Config.NodeName,
-			Name:      "consul check",
-			ServiceID: "consul",
+			Name:      "dumb-consul check",
+			ServiceID: "dumb-consul",
 			Status:    api.HealthCritical,
 		},
 	}
@@ -1480,7 +1480,7 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 	})
 
 	t.Run("bc_no_query_value", func(t *testing.T) {
-		req, _ := http.NewRequest("GET", "/v1/health/service/consul?passing", nil)
+		req, _ := http.NewRequest("GET", "/v1/health/service/dumb-consul?passing", nil)
 		if backendCfg.cached {
 			addQueryParam(req, "cached", "")
 		}
@@ -1492,16 +1492,16 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 
 		assertIndex(t, resp)
 
-		// Should be 0 health check for consul
+		// Should be 0 health check for dumb-consul
 		nodes := obj.(structs.CheckServiceNodes)
 		if len(nodes) != 0 {
 			t.Fatalf("bad: %v", nodes)
 		}
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_true", func(t *testing.T) {
-		req, _ := http.NewRequest("GET", "/v1/health/service/consul?passing=true", nil)
+		req, _ := http.NewRequest("GET", "/v1/health/service/dumb-consul?passing=true", nil)
 		if backendCfg.cached {
 			addQueryParam(req, "cached", "")
 		}
@@ -1513,16 +1513,16 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 
 		assertIndex(t, resp)
 
-		// Should be 0 health check for consul
+		// Should be 0 health check for dumb-consul
 		nodes := obj.(structs.CheckServiceNodes)
 		if len(nodes) != 0 {
 			t.Fatalf("bad: %v", obj)
 		}
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_false", func(t *testing.T) {
-		req, _ := http.NewRequest("GET", "/v1/health/service/consul?passing=false", nil)
+		req, _ := http.NewRequest("GET", "/v1/health/service/dumb-consul?passing=false", nil)
 		if backendCfg.cached {
 			addQueryParam(req, "cached", "")
 		}
@@ -1534,17 +1534,17 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 
 		assertIndex(t, resp)
 
-		// Should be 1 consul, it's unhealthy, but we specifically asked for
+		// Should be 1 dumb-consul, it's unhealthy, but we specifically asked for
 		// everything.
 		nodes := obj.(structs.CheckServiceNodes)
 		if len(nodes) != 1 {
 			t.Fatalf("bad: %v", obj)
 		}
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_bad", func(t *testing.T) {
-		req, _ := http.NewRequest("GET", "/v1/health/service/consul?passing=nope-nope-nope", nil)
+		req, _ := http.NewRequest("GET", "/v1/health/service/dumb-consul?passing=nope-nope-nope", nil)
 		if backendCfg.cached {
 			addQueryParam(req, "cached", "")
 		}
@@ -1554,7 +1554,7 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 		if !strings.Contains(err.Error(), "Invalid value for ?passing") {
 			t.Errorf("bad %s", err.Error())
 		}
-		require.Equal(t, "", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 }
 
@@ -1568,13 +1568,13 @@ func TestHealthServiceNodes_CheckType(t *testing.T) {
 	defer a.Shutdown()
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
-	req, _ := http.NewRequest("GET", "/v1/health/service/consul?dc=dc1", nil)
+	req, _ := http.NewRequest("GET", "/v1/health/service/dumb-consul?dc=dc1", nil)
 	resp := httptest.NewRecorder()
 	obj, err := a.srv.HealthServiceNodes(resp, req)
 	require.NoError(t, err)
 	assertIndex(t, resp)
 
-	// Should be 1 health check for consul
+	// Should be 1 health check for dumb-consul
 	nodes := obj.(structs.CheckServiceNodes)
 	if len(nodes) != 1 {
 		t.Fatalf("expected 1 node, got %d", len(nodes))
@@ -1587,8 +1587,8 @@ func TestHealthServiceNodes_CheckType(t *testing.T) {
 		NodeMeta:   map[string]string{"somekey": "somevalue"},
 		Check: &structs.HealthCheck{
 			Node:      a.Config.NodeName,
-			Name:      "consul check",
-			ServiceID: "consul",
+			Name:      "dumb-consul check",
+			ServiceID: "dumb-consul",
 			Type:      "grpc",
 		},
 	}
@@ -1596,7 +1596,7 @@ func TestHealthServiceNodes_CheckType(t *testing.T) {
 	var out struct{}
 	require.NoError(t, a.RPC(context.Background(), "Catalog.Register", args, &out))
 
-	req, _ = http.NewRequest("GET", "/v1/health/service/consul?dc=dc1", nil)
+	req, _ = http.NewRequest("GET", "/v1/health/service/dumb-consul?dc=dc1", nil)
 	resp = httptest.NewRecorder()
 	obj, err = a.srv.HealthServiceNodes(resp, req)
 	require.NoError(t, err)
@@ -1609,7 +1609,7 @@ func TestHealthServiceNodes_CheckType(t *testing.T) {
 	require.Len(t, nodes[0].Checks, 2)
 
 	for _, check := range nodes[0].Checks {
-		if check.Name == "consul check" && check.Type != "grpc" {
+		if check.Name == "dumb-consul check" && check.Type != "grpc" {
 			t.Fatalf("exptected grpc check type, got %s", check.Type)
 		}
 	}
@@ -1745,7 +1745,7 @@ func testHealthConnectServiceNodes(t *testing.T, backendCfg *queryBackendConfigu
 	assert.Len(t, nodes, 1)
 	assert.Len(t, nodes[0].Checks, 0)
 
-	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 }
 
 func TestHealthIngressServiceNodes(t *testing.T) {
@@ -1844,7 +1844,7 @@ func testHealthIngressServiceNodes(t *testing.T, agentHCL string) {
 		// Should be a cache miss
 		require.Equal(t, "MISS", resp.Header().Get("X-Cache"))
 		// always a blocking query, because the ingress endpoint does not yet support streaming.
-		require.Equal(t, "blocking-query", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "blocking-query", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	}))
 
 	require.True(t, t.Run("test caching hit", func(t *testing.T) {
@@ -1860,7 +1860,7 @@ func testHealthIngressServiceNodes(t *testing.T, agentHCL string) {
 		// Should be a cache HIT now!
 		require.Equal(t, "HIT", resp.Header().Get("X-Cache"))
 		// always a blocking query, because the ingress endpoint does not yet support streaming.
-		require.Equal(t, "blocking-query", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "blocking-query", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	}))
 }
 
@@ -1922,7 +1922,7 @@ func testHealthConnectServiceNodes_Filter(t *testing.T, backendCfg *queryBackend
 	require.Equal(t, args.Service.Address, nodes[0].Service.Address)
 	require.Equal(t, args.Service.Proxy, nodes[0].Service.Proxy)
 
-	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 }
 
 func TestHealthConnectServiceNodes_PassingFilter(t *testing.T) {
@@ -1965,11 +1965,11 @@ func testHealthConnectServiceNodes_PassingFilter(t *testing.T, backendCfg *query
 		assert.Nil(t, err)
 		assertIndex(t, resp)
 
-		// Should be 0 health check for consul
+		// Should be 0 health check for dumb-consul
 		nodes := obj.(structs.CheckServiceNodes)
 		assert.Len(t, nodes, 0)
 
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_true", func(t *testing.T) {
@@ -1983,11 +1983,11 @@ func testHealthConnectServiceNodes_PassingFilter(t *testing.T, backendCfg *query
 		assert.Nil(t, err)
 		assertIndex(t, resp)
 
-		// Should be 0 health check for consul
+		// Should be 0 health check for dumb-consul
 		nodes := obj.(structs.CheckServiceNodes)
 		assert.Len(t, nodes, 0)
 
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_false", func(t *testing.T) {
@@ -2004,7 +2004,7 @@ func testHealthConnectServiceNodes_PassingFilter(t *testing.T, backendCfg *query
 		// Should be 1
 		nodes := obj.(structs.CheckServiceNodes)
 		assert.Len(t, nodes, 1)
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_bad", func(t *testing.T) {
@@ -2019,7 +2019,7 @@ func testHealthConnectServiceNodes_PassingFilter(t *testing.T, backendCfg *query
 		assert.True(t, isHTTPBadRequest(err))
 
 		assert.True(t, strings.Contains(err.Error(), "Invalid value for ?passing"))
-		require.Equal(t, "", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 }
 

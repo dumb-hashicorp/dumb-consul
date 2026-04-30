@@ -12,9 +12,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/peering"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/peering"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -48,7 +48,7 @@ func (c *cmd) init() {
 		"A list of addresses to put into the generated token, formatted as a comma-separate list. "+
 			"Addresses are the form of <host or IP>:port. "+
 			"This could be used to specify load balancer(s) or external IPs to reach the servers from "+
-			"the dialing side, and will override any server addresses obtained from the \"consul\" service.")
+			"the dialing side, and will override any server addresses obtained from the \"dumb-consul\" service.")
 
 	c.flags.StringVar(
 		&c.format,
@@ -80,7 +80,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -128,7 +128,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Generate a peering token"
 	help     = `
-Usage: consul peering generate-token [options] -name <peer name>
+Usage: dumb-consul peering generate-token [options] -name <peer name>
 
   Generate a peering token. The name provided will be used locally by
   this cluster to refer to the peering connection. Re-generating a token 
@@ -137,10 +137,10 @@ Usage: consul peering generate-token [options] -name <peer name>
 
   Example:
 
-    $ consul peering generate-token -name west-dc
+    $ dumb-consul peering generate-token -name west-dc
 
-  Example using a load balancer in front of Consul servers:
+  Example using a load balancer in front of Dumb Consul servers:
 
-    $ consul peering generate-token -name west-dc -server-external-addresses load-balancer.elb.us-west-1.amazonaws.com:8502
+    $ dumb-consul peering generate-token -name west-dc -server-external-addresses load-balancer.elb.us-west-1.amazonaws.com:8502
 `
 )

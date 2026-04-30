@@ -13,12 +13,12 @@ import (
 
 func TestCertificateTelemetry_Defaults(t *testing.T) {
 	// Test that default values are applied when no certificate telemetry config is provided
-	hcl := `
-		data_dir = "/tmp/consul"
+	dumb-hcl := `
+		data_dir = "/tmp/dumb-consul"
 		bind_addr = "127.0.0.1"
 	`
 
-	result, err := Load(LoadOpts{HCL: []string{hcl}})
+	result, err := Load(LoadOpts{DUMB_HCL: []string{dumb-hcl}})
 	require.NoError(t, err)
 	require.NotNil(t, result.RuntimeConfig)
 
@@ -35,8 +35,8 @@ func TestCertificateTelemetry_Defaults(t *testing.T) {
 
 func TestCertificateTelemetry_CustomValues(t *testing.T) {
 	// Test that custom values override defaults
-	hcl := `
-		data_dir = "/tmp/consul"
+	dumb-hcl := `
+		data_dir = "/tmp/dumb-consul"
 		bind_addr = "127.0.0.1"
 		
 		telemetry {
@@ -51,7 +51,7 @@ func TestCertificateTelemetry_CustomValues(t *testing.T) {
 		}
 	`
 
-	result, err := Load(LoadOpts{HCL: []string{hcl}})
+	result, err := Load(LoadOpts{DUMB_HCL: []string{dumb-hcl}})
 	require.NoError(t, err)
 	require.NotNil(t, result.RuntimeConfig)
 
@@ -68,8 +68,8 @@ func TestCertificateTelemetry_CustomValues(t *testing.T) {
 
 func TestCertificateTelemetry_PartialConfig(t *testing.T) {
 	// Test that partial config merges with defaults
-	hcl := `
-		data_dir = "/tmp/consul"
+	dumb-hcl := `
+		data_dir = "/tmp/dumb-consul"
 		bind_addr = "127.0.0.1"
 		
 		telemetry {
@@ -80,7 +80,7 @@ func TestCertificateTelemetry_PartialConfig(t *testing.T) {
 		}
 	`
 
-	result, err := Load(LoadOpts{HCL: []string{hcl}})
+	result, err := Load(LoadOpts{DUMB_HCL: []string{dumb-hcl}})
 	require.NoError(t, err)
 	require.NotNil(t, result.RuntimeConfig)
 
@@ -109,8 +109,8 @@ func TestCertificateTelemetry_DurationParsing(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			hcl := `
-				data_dir = "/tmp/consul"
+			dumb-hcl := `
+				data_dir = "/tmp/dumb-consul"
 				bind_addr = "127.0.0.1"
 				
 				telemetry {
@@ -120,7 +120,7 @@ func TestCertificateTelemetry_DurationParsing(t *testing.T) {
 				}
 			`
 
-			result, err := Load(LoadOpts{HCL: []string{hcl}})
+			result, err := Load(LoadOpts{DUMB_HCL: []string{dumb-hcl}})
 			require.NoError(t, err)
 			require.Equal(t, tt.expected, result.RuntimeConfig.Telemetry.CertificateCacheDuration)
 		})
@@ -128,8 +128,8 @@ func TestCertificateTelemetry_DurationParsing(t *testing.T) {
 }
 
 func TestCertificateTelemetry_InvalidDuration(t *testing.T) {
-	hcl := `
-		data_dir = "/tmp/consul"
+	dumb-hcl := `
+		data_dir = "/tmp/dumb-consul"
 		bind_addr = "127.0.0.1"
 		
 		telemetry {
@@ -139,7 +139,7 @@ func TestCertificateTelemetry_InvalidDuration(t *testing.T) {
 		}
 	`
 
-	_, err := Load(LoadOpts{HCL: []string{hcl}})
+	_, err := Load(LoadOpts{DUMB_HCL: []string{dumb-hcl}})
 	require.Error(t, err)
 	require.Contains(t, err.Error(), "telemetry.certificate.cache_duration")
 }
@@ -160,8 +160,8 @@ func TestCertificateTelemetry_ThresholdValidation(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			hcl := fmt.Sprintf(`
-				data_dir = "/tmp/consul"
+			dumb-hcl := fmt.Sprintf(`
+				data_dir = "/tmp/dumb-consul"
 				bind_addr = "127.0.0.1"
 				
 				telemetry {
@@ -173,7 +173,7 @@ func TestCertificateTelemetry_ThresholdValidation(t *testing.T) {
 				}
 			`, tt.critical, tt.warning, tt.info)
 
-			result, err := Load(LoadOpts{HCL: []string{hcl}})
+			result, err := Load(LoadOpts{DUMB_HCL: []string{dumb-hcl}})
 			require.NoError(t, err)
 			require.Equal(t, tt.critical, result.RuntimeConfig.Telemetry.CertificateCriticalThresholdDays)
 			require.Equal(t, tt.warning, result.RuntimeConfig.Telemetry.CertificateWarningThresholdDays)
@@ -185,7 +185,7 @@ func TestCertificateTelemetry_ThresholdValidation(t *testing.T) {
 func TestCertificateTelemetry_JSONConfig(t *testing.T) {
 	// Test JSON configuration format
 	json := `{
-		"data_dir": "/tmp/consul",
+		"data_dir": "/tmp/dumb-consul",
 		"bind_addr": "127.0.0.1",
 		"telemetry": {
 			"certificate": {
@@ -199,7 +199,7 @@ func TestCertificateTelemetry_JSONConfig(t *testing.T) {
 		}
 	}`
 
-	result, err := Load(LoadOpts{HCL: []string{json}})
+	result, err := Load(LoadOpts{DUMB_HCL: []string{json}})
 	require.NoError(t, err)
 	require.NotNil(t, result.RuntimeConfig)
 
@@ -215,7 +215,7 @@ func TestCertificateTelemetry_JSONConfig(t *testing.T) {
 func TestCertificateTelemetry_MultipleConfigSources(t *testing.T) {
 	// Test that later configs override earlier ones
 	hcl1 := `
-		data_dir = "/tmp/consul"
+		data_dir = "/tmp/dumb-consul"
 		bind_addr = "127.0.0.1"
 		
 		telemetry {
@@ -234,7 +234,7 @@ func TestCertificateTelemetry_MultipleConfigSources(t *testing.T) {
 		}
 	`
 
-	result, err := Load(LoadOpts{HCL: []string{hcl1, hcl2}})
+	result, err := Load(LoadOpts{DUMB_HCL: []string{hcl1, hcl2}})
 	require.NoError(t, err)
 	require.NotNil(t, result.RuntimeConfig)
 
@@ -244,9 +244,9 @@ func TestCertificateTelemetry_MultipleConfigSources(t *testing.T) {
 }
 
 func TestCertificateTelemetry_ConsulServerConfig(t *testing.T) {
-	// Test that telemetry config is properly passed to consul server config
-	hcl := `
-		data_dir = "/tmp/consul"
+	// Test that telemetry config is properly passed to dumb-consul server config
+	dumb-hcl := `
+		data_dir = "/tmp/dumb-consul"
 		bind_addr = "127.0.0.1"
 		server = true
 		bootstrap = true
@@ -260,7 +260,7 @@ func TestCertificateTelemetry_ConsulServerConfig(t *testing.T) {
 		}
 	`
 
-	result, err := Load(LoadOpts{HCL: []string{hcl}})
+	result, err := Load(LoadOpts{DUMB_HCL: []string{dumb-hcl}})
 	require.NoError(t, err)
 	require.NotNil(t, result.RuntimeConfig)
 

@@ -38,7 +38,7 @@
                             "prefix": "/"
                           },
                           "route": {
-                            "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                            "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
                           }
                         }
                       ]
@@ -77,7 +77,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.prepared_query_geo-cache"
               }
             }
@@ -120,7 +120,7 @@
                           "header": "x-forwarded-client-cert",
                           "onHeaderPresent": {
                             "key": "trust-domain",
-                            "metadataNamespace": "consul",
+                            "metadataNamespace": "dumb-consul",
                             "regexValueRewrite": {
                               "pattern": {
                                 "regex": ".*URI=spiffe://([^/]+.[^/]+)(?:/ap/([^/]+))?/ns/([^/]+)/dc/([^/]+)/svc/([^/;,]+).*"
@@ -133,7 +133,7 @@
                           "header": "x-forwarded-client-cert",
                           "onHeaderPresent": {
                             "key": "partition",
-                            "metadataNamespace": "consul",
+                            "metadataNamespace": "dumb-consul",
                             "regexValueRewrite": {
                               "pattern": {
                                 "regex": ".*URI=spiffe://([^/]+.[^/]+)(?:/ap/([^/]+))?/ns/([^/]+)/dc/([^/]+)/svc/([^/;,]+).*"
@@ -146,7 +146,7 @@
                           "header": "x-forwarded-client-cert",
                           "onHeaderPresent": {
                             "key": "namespace",
-                            "metadataNamespace": "consul",
+                            "metadataNamespace": "dumb-consul",
                             "regexValueRewrite": {
                               "pattern": {
                                 "regex": ".*URI=spiffe://([^/]+.[^/]+)(?:/ap/([^/]+))?/ns/([^/]+)/dc/([^/]+)/svc/([^/;,]+).*"
@@ -159,7 +159,7 @@
                           "header": "x-forwarded-client-cert",
                           "onHeaderPresent": {
                             "key": "datacenter",
-                            "metadataNamespace": "consul",
+                            "metadataNamespace": "dumb-consul",
                             "regexValueRewrite": {
                               "pattern": {
                                 "regex": ".*URI=spiffe://([^/]+.[^/]+)(?:/ap/([^/]+))?/ns/([^/]+)/dc/([^/]+)/svc/([^/;,]+).*"
@@ -172,7 +172,7 @@
                           "header": "x-forwarded-client-cert",
                           "onHeaderPresent": {
                             "key": "service",
-                            "metadataNamespace": "consul",
+                            "metadataNamespace": "dumb-consul",
                             "regexValueRewrite": {
                               "pattern": {
                                 "regex": ".*URI=spiffe://([^/]+.[^/]+)(?:/ap/([^/]+))?/ns/([^/]+)/dc/([^/]+)/svc/([^/;,]+).*"

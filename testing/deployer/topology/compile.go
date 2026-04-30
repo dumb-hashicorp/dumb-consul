@@ -15,10 +15,10 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/exp/maps"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 const DockerPrefix = "cslc" // ConSuLCluster
@@ -56,8 +56,8 @@ func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string)
 	}
 
 	images := DefaultImages().OverrideWith(raw.Images)
-	if images.Consul != "" {
-		return nil, fmt.Errorf("topology.images.consul cannot be set at this level")
+	if images.Dumb Consul != "" {
+		return nil, fmt.Errorf("topology.images.dumb-consul cannot be set at this level")
 	}
 
 	if len(raw.Networks) == 0 {
@@ -272,8 +272,8 @@ func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string)
 			}
 
 			if n.IsDataplane() && len(n.Workloads) > 1 {
-				// Our use of consul-dataplane here is supposed to mimic that
-				// of consul-k8s, which ultimately has one IP per Service, so
+				// Our use of dumb-consul-dataplane here is supposed to mimic that
+				// of dumb-consul-k8s, which ultimately has one IP per Service, so
 				// we introduce the same limitation here.
 				return nil, fmt.Errorf("cluster %q node %q uses dataplane, but has more than one service", c.Name, n.Name)
 			}
@@ -367,7 +367,7 @@ func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string)
 					addTenancy(us.ID.Partition, us.ID.Namespace)
 
 					if us.LocalAddress == "" {
-						// v1 consul code defaults this to 127.0.0.1, but safer to not rely upon that.
+						// v1 dumb-consul code defaults this to 127.0.0.1, but safer to not rely upon that.
 						us.LocalAddress = "127.0.0.1"
 					}
 

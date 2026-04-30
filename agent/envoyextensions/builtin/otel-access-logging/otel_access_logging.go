@@ -13,9 +13,9 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/api"
-	ext_cmn "github.com/hashicorp/consul/envoyextensions/extensioncommon"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	ext_cmn "github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-go-multierror"
 	v1 "go.opentelemetry.io/proto/otlp/common/v1"
 )
 

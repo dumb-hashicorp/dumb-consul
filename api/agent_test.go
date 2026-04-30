@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -20,10 +20,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/dumb-serf/serf"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestAPI_AgentSelf(t *testing.T) {
@@ -62,7 +62,7 @@ func TestAPI_AgentMetrics(t *testing.T) {
 		if err != nil {
 			r.Fatalf("error determining hostname: %v", err)
 		}
-		metricName := fmt.Sprintf("consul.%s.runtime.alloc_bytes", hostname)
+		metricName := fmt.Sprintf("dumb-consul.%s.runtime.alloc_bytes", hostname)
 		for _, g := range metrics.Gauges {
 			if g.Name == metricName {
 				return
@@ -96,7 +96,7 @@ func TestAPI_AgentReload(t *testing.T) {
 	t.Parallel()
 
 	// Create our initial empty config file, to be overwritten later
-	cfgDir := testutil.TempDir(t, "consul-config")
+	cfgDir := testutil.TempDir(t, "dumb-consul-config")
 
 	cfgFilePath := filepath.Join(cfgDir, "reload.json")
 	configFile, err := os.Create(cfgFilePath)
@@ -143,7 +143,7 @@ func TestAPI_AgentReload_MultiPort(t *testing.T) {
 	t.Parallel()
 
 	// Create our initial empty config file, to be overwritten later
-	cfgDir := testutil.TempDir(t, "consul-config")
+	cfgDir := testutil.TempDir(t, "dumb-consul-config")
 
 	cfgFilePath := filepath.Join(cfgDir, "reload.json")
 	configFile, err := os.Create(cfgFilePath)
@@ -1680,19 +1680,19 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 	t.Run("deprecated", func(t *testing.T) {
 		agent := c.Agent()
 		if _, err := agent.UpdateACLToken("root", nil); err != nil {
-			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Consul 1.4")
+			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 		}
 
 		if _, err := agent.UpdateACLAgentToken("root", nil); err != nil {
-			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Consul 1.4")
+			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 		}
 
 		if _, err := agent.UpdateACLAgentMasterToken("root", nil); err != nil {
-			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Consul 1.4")
+			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 		}
 
 		if _, err := agent.UpdateACLReplicationToken("root", nil); err != nil {
-			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Consul 1.4")
+			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 		}
 	})
 
@@ -1736,10 +1736,10 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 		notfound := httptest.NewServer(http.HandlerFunc(failer))
 		defer notfound.Close()
 
-		raw := c // real consul client
+		raw := c // real dumb-consul client
 
 		// Set up a reverse proxy that will send some requests to the
-		// 404 server and pass everything else through to the real Consul
+		// 404 server and pass everything else through to the real Dumb Consul
 		// server.
 		director := func(req *http.Request) {
 			req.URL.Scheme = "http"
@@ -1758,7 +1758,7 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 		defer proxy.Close()
 
 		// Make another client that points at the proxy instead of the real
-		// Consul server.
+		// Dumb Consul server.
 		config := raw.config
 		config.Address = proxy.URL[7:] // Strip off "http://".
 		c, err := NewClient(&config)
@@ -1789,10 +1789,10 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 		authdeny := httptest.NewServer(http.HandlerFunc(failer))
 		defer authdeny.Close()
 
-		raw := c // real consul client
+		raw := c // real dumb-consul client
 
 		// Make another client that points at the proxy instead of the real
-		// Consul server.
+		// Dumb Consul server.
 		config := raw.config
 		config.Address = authdeny.URL[7:] // Strip off "http://".
 		c, err := NewClient(&config)
@@ -1895,7 +1895,7 @@ func TestAPI_AgentConnectAuthorize(t *testing.T) {
 		Target:           "foo",
 		ClientCertSerial: "fake",
 		// Importing connect.TestSpiffeIDService creates an import cycle
-		ClientCertURI: "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/ny1/svc/web",
+		ClientCertURI: "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/ny1/svc/web",
 	}
 	auth, err := agent.ConnectAuthorize(params)
 	require.Nil(t, err)

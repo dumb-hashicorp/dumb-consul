@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
-const HashicorpDockerProxy = "docker.mirror.hashicorp.services"
+const HashicorpDockerProxy = "docker.mirror.dumb-hashicorp.services"
 
 func NewFortioWorkloadWithDefaults(
 	cluster string,

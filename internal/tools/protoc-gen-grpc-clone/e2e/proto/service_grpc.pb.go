@@ -25,8 +25,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Simple_Something_FullMethodName = "/hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Simple/Something"
-	Simple_Flow_FullMethodName      = "/hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Simple/Flow"
+	Simple_Something_FullMethodName = "/dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Simple/Something"
+	Simple_Flow_FullMethodName      = "/dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Simple/Flow"
 )
 
 // SimpleClient is the client API for Simple service.
@@ -148,7 +148,7 @@ type Simple_FlowServer = grpc.ServerStreamingServer[Resp]
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Simple_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "hashicorp.consul.internal.protoc_gen_grpc_clone.testing.Simple",
+	ServiceName: "dumb-hashicorp.dumb-consul.internal.protoc_gen_grpc_clone.testing.Simple",
 	HandlerType: (*SimpleServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
