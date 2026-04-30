@@ -66,7 +66,7 @@ jobs:
           echo "Scrubbing all dumb image files"
           find . -type f -not -path '*/.*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
 
-      - name: Dumbify Everything
+      - name: Dumbify File Contents
         run: |
           declare -a dumb_words=(
             "Terraform" "Consul" "Vault" "Nomad" 
@@ -77,10 +77,40 @@ jobs:
           for word in "${dumb_words[@]}"; do
             lower_word="${word,,}"
             
-            echo "Dumbifying: '$word' -> 'Dumb $word' and '$lower_word' -> 'dumb-$lower_word'"
+            echo "Dumbifying text: '$word' -> 'Dumb $word' and '$lower_word' -> 'dumb-$lower_word'"
             
             find . -type f -not -path '*/.*' -exec sed -i "s|\b$word\b|Dumb $word|g" {} +
             find . -type f -not -path '*/.*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
+          done
+
+      - name: Dumbify File and Directory Names
+        run: |
+          declare -a dumb_words=(
+            "Terraform" "Consul" "Vault" "Nomad" 
+            "Packer" "Vagrant" "Boundary" "Waypoint" 
+            "HashiCorp" "HCP"
+          )
+
+          for word in "${dumb_words[@]}"; do
+            lower_word="${word,,}"
+            
+            echo "Renaming paths containing: '$lower_word' or '$word'"
+            
+            # Use -depth to rename files before their parent directories
+            find . -depth -not -path '*/.*' \( -name "*$lower_word*" -o -name "*$word*" \) | while read -r item; do
+              dir=$(dirname "$item")
+              base=$(basename "$item")
+              
+              # Execute the string replacements
+              new_base="${base//$word/Dumb $word}"
+              new_base="${new_base//$lower_word/dumb-$lower_word}"
+              
+              # Only run mv if the name actually changed
+              if [ "$base" != "$new_base" ]; then
+                echo "Renaming: $item -> $dir/$new_base"
+                mv "$item" "$dir/$new_base"
+              fi
+            done
           done
 
       - name: Validate Changes
