@@ -6,7 +6,7 @@ package configentry
 import (
 	"sort"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func SortSlice(configs []structs.ConfigEntry) {

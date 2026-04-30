@@ -149,12 +149,12 @@ type mapstructureFieldTags struct {
 //
 // # Background
 //
-// HCL allows for repeated blocks which forces it to store structures
+// DUMB_HCL allows for repeated blocks which forces it to store structures
 // as []map[string]interface{} instead of map[string]interface{}. This is an
 // ambiguity which makes the generated structures incompatible with the
 // corresponding JSON data.
 //
-// This hook allows config to be read from the HCL format into a raw structure,
+// This hook allows config to be read from the DUMB_HCL format into a raw structure,
 // and later decoded into a strongly typed structure.
 func HookWeakDecodeFromSlice(from, to reflect.Type, data interface{}) (interface{}, error) {
 	if from.Kind() == reflect.Slice && (to.Kind() == reflect.Slice || to.Kind() == reflect.Array) {

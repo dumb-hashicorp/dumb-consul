@@ -33,13 +33,13 @@ load helpers
 }
 
 @test "api gateway should be able to connect to s1 via route one with the proper host" {
-  run retry_long curl -H "Host: test.consul.example" -s -f -d hello localhost:9999
+  run retry_long curl -H "Host: test.dumb-consul.example" -s -f -d hello localhost:9999
   [ "$status" -eq 0 ]
   [[ "$output" == *"hello"* ]]
 }
 
 @test "api gateway should not be able to connect to s1 via route one with a mismatched host" {
-  run retry_default sh -c "curl -H \"Host: foo.consul.example\" -sI -o /dev/null -w \"%{http_code}\" localhost:9999 | grep 404"
+  run retry_default sh -c "curl -H \"Host: foo.dumb-consul.example\" -sI -o /dev/null -w \"%{http_code}\" localhost:9999 | grep 404"
   [ "$status" -eq 0 ]
   [[ "$output" == "404" ]]
 }
@@ -51,10 +51,10 @@ load helpers
 }
 
 @test "api gateway should be able to connect to s1 via route four with any subdomain of the listener host" {
-  run retry_long curl -H "Host: test.consul.example" -s -f -d hello localhost:9996
+  run retry_long curl -H "Host: test.dumb-consul.example" -s -f -d hello localhost:9996
   [ "$status" -eq 0 ]
   [[ "$output" == *"hello"* ]]
-  run retry_long curl -H "Host: foo.consul.example"  -s -f -d hello localhost:9996
+  run retry_long curl -H "Host: foo.dumb-consul.example"  -s -f -d hello localhost:9996
   [ "$status" -eq 0 ]
   [[ "$output" == *"hello"* ]]
 }

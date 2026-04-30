@@ -12,13 +12,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/command/cli"
+	"github.com/dumb-hashicorp/dumb-consul/command/cli"
 	mcli "github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 // TestConfigFail should test command line flags that lead to an immediate error.
@@ -29,7 +29,7 @@ func TestConfigFail(t *testing.T) {
 
 	t.Parallel()
 
-	dataDir := testutil.TempDir(t, "consul")
+	dataDir := testutil.TempDir(t, "dumb-consul")
 
 	tests := []struct {
 		args []string
@@ -75,7 +75,7 @@ func TestConfigFail(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(strings.Join(tt.args, " "), func(t *testing.T) {
-			cmd := exec.Command("consul", tt.args...)
+			cmd := exec.Command("dumb-consul", tt.args...)
 			b, err := cmd.CombinedOutput()
 			if got, want := err, "exit status 1"; got == nil || got.Error() != want {
 				t.Fatalf("got err %q want %q", got, want)
@@ -123,7 +123,7 @@ func TestRetryJoinFail(t *testing.T) {
 	}
 
 	t.Parallel()
-	tmpDir := testutil.TempDir(t, "consul")
+	tmpDir := testutil.TempDir(t, "dumb-consul")
 
 	ui := newCaptureUI()
 	cmd := New(ui)
@@ -147,7 +147,7 @@ func TestRetryJoinWanFail(t *testing.T) {
 	}
 
 	t.Parallel()
-	tmpDir := testutil.TempDir(t, "consul")
+	tmpDir := testutil.TempDir(t, "dumb-consul")
 
 	ui := newCaptureUI()
 	cmd := New(ui)
@@ -168,15 +168,15 @@ func TestRetryJoinWanFail(t *testing.T) {
 
 func TestProtectDataDir(t *testing.T) {
 	t.Parallel()
-	dir := testutil.TempDir(t, "consul")
+	dir := testutil.TempDir(t, "dumb-consul")
 
 	if err := os.MkdirAll(filepath.Join(dir, "mdb"), 0700); err != nil {
 		t.Fatalf("err: %v", err)
 	}
 
-	cfgDir := testutil.TempDir(t, "consul-config")
+	cfgDir := testutil.TempDir(t, "dumb-consul-config")
 
-	cfgFilePath := filepath.Join(cfgDir, "consul.json")
+	cfgFilePath := filepath.Join(cfgDir, "dumb-consul.json")
 	cfgFile, err := os.Create(cfgFilePath)
 	if err != nil {
 		t.Fatalf("Unable to create file %v, got error:%v", cfgFilePath, err)
@@ -201,7 +201,7 @@ func TestProtectDataDir(t *testing.T) {
 
 func TestBadDataDirPermissions(t *testing.T) {
 	t.Parallel()
-	dir := testutil.TempDir(t, "consul")
+	dir := testutil.TempDir(t, "dumb-consul")
 	dataDir := filepath.Join(dir, "mdb")
 	if err := os.MkdirAll(dataDir, 0400); err != nil {
 		t.Fatalf("err: %v", err)

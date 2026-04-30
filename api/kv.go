@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -32,7 +32,7 @@ type KVPair struct {
 	LockIndex uint64
 
 	// Flags are any user-defined flags on the key. It is up to the implementer
-	// to check these values, since Consul does not treat them specially.
+	// to check these values, since Dumb Consul does not treat them specially.
 	Flags uint64
 
 	// Value is the value for the key. This can be any value, but it will be
@@ -45,11 +45,11 @@ type KVPair struct {
 	Session string
 
 	// Namespace is the namespace the KVPair is associated with
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition the KVPair is associated with
-	// Admin Partition is a Consul Enterprise feature.
+	// Admin Partition is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 }
 
@@ -229,7 +229,7 @@ func (k *KV) put(key string, params map[string]string, body []byte, q *WriteOpti
 	qm.RequestTime = rtt
 
 	// Check for warning headers
-	if warning := resp.Header.Get("X-Consul-KV-Warning"); warning != "" {
+	if warning := resp.Header.Get("X-Dumb Consul-KV-Warning"); warning != "" {
 		qm.Warnings = append(qm.Warnings, warning)
 	}
 

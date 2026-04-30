@@ -8,7 +8,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/hashicorp/go-version"
+	"github.com/dumb-hashicorp/go-version"
 	"github.com/stretchr/testify/assert"
 )
 

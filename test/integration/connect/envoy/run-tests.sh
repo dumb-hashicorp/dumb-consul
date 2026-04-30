@@ -7,7 +7,7 @@ set -eEuo pipefail
 
 readonly self_name="$0"
 
-readonly HASHICORP_DOCKER_PROXY="docker.mirror.hashicorp.services"
+readonly HASHICORP_DOCKER_PROXY="docker.mirror.dumb-hashicorp.services"
 
 # DEBUG=1 enables set -x for this script so echos every command run
 DEBUG=${DEBUG:-}
@@ -80,13 +80,13 @@ function init_workdir {
   # don't wipe logs between runs as they are already split and we need them to
   # upload as artifacts later.
   rm -rf workdir/${CLUSTER}
-  mkdir -p workdir/${CLUSTER}/{consul,consul-server,register,envoy,bats,statsd,data}
+  mkdir -p workdir/${CLUSTER}/{dumb-consul,dumb-consul-server,register,envoy,bats,statsd,data}
 
-  # Reload consul config from defaults
-  cp consul-base-cfg/*.hcl workdir/${CLUSTER}/consul/
+  # Reload dumb-consul config from defaults
+  cp dumb-consul-base-cfg/*.dumb-hcl workdir/${CLUSTER}/dumb-consul/
 
   # Add any overrides if there are any (no op if not)
-  find ${CASE_DIR} -maxdepth 1 -name '*.hcl' -type f -exec cp -f {} workdir/${CLUSTER}/consul \;
+  find ${CASE_DIR} -maxdepth 1 -name '*.dumb-hcl' -type f -exec cp -f {} workdir/${CLUSTER}/dumb-consul \;
 
   # Copy all the test files
   find ${CASE_DIR} -maxdepth 1 -name '*.bats' -type f -exec cp -f {} workdir/${CLUSTER}/bats \;
@@ -96,18 +96,18 @@ function init_workdir {
   # Add any CLUSTER overrides
   if test -d "${CASE_DIR}/${CLUSTER}"
   then
-    find ${CASE_DIR}/${CLUSTER} -type f -name '*.hcl' -exec cp -f {} workdir/${CLUSTER}/consul \;
+    find ${CASE_DIR}/${CLUSTER} -type f -name '*.dumb-hcl' -exec cp -f {} workdir/${CLUSTER}/dumb-consul \;
     find ${CASE_DIR}/${CLUSTER} -type f -name '*.bats' -exec cp -f {} workdir/${CLUSTER}/bats \;
   fi
 
-  # move all of the registration files OUT of the consul config dir now
-  find workdir/${CLUSTER}/consul -type f -name 'service_*.hcl' -exec mv -f {} workdir/${CLUSTER}/register \;
+  # move all of the registration files OUT of the dumb-consul config dir now
+  find workdir/${CLUSTER}/dumb-consul -type f -name 'service_*.dumb-hcl' -exec mv -f {} workdir/${CLUSTER}/register \;
 
-  # move the server.hcl out of the consul dir so that it doesn't get picked up
+  # move the server.dumb-hcl out of the dumb-consul dir so that it doesn't get picked up
   # by the client agent (if we're running with XDS_TARGET=client).
-  if test -f "workdir/${CLUSTER}/consul/server.hcl"
+  if test -f "workdir/${CLUSTER}/dumb-consul/server.dumb-hcl"
   then
-    mv workdir/${CLUSTER}/consul/server.hcl workdir/${CLUSTER}/consul-server/server.hcl
+    mv workdir/${CLUSTER}/dumb-consul/server.dumb-hcl workdir/${CLUSTER}/dumb-consul-server/server.dumb-hcl
   fi
 
   # copy the ca-certs for SDS so we can verify the right ones are served
@@ -149,9 +149,9 @@ function docker_kill_rm {
 function start_consul {
   local DC=${1:-primary}
 
-  # 8500/8502 are for consul
-  # 9411 is for zipkin which shares the network with consul
-  # 16686 is for jaeger ui which also shares the network with consul
+  # 8500/8502 are for dumb-consul
+  # 9411 is for zipkin which shares the network with dumb-consul
+  # 16686 is for jaeger ui which also shares the network with dumb-consul
   ports=(
     '-p=8500:8500'
     '-p=8502:8502'
@@ -174,8 +174,8 @@ function start_consul {
   esac
 
   license="${CONSUL_LICENSE:-}"
-  # load the consul license so we can pass it into the consul
-  # containers as an env var in the case that this is a consul
+  # load the dumb-consul license so we can pass it into the dumb-consul
+  # containers as an env var in the case that this is a dumb-consul
   # enterprise test
   if test -z "$license" -a -n "${CONSUL_LICENSE_PATH:-}"
   then
@@ -183,7 +183,7 @@ function start_consul {
   fi
 
   # We currently run these integration tests in two modes: one in which Envoy's
-  # xDS sessions are served directly by a Consul server, and another in which it
+  # xDS sessions are served directly by a Dumb Consul server, and another in which it
   # goes through a client agent.
   #
   # This is necessary because servers and clients source configuration data in
@@ -194,77 +194,77 @@ function start_consul {
   # catalog directly (agentless) rather than relying on the server also being
   # an agent.
   #
-  # When XDS_TARGET=client we'll start a Consul server with its gRPC port
+  # When XDS_TARGET=client we'll start a Dumb Consul server with its gRPC port
   # disabled (but only if REQUIRE_PEERS is not set), and a client agent with
   # its gRPC port enabled.
   #
-  # When XDS_TARGET=server (or anything else) we'll run a single Consul server
+  # When XDS_TARGET=server (or anything else) we'll run a single Dumb Consul server
   # with its gRPC port enabled.
   #
-  # In either case, the hostname `consul-${DC}-server` should be used as a
-  # server address (e.g. for WAN joining) and `consul-${DC}-client` should be
+  # In either case, the hostname `dumb-consul-${DC}-server` should be used as a
+  # server address (e.g. for WAN joining) and `dumb-consul-${DC}-client` should be
   # used as a client address (e.g. for interacting with the HTTP API).
   #
   # Both hostnames work in both modes because we set network aliases on the
   # containers such that both hostnames will resolve to the same container when
   # XDS_TARGET=server.
   #
-  # We also join containers to the network `container:consul-${DC}_1` in many
+  # We also join containers to the network `container:dumb-consul-${DC}_1` in many
   # places (see: network_snippet) so that we can curl localhost etc. In both
   # modes, you can assume that this name refers to the client's container.
   #
-  # Any .hcl files in the case/cluster directory will be given to both clients
-  # and servers (via the -config-dir flag) *except for* server.hcl which will
+  # Any .dumb-hcl files in the case/cluster directory will be given to both clients
+  # and servers (via the -config-dir flag) *except for* server.dumb-hcl which will
   # only be applied to the server (and service registrations which will be made
   # against the client).
   if [[ "$XDS_TARGET" == "client" ]]
   then
-    docker_kill_rm consul-${DC}-server
-    docker_kill_rm consul-${DC}
+    docker_kill_rm dumb-consul-${DC}-server
+    docker_kill_rm dumb-consul-${DC}
 
     docker run --sysctl net.ipv6.conf.all.disable_ipv6=1 -d --name envoy_consul-${DC}-server_1 \
       --net=envoy-tests \
       $WORKDIR_SNIPPET \
-      --hostname "consul-${DC}-server" \
-      --network-alias "consul-${DC}-server" \
+      --hostname "dumb-consul-${DC}-server" \
+      --network-alias "dumb-consul-${DC}-server" \
       -e "CONSUL_LICENSE=$license" \
-      consul:local \
+      dumb-consul:local \
       agent -dev -datacenter "${DC}" \
-      -config-dir "/workdir/${DC}/consul" \
-      -config-dir "/workdir/${DC}/consul-server" \
+      -config-dir "/workdir/${DC}/dumb-consul" \
+      -config-dir "/workdir/${DC}/dumb-consul-server" \
       -client "0.0.0.0" \
       -bind "0.0.0.0" >/dev/null
 
     docker run --sysctl net.ipv6.conf.all.disable_ipv6=1 -d --name envoy_consul-${DC}_1 \
       --net=envoy-tests \
       $WORKDIR_SNIPPET \
-      --hostname "consul-${DC}-client" \
-      --network-alias "consul-${DC}-client" \
+      --hostname "dumb-consul-${DC}-client" \
+      --network-alias "dumb-consul-${DC}-client" \
       -e "CONSUL_LICENSE=$license" \
       ${ports[@]} \
-      consul:local \
+      dumb-consul:local \
       agent -datacenter "${DC}" \
-      -config-dir "/workdir/${DC}/consul" \
-      -data-dir "/tmp/consul" \
+      -config-dir "/workdir/${DC}/dumb-consul" \
+      -data-dir "/tmp/dumb-consul" \
       -client "0.0.0.0" \
       -grpc-port 8502 \
       -datacenter "${DC}" \
-      -retry-join "consul-${DC}-server" >/dev/null
+      -retry-join "dumb-consul-${DC}-server" >/dev/null
   else
-    docker_kill_rm consul-${DC}
+    docker_kill_rm dumb-consul-${DC}
 
     docker run --sysctl net.ipv6.conf.all.disable_ipv6=1 -d --name envoy_consul-${DC}_1 \
       --net=envoy-tests \
       $WORKDIR_SNIPPET \
-      --hostname "consul-${DC}" \
-      --network-alias "consul-${DC}-client" \
-      --network-alias "consul-${DC}-server" \
+      --hostname "dumb-consul-${DC}" \
+      --network-alias "dumb-consul-${DC}-client" \
+      --network-alias "dumb-consul-${DC}-server" \
       -e "CONSUL_LICENSE=$license" \
       ${ports[@]} \
-      consul:local \
+      dumb-consul:local \
       agent -dev -datacenter "${DC}" \
-      -config-dir "/workdir/${DC}/consul" \
-      -config-dir "/workdir/${DC}/consul-server" \
+      -config-dir "/workdir/${DC}/dumb-consul" \
+      -config-dir "/workdir/${DC}/dumb-consul-server" \
       -client "0.0.0.0" >/dev/null
   fi
 }
@@ -272,12 +272,12 @@ function start_consul {
 function start_partitioned_client {
   local PARTITION=${1:-ap1}
 
-  # Start consul now as setup script needs it up
-  docker_kill_rm consul-${PARTITION}
+  # Start dumb-consul now as setup script needs it up
+  docker_kill_rm dumb-consul-${PARTITION}
 
   license="${CONSUL_LICENSE:-}"
-  # load the consul license so we can pass it into the consul
-  # containers as an env var in the case that this is a consul
+  # load the dumb-consul license so we can pass it into the dumb-consul
+  # containers as an env var in the case that this is a dumb-consul
   # enterprise test
   if test -z "$license" -a -n "${CONSUL_LICENSE_PATH:-}"
   then
@@ -286,21 +286,21 @@ function start_partitioned_client {
 
   sh -c "rm -rf /workdir/${PARTITION}/data"
 
-  # Run consul and expose some ports to the host to make debugging locally a
+  # Run dumb-consul and expose some ports to the host to make debugging locally a
   # bit easier.
   #
   docker run --sysctl net.ipv6.conf.all.disable_ipv6=1 -d --name envoy_consul-${PARTITION}_1 \
     --net=envoy-tests \
     $WORKDIR_SNIPPET \
-    --hostname "consul-${PARTITION}-client" \
-    --network-alias "consul-${PARTITION}-client" \
+    --hostname "dumb-consul-${PARTITION}-client" \
+    --network-alias "dumb-consul-${PARTITION}-client" \
     -e "CONSUL_LICENSE=$license" \
-    consul:local agent \
+    dumb-consul:local agent \
     -datacenter "primary" \
-    -retry-join "consul-primary-server" \
+    -retry-join "dumb-consul-primary-server" \
     -grpc-port 8502 \
-    -data-dir "/tmp/consul" \
-    -config-dir "/workdir/${PARTITION}/consul" \
+    -data-dir "/tmp/dumb-consul" \
+    -config-dir "/workdir/${PARTITION}/dumb-consul" \
     -client "0.0.0.0" >/dev/null
 }
 
@@ -371,33 +371,33 @@ function capture_logs {
   echo "Capturing Logs"
   mkdir -p "$LOG_DIR"
 
-  services="$REQUIRED_SERVICES consul-primary"
+  services="$REQUIRED_SERVICES dumb-consul-primary"
   if [[ "$XDS_TARGET" == "client" ]]
   then
-    services="$services consul-primary-server"
+    services="$services dumb-consul-primary-server"
   fi
 
   if is_set $REQUIRE_SECONDARY
   then
-    services="$services consul-secondary"
+    services="$services dumb-consul-secondary"
 
     if [[ "$XDS_TARGET" == "client" ]]
     then
-      services="$services consul-secondary-server"
+      services="$services dumb-consul-secondary-server"
     fi
   fi
 
   if is_set $REQUIRE_PARTITIONS
   then
-    services="$services consul-ap1"
+    services="$services dumb-consul-ap1"
   fi
   if is_set $REQUIRE_PEERS
   then
-    services="$services consul-alpha"
+    services="$services dumb-consul-alpha"
 
     if [[ "$XDS_TARGET" == "client" ]]
     then
-      services="$services consul-alpha-server"
+      services="$services dumb-consul-alpha-server"
     fi
   fi
 
@@ -419,7 +419,7 @@ function stop_services {
   # Teardown
   docker_kill_rm $REQUIRED_SERVICES
 
-  docker_kill_rm consul-primary consul-primary-server consul-secondary consul-secondary-server consul-ap1 consul-alpha consul-alpha-server
+  docker_kill_rm dumb-consul-primary dumb-consul-primary-server dumb-consul-secondary dumb-consul-secondary-server dumb-consul-ap1 dumb-consul-alpha dumb-consul-alpha-server
 }
 
 function init_vars {
@@ -487,7 +487,7 @@ function run_tests {
     start_consul secondary
   fi
   if is_set $REQUIRE_PARTITIONS; then
-    docker_consul "primary" consul partition create -name ap1 > /dev/null
+    docker_consul "primary" dumb-consul partition create -name ap1 > /dev/null
     start_partitioned_client ap1
   fi
   if is_set $REQUIRE_PEERS; then
@@ -562,11 +562,11 @@ function suite_setup {
     echo "Checking bats image..."
     docker run --sysctl net.ipv6.conf.all.disable_ipv6=1 --rm -t bats-verify -v
 
-    # pre-build the consul+envoy container
-    echo "Rebuilding 'consul-dev-envoy:${ENVOY_VERSION}' image..."
-    retry_default docker build -t consul-dev-envoy:${ENVOY_VERSION} \
+    # pre-build the dumb-consul+envoy container
+    echo "Rebuilding 'dumb-consul-dev-envoy:${ENVOY_VERSION}' image..."
+    retry_default docker build -t dumb-consul-dev-envoy:${ENVOY_VERSION} \
         --build-arg ENVOY_VERSION=${ENVOY_VERSION} \
-        -f Dockerfile-consul-envoy .
+        -f Dockerfile-dumb-consul-envoy .
 
     # pre-build the test-sds-server container
     echo "Rebuilding 'test-sds-server' image..."
@@ -580,7 +580,7 @@ function suite_teardown {
     docker_kill_rm $(grep "^function run_container_" $self_name | \
         sed 's/^function run_container_\(.*\) {/\1/g')
 
-    docker_kill_rm consul-primary consul-primary-server consul-secondary consul-secondary-server consul-ap1 consul-alpha consul-alpha-server
+    docker_kill_rm dumb-consul-primary dumb-consul-primary-server dumb-consul-secondary dumb-consul-secondary-server dumb-consul-ap1 dumb-consul-alpha dumb-consul-alpha-server
 
     if docker network inspect envoy-tests &>/dev/null ; then
         echo -n "Deleting network 'envoy-tests'..."
@@ -756,11 +756,11 @@ function run_container_s1-ap1-sidecar-proxy {
   common_run_container_sidecar_proxy s1 ap1
 }
 
-function run_container_s1-sidecar-proxy-consul-exec {
+function run_container_s1-sidecar-proxy-dumb-consul-exec {
   docker run --sysctl net.ipv6.conf.all.disable_ipv6=1 -d --name $(container_name) \
     $(network_snippet primary) \
-    consul-dev-envoy:${ENVOY_VERSION} \
-    consul connect envoy -sidecar-for s1 \
+    dumb-consul-dev-envoy:${ENVOY_VERSION} \
+    dumb-consul connect envoy -sidecar-for s1 \
     -grpc-addr http://localhost:8502 \
     -envoy-version ${ENVOY_VERSION} \
     -- \

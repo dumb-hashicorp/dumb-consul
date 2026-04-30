@@ -17,10 +17,10 @@ import (
 	"github.com/armon/go-metrics/prometheus"
 	prometheuscore "github.com/prometheus/client_golang/prometheus"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
 )
 
 // TelemetryConfig is embedded in config.RuntimeConfig and holds the
@@ -50,22 +50,22 @@ type TelemetryConfig struct {
 	//      metric management enabled (use check with specified id)
 
 	// CirconusAPIApp is an app name associated with API token.
-	// Default: "consul"
+	// Default: "dumb-consul"
 	//
-	// hcl: telemetry { circonus_api_app = string }
+	// dumb-hcl: telemetry { circonus_api_app = string }
 	CirconusAPIApp string `json:"circonus_api_app,omitempty" mapstructure:"circonus_api_app"`
 
 	// CirconusAPIToken is a valid API Token used to create/manage check. If provided,
 	// metric management is enabled.
 	// Default: none
 	//
-	// hcl: telemetry { circonus_api_token = string }
+	// dumb-hcl: telemetry { circonus_api_token = string }
 	CirconusAPIToken string `json:"circonus_api_token,omitempty" mapstructure:"circonus_api_token"`
 
 	// CirconusAPIURL is the base URL to use for contacting the Circonus API.
 	// Default: "https://api.circonus.com/v2"
 	//
-	// hcl: telemetry { circonus_api_url = string }
+	// dumb-hcl: telemetry { circonus_api_url = string }
 	CirconusAPIURL string `json:"circonus_apiurl,omitempty" mapstructure:"circonus_apiurl"`
 
 	// CirconusBrokerID is an explicit broker to use when creating a new check. The numeric portion
@@ -76,7 +76,7 @@ type TelemetryConfig struct {
 	// with the specified API token or the default Circonus Broker.
 	// Default: none
 	//
-	// hcl: telemetry { circonus_broker_id = string }
+	// dumb-hcl: telemetry { circonus_broker_id = string }
 	CirconusBrokerID string `json:"circonus_broker_id,omitempty" mapstructure:"circonus_broker_id"`
 
 	// CirconusBrokerSelectTag is a special tag which will be used to select a broker when
@@ -85,13 +85,13 @@ type TelemetryConfig struct {
 	// (e.g. a specific geo location or datacenter, dc:sfo)
 	// Default: none
 	//
-	// hcl: telemetry { circonus_broker_select_tag = string }
+	// dumb-hcl: telemetry { circonus_broker_select_tag = string }
 	CirconusBrokerSelectTag string `json:"circonus_broker_select_tag,omitempty" mapstructure:"circonus_broker_select_tag"`
 
 	// CirconusCheckDisplayName is the name for the check which will be displayed in the Circonus UI.
 	// Default: value of CirconusCheckInstanceID
 	//
-	// hcl: telemetry { circonus_check_display_name = string }
+	// dumb-hcl: telemetry { circonus_check_display_name = string }
 	CirconusCheckDisplayName string `json:"circonus_check_display_name,omitempty" mapstructure:"circonus_check_display_name"`
 
 	// CirconusCheckForceMetricActivation will force enabling metrics, as they are encountered,
@@ -100,14 +100,14 @@ type TelemetryConfig struct {
 	// check, it will *NOT* be activated. This setting overrides that behavior.
 	// Default: "false"
 	//
-	// hcl: telemetry { circonus_check_metrics_activation = (true|false)
+	// dumb-hcl: telemetry { circonus_check_metrics_activation = (true|false)
 	CirconusCheckForceMetricActivation string `json:"circonus_check_force_metric_activation,omitempty" mapstructure:"circonus_check_force_metric_activation"`
 
 	// CirconusCheckID is the check id (not check bundle id) from a previously created
 	// HTTPTRAP check. The numeric portion of the check._cid field.
 	// Default: none
 	//
-	// hcl: telemetry { circonus_check_id = string }
+	// dumb-hcl: telemetry { circonus_check_id = string }
 	CirconusCheckID string `json:"circonus_check_id,omitempty" mapstructure:"circonus_check_id"`
 
 	// CirconusCheckInstanceID serves to uniquely identify the metrics coming from this "instance".
@@ -115,116 +115,116 @@ type TelemetryConfig struct {
 	// they move around within an infrastructure.
 	// Default: hostname:app
 	//
-	// hcl: telemetry { circonus_check_instance_id = string }
+	// dumb-hcl: telemetry { circonus_check_instance_id = string }
 	CirconusCheckInstanceID string `json:"circonus_check_instance_id,omitempty" mapstructure:"circonus_check_instance_id"`
 
 	// CirconusCheckSearchTag is a special tag which, when coupled with the instance id, helps to
 	// narrow down the search results when neither a Submission URL or Check ID is provided.
-	// Default: service:app (e.g. service:consul)
+	// Default: service:app (e.g. service:dumb-consul)
 	//
-	// hcl: telemetry { circonus_check_search_tag = string }
+	// dumb-hcl: telemetry { circonus_check_search_tag = string }
 	CirconusCheckSearchTag string `json:"circonus_check_search_tag,omitempty" mapstructure:"circonus_check_search_tag"`
 
 	// CirconusCheckSearchTag is a special tag which, when coupled with the instance id, helps to
 	// narrow down the search results when neither a Submission URL or Check ID is provided.
-	// Default: service:app (e.g. service:consul)
+	// Default: service:app (e.g. service:dumb-consul)
 	//
-	// hcl: telemetry { circonus_check_tags = string }
+	// dumb-hcl: telemetry { circonus_check_tags = string }
 	CirconusCheckTags string `json:"circonus_check_tags,omitempty" mapstructure:"circonus_check_tags"`
 
 	// CirconusSubmissionInterval is the interval at which metrics are submitted to Circonus.
 	// Default: 10s
 	//
-	// hcl: telemetry { circonus_submission_interval = "duration" }
+	// dumb-hcl: telemetry { circonus_submission_interval = "duration" }
 	CirconusSubmissionInterval string `json:"circonus_submission_interval,omitempty" mapstructure:"circonus_submission_interval"`
 
 	// CirconusCheckSubmissionURL is the check.config.submission_url field from a
 	// previously created HTTPTRAP check.
 	// Default: none
 	//
-	// hcl: telemetry { circonus_submission_url = string }
+	// dumb-hcl: telemetry { circonus_submission_url = string }
 	CirconusSubmissionURL string `json:"circonus_submission_url,omitempty" mapstructure:"circonus_submission_url"`
 
 	// DisableHostname will disable hostname prefixing for all metrics.
 	//
-	// hcl: telemetry { disable_hostname = (true|false) }
+	// dumb-hcl: telemetry { disable_hostname = (true|false) }
 	DisableHostname bool `json:"disable_hostname,omitempty" mapstructure:"disable_hostname"`
 
 	// DisablePerTenancyUsageMetrics will disable setting tenancy labels on usage metrics.
 	//
-	// hcl: telemetry { disable_per_tenancy_usage_metrics = (true|false) }
+	// dumb-hcl: telemetry { disable_per_tenancy_usage_metrics = (true|false) }
 	DisablePerTenancyUsageMetrics bool `json:"disable_per_tenancy_usage_metrics,omitempty" mapstructure:"disable_per_tenancy_usage_metrics"`
 
 	// DogStatsdAddr is the address of a dogstatsd instance. If provided,
 	// metrics will be sent to that instance
 	//
-	// hcl: telemetry { dogstatsd_addr = string }
+	// dumb-hcl: telemetry { dogstatsd_addr = string }
 	DogstatsdAddr string `json:"dogstatsd_addr,omitempty" mapstructure:"dogstatsd_addr"`
 
 	// DogStatsdTags are the global tags that should be sent with each packet to dogstatsd
 	// It is a list of strings, where each string looks like "my_tag_name:my_tag_value"
 	//
-	// hcl: telemetry { dogstatsd_tags = []string }
+	// dumb-hcl: telemetry { dogstatsd_tags = []string }
 	DogstatsdTags []string `json:"dogstatsd_tags,omitempty" mapstructure:"dogstatsd_tags"`
 
 	// RetryFailedConfiguration retries transient errors when setting up sinks (e.g. network errors when connecting to telemetry backends).
 	//
-	// hcl: telemetry { retry_failed_connection = (true|false) }
+	// dumb-hcl: telemetry { retry_failed_connection = (true|false) }
 	RetryFailedConfiguration bool `json:"retry_failed_connection,omitempty" mapstructure:"retry_failed_connection"`
 
 	// FilterDefault is the default for whether to allow a metric that's not
 	// covered by the filter.
 	//
-	// hcl: telemetry { filter_default = (true|false) }
+	// dumb-hcl: telemetry { filter_default = (true|false) }
 	FilterDefault bool `json:"filter_default,omitempty" mapstructure:"filter_default"`
 
 	// AllowedPrefixes is a list of filter rules to apply for allowing metrics
 	// by prefix. Use the 'prefix_filter' option and prefix rules with '+' to be
 	// included.
 	//
-	// hcl: telemetry { prefix_filter = []string{"+<expr>", "+<expr>", ...} }
+	// dumb-hcl: telemetry { prefix_filter = []string{"+<expr>", "+<expr>", ...} }
 	AllowedPrefixes []string `json:"allowed_prefixes,omitempty" mapstructure:"allowed_prefixes"`
 
 	// BlockedPrefixes is a list of filter rules to apply for blocking metrics
 	// by prefix. Use the 'prefix_filter' option and prefix rules with '-' to be
 	// excluded.
 	//
-	// hcl: telemetry { prefix_filter = []string{"-<expr>", "-<expr>", ...} }
+	// dumb-hcl: telemetry { prefix_filter = []string{"-<expr>", "-<expr>", ...} }
 	BlockedPrefixes []string `json:"blocked_prefixes,omitempty" mapstructure:"blocked_prefixes"`
 
 	// MetricsPrefix is the prefix used to write stats values to.
-	// Default: "consul."
+	// Default: "dumb-consul."
 	//
-	// hcl: telemetry { metrics_prefix = string }
+	// dumb-hcl: telemetry { metrics_prefix = string }
 	MetricsPrefix string `json:"metrics_prefix,omitempty" mapstructure:"metrics_prefix"`
 
 	// StatsdAddr is the address of a statsd instance. If provided,
 	// metrics will be sent to that instance.
 	//
-	// hcl: telemetry { statsd_address = string }
+	// dumb-hcl: telemetry { statsd_address = string }
 	StatsdAddr string `json:"statsd_address,omitempty" mapstructure:"statsd_address"`
 
 	// StatsiteAddr is the address of a statsite instance. If provided,
 	// metrics will be streamed to that instance.
 	//
-	// hcl: telemetry { statsite_address = string }
+	// dumb-hcl: telemetry { statsite_address = string }
 	StatsiteAddr string `json:"statsite_address,omitempty" mapstructure:"statsite_address"`
 
 	// EnableHostMetrics will enable metrics collected about the host system such as cpu memory and disk usage.
 	//
-	// hcl: telemetry { enable_host_metrics = (true|false) }
+	// dumb-hcl: telemetry { enable_host_metrics = (true|false) }
 	EnableHostMetrics bool `json:"enable_host_metrics,omitempty" mapstructure:"enable_host_metrics"`
 
 	// PrometheusOpts provides configuration for the PrometheusSink. Currently the only configuration
-	// we acquire from hcl is the retention time. We also use definition slices that are set in agent setup
+	// we acquire from dumb-hcl is the retention time. We also use definition slices that are set in agent setup
 	// before being passed to InitTelemmetry.
 	//
-	// hcl: telemetry { prometheus_retention_time = "duration" }
+	// dumb-hcl: telemetry { prometheus_retention_time = "duration" }
 	PrometheusOpts prometheus.PrometheusOpts
 
 	// Certificate telemetry configuration for certificate expiry monitoring
 	//
-	// hcl: telemetry { certificate { ... } }
+	// dumb-hcl: telemetry { certificate { ... } }
 	CertificateEnabled               bool          `json:"certificate_enabled" mapstructure:"certificate_enabled"`
 	CertificateCacheDuration         time.Duration `json:"certificate_cache_duration" mapstructure:"certificate_cache_duration"`
 	CertificateCriticalThresholdDays int           `json:"certificate_critical_threshold_days" mapstructure:"certificate_critical_threshold_days"`
@@ -326,15 +326,15 @@ func circonusSink(cfg TelemetryConfig, _ string) (metrics.MetricSink, error) {
 	conf.CheckManager.Broker.SelectTag = cfg.CirconusBrokerSelectTag
 
 	if conf.CheckManager.Check.DisplayName == "" {
-		conf.CheckManager.Check.DisplayName = "Consul"
+		conf.CheckManager.Check.DisplayName = "Dumb Consul"
 	}
 
 	if conf.CheckManager.API.TokenApp == "" {
-		conf.CheckManager.API.TokenApp = "consul"
+		conf.CheckManager.API.TokenApp = "dumb-consul"
 	}
 
 	if conf.CheckManager.Check.SearchTag == "" {
-		conf.CheckManager.Check.SearchTag = "service:consul"
+		conf.CheckManager.Check.SearchTag = "service:dumb-consul"
 	}
 
 	sink, err := circonus.NewCirconusSink(conf)

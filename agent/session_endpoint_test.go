@@ -13,12 +13,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -83,10 +83,10 @@ func TestSessionCreate(t *testing.T) {
 		Node:       a.Config.NodeName,
 		Address:    "127.0.0.1",
 		Check: &structs.HealthCheck{
-			CheckID:   "consul",
+			CheckID:   "dumb-consul",
 			Node:      a.Config.NodeName,
-			Name:      "consul",
-			ServiceID: "consul",
+			Name:      "dumb-consul",
+			ServiceID: "dumb-consul",
 			Status:    api.HealthPassing,
 		},
 	}
@@ -103,7 +103,7 @@ func TestSessionCreate(t *testing.T) {
 		raw := map[string]interface{}{
 			"Name":      "my-cool-session",
 			"Node":      a.Config.NodeName,
-			"Checks":    []types.CheckID{"consul"},
+			"Checks":    []types.CheckID{"dumb-consul"},
 			"LockDelay": "20s",
 		}
 		require.NoError(r, enc.Encode(raw))
@@ -119,7 +119,7 @@ func TestSessionCreate(t *testing.T) {
 			ID:         obj.(sessionCreateResponse).ID,
 			Name:       "my-cool-session",
 			Node:       a.Config.NodeName,
-			Checks:     []types.CheckID{"consul"},
+			Checks:     []types.CheckID{"dumb-consul"},
 			NodeChecks: []string{string(structs.SerfCheckID)},
 			LockDelay:  20 * time.Second,
 			Behavior:   structs.SessionKeysRelease,
@@ -145,10 +145,10 @@ func TestSessionCreate_NodeChecks(t *testing.T) {
 		Node:       a.Config.NodeName,
 		Address:    "127.0.0.1",
 		Check: &structs.HealthCheck{
-			CheckID:   "consul",
+			CheckID:   "dumb-consul",
 			Node:      a.Config.NodeName,
-			Name:      "consul",
-			ServiceID: "consul",
+			Name:      "dumb-consul",
+			ServiceID: "dumb-consul",
 			Status:    api.HealthPassing,
 		},
 	}
@@ -166,7 +166,7 @@ func TestSessionCreate_NodeChecks(t *testing.T) {
 			"Name": "my-cool-session",
 			"Node": a.Config.NodeName,
 			"ServiceChecks": []structs.ServiceCheck{
-				{ID: "consul", Namespace: ""},
+				{ID: "dumb-consul", Namespace: ""},
 			},
 			"NodeChecks": []types.CheckID{structs.SerfCheckID},
 			"LockDelay":  "20s",
@@ -185,7 +185,7 @@ func TestSessionCreate_NodeChecks(t *testing.T) {
 			Name:          "my-cool-session",
 			Node:          a.Config.NodeName,
 			NodeChecks:    []string{string(structs.SerfCheckID)},
-			ServiceChecks: []structs.ServiceCheck{{ID: "consul", Namespace: ""}},
+			ServiceChecks: []structs.ServiceCheck{{ID: "dumb-consul", Namespace: ""}},
 			LockDelay:     20 * time.Second,
 			Behavior:      structs.SessionKeysRelease,
 		}
@@ -209,10 +209,10 @@ func TestSessionCreate_Delete(t *testing.T) {
 		Node:       a.Config.NodeName,
 		Address:    "127.0.0.1",
 		Check: &structs.HealthCheck{
-			CheckID:   "consul",
+			CheckID:   "dumb-consul",
 			Node:      a.Config.NodeName,
-			Name:      "consul",
-			ServiceID: "consul",
+			Name:      "dumb-consul",
+			ServiceID: "dumb-consul",
 			Status:    api.HealthPassing,
 		},
 	}
@@ -228,7 +228,7 @@ func TestSessionCreate_Delete(t *testing.T) {
 		raw := map[string]interface{}{
 			"Name":       "my-cool-session",
 			"Node":       a.Config.NodeName,
-			"Checks":     []types.CheckID{"consul"},
+			"Checks":     []types.CheckID{"dumb-consul"},
 			"NodeChecks": []string{string(structs.SerfCheckID)},
 			"LockDelay":  "20s",
 			"Behavior":   structs.SessionKeysDelete,
@@ -246,7 +246,7 @@ func TestSessionCreate_Delete(t *testing.T) {
 			ID:         obj.(sessionCreateResponse).ID,
 			Name:       "my-cool-session",
 			Node:       a.Config.NodeName,
-			Checks:     []types.CheckID{"consul"},
+			Checks:     []types.CheckID{"dumb-consul"},
 			NodeChecks: []string{string(structs.SerfCheckID)},
 			LockDelay:  20 * time.Second,
 			Behavior:   structs.SessionKeysDelete,

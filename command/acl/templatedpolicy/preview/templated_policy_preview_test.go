@@ -9,9 +9,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -94,11 +94,11 @@ func TestTemplatedPolicyPreviewCommand(t *testing.T) {
 		args := []string{
 			"-http-addr=" + a.HTTPAddr(),
 			"-token=root",
-			"-file=" + testDir + "/templated-policy.hcl",
+			"-file=" + testDir + "/templated-policy.dumb-hcl",
 		}
 
 		templatedPolicy := []byte("TemplatedPolicy \"builtin/service\" { Name = \"web\"}")
-		err := os.WriteFile(testDir+"/templated-policy.hcl", templatedPolicy, 0644)
+		err := os.WriteFile(testDir+"/templated-policy.dumb-hcl", templatedPolicy, 0644)
 		require.NoError(t, err)
 
 		cmd := New(ui)
@@ -114,14 +114,14 @@ func TestTemplatedPolicyPreviewCommand(t *testing.T) {
 		args := []string{
 			"-http-addr=" + a.HTTPAddr(),
 			"-token=root",
-			"-file=" + testDir + "/templated-policy.hcl",
+			"-file=" + testDir + "/templated-policy.dumb-hcl",
 		}
 
 		templatedPolicy := []byte(`
 			TemplatedPolicy "builtin/service" { Name = "web"}
 			TemplatedPolicy "builtin/node" { Name = "api"}
 		`)
-		err := os.WriteFile(testDir+"/templated-policy.hcl", templatedPolicy, 0644)
+		err := os.WriteFile(testDir+"/templated-policy.dumb-hcl", templatedPolicy, 0644)
 		require.NoError(t, err)
 
 		cmd := New(ui)

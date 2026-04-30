@@ -5,7 +5,7 @@ package ports
 
 import (
 	"fmt"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/stretchr/testify/require"
 	"strconv"
 	"strings"
@@ -13,7 +13,7 @@ import (
 )
 
 func TestTroubleShootCustom_Ports(t *testing.T) {
-	// Create a test Consul server
+	// Create a test Dumb Consul server
 	srv1, err := testutil.NewTestServerConfigT(t, nil)
 	if err != nil {
 		t.Fatal(err)

@@ -15,12 +15,12 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/hashicorp/consul/acl/resolver"
-	svc "github.com/hashicorp/consul/agent/grpc-external/services/resource"
-	svctest "github.com/hashicorp/consul/agent/grpc-external/services/resource/testing"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/demo"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	svc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource"
+	svctest "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource/testing"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/demo"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 func TestWriteStatus_ACL(t *testing.T) {
@@ -279,7 +279,7 @@ func TestWriteStatus_Success(t *testing.T) {
 			res = rsp.Resource
 
 			req = validWriteStatusRequest(t, res)
-			req.Key = "consul.io/other-controller"
+			req.Key = "dumb-consul.io/other-controller"
 			fn(req)
 
 			rsp, err = client.WriteStatus(testContext(t), req)
@@ -287,9 +287,9 @@ func TestWriteStatus_Success(t *testing.T) {
 
 			require.Equal(t, rsp.Resource.Generation, res.Generation, "generation should not have changed")
 			require.NotEqual(t, rsp.Resource.Version, res.Version, "version should have changed")
-			require.Contains(t, rsp.Resource.Status, "consul.io/other-controller")
-			require.Contains(t, rsp.Resource.Status, "consul.io/artist-controller")
-			require.NotNil(t, rsp.Resource.Status["consul.io/artist-controller"].UpdatedAt)
+			require.Contains(t, rsp.Resource.Status, "dumb-consul.io/other-controller")
+			require.Contains(t, rsp.Resource.Status, "dumb-consul.io/artist-controller")
+			require.NotNil(t, rsp.Resource.Status["dumb-consul.io/artist-controller"].UpdatedAt)
 		})
 	}
 }
@@ -495,7 +495,7 @@ func validWriteStatusRequest(t *testing.T, res *pbresource.Resource) *pbresource
 		return &pbresource.WriteStatusRequest{
 			Id:      res.Id,
 			Version: res.Version,
-			Key:     "consul.io/artist-controller",
+			Key:     "dumb-consul.io/artist-controller",
 			Status: &pbresource.Status{
 				ObservedGeneration: res.Generation,
 				Conditions: []*pbresource.Condition{
@@ -515,7 +515,7 @@ func validWriteStatusRequest(t *testing.T, res *pbresource.Resource) *pbresource
 		return &pbresource.WriteStatusRequest{
 			Id:      res.Id,
 			Version: res.Version,
-			Key:     "consul.io/recordlabel-controller",
+			Key:     "dumb-consul.io/recordlabel-controller",
 			Status: &pbresource.Status{
 				ObservedGeneration: res.Generation,
 				Conditions: []*pbresource.Condition{

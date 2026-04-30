@@ -27,7 +27,7 @@ func main() {
 	}
 	defer lis.Close()
 
-	fmt.Println("Proxying connections to Consul's internal gRPC server")
+	fmt.Println("Proxying connections to Dumb Consul's internal gRPC server")
 	fmt.Printf("Use this address: %s\n", lis.Addr())
 
 	for {

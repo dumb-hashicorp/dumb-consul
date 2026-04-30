@@ -11,9 +11,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -37,7 +37,7 @@ func (c *cmd) init() {
 	c.flags = flag.NewFlagSet("", flag.ContinueOnError)
 
 	c.flags.StringVar(&c.serviceName, "name", "", "(Required) Specify the name of the service you want to export.")
-	c.flags.StringVar(&c.peerNames, "consumer-peers", "", "(Required) A comma-separated list of cluster peers to export the service to. In Consul Enterprise, this flag is optional if -consumer-partitions is specified.")
+	c.flags.StringVar(&c.peerNames, "consumer-peers", "", "(Required) A comma-separated list of cluster peers to export the service to. In Dumb Consul Enterprise, this flag is optional if -consumer-partitions is specified.")
 	c.flags.StringVar(&c.partitionNames, "consumer-partitions", "", "(Enterprise only) A comma-separated list of admin partitions within the same datacenter to export the service to. This flag is optional if -consumer-peers is specified.")
 
 	c.http = &flags.HTTPFlags{}
@@ -70,7 +70,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -248,15 +248,15 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Export a service from one peer or admin partition to another"
 	help     = `
-Usage: consul services export [options] -name <service name> -consumer-peers <other cluster name>
+Usage: dumb-consul services export [options] -name <service name> -consumer-peers <other cluster name>
 
   Export a service to a peered cluster.
 
-      $ consul services export -name=web -consumer-peers=other-cluster
+      $ dumb-consul services export -name=web -consumer-peers=other-cluster
 
   Use the -consumer-partitions flag instead of -consumer-peers to export to a different partition in the same cluster.
 
-      $ consul services export -name=web -consumer-partitions=other-partition
+      $ dumb-consul services export -name=web -consumer-partitions=other-partition
 
   Additional flags and more advanced use cases are detailed below.
 `

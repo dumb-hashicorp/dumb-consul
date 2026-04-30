@@ -15,9 +15,9 @@ import (
 	"github.com/miekg/dns"
 	"golang.org/x/exp/slices"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 const (
@@ -48,7 +48,7 @@ type IngressGatewayConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -133,7 +133,7 @@ type IngressService struct {
 	PassiveHealthCheck *PassiveHealthCheck `json:",omitempty" alias:"passive_health_check"`
 
 	Meta               map[string]string `json:",omitempty"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 }
 
 type GatewayTLSConfig struct {
@@ -499,7 +499,7 @@ type TerminatingGatewayConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -513,7 +513,7 @@ func (e *TerminatingGatewayConfigEntry) GetHash() uint64 {
 
 // A LinkedService is a service represented by a terminating gateway
 type LinkedService struct {
-	// Name is the name of the service, as defined in Consul's catalog
+	// Name is the name of the service, as defined in Dumb Consul's catalog
 	Name string `json:",omitempty"`
 
 	// CAFile is the optional path to a CA certificate to use for TLS connections
@@ -534,7 +534,7 @@ type LinkedService struct {
 	//DisableAutoHostRewrite disables terminating gateways auto host rewrite feature when set to true.
 	DisableAutoHostRewrite bool `json:",omitempty"`
 
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 }
 
 func (e *TerminatingGatewayConfigEntry) GetKind() string {
@@ -771,7 +771,7 @@ type APIGatewayConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -1100,7 +1100,7 @@ type BoundAPIGatewayConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 

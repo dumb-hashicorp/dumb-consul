@@ -13,12 +13,12 @@ import (
 
 	"time"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/go-uuid"
 )
 
 func generateUUID() (ret string) {
@@ -179,8 +179,8 @@ func TestRemoteExecGetSpec_ACLDeny(t *testing.T) {
 	`, "root", false, dc)
 }
 
-func testRemoteExecGetSpec(t *testing.T, hcl string, token string, shouldSucceed bool, dc string) {
-	a := NewTestAgent(t, hcl)
+func testRemoteExecGetSpec(t *testing.T, dumb-hcl string, token string, shouldSucceed bool, dc string) {
+	a := NewTestAgent(t, dumb-hcl)
 	defer a.Shutdown()
 	if dc != "" {
 		testrpc.WaitForLeader(t, a.RPC, dc)
@@ -290,8 +290,8 @@ func TestRemoteExecWrites_ACLDeny(t *testing.T) {
 	`, "root", false, dc)
 }
 
-func testRemoteExecWrites(t *testing.T, hcl string, token string, shouldSucceed bool, dc string) {
-	a := NewTestAgent(t, hcl)
+func testRemoteExecWrites(t *testing.T, dumb-hcl string, token string, shouldSucceed bool, dc string) {
+	a := NewTestAgent(t, dumb-hcl)
 	defer a.Shutdown()
 	if dc != "" {
 		testrpc.WaitForLeader(t, a.RPC, dc)

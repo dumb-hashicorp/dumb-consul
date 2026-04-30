@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// Partition is the configuration of a single admin partition. Admin Partitions are a Consul Enterprise feature.
+// Partition is the configuration of a single admin partition. Admin Partitions are a Dumb Consul Enterprise feature.
 type Partition struct {
 	// Name is the name of the Partition.
 	Name string `json:"Name"`
@@ -35,7 +35,7 @@ type Partition struct {
 // PartitionDefaultName is the default partition value.
 const PartitionDefaultName = "default"
 
-// Partitions can be used to manage Partitions in Consul Enterprise.
+// Partitions can be used to manage Partitions in Dumb Consul Enterprise.
 type Partitions struct {
 	c *Client
 }

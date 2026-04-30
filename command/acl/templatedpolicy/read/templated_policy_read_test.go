@@ -8,10 +8,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -72,7 +72,7 @@ func TestTemplatedPolicyReadCommand(t *testing.T) {
 
 		output := ui.OutputWriter.String()
 		require.Contains(t, output, "Name: String - Required - The node name.")
-		require.Contains(t, output, "consul acl token create -templated-policy builtin/node -var name:node-1")
+		require.Contains(t, output, "dumb-consul acl token create -templated-policy builtin/node -var name:node-1")
 	})
 }
 

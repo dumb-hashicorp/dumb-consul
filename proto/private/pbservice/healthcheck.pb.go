@@ -10,7 +10,7 @@
 package pbservice
 
 import (
-	pbcommon "github.com/hashicorp/consul/proto/private/pbcommon"
+	pbcommon "github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -30,7 +30,7 @@ const (
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HealthCheck
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HealthCheck
 // output=healthcheck.gen.go
 // name=Structs
 type HealthCheck struct {
@@ -257,7 +257,7 @@ func (x *HeaderValue) GetValue() []string {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HealthCheckDefinition
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HealthCheckDefinition
 // output=healthcheck.gen.go
 // name=Structs
 type HealthCheckDefinition struct {
@@ -519,7 +519,7 @@ func (x *HealthCheckDefinition) GetSessionName() string {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.CheckType
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.CheckType
 // output=healthcheck.gen.go
 // name=Structs
 type CheckType struct {
@@ -859,7 +859,7 @@ var File_private_pbservice_healthcheck_proto protoreflect.FileDescriptor
 
 const file_private_pbservice_healthcheck_proto_rawDesc = "" +
 	"\n" +
-	"#private/pbservice/healthcheck.proto\x12!hashicorp.consul.internal.service\x1a\x1egoogle/protobuf/duration.proto\x1a\x1dprivate/pbcommon/common.proto\"\xfe\x04\n" +
+	"#private/pbservice/healthcheck.proto\x12!dumb-hashicorp.dumb-consul.internal.service\x1a\x1egoogle/protobuf/duration.proto\x1a\x1dprivate/pbcommon/common.proto\"\xfe\x04\n" +
 	"\vHealthCheck\x12\x12\n" +
 	"\x04Node\x18\x01 \x01(\tR\x04Node\x12\x18\n" +
 	"\aCheckID\x18\x02 \x01(\tR\aCheckID\x12\x12\n" +
@@ -873,10 +873,10 @@ const file_private_pbservice_healthcheck_proto_rawDesc = "" +
 	"\x04Type\x18\f \x01(\tR\x04Type\x12X\n" +
 	"\n" +
 	"Definition\x18\n" +
-	" \x01(\v28.hashicorp.consul.internal.service.HealthCheckDefinitionR\n" +
+	" \x01(\v28.dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinitionR\n" +
 	"Definition\x12I\n" +
-	"\tRaftIndex\x18\v \x01(\v2+.hashicorp.consul.internal.common.RaftIndexR\tRaftIndex\x12X\n" +
-	"\x0eEnterpriseMeta\x18\r \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12 \n" +
+	"\tRaftIndex\x18\v \x01(\v2+.dumb-hashicorp.dumb-consul.internal.common.RaftIndexR\tRaftIndex\x12X\n" +
+	"\x0eEnterpriseMeta\x18\r \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12 \n" +
 	"\vExposedPort\x18\x0e \x01(\x05R\vExposedPort\x12\x1a\n" +
 	"\bInterval\x18\x0f \x01(\tR\bInterval\x12\x18\n" +
 	"\aTimeout\x18\x10 \x01(\tR\aTimeout\x12\x1a\n" +
@@ -887,7 +887,7 @@ const file_private_pbservice_healthcheck_proto_rawDesc = "" +
 	"\x04HTTP\x18\x01 \x01(\tR\x04HTTP\x12$\n" +
 	"\rTLSServerName\x18\x13 \x01(\tR\rTLSServerName\x12$\n" +
 	"\rTLSSkipVerify\x18\x02 \x01(\bR\rTLSSkipVerify\x12\\\n" +
-	"\x06Header\x18\x03 \x03(\v2D.hashicorp.consul.internal.service.HealthCheckDefinition.HeaderEntryR\x06Header\x12\x16\n" +
+	"\x06Header\x18\x03 \x03(\v2D.dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition.HeaderEntryR\x06Header\x12\x16\n" +
 	"\x06Method\x18\x04 \x01(\tR\x06Method\x12\x12\n" +
 	"\x04Body\x18\x12 \x01(\tR\x04Body\x12*\n" +
 	"\x10DisableRedirects\x18\x16 \x01(\bR\x10DisableRedirects\x12\x10\n" +
@@ -917,7 +917,7 @@ const file_private_pbservice_healthcheck_proto_rawDesc = "" +
 	"\vSessionName\x18\x1a \x01(\tR\vSessionName\x1ai\n" +
 	"\vHeaderEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12D\n" +
-	"\x05value\x18\x02 \x01(\v2..hashicorp.consul.internal.service.HeaderValueR\x05value:\x028\x01\"\xf4\n" +
+	"\x05value\x18\x02 \x01(\v2..dumb-hashicorp.dumb-consul.internal.service.HeaderValueR\x05value:\x028\x01\"\xf4\n" +
 	"\n" +
 	"\tCheckType\x12\x18\n" +
 	"\aCheckID\x18\x01 \x01(\tR\aCheckID\x12\x12\n" +
@@ -928,7 +928,7 @@ const file_private_pbservice_healthcheck_proto_rawDesc = "" +
 	"ScriptArgs\x18\x05 \x03(\tR\n" +
 	"ScriptArgs\x12\x12\n" +
 	"\x04HTTP\x18\x06 \x01(\tR\x04HTTP\x12P\n" +
-	"\x06Header\x18\x14 \x03(\v28.hashicorp.consul.internal.service.CheckType.HeaderEntryR\x06Header\x12\x16\n" +
+	"\x06Header\x18\x14 \x03(\v28.dumb-hashicorp.dumb-consul.internal.service.CheckType.HeaderEntryR\x06Header\x12\x16\n" +
 	"\x06Method\x18\a \x01(\tR\x06Method\x12\x12\n" +
 	"\x04Body\x18\x1a \x01(\tR\x04Body\x12*\n" +
 	"\x10DisableRedirects\x18\x1f \x01(\bR\x10DisableRedirects\x12\x10\n" +
@@ -962,8 +962,8 @@ const file_private_pbservice_healthcheck_proto_rawDesc = "" +
 	"\vSessionName\x18# \x01(\tR\vSessionName\x1ai\n" +
 	"\vHeaderEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12D\n" +
-	"\x05value\x18\x02 \x01(\v2..hashicorp.consul.internal.service.HeaderValueR\x05value:\x028\x01B\x96\x02\n" +
-	"%com.hashicorp.consul.internal.serviceB\x10HealthcheckProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Consul.Internal.Service\xca\x02!Hashicorp\\Consul\\Internal\\Service\xe2\x02-Hashicorp\\Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Serviceb\x06proto3"
+	"\x05value\x18\x02 \x01(\v2..dumb-hashicorp.dumb-consul.internal.service.HeaderValueR\x05value:\x028\x01B\x96\x02\n" +
+	"%com.dumb-hashicorp.dumb-consul.internal.serviceB\x10HealthcheckProtoP\x01Z3github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Dumb Consul.Internal.Service\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Service\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Serviceb\x06proto3"
 
 var (
 	file_private_pbservice_healthcheck_proto_rawDescOnce sync.Once
@@ -979,32 +979,32 @@ func file_private_pbservice_healthcheck_proto_rawDescGZIP() []byte {
 
 var file_private_pbservice_healthcheck_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_private_pbservice_healthcheck_proto_goTypes = []any{
-	(*HealthCheck)(nil),             // 0: hashicorp.consul.internal.service.HealthCheck
-	(*HeaderValue)(nil),             // 1: hashicorp.consul.internal.service.HeaderValue
-	(*HealthCheckDefinition)(nil),   // 2: hashicorp.consul.internal.service.HealthCheckDefinition
-	(*CheckType)(nil),               // 3: hashicorp.consul.internal.service.CheckType
-	nil,                             // 4: hashicorp.consul.internal.service.HealthCheckDefinition.HeaderEntry
-	nil,                             // 5: hashicorp.consul.internal.service.CheckType.HeaderEntry
-	(*pbcommon.RaftIndex)(nil),      // 6: hashicorp.consul.internal.common.RaftIndex
-	(*pbcommon.EnterpriseMeta)(nil), // 7: hashicorp.consul.internal.common.EnterpriseMeta
+	(*HealthCheck)(nil),             // 0: dumb-hashicorp.dumb-consul.internal.service.HealthCheck
+	(*HeaderValue)(nil),             // 1: dumb-hashicorp.dumb-consul.internal.service.HeaderValue
+	(*HealthCheckDefinition)(nil),   // 2: dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition
+	(*CheckType)(nil),               // 3: dumb-hashicorp.dumb-consul.internal.service.CheckType
+	nil,                             // 4: dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition.HeaderEntry
+	nil,                             // 5: dumb-hashicorp.dumb-consul.internal.service.CheckType.HeaderEntry
+	(*pbcommon.RaftIndex)(nil),      // 6: dumb-hashicorp.dumb-consul.internal.common.RaftIndex
+	(*pbcommon.EnterpriseMeta)(nil), // 7: dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
 	(*durationpb.Duration)(nil),     // 8: google.protobuf.Duration
 }
 var file_private_pbservice_healthcheck_proto_depIdxs = []int32{
-	2,  // 0: hashicorp.consul.internal.service.HealthCheck.Definition:type_name -> hashicorp.consul.internal.service.HealthCheckDefinition
-	6,  // 1: hashicorp.consul.internal.service.HealthCheck.RaftIndex:type_name -> hashicorp.consul.internal.common.RaftIndex
-	7,  // 2: hashicorp.consul.internal.service.HealthCheck.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	4,  // 3: hashicorp.consul.internal.service.HealthCheckDefinition.Header:type_name -> hashicorp.consul.internal.service.HealthCheckDefinition.HeaderEntry
-	8,  // 4: hashicorp.consul.internal.service.HealthCheckDefinition.Interval:type_name -> google.protobuf.Duration
-	8,  // 5: hashicorp.consul.internal.service.HealthCheckDefinition.Timeout:type_name -> google.protobuf.Duration
-	8,  // 6: hashicorp.consul.internal.service.HealthCheckDefinition.DeregisterCriticalServiceAfter:type_name -> google.protobuf.Duration
-	8,  // 7: hashicorp.consul.internal.service.HealthCheckDefinition.TTL:type_name -> google.protobuf.Duration
-	5,  // 8: hashicorp.consul.internal.service.CheckType.Header:type_name -> hashicorp.consul.internal.service.CheckType.HeaderEntry
-	8,  // 9: hashicorp.consul.internal.service.CheckType.Interval:type_name -> google.protobuf.Duration
-	8,  // 10: hashicorp.consul.internal.service.CheckType.Timeout:type_name -> google.protobuf.Duration
-	8,  // 11: hashicorp.consul.internal.service.CheckType.TTL:type_name -> google.protobuf.Duration
-	8,  // 12: hashicorp.consul.internal.service.CheckType.DeregisterCriticalServiceAfter:type_name -> google.protobuf.Duration
-	1,  // 13: hashicorp.consul.internal.service.HealthCheckDefinition.HeaderEntry.value:type_name -> hashicorp.consul.internal.service.HeaderValue
-	1,  // 14: hashicorp.consul.internal.service.CheckType.HeaderEntry.value:type_name -> hashicorp.consul.internal.service.HeaderValue
+	2,  // 0: dumb-hashicorp.dumb-consul.internal.service.HealthCheck.Definition:type_name -> dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition
+	6,  // 1: dumb-hashicorp.dumb-consul.internal.service.HealthCheck.RaftIndex:type_name -> dumb-hashicorp.dumb-consul.internal.common.RaftIndex
+	7,  // 2: dumb-hashicorp.dumb-consul.internal.service.HealthCheck.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	4,  // 3: dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition.Header:type_name -> dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition.HeaderEntry
+	8,  // 4: dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition.Interval:type_name -> google.protobuf.Duration
+	8,  // 5: dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition.Timeout:type_name -> google.protobuf.Duration
+	8,  // 6: dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition.DeregisterCriticalServiceAfter:type_name -> google.protobuf.Duration
+	8,  // 7: dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition.TTL:type_name -> google.protobuf.Duration
+	5,  // 8: dumb-hashicorp.dumb-consul.internal.service.CheckType.Header:type_name -> dumb-hashicorp.dumb-consul.internal.service.CheckType.HeaderEntry
+	8,  // 9: dumb-hashicorp.dumb-consul.internal.service.CheckType.Interval:type_name -> google.protobuf.Duration
+	8,  // 10: dumb-hashicorp.dumb-consul.internal.service.CheckType.Timeout:type_name -> google.protobuf.Duration
+	8,  // 11: dumb-hashicorp.dumb-consul.internal.service.CheckType.TTL:type_name -> google.protobuf.Duration
+	8,  // 12: dumb-hashicorp.dumb-consul.internal.service.CheckType.DeregisterCriticalServiceAfter:type_name -> google.protobuf.Duration
+	1,  // 13: dumb-hashicorp.dumb-consul.internal.service.HealthCheckDefinition.HeaderEntry.value:type_name -> dumb-hashicorp.dumb-consul.internal.service.HeaderValue
+	1,  // 14: dumb-hashicorp.dumb-consul.internal.service.CheckType.HeaderEntry.value:type_name -> dumb-hashicorp.dumb-consul.internal.service.HeaderValue
 	15, // [15:15] is the sub-list for method output_type
 	15, // [15:15] is the sub-list for method input_type
 	15, // [15:15] is the sub-list for extension type_name

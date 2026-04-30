@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -136,7 +136,7 @@ const (
 // ExposeConfig describes HTTP paths to expose through Envoy outside of Connect.
 // Users can expose individual paths and/or all HTTP/GRPC paths for checks.
 type ExposeConfig struct {
-	// Checks defines whether paths associated with Consul checks will be exposed.
+	// Checks defines whether paths associated with Dumb Consul checks will be exposed.
 	// This flag triggers exposing all HTTP and GRPC check paths registered for the service.
 	Checks bool `json:",omitempty"`
 
@@ -265,7 +265,7 @@ type UpstreamConfig struct {
 	BalanceOutboundConnections string `json:",omitempty" alias:"balance_outbound_connections"`
 }
 
-// DestinationConfig represents a virtual service, i.e. one that is external to Consul
+// DestinationConfig represents a virtual service, i.e. one that is external to Dumb Consul
 type DestinationConfig struct {
 	// Addresses of the endpoint; hostname or IP
 	Addresses []string `json:",omitempty"`
@@ -319,7 +319,7 @@ type UpstreamLimits struct {
 
 // RateLimits is rate limiting configuration that is applied to
 // inbound traffic for a service.
-// Rate limiting is a Consul enterprise feature.
+// Rate limiting is a Dumb Consul enterprise feature.
 type RateLimits struct {
 	InstanceLevel InstanceLevelRateLimits `alias:"instance_level"`
 }
@@ -476,7 +476,7 @@ func MakeConfigEntry(kind, name string) (ConfigEntry, error) {
 //
 // Important caveats:
 //
-// - This will NOT work if the map[string]interface{} was produced using HCL
+// - This will NOT work if the map[string]interface{} was produced using DUMB_HCL
 // decoding as that requires more extensive parsing to work around the issues
 // with map[string][]interface{} that arise.
 //

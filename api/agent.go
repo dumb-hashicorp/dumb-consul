@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -17,14 +17,14 @@ import (
 type ServiceKind string
 
 const (
-	// ServiceKindTypical is a typical, classic Consul service. This is
+	// ServiceKindTypical is a typical, classic Dumb Consul service. This is
 	// represented by the absence of a value. This was chosen for ease of
 	// backwards compatibility: existing services in the catalog would
 	// default to the typical service.
 	ServiceKindTypical ServiceKind = ""
 
 	// ServiceKindConnectProxy is a proxy for the Connect feature. This
-	// service proxies another service within Consul and speaks the connect
+	// service proxies another service within Dumb Consul and speaks the connect
 	// protocol.
 	ServiceKindConnectProxy ServiceKind = "connect-proxy"
 
@@ -221,11 +221,11 @@ const (
 	MemberTagKeyRole = "role"
 
 	// MemberTagValueRoleServer is the value of the MemberTagKeyRole used to indicate
-	// that the member represents a Consul server.
-	MemberTagValueRoleServer = "consul"
+	// that the member represents a Dumb Consul server.
+	MemberTagValueRoleServer = "dumb-consul"
 
 	// MemberTagValueRoleClient is the value of the MemberTagKeyRole used to indicate
-	// that the member represents a Consul client.
+	// that the member represents a Dumb Consul client.
 	MemberTagValueRoleClient = "node"
 
 	// MemberTagKeyDatacenter is the key used to indicate which datacenter this member is in.
@@ -233,12 +233,12 @@ const (
 
 	// MemberTagKeySegment is the key name of the tag used to indicate which network
 	// segment this member is in.
-	// Network Segments are a Consul Enterprise feature.
+	// Network Segments are a Dumb Consul Enterprise feature.
 	MemberTagKeySegment = "segment"
 
 	// MemberTagKeyPartition is the key name of the tag used to indicate which partition
 	// this member is in.
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	MemberTagKeyPartition = "ap"
 
 	// MemberTagKeyBootstrap is the key name of the tag used to indicate whether this
@@ -263,11 +263,11 @@ const (
 
 	// MemberTagKeyReadReplica is the key used to indicate that the member is a read
 	// replica server (will remain a Raft non-voter).
-	// Read Replicas are a Consul Enterprise feature.
+	// Read Replicas are a Dumb Consul Enterprise feature.
 	MemberTagKeyReadReplica = "read_replica"
 	// MemberTagValueReadReplica is the value of the MemberTagKeyReadReplica key when
 	// the member is in fact a read-replica. Any other value indicates that it is not.
-	// Read Replicas are a Consul Enterprise feature.
+	// Read Replicas are a Dumb Consul Enterprise feature.
 	MemberTagValueReadReplica = "1"
 )
 
@@ -282,7 +282,7 @@ const (
 	// ACLModeLegacy has been deprecated, and will be treated as ACLModeUnknown.
 	ACLModeLegacy MemberACLMode = "2" // DEPRECATED
 	// ACLModeUnkown is used to indicate that the AgentMember.Tags didn't advertise
-	// an ACL mode at all. This is the case for Consul versions before v1.4.0 and
+	// an ACL mode at all. This is the case for Dumb Consul versions before v1.4.0 and
 	// should be treated the same as ACLModeLegacy.
 	ACLModeUnknown MemberACLMode = "3"
 )
@@ -293,7 +293,7 @@ type AgentMember struct {
 	Addr string
 	Port uint16
 	Tags map[string]string
-	// Status of the Member which corresponds to  github.com/hashicorp/serf/serf.MemberStatus
+	// Status of the Member which corresponds to  github.com/dumb-hashicorp/serf/serf.MemberStatus
 	// Value is one of:
 	//
 	// 	  AgentMemberNone    = 0
@@ -327,7 +327,7 @@ func (m *AgentMember) ACLMode() MemberACLMode {
 	}
 }
 
-// IsConsulServer returns true when this member is a Consul server.
+// IsConsulServer returns true when this member is a Dumb Consul server.
 func (m *AgentMember) IsConsulServer() bool {
 	return m.Tags[MemberTagKeyRole] == MemberTagValueRoleServer
 }
@@ -439,7 +439,7 @@ type AgentServiceCheck struct {
 	FailuresBeforeWarning  int                 `json:",omitempty"`
 	FailuresBeforeCritical int                 `json:",omitempty"`
 
-	// In Consul 0.7 and later, checks that are associated with a service
+	// In Dumb Consul 0.7 and later, checks that are associated with a service
 	// may also contain this optional DeregisterCriticalServiceAfter field,
 	// which is a timeout in the same Go time format as Interval and TTL. If
 	// a check is in the critical state for more than this configured value,
@@ -585,7 +585,7 @@ func (a *Agent) Host() (map[string]interface{}, error) {
 	return out, nil
 }
 
-// Version is used to retrieve information about the running Consul version and build.
+// Version is used to retrieve information about the running Dumb Consul version and build.
 func (a *Agent) Version() (map[string]interface{}, error) {
 	r := a.c.newRequest("GET", "/v1/agent/version")
 	_, resp, err := a.c.doRequest(r)
@@ -915,7 +915,7 @@ func (a *Agent) serviceRegister(service *AgentServiceRegistration, opts ServiceR
 		r.params.Set("replace-existing-checks", "true")
 	}
 	if opts.Token != "" {
-		r.header.Set("X-Consul-Token", opts.Token)
+		r.header.Set("X-Dumb Consul-Token", opts.Token)
 	}
 	_, resp, err := a.c.doRequest(r)
 	if err != nil {
@@ -987,8 +987,8 @@ func (a *Agent) FailTTL(checkID, note string) error {
 }
 
 // updateTTL is used to update the TTL of a check. This is the internal
-// method that uses the old API that's present in Consul versions prior to
-// 0.6.4. Since Consul didn't have an analogous "update" API before it seemed
+// method that uses the old API that's present in Dumb Consul versions prior to
+// 0.6.4. Since Dumb Consul didn't have an analogous "update" API before it seemed
 // ok to break this (former) UpdateTTL in favor of the new UpdateTTL below,
 // but keep the old Pass/Warn/Fail methods using the old API under the hood.
 //
@@ -1032,8 +1032,8 @@ type checkUpdate struct {
 }
 
 // UpdateTTL is used to update the TTL of a check. This uses the newer API
-// that was introduced in Consul 0.6.4 and later. We translate the old status
-// strings for compatibility (though a newer version of Consul will still be
+// that was introduced in Dumb Consul 0.6.4 and later. We translate the old status
+// strings for compatibility (though a newer version of Dumb Consul will still be
 // required to use this API).
 func (a *Agent) UpdateTTL(checkID, output, status string) error {
 	return a.UpdateTTLOpts(checkID, output, status, nil)
@@ -1399,35 +1399,35 @@ func (a *Agent) monitor(loglevel string, logJSON bool, stopCh <-chan struct{}, q
 }
 
 // UpdateACLToken updates the agent's "acl_token". See updateToken for more
-// details. Deprecated in Consul 1.4.
+// details. Deprecated in Dumb Consul 1.4.
 //
 // DEPRECATED (ACL-Legacy-Compat) - Prefer UpdateDefaultACLToken for v1.4.3 and above
 func (a *Agent) UpdateACLToken(token string, q *WriteOptions) (*WriteMeta, error) {
-	return nil, fmt.Errorf("Legacy ACL Tokens were deprecated in Consul 1.4")
+	return nil, fmt.Errorf("Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 }
 
 // UpdateACLAgentToken updates the agent's "acl_agent_token". See updateToken
-// for more details. Deprecated in Consul 1.4.
+// for more details. Deprecated in Dumb Consul 1.4.
 //
 // DEPRECATED (ACL-Legacy-Compat) - Prefer UpdateAgentACLToken for v1.4.3 and above
 func (a *Agent) UpdateACLAgentToken(token string, q *WriteOptions) (*WriteMeta, error) {
-	return nil, fmt.Errorf("Legacy ACL Tokens were deprecated in Consul 1.4")
+	return nil, fmt.Errorf("Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 }
 
 // UpdateACLAgentMasterToken updates the agent's "acl_agent_master_token". See
-// updateToken for more details. Deprecated in Consul 1.4.
+// updateToken for more details. Deprecated in Dumb Consul 1.4.
 //
 // DEPRECATED (ACL-Legacy-Compat) - Prefer UpdateAgentMasterACLToken for v1.4.3 and above
 func (a *Agent) UpdateACLAgentMasterToken(token string, q *WriteOptions) (*WriteMeta, error) {
-	return nil, fmt.Errorf("Legacy ACL Tokens were deprecated in Consul 1.4")
+	return nil, fmt.Errorf("Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 }
 
 // UpdateACLReplicationToken updates the agent's "acl_replication_token". See
-// updateToken for more details. Deprecated in Consul 1.4.
+// updateToken for more details. Deprecated in Dumb Consul 1.4.
 //
 // DEPRECATED (ACL-Legacy-Compat) - Prefer UpdateReplicationACLToken for v1.4.3 and above
 func (a *Agent) UpdateACLReplicationToken(token string, q *WriteOptions) (*WriteMeta, error) {
-	return nil, fmt.Errorf("Legacy ACL Tokens were deprecated in Consul 1.4")
+	return nil, fmt.Errorf("Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 }
 
 // UpdateDefaultACLToken updates the agent's "default" token. See updateToken

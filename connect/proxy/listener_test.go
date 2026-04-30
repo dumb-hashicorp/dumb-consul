@@ -8,15 +8,15 @@ import (
 	"net"
 	"testing"
 
-	"github.com/hashicorp/consul/connect"
+	"github.com/dumb-hashicorp/dumb-consul/connect"
 
 	"github.com/stretchr/testify/require"
 
-	agConnect "github.com/hashicorp/consul/agent/connect"
-	agMetrics "github.com/hashicorp/consul/agent/metrics"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil"
+	agConnect "github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	agMetrics "github.com/dumb-hashicorp/dumb-consul/agent/metrics"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestPublicListener(t *testing.T) {
@@ -36,7 +36,7 @@ func TestPublicListener(t *testing.T) {
 	}
 
 	// Setup metrics to test they are recorded
-	sink := agMetrics.TestSetupMetrics(t, "consul.proxy.test")
+	sink := agMetrics.TestSetupMetrics(t, "dumb-consul.proxy.test")
 
 	svc := connect.TestService(t, "db", ca)
 	l := NewPublicListener(svc, cfg, testutil.Logger(t))
@@ -61,14 +61,14 @@ func TestPublicListener(t *testing.T) {
 	TestEchoConn(t, conn, "")
 
 	// Check active conn is tracked in gauges
-	agMetrics.AssertGauge(t, sink, "consul.proxy.test.inbound.conns;dst=db", 1)
+	agMetrics.AssertGauge(t, sink, "dumb-consul.proxy.test.inbound.conns;dst=db", 1)
 
 	// Close listener to ensure all conns are closed and have reported their metrics
 	l.Close()
 
 	// Check all the tx/rx counters got added
-	agMetrics.AssertCounter(t, sink, "consul.proxy.test.inbound.tx_bytes;dst=db", 11)
-	agMetrics.AssertCounter(t, sink, "consul.proxy.test.inbound.rx_bytes;dst=db", 11)
+	agMetrics.AssertCounter(t, sink, "dumb-consul.proxy.test.inbound.tx_bytes;dst=db", 11)
+	agMetrics.AssertCounter(t, sink, "dumb-consul.proxy.test.inbound.rx_bytes;dst=db", 11)
 }
 
 func TestUpstreamListener(t *testing.T) {
@@ -94,7 +94,7 @@ func TestUpstreamListener(t *testing.T) {
 	}
 
 	// Setup metrics to test they are recorded
-	sink := agMetrics.TestSetupMetrics(t, "consul.proxy.test")
+	sink := agMetrics.TestSetupMetrics(t, "dumb-consul.proxy.test")
 
 	svc := connect.TestService(t, "web", ca)
 
@@ -125,12 +125,12 @@ func TestUpstreamListener(t *testing.T) {
 	TestEchoConn(t, conn, "")
 
 	// Check active conn is tracked in gauges
-	agMetrics.AssertGauge(t, sink, "consul.proxy.test.upstream.conns;src=web;dst_type=service;dst=db", 1)
+	agMetrics.AssertGauge(t, sink, "dumb-consul.proxy.test.upstream.conns;src=web;dst_type=service;dst=db", 1)
 
 	// Close listener to ensure all conns are closed and have reported their metrics
 	l.Close()
 
 	// Check all the tx/rx counters got added
-	agMetrics.AssertCounter(t, sink, "consul.proxy.test.upstream.tx_bytes;src=web;dst_type=service;dst=db", 11)
-	agMetrics.AssertCounter(t, sink, "consul.proxy.test.upstream.rx_bytes;src=web;dst_type=service;dst=db", 11)
+	agMetrics.AssertCounter(t, sink, "dumb-consul.proxy.test.upstream.tx_bytes;src=web;dst_type=service;dst=db", 11)
+	agMetrics.AssertCounter(t, sink, "dumb-consul.proxy.test.upstream.rx_bytes;src=web;dst_type=service;dst=db", 11)
 }

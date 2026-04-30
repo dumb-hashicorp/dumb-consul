@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/test-integ/topoutil"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
-	"github.com/hashicorp/consul/testing/deployer/sprawl"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/sprawltest"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/test-integ/topoutil"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/sprawltest"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 type commonTopo struct {
@@ -45,8 +45,8 @@ func NewCommonTopo(t *testing.T) *commonTopo {
 }
 
 // create below topology
-// consul server
-//   - consul server on node dc1-server1
+// dumb-consul server
+//   - dumb-consul server on node dc1-server1
 //
 // dataplane
 //   - workload(fortio) static-server on node dc1-client1
@@ -62,7 +62,7 @@ func newCommonTopo(t *testing.T) *commonTopo {
 
 	cfg := &topology.Config{
 		Images: topology.Images{
-			// ConsulEnterprise: "hashicorp/consul-enterprise:local",
+			// ConsulEnterprise: "dumb-hashicorp/dumb-consul-enterprise:local",
 		},
 		Networks: []*topology.Network{
 			{Name: dc1},
@@ -71,7 +71,7 @@ func newCommonTopo(t *testing.T) *commonTopo {
 			{
 				Name: dc1,
 				Nodes: []*topology.Node{
-					// consul server on dc1-server1
+					// dumb-consul server on dc1-server1
 					{
 						Kind:   topology.NodeKindServer,
 						Images: utils.LatestImages(),
@@ -90,7 +90,7 @@ func newCommonTopo(t *testing.T) *commonTopo {
 						Workloads: []*topology.Workload{
 							{
 								ID:             staticServerSID,
-								Image:          "docker.mirror.hashicorp.services/fortio/fortio",
+								Image:          "docker.mirror.dumb-hashicorp.services/fortio/fortio",
 								Port:           8080,
 								EnvoyAdminPort: 19000,
 								CheckTCP:       "127.0.0.1:8080",
@@ -113,7 +113,7 @@ func newCommonTopo(t *testing.T) *commonTopo {
 						Workloads: []*topology.Workload{
 							{
 								ID:             staticClientSID,
-								Image:          "docker.mirror.hashicorp.services/fortio/fortio",
+								Image:          "docker.mirror.dumb-hashicorp.services/fortio/fortio",
 								Port:           8080,
 								EnvoyAdminPort: 19000,
 								CheckTCP:       "127.0.0.1:8080",

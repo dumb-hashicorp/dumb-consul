@@ -3,27 +3,27 @@
   "resources": [
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "clusterType": {
         "name": "envoy.clusters.aggregate",
         "typedConfig": {
           "@type": "type.googleapis.com/envoy.extensions.clusters.aggregate.v3.ClusterConfig",
           "clusters": [
-            "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-            "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+            "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+            "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
           ]
         }
       },
       "connectTimeout": "33s",
       "lbPolicy": "CLUSTER_PROVIDED",
-      "name": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {
         "successRateMinimumHosts": 1234
       }
     },
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "circuitBreakers": {},
       "commonLbConfig": {
         "healthyPanicThreshold": {}
@@ -35,7 +35,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {
         "successRateMinimumHosts": 1234
       },
@@ -59,7 +59,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/db"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/db"
                   },
                   "sanType": "URI"
                 }
@@ -69,14 +69,14 @@
               }
             }
           },
-          "sni": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"
     },
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "circuitBreakers": {},
       "commonLbConfig": {
         "healthyPanicThreshold": {}
@@ -88,7 +88,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {
         "successRateMinimumHosts": 1234
       },
@@ -112,7 +112,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/fail"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/fail"
                   },
                   "sanType": "URI"
                 }
@@ -122,7 +122,7 @@
               }
             }
           },
-          "sni": "fail.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "fail.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"
@@ -137,7 +137,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+      "name": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -159,13 +159,13 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/geo-cache-target"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/geo-cache-target"
                   },
                   "sanType": "URI"
                 },
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc2/svc/geo-cache-target"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc2/svc/geo-cache-target"
                   },
                   "sanType": "URI"
                 }
@@ -175,7 +175,7 @@
               }
             }
           },
-          "sni": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"

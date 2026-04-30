@@ -4,8 +4,8 @@
 package index
 
 import (
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	iradix "github.com/hashicorp/go-immutable-radix/v2"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	iradix "github.com/dumb-hashicorp/go-immutable-radix/v2"
 )
 
 type Index struct {

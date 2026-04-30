@@ -6,8 +6,8 @@
 package resource
 
 import (
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // AuthorizerContext builds an ACL AuthorizerContext for the given tenancy.

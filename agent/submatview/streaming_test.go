@@ -8,13 +8,13 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/hashicorp/consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
 
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/proto/private/pbservice"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // TestStreamingClient is a mock StreamingClient for testing that allows

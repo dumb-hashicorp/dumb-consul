@@ -15,7 +15,7 @@ import (
 	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
 	envoy_discovery_v3 "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
 	envoy_type_v3 "github.com/envoyproxy/go-control-plane/envoy/type/v3"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 
 	"github.com/mitchellh/go-testing-interface"
 	"google.golang.org/genproto/googleapis/rpc/status"
@@ -99,7 +99,7 @@ func NewTestEnvoy(t testing.T, proxyID, token string) *TestEnvoy {
 	// metadata in calls and stream contexts.
 	if token != "" {
 		ctx = metadata.NewIncomingContext(ctx,
-			metadata.Pairs("x-consul-token", token))
+			metadata.Pairs("x-dumb-consul-token", token))
 	}
 	return &TestEnvoy{
 		ctx:    ctx,

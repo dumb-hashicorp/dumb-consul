@@ -76,9 +76,9 @@
         "list_claim_mappings": {
           "foo": "bar"
         },
-        "bound_issuer": "consul",
+        "bound_issuer": "dumb-consul",
         "bound_audiences": [
-          "consul-cluster-1"
+          "dumb-consul-cluster-1"
         ],
         "claim_assertions": [
           "value.node == \"${node}\""
@@ -260,7 +260,7 @@
     "scada_address": "aoeusth232"
   },
   "connect": {
-    "ca_provider": "consul",
+    "ca_provider": "dumb-consul",
     "ca_config": {
       "root_cert_ttl": "96360h",
       "intermediate_cert_ttl": "8760h",

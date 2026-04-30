@@ -74,123 +74,123 @@
   "stats_config": {
     "stats_tags": [
       {
-        "regex": "^cluster\\.(?:passthrough~)?((?:([^.]+)~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.destination.custom_hash"
+        "regex": "^cluster\\.(?:passthrough~)?((?:([^.]+)~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.custom_hash"
       },
       {
-        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:([^.]+)\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.destination.service_subset"
+        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:([^.]+)\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.service_subset"
       },
       {
-        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?([^.]+)\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.destination.service"
+        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?([^.]+)\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.service"
       },
       {
-        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.destination.namespace"
+        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.namespace"
       },
       {
-        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:([^.]+)\\.)?[^.]+\\.internal[^.]*\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.destination.partition"
+        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:([^.]+)\\.)?[^.]+\\.internal[^.]*\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.partition"
       },
       {
-        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?([^.]+)\\.internal[^.]*\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.destination.datacenter"
+        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?([^.]+)\\.internal[^.]*\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.datacenter"
       },
       {
-        "regex": "^cluster\\.([^.]+\\.(?:[^.]+\\.)?([^.]+)\\.external\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.destination.peer"
+        "regex": "^cluster\\.([^.]+\\.(?:[^.]+\\.)?([^.]+)\\.external\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.peer"
       },
       {
-        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.destination.routing_type"
+        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.routing_type"
       },
       {
-        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.([^.]+)\\.consul\\.)",
-        "tag_name": "consul.destination.trust_domain"
+        "regex": "^cluster\\.(?:passthrough~)?((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.([^.]+)\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.trust_domain"
       },
       {
-        "regex": "^cluster\\.(?:passthrough~)?(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+)\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.destination.target"
+        "regex": "^cluster\\.(?:passthrough~)?(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+)\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.target"
       },
       {
-        "regex": "^cluster\\.(?:passthrough~)?(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+)\\.consul\\.)",
-        "tag_name": "consul.destination.full_target"
+        "regex": "^cluster\\.(?:passthrough~)?(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+)\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.destination.full_target"
       },
       {
         "regex": "^(?:tcp|http)\\.upstream(?:_peered)?\\.(([^.]+)(?:\\.[^.]+)?(?:\\.[^.]+)?\\.[^.]+\\.)",
-        "tag_name": "consul.upstream.service"
+        "tag_name": "dumb-consul.upstream.service"
       },
       {
         "regex": "^(?:tcp|http)\\.upstream\\.([^.]+(?:\\.[^.]+)?(?:\\.[^.]+)?\\.([^.]+)\\.)",
-        "tag_name": "consul.upstream.datacenter"
+        "tag_name": "dumb-consul.upstream.datacenter"
       },
       {
         "regex": "^(?:tcp|http)\\.upstream_peered\\.([^.]+(?:\\.[^.]+)?\\.([^.]+)\\.)",
-        "tag_name": "consul.upstream.peer"
+        "tag_name": "dumb-consul.upstream.peer"
       },
       {
         "regex": "^(?:tcp|http)\\.upstream(?:_peered)?\\.([^.]+(?:\\.([^.]+))?(?:\\.[^.]+)?\\.[^.]+\\.)",
-        "tag_name": "consul.upstream.namespace"
+        "tag_name": "dumb-consul.upstream.namespace"
       },
       {
         "regex": "^(?:tcp|http)\\.upstream\\.([^.]+(?:\\.[^.]+)?(?:\\.([^.]+))?\\.[^.]+\\.)",
-        "tag_name": "consul.upstream.partition"
+        "tag_name": "dumb-consul.upstream.partition"
       },
       {
-        "regex": "^cluster\\.((?:([^.]+)~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.custom_hash"
+        "regex": "^cluster\\.((?:([^.]+)~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.custom_hash"
       },
       {
-        "regex": "^cluster\\.((?:[^.]+~)?(?:([^.]+)\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.service_subset"
+        "regex": "^cluster\\.((?:[^.]+~)?(?:([^.]+)\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.service_subset"
       },
       {
-        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?([^.]+)\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.service"
+        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?([^.]+)\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.service"
       },
       {
-        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.namespace"
+        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.namespace"
       },
       {
-        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?([^.]+)\\.internal[^.]*\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.datacenter"
+        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?([^.]+)\\.internal[^.]*\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.datacenter"
       },
       {
-        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.routing_type"
+        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.([^.]+)\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.routing_type"
       },
       {
-        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.([^.]+)\\.consul\\.)",
-        "tag_name": "consul.trust_domain"
+        "regex": "^cluster\\.((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.([^.]+)\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.trust_domain"
       },
       {
-        "regex": "^cluster\\.(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+)\\.[^.]+\\.[^.]+\\.consul\\.)",
-        "tag_name": "consul.target"
+        "regex": "^cluster\\.(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+)\\.[^.]+\\.[^.]+\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.target"
       },
       {
-        "regex": "^cluster\\.(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+)\\.consul\\.)",
-        "tag_name": "consul.full_target"
+        "regex": "^cluster\\.(((?:[^.]+~)?(?:[^.]+\\.)?[^.]+\\.[^.]+\\.(?:[^.]+\\.)?[^.]+\\.[^.]+\\.[^.]+)\\.dumb-consul\\.)",
+        "tag_name": "dumb-consul.full_target"
       },
       {
         "tag_name": "local_cluster",
         "fixed_value": "test"
       },
       {
-        "tag_name": "consul.source.service",
+        "tag_name": "dumb-consul.source.service",
         "fixed_value": "test"
       },
       {
-        "tag_name": "consul.source.namespace",
+        "tag_name": "dumb-consul.source.namespace",
         "fixed_value": "default"
       },
       {
-        "tag_name": "consul.source.partition",
+        "tag_name": "dumb-consul.source.partition",
         "fixed_value": "default"
       },
       {
-        "tag_name": "consul.source.datacenter",
+        "tag_name": "dumb-consul.source.datacenter",
         "fixed_value": "dc1"
       }
     ],
@@ -213,7 +213,7 @@
       "grpc_services": {
         "initial_metadata": [
           {
-            "key": "x-consul-token",
+            "key": "x-dumb-consul-token",
             "value": "foo"
           }
         ],

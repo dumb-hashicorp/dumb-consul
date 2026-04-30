@@ -22,8 +22,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PeerStreamService_StreamResources_FullMethodName = "/hashicorp.consul.internal.peerstream.PeerStreamService/StreamResources"
-	PeerStreamService_ExchangeSecret_FullMethodName  = "/hashicorp.consul.internal.peerstream.PeerStreamService/ExchangeSecret"
+	PeerStreamService_StreamResources_FullMethodName = "/dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService/StreamResources"
+	PeerStreamService_ExchangeSecret_FullMethodName  = "/dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService/ExchangeSecret"
 )
 
 // PeerStreamServiceClient is the client API for PeerStreamService service.
@@ -149,7 +149,7 @@ func _PeerStreamService_ExchangeSecret_Handler(srv interface{}, ctx context.Cont
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PeerStreamService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "hashicorp.consul.internal.peerstream.PeerStreamService",
+	ServiceName: "dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService",
 	HandlerType: (*PeerStreamServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

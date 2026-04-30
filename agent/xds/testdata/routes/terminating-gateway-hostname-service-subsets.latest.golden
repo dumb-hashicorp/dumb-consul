@@ -3,13 +3,13 @@
   "resources": [
     {
       "@type": "type.googleapis.com/envoy.config.route.v3.RouteConfiguration",
-      "name": "alt.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "alt.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "virtualHosts": [
         {
           "domains": [
             "*"
           ],
-          "name": "alt.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+          "name": "alt.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
           "routes": [
             {
               "match": {
@@ -17,7 +17,7 @@
               },
               "route": {
                 "autoHostRewrite": true,
-                "cluster": "alt.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "alt.api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]
@@ -26,13 +26,13 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.route.v3.RouteConfiguration",
-      "name": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "virtualHosts": [
         {
           "domains": [
             "*"
           ],
-          "name": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+          "name": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
           "routes": [
             {
               "match": {
@@ -40,7 +40,7 @@
               },
               "route": {
                 "autoHostRewrite": true,
-                "cluster": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]
@@ -49,13 +49,13 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.route.v3.RouteConfiguration",
-      "name": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "virtualHosts": [
         {
           "domains": [
             "*"
           ],
-          "name": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+          "name": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
           "routes": [
             {
               "match": {
@@ -63,7 +63,7 @@
               },
               "route": {
                 "autoHostRewrite": true,
-                "cluster": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]
@@ -72,13 +72,13 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.route.v3.RouteConfiguration",
-      "name": "prod.cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "prod.cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "virtualHosts": [
         {
           "domains": [
             "*"
           ],
-          "name": "prod.cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+          "name": "prod.cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
           "routes": [
             {
               "match": {
@@ -86,7 +86,7 @@
               },
               "route": {
                 "autoHostRewrite": true,
-                "cluster": "prod.cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "prod.cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]

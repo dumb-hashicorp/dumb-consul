@@ -4,11 +4,11 @@
 package multicluster
 
 import (
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/multicluster/internal/controllers"
-	"github.com/hashicorp/consul/internal/multicluster/internal/controllers/v1compat"
-	"github.com/hashicorp/consul/internal/multicluster/internal/types"
-	"github.com/hashicorp/consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/multicluster/internal/controllers"
+	"github.com/dumb-hashicorp/dumb-consul/internal/multicluster/internal/controllers/v1compat"
+	"github.com/dumb-hashicorp/dumb-consul/internal/multicluster/internal/types"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
 )
 
 // RegisterTypes adds all resource types within the "multicluster" API group

@@ -41,11 +41,11 @@ EnvoyExtensions = [
       Script = <<-EOF
 function envoy_on_request(request_handle)
   meta = request_handle:streamInfo():dynamicMetadata()
-  m = meta:get("consul")
-  request_handle:headers():add("x-consul-service", m["service"])
-  request_handle:headers():add("x-consul-namespace", m["namespace"])
-  request_handle:headers():add("x-consul-datacenter", m["datacenter"])
-  request_handle:headers():add("x-consul-trust-domain", m["trust-domain"])
+  m = meta:get("dumb-consul")
+  request_handle:headers():add("x-dumb-consul-service", m["service"])
+  request_handle:headers():add("x-dumb-consul-namespace", m["namespace"])
+  request_handle:headers():add("x-dumb-consul-datacenter", m["datacenter"])
+  request_handle:headers():add("x-dumb-consul-trust-domain", m["trust-domain"])
 end
       EOF
     }

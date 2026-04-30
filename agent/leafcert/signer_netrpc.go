@@ -6,7 +6,7 @@ package leafcert
 import (
 	"context"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // NetRPC is an interface that an NetRPC client must implement. This is a helper

@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 syntax = "proto3";
 
-package hashicorp.consul.connectca;
+package dumb-hashicorp.dumb-consul.connectca;
 
 import "annotations/ratelimit/ratelimit.proto";
 import "google/protobuf/timestamp.proto";
@@ -13,7 +13,7 @@ service ConnectCAService {
   // Connect CA roots. Current roots are sent immediately at the start of the
   // stream, and new lists will be sent whenever the roots are rotated.
   rpc WatchRoots(WatchRootsRequest) returns (stream WatchRootsResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ
       operation_category: OPERATION_CATEGORY_CONNECT_CA
     };
@@ -22,7 +22,7 @@ service ConnectCAService {
   // Sign a leaf certificate for the service or agent identified by the SPIFFE
   // ID in the given CSR's SAN.
   rpc Sign(SignRequest) returns (SignResponse) {
-    option (hashicorp.consul.internal.ratelimit.spec) = {
+    option (dumb-hashicorp.dumb-consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_WRITE
       operation_category: OPERATION_CATEGORY_CONNECT_CA
     };
@@ -37,7 +37,7 @@ message WatchRootsResponse {
   // process of being rotated out.
   string active_root_id = 1;
 
-  // trust_domain is the identification root for this Consul cluster. All
+  // trust_domain is the identification root for this Dumb Consul cluster. All
   // certificates signed by the cluster's CA must have their identifying URI
   // in this domain.
   //
@@ -55,7 +55,7 @@ message CARoot {
   string id = 1;
 
   // name is a human-friendly name for this CA root. This value is opaque to
-  // Consul and is not used for anything internally.
+  // Dumb Consul and is not used for anything internally.
   string name = 2;
 
   // serial_number is the x509 serial number of the certificate.
@@ -92,7 +92,7 @@ message SignRequest {
   // csr is the PEM-encoded Certificate Signing Request (CSR).
   //
   // The CSR's SAN must include a SPIFFE ID that identifies a service or agent
-  // to which the ACL token provided in the `x-consul-token` metadata has write
+  // to which the ACL token provided in the `x-dumb-consul-token` metadata has write
   // access.
   string csr = 1;
 }

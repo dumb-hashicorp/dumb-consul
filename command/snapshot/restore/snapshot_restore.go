@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -55,7 +55,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -86,25 +86,25 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Restores snapshot of Consul server state"
+const synopsis = "Restores snapshot of Dumb Consul server state"
 const help = `
-Usage: consul snapshot restore [options] FILE
+Usage: dumb-consul snapshot restore [options] FILE
 
-  Restores an atomic, point-in-time snapshot of the state of the Consul servers
+  Restores an atomic, point-in-time snapshot of the state of the Dumb Consul servers
   which includes key/value entries, service catalog, prepared queries, sessions,
   and ACLs.
 
   Restores involve a potentially dangerous low-level Raft operation that is not
   designed to handle server failures during a restore. This command is primarily
   intended to be used when recovering from a disaster, restoring into a fresh
-  cluster of Consul servers.
+  cluster of Dumb Consul servers.
 
   If ACLs are enabled, a management token must be supplied in order to perform
   snapshot operations.
 
   To restore a snapshot from the file "backup.snap":
 
-    $ consul snapshot restore backup.snap
+    $ dumb-consul snapshot restore backup.snap
 
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `

@@ -8,8 +8,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // ResourceReference is a reference to a ConfigEntry
@@ -26,7 +26,7 @@ type ResourceReference struct {
 	// unused, this should be blank.
 	SectionName string
 
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 }
 
 func (r *ResourceReference) String() string {

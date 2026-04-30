@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-// Package ae provides tools to synchronize state between local and remote consul servers.
+// Package ae provides tools to synchronize state between local and remote dumb-consul servers.
 package ae
 
 import (
@@ -10,10 +10,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 // scaleThreshold is the number of nodes after which regular sync runs are
@@ -50,7 +50,7 @@ type SyncState interface {
 // StateSyncer manages background synchronization of the given state.
 //
 // The state is synchronized on a regular basis or on demand when either
-// the state has changed or a new Consul server has joined the cluster.
+// the state has changed or a new Dumb Consul server has joined the cluster.
 //
 // The regular state synchronization provides a self-healing mechanism
 // for the cluster which is also called anti-entropy.
@@ -110,7 +110,7 @@ type StateSyncer struct {
 
 const (
 	// serverUpIntv is the max time to wait before a sync is triggered
-	// when a consul server has been added to the cluster.
+	// when a dumb-consul server has been added to the cluster.
 	serverUpIntv = 3 * time.Second
 
 	// retryFailIntv is the min time to wait before a failed sync is retried.
@@ -247,7 +247,7 @@ const (
 func (s *StateSyncer) retrySyncFullEventFn() event {
 	select {
 	// trigger a full sync immediately.
-	// this is usually called when a consul server was added to the cluster.
+	// this is usually called when a dumb-consul server was added to the cluster.
 	// stagger the delay to avoid a thundering herd.
 	case <-s.SyncFull.Notif():
 		select {
@@ -275,7 +275,7 @@ func (s *StateSyncer) retrySyncFullEventFn() event {
 func (s *StateSyncer) syncChangesEventFn() event {
 	select {
 	// trigger a full sync immediately
-	// this is usually called when a consul server was added to the cluster.
+	// this is usually called when a dumb-consul server was added to the cluster.
 	// stagger the delay to avoid a thundering herd.
 	case <-s.SyncFull.Notif():
 		select {

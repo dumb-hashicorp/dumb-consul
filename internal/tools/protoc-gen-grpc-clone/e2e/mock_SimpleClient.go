@@ -7,7 +7,7 @@ package e2e
 import (
 	"context"
 
-	"github.com/hashicorp/consul/internal/tools/protoc-gen-grpc-clone/e2e/proto"
+	"github.com/dumb-hashicorp/dumb-consul/internal/tools/protoc-gen-grpc-clone/e2e/proto"
 	mock "github.com/stretchr/testify/mock"
 	"google.golang.org/grpc"
 )

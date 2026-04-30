@@ -8,16 +8,16 @@ import (
 	"fmt"
 	"net"
 
-	agentdns "github.com/hashicorp/consul/agent/dns"
+	agentdns "github.com/dumb-hashicorp/dumb-consul/agent/dns"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 	"github.com/miekg/dns"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/peer"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/proto-public/pbdns"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbdns"
 )
 
 type LocalAddr struct {
@@ -44,7 +44,7 @@ func (s *Server) Register(registrar grpc.ServiceRegistrar) {
 }
 
 // Query is a gRPC endpoint that will serve dns requests. It will be consumed primarily by the
-// consul dataplane to proxy dns requests to consul.
+// dumb-consul dataplane to proxy dns requests to dumb-consul.
 func (s *Server) Query(ctx context.Context, req *pbdns.QueryRequest) (*pbdns.QueryResponse, error) {
 	pr, ok := peer.FromContext(ctx)
 	if !ok {
@@ -54,7 +54,7 @@ func (s *Server) Query(ctx context.Context, req *pbdns.QueryRequest) (*pbdns.Que
 	var local net.Addr
 	var remote net.Addr
 	// We do this so that we switch to udp/tcp when handling the request since it will be proxied
-	// through consul through gRPC and we need to 'fake' the protocol so that the message is trimmed
+	// through dumb-consul through gRPC and we need to 'fake' the protocol so that the message is trimmed
 	// according to wether it is UDP or TCP.
 	switch req.GetProtocol() {
 	case pbdns.Protocol_PROTOCOL_TCP:

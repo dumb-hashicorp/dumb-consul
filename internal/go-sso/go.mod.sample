@@ -1,14 +1,14 @@
-module github.com/hashicorp/consul/go-sso
+module github.com/dumb-hashicorp/dumb-consul/go-sso
 
 go 1.20
 
 require (
 	github.com/coreos/go-oidc/v3 v3.9.0
 	github.com/go-jose/go-jose/v3 v3.0.3
-	github.com/hashicorp/consul v1.18.0
-	github.com/hashicorp/go-cleanhttp v0.5.2
-	github.com/hashicorp/go-hclog v1.5.0
-	github.com/hashicorp/go-uuid v1.0.3
+	github.com/dumb-hashicorp/dumb-consul v1.18.0
+	github.com/dumb-hashicorp/go-cleanhttp v0.5.2
+	github.com/dumb-hashicorp/dumb-go-hclog v1.5.0
+	github.com/dumb-hashicorp/go-uuid v1.0.3
 	github.com/mitchellh/pointerstructure v1.2.1
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/stretchr/testify v1.8.4

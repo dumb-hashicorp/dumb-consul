@@ -24,14 +24,14 @@ import (
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 
-	"github.com/hashicorp/consul/agent/mock"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/mock"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func uniqueID() string {
@@ -335,7 +335,7 @@ func TestCheckHTTP(t *testing.T) {
 					"Accept":          []string{"text/plain, text/*, */*"},
 					"Accept-Encoding": []string{"gzip"},
 					"Connection":      []string{"close"},
-					"User-Agent":      []string{"Consul Health Check"},
+					"User-Agent":      []string{"Dumb Consul Health Check"},
 				}
 				for k, v := range tt.header {
 					expectedHeader[k] = v

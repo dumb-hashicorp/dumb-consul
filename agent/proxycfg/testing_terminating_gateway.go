@@ -8,8 +8,8 @@ import (
 
 	"github.com/mitchellh/go-testing-interface"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 func TestConfigSnapshotTerminatingGateway(t testing.T, populateServices bool, nsFn func(ns *structs.NodeService), extraUpdates []UpdateEvent) *ConfigSnapshot {
@@ -478,8 +478,8 @@ func TestConfigSnapshotTerminatingGatewayDestinations(t testing.T, populateDesti
 					ProxyConfig: map[string]interface{}{"protocol": "tcp"},
 					Destination: structs.DestinationConfig{
 						Addresses: []string{
-							"api.hashicorp.com",
-							"web.hashicorp.com",
+							"api.dumb-hashicorp.com",
+							"web.dumb-hashicorp.com",
 						},
 						Port: 8089,
 					},

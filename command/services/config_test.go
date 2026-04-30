@@ -9,9 +9,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // This test ensures that dev mode doesn't register services by default.
@@ -21,7 +21,7 @@ func TestDevModeHasNoServices(t *testing.T) {
 	devMode := true
 	opts := config.LoadOpts{
 		DevMode: &devMode,
-		HCL:     []string{`node_name = "dummy"`},
+		DUMB_HCL:     []string{`node_name = "dummy"`},
 	}
 	result, err := config.Load(opts)
 	require.NoError(t, err)
@@ -33,7 +33,7 @@ func TestInvalidNodeNameWarning(t *testing.T) {
 	devMode := true
 	opts := config.LoadOpts{
 		DevMode: &devMode,
-		HCL:     []string{`node_name = "dummy.local"`},
+		DUMB_HCL:     []string{`node_name = "dummy.local"`},
 	}
 	result, err := config.Load(opts)
 	require.NoError(t, err)

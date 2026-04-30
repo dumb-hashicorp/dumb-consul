@@ -12,7 +12,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 	"github.com/stretchr/testify/require"
 )
 
@@ -35,7 +35,7 @@ func TestGetAgentConfig(t *testing.T) {
 						"NodeName":    "test-node",
 						"Datacenter":  "dc1",
 						"Server":      true,
-						"DataDir":     "/tmp/consul",
+						"DataDir":     "/tmp/dumb-consul",
 						"LogLevel":    "info",
 						"NodeID":      "11111111-2222-3333-4444-555555555555",
 						"RetryJoin":   []string{"127.0.0.1:8301"},
@@ -44,7 +44,7 @@ func TestGetAgentConfig(t *testing.T) {
 						"HTTPPort":    8500,
 						"DNS":         map[string]interface{}{"Port": 8600},
 						"ServerName":  "test-server",
-						"PidFile":     "/tmp/consul/consul.pid",
+						"PidFile":     "/tmp/dumb-consul/dumb-consul.pid",
 						"Performance": map[string]interface{}{"RaftMultiplier": 1},
 					},
 				})

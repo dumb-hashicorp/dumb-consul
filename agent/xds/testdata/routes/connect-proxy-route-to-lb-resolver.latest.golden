@@ -16,7 +16,7 @@
                 "prefix": "/web"
               },
               "route": {
-                "cluster": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             },
             {
@@ -24,7 +24,7 @@
                 "prefix": "/"
               },
               "route": {
-                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]

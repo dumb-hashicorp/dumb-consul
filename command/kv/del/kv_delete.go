@@ -7,8 +7,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -100,7 +100,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -153,18 +153,18 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Removes data from the KV store"
 	help     = `
-Usage: consul kv delete [options] KEY_OR_PREFIX
+Usage: dumb-consul kv delete [options] KEY_OR_PREFIX
 
-  Removes the value from Consul's key-value store at the given path. If no
+  Removes the value from Dumb Consul's key-value store at the given path. If no
   key exists at the path, no action is taken.
 
   To delete the value for the key named "foo" in the key-value store:
 
-      $ consul kv delete foo
+      $ dumb-consul kv delete foo
 
   To delete all keys which start with "foo", specify the -recurse option:
 
-      $ consul kv delete -recurse foo
+      $ dumb-consul kv delete -recurse foo
 
   This will delete the keys named "foo", "food", and "foo/bar/zip" if they
   existed.
