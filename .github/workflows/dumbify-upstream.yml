@@ -92,12 +92,24 @@ jobs:
             upper_word="${word^^}"
             upper_word="${upper_word//-/_}"
             
-            echo "Dumbifying text: '$word' -> 'Dumb $word', '$lower_word' -> 'dumb-$lower_word', '$upper_word' -> 'DUMB_$upper_word'"
-            
+            echo "Dumbifying text: '$word' -> 'Dumb $word'"
             find . -type f -not -path '*/.*' -exec sed -i "s|\b$word\b|Dumb $word|g" {} +
-            find . -type f -not -path '*/.*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
-            find . -type f -not -path '*/.*' -exec sed -i "s|\b$upper_word\b|DUMB_$upper_word|g" {} +
+            
+            # Skip redundant commands if the lower/upper transformations match the base word
+            if [ "$word" != "$lower_word" ]; then
+              echo "Dumbifying text: '$lower_word' -> 'dumb-$lower_word'"
+              find . -type f -not -path '*/.*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
+            fi
+            
+            if [ "$word" != "$upper_word" ] && [ "$lower_word" != "$upper_word" ]; then
+              echo "Dumbifying text: '$upper_word' -> 'DUMB_$upper_word'"
+              find . -type f -not -path '*/.*' -exec sed -i "s|\b$upper_word\b|DUMB_$upper_word|g" {} +
+            fi
           done
+          
+          echo "De-duplicating overlapping prefixes intelligently..."
+          # -E enables extended regex so we can use the '+' operator
+          find . -type f -not -path '*/.*' -exec sed -E -i "s|(Dumb )+|Dumb |g; s|(dumb-)+|dumb-|g; s|(DUMB_)+|DUMB_|g" {} +
 
       - name: Dumbify File and Directory Names
         run: |
@@ -105,20 +117,27 @@ jobs:
 
           for word in "${dumb_words[@]}"; do
             lower_word="${word,,}"
-            
-            # Convert to UPPERCASE, then replace hyphens with underscores
             upper_word="${word^^}"
             upper_word="${upper_word//-/_}"
             
-            echo "Renaming paths containing: '$lower_word', '$word', or '$upper_word'"
+            echo "Renaming paths containing: '$word', '$lower_word', or '$upper_word'"
             
-            find . -depth -not -path '*/.*' \( -name "*$lower_word*" -o -name "*$word*" -o -name "*$upper_word*" \) | while read -r item; do
+            find . -depth -not -path '*/.*' \( -name "*$word*" -o -name "*$lower_word*" -o -name "*$upper_word*" \) | while read -r item; do
               dir=$(dirname "$item")
               base=$(basename "$item")
               
               new_base="${base//$word/Dumb $word}"
-              new_base="${new_base//$lower_word/dumb-$lower_word}"
-              new_base="${new_base//$upper_word/DUMB_$upper_word}"
+              
+              if [ "$word" != "$lower_word" ]; then
+                new_base="${new_base//$lower_word/dumb-$lower_word}"
+              fi
+              
+              if [ "$word" != "$upper_word" ] && [ "$lower_word" != "$upper_word" ]; then
+                new_base="${new_base//$upper_word/DUMB_$upper_word}"
+              fi
+              
+              # Use echo and sed -E for elegant, regex-powered variable sanitization
+              new_base=$(echo "$new_base" | sed -E 's/(Dumb )+/Dumb /g; s/(dumb-)+/dumb-/g; s/(DUMB_)+/DUMB_/g')
               
               if [ "$base" != "$new_base" ]; then
                 echo "Renaming: $item -> $dir/$new_base"
@@ -137,17 +156,14 @@ jobs:
           fi
 
       - name: Commit and Push Directly to Main
-        # Only runs if there are changes AND the feature flag is toggled to true
         if: steps.validate.outputs.has_changes == 'true' && env.DIRECT_COMMIT == 'true'
         run: |
           git add .
           git commit -m "chore(upstream): synchronize and dumbify latest changes"
-          # Force pushing to main because we reset the history to match upstream
           git push origin main --force
           echo "Successfully force-pushed dumbified code directly to main."
 
       - name: Create Dumbify PR
-        # Only runs if there are changes AND the feature flag is toggled to false
         if: steps.validate.outputs.has_changes == 'true' && env.DIRECT_COMMIT == 'false'
         uses: peter-evans/create-pull-request@v7
         with:
