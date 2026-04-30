@@ -15,14 +15,14 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/yamux"
+	"github.com/google/dumb-go-cmp/cmp"
+	"github.com/google/dumb-go-cmp/cmp/cmpopts"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
+	"github.com/dumb-hashicorp/yamux"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestConfigurator_IncomingConfig_Common(t *testing.T) {
@@ -338,7 +338,7 @@ func TestConfigurator_ALPNRPCConfig(t *testing.T) {
 				CertFile: "../test/hostname/Alice.crt",
 				KeyFile:  "../test/hostname/Alice.key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		})
 		wrap := clientCfg.OutgoingALPNRPCWrapper()
 
@@ -374,7 +374,7 @@ func TestConfigurator_ALPNRPCConfig(t *testing.T) {
 				CertFile: "../test/hostname/Alice.crt",
 				KeyFile:  "../test/hostname/Alice.key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		})
 		wrap := clientCfg.OutgoingALPNRPCWrapper()
 
@@ -384,7 +384,7 @@ func TestConfigurator_ALPNRPCConfig(t *testing.T) {
 	})
 
 	t.Run("no node name in SAN", func(t *testing.T) {
-		// Note: Alice.crt has server.dc1.consul as its SAN (as apposed to alice.server.dc1.consul).
+		// Note: Alice.crt has server.dc1.dumb-consul as its SAN (as apposed to alice.server.dc1.dumb-consul).
 		serverCfg := makeConfigurator(t, Config{
 			InternalRPC: ProtocolConfig{
 				CAFile:   "../test/hostname/CertAuth.crt",
@@ -404,7 +404,7 @@ func TestConfigurator_ALPNRPCConfig(t *testing.T) {
 				CertFile: "../test/hostname/Bob.crt",
 				KeyFile:  "../test/hostname/Bob.key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		})
 		wrap := clientCfg.OutgoingALPNRPCWrapper()
 
@@ -460,7 +460,7 @@ func TestConfigurator_ALPNRPCConfig(t *testing.T) {
 				CertFile: "../test/hostname/Bob.crt",
 				KeyFile:  "../test/hostname/Bob.key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		})
 		wrap := clientCfg.OutgoingALPNRPCWrapper()
 
@@ -689,7 +689,7 @@ func TestConfigurator_OutgoingInternalRPCWrapper(t *testing.T) {
 				CertFile:             "../test/client_certs/client.crt",
 				KeyFile:              "../test/client_certs/client.key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		})
 
 		wrap := clientCfg.OutgoingRPCWrapper()
@@ -701,7 +701,7 @@ func TestConfigurator_OutgoingInternalRPCWrapper(t *testing.T) {
 
 		err = tlsClient.(*tls.Conn).Handshake()
 		require.Error(t, err)
-		require.Regexp(t, `certificate is valid for ([a-z].+) not server.dc1.consul`, err.Error())
+		require.Regexp(t, `certificate is valid for ([a-z].+) not server.dc1.dumb-consul`, err.Error())
 	})
 
 	t.Run("VerifyServerHostname = true and incorrect DC name", func(t *testing.T) {
@@ -726,7 +726,7 @@ func TestConfigurator_OutgoingInternalRPCWrapper(t *testing.T) {
 				CertFile:             "../test/client_certs/client.crt",
 				KeyFile:              "../test/client_certs/client.key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		})
 
 		wrap := clientCfg.OutgoingRPCWrapper()
@@ -738,7 +738,7 @@ func TestConfigurator_OutgoingInternalRPCWrapper(t *testing.T) {
 
 		err = tlsClient.(*tls.Conn).Handshake()
 		require.Error(t, err)
-		require.Regexp(t, `certificate is valid for ([a-z].+) not server.dc2.consul`, err.Error())
+		require.Regexp(t, `certificate is valid for ([a-z].+) not server.dc2.dumb-consul`, err.Error())
 	})
 
 	t.Run("VerifyServerHostname = false", func(t *testing.T) {
@@ -803,7 +803,7 @@ func TestConfigurator_OutgoingInternalRPCWrapper(t *testing.T) {
 				CertFile:             "../test/hostname/Bob.crt",
 				KeyFile:              "../test/hostname/Bob.key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		})
 
 		bettyCert := loadFile(t, "../test/hostname/Betty.crt")
@@ -851,7 +851,7 @@ func TestConfigurator_OutgoingInternalRPCWrapper(t *testing.T) {
 				CertFile:             "../test/hostname/Bob.crt",
 				KeyFile:              "../test/hostname/Bob.key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		})
 
 		wrap := clientCfg.OutgoingRPCWrapper()
@@ -884,7 +884,7 @@ func TestConfigurator_outgoingWrapperALPN_serverHasNoNodeNameInSAN(t *testing.T)
 			VerifyOutgoing:       false, // doesn't matter
 			VerifyServerHostname: false, // doesn't matter
 		},
-		Domain: "consul",
+		Domain: "dumb-consul",
 	}
 
 	client, errc := startALPNRPCTLSServer(t, &srvConfig, []string{"foo", "bar"})
@@ -900,7 +900,7 @@ func TestConfigurator_outgoingWrapperALPN_serverHasNoNodeNameInSAN(t *testing.T)
 			VerifyOutgoing:       false, // doesn't matter
 			VerifyServerHostname: false, // doesn't matter
 		},
-		Domain: "consul",
+		Domain: "dumb-consul",
 	}
 
 	c, err := NewConfigurator(config, nil)
@@ -1215,7 +1215,7 @@ func TestConfigurator_InternalRPCMutualTLSCapable(t *testing.T) {
 	// use the procedure in test/CA-GENERATION.md
 	t.Run("no ca", func(t *testing.T) {
 		config := Config{
-			Domain: "consul",
+			Domain: "dumb-consul",
 		}
 		c, err := NewConfigurator(config, nil)
 		require.NoError(t, err)
@@ -1228,7 +1228,7 @@ func TestConfigurator_InternalRPCMutualTLSCapable(t *testing.T) {
 			InternalRPC: ProtocolConfig{
 				CAFile: "../test/hostname/CertAuth.crt",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		}
 		c, err := NewConfigurator(config, nil)
 		require.NoError(t, err)
@@ -1243,7 +1243,7 @@ func TestConfigurator_InternalRPCMutualTLSCapable(t *testing.T) {
 				CertFile: "../test/hostname/Bob.crt",
 				KeyFile:  "../test/hostname/Bob.key",
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		}
 		c, err := NewConfigurator(config, nil)
 		require.NoError(t, err)
@@ -1253,7 +1253,7 @@ func TestConfigurator_InternalRPCMutualTLSCapable(t *testing.T) {
 
 	t.Run("autoencrypt ca and no autoencrypt keys", func(t *testing.T) {
 		config := Config{
-			Domain: "consul",
+			Domain: "dumb-consul",
 		}
 		c, err := NewConfigurator(config, nil)
 		require.NoError(t, err)
@@ -1266,7 +1266,7 @@ func TestConfigurator_InternalRPCMutualTLSCapable(t *testing.T) {
 
 	t.Run("autoencrypt ca and autoencrypt key", func(t *testing.T) {
 		config := Config{
-			Domain: "consul",
+			Domain: "dumb-consul",
 		}
 		c, err := NewConfigurator(config, nil)
 		require.NoError(t, err)
@@ -1283,7 +1283,7 @@ func TestConfigurator_InternalRPCMutualTLSCapable(t *testing.T) {
 
 func TestConfigurator_UpdateAutoTLSCA_DoesNotPanic(t *testing.T) {
 	config := Config{
-		Domain: "consul",
+		Domain: "dumb-consul",
 	}
 	c, err := NewConfigurator(config, hclog.New(nil))
 	require.NoError(t, err)
@@ -1375,7 +1375,7 @@ func TestConfigurator_OutgoingTLSConfigForCheck(t *testing.T) {
 			},
 		},
 		{
-			name: "agent tls, default consul server name, no override",
+			name: "agent tls, default dumb-consul server name, no override",
 			conf: func() (*Configurator, error) {
 				return NewConfigurator(Config{
 					InternalRPC: ProtocolConfig{
@@ -1392,7 +1392,7 @@ func TestConfigurator_OutgoingTLSConfigForCheck(t *testing.T) {
 			},
 		},
 		{
-			name: "agent tls, skip verify, consul node name for server name, no override",
+			name: "agent tls, skip verify, dumb-consul node name for server name, no override",
 			conf: func() (*Configurator, error) {
 				return NewConfigurator(Config{
 					InternalRPC: ProtocolConfig{
@@ -1488,7 +1488,7 @@ func TestConfigurator_AutoEncryptCert(t *testing.T) {
 }
 
 func TestConfigurator_AuthorizeInternalRPCServerConn(t *testing.T) {
-	caPEM, caPK, err := GenerateCA(CAOpts{Days: 5, Domain: "consul"})
+	caPEM, caPK, err := GenerateCA(CAOpts{Days: 5, Domain: "dumb-consul"})
 	require.NoError(t, err)
 
 	dir := testutil.TempDir(t, "ca")
@@ -1519,7 +1519,7 @@ func TestConfigurator_AuthorizeInternalRPCServerConn(t *testing.T) {
 			CertFile:             certFile,
 			KeyFile:              keyFile,
 		},
-		Domain: "consul",
+		Domain: "dumb-consul",
 	}
 	c := makeConfigurator(t, cfg)
 
@@ -1530,7 +1530,7 @@ func TestConfigurator_AuthorizeInternalRPCServerConn(t *testing.T) {
 		pem, _, err := GenerateCert(CertOpts{
 			Signer:      signer,
 			CA:          caPEM,
-			Name:        "server.dc1.consul",
+			Name:        "server.dc1.dumb-consul",
 			Days:        5,
 			DNSNames:    []string{"this-name-is-wrong", "localhost"},
 			ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
@@ -1544,11 +1544,11 @@ func TestConfigurator_AuthorizeInternalRPCServerConn(t *testing.T) {
 			},
 		}
 		err = c.AuthorizeServerConn("dc1", s)
-		testutil.RequireErrorContains(t, err, "is valid for this-name-is-wrong, localhost, not server.dc1.consul")
+		testutil.RequireErrorContains(t, err, "is valid for this-name-is-wrong, localhost, not server.dc1.dumb-consul")
 	})
 
 	t.Run("wrong CA", func(t *testing.T) {
-		caPEM, caPK, err := GenerateCA(CAOpts{Days: 5, Domain: "consul"})
+		caPEM, caPK, err := GenerateCA(CAOpts{Days: 5, Domain: "dumb-consul"})
 		require.NoError(t, err)
 
 		dir := testutil.TempDir(t, "other")
@@ -1562,9 +1562,9 @@ func TestConfigurator_AuthorizeInternalRPCServerConn(t *testing.T) {
 		pem, _, err := GenerateCert(CertOpts{
 			Signer:      signer,
 			CA:          caPEM,
-			Name:        "server.dc1.consul",
+			Name:        "server.dc1.dumb-consul",
 			Days:        5,
-			DNSNames:    []string{"server.dc1.consul", "localhost"},
+			DNSNames:    []string{"server.dc1.dumb-consul", "localhost"},
 			ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
 		})
 		require.NoError(t, err)
@@ -1586,9 +1586,9 @@ func TestConfigurator_AuthorizeInternalRPCServerConn(t *testing.T) {
 		pem, _, err := GenerateCert(CertOpts{
 			Signer:      signer,
 			CA:          caPEM,
-			Name:        "server.dc1.consul",
+			Name:        "server.dc1.dumb-consul",
 			Days:        5,
-			DNSNames:    []string{"server.dc1.consul", "localhost"},
+			DNSNames:    []string{"server.dc1.dumb-consul", "localhost"},
 			ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageEmailProtection},
 		})
 		require.NoError(t, err)
@@ -1610,7 +1610,7 @@ func TestConfigurator_AuthorizeInternalRPCServerConn(t *testing.T) {
 				VerifyIncoming:       false,
 				CAFile:               caPath,
 			},
-			Domain: "consul",
+			Domain: "dumb-consul",
 		}
 		c, err := NewConfigurator(cfg, hclog.New(nil))
 		require.NoError(t, err)

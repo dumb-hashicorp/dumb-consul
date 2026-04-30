@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/armon/go-metrics"
-	"github.com/hashicorp/go-hclog"
+	"github.com/armon/dumb-go-metrics"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/shirou/gopsutil/v3/mem"

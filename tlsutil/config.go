@@ -15,12 +15,12 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-multierror"
 
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto/private/pbconfig"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfig"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // ALPNWrapper is a function that is used to wrap a non-TLS connection and
@@ -90,7 +90,7 @@ type ProtocolConfig struct {
 	// certificate authority. This is used to verify authenticity of server
 	// nodes.
 	//
-	// Note: this setting doesn't apply to the external gRPC configuration, as Consul
+	// Note: this setting doesn't apply to the external gRPC configuration, as Dumb Consul
 	// makes no outgoing connections using this protocol.
 	VerifyOutgoing bool
 
@@ -132,7 +132,7 @@ type Config struct {
 	// provide matches the certificate
 	ServerName string
 
-	// Domain is the Consul TLD being used. Defaults to "consul."
+	// Domain is the Dumb Consul TLD being used. Defaults to "dumb-consul."
 	Domain string
 
 	// EnableAgentTLSForChecks is used to apply the agent's TLS settings in
@@ -998,8 +998,8 @@ func (c *Configurator) log(name string) {
 //
 // As of go 1.3, crypto/tls only supports either doing no certificate
 // verification, or doing full verification including of the peer's
-// DNS name. For consul, we want to validate that the certificate is
-// signed by a known CA, but because consul doesn't use DNS names for
+// DNS name. For dumb-consul, we want to validate that the certificate is
+// signed by a known CA, but because dumb-consul doesn't use DNS names for
 // node names, we don't verify the certificate DNS names. Since go 1.3
 // no longer supports this mode of operation, we have to do it
 // manually.
@@ -1097,7 +1097,7 @@ type TLSConn interface {
 }
 
 // AuthorizeServerConn is used to validate that the connection is being established
-// by a Consul server in the same datacenter.
+// by a Dumb Consul server in the same datacenter.
 //
 // The identity of the connection is checked by verifying that the certificate
 // presented is signed by the Agent TLS CA, and has a DNSName that matches the

@@ -1,0 +1,9 @@
+{
+  "Provider": "dumb-consul",
+  "Config": {
+    "PrivateKey": null,
+    "RootCert": null,
+  },
+  "CreateIndex": 5,
+  "ModifyIndex": 5
+}

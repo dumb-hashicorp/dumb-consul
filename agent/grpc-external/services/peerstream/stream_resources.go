@@ -12,20 +12,20 @@ import (
 	"sync"
 	"time"
 
-	"github.com/armon/go-metrics"
-	"github.com/hashicorp/go-hclog"
+	"github.com/armon/dumb-go-metrics"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	grpcstatus "google.golang.org/grpc/status"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/agent/connect"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/pbpeerstream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeerstream"
 )
 
 type BidirectionalStream interface {
@@ -264,7 +264,7 @@ func (s *Server) StreamResources(stream pbpeerstream.PeerStreamService_StreamRes
 }
 
 type HandleStreamRequest struct {
-	// LocalID is the UUID for the peering in the local Consul datacenter.
+	// LocalID is the UUID for the peering in the local Dumb Consul datacenter.
 	LocalID string
 
 	// RemoteID is the UUID for the peering from the perspective of the peer.

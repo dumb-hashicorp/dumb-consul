@@ -12,48 +12,48 @@ import (
 	"sync"
 	"time"
 
-	"github.com/armon/go-metrics"
-	"github.com/armon/go-metrics/prometheus"
+	"github.com/armon/dumb-go-metrics"
+	"github.com/armon/dumb-go-metrics/prometheus"
 	"google.golang.org/grpc/grpclog"
 
-	"github.com/hashicorp/go-hclog"
-	wal "github.com/hashicorp/raft-wal"
-	"github.com/hashicorp/raft-wal/verifier"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
+	wal "github.com/dumb-hashicorp/raft-wal"
+	"github.com/dumb-hashicorp/raft-wal/verifier"
 
-	autoconf "github.com/hashicorp/consul/agent/auto-config"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/consul/fsm"
-	"github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/consul/usagemetrics"
-	"github.com/hashicorp/consul/agent/consul/xdscapacity"
-	"github.com/hashicorp/consul/agent/grpc-external/limiter"
-	grpcInt "github.com/hashicorp/consul/agent/grpc-internal"
-	"github.com/hashicorp/consul/agent/grpc-internal/balancer"
-	"github.com/hashicorp/consul/agent/grpc-internal/resolver"
-	grpcWare "github.com/hashicorp/consul/agent/grpc-middleware"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/local"
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/agent/router"
-	"github.com/hashicorp/consul/agent/rpc/middleware"
-	"github.com/hashicorp/consul/agent/submatview"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/agent/xds"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/hoststats"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/tlsutil"
+	autoconf "github.com/dumb-hashicorp/dumb-consul/agent/auto-config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/fsm"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/usagemetrics"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/xdscapacity"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	grpcInt "github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/balancer"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/resolver"
+	grpcWare "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/agent/router"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/submatview"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/hoststats"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 // TODO: BaseDeps should be renamed in the future once more of Agent.Start
 // has been moved out in front of Agent.New, and we can better see the setup
 // dependencies.
 type BaseDeps struct {
-	consul.Deps // TODO: un-embed
+	dumb-consul.Deps // TODO: un-embed
 
 	RuntimeConfig   *config.RuntimeConfig
 	MetricsConfig   *lib.MetricsConfig
@@ -176,7 +176,7 @@ func NewBaseDeps(configLoader ConfigLoader, logOut io.Writer, providedLogger hcl
 			CertificateTelemetryWarningThresholdDays:  cfg.Telemetry.CertificateWarningThresholdDays,
 		},
 	})
-	// Set the leaf cert manager in the embedded deps type so it can be used by consul servers.
+	// Set the leaf cert manager in the embedded deps type so it can be used by dumb-consul servers.
 	d.Deps.LeafCertManager = d.LeafCertManager
 
 	agentType := "client"
@@ -253,7 +253,7 @@ func NewBaseDeps(configLoader ConfigLoader, logOut io.Writer, providedLogger hcl
 
 	d.XDSStreamLimiter = limiter.NewSessionLimiter()
 
-	d.Registry = consul.NewTypeRegistry()
+	d.Registry = dumb-consul.NewTypeRegistry()
 
 	return d, nil
 }
@@ -310,10 +310,10 @@ func newConnPool(config *config.RuntimeConfig, logger hclog.Logger, tls *tlsutil
 }
 
 // getPrometheusDefs reaches into every slice of prometheus defs we've defined in each part of the agent, and appends
-// all of our slices into one nice slice of definitions per metric type for the Consul agent to pass to go-metrics.
+// all of our slices into one nice slice of definitions per metric type for the Dumb Consul agent to pass to dumb-go-metrics.
 func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.GaugeDefinition, []prometheus.CounterDefinition, []prometheus.SummaryDefinition) {
 	// TODO: "raft..." metrics come from the raft lib and we should migrate these to a telemetry
-	//  package within. In the mean time, we're going to define a few here because they're key to monitoring Consul.
+	//  package within. In the mean time, we're going to define a few here because they're key to monitoring Dumb Consul.
 	raftGauges := []prometheus.GaugeDefinition{
 		{
 			Name: []string{"raft", "fsm", "lastRestoreDuration"},
@@ -335,12 +335,12 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 	// Build slice of slices for all gauge definitions
 	var gauges = [][]prometheus.GaugeDefinition{
 		cache.Gauges,
-		consul.RPCGauges,
-		consul.SessionGauges,
+		dumb-consul.RPCGauges,
+		dumb-consul.SessionGauges,
 		grpcWare.StatsGauges,
 		xds.StatsGauges,
 		usagemetrics.Gauges,
-		consul.ReplicationGauges,
+		dumb-consul.ReplicationGauges,
 		CertExpirationGauges,
 		Gauges,
 		raftGauges,
@@ -354,9 +354,9 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 	// TODO(ffmmm): conditionally add only leader specific metrics to gauges, counters, summaries, etc
 	if isServer {
 		gauges = append(gauges,
-			consul.AutopilotGauges,
-			consul.LeaderCertExpirationGauges,
-			consul.LeaderPeeringMetrics,
+			dumb-consul.AutopilotGauges,
+			dumb-consul.LeaderCertExpirationGauges,
+			dumb-consul.LeaderPeeringMetrics,
 			xdscapacity.StatsGauges,
 		)
 	}
@@ -373,8 +373,8 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 	}
 
 	if isServer &&
-		(cfg.RaftLogStoreConfig.Backend == consul.LogStoreBackendWAL ||
-			cfg.RaftLogStoreConfig.Backend == consul.LogStoreBackendDefault) {
+		(cfg.RaftLogStoreConfig.Backend == dumb-consul.LogStoreBackendWAL ||
+			cfg.RaftLogStoreConfig.Backend == dumb-consul.LogStoreBackendDefault) {
 
 		walGauges := make([]prometheus.GaugeDefinition, 0)
 		for _, d := range wal.MetricDefinitions.Gauges {
@@ -390,8 +390,8 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 	// NOTE(kit): Do we actually want to create a set here so we can ensure definition names are unique?
 	var gaugeDefs []prometheus.GaugeDefinition
 	for _, g := range gauges {
-		// Set Consul to each definition's namespace
-		// TODO(kit): Prepending the service to each definition should be handled by go-metrics
+		// Set Dumb Consul to each definition's namespace
+		// TODO(kit): Prepending the service to each definition should be handled by dumb-go-metrics
 		var withService []prometheus.GaugeDefinition
 		for _, gauge := range g {
 			gauge.Name = append([]string{cfg.Telemetry.MetricsPrefix}, gauge.Name...)
@@ -402,28 +402,28 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 
 	raftCounters := []prometheus.CounterDefinition{
 		// TODO(kit): "raft..." metrics come from the raft lib and we should migrate these to a telemetry
-		//  package within. In the mean time, we're going to define a few here because they're key to monitoring Consul.
+		//  package within. In the mean time, we're going to define a few here because they're key to monitoring Dumb Consul.
 		{
 			Name: []string{"raft", "apply"},
 			Help: "This counts the number of Raft transactions occurring over the interval.",
 		},
 		{
 			Name: []string{"raft", "state", "candidate"},
-			Help: "This increments whenever a Consul server starts an election.",
+			Help: "This increments whenever a Dumb Consul server starts an election.",
 		},
 		{
 			Name: []string{"raft", "state", "leader"},
-			Help: "This increments whenever a Consul server becomes a leader.",
+			Help: "This increments whenever a Dumb Consul server becomes a leader.",
 		},
 	}
 
 	var counters = [][]prometheus.CounterDefinition{
 		CatalogCounters,
 		cache.Counters,
-		consul.ACLCounters,
-		consul.CatalogCounters,
-		consul.ClientCounters,
-		consul.RPCCounters,
+		dumb-consul.ACLCounters,
+		dumb-consul.CatalogCounters,
+		dumb-consul.ClientCounters,
+		dumb-consul.RPCCounters,
 		grpcWare.StatsCounters,
 		local.StateCounters,
 		xds.StatsCounters,
@@ -446,8 +446,8 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 		counters = append(counters, verifierCounters)
 	}
 	if isServer &&
-		(cfg.RaftLogStoreConfig.Backend == consul.LogStoreBackendWAL ||
-			cfg.RaftLogStoreConfig.Backend == consul.LogStoreBackendDefault) {
+		(cfg.RaftLogStoreConfig.Backend == dumb-consul.LogStoreBackendWAL ||
+			cfg.RaftLogStoreConfig.Backend == dumb-consul.LogStoreBackendDefault) {
 		walCounters := make([]prometheus.CounterDefinition, 0)
 		for _, d := range wal.MetricDefinitions.Counters {
 			walCounters = append(walCounters, prometheus.CounterDefinition{
@@ -462,7 +462,7 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 	// NOTE(kit): Do we actually want to create a set here so we can ensure definition names are unique?
 	var counterDefs []prometheus.CounterDefinition
 	for _, c := range counters {
-		// TODO(kit): Prepending the service to each definition should be handled by go-metrics
+		// TODO(kit): Prepending the service to each definition should be handled by dumb-go-metrics
 		var withService []prometheus.CounterDefinition
 		for _, counter := range c {
 			counter.Name = append([]string{cfg.Telemetry.MetricsPrefix}, counter.Name...)
@@ -473,7 +473,7 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 
 	raftSummaries := []prometheus.SummaryDefinition{
 		// TODO(kit): "raft..." metrics come from the raft lib and we should migrate these to a telemetry
-		//  package within. In the mean time, we're going to define a few here because they're key to monitoring Consul.
+		//  package within. In the mean time, we're going to define a few here because they're key to monitoring Dumb Consul.
 		{
 			Name: []string{"raft", "commitTime"},
 			Help: "This measures the time it takes to commit a new entry to the Raft log on the leader.",
@@ -494,19 +494,19 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 
 	var summaries = [][]prometheus.SummaryDefinition{
 		HTTPSummaries,
-		consul.ACLSummaries,
-		consul.ACLEndpointSummaries,
-		consul.CatalogSummaries,
-		consul.FederationStateSummaries,
-		consul.IntentionSummaries,
-		consul.KVSummaries,
-		consul.LeaderSummaries,
-		consul.PreparedQuerySummaries,
-		consul.RPCSummaries,
-		consul.SegmentCESummaries,
-		consul.SessionSummaries,
-		consul.SessionEndpointSummaries,
-		consul.TxnSummaries,
+		dumb-consul.ACLSummaries,
+		dumb-consul.ACLEndpointSummaries,
+		dumb-consul.CatalogSummaries,
+		dumb-consul.FederationStateSummaries,
+		dumb-consul.IntentionSummaries,
+		dumb-consul.KVSummaries,
+		dumb-consul.LeaderSummaries,
+		dumb-consul.PreparedQuerySummaries,
+		dumb-consul.RPCSummaries,
+		dumb-consul.SegmentCESummaries,
+		dumb-consul.SessionSummaries,
+		dumb-consul.SessionEndpointSummaries,
+		dumb-consul.TxnSummaries,
 		fsm.CommandsSummaries,
 		fsm.SnapshotSummaries,
 		raftSummaries,
@@ -516,7 +516,7 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 	// NOTE(kit): Do we actually want to create a set here so we can ensure definition names are unique?
 	var summaryDefs []prometheus.SummaryDefinition
 	for _, s := range summaries {
-		// TODO(kit): Prepending the service to each definition should be handled by go-metrics
+		// TODO(kit): Prepending the service to each definition should be handled by dumb-go-metrics
 		var withService []prometheus.SummaryDefinition
 		for _, summary := range s {
 			summary.Name = append([]string{cfg.Telemetry.MetricsPrefix}, summary.Name...)

@@ -17,21 +17,21 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/go-cmp/cmp"
+	"github.com/google/dumb-go-cmp/cmp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 // Asserter is a utility to help in reducing boilerplate in invoking test
-// assertions against consul-topology Sprawl components.
+// assertions against dumb-consul-topology Sprawl components.
 //
 // The methods should largely take in *topology.Service instances in lieu of
 // ip/ports if there is only one port that makes sense for the assertion (such

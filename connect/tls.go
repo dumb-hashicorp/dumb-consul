@@ -14,10 +14,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // parseLeafX509Cert will parse an X509 certificate
@@ -162,7 +162,7 @@ func verifyServerCertMatchesURI(certs []*x509.Certificate, expected connect.Cert
 
 	// Override the hostname since we rely on x509 constraints to limit ability to
 	// spoof the trust domain if needed (i.e. because a root is shared with other
-	// PKI or Consul clusters). This allows for seamless migrations between trust
+	// PKI or Dumb Consul clusters). This allows for seamless migrations between trust
 	// domains.
 	expectURI := expected.URI()
 	expectURI.Host = gotURI.Host

@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -20,9 +20,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-rootcerts"
+	"github.com/dumb-hashicorp/dumb-go-cleanhttp"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-rootcerts"
 )
 
 const (
@@ -47,19 +47,19 @@ const (
 	HTTPSSLEnvName = "CONSUL_HTTP_SSL"
 
 	// HTTPCAFile defines an environment variable name which sets the
-	// CA file to use for talking to Consul over TLS.
+	// CA file to use for talking to Dumb Consul over TLS.
 	HTTPCAFile = "CONSUL_CACERT"
 
 	// HTTPCAPath defines an environment variable name which sets the
-	// path to a directory of CA certs to use for talking to Consul over TLS.
+	// path to a directory of CA certs to use for talking to Dumb Consul over TLS.
 	HTTPCAPath = "CONSUL_CAPATH"
 
 	// HTTPClientCert defines an environment variable name which sets the
-	// client cert file to use for talking to Consul over TLS.
+	// client cert file to use for talking to Dumb Consul over TLS.
 	HTTPClientCert = "CONSUL_CLIENT_CERT"
 
 	// HTTPClientKey defines an environment variable name which sets the
-	// client key file to use for talking to Consul over TLS.
+	// client key file to use for talking to Dumb Consul over TLS.
 	HTTPClientKey = "CONSUL_CLIENT_KEY"
 
 	// HTTPTLSServerName defines an environment variable name which sets the
@@ -71,17 +71,17 @@ const (
 	HTTPSSLVerifyEnvName = "CONSUL_HTTP_SSL_VERIFY"
 
 	// GRPCAddrEnvName defines an environment variable name which sets the gRPC
-	// address for consul connect envoy. Note this isn't actually used by the api
+	// address for dumb-consul connect envoy. Note this isn't actually used by the api
 	// client in this package but is defined here for consistency with all the
 	// other ENV names we use.
 	GRPCAddrEnvName = "CONSUL_GRPC_ADDR"
 
 	// GRPCCAFileEnvName defines an environment variable name which sets the
-	// CA file to use for talking to Consul gRPC over TLS.
+	// CA file to use for talking to Dumb Consul gRPC over TLS.
 	GRPCCAFileEnvName = "CONSUL_GRPC_CACERT"
 
 	// GRPCCAPathEnvName defines an environment variable name which sets the
-	// path to a directory of CA certs to use for talking to Consul gRPC over TLS.
+	// path to a directory of CA certs to use for talking to Dumb Consul gRPC over TLS.
 	GRPCCAPathEnvName = "CONSUL_GRPC_CAPATH"
 
 	// HTTPNamespaceEnvVar defines an environment variable name which sets
@@ -111,18 +111,18 @@ func (e StatusError) Error() string {
 // QueryOptions are used to parameterize a query
 type QueryOptions struct {
 	// Namespace overrides the `default` namespace
-	// Note: Namespaces are available only in Consul Enterprise
+	// Note: Namespaces are available only in Dumb Consul Enterprise
 	Namespace string
 
 	// Partition overrides the `default` partition
-	// Note: Partitions are available only in Consul Enterprise
+	// Note: Partitions are available only in Dumb Consul Enterprise
 	Partition string
 
 	// SamenessGroup is used find the SamenessGroup in the given
 	// Partition and will find the failover order for the Service
 	// from the SamenessGroup Members, with the given Partition being
 	// the first member.
-	// Note: SamenessGroups are available only in Consul Enterprise
+	// Note: SamenessGroups are available only in Dumb Consul Enterprise
 	SamenessGroup string
 
 	// Providing a datacenter overwrites the DC provided
@@ -132,7 +132,7 @@ type QueryOptions struct {
 	// Providing a peer name in the query option
 	Peer string
 
-	// AllowStale allows any Consul server (non-leader) to service
+	// AllowStale allows any Dumb Consul server (non-leader) to service
 	// a read. This allows for lower latency and higher throughput
 	AllowStale bool
 
@@ -142,7 +142,7 @@ type QueryOptions struct {
 	RequireConsistent bool
 
 	// UseCache requests that the agent cache results locally. See
-	// https://developer.hashicorp.com/api/features/caching.html for more details on the
+	// https://developer.dumb-hashicorp.com/api/features/caching.html for more details on the
 	// semantics.
 	UseCache bool
 
@@ -152,14 +152,14 @@ type QueryOptions struct {
 	// returned. Clients that wish to allow for stale results on error can set
 	// StaleIfError to a longer duration to change this behavior. It is ignored
 	// if the endpoint supports background refresh caching. See
-	// https://developer.hashicorp.com/api/features/caching.html for more details.
+	// https://developer.dumb-hashicorp.com/api/features/caching.html for more details.
 	MaxAge time.Duration
 
 	// StaleIfError specifies how stale the client will accept a cached response
 	// if the servers are unavailable to fetch a fresh one. Only makes sense when
 	// UseCache is true and MaxAge is set to a lower, non-zero value. It is
 	// ignored if the endpoint supports background refresh caching. See
-	// https://developer.hashicorp.com/api/features/caching.html for more details.
+	// https://developer.dumb-hashicorp.com/api/features/caching.html for more details.
 	StaleIfError time.Duration
 
 	// WaitIndex is used to enable a blocking query. Waits
@@ -209,7 +209,7 @@ type QueryOptions struct {
 	ctx context.Context
 
 	// Filter requests filtering data prior to it being returned. The string
-	// is a go-bexpr compatible expression.
+	// is a dumb-go-bexpr compatible expression.
 	Filter string
 
 	// MergeCentralConfig returns a service definition merged with the
@@ -242,11 +242,11 @@ func (o *QueryOptions) WithContext(ctx context.Context) *QueryOptions {
 // WriteOptions are used to parameterize a write
 type WriteOptions struct {
 	// Namespace overrides the `default` namespace
-	// Note: Namespaces are available only in Consul Enterprise
+	// Note: Namespaces are available only in Dumb Consul Enterprise
 	Namespace string
 
 	// Partition overrides the `default` partition
-	// Note: Partitions are available only in Consul Enterprise
+	// Note: Partitions are available only in Dumb Consul Enterprise
 	Partition string
 
 	// Providing a datacenter overwrites the DC provided
@@ -348,15 +348,15 @@ type HttpBasicAuth struct {
 
 // Config is used to configure the creation of a client
 type Config struct {
-	// Address is the address of the Consul server
+	// Address is the address of the Dumb Consul server
 	Address string
 
-	// Scheme is the URI scheme for the Consul server
+	// Scheme is the URI scheme for the Dumb Consul server
 	Scheme string
 
-	// Prefix for URIs for when consul is behind an API gateway (reverse
+	// Prefix for URIs for when dumb-consul is behind an API gateway (reverse
 	// proxy).  The API gateway must strip off the PathPrefix before
-	// passing the request onto consul.
+	// passing the request onto dumb-consul.
 	PathPrefix string
 
 	// Datacenter to use. If not provided, the default agent datacenter is used.
@@ -396,38 +396,38 @@ type Config struct {
 }
 
 // TLSConfig is used to generate a TLSClientConfig that's useful for talking to
-// Consul using TLS.
+// Dumb Consul using TLS.
 type TLSConfig struct {
-	// Address is the optional address of the Consul server. The port, if any
+	// Address is the optional address of the Dumb Consul server. The port, if any
 	// will be removed from here and this will be set to the ServerName of the
 	// resulting config.
 	Address string
 
-	// CAFile is the optional path to the CA certificate used for Consul
+	// CAFile is the optional path to the CA certificate used for Dumb Consul
 	// communication, defaults to the system bundle if not specified.
 	CAFile string
 
 	// CAPath is the optional path to a directory of CA certificates to use for
-	// Consul communication, defaults to the system bundle if not specified.
+	// Dumb Consul communication, defaults to the system bundle if not specified.
 	CAPath string
 
-	// CAPem is the optional PEM-encoded CA certificate used for Consul
+	// CAPem is the optional PEM-encoded CA certificate used for Dumb Consul
 	// communication, defaults to the system bundle if not specified.
 	CAPem []byte
 
-	// CertFile is the optional path to the certificate for Consul
+	// CertFile is the optional path to the certificate for Dumb Consul
 	// communication. If this is set then you need to also set KeyFile.
 	CertFile string
 
-	// CertPEM is the optional PEM-encoded certificate for Consul
+	// CertPEM is the optional PEM-encoded certificate for Dumb Consul
 	// communication. If this is set then you need to also set KeyPEM.
 	CertPEM []byte
 
-	// KeyFile is the optional path to the private key for Consul communication.
+	// KeyFile is the optional path to the private key for Dumb Consul communication.
 	// If this is set then you need to also set CertFile.
 	KeyFile string
 
-	// KeyPEM is the optional PEM-encoded private key for Consul communication.
+	// KeyPEM is the optional PEM-encoded private key for Dumb Consul communication.
 	// If this is set then you need to also set CertPEM.
 	KeyPEM []byte
 
@@ -436,9 +436,9 @@ type TLSConfig struct {
 }
 
 // DefaultConfig returns a default configuration for the client. By default this
-// will pool and reuse idle connections to Consul. If you have a long-lived
+// will pool and reuse idle connections to Dumb Consul. If you have a long-lived
 // client object, this is the desired behavior and should make the most efficient
-// use of the connections to Consul. If you don't reuse a client object, which
+// use of the connections to Dumb Consul. If you don't reuse a client object, which
 // is not recommended, then you may notice idle connections building up over
 // time. To avoid this, use the DefaultNonPooledConfig() instead.
 func DefaultConfig() *Config {
@@ -454,7 +454,7 @@ func DefaultConfigWithLogger(logger hclog.Logger) *Config {
 
 // DefaultNonPooledConfig returns a default configuration for the client which
 // does not pool connections. This isn't a recommended configuration because it
-// will reconnect to Consul on every request, but this is useful to avoid the
+// will reconnect to Dumb Consul on every request, but this is useful to avoid the
 // accumulation of idle connections if you make many client objects during the
 // lifetime of your application.
 func DefaultNonPooledConfig() *Config {
@@ -466,7 +466,7 @@ func DefaultNonPooledConfig() *Config {
 func defaultConfig(logger hclog.Logger, transportFn func() *http.Transport) *Config {
 	if logger == nil {
 		logger = hclog.New(&hclog.LoggerOptions{
-			Name: "consul-api",
+			Name: "dumb-consul-api",
 		})
 	}
 
@@ -552,7 +552,7 @@ func defaultConfig(logger hclog.Logger, transportFn func() *http.Transport) *Con
 }
 
 // TLSConfig is used to generate a TLSClientConfig that's useful for talking to
-// Consul using TLS.
+// Dumb Consul using TLS.
 func SetupTLSConfig(tlsConfig *TLSConfig) (*tls.Config, error) {
 	tlsClientConfig := &tls.Config{
 		InsecureSkipVerify: tlsConfig.InsecureSkipVerify,
@@ -629,7 +629,7 @@ func (c *Config) GenerateEnv() []string {
 	return env
 }
 
-// Client provides a client to the Consul API
+// Client provides a client to the Dumb Consul API
 type Client struct {
 	modifyLock sync.RWMutex
 	headers    http.Header
@@ -887,7 +887,7 @@ func (r *request) setQueryOptions(q *QueryOptions) {
 		r.params.Set("hash", q.WaitHash)
 	}
 	if q.Token != "" {
-		r.header.Set("X-Consul-Token", q.Token)
+		r.header.Set("X-Dumb Consul-Token", q.Token)
 	}
 	if q.Near != "" {
 		r.params.Set("near", q.Near)
@@ -935,7 +935,7 @@ func (r *request) setQueryOptions(q *QueryOptions) {
 
 // durToMsec converts a duration to a millisecond specified string. If the
 // user selected a positive value that rounds to 0 ms, then we will use 1 ms
-// so they get a short delay, otherwise Consul will translate the 0 ms into
+// so they get a short delay, otherwise Dumb Consul will translate the 0 ms into
 // a huge default delay.
 func durToMsec(dur time.Duration) string {
 	ms := dur / time.Millisecond
@@ -948,7 +948,7 @@ func durToMsec(dur time.Duration) string {
 // serverError is a string we look for to detect 500 errors.
 const serverError = "Unexpected response code: 500"
 
-// IsRetryableError returns true for 500 errors from the Consul servers, and
+// IsRetryableError returns true for 500 errors from the Dumb Consul servers, and
 // network connection errors. These are usually retryable at a later time.
 // This applies to reads but NOT to writes. This may return true for errors
 // on writes that may have still gone through, so do not use this to retry
@@ -987,7 +987,7 @@ func (r *request) setWriteOptions(q *WriteOptions) {
 		r.params.Set("dc", q.Datacenter)
 	}
 	if q.Token != "" {
-		r.header.Set("X-Consul-Token", q.Token)
+		r.header.Set("X-Dumb Consul-Token", q.Token)
 	}
 	if q.RelayFactor != 0 {
 		r.params.Set("relay-factor", strconv.Itoa(int(q.RelayFactor)))
@@ -1076,7 +1076,7 @@ func (c *Client) newRequest(method, path string) *request {
 		r.params.Set("wait", durToMsec(r.config.WaitTime))
 	}
 	if c.config.Token != "" {
-		r.header.Set("X-Consul-Token", r.config.Token)
+		r.header.Set("X-Dumb Consul-Token", r.config.Token)
 	}
 	return r
 }
@@ -1110,7 +1110,7 @@ func (c *Client) doRequest(r *request) (time.Duration, *http.Response, error) {
 
 // Query is used to do a GET request against an endpoint
 // and deserialize the response into an interface using
-// standard Consul conventions.
+// standard Dumb Consul conventions.
 func (c *Client) query(endpoint string, out interface{}, q *QueryOptions) (*QueryMeta, error) {
 	r := c.newRequest("GET", endpoint)
 	r.setQueryOptions(q)
@@ -1133,7 +1133,7 @@ func (c *Client) query(endpoint string, out interface{}, q *QueryOptions) (*Quer
 }
 
 // write is used to do a PUT request against an endpoint
-// and serialize/deserialized using the standard Consul conventions.
+// and serialize/deserialized using the standard Dumb Consul conventions.
 func (c *Client) write(endpoint string, in, out interface{}, q *WriteOptions) (*WriteMeta, error) {
 	r := c.newRequest("PUT", endpoint)
 	r.setWriteOptions(q)
@@ -1150,7 +1150,7 @@ func (c *Client) write(endpoint string, in, out interface{}, q *WriteOptions) (*
 	wm := &WriteMeta{RequestTime: rtt}
 
 	// Check for warning headers
-	if warning := resp.Header.Get("X-Consul-KV-Warning"); warning != "" {
+	if warning := resp.Header.Get("X-Dumb Consul-KV-Warning"); warning != "" {
 		wm.Warnings = append(wm.Warnings, warning)
 	}
 
@@ -1180,7 +1180,7 @@ func (c *Client) delete(endpoint string, q *QueryOptions) (*WriteMeta, error) {
 	wm := &WriteMeta{RequestTime: rtt}
 
 	// Check for warning headers
-	if warning := resp.Header.Get("X-Consul-KV-Warning"); warning != "" {
+	if warning := resp.Header.Get("X-Dumb Consul-KV-Warning"); warning != "" {
 		wm.Warnings = append(wm.Warnings, warning)
 	}
 
@@ -1193,51 +1193,51 @@ func (c *Client) delete(endpoint string, q *QueryOptions) (*WriteMeta, error) {
 func parseQueryMeta(resp *http.Response, q *QueryMeta) error {
 	header := resp.Header
 
-	// Parse the X-Consul-Index (if it's set - hash based blocking queries don't
+	// Parse the X-Dumb Consul-Index (if it's set - hash based blocking queries don't
 	// set this)
-	if indexStr := header.Get("X-Consul-Index"); indexStr != "" {
+	if indexStr := header.Get("X-Dumb Consul-Index"); indexStr != "" {
 		index, err := strconv.ParseUint(indexStr, 10, 64)
 		if err != nil {
-			return fmt.Errorf("Failed to parse X-Consul-Index: %v", err)
+			return fmt.Errorf("Failed to parse X-Dumb Consul-Index: %v", err)
 		}
 		q.LastIndex = index
 	}
-	q.LastContentHash = header.Get("X-Consul-ContentHash")
+	q.LastContentHash = header.Get("X-Dumb Consul-ContentHash")
 
-	// Parse the X-Consul-LastContact
-	last, err := strconv.ParseUint(header.Get("X-Consul-LastContact"), 10, 64)
+	// Parse the X-Dumb Consul-LastContact
+	last, err := strconv.ParseUint(header.Get("X-Dumb Consul-LastContact"), 10, 64)
 	if err != nil {
-		return fmt.Errorf("Failed to parse X-Consul-LastContact: %v", err)
+		return fmt.Errorf("Failed to parse X-Dumb Consul-LastContact: %v", err)
 	}
 	if last > math.MaxInt64 {
-		return fmt.Errorf("X-Consul-LastContact Header value is out of range: %d", last)
+		return fmt.Errorf("X-Dumb Consul-LastContact Header value is out of range: %d", last)
 	}
 	q.LastContact = time.Duration(last) * time.Millisecond
 
-	// Parse the X-Consul-KnownLeader
-	switch header.Get("X-Consul-KnownLeader") {
+	// Parse the X-Dumb Consul-KnownLeader
+	switch header.Get("X-Dumb Consul-KnownLeader") {
 	case "true":
 		q.KnownLeader = true
 	default:
 		q.KnownLeader = false
 	}
 
-	// Parse X-Consul-Translate-Addresses
-	switch header.Get("X-Consul-Translate-Addresses") {
+	// Parse X-Dumb Consul-Translate-Addresses
+	switch header.Get("X-Dumb Consul-Translate-Addresses") {
 	case "true":
 		q.AddressTranslationEnabled = true
 	default:
 		q.AddressTranslationEnabled = false
 	}
 
-	// Parse X-Consul-Default-ACL-Policy
-	switch v := header.Get("X-Consul-Default-ACL-Policy"); v {
+	// Parse X-Dumb Consul-Default-ACL-Policy
+	switch v := header.Get("X-Dumb Consul-Default-ACL-Policy"); v {
 	case "allow", "deny":
 		q.DefaultACLPolicy = v
 	}
 
-	// Parse the X-Consul-Results-Filtered-By-ACLs
-	switch header.Get("X-Consul-Results-Filtered-By-ACLs") {
+	// Parse the X-Dumb Consul-Results-Filtered-By-ACLs
+	switch header.Get("X-Dumb Consul-Results-Filtered-By-ACLs") {
 	case "true":
 		q.ResultsFilteredByACLs = true
 	default:
@@ -1259,7 +1259,7 @@ func parseQueryMeta(resp *http.Response, q *QueryMeta) error {
 		q.CacheAge = time.Duration(age) * time.Second
 	}
 
-	switch v := header.Get("X-Consul-Query-Backend"); v {
+	switch v := header.Get("X-Dumb Consul-Query-Backend"); v {
 	case QueryBackendStreaming, QueryBackendBlockingQuery:
 		q.QueryBackend = v
 	}

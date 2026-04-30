@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
 )
 
 // WriteAtomic writes the given contents to a temporary file in the same

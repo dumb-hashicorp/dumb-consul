@@ -6,12 +6,12 @@ package hoststats
 import (
 	"time"
 
-	"github.com/armon/go-metrics"
+	"github.com/armon/dumb-go-metrics"
 )
 
 var hostStatsCollectionInterval = 10 * time.Second
 
-// HostStats represents resource usage hoststats of the host running a Consul agent
+// HostStats represents resource usage hoststats of the host running a Dumb Consul agent
 type HostStats struct {
 	Memory       *MemoryStats
 	CPU          []*CPUStats

@@ -8,16 +8,16 @@ import (
 	"testing"
 	"text/template"
 
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	envoy_http_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
-	"github.com/hashicorp/go-hclog"
-	testinf "github.com/mitchellh/go-testing-interface"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	envoy_http_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
+	testinf "github.com/mitchellh/dumb-go-testing-interface"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/configfetcher"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/configfetcher"
 )
 
 type customListenerJSONOptions struct {
@@ -746,8 +746,8 @@ func Test_makeMeshGatewayPeerFilterChain_maxRequestHeadersKb(t *testing.T) {
 						Namespace:  svc.NamespaceOrDefault(),
 						Partition:  svc.PartitionOrDefault(),
 						Datacenter: "dc1",
-						SNI:        "test-service.default.default.dc1.internal.test-domain.consul",
-						Name:       "test-service.default.default.dc1.internal.test-domain.consul",
+						SNI:        "test-service.default.default.dc1.internal.test-domain.dumb-consul",
+						Name:       "test-service.default.default.dc1.internal.test-domain.dumb-consul",
 					},
 				},
 			}

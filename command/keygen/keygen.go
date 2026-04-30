@@ -9,7 +9,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -60,7 +60,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Generates a new encryption key"
 const help = `
-Usage: consul keygen
+Usage: dumb-consul keygen
 
   Generates a new 32-byte encryption key that can be used to configure the
   agent to encrypt traffic. The output of this command is already

@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/go-viper/mapstructure/v2"
+	"github.com/dumb-go-viper/mapstructure/v2"
 	"google.golang.org/grpc/metadata"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func StringToQueryBackendDecodeHookFunc(f reflect.Type, t reflect.Type, data any) (any, error) {

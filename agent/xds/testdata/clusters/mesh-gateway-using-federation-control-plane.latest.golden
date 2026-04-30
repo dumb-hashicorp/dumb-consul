@@ -10,7 +10,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "EDS"
     },
@@ -23,7 +23,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "dc2.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "dc2.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "EDS"
     },
@@ -33,7 +33,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "dc4.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "dc4.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -53,7 +53,7 @@
           }
         ]
       },
-      "name": "dc4.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "dc4.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     },
@@ -63,7 +63,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "dc6.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "dc6.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -83,7 +83,7 @@
           }
         ]
       },
-      "name": "dc6.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "dc6.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     },
@@ -96,7 +96,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "EDS"
     },
@@ -109,7 +109,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "node1.server.dc1.consul",
+      "name": "node1.server.dc1.dumb-consul",
       "outlierDetection": {},
       "type": "EDS"
     },
@@ -122,7 +122,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "node2.server.dc1.consul",
+      "name": "node2.server.dc1.dumb-consul",
       "outlierDetection": {},
       "type": "EDS"
     },
@@ -135,7 +135,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "server.dc2.consul",
+      "name": "server.dc2.dumb-consul",
       "outlierDetection": {},
       "type": "EDS"
     },
@@ -145,7 +145,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "server.dc4.consul",
+        "clusterName": "server.dc4.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -165,7 +165,7 @@
           }
         ]
       },
-      "name": "server.dc4.consul",
+      "name": "server.dc4.dumb-consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     },
@@ -175,7 +175,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "server.dc6.consul",
+        "clusterName": "server.dc6.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -195,7 +195,7 @@
           }
         ]
       },
-      "name": "server.dc6.consul",
+      "name": "server.dc6.dumb-consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     }

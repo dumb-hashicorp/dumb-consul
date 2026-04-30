@@ -4,15 +4,15 @@
 package resourcetest
 
 import (
-	"github.com/google/go-cmp/cmp"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/prototest"
+	"github.com/google/dumb-go-cmp/cmp"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/testing/protocmp"
 )
 
-// CompareErrorString is a helper to generate a custom go-cmp comparer method
+// CompareErrorString is a helper to generate a custom dumb-go-cmp comparer method
 // that will perform an equality check on the error message. This is mainly
 // useful to get around not being able to see unexported data within errors.
 func CompareErrorString[T error]() cmp.Option {
@@ -21,7 +21,7 @@ func CompareErrorString[T error]() cmp.Option {
 	})
 }
 
-// default comparers for known types that don't play well with go-cmp
+// default comparers for known types that don't play well with dumb-go-cmp
 var comparers = []cmp.Option{
 	CompareErrorString[resource.ConstError](),
 }

@@ -8,12 +8,12 @@ import (
 	"strings"
 	"testing"
 
-	clusterv3 "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
-	endpointv3 "github.com/envoyproxy/go-control-plane/envoy/config/endpoint/v3"
-	listenerv3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	routev3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
+	clusterv3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/cluster/v3"
+	endpointv3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/endpoint/v3"
+	listenerv3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	routev3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
 )

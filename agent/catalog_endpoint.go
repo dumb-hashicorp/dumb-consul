@@ -8,126 +8,126 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/armon/go-metrics"
-	"github.com/armon/go-metrics/prometheus"
+	"github.com/armon/dumb-go-metrics"
+	"github.com/armon/dumb-go-metrics/prometheus"
 
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/dnsutil"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/dnsutil"
 )
 
 var CatalogCounters = []prometheus.CounterDefinition{
 	{
 		Name: []string{"client", "api", "catalog_register"},
-		Help: "Increments whenever a Consul agent receives a catalog register request.",
+		Help: "Increments whenever a Dumb Consul agent receives a catalog register request.",
 	},
 	{
 		Name: []string{"client", "rpc", "error", "catalog_register"},
-		Help: "Increments whenever a Consul agent receives an RPC error for a catalog register request.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for a catalog register request.",
 	},
 	{
 		Name: []string{"client", "api", "success", "catalog_register"},
-		Help: "Increments whenever a Consul agent successfully responds to a catalog register request.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a catalog register request.",
 	},
 	{
 		Name: []string{"client", "api", "catalog_deregister"},
-		Help: "Increments whenever a Consul agent receives a catalog deregister request.",
+		Help: "Increments whenever a Dumb Consul agent receives a catalog deregister request.",
 	},
 	{
 		Name: []string{"client", "api", "catalog_datacenters"},
-		Help: "Increments whenever a Consul agent receives a request to list datacenters in the catalog.",
+		Help: "Increments whenever a Dumb Consul agent receives a request to list datacenters in the catalog.",
 	},
 	{
 		Name: []string{"client", "rpc", "error", "catalog_deregister"},
-		Help: "Increments whenever a Consul agent receives an RPC error for a catalog deregister request.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for a catalog deregister request.",
 	},
 	{
 		Name: []string{"client", "api", "success", "catalog_nodes"},
-		Help: "Increments whenever a Consul agent successfully responds to a request to list nodes.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a request to list nodes.",
 	},
 	{
 		Name: []string{"client", "rpc", "error", "catalog_nodes"},
-		Help: "Increments whenever a Consul agent receives an RPC error for a request to list nodes.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for a request to list nodes.",
 	},
 	{
 		Name: []string{"client", "api", "success", "catalog_deregister"},
-		Help: "Increments whenever a Consul agent successfully responds to a catalog deregister request.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a catalog deregister request.",
 	},
 	{
 		Name: []string{"client", "rpc", "error", "catalog_datacenters"},
-		Help: "Increments whenever a Consul agent receives an RPC error for a request to list datacenters.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for a request to list datacenters.",
 	},
 	{
 		Name: []string{"client", "api", "success", "catalog_datacenters"},
-		Help: "Increments whenever a Consul agent successfully responds to a request to list datacenters.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a request to list datacenters.",
 	},
 	{
 		Name: []string{"client", "api", "catalog_nodes"},
-		Help: "Increments whenever a Consul agent receives a request to list nodes from the catalog.",
+		Help: "Increments whenever a Dumb Consul agent receives a request to list nodes from the catalog.",
 	},
 	{
 		Name: []string{"client", "api", "catalog_services"},
-		Help: "Increments whenever a Consul agent receives a request to list services from the catalog.",
+		Help: "Increments whenever a Dumb Consul agent receives a request to list services from the catalog.",
 	},
 	{
 		Name: []string{"client", "rpc", "error", "catalog_services"},
-		Help: "Increments whenever a Consul agent receives an RPC error for a request to list services.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for a request to list services.",
 	},
 	{
 		Name: []string{"client", "api", "success", "catalog_services"},
-		Help: "Increments whenever a Consul agent successfully responds to a request to list services.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a request to list services.",
 	},
 	{
 		Name: []string{"client", "api", "catalog_service_nodes"},
-		Help: "Increments whenever a Consul agent receives a request to list nodes offering a service.",
+		Help: "Increments whenever a Dumb Consul agent receives a request to list nodes offering a service.",
 	},
 	{
 		Name: []string{"client", "rpc", "error", "catalog_service_nodes"},
-		Help: "Increments whenever a Consul agent receives an RPC error for a request to list nodes offering a service.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for a request to list nodes offering a service.",
 	},
 	{
 		Name: []string{"client", "api", "success", "catalog_service_nodes"},
-		Help: "Increments whenever a Consul agent successfully responds to a request to list nodes offering a service.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a request to list nodes offering a service.",
 	},
 	{
 		Name: []string{"client", "api", "error", "catalog_service_nodes"},
-		Help: "Increments whenever a Consul agent receives an RPC error for request to list nodes offering a service.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for request to list nodes offering a service.",
 	},
 	{
 		Name: []string{"client", "api", "catalog_node_services"},
-		Help: "Increments whenever a Consul agent successfully responds to a request to list nodes offering a service.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a request to list nodes offering a service.",
 	},
 	{
 		Name: []string{"client", "api", "success", "catalog_node_services"},
-		Help: "Increments whenever a Consul agent successfully responds to a request to list services in a node.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a request to list services in a node.",
 	},
 	{
 		Name: []string{"client", "rpc", "error", "catalog_node_services"},
-		Help: "Increments whenever a Consul agent receives an RPC error for a request to list services in a node.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for a request to list services in a node.",
 	},
 	{
 		Name: []string{"client", "api", "catalog_node_service_list"},
-		Help: "Increments whenever a Consul agent receives a request to list a node's registered services.",
+		Help: "Increments whenever a Dumb Consul agent receives a request to list a node's registered services.",
 	},
 	{
 		Name: []string{"client", "rpc", "error", "catalog_node_service_list"},
-		Help: "Increments whenever a Consul agent receives an RPC error for request to list a node's registered services.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for request to list a node's registered services.",
 	},
 	{
 		Name: []string{"client", "api", "success", "catalog_node_service_list"},
-		Help: "Increments whenever a Consul agent successfully responds to a request to list a node's registered services.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a request to list a node's registered services.",
 	},
 	{
 		Name: []string{"client", "api", "catalog_gateway_services"},
-		Help: "Increments whenever a Consul agent receives a request to list services associated with a gateway.",
+		Help: "Increments whenever a Dumb Consul agent receives a request to list services associated with a gateway.",
 	},
 	{
 		Name: []string{"client", "rpc", "error", "catalog_gateway_services"},
-		Help: "Increments whenever a Consul agent receives an RPC error for a request to list services associated with a gateway.",
+		Help: "Increments whenever a Dumb Consul agent receives an RPC error for a request to list services associated with a gateway.",
 	},
 	{
 		Name: []string{"client", "api", "success", "catalog_gateway_services"},
-		Help: "Increments whenever a Consul agent successfully responds to a request to list services associated with a gateway.",
+		Help: "Increments whenever a Dumb Consul agent successfully responds to a request to list services associated with a gateway.",
 	},
 }
 
@@ -473,7 +473,7 @@ RETRY_ONCE:
 
 	// TODO: The NodeServices object in IndexedNodeServices is a pointer to
 	// something that's created for each request by the state store way down
-	// in https://github.com/hashicorp/consul/blob/v1.0.4/agent/consul/state/catalog.go#L953-L963.
+	// in https://github.com/dumb-hashicorp/dumb-consul/blob/v1.0.4/agent/dumb-consul/state/catalog.go#L953-L963.
 	// Since this isn't a pointer to a real state store object, it's safe to
 	// modify out.NodeServices.Services in the loop below without making a
 	// copy here. Same for the Tags in each service entry, since that was

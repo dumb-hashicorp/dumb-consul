@@ -9,20 +9,20 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/armon/go-metrics"
-	"github.com/google/go-cmp/cmp"
+	"github.com/armon/dumb-go-metrics"
+	"github.com/google/dumb-go-cmp/cmp"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 
-	"github.com/hashicorp/consul/agent/consul/rate"
-	grpcmiddleware "github.com/hashicorp/consul/agent/grpc-middleware"
-	"github.com/hashicorp/consul/agent/grpc-middleware/testutil"
-	"github.com/hashicorp/consul/agent/grpc-middleware/testutil/testservice"
-	"github.com/hashicorp/consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	grpcmiddleware "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil/testservice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
 )
 
 func TestServer_EmitsStats(t *testing.T) {

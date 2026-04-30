@@ -8,7 +8,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // Wildcard can be given as Tenancy fields in List and Watch calls, to enumerate
@@ -49,7 +49,7 @@ const (
 	//
 	// It guarantees [monotonic reads]. That is, a read will always return results
 	// that are as up-to-date as an earlier read, provided both happen on the same
-	// Consul server. But does not make any such guarantee about writes.
+	// Dumb Consul server. But does not make any such guarantee about writes.
 	//
 	// In other words, reads won't necessarily reflect earlier writes, even when
 	// made against the same server.
@@ -240,7 +240,7 @@ type Backend interface {
 	// such that Read will never return data that is older than the most recent
 	// event you received. Note: this guarantee holds at the (in-process) storage
 	// backend level, only. Controllers and other users of the Resource Service API
-	// must remain connected to the same Consul server process to avoid receiving
+	// must remain connected to the same Dumb Consul server process to avoid receiving
 	// events about writes that they then cannot read. In other words, it is *not*
 	// linearizable.
 	//

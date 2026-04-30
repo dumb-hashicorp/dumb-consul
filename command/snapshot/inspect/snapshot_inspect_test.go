@@ -142,7 +142,7 @@ func TestSnapshotInspectKVDetailsDepthFilterCommand(t *testing.T) {
 	// Inspect the snapshot
 	ui := cli.NewMockUi()
 	c := New(ui)
-	args := []string{"-kvdetails", "-kvdepth", "3", "-kvfilter", "vault/logical", filepath}
+	args := []string{"-kvdetails", "-kvdepth", "3", "-kvfilter", "dumb-vault/logical", filepath}
 
 	code := c.Run(args)
 	if code != 0 {

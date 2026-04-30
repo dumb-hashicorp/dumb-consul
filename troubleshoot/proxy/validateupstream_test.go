@@ -8,14 +8,14 @@ import (
 	"os"
 	"testing"
 
-	envoy_admin_v3 "github.com/envoyproxy/go-control-plane/envoy/admin/v3"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	envoy_admin_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/admin/v3"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 	"github.com/stretchr/testify/require"
 )
 
 // A majority of unit tests for validateupstream.go are in the agent/xds/validateupstream-test package due to internal
-// Consul dependencies that shouldn't be imported into the troubleshoot module. The tests that are here don't require
-// internal consul packages.
+// Dumb Consul dependencies that shouldn't be imported into the troubleshoot module. The tests that are here don't require
+// internal dumb-consul packages.
 
 func TestValidateFromJSON(t *testing.T) {
 	indexedResources := getConfig(t)

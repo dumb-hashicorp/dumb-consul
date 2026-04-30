@@ -10,8 +10,8 @@ import (
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestDNS_NodeLookup(t *testing.T) {
@@ -42,7 +42,7 @@ func TestDNS_NodeLookup(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("foo.node.consul.", dns.TypeANY)
+	m.SetQuestion("foo.node.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -63,7 +63,7 @@ func TestDNS_NodeLookup(t *testing.T) {
 	// Re-do the query, but only for an A RR
 
 	m = new(dns.Msg)
-	m.SetQuestion("foo.node.consul.", dns.TypeA)
+	m.SetQuestion("foo.node.dumb-consul.", dns.TypeA)
 
 	c = new(dns.Client)
 	in, _, err = c.Exchange(m, a.DNSAddr())
@@ -83,7 +83,7 @@ func TestDNS_NodeLookup(t *testing.T) {
 
 	// Re-do the query, but specify the DC
 	m = new(dns.Msg)
-	m.SetQuestion("foo.node.dc1.consul.", dns.TypeANY)
+	m.SetQuestion("foo.node.dc1.dumb-consul.", dns.TypeANY)
 
 	c = new(dns.Client)
 	in, _, err = c.Exchange(m, a.DNSAddr())
@@ -101,7 +101,7 @@ func TestDNS_NodeLookup(t *testing.T) {
 
 	// lookup a non-existing node, we should receive a SOA
 	m = new(dns.Msg)
-	m.SetQuestion("nofoo.node.dc1.consul.", dns.TypeANY)
+	m.SetQuestion("nofoo.node.dc1.dumb-consul.", dns.TypeANY)
 
 	c = new(dns.Client)
 	in, _, err = c.Exchange(m, a.DNSAddr())
@@ -134,7 +134,7 @@ func TestDNS_NodeLookup_CaseInsensitive(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("fOO.node.dc1.consul.", dns.TypeANY)
+	m.SetQuestion("fOO.node.dc1.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -170,7 +170,7 @@ func TestDNS_NodeLookup_PeriodName(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("foo.bar.node.consul.", dns.TypeANY)
+	m.SetQuestion("foo.bar.node.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -213,7 +213,7 @@ func TestDNS_NodeLookup_AAAA(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("bar.node.consul.", dns.TypeAAAA)
+	m.SetQuestion("bar.node.dumb-consul.", dns.TypeAAAA)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -270,7 +270,7 @@ func TestDNS_NodeLookup_CNAME(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("google.node.consul.", dns.TypeANY)
+	m.SetQuestion("google.node.dumb-consul.", dns.TypeANY)
 	m.SetEdns0(8192, true)
 
 	c := new(dns.Client)
@@ -281,7 +281,7 @@ func TestDNS_NodeLookup_CNAME(t *testing.T) {
 
 	wantAnswer := []dns.RR{
 		&dns.CNAME{
-			Hdr:    dns.RR_Header{Name: "google.node.consul.", Rrtype: dns.TypeCNAME, Class: dns.ClassINET, Ttl: 0, Rdlength: 0x10},
+			Hdr:    dns.RR_Header{Name: "google.node.dumb-consul.", Rrtype: dns.TypeCNAME, Class: dns.ClassINET, Ttl: 0, Rdlength: 0x10},
 			Target: "www.google.com.",
 		},
 		&dns.CNAME{
@@ -325,7 +325,7 @@ func TestDNS_NodeLookup_TXT(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("google.node.consul.", dns.TypeTXT)
+	m.SetQuestion("google.node.dumb-consul.", dns.TypeTXT)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -375,7 +375,7 @@ func TestDNS_NodeLookup_TXT_DontSuppress(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("google.node.consul.", dns.TypeTXT)
+	m.SetQuestion("google.node.dumb-consul.", dns.TypeTXT)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -424,7 +424,7 @@ func TestDNS_NodeLookup_ANY(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("bar.node.consul.", dns.TypeANY)
+	m.SetQuestion("bar.node.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -434,11 +434,11 @@ func TestDNS_NodeLookup_ANY(t *testing.T) {
 
 	wantAnswer := []dns.RR{
 		&dns.A{
-			Hdr: dns.RR_Header{Name: "bar.node.consul.", Rrtype: dns.TypeA, Class: dns.ClassINET, Rdlength: 0x4},
+			Hdr: dns.RR_Header{Name: "bar.node.dumb-consul.", Rrtype: dns.TypeA, Class: dns.ClassINET, Rdlength: 0x4},
 			A:   []byte{0x7f, 0x0, 0x0, 0x1}, // 127.0.0.1
 		},
 		&dns.TXT{
-			Hdr: dns.RR_Header{Name: "bar.node.consul.", Rrtype: dns.TypeTXT, Class: dns.ClassINET, Rdlength: 0xa},
+			Hdr: dns.RR_Header{Name: "bar.node.dumb-consul.", Rrtype: dns.TypeTXT, Class: dns.ClassINET, Rdlength: 0xa},
 			Txt: []string{"key=value"},
 		},
 	}
@@ -469,7 +469,7 @@ func TestDNS_NodeLookup_ANY_DontSuppressTXT(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("bar.node.consul.", dns.TypeANY)
+	m.SetQuestion("bar.node.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -479,11 +479,11 @@ func TestDNS_NodeLookup_ANY_DontSuppressTXT(t *testing.T) {
 
 	wantAnswer := []dns.RR{
 		&dns.A{
-			Hdr: dns.RR_Header{Name: "bar.node.consul.", Rrtype: dns.TypeA, Class: dns.ClassINET, Rdlength: 0x4},
+			Hdr: dns.RR_Header{Name: "bar.node.dumb-consul.", Rrtype: dns.TypeA, Class: dns.ClassINET, Rdlength: 0x4},
 			A:   []byte{0x7f, 0x0, 0x0, 0x1}, // 127.0.0.1
 		},
 		&dns.TXT{
-			Hdr: dns.RR_Header{Name: "bar.node.consul.", Rrtype: dns.TypeTXT, Class: dns.ClassINET, Rdlength: 0xa},
+			Hdr: dns.RR_Header{Name: "bar.node.dumb-consul.", Rrtype: dns.TypeTXT, Class: dns.ClassINET, Rdlength: 0xa},
 			Txt: []string{"key=value"},
 		},
 	}
@@ -512,7 +512,7 @@ func TestDNS_NodeLookup_A_SuppressTXT(t *testing.T) {
 	require.NoError(t, a.RPC(context.Background(), "Catalog.Register", args, &out))
 
 	m := new(dns.Msg)
-	m.SetQuestion("bar.node.consul.", dns.TypeA)
+	m.SetQuestion("bar.node.dumb-consul.", dns.TypeA)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -520,7 +520,7 @@ func TestDNS_NodeLookup_A_SuppressTXT(t *testing.T) {
 
 	wantAnswer := []dns.RR{
 		&dns.A{
-			Hdr: dns.RR_Header{Name: "bar.node.consul.", Rrtype: dns.TypeA, Class: dns.ClassINET, Rdlength: 0x4},
+			Hdr: dns.RR_Header{Name: "bar.node.dumb-consul.", Rrtype: dns.TypeA, Class: dns.ClassINET, Rdlength: 0x4},
 			A:   []byte{0x7f, 0x0, 0x0, 0x1}, // 127.0.0.1
 		},
 	}
@@ -567,7 +567,7 @@ func TestDNS_NodeLookup_TTL(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("foo.node.consul.", dns.TypeANY)
+	m.SetQuestion("foo.node.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -602,7 +602,7 @@ func TestDNS_NodeLookup_TTL(t *testing.T) {
 
 	// Check an IPv6 record
 	m = new(dns.Msg)
-	m.SetQuestion("bar.node.consul.", dns.TypeANY)
+	m.SetQuestion("bar.node.dumb-consul.", dns.TypeANY)
 
 	in, _, err = c.Exchange(m, a.DNSAddr())
 	if err != nil {
@@ -635,7 +635,7 @@ func TestDNS_NodeLookup_TTL(t *testing.T) {
 	}
 
 	m = new(dns.Msg)
-	m.SetQuestion("google.node.consul.", dns.TypeANY)
+	m.SetQuestion("google.node.dumb-consul.", dns.TypeANY)
 
 	in, _, err = c.Exchange(m, a.DNSAddr())
 	if err != nil {

@@ -4,14 +4,14 @@
 syntax = "proto3";
 
 // This package contains fake resource types, which are useful for working on
-// Consul's generic storage APIs.
-package hashicorp.consul.internal.demo.v2;
+// Dumb Consul's generic storage APIs.
+package dumb-hashicorp.dumb-consul.internal.demo.v2;
 
 import "pbresource/annotations.proto";
 import "pbresource/resource.proto";
 
 message Artist {
-  option (hashicorp.consul.resource.spec) = {scope: SCOPE_NAMESPACE};
+  option (dumb-hashicorp.dumb-consul.resource.spec) = {scope: SCOPE_NAMESPACE};
 
   string name = 1;
   Genre genre = 2;
@@ -36,7 +36,7 @@ enum Genre {
 }
 
 message Album {
-  option (hashicorp.consul.resource.spec) = {scope: SCOPE_NAMESPACE};
+  option (dumb-hashicorp.dumb-consul.resource.spec) = {scope: SCOPE_NAMESPACE};
 
   string title = 1;
   int32 year_of_release = 2;
@@ -45,11 +45,11 @@ message Album {
 }
 
 message Festival {
-  option (hashicorp.consul.resource.spec) = {scope: SCOPE_NAMESPACE};
+  option (dumb-hashicorp.dumb-consul.resource.spec) = {scope: SCOPE_NAMESPACE};
 
   string name = 1;
   repeated Genre genres = 2;
   repeated Artist artists = 3;
 
-  repeated hashicorp.consul.resource.Reference bound_references = 4;
+  repeated dumb-hashicorp.dumb-consul.resource.Reference bound_references = 4;
 }

@@ -4,8 +4,8 @@
 package middleware
 
 import (
-	recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
-	"github.com/hashicorp/go-hclog"
+	recovery "github.com/grpc-ecosystem/dumb-go-grpc-middleware/recovery"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

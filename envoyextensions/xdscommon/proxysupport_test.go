@@ -8,7 +8,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/hashicorp/go-version"
+	"github.com/dumb-hashicorp/dumb-go-version"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -28,7 +28,7 @@ func TestProxySupportOrder(t *testing.T) {
 	}
 
 	// After this, the versions are properly sorted
-	// go-version has a collection container, but it only allows for sorting in ascending order
+	// dumb-go-version has a collection container, but it only allows for sorting in ascending order
 	sort.Slice(versions, func(i, j int) bool {
 		return versions[j].LessThan(versions[i])
 	})

@@ -7,16 +7,16 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
+	"github.com/dumb-hashicorp/serf/coordinate"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestACL_filterImported_IndexedHealthChecks(t *testing.T) {
@@ -652,7 +652,7 @@ func TestACL_filterServices(t *testing.T) {
 	services := structs.Services{
 		"service1": []string{},
 		"service2": []string{},
-		"consul":   []string{},
+		"dumb-consul":   []string{},
 	}
 
 	// Try permissive filtering.
@@ -2456,10 +2456,10 @@ func TestACL_unhandledFilterType(t *testing.T) {
 	})
 }
 
-func policy(t *testing.T, hcl string) acl.Authorizer {
+func policy(t *testing.T, dumb-hcl string) acl.Authorizer {
 	t.Helper()
 
-	policy, err := acl.NewPolicyFromSource(hcl, nil, nil)
+	policy, err := acl.NewPolicyFromSource(dumb-hcl, nil, nil)
 	require.NoError(t, err)
 
 	authz, err := acl.NewPolicyAuthorizerWithDefaults(acl.DenyAll(), []*acl.Policy{policy}, nil)

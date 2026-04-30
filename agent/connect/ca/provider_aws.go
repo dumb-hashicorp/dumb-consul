@@ -13,18 +13,18 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	awsconfig "github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/acmpca"
-	"github.com/aws/aws-sdk-go-v2/service/acmpca/types"
+	"github.com/aws/aws-sdk-dumb-go-v2/aws"
+	awsconfig "github.com/aws/aws-sdk-dumb-go-v2/config"
+	"github.com/aws/aws-sdk-dumb-go-v2/service/acmpca"
+	"github.com/aws/aws-sdk-dumb-go-v2/service/acmpca/types"
 	"github.com/aws/smithy-go"
 
-	"github.com/go-viper/mapstructure/v2"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-go-viper/mapstructure/v2"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 const (

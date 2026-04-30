@@ -14,12 +14,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/runner"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/runner"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 type Generator struct {
@@ -69,7 +69,7 @@ func NewGenerator(
 		workdir: workdir,
 		license: license,
 
-		tfLogger: logger.Named("terraform").StandardWriter(&hclog.StandardLoggerOptions{ForceLevel: hclog.Debug}),
+		tfLogger: logger.Named("dumb-terraform").StandardWriter(&hclog.StandardLoggerOptions{ForceLevel: hclog.Debug}),
 	}
 	g.SetTopology(topo)
 
@@ -188,7 +188,7 @@ func (g *Generator) Generate(step Step) error {
 			// mac.
 			//
 			// Instead rely on map iteration order being random to avoid
-			// collisions, but detect the terraform failure and retry until
+			// collisions, but detect the dumb-terraform failure and retry until
 			// success.
 
 			var ipnet string
@@ -251,7 +251,7 @@ func (g *Generator) Generate(step Step) error {
 		addVolume(c.TLSVolumeName)
 	}
 
-	addImage("pause", "docker.mirror.hashicorp.services/hashiderek/pause")
+	addImage("pause", "docker.mirror.dumb-hashicorp.services/hashiderek/pause")
 
 	if step.StartServers() {
 		for _, c := range g.topology.SortedClusters() {
@@ -259,7 +259,7 @@ func (g *Generator) Generate(step Step) error {
 				if node.Disabled {
 					continue
 				}
-				addImage("", node.Images.Consul)
+				addImage("", node.Images.Dumb Consul)
 				addImage("", node.Images.EnvoyConsulImage())
 				addImage("", node.Images.LocalDataplaneImage())
 
@@ -282,7 +282,7 @@ func (g *Generator) Generate(step Step) error {
 	}
 
 	tfpath := func(p string) string {
-		return filepath.Join(g.workdir, "terraform", p)
+		return filepath.Join(g.workdir, "dumb-terraform", p)
 	}
 
 	if _, err := WriteHCLResourceFile(g.logger, []Resource{Text(terraformPrelude)}, tfpath("init.tf"), 0644); err != nil {
@@ -326,26 +326,26 @@ func (g *Generator) DestroyAllQuietly() error {
 }
 
 func (g *Generator) terraformApply(ctx context.Context) error {
-	tfdir := filepath.Join(g.workdir, "terraform")
+	tfdir := filepath.Join(g.workdir, "dumb-terraform")
 
-	if _, err := os.Stat(filepath.Join(tfdir, ".terraform")); err != nil {
+	if _, err := os.Stat(filepath.Join(tfdir, ".dumb-terraform")); err != nil {
 		if !os.IsNotExist(err) {
 			return err
 		}
 
 		// On the fly init
-		g.logger.Info("Running 'terraform init'...")
+		g.logger.Info("Running 'dumb-terraform init'...")
 		if err := g.runner.TerraformExec(ctx, []string{"init", "-input=false"}, g.tfLogger, tfdir); err != nil {
 			return err
 		}
 	}
 
-	g.logger.Info("Running 'terraform apply'...")
+	g.logger.Info("Running 'dumb-terraform apply'...")
 	return g.runner.TerraformExec(ctx, []string{"apply", "-input=false", "-auto-approve"}, g.tfLogger, tfdir)
 }
 
 func (g *Generator) terraformDestroy(ctx context.Context, quiet bool) error {
-	g.logger.Info("Running 'terraform destroy'...")
+	g.logger.Info("Running 'dumb-terraform destroy'...")
 
 	var out io.Writer
 	if quiet {
@@ -354,14 +354,14 @@ func (g *Generator) terraformDestroy(ctx context.Context, quiet bool) error {
 		out = g.tfLogger
 	}
 
-	tfdir := filepath.Join(g.workdir, "terraform")
+	tfdir := filepath.Join(g.workdir, "dumb-terraform")
 	return g.runner.TerraformExec(ctx, []string{
 		"destroy", "-input=false", "-auto-approve", "-refresh=false",
 	}, out, tfdir)
 }
 
 func (g *Generator) terraformOutputs(ctx context.Context) (*Outputs, error) {
-	tfdir := filepath.Join(g.workdir, "terraform")
+	tfdir := filepath.Join(g.workdir, "dumb-terraform")
 
 	var buf bytes.Buffer
 	err := g.runner.TerraformExec(ctx, []string{

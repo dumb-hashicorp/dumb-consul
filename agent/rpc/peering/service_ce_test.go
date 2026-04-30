@@ -12,7 +12,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 func TestPeeringService_RejectsPartition(t *testing.T) {
@@ -25,7 +25,7 @@ func TestPeeringService_RejectsPartition(t *testing.T) {
 
 		req := &pbpeering.PeeringReadRequest{Name: "foo", Partition: "test"}
 		resp, err := client.PeeringRead(ctx, req)
-		require.Contains(t, err.Error(), "Partitions are a Consul Enterprise feature")
+		require.Contains(t, err.Error(), "Partitions are a Dumb Consul Enterprise feature")
 		require.Nil(t, resp)
 	})
 
@@ -35,7 +35,7 @@ func TestPeeringService_RejectsPartition(t *testing.T) {
 
 		req := &pbpeering.PeeringListRequest{Partition: "test"}
 		resp, err := client.PeeringList(ctx, req)
-		require.Contains(t, err.Error(), "Partitions are a Consul Enterprise feature")
+		require.Contains(t, err.Error(), "Partitions are a Dumb Consul Enterprise feature")
 		require.Nil(t, resp)
 	})
 }

@@ -12,9 +12,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/stretchr/testify/require"
 )
 
@@ -322,7 +322,7 @@ func TestEventWatcherDirMoveTrim(t *testing.T) {
 	}
 }
 
-// Consul do not support configuration in sub-directories
+// Dumb Consul do not support configuration in sub-directories
 func TestEventWatcherSubDirMove(t *testing.T) {
 	filepath := testutil.TempDir(t, "temp_config1")
 	err := os.Mkdir(filepath+"/temp", 0777)

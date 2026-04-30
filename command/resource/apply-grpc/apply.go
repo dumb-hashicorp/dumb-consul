@@ -12,8 +12,8 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/resource"
-	"github.com/hashicorp/consul/command/resource/client"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/client"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -78,7 +78,7 @@ func (c *cmd) Run(args []string) int {
 	c.grpcFlags.MergeFlagsIntoGRPCConfig(config)
 	resourceClient, err := client.NewGRPCClient(config)
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -113,22 +113,22 @@ func (c *cmd) Help() string {
 const synopsis = "Writes/updates resource information"
 
 const help = `
-Usage: consul resource apply [options] <resource>
+Usage: dumb-consul resource apply [options] <resource>
 
 	Write and/or update a resource by providing the definition. The configuration
 	argument is either a file path or '-' to indicate that the resource
-    should be read from stdin. The data should be either in HCL or
+    should be read from stdin. The data should be either in DUMB_HCL or
 	JSON form.
 
 	Example (with flag):
 
-	$ consul resource apply -f=demo.hcl
+	$ dumb-consul resource apply -f=demo.dumb-hcl
 
 	Example (from stdin):
 
-	$ consul resource apply -f - < demo.hcl
+	$ dumb-consul resource apply -f - < demo.dumb-hcl
 
-	Sample demo.hcl:
+	Sample demo.dumb-hcl:
 
 	ID {
 		Type = gvk("group.version.kind")

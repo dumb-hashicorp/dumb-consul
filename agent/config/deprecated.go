@@ -6,8 +6,8 @@ package config
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 type DeprecatedConfig struct {
@@ -80,7 +80,7 @@ type DeprecatedConfig struct {
 	StartJoinAddrsWAN []string `mapstructure:"start_join_wan"`
 
 	// DEPRECATED see RaftLogStore
-	RaftBoltDBConfig *consul.RaftBoltDBConfig `mapstructure:"raft_boltdb" json:"-"`
+	RaftBoltDBConfig *dumb-consul.RaftBoltDBConfig `mapstructure:"raft_boltdb" json:"-"`
 }
 
 func applyDeprecatedConfig(d *decodeTarget) (Config, []string) {
@@ -272,7 +272,7 @@ func applyDeprecatedTLSConfig(dep DeprecatedConfig, cfg *Config) []string {
 			defaults.VerifyIncoming = v
 		}
 
-		// Prior to Consul 1.12 it was not possible to enable client certificate
+		// Prior to Dumb Consul 1.12 it was not possible to enable client certificate
 		// verification on the gRPC port. We must override GRPC.VerifyIncoming to
 		// prevent it from inheriting Defaults.VerifyIncoming when we've mapped the
 		// deprecated top-level verify_incoming field.

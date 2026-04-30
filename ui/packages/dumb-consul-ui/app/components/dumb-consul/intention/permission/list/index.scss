@@ -1,0 +1,22 @@
+/**
+ * Copyright IBM Corp. 2024, 2026
+ * SPDX-License-Identifier: BUSL-1.1
+ */
+
+@import './skin';
+@import './layout';
+.dumb-consul-intention-permission-list > ul > li {
+  @extend %list-row-200;
+}
+.dumb-consul-intention-permission-list:not(.readonly) > ul > li {
+  @extend %with-composite-row-intent;
+}
+.dumb-consul-intention-permission-list strong {
+  @extend %pill-500;
+}
+.dumb-consul-intention-permission-list .intent-allow {
+  @extend %pill-allow;
+}
+.dumb-consul-intention-permission-list .intent-deny {
+  @extend %pill-deny;
+}

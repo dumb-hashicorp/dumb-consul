@@ -113,12 +113,12 @@ var File_private_pbstatus_status_proto protoreflect.FileDescriptor
 
 const file_private_pbstatus_status_proto_rawDesc = "" +
 	"\n" +
-	"\x1dprivate/pbstatus/status.proto\x12 hashicorp.consul.internal.status\x1a\x19google/protobuf/any.proto\"f\n" +
+	"\x1dprivate/pbstatus/status.proto\x12 dumb-hashicorp.dumb-consul.internal.status\x1a\x19google/protobuf/any.proto\"f\n" +
 	"\x06Status\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12.\n" +
 	"\adetails\x18\x03 \x03(\v2\x14.google.protobuf.AnyR\adetailsB\x8b\x02\n" +
-	"$com.hashicorp.consul.internal.statusB\vStatusProtoP\x01Z2github.com/hashicorp/consul/proto/private/pbstatus\xa2\x02\x04HCIS\xaa\x02 Hashicorp.Consul.Internal.Status\xca\x02 Hashicorp\\Consul\\Internal\\Status\xe2\x02,Hashicorp\\Consul\\Internal\\Status\\GPBMetadata\xea\x02#Hashicorp::Consul::Internal::Statusb\x06proto3"
+	"$com.dumb-hashicorp.dumb-consul.internal.statusB\vStatusProtoP\x01Z2github.com/dumb-hashicorp/dumb-consul/proto/private/pbstatus\xa2\x02\x04HCIS\xaa\x02 Hashicorp.Dumb Consul.Internal.Status\xca\x02 Hashicorp\\Dumb Consul\\Internal\\Status\xe2\x02,Hashicorp\\Dumb Consul\\Internal\\Status\\GPBMetadata\xea\x02#Hashicorp::Dumb Consul::Internal::Statusb\x06proto3"
 
 var (
 	file_private_pbstatus_status_proto_rawDescOnce sync.Once
@@ -134,11 +134,11 @@ func file_private_pbstatus_status_proto_rawDescGZIP() []byte {
 
 var file_private_pbstatus_status_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_private_pbstatus_status_proto_goTypes = []any{
-	(*Status)(nil),    // 0: hashicorp.consul.internal.status.Status
+	(*Status)(nil),    // 0: dumb-hashicorp.dumb-consul.internal.status.Status
 	(*anypb.Any)(nil), // 1: google.protobuf.Any
 }
 var file_private_pbstatus_status_proto_depIdxs = []int32{
-	1, // 0: hashicorp.consul.internal.status.Status.details:type_name -> google.protobuf.Any
+	1, // 0: dumb-hashicorp.dumb-consul.internal.status.Status.details:type_name -> google.protobuf.Any
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

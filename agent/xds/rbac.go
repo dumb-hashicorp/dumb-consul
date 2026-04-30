@@ -8,19 +8,19 @@ import (
 	"sort"
 	"strings"
 
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_rbac_v3 "github.com/envoyproxy/go-control-plane/envoy/config/rbac/v3"
-	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	envoy_http_header_to_meta_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/header_to_metadata/v3"
-	envoy_http_rbac_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/rbac/v3"
-	envoy_http_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
-	envoy_network_rbac_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/rbac/v3"
-	envoy_matcher_v3 "github.com/envoyproxy/go-control-plane/envoy/type/matcher/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_rbac_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/rbac/v3"
+	envoy_route_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
+	envoy_http_header_to_meta_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/header_to_metadata/v3"
+	envoy_http_rbac_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/rbac/v3"
+	envoy_http_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
+	envoy_network_rbac_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/rbac/v3"
+	envoy_matcher_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/type/matcher/v3"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/response"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/response"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 const (
@@ -537,10 +537,10 @@ type rbacLocalInfo struct {
 	expectXFCC  bool
 }
 
-// makeRBACRules translates Consul intentions into RBAC Policies for Envoy.
+// makeRBACRules translates Dumb Consul intentions into RBAC Policies for Envoy.
 //
-// Consul lets you define up to 9 different kinds of intentions that apply at
-// different levels of precedence (this is limited to 4 if not using Consul
+// Dumb Consul lets you define up to 9 different kinds of intentions that apply at
+// different levels of precedence (this is limited to 4 if not using Dumb Consul
 // Enterprise). Each intention in this flat list (sorted by precedence) can either
 // be an allow rule or a deny rule. Here’s a concrete example of this at work:
 //
@@ -553,9 +553,9 @@ type rbacLocalInfo struct {
 // allow-list or a deny-list based on the action attribute of the RBAC rules
 // struct.
 //
-// On the surface it would seem that the configuration model of Consul
+// On the surface it would seem that the configuration model of Dumb Consul
 // intentions is incompatible with that of Envoy’s RBAC engine. For any given
-// destination service Consul’s model requires evaluating a list of rules and
+// destination service Dumb Consul’s model requires evaluating a list of rules and
 // short circuiting later rules once an earlier rule matches. After a rule is
 // found to match then we decide if it is allow/deny. Envoy on the other hand
 // requires the rules to express all conditions to allow access or all conditions
@@ -661,14 +661,14 @@ func makeRBACRules(
 			for _, perm := range rbacIxn.Permissions {
 				policy.Permissions = append(policy.Permissions, perm.ComputedPermission)
 			}
-			rbac.Policies[fmt.Sprintf("consul-intentions-layer7-%d", i)] = policy
+			rbac.Policies[fmt.Sprintf("dumb-consul-intentions-layer7-%d", i)] = policy
 		} else {
 			// For L4: we should generate one big Policy listing all Principals
 			principalsL4 = append(principalsL4, rbacIxn.ComputedPrincipal)
 		}
 	}
 	if len(principalsL4) > 0 {
-		rbac.Policies["consul-intentions-layer4"] = &envoy_rbac_v3.Policy{
+		rbac.Policies["dumb-consul-intentions-layer4"] = &envoy_rbac_v3.Policy{
 			Principals:  optimizePrincipals(principalsL4),
 			Permissions: []*envoy_rbac_v3.Permission{anyPermission()},
 		}
@@ -1011,12 +1011,12 @@ func xfccPrincipal(src rbacService) *envoy_rbac_v3.Principal {
 	// Anchor to the first XFCC component
 	pattern := `^[^,]+;URI=` + idPattern + `(?:,.*)?$`
 
-	// By=spiffe://8c7db6d3-e4ee-aa8c-488c-dbedd3772b78.consul/gateway/mesh/dc/dc2;
+	// By=spiffe://8c7db6d3-e4ee-aa8c-488c-dbedd3772b78.dumb-consul/gateway/mesh/dc/dc2;
 	// Hash=2a2db78ac351a05854a0abd350631bf98cc0eb827d21f4ed5935ccd287779eb6;
 	// Cert="-----BEGIN%20CERTIFICATE-----<SNIP>";
 	// Chain="-----BEGIN%20CERTIFICATE-----<SNIP>";
 	// Subject="";
-	// URI=spiffe://5583c38e-c1c0-fd1e-2079-170bb2f396ad.consul/ns/default/dc/dc1/svc/pong,
+	// URI=spiffe://5583c38e-c1c0-fd1e-2079-170bb2f396ad.dumb-consul/ns/default/dc/dc1/svc/pong,
 
 	return &envoy_rbac_v3.Principal{
 		Identifier: &envoy_rbac_v3.Principal_Header{
@@ -1041,25 +1041,25 @@ const (
 
 // downstreamServiceIdentityMatcher needs to match XFCC headers in two cases:
 // 1. Requests to cluster peered services through a mesh gateway. In this case, the XFCC header looks like the following (I added a new line after each ; for readability)
-// By=spiffe://950df996-caef-ddef-ec5f-8d18a153b7b2.consul/gateway/mesh/dc/alpha;
+// By=spiffe://950df996-caef-ddef-ec5f-8d18a153b7b2.dumb-consul/gateway/mesh/dc/alpha;
 // Hash=...;
 // Cert=...;
 // Chain=...;
 // Subject="";
-// URI=spiffe://c7e1d24a-eed8-10a3-286a-52bdb6b6a6fd.consul/ns/default/dc/primary/svc/s1,By=spiffe://950df996-caef-ddef-ec5f-8d18a153b7b2.consul/ns/default/dc/alpha/svc/s2;
+// URI=spiffe://c7e1d24a-eed8-10a3-286a-52bdb6b6a6fd.dumb-consul/ns/default/dc/primary/svc/s1,By=spiffe://950df996-caef-ddef-ec5f-8d18a153b7b2.dumb-consul/ns/default/dc/alpha/svc/s2;
 // Hash=...;
 // Cert=...;
 // Chain=...;
 // Subject="";
-// URI=spiffe://950df996-caef-ddef-ec5f-8d18a153b7b2.consul/gateway/mesh/dc/alpha
+// URI=spiffe://950df996-caef-ddef-ec5f-8d18a153b7b2.dumb-consul/gateway/mesh/dc/alpha
 //
 // 2. Requests directly to another service
-// By=spiffe://ae9dbea8-c1dd-7356-b211-c564f7917100.consul/ns/default/dc/primary/svc/s2;
+// By=spiffe://ae9dbea8-c1dd-7356-b211-c564f7917100.dumb-consul/ns/default/dc/primary/svc/s2;
 // Hash=396218588ebc1655d32a49b68cedd6b66b9de7b3d69d0c0451bc5818132377d0;
 // Cert=...;
 // Chain=...;
 // Subject="";
-// URI=spiffe://ae9dbea8-c1dd-7356-b211-c564f7917100.consul/ns/default/dc/primary/svc/s1
+// URI=spiffe://ae9dbea8-c1dd-7356-b211-c564f7917100.dumb-consul/ns/default/dc/primary/svc/s1
 //
 // In either case, the regex matches the downstream service's spiffe id because mesh gateways use a different spiffe id format.
 // Envoy requires us to include the trailing and leading .* to properly extract the properly submatch.
@@ -1102,7 +1102,7 @@ func parseXFCCToDynamicMetaHTTPFilter() (*envoy_http_v3.HttpFilter, error) {
 		rules = append(rules, &envoy_http_header_to_meta_v3.Config_Rule{
 			Header: "x-forwarded-client-cert",
 			OnHeaderPresent: &envoy_http_header_to_meta_v3.Config_KeyValuePair{
-				MetadataNamespace: "consul",
+				MetadataNamespace: "dumb-consul",
 				Key:               f.name,
 				RegexValueRewrite: &envoy_matcher_v3.RegexMatchAndSubstitute{
 					Pattern: &envoy_matcher_v3.RegexMatcher{

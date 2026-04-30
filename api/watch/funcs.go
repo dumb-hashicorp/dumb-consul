@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package watch
@@ -7,7 +7,7 @@ import (
 	"context"
 	"fmt"
 
-	consulapi "github.com/hashicorp/consul/api"
+	consulapi "github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // watchFactory is a function that can create a new WatchFunc

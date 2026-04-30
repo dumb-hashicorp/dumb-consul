@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-discover"
-	discoverk8s "github.com/hashicorp/go-discover/provider/k8s"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-discover"
+	discoverk8s "github.com/dumb-hashicorp/dumb-go-discover/provider/k8s"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 func (a *Agent) retryJoinLAN() {
@@ -180,7 +180,7 @@ type retryJoiner struct {
 	// cluster is the name of the serf cluster, e.g. "LAN" or "WAN".
 	cluster string
 
-	// addrs is the list of servers or go-discover configurations
+	// addrs is the list of servers or dumb-go-discover configurations
 	// to join with.
 	addrs []string
 

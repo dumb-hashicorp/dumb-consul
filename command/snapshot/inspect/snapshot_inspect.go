@@ -13,13 +13,13 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
-	"github.com/hashicorp/consul/agent/consul/fsm"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/snapshot"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/dumb-go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/fsm"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/snapshot"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
+	"github.com/dumb-hashicorp/raft"
 	"github.com/mitchellh/cli"
 )
 
@@ -358,15 +358,15 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Displays information about a Consul snapshot file"
+const synopsis = "Displays information about a Dumb Consul snapshot file"
 const help = `
-Usage: consul snapshot inspect [options] FILE
+Usage: dumb-consul snapshot inspect [options] FILE
 
   Displays information about a snapshot file on disk.
 
   To inspect the file "backup.snap":
 
-    $ consul snapshot inspect backup.snap
+    $ dumb-consul snapshot inspect backup.snap
   
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `

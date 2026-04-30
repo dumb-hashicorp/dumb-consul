@@ -7,18 +7,18 @@ import (
 	"fmt"
 	"strings"
 
-	envoy_admin_v3 "github.com/envoyproxy/go-control-plane/envoy/admin/v3"
-	envoy_cluster_v3 "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	envoy_aggregate_cluster_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/clusters/aggregate/v3"
-	envoy_resource_v3 "github.com/envoyproxy/go-control-plane/pkg/resource/v3"
-	"github.com/hashicorp/consul/api"
+	envoy_admin_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/admin/v3"
+	envoy_cluster_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/cluster/v3"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_route_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
+	envoy_aggregate_cluster_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/clusters/aggregate/v3"
+	envoy_resource_v3 "github.com/envoyproxy/dumb-go-control-plane/pkg/resource/v3"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
 )
 
 // Validate contains input information about which proxy resources to validate and output information about resources it
@@ -141,14 +141,14 @@ func (m Messages) Errors() Messages {
 func (v *Validate) GetMessages(validateEndpoints bool, endpointValidator EndpointValidator, clusters *envoy_admin_v3.Clusters) Messages {
 	var messages Messages
 	missingXDSActions := []string{
-		"Check that your upstream service is registered with Consul",
-		"Make sure your upstream exists by running the `consul[-k8s] troubleshoot upstreams` command",
+		"Check that your upstream service is registered with Dumb Consul",
+		"Make sure your upstream exists by running the `dumb-consul[-k8s] troubleshoot upstreams` command",
 		"If you are using transparent proxy for this upstream, ensure you have set up allow intentions to the upstream",
-		"Check the logs of the Consul agent configuring the local proxy to ensure XDS resources were sent by Consul",
+		"Check the logs of the Dumb Consul agent configuring the local proxy to ensure XDS resources were sent by Dumb Consul",
 	}
 	missingEndpointsActions := []string{
 		"Check that your upstream service is healthy and running",
-		"Check that your upstream service is registered with Consul",
+		"Check that your upstream service is registered with Dumb Consul",
 		"Check that the upstream proxy is healthy and running",
 		"If you are explicitly configuring upstreams, ensure the name of the upstream is correct",
 	}

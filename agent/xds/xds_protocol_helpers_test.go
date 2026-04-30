@@ -10,21 +10,21 @@ import (
 	"testing"
 	"time"
 
-	"github.com/armon/go-metrics"
-	envoy_cluster_v3 "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	envoy_endpoint_v3 "github.com/envoyproxy/go-control-plane/envoy/config/endpoint/v3"
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_rbac_v3 "github.com/envoyproxy/go-control-plane/envoy/config/rbac/v3"
-	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	envoy_http_router_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/router/v3"
-	envoy_http_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
-	envoy_network_rbac_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/rbac/v3"
-	envoy_tcp_proxy_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/tcp_proxy/v3"
-	envoy_tls_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/transport_sockets/tls/v3"
-	envoy_upstreams_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/upstreams/http/v3"
-	envoy_discovery_v3 "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
-	envoy_type_v3 "github.com/envoyproxy/go-control-plane/envoy/type/v3"
+	"github.com/armon/dumb-go-metrics"
+	envoy_cluster_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/cluster/v3"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	envoy_endpoint_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/endpoint/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_rbac_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/rbac/v3"
+	envoy_route_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
+	envoy_http_router_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/router/v3"
+	envoy_http_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
+	envoy_network_rbac_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/rbac/v3"
+	envoy_tcp_proxy_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/tcp_proxy/v3"
+	envoy_tls_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/transport_sockets/tls/v3"
+	envoy_upstreams_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/upstreams/http/v3"
+	envoy_discovery_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/service/discovery/v3"
+	envoy_type_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/type/v3"
 	"github.com/mitchellh/copystructure"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
@@ -32,14 +32,14 @@ import (
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/grpc-external/limiter"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/response"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/response"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 // NOTE: this file is a collection of test helper functions for testing xDS
@@ -193,7 +193,7 @@ func newTestServerDeltaScenario(
 	netutil.GetAgentBindAddrFunc = netutil.GetMockGetAgentBindAddrFunc("0.0.0.0")
 
 	sink := metrics.NewInmemSink(1*time.Minute, 1*time.Minute)
-	cfg := metrics.DefaultConfig("consul.xds.test")
+	cfg := metrics.DefaultConfig("dumb-consul.xds.test")
 	cfg.EnableHostname = false
 	cfg.EnableRuntimeMetrics = false
 	metrics.NewGlobal(cfg, sink)
@@ -408,24 +408,24 @@ func makeTestResource(t *testing.T, raw interface{}) *envoy_discovery_v3.Resourc
 
 func makeTestCluster(t *testing.T, snap *proxycfg.ConfigSnapshot, fixtureName string) *envoy_cluster_v3.Cluster {
 	var (
-		dbSNI = "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+		dbSNI = "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
 		dbURI = connect.SpiffeIDService{
-			Host:       "11111111-2222-3333-4444-555555555555.consul",
+			Host:       "11111111-2222-3333-4444-555555555555.dumb-consul",
 			Namespace:  "default",
 			Datacenter: "dc1",
 			Service:    "db",
 		}.URI().String()
 
-		geocacheSNI  = "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul"
+		geocacheSNI  = "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul"
 		geocacheURIs = []string{
 			connect.SpiffeIDService{
-				Host:       "11111111-2222-3333-4444-555555555555.consul",
+				Host:       "11111111-2222-3333-4444-555555555555.dumb-consul",
 				Namespace:  "default",
 				Datacenter: "dc1",
 				Service:    "geo-cache-target",
 			}.URI().String(),
 			connect.SpiffeIDService{
-				Host:       "11111111-2222-3333-4444-555555555555.consul",
+				Host:       "11111111-2222-3333-4444-555555555555.dumb-consul",
 				Namespace:  "default",
 				Datacenter: "dc2",
 				Service:    "geo-cache-target",
@@ -562,7 +562,7 @@ func makeTestEndpoints(t *testing.T, _ *proxycfg.ConfigSnapshot, fixtureName str
 	switch fixtureName {
 	case "tcp:db":
 		return &envoy_endpoint_v3.ClusterLoadAssignment{
-			ClusterName: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+			ClusterName: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 			Endpoints: []*envoy_endpoint_v3.LocalityLbEndpoints{
 				{
 					LbEndpoints: []*envoy_endpoint_v3.LbEndpoint{
@@ -574,7 +574,7 @@ func makeTestEndpoints(t *testing.T, _ *proxycfg.ConfigSnapshot, fixtureName str
 		}
 	case "tcp:db[0]":
 		return &envoy_endpoint_v3.ClusterLoadAssignment{
-			ClusterName: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+			ClusterName: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 			Endpoints: []*envoy_endpoint_v3.LocalityLbEndpoints{
 				{
 					LbEndpoints: []*envoy_endpoint_v3.LbEndpoint{
@@ -585,7 +585,7 @@ func makeTestEndpoints(t *testing.T, _ *proxycfg.ConfigSnapshot, fixtureName str
 		}
 	case "http2:db", "http:db":
 		return &envoy_endpoint_v3.ClusterLoadAssignment{
-			ClusterName: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+			ClusterName: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 			Endpoints: []*envoy_endpoint_v3.LocalityLbEndpoints{
 				{
 					LbEndpoints: []*envoy_endpoint_v3.LbEndpoint{
@@ -597,7 +597,7 @@ func makeTestEndpoints(t *testing.T, _ *proxycfg.ConfigSnapshot, fixtureName str
 		}
 	case "tcp:geo-cache":
 		return &envoy_endpoint_v3.ClusterLoadAssignment{
-			ClusterName: "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+			ClusterName: "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 			Endpoints: []*envoy_endpoint_v3.LocalityLbEndpoints{
 				{
 					LbEndpoints: []*envoy_endpoint_v3.LbEndpoint{
@@ -672,7 +672,7 @@ func makeTestListener(t *testing.T, snap *proxycfg.ConfigSnapshot, fixtureName s
 					Filters: []*envoy_listener_v3.Filter{
 						xdsNewFilter(t, "envoy.filters.network.tcp_proxy", &envoy_tcp_proxy_v3.TcpProxy{
 							ClusterSpecifier: &envoy_tcp_proxy_v3.TcpProxy_Cluster{
-								Cluster: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+								Cluster: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 							},
 							StatPrefix: "upstream.db.default.default.dc1",
 						}),
@@ -780,7 +780,7 @@ func makeTestListener(t *testing.T, snap *proxycfg.ConfigSnapshot, fixtureName s
 					Filters: []*envoy_listener_v3.Filter{
 						xdsNewFilter(t, "envoy.filters.network.tcp_proxy", &envoy_tcp_proxy_v3.TcpProxy{
 							ClusterSpecifier: &envoy_tcp_proxy_v3.TcpProxy_Cluster{
-								Cluster: "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+								Cluster: "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 							},
 							StatPrefix: "upstream.prepared_query_geo-cache",
 						}),
@@ -813,7 +813,7 @@ func makeTestRoute(t *testing.T, fixtureName string) *envoy_route_v3.RouteConfig
 							Action: &envoy_route_v3.Route_Route{
 								Route: &envoy_route_v3.RouteAction{
 									ClusterSpecifier: &envoy_route_v3.RouteAction_Cluster{
-										Cluster: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+										Cluster: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 									},
 								},
 							},
@@ -839,7 +839,7 @@ func makeTestRoute(t *testing.T, fixtureName string) *envoy_route_v3.RouteConfig
 							Action: &envoy_route_v3.Route_Route{
 								Route: &envoy_route_v3.RouteAction{
 									ClusterSpecifier: &envoy_route_v3.RouteAction_Cluster{
-										Cluster: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+										Cluster: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 									},
 								},
 							},
@@ -866,10 +866,10 @@ func requireProtocolVersionGauge(
 	item := data[0]
 	require.Len(t, item.Gauges, 2)
 
-	val, ok := item.Gauges["consul.xds.test.xds.server.streams;version="+xdsVersion]
+	val, ok := item.Gauges["dumb-consul.xds.test.xds.server.streams;version="+xdsVersion]
 	require.True(t, ok)
 
-	require.Equal(t, "consul.xds.test.xds.server.streams", val.Name)
+	require.Equal(t, "dumb-consul.xds.test.xds.server.streams", val.Name)
 	require.Equal(t, expected, int(val.Value))
 	require.Equal(t, []metrics.Label{{Name: "version", Value: xdsVersion}}, val.Labels)
 }

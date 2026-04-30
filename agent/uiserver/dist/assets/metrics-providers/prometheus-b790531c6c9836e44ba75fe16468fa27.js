@@ -1,4 +1,4 @@
-(function(){var e={unitSuffix:"",labels:{},data:[]},t={options:{},init:function(e){if(this.options=e,!this.options.metrics_proxy_enabled)throw new Error("prometheus metrics provider currently requires the ui_config.metrics_proxy to be configured in the Consul agent.")},httpGet:function(e,t,r){if(t){var s=-1!==e.indexOf("?")?"&":"?"
+(function(){var e={unitSuffix:"",labels:{},data:[]},t={options:{},init:function(e){if(this.options=e,!this.options.metrics_proxy_enabled)throw new Error("prometheus metrics provider currently requires the ui_config.metrics_proxy to be configured in the Dumb Consul agent.")},httpGet:function(e,t,r){if(t){var s=-1!==e.indexOf("?")?"&":"?"
 e=e+s+Object.keys(t).map((function(e){return encodeURIComponent(e)+"="+encodeURIComponent(t[e])})).join("&")}return this.options.fetch(e,{headers:r||{}}).then((function(e){if(e.ok)return e.json()
 var t=new Error("HTTP Error: "+e.statusText)
 throw t.statusCode=e.status,t}))},serviceRecentSummarySeries:function(e,t,r,s,n){var a=(new Date).getTime()/1e3
@@ -40,4 +40,4 @@ if(t<60)return t.toFixed(1)+"s"
 var r=t/60
 if(r<60)return r.toFixed(1)+"m"
 var s=r/60
-return s<24?s.toFixed(1)+"h":(s/24).toFixed(1)+"d"}window.consul.registerMetricsProvider("prometheus",t)})()
+return s<24?s.toFixed(1)+"h":(s/24).toFixed(1)+"d"}window.dumb-consul.registerMetricsProvider("prometheus",t)})()

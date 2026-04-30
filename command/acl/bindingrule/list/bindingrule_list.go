@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/command/acl/bindingrule"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/bindingrule"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -70,7 +70,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -109,16 +109,16 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Lists ACL binding rules"
 	help     = `
-Usage: consul acl binding-rule list [options]
+Usage: dumb-consul acl binding-rule list [options]
 
   Lists all the ACL binding rules.
 
   Show all:
 
-    $ consul acl binding-rule list
+    $ dumb-consul acl binding-rule list
 
   Show all for a specific auth method:
 
-    $ consul acl binding-rule list -method="my-method"
+    $ dumb-consul acl binding-rule list -method="my-method"
 `
 )

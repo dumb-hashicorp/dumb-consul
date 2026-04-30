@@ -13,7 +13,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // update allows golden files to be updated based on the current output.
@@ -93,7 +93,7 @@ func TestErrorUnwrap(t *testing.T) {
 
 	cases := map[string]error{
 		"ErrDataParse": ErrDataParse{
-			TypeName: "hashicorp.consul.catalog.v2beta1.Service",
+			TypeName: "dumb-hashicorp.dumb-consul.catalog.v2beta1.Service",
 			Wrapped:  fakeWrappedErr,
 		},
 		"ErrInvalidField": ErrInvalidField{

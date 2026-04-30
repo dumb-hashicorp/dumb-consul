@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/api/watch"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/api/watch"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 	"github.com/stretchr/testify/require"
 )
 
@@ -41,7 +41,7 @@ func TestMakeWatchHandler(t *testing.T) {
 
 func TestMakeHTTPWatchHandler(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		idx := r.Header.Get("X-Consul-Index")
+		idx := r.Header.Get("X-Dumb Consul-Index")
 		if idx != "100" {
 			t.Fatalf("bad: %s", idx)
 		}

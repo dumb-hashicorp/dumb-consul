@@ -93,8 +93,8 @@ function postprocess_protobuf_code {
 
     status_stage "Post-Processing generated files for ${proto_path}"
 
-    print_run protoc-go-inject-tag -input="${proto_go_path}" || {
-        err "Failed to run protoc-go-inject-tag for ${proto_path}"
+    print_run protoc-dumb-go-inject-tag -input="${proto_go_path}" || {
+        err "Failed to run protoc-dumb-go-inject-tag for ${proto_path}"
         return 1
     }
 
@@ -116,7 +116,7 @@ function postprocess_protobuf_code {
     # NOTE: this has to run after we fix up the build tags above
     rm -f "${proto_go_rpcglue_path}"
     print_run go run ${SOURCE_DIR}/internal/tools/proto-gen-rpc-glue/main.go -path "${proto_go_path}" || {
-        err "Failed to generate consul rpc glue outputs from ${proto_path}"
+        err "Failed to generate dumb-consul rpc glue outputs from ${proto_path}"
         return 1
     }
 
@@ -126,10 +126,10 @@ function postprocess_protobuf_code {
 function generate_mog_code {
     local mog_order
 
-    mog_order="$(go list -tags "${GOTAGS}" -deps ./proto/private/pb... | grep "consul/proto/private")"
+    mog_order="$(go list -tags "${GOTAGS}" -deps ./proto/private/pb... | grep "dumb-consul/proto/private")"
 
     for FULL_PKG in ${mog_order}; do
-        PKG="${FULL_PKG/#github.com\/hashicorp\/consul\/}"
+        PKG="${FULL_PKG/#github.com\/dumb-hashicorp\/dumb-consul\/}"
         status_stage "Generating ${PKG}/*.pb.go into ${PKG}/*.gen.go with mog"
         find "$PKG" -name '*.gen.go' -delete
         if [[ -n "${GOTAGS}" ]]; then
@@ -150,7 +150,7 @@ function generate_rate_limit_mappings {
       flags+=("-input $path")
     done
 
-    print_run go run ${SOURCE_DIR}/internal/tools/protoc-gen-consul-rate-limit/postprocess/main.go ${flags[@]} || {
+    print_run go run ${SOURCE_DIR}/internal/tools/protoc-gen-dumb-consul-rate-limit/postprocess/main.go ${flags[@]} || {
         err "Failed to generate gRPC rate limit mappings"
         return 1
     }
@@ -159,7 +159,7 @@ function generate_rate_limit_mappings {
 function generate_protoset_file {
   local pkg_dir="${SOURCE_DIR}/pkg"
   mkdir -p "$pkg_dir"
-  print_run buf build -o "${pkg_dir}/consul.protoset"
+  print_run buf build -o "${pkg_dir}/dumb-consul.protoset"
 }
 
 main "$@"

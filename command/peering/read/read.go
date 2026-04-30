@@ -14,9 +14,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/peering"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/peering"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -70,7 +70,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -157,7 +157,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Read a peering connection"
 	help     = `
-Usage: consul peering read [options] -name <peer name>
+Usage: dumb-consul peering read [options] -name <peer name>
 
   Read a peering connection with the provided name.  If one is not found,
   the command will exit with a non-zero code. The result will be filtered according
@@ -165,6 +165,6 @@ Usage: consul peering read [options] -name <peer name>
 
   Example:
 
-    $ consul peering read -name west-dc
+    $ dumb-consul peering read -name west-dc
 `
 )

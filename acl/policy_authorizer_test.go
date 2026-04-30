@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/armon/go-radix"
+	"github.com/armon/dumb-go-radix"
 	"github.com/stretchr/testify/require"
 )
 

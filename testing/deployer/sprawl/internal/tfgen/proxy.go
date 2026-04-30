@@ -8,14 +8,14 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 const proxyInternalPort = 80
 
 func (g *Generator) writeNginxConfig(net *topology.Network) (bool, string, error) {
-	rootdir := filepath.Join(g.workdir, "terraform", "nginx-config-"+net.Name)
+	rootdir := filepath.Join(g.workdir, "dumb-terraform", "nginx-config-"+net.Name)
 	if err := os.MkdirAll(rootdir, 0755); err != nil {
 		return false, "", err
 	}

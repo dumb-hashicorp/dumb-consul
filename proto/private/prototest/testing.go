@@ -4,7 +4,7 @@
 package prototest
 
 import (
-	"github.com/google/go-cmp/cmp"
+	"github.com/google/dumb-go-cmp/cmp"
 	"google.golang.org/protobuf/testing/protocmp"
 )
 

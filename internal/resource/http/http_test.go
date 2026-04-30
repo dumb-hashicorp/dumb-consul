@@ -15,16 +15,16 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 
-	svc "github.com/hashicorp/consul/agent/grpc-external/services/resource"
-	svctest "github.com/hashicorp/consul/agent/grpc-external/services/resource/testing"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/demo"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	pbdemov1 "github.com/hashicorp/consul/proto/private/pbdemo/v1"
-	pbdemov2 "github.com/hashicorp/consul/proto/private/pbdemo/v2"
-	"github.com/hashicorp/consul/sdk/testutil"
+	svc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource"
+	svctest "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource/testing"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/demo"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	pbdemov1 "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v1"
+	pbdemov2 "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v2"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 const testACLTokenArtistReadPolicy = "00000000-0000-0000-0000-000000000001"
@@ -33,7 +33,7 @@ const testACLTokenArtistListPolicy = "00000000-0000-0000-0000-000000000003"
 const fakeToken = "fake-token"
 
 func parseToken(req *http.Request, token *string) {
-	*token = req.Header.Get("x-consul-token")
+	*token = req.Header.Get("x-dumb-consul-token")
 }
 
 func TestResourceHandler_InputValidation(t *testing.T) {
@@ -155,7 +155,7 @@ func TestResourceWriteHandler(t *testing.T) {
 			}
 		`))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistReadPolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistReadPolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -177,7 +177,7 @@ func TestResourceWriteHandler(t *testing.T) {
 			}
 		`))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistWritePolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistWritePolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -218,7 +218,7 @@ func TestResourceWriteHandler(t *testing.T) {
 			}
 		`))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistWritePolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistWritePolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -243,7 +243,7 @@ func TestResourceWriteHandler(t *testing.T) {
 			}
 		`))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistWritePolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistWritePolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -276,7 +276,7 @@ func TestResourceWriteHandler(t *testing.T) {
 			}
 		`))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistWritePolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistWritePolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -330,7 +330,7 @@ func createResource(t *testing.T, artistHandler http.Handler, resourceUri *Resou
 		}
 	`))
 
-	req.Header.Add("x-consul-token", testACLTokenArtistWritePolicy)
+	req.Header.Add("x-dumb-consul-token", testACLTokenArtistWritePolicy)
 
 	artistHandler.ServeHTTP(rsp, req)
 	require.Equal(t, http.StatusOK, rsp.Result().StatusCode)
@@ -349,7 +349,7 @@ func deleteResource(t *testing.T, artistHandler http.Handler, resourceUri *Resou
 
 	req := httptest.NewRequest("DELETE", fmt.Sprintf("/%s/%s/%s/%s?partition=default&peer_name=local&namespace=default", resourceUri.group, resourceUri.version, resourceUri.kind, resourceUri.resourceName), strings.NewReader(""))
 
-	req.Header.Add("x-consul-token", testACLTokenArtistWritePolicy)
+	req.Header.Add("x-dumb-consul-token", testACLTokenArtistWritePolicy)
 
 	artistHandler.ServeHTTP(rsp, req)
 	require.Equal(t, http.StatusNoContent, rsp.Result().StatusCode)
@@ -376,7 +376,7 @@ func TestResourceReadHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("GET", "/demo/v2/artist/keith-urban?partition=default&peer_name=local&namespace=default&consistent", nil)
 
-		req.Header.Add("x-consul-token", testACLTokenArtistReadPolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistReadPolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -391,7 +391,7 @@ func TestResourceReadHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("GET", "/demo/v2/artist/keith-not-exist?partition=default&peer_name=local&namespace=default&consistent", nil)
 
-		req.Header.Add("x-consul-token", testACLTokenArtistReadPolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistReadPolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -402,7 +402,7 @@ func TestResourceReadHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("GET", "/demo/v2/artist/keith-urban?partition=default&peer_name=local&namespace=default&consistent", nil)
 
-		req.Header.Add("x-consul-token", fakeToken)
+		req.Header.Add("x-dumb-consul-token", fakeToken)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -429,7 +429,7 @@ func TestResourceDeleteHandler(t *testing.T) {
 		deleteRsp := httptest.NewRecorder()
 		deletReq := httptest.NewRequest("DELETE", "/demo/v2/artist/keith-urban?partition=default&peer_name=local&namespace=default", strings.NewReader(""))
 
-		deletReq.Header.Add("x-consul-token", testACLTokenArtistReadPolicy)
+		deletReq.Header.Add("x-dumb-consul-token", testACLTokenArtistReadPolicy)
 
 		handler.ServeHTTP(deleteRsp, deletReq)
 
@@ -442,7 +442,7 @@ func TestResourceDeleteHandler(t *testing.T) {
 		deleteRsp := httptest.NewRecorder()
 		deletReq := httptest.NewRequest("DELETE", "/demo/v2/artist/keith-urban?partition=default&peer_name=local&namespace=default", strings.NewReader(""))
 
-		deletReq.Header.Add("x-consul-token", testACLTokenArtistWritePolicy)
+		deletReq.Header.Add("x-dumb-consul-token", testACLTokenArtistWritePolicy)
 
 		handler.ServeHTTP(deleteRsp, deletReq)
 
@@ -468,8 +468,8 @@ func TestResourceDeleteHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("DELETE", "/demo/v2/artist/keith-urban?partition=default&peer_name=local&namespace=default&version=1", strings.NewReader(""))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistWritePolicy)
-		req.Header.Add("x-consul-token", testACLTokenArtistListPolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistWritePolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistListPolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -503,7 +503,7 @@ func TestResourceListHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("PUT", "/demo/v2/artist?partition=default&peer_name=local&namespace=default", strings.NewReader(""))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistListPolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistListPolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -514,7 +514,7 @@ func TestResourceListHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("GET", "/demo/v2/artist?partition=default&peer_name=local&namespace=default", strings.NewReader(""))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistWritePolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistWritePolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -530,7 +530,7 @@ func TestResourceListHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("GET", "/demo/v2/artist?partition=default&peer_name=local&namespace=default", strings.NewReader(""))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistListPolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistListPolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -555,7 +555,7 @@ func TestResourceListHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("GET", "/demo/v2/artist?partition=default&peer_name=local&namespace=default", strings.NewReader(""))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistListPolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistListPolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -574,7 +574,7 @@ func TestResourceListHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("GET", "/demo/v2/artist?partition=default&peer_name=local&namespace=default&name_prefix=noname", strings.NewReader(""))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistListPolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistListPolicy)
 
 		handler.ServeHTTP(rsp, req)
 
@@ -599,7 +599,7 @@ func TestResourceListHandler(t *testing.T) {
 		rsp := httptest.NewRecorder()
 		req := httptest.NewRequest("GET", "/demo/v2/artist?partition=default&peer_name=local&namespace=default&name_prefix=steve", strings.NewReader(""))
 
-		req.Header.Add("x-consul-token", testACLTokenArtistListPolicy)
+		req.Header.Add("x-dumb-consul-token", testACLTokenArtistListPolicy)
 
 		handler.ServeHTTP(rsp, req)
 

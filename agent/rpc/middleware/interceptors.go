@@ -10,12 +10,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/armon/go-metrics"
-	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-hclog"
+	"github.com/armon/dumb-go-metrics"
+	"github.com/armon/dumb-go-metrics/prometheus"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
-	rpcRate "github.com/hashicorp/consul/agent/consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
+	rpcRate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
 )
 
 // RPCTypeInternal identifies the "RPC" request as coming from some internal

@@ -4,8 +4,8 @@
 package xds
 
 import (
-	envoy_discovery_v3 "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
-	"github.com/hashicorp/go-hclog"
+	envoy_discovery_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/service/discovery/v3"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 
 	"github.com/mitchellh/copystructure"
 	"google.golang.org/protobuf/encoding/protojson"

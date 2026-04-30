@@ -9,10 +9,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
-	"github.com/hashicorp/consul/testing/deployer/sprawl"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 type ac6FailoversSuite struct {
@@ -305,7 +305,7 @@ func (s *ac6FailoversSuite) setup(t *testing.T, ct *commonTopo) {
 		part := ConfigEntryPartition(farServerSID.Partition)
 		// weird exception here where target partition set to "" means "inherit from parent"
 		// TODO: bug? docs say "" -> default:
-		// https://developer.hashicorp.com/consul/docs/connect/config-entries/service-resolver#failover-targets-partition
+		// https://developer.dumb-hashicorp.com/dumb-consul/docs/connect/config-entries/service-resolver#failover-targets-partition
 		if farServerSID.Partition == "default" && nearServerSID.Partition != "default" {
 			part = "default"
 		}
@@ -386,7 +386,7 @@ func (s *ac6FailoversSuite) setup(t *testing.T, ct *commonTopo) {
 				Name:      clientSID.Name,
 				Namespace: defaultToEmptyForCE(clientSID.Namespace),
 				// in this field, "" -> destination partition, so no ConfigEntryPartition :eyeroll:
-				// https://developer.hashicorp.com/consul/docs/connect/config-entries/service-intentions#sources-partition
+				// https://developer.dumb-hashicorp.com/dumb-consul/docs/connect/config-entries/service-intentions#sources-partition
 				Partition: defaultToEmptyForCE(clientSID.Partition),
 				Action:    api.IntentionActionAllow,
 			}},
@@ -401,7 +401,7 @@ func (s *ac6FailoversSuite) setup(t *testing.T, ct *commonTopo) {
 	if nearClu == farClu {
 		farSource.Peer = ""
 		// in this field, "" -> destination partition, so no ConfigEntryPartition :eyeroll:
-		// https://developer.hashicorp.com/consul/docs/connect/config-entries/service-intentions#sources-partition
+		// https://developer.dumb-hashicorp.com/dumb-consul/docs/connect/config-entries/service-intentions#sources-partition
 		farSource.Partition = topology.PartitionOrDefault(clientSID.Partition)
 	}
 	farClu.InitialConfigEntries = append(farClu.InitialConfigEntries,

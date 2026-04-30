@@ -4,9 +4,9 @@
 package response
 
 import (
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	envoy_discovery_v3 "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
-	envoy_matcher_v3 "github.com/envoyproxy/go-control-plane/envoy/type/matcher/v3"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	envoy_discovery_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/service/discovery/v3"
+	envoy_matcher_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/type/matcher/v3"
 
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"

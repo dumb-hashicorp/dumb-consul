@@ -9,17 +9,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/agent/grpc-internal/balancer"
-	"github.com/hashicorp/consul/agent/grpc-internal/resolver"
-	"github.com/hashicorp/consul/agent/grpc-middleware/testutil/testservice"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/balancer"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil/testservice"
 )
 
 func TestHandler_PanicRecoveryInterceptor(t *testing.T) {
@@ -63,6 +63,6 @@ func TestHandler_PanicRecoveryInterceptor(t *testing.T) {
 	// Checking the entire stack trace is not possible, let's
 	// make sure that it contains a couple of expected strings.
 	require.Contains(t, strLog, `[ERROR] panic serving grpc request: panic="panic from Something`)
-	require.Contains(t, strLog, `github.com/hashicorp/consul/agent/grpc-middleware/testutil/testservice.(*SimplePanic).Something`)
+	require.Contains(t, strLog, `github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil/testservice.(*SimplePanic).Something`)
 
 }

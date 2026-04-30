@@ -18,17 +18,17 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/rpc/middleware"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/middleware"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 var metricsPrefixCounter atomic.Uint64
 
 // getUniqueMetricsPrefix generates a unique ID for each test to use as a metrics prefix.
-// This is needed because go-metrics is effectively a global variable.
+// This is needed because dumb-go-metrics is effectively a global variable.
 func getUniqueMetricsPrefix() string {
 	return fmt.Sprint("metrics_", metricsPrefixCounter.Add(1))
 }
@@ -168,7 +168,7 @@ func TestAgent_OneTwelveRPCMetrics(t *testing.T) {
 
 	t.Run("Check that 1.12 rpc metrics are not emitted by default.", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		telemetry = {
 			prometheus_retention_time = "5s"
 			disable_hostname = true
@@ -176,7 +176,7 @@ func TestAgent_OneTwelveRPCMetrics(t *testing.T) {
 		}
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 
 		var out struct{}
@@ -192,7 +192,7 @@ func TestAgent_OneTwelveRPCMetrics(t *testing.T) {
 	t.Run("Check that 1.12 rpc metrics are emitted when specified by operator.", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
 		allowRPCMetricRule := metricsPrefix + "." + strings.Join(middleware.OneTwelveRPCSummary[0].Name, ".")
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		telemetry = {
 			prometheus_retention_time = "5s"
 			disable_hostname = true
@@ -201,7 +201,7 @@ func TestAgent_OneTwelveRPCMetrics(t *testing.T) {
 		}
 		`, metricsPrefix, allowRPCMetricRule)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 
 		var out struct{}
@@ -263,13 +263,13 @@ func TestHTTPHandlers_AgentMetrics_LeaderShipMetrics(t *testing.T) {
 		  bootstrap_expect = 3
 		`
 
-		s1 := StartTestAgent(t, TestAgent{Name: "s1", HCL: hcl1, Overrides: overrides})
+		s1 := StartTestAgent(t, TestAgent{Name: "s1", DUMB_HCL: hcl1, Overrides: overrides})
 		defer s1.Shutdown()
 
-		s2 := StartTestAgent(t, TestAgent{Name: "s2", HCL: hcl2, Overrides: overrides})
+		s2 := StartTestAgent(t, TestAgent{Name: "s2", DUMB_HCL: hcl2, Overrides: overrides})
 		defer s2.Shutdown()
 
-		s3 := StartTestAgent(t, TestAgent{Name: "s3", HCL: hcl3, Overrides: overrides})
+		s3 := StartTestAgent(t, TestAgent{Name: "s3", DUMB_HCL: hcl3, Overrides: overrides})
 		defer s3.Shutdown()
 
 		// agent hasn't become a leader
@@ -309,14 +309,14 @@ func TestHTTPHandlers_AgentMetrics_LeaderShipMetrics(t *testing.T) {
 }
 
 // TestHTTPHandlers_AgentMetrics_ConsulAutopilot_Prometheus adds testing around
-// the published autopilot metrics on https://developer.hashicorp.com/docs/reference/agent/telemetry#autopilot
+// the published autopilot metrics on https://developer.dumb-hashicorp.com/docs/reference/agent/telemetry#autopilot
 func TestHTTPHandlers_AgentMetrics_ConsulAutopilot_Prometheus(t *testing.T) {
 	skipIfShortTesting(t)
 	// This test cannot use t.Parallel() since we modify global state, ie the global metrics instance
 
 	t.Run("Check consul_autopilot_* are not emitted metrics on clients", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		telemetry = {
 			prometheus_retention_time = "5s"
 			disable_hostname = true
@@ -326,7 +326,7 @@ func TestHTTPHandlers_AgentMetrics_ConsulAutopilot_Prometheus(t *testing.T) {
 		server = false
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 
 		respRec := httptest.NewRecorder()
@@ -338,7 +338,7 @@ func TestHTTPHandlers_AgentMetrics_ConsulAutopilot_Prometheus(t *testing.T) {
 
 	t.Run("Check consul_autopilot_healthy metric value on startup", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		// don't bootstrap agent so as not to
 		// become a leader
 		telemetry = {
@@ -349,7 +349,7 @@ func TestHTTPHandlers_AgentMetrics_ConsulAutopilot_Prometheus(t *testing.T) {
 		bootstrap = false
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 
 		respRec := httptest.NewRecorder()
@@ -365,7 +365,7 @@ func TestHTTPHandlers_AgentMetrics_TLSCertExpiry_Prometheus(t *testing.T) {
 	// This test cannot use t.Parallel() since we modify global state, ie the global metrics instance
 
 	dir := testutil.TempDir(t, "ca")
-	caPEM, caPK, err := tlsutil.GenerateCA(tlsutil.CAOpts{Days: 20, Domain: "consul"})
+	caPEM, caPK, err := tlsutil.GenerateCA(tlsutil.CAOpts{Days: 20, Domain: "dumb-consul"})
 	require.NoError(t, err)
 
 	caPath := filepath.Join(dir, "ca.pem")
@@ -378,7 +378,7 @@ func TestHTTPHandlers_AgentMetrics_TLSCertExpiry_Prometheus(t *testing.T) {
 	pem, key, err := tlsutil.GenerateCert(tlsutil.CertOpts{
 		Signer:      signer,
 		CA:          caPEM,
-		Name:        "server.dc1.consul",
+		Name:        "server.dc1.dumb-consul",
 		Days:        20,
 		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
 	})
@@ -393,7 +393,7 @@ func TestHTTPHandlers_AgentMetrics_TLSCertExpiry_Prometheus(t *testing.T) {
 	require.NoError(t, err)
 
 	metricsPrefix := getUniqueMetricsPrefix()
-	hcl := fmt.Sprintf(`
+	dumb-hcl := fmt.Sprintf(`
 		telemetry = {
 			prometheus_retention_time = "5s",
 			disable_hostname = true
@@ -407,7 +407,7 @@ func TestHTTPHandlers_AgentMetrics_TLSCertExpiry_Prometheus(t *testing.T) {
 		key_file = "%s"
 	`, metricsPrefix, caPath, certPath, keyPath)
 
-	a := StartTestAgent(t, TestAgent{HCL: hcl})
+	a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 	defer a.Shutdown()
 
 	// Wait a bit for the certificate monitor to emit metrics
@@ -431,7 +431,7 @@ func TestHTTPHandlers_AgentMetrics_CACertExpiry_Prometheus(t *testing.T) {
 
 	t.Run("non-leader emits NaN", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		telemetry = {
 			prometheus_retention_time = "5s",
 			disable_hostname = true
@@ -443,7 +443,7 @@ func TestHTTPHandlers_AgentMetrics_CACertExpiry_Prometheus(t *testing.T) {
 		bootstrap = false
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 
 		respRec := httptest.NewRecorder()
@@ -455,7 +455,7 @@ func TestHTTPHandlers_AgentMetrics_CACertExpiry_Prometheus(t *testing.T) {
 
 	t.Run("leader emits a value", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		telemetry = {
 			prometheus_retention_time = "5s",
 			disable_hostname = true
@@ -466,7 +466,7 @@ func TestHTTPHandlers_AgentMetrics_CACertExpiry_Prometheus(t *testing.T) {
 		}
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 		testrpc.WaitForLeader(t, a.RPC, "dc1")
 
@@ -486,7 +486,7 @@ func TestHTTPHandlers_AgentMetrics_WAL_Prometheus(t *testing.T) {
 
 	t.Run("client agent emits nothing", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		server = false
 		telemetry = {
 			prometheus_retention_time = "5s",
@@ -499,7 +499,7 @@ func TestHTTPHandlers_AgentMetrics_WAL_Prometheus(t *testing.T) {
 		bootstrap = false
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 
 		respRec := httptest.NewRecorder()
@@ -510,7 +510,7 @@ func TestHTTPHandlers_AgentMetrics_WAL_Prometheus(t *testing.T) {
 
 	t.Run("server with WAL enabled emits WAL metrics", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		server = true
 		bootstrap = true
 		telemetry = {
@@ -526,7 +526,7 @@ func TestHTTPHandlers_AgentMetrics_WAL_Prometheus(t *testing.T) {
 		}
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 		testrpc.WaitForLeader(t, a.RPC, "dc1")
 
@@ -552,7 +552,7 @@ func TestHTTPHandlers_AgentMetrics_WAL_Prometheus(t *testing.T) {
 
 	t.Run("server without WAL enabled emits no WAL metrics", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		server = true
 		bootstrap = true
 		telemetry = {
@@ -568,7 +568,7 @@ func TestHTTPHandlers_AgentMetrics_WAL_Prometheus(t *testing.T) {
 		}
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 		testrpc.WaitForLeader(t, a.RPC, "dc1")
 
@@ -586,7 +586,7 @@ func TestHTTPHandlers_AgentMetrics_LogVerifier_Prometheus(t *testing.T) {
 
 	t.Run("client agent emits nothing", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		server = false
 		telemetry = {
 			prometheus_retention_time = "5s",
@@ -602,7 +602,7 @@ func TestHTTPHandlers_AgentMetrics_LogVerifier_Prometheus(t *testing.T) {
 		bootstrap = false
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 
 		respRec := httptest.NewRecorder()
@@ -613,7 +613,7 @@ func TestHTTPHandlers_AgentMetrics_LogVerifier_Prometheus(t *testing.T) {
 
 	t.Run("server with verifier enabled emits all metrics", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		server = true
 		bootstrap = true
 		telemetry = {
@@ -632,7 +632,7 @@ func TestHTTPHandlers_AgentMetrics_LogVerifier_Prometheus(t *testing.T) {
 		}
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 		testrpc.WaitForLeader(t, a.RPC, "dc1")
 
@@ -651,7 +651,7 @@ func TestHTTPHandlers_AgentMetrics_LogVerifier_Prometheus(t *testing.T) {
 
 	t.Run("server with verifier disabled emits no extra metrics", func(t *testing.T) {
 		metricsPrefix := getUniqueMetricsPrefix()
-		hcl := fmt.Sprintf(`
+		dumb-hcl := fmt.Sprintf(`
 		server = true
 		bootstrap = true
 		telemetry = {
@@ -669,7 +669,7 @@ func TestHTTPHandlers_AgentMetrics_LogVerifier_Prometheus(t *testing.T) {
 		}
 		`, metricsPrefix)
 
-		a := StartTestAgent(t, TestAgent{HCL: hcl})
+		a := StartTestAgent(t, TestAgent{DUMB_HCL: dumb-hcl})
 		defer a.Shutdown()
 		testrpc.WaitForLeader(t, a.RPC, "dc1")
 

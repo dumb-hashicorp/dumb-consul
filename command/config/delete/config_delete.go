@@ -8,8 +8,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
 	"github.com/mitchellh/cli"
 )
 
@@ -83,7 +83,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 	entries := client.ConfigEntries()
@@ -166,13 +166,13 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Delete a centralized config entry"
 	help     = `
-Usage: consul config delete [options] ([-kind <config kind> -name <config name>] | [-f FILENAME])
+Usage: dumb-consul config delete [options] ([-kind <config kind> -name <config name>] | [-f FILENAME])
 
   Deletes the configuration entry specified by the kind and name.
 
   Example:
 
-    $ consul config delete -kind service-defaults -name web
-    $ consul config delete -filename service-defaults-web.hcl
+    $ dumb-consul config delete -kind service-defaults -name web
+    $ dumb-consul config delete -filename service-defaults-web.dumb-hcl
 `
 )

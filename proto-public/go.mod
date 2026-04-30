@@ -1,4 +1,4 @@
-module github.com/hashicorp/consul/proto-public
+module github.com/dumb-hashicorp/dumb-consul/proto-public
 
 go 1.26
 

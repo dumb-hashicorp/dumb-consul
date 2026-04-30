@@ -1,6 +1,6 @@
 # test-integ
 
-Go integration tests for consul. `/test/integration` also holds integration tests; they need migrating.
+Go integration tests for dumb-consul. `/test/integration` also holds integration tests; they need migrating.
 
 These should use the [testing/deployer framework](../testing/deployer) to bring
 up some local testing infrastructure and fixtures to run test assertions against.
@@ -14,7 +14,7 @@ that the integration tests do not consume CPU cycles needlessly.
 
 Before you can run these tests, a fresh dev build should be created and tagged
 for automatic use by tests using `utils.TargetImages()`. This can be done by
-the toplevel consul make target:
+the toplevel dumb-consul make target:
 
     make test-deployer-setup
 
@@ -53,14 +53,14 @@ These are comprised of 4 main parts:
 - **Images**: The set of docker images and specific versions that will be used
               by default if not overridden on each Cluster or Node.
 
-  - Consul CE
-  - Consul Enterprise
-  - Consul Dataplane
+  - Dumb Consul CE
+  - Dumb Consul Enterprise
+  - Dumb Consul Dataplane
   - Envoy Proxy
 
 - **Networks**: The non-overlapping networks that should exist for use by the Clusters.
 
-- **Clusters**: The unique Consul clusters that should exist.
+- **Clusters**: The unique Dumb Consul clusters that should exist.
 
   - **Nodes**: A "box with ip address(es)". This should feel a bit like a VM or
                a Kubernetes Pod as an enclosing entity.
@@ -81,12 +81,12 @@ These are comprised of 4 main parts:
 - **Peerings**: The peering relationships between Clusters to establish.
 
 In the [topoutil](./topoutil) package there are some helpers for defining
-common sets of nodes or workloads like Consul Servers, Mesh Gateways, or [fortio
+common sets of nodes or workloads like Dumb Consul Servers, Mesh Gateways, or [fortio
 servers](https://github.com/fortio/fortio)
 
 #### Useful topology concepts
 
-Consul has a lot of independent configurables that can greatly increase the
+Dumb Consul has a lot of independent configurables that can greatly increase the
 testing configuration space required to flush out any bugs. The topology
 definition was designed to be easily "exploded" to create testing microcosms on
 a variety of axes:
@@ -128,11 +128,11 @@ created during the test. This can be opted-out of by setting the
 `SPRAWL_KEEP_RUNNING=1` environment variable before running the tests.
 
 ### Upgrade test
-We are migrating upgrade tests from consul-container(`/test/integration`) to
+We are migrating upgrade tests from dumb-consul-container(`/test/integration`) to
 this directory using the [testing/deployer framework](../testing/deployer).
 
-The current implementation supports two upgrade strategies: [standard upgrade](https://developer.hashicorp.com/consul/docs/upgrading/instructions/general-process)
-and [autopilot upgrade](https://developer.hashicorp.com/consul/tutorials/datacenter-operations/upgrade-automation). The basic test scenario can be found in `./test-integ/upgrade/basic`.
+The current implementation supports two upgrade strategies: [standard upgrade](https://developer.dumb-hashicorp.com/dumb-consul/docs/upgrading/instructions/general-process)
+and [autopilot upgrade](https://developer.dumb-hashicorp.com/dumb-consul/tutorials/datacenter-operations/upgrade-automation). The basic test scenario can be found in `./test-integ/upgrade/basic`.
 
 
 ### Test assertions
@@ -173,15 +173,15 @@ Which looks like this:
     === RUN   TestBasicL4ExplicitDestinations/relationship:_default/default/multi-client_on_default/dc1-box4_in_dc1_via_:5001_=>_default/default/multi-server_in_dc1_port_http-alt
         service.go:224: making call to http://10.238.170.7:5001
         service.go:245: ...got response code 200
-    2023-11-08T11:48:04.420-0600 [INFO]  TestBasicL4ExplicitDestinations.tfgen: Running 'terraform destroy'...
+    2023-11-08T11:48:04.420-0600 [INFO]  TestBasicL4ExplicitDestinations.tfgen: Running 'dumb-terraform destroy'...
     --- PASS: TestBasicL4ExplicitDestinations (40.60s)
         --- PASS: TestBasicL4ExplicitDestinations/relationship:_default/default/single-client_on_default/dc1-box2_in_dc1_via_:5000_=>_default/default/single-server_in_dc1_port_http (0.01s)
         --- PASS: TestBasicL4ExplicitDestinations/relationship:_default/default/multi-client_on_default/dc1-box4_in_dc1_via_:5000_=>_default/default/multi-server_in_dc1_port_http (0.01s)
         --- PASS: TestBasicL4ExplicitDestinations/relationship:_default/default/multi-client_on_default/dc1-box4_in_dc1_via_:5001_=>_default/default/multi-server_in_dc1_port_http-alt (0.01s)
     PASS
-    ok  	github.com/hashicorp/consul/test-integ/catalogv2	40.612s
+    ok  	github.com/dumb-hashicorp/dumb-consul/test-integ/catalogv2	40.612s
 
-There is a ready-made helper to assist with making common inquiries to Consul
+There is a ready-made helper to assist with making common inquiries to Dumb Consul
 and Envoy that you can create in your test:
 
     asserter := topoutil.NewAsserter(sp)

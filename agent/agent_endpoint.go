@@ -16,29 +16,29 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 
-	"github.com/hashicorp/go-bexpr"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/serf/coordinate"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/dumb-go-bexpr"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-memdb"
+	"github.com/dumb-hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/debug"
-	"github.com/hashicorp/consul/agent/leafcert"
-	rpcmiddleware "github.com/hashicorp/consul/agent/rpc/middleware"
-	"github.com/hashicorp/consul/agent/structs"
-	token_store "github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/logging/monitor"
-	"github.com/hashicorp/consul/types"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/debug"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	rpcmiddleware "github.com/dumb-hashicorp/dumb-consul/agent/rpc/middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	token_store "github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/logging/monitor"
+	"github.com/dumb-hashicorp/dumb-consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 type Self struct {
@@ -172,7 +172,7 @@ func acceptsOpenMetricsMimeType(acceptHeader string) bool {
 	return false
 }
 
-// enablePrometheusOutput will look for Prometheus mime-type or format Query parameter the same way as Nomad
+// enablePrometheusOutput will look for Prometheus mime-type or format Query parameter the same way as Dumb Nomad
 func enablePrometheusOutput(req *http.Request) bool {
 	if format := req.URL.Query().Get("format"); format == "prometheus" {
 		return true
@@ -420,7 +420,7 @@ func (s *HTTPHandlers) AgentServices(resp http.ResponseWriter, req *http.Request
 		return nil, err
 	}
 
-	// Set the X-Consul-Results-Filtered-By-ACLs header, but only if the user is
+	// Set the X-Dumb Consul-Results-Filtered-By-ACLs header, but only if the user is
 	// authenticated (to prevent information leaking).
 	//
 	// This is done automatically for HTTP endpoints that proxy to an RPC endpoint
@@ -525,7 +525,7 @@ func (s *HTTPHandlers) AgentService(resp http.ResponseWriter, req *http.Request)
 		},
 	)
 	if resultHash != "" {
-		resp.Header().Set("X-Consul-ContentHash", resultHash)
+		resp.Header().Set("X-Dumb Consul-ContentHash", resultHash)
 	}
 	return service, err
 }
@@ -584,7 +584,7 @@ func (s *HTTPHandlers) AgentChecks(resp http.ResponseWriter, req *http.Request) 
 		return nil, err
 	}
 
-	// Set the X-Consul-Results-Filtered-By-ACLs header, but only if the user is
+	// Set the X-Dumb Consul-Results-Filtered-By-ACLs header, but only if the user is
 	// authenticated (to prevent information leaking).
 	//
 	// This is done automatically for HTTP endpoints that proxy to an RPC endpoint
@@ -638,11 +638,11 @@ func (s *HTTPHandlers) AgentMembers(resp http.ResponseWriter, req *http.Request)
 	if wan {
 		members = s.agent.WANMembers()
 	} else {
-		filter := consul.LANMemberFilter{
+		filter := dumb-consul.LANMemberFilter{
 			Partition: entMeta.PartitionOrDefault(),
 		}
 		if segment == api.AllSegments {
-			// Older 'consul members' calls will default to adding segment=_all
+			// Older 'dumb-consul members' calls will default to adding segment=_all
 			// so we only choose to use that request argument in the case where
 			// the partition is also the default and ignore it the rest of the time.
 			if acl.IsDefaultPartition(filter.Partition) {
@@ -671,7 +671,7 @@ func (s *HTTPHandlers) AgentMembers(resp http.ResponseWriter, req *http.Request)
 		return nil, err
 	}
 
-	// Set the X-Consul-Results-Filtered-By-ACLs header, but only if the user is
+	// Set the X-Dumb Consul-Results-Filtered-By-ACLs header, but only if the user is
 	// authenticated (to prevent information leaking).
 	//
 	// This is done automatically for HTTP endpoints that proxy to an RPC endpoint
@@ -1857,14 +1857,14 @@ func (s *HTTPHandlers) AgentHost(resp http.ResponseWriter, req *http.Request) (i
 //
 // GET /v1/agent/version
 //
-// Retrieves Consul version information.
+// Retrieves Dumb Consul version information.
 func (s *HTTPHandlers) AgentVersion(resp http.ResponseWriter, req *http.Request) (interface{}, error) {
 	return version.GetBuildInfo(), nil
 }
 
 // InternalRPCMethods returns a list of known net/rpc method names.
 //
-// This is intended for debugging/introspection and is derived from Consul's
+// This is intended for debugging/introspection and is derived from Dumb Consul's
 // internal rate-limit mapping list. Requires an operator:read ACL token.
 func (s *HTTPHandlers) InternalRPCMethods(resp http.ResponseWriter, req *http.Request) (interface{}, error) {
 	var token string

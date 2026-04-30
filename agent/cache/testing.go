@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"time"
 
-	testinf "github.com/mitchellh/go-testing-interface"
+	testinf "github.com/mitchellh/dumb-go-testing-interface"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )

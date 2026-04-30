@@ -12,8 +12,8 @@ import (
 
 	"github.com/miekg/dns"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 // InlineCertificateConfigEntry manages the configuration for an inline certificate
@@ -32,7 +32,7 @@ type InlineCertificateConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 

@@ -5,7 +5,7 @@
 package cachemock
 
 import (
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 	mock "github.com/stretchr/testify/mock"
 )
 

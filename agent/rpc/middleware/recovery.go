@@ -6,7 +6,7 @@ package middleware
 import (
 	"fmt"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 )
 
 // NewPanicHandler returns a RecoveryHandlerFunc type function

@@ -9,11 +9,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/go-discover"
-	discoverk8s "github.com/hashicorp/go-discover/provider/k8s"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-go-discover"
+	discoverk8s "github.com/dumb-hashicorp/dumb-go-discover/provider/k8s"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 )
 
 func (ac *AutoConfig) discoverServers(servers []string) ([]string, error) {
@@ -29,7 +29,7 @@ func (ac *AutoConfig) discoverServers(servers []string) ([]string, error) {
 	)
 
 	if err != nil {
-		return nil, fmt.Errorf("Failed to create go-discover resolver: %w", err)
+		return nil, fmt.Errorf("Failed to create dumb-go-discover resolver: %w", err)
 	}
 
 	var addrs []string
@@ -38,7 +38,7 @@ func (ac *AutoConfig) discoverServers(servers []string) ([]string, error) {
 		case strings.Contains(addr, "provider="):
 			resolved, err := disco.Addrs(addr, ac.logger.StandardLogger(&hclog.StandardLoggerOptions{InferLevels: true}))
 			if err != nil {
-				ac.logger.Error("failed to resolve go-discover auto-config servers", "configuration", addr, "err", err)
+				ac.logger.Error("failed to resolve dumb-go-discover auto-config servers", "configuration", addr, "err", err)
 				continue
 			}
 
@@ -53,7 +53,7 @@ func (ac *AutoConfig) discoverServers(servers []string) ([]string, error) {
 }
 
 // autoConfigHosts is responsible for taking the list of server addresses
-// and resolving any go-discover provider invocations. It will then return
+// and resolving any dumb-go-discover provider invocations. It will then return
 // a list of hosts. These might be hostnames and is expected that DNS resolution
 // may be performed after this function runs. Additionally these may contain
 // ports so SplitHostPort could also be necessary.

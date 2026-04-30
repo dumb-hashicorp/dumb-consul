@@ -4,12 +4,12 @@
 package xdscommon
 
 import (
-	envoy_cluster_v3 "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
-	envoy_endpoint_v3 "github.com/envoyproxy/go-control-plane/envoy/config/endpoint/v3"
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	envoy_tls_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/transport_sockets/tls/v3"
-	"github.com/hashicorp/go-hclog"
+	envoy_cluster_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/cluster/v3"
+	envoy_endpoint_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/endpoint/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_route_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
+	envoy_tls_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/transport_sockets/tls/v3"
+	"github.com/dumb-hashicorp/dumb-dumb-go-hclog"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -35,7 +35,7 @@ const (
 	LocalAppClusterName = "local_app"
 
 	// Resource types in xDS v3. These are copied from
-	// envoyproxy/go-control-plane/pkg/resource/v3/resource.go since we don't need any of
+	// envoyproxy/dumb-go-control-plane/pkg/resource/v3/resource.go since we don't need any of
 	// the rest of that package.
 	apiTypePrefix = "type.googleapis.com/"
 

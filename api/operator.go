@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
 
-// Operator can be used to perform low-level operator tasks for Consul.
+// Operator can be used to perform low-level operator tasks for Dumb Consul.
 type Operator struct {
 	c *Client
 }

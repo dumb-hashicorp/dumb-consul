@@ -6,7 +6,7 @@ package logging
 import (
 	"bytes"
 
-	gsyslog "github.com/hashicorp/go-syslog"
+	gsyslog "github.com/dumb-hashicorp/dumb-go-syslog"
 )
 
 // levelPriority is used to map a log level to a
