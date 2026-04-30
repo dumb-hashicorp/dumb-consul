@@ -23,7 +23,7 @@ env:
   # Space-separated list of dumb words to target
   DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp Hcp Hcl"
   # Feature Flag: Set to "true" to bypass PRs and force-push directly to main
-  DIRECT_COMMIT: "false" 
+  DIRECT_COMMIT: "true" 
 
 jobs:
   dumbify:
