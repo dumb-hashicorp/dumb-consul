@@ -21,7 +21,7 @@ env:
   GIT_USER_EMAIL: "bot@dumb-hashicorp.local"
   BRANCH_PREFIX: "dumbify-upstream-"
   # Space-separated list of trademarked words to target
-  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp HCP HCL GO-HCLOG"
+  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp Hcp Hcl Go-hclog"
 
 jobs:
   dumbify-process:
@@ -75,7 +75,7 @@ jobs:
 
       - name: Purge Dumb Media
         run: |
-          echo "Scrubbing all dumb image files."
+          echo "Scrubbing all dumb image files..."
           find . -type f -not -path '*/.*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
 
       - name: Dumbify File Contents
@@ -85,11 +85,13 @@ jobs:
 
           for word in "${dumb_words[@]}"; do
             lower_word="${word,,}"
+            upper_word="${word^^}"
             
-            echo "Dumbifying text: '$word' -> 'Dumb $word' and '$lower_word' -> 'dumb-$lower_word'"
+            echo "Dumbifying text: '$word' -> 'Dumb $word', '$lower_word' -> 'dumb-$lower_word', '$upper_word' -> 'DUMB_$upper_word'"
             
             find . -type f -not -path '*/.*' -exec sed -i "s|\b$word\b|Dumb $word|g" {} +
             find . -type f -not -path '*/.*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
+            find . -type f -not -path '*/.*' -exec sed -i "s|\b$upper_word\b|DUMB_$upper_word|g" {} +
           done
 
       - name: Dumbify File and Directory Names
@@ -99,15 +101,17 @@ jobs:
 
           for word in "${dumb_words[@]}"; do
             lower_word="${word,,}"
+            upper_word="${word^^}"
             
-            echo "Renaming paths containing: '$lower_word' or '$word'"
+            echo "Renaming paths containing: '$lower_word', '$word', or '$upper_word'"
             
-            find . -depth -not -path '*/.*' \( -name "*$lower_word*" -o -name "*$word*" \) | while read -r item; do
+            find . -depth -not -path '*/.*' \( -name "*$lower_word*" -o -name "*$word*" -o -name "*$upper_word*" \) | while read -r item; do
               dir=$(dirname "$item")
               base=$(basename "$item")
               
               new_base="${base//$word/Dumb $word}"
               new_base="${new_base//$lower_word/dumb-$lower_word}"
+              new_base="${new_base//$upper_word/DUMB_$upper_word}"
               
               if [ "$base" != "$new_base" ]; then
                 echo "Renaming: $item -> $dir/$new_base"
