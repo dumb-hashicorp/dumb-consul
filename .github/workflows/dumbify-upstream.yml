@@ -21,7 +21,7 @@ env:
   GIT_USER_EMAIL: "bot@dumb-hashicorp.local"
   BRANCH_PREFIX: "dumbify-upstream-"
   # Space-separated list of trademarked words to target
-  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp HCP"
+  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp HCP HCL go-hclog"
 
 jobs:
   dumbify-process:
