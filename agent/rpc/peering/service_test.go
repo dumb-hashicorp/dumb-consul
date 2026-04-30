@@ -24,36 +24,36 @@ import (
 	grpcstatus "google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/grpc-external/limiter"
-	grpc "github.com/hashicorp/consul/agent/grpc-internal"
-	"github.com/hashicorp/consul/agent/grpc-internal/balancer"
-	"github.com/hashicorp/consul/agent/grpc-internal/resolver"
-	agentmiddleware "github.com/hashicorp/consul/agent/grpc-middleware"
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/agent/router"
-	"github.com/hashicorp/consul/agent/rpc/middleware"
-	"github.com/hashicorp/consul/agent/rpc/peering"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	grpc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/balancer"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/resolver"
+	agentmiddleware "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/agent/router"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/peering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 const (
@@ -74,7 +74,7 @@ func generateTooManyMetaKeys() map[string]string {
 }
 
 func TestPeeringService_GenerateToken(t *testing.T) {
-	dir := testutil.TempDir(t, "consul")
+	dir := testutil.TempDir(t, "dumb-consul")
 
 	signer, _, _ := tlsutil.GeneratePrivateKey()
 	ca, _, _ := tlsutil.GenerateCA(tlsutil.CAOpts{Signer: signer})
@@ -82,7 +82,7 @@ func TestPeeringService_GenerateToken(t *testing.T) {
 	require.NoError(t, os.WriteFile(cafile, []byte(ca), 0600))
 
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(c *consul.Config) {
+	s := newTestServer(t, func(c *dumb-consul.Config) {
 		c.SerfLANConfig.MemberlistConfig.AdvertiseAddr = "127.0.0.1"
 		c.TLSConfig.GRPC.CAFile = cafile
 		c.DataDir = dir
@@ -114,7 +114,7 @@ func TestPeeringService_GenerateToken(t *testing.T) {
 
 		token := &structs.PeeringToken{}
 		require.NoError(t, json.Unmarshal(tokenJSON, token))
-		require.Equal(t, "server.dc1.peering.11111111-2222-3333-4444-555555555555.consul", token.ServerName)
+		require.Equal(t, "server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul", token.ServerName)
 		require.Len(t, token.ServerAddresses, 1)
 		require.Equal(t, s.PublicGRPCAddr, token.ServerAddresses[0])
 
@@ -186,7 +186,7 @@ func TestPeeringService_GenerateToken(t *testing.T) {
 }
 
 func TestPeeringService_GenerateTokenExternalAddress(t *testing.T) {
-	dir := testutil.TempDir(t, "consul")
+	dir := testutil.TempDir(t, "dumb-consul")
 
 	signer, _, _ := tlsutil.GeneratePrivateKey()
 	ca, _, _ := tlsutil.GenerateCA(tlsutil.CAOpts{Signer: signer})
@@ -194,7 +194,7 @@ func TestPeeringService_GenerateTokenExternalAddress(t *testing.T) {
 	require.NoError(t, os.WriteFile(cafile, []byte(ca), 0600))
 
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(c *consul.Config) {
+	s := newTestServer(t, func(c *dumb-consul.Config) {
 		c.SerfLANConfig.MemberlistConfig.AdvertiseAddr = "127.0.0.1"
 		c.TLSConfig.GRPC.CAFile = cafile
 		c.DataDir = dir
@@ -214,7 +214,7 @@ func TestPeeringService_GenerateTokenExternalAddress(t *testing.T) {
 
 	token := &structs.PeeringToken{}
 	require.NoError(t, json.Unmarshal(tokenJSON, token))
-	require.Equal(t, "server.dc1.peering.11111111-2222-3333-4444-555555555555.consul", token.ServerName)
+	require.Equal(t, "server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul", token.ServerName)
 	require.Equal(t, externalAddresses, token.ManualServerAddresses)
 	require.Equal(t, []string{s.PublicGRPCAddr}, token.ServerAddresses)
 
@@ -226,7 +226,7 @@ func TestPeeringService_GenerateTokenExternalAddress(t *testing.T) {
 
 func TestPeeringService_GenerateToken_ACLEnforcement(t *testing.T) {
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(conf *consul.Config) {
+	s := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.ACLsEnabled = true
 		conf.ACLResolverSettings.ACLDefaultPolicy = acl.PolicyDeny
 	})
@@ -416,14 +416,14 @@ func TestPeeringService_Establish_serverNameConflict(t *testing.T) {
 
 func TestPeeringService_Establish(t *testing.T) {
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s1 := newTestServer(t, func(conf *consul.Config) {
+	s1 := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.NodeName = "s1"
 		conf.Datacenter = "test-dc1"
 		conf.PrimaryDatacenter = "test-dc1"
 	})
 	client1 := pbpeering.NewPeeringServiceClient(s1.ClientConn(t))
 
-	s2 := newTestServer(t, func(conf *consul.Config) {
+	s2 := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.NodeName = "s2"
 		conf.Datacenter = "dc2"
 		conf.PrimaryDatacenter = "dc2"
@@ -491,12 +491,12 @@ func TestPeeringService_Establish_ThroughMeshGateway(t *testing.T) {
 	// This test is timing-sensitive, must not be run in parallel.
 	// t.Parallel()
 
-	acceptor := newTestServer(t, func(conf *consul.Config) {
+	acceptor := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.NodeName = "acceptor"
 	})
 	acceptorClient := pbpeering.NewPeeringServiceClient(acceptor.ClientConn(t))
 
-	dialer := newTestServer(t, func(conf *consul.Config) {
+	dialer := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.NodeName = "dialer"
 		conf.Datacenter = "dc2"
 		conf.PrimaryDatacenter = "dc2"
@@ -617,7 +617,7 @@ func TestPeeringService_Establish_ThroughMeshGateway(t *testing.T) {
 				Addr: acceptor.PublicGRPCAddr,
 			},
 		}
-		proxy.AddSNIRoute(gatewayAddr, "server.dc1.peering.11111111-2222-3333-4444-555555555555.consul", target)
+		proxy.AddSNIRoute(gatewayAddr, "server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul", target)
 		proxy.AddStopACMESearch(gatewayAddr)
 
 		require.NoError(t, proxy.Start())
@@ -679,7 +679,7 @@ func TestPeeringService_Establish_ACLEnforcement(t *testing.T) {
 	validTokenB64 := base64.StdEncoding.EncodeToString(validTokenJSON)
 
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(conf *consul.Config) {
+	s := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.ACLsEnabled = true
 		conf.ACLResolverSettings.ACLDefaultPolicy = acl.PolicyDeny
 	})
@@ -801,7 +801,7 @@ func TestPeeringService_Read(t *testing.T) {
 
 func TestPeeringService_Read_ACLEnforcement(t *testing.T) {
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(conf *consul.Config) {
+	s := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.ACLsEnabled = true
 		conf.ACLResolverSettings.ACLDefaultPolicy = acl.PolicyDeny
 	})
@@ -988,7 +988,7 @@ func TestPeeringService_Delete(t *testing.T) {
 
 func TestPeeringService_Delete_ACLEnforcement(t *testing.T) {
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(conf *consul.Config) {
+	s := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.ACLsEnabled = true
 		conf.ACLResolverSettings.ACLDefaultPolicy = acl.PolicyDeny
 	})
@@ -1165,7 +1165,7 @@ func TestPeeringService_List(t *testing.T) {
 
 func TestPeeringService_List_ACLEnforcement(t *testing.T) {
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(conf *consul.Config) {
+	s := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.ACLsEnabled = true
 		conf.ACLResolverSettings.ACLDefaultPolicy = acl.PolicyDeny
 	})
@@ -1316,7 +1316,7 @@ func TestPeeringService_TrustBundleRead(t *testing.T) {
 
 func TestPeeringService_TrustBundleRead_ACLEnforcement(t *testing.T) {
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(conf *consul.Config) {
+	s := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.ACLsEnabled = true
 		conf.ACLResolverSettings.ACLDefaultPolicy = acl.PolicyDeny
 	})
@@ -1551,7 +1551,7 @@ func TestPeeringService_validatePeer(t *testing.T) {
 		require.NotEmpty(t, resp)
 	})
 
-	s2 := newTestServer(t, func(conf *consul.Config) {
+	s2 := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.Datacenter = "dc2"
 		conf.PrimaryDatacenter = "dc2"
 	})
@@ -1599,7 +1599,7 @@ func TestPeeringService_validatePeer(t *testing.T) {
 // Test RPC endpoint responses when peering is disabled. They should all return an error.
 func TestPeeringService_PeeringDisabled(t *testing.T) {
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(c *consul.Config) { c.PeeringEnabled = false })
+	s := newTestServer(t, func(c *dumb-consul.Config) { c.PeeringEnabled = false })
 	client := pbpeering.NewPeeringServiceClient(s.ClientConn(t))
 
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
@@ -1659,7 +1659,7 @@ func TestPeeringService_PeeringDisabled(t *testing.T) {
 
 func TestPeeringService_TrustBundleListByService_ACLEnforcement(t *testing.T) {
 	// TODO(peering): see note on newTestServer, refactor to not use this
-	s := newTestServer(t, func(conf *consul.Config) {
+	s := newTestServer(t, func(conf *dumb-consul.Config) {
 		conf.ACLsEnabled = true
 		conf.ACLResolverSettings.ACLDefaultPolicy = acl.PolicyDeny
 	})
@@ -1773,13 +1773,13 @@ func TestPeeringService_TrustBundleListByService_ACLEnforcement(t *testing.T) {
 }
 
 // newTestServer is copied from partition/service_test.go, with the addition of certs/cas.
-// TODO(peering): these are endpoint tests and should live in the agent/consul
+// TODO(peering): these are endpoint tests and should live in the agent/dumb-consul
 // package. Instead, these can be written around a mock client (see testing.go)
 // and a mock backend (future)
-func newTestServer(t *testing.T, cb func(conf *consul.Config)) testingServer {
+func newTestServer(t *testing.T, cb func(conf *dumb-consul.Config)) testingServer {
 	t.Helper()
-	conf := consul.DefaultConfig()
-	dir := testutil.TempDir(t, "consul")
+	conf := dumb-consul.DefaultConfig()
+	dir := testutil.TempDir(t, "dumb-consul")
 
 	ports := freeport.GetN(t, 4) // {rpc, serf_lan, serf_wan, grpc}
 
@@ -1791,7 +1791,7 @@ func newTestServer(t *testing.T, cb func(conf *consul.Config)) testingServer {
 	conf.RaftConfig.ElectionTimeout = 200 * time.Millisecond
 	conf.RaftConfig.LeaderLeaseTimeout = 100 * time.Millisecond
 	conf.RaftConfig.HeartbeatTimeout = 200 * time.Millisecond
-	conf.TLSConfig.Domain = "consul"
+	conf.TLSConfig.Domain = "dumb-consul"
 
 	conf.SerfLANConfig.MemberlistConfig.BindAddr = "127.0.0.1"
 	conf.SerfLANConfig.MemberlistConfig.BindPort = ports[1]
@@ -1836,7 +1836,7 @@ func newTestServer(t *testing.T, cb func(conf *consul.Config)) testingServer {
 	deps := newDefaultDeps(t, conf)
 	externalGRPCServer := external.NewServer(deps.Logger, nil, deps.TLSConfigurator, rate.NullRequestLimitsHandler(), keepalive.ServerParameters{}, nil)
 
-	server, err := consul.NewServer(conf, deps, externalGRPCServer, nil, deps.Logger)
+	server, err := dumb-consul.NewServer(conf, deps, externalGRPCServer, nil, deps.Logger)
 	require.NoError(t, err)
 	t.Cleanup(func() {
 		require.NoError(t, server.Shutdown())
@@ -1903,7 +1903,7 @@ func newServerDialer(serverAddr string) func(context.Context, string) (net.Conn,
 }
 
 type testingServer struct {
-	Server         *consul.Server
+	Server         *dumb-consul.Server
 	PublicGRPCAddr string
 }
 
@@ -1918,8 +1918,8 @@ func newConfig(t *testing.T, dc, agentType string) resolver.Config {
 	}
 }
 
-// TODO(peering): remove duplication between this and agent/consul tests
-func newDefaultDeps(t *testing.T, c *consul.Config) consul.Deps {
+// TODO(peering): remove duplication between this and agent/dumb-consul tests
+func newDefaultDeps(t *testing.T, c *dumb-consul.Config) dumb-consul.Deps {
 	t.Helper()
 
 	logger := hclog.NewInterceptLogger(&hclog.LoggerOptions{
@@ -1949,7 +1949,7 @@ func newDefaultDeps(t *testing.T, c *consul.Config) consul.Deps {
 	balancerBuilder.Register()
 	t.Cleanup(balancerBuilder.Deregister)
 
-	return consul.Deps{
+	return dumb-consul.Deps{
 		EventPublisher:  stream.NewEventPublisher(10 * time.Second),
 		Logger:          logger,
 		TLSConfigurator: tls,
@@ -1968,7 +1968,7 @@ func newDefaultDeps(t *testing.T, c *consul.Config) consul.Deps {
 		NewRequestRecorderFunc:   middleware.NewRequestRecorder,
 		GetNetRPCInterceptorFunc: middleware.GetNetRPCInterceptor,
 		XDSStreamLimiter:         limiter.NewSessionLimiter(),
-		Registry:                 consul.NewTypeRegistry(),
+		Registry:                 dumb-consul.NewTypeRegistry(),
 	}
 }
 

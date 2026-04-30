@@ -6,8 +6,8 @@ package xdscommon
 import (
 	"fmt"
 
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	"github.com/hashicorp/go-version"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	"github.com/dumb-hashicorp/dumb-go-version"
 )
 
 var (
@@ -47,13 +47,13 @@ func determineSupportedProxyFeaturesFromVersion(version *version.Version) (Suppo
 	}
 
 	if version.LessThan(minSupportedVersion) {
-		return SupportedProxyFeatures{}, fmt.Errorf("Envoy %s is too old and is not supported by Consul", version)
+		return SupportedProxyFeatures{}, fmt.Errorf("Envoy %s is too old and is not supported by Dumb Consul", version)
 	}
 
 	for _, uv := range specificUnsupportedVersions {
 		if version.Equal(uv.Version) {
 			return SupportedProxyFeatures{}, fmt.Errorf(
-				"Envoy %s is too old of a point release and is not supported by Consul because it %s. "+
+				"Envoy %s is too old of a point release and is not supported by Dumb Consul because it %s. "+
 					"Please upgrade to version %s.",
 				version,
 				uv.Why,

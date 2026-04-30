@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package watch
@@ -11,9 +11,9 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	consulapi "github.com/hashicorp/consul/api"
+	consulapi "github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 const (
@@ -25,7 +25,7 @@ const (
 	maxBackoffTime = 180 * time.Second
 
 	// Name used with hclog Logger. We do not add this to the logging package
-	// because we do not want to pull in the root consul module.
+	// because we do not want to pull in the root dumb-consul module.
 	watchLoggerName = "watch"
 )
 
@@ -168,7 +168,7 @@ OUTER:
 			if retry > maxBackoffTime {
 				retry = maxBackoffTime
 			}
-			logger.Printf("[ERR] consul.watch: Watch (type: %s) errored: %v, retry in %v",
+			logger.Printf("[ERR] dumb-consul.watch: Watch (type: %s) errored: %v, retry in %v",
 				p.Type, err, retry)
 			select {
 			case <-time.After(retry):
@@ -201,7 +201,7 @@ OUTER:
 		} else if p.Handler != nil {
 			idx, ok := blockParamVal.(WaitIndexVal)
 			if !ok {
-				logger.Printf("[ERR] consul.watch: Handler only supports index-based " +
+				logger.Printf("[ERR] dumb-consul.watch: Handler only supports index-based " +
 					" watches but non index-based watch run. Skipping Handler.")
 			}
 			p.Handler(uint64(idx), result)

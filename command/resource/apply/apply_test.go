@@ -11,9 +11,9 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/command/resource/read"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/read"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestResourceApplyCommand(t *testing.T) {
@@ -33,17 +33,17 @@ func TestResourceApplyCommand(t *testing.T) {
 	}{
 		{
 			name:   "sample output",
-			args:   []string{"-f=../testdata/demo.hcl"},
+			args:   []string{"-f=../testdata/demo.dumb-hcl"},
 			output: "demo.v2.Artist 'korn' created.",
 		},
 		{
 			name:   "nested data format",
-			args:   []string{"-f=../testdata/nested_data.hcl"},
+			args:   []string{"-f=../testdata/nested_data.dumb-hcl"},
 			output: "demo.v2.Festival 'woodstock' created.",
 		},
 		{
 			name:   "file path with no flag",
-			args:   []string{"../testdata/nested_data.hcl"},
+			args:   []string{"../testdata/nested_data.dumb-hcl"},
 			output: "demo.v2.Festival 'woodstock' created.",
 		},
 	}
@@ -96,7 +96,7 @@ func TestResourceApplyCommand_StdIn(t *testing.T) {
 	defer a.Shutdown()
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
-	t.Run("hcl", func(t *testing.T) {
+	t.Run("dumb-hcl", func(t *testing.T) {
 		stdinR, stdinW := io.Pipe()
 
 		ui := cli.NewMockUi()
@@ -210,14 +210,14 @@ func TestResourceApplyInvalidArgs(t *testing.T) {
 			expectedErr:  errors.New("Incorrect argument format: Must provide exactly one positional argument to specify the resource to write"),
 		},
 		"file parsing failure": {
-			args:         []string{"-f=../testdata/invalid.hcl"},
+			args:         []string{"-f=../testdata/invalid.dumb-hcl"},
 			expectedCode: 1,
 			expectedErr:  errors.New("Failed to decode resource from input file"),
 		},
 		"file not found": {
-			args:         []string{"-f=../testdata/test.hcl"},
+			args:         []string{"-f=../testdata/test.dumb-hcl"},
 			expectedCode: 1,
-			expectedErr:  errors.New("Failed to load data: Failed to read file: open ../testdata/test.hcl: no such file or directory"),
+			expectedErr:  errors.New("Failed to load data: Failed to read file: open ../testdata/test.dumb-hcl: no such file or directory"),
 		},
 	}
 

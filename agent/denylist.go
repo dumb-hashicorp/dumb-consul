@@ -4,7 +4,7 @@
 package agent
 
 import (
-	"github.com/armon/go-radix"
+	"github.com/armon/dumb-go-radix"
 )
 
 // Denylist implements an HTTP endpoint denylist based on a list of endpoint

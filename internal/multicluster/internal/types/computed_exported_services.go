@@ -4,10 +4,10 @@
 package types
 
 import (
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/internal/resource"
-	pbmulticluster "github.com/hashicorp/consul/proto-public/pbmulticluster/v2"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	pbmulticluster "github.com/dumb-hashicorp/dumb-consul/proto-public/pbmulticluster/v2"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 const (

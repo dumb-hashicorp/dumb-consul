@@ -4,7 +4,7 @@
 package configentry
 
 import (
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // ResolvedServiceConfigSet is a wrapped set of raw cross-referenced config

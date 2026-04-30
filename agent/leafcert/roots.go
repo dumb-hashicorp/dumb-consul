@@ -8,8 +8,8 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/hashicorp/consul/agent/cacheshim"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cacheshim"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // rootWatcher helps let multiple requests for leaf certs to coordinate sharing

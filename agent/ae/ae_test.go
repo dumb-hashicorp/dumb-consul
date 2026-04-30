@@ -11,11 +11,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestAE_scaleFactor(t *testing.T) {

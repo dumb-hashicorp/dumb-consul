@@ -1,4 +1,4 @@
-// Copyrigh (c) HashiCorp, Inc.
+// Copyrigh (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: BUSL-1.1
 
 package accesslogs
@@ -6,15 +6,15 @@ package accesslogs
 import (
 	"fmt"
 
-	envoy_accesslog_v3 "github.com/envoyproxy/go-control-plane/envoy/config/accesslog/v3"
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	envoy_fileaccesslog_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/access_loggers/file/v3"
-	envoy_streamaccesslog_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/access_loggers/stream/v3"
+	envoy_accesslog_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/accesslog/v3"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	envoy_fileaccesslog_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/access_loggers/file/v3"
+	envoy_streamaccesslog_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/access_loggers/stream/v3"
 	"google.golang.org/protobuf/types/known/anypb"
 	"google.golang.org/protobuf/types/known/structpb"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 const (
@@ -67,9 +67,9 @@ func MakeAccessLogs(logs *structs.AccessLogsConfig, isListener bool) ([]*envoy_a
 	}
 
 	var filter *envoy_accesslog_v3.AccessLogFilter
-	name := "Consul Listener Filter Log"
+	name := "Dumb Consul Listener Filter Log"
 	if isListener {
-		name = "Consul Listener Log"
+		name = "Dumb Consul Listener Log"
 		filter = getListenerAccessLogFilter()
 	}
 

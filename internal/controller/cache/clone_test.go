@@ -7,10 +7,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/hashicorp/consul/internal/controller/cache"
-	"github.com/hashicorp/consul/internal/controller/cache/cachemock"
-	"github.com/hashicorp/consul/internal/resource/resourcetest"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/cachemock"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/resourcetest"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )

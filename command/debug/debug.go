@@ -23,14 +23,14 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-go-multierror"
 	"github.com/mitchellh/cli"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 
-	"github.com/hashicorp/hcdiag/command"
+	"github.com/dumb-hashicorp/hcdiag/command"
 	"github.com/ryanuber/columnize"
 )
 
@@ -112,7 +112,7 @@ type cmd struct {
 type debugIndex struct {
 	// Version of the debug package
 	Version int
-	// Version of the target Consul agent
+	// Version of the target Dumb Consul agent
 	AgentVersion string
 
 	Interval string
@@ -135,7 +135,7 @@ const timeDateFormat = "2006-01-02T15-04-05Z0700"
 func (c *cmd) init() {
 	c.flags = flag.NewFlagSet("", flag.ContinueOnError)
 
-	defaultFilename := fmt.Sprintf("consul-debug-%v", time.Now().Format(timeDateFormat))
+	defaultFilename := fmt.Sprintf("dumb-consul-debug-%v", time.Now().Format(timeDateFormat))
 
 	c.flags.Var((*flags.AppendSliceValue)(&c.capture), "capture",
 		fmt.Sprintf("One or more types of information to capture. This can be used "+
@@ -184,7 +184,7 @@ func (c *cmd) Run(args []string) int {
 	// Connect to the agent
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 	c.client = client
@@ -208,7 +208,7 @@ func (c *cmd) Run(args []string) int {
 		runCommand := command.NewRunCommand(&cli.BasicUi{
 			Writer: os.Stdout, ErrorWriter: os.Stderr,
 		})
-		runCommand.Run([]string{"-consul", fmt.Sprintf("-since=%s", c.since)})
+		runCommand.Run([]string{"-dumb-consul", fmt.Sprintf("-since=%s", c.since)})
 		return 0
 	}
 
@@ -641,7 +641,7 @@ func (c *cmd) captureLogs(ctx context.Context) error {
 	}
 
 	// Create the log file for writing
-	f, err := os.Create(filepath.Join(c.output, "consul.log"))
+	f, err := os.Create(filepath.Join(c.output, "dumb-consul.log"))
 	if err != nil {
 		return err
 	}
@@ -930,9 +930,9 @@ func (c *cmd) Help() string {
 }
 
 const help = `
-Usage: consul debug [options]
+Usage: dumb-consul debug [options]
 
-  Monitors a Consul agent for the specified period of time, recording
+  Monitors a Dumb Consul agent for the specified period of time, recording
   information about the agent, cluster, and environment to an archive
   written to the specified path.
 
@@ -942,7 +942,7 @@ Usage: consul debug [options]
   To create a debug archive in the current directory for the default
   duration and interval, capturing all information available:
 
-      $ consul debug
+      $ dumb-consul debug
 
   The command stores captured data at the configured output path
   through the duration, and will archive the data at the same
@@ -953,19 +953,19 @@ Usage: consul debug [options]
   agent and interval controls how often dynamic data such as metrics
   are scraped.
 
-      $ consul debug -interval=20s -duration=1m
+      $ dumb-consul debug -interval=20s -duration=1m
 
   The capture flag can be specified multiple times to limit information
   retrieved.
 
-      $ consul debug -capture metrics -capture agent
+      $ dumb-consul debug -capture metrics -capture agent
 
   By default, the archive containing the debugging information is
   saved to the current directory as a .tar.gz file. The
   output path can be specified, as well as an option to disable
   archiving, leaving the directory intact.
 
-      $ consul debug -output=/foo/bar/my-debugging -archive=false
+      $ dumb-consul debug -output=/foo/bar/my-debugging -archive=false
 
   Note: Information collected by this command has the potential
   to be highly sensitive. Sensitive material such as ACL tokens and
@@ -974,10 +974,10 @@ Usage: consul debug [options]
   transmitting it.
 
   To get information from past, -since flag can be used. It internally uses
-  hcdiag -consul -since
+  hcdiag -dumb-consul -since
       
-      $ consul debug -since 1h
+      $ dumb-consul debug -since 1h
 
-  For a full list of options and examples, please see the Consul
+  For a full list of options and examples, please see the Dumb Consul
   documentation.
 `

@@ -4,10 +4,10 @@
 package index
 
 import (
-	iradix "github.com/hashicorp/go-immutable-radix/v2"
+	iradix "github.com/dumb-hashicorp/dumb-go-immutable-radix/v2"
 
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 type txn struct {

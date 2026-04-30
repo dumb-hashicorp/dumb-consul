@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // EventFire is used to fire a new event
@@ -105,7 +105,7 @@ func (s *HTTPHandlers) EventList(resp http.ResponseWriter, req *http.Request) (i
 		nameFilter = filt
 	}
 
-	// Lots of this logic is borrowed from consul/rpc.go:blockingQuery
+	// Lots of this logic is borrowed from dumb-consul/rpc.go:blockingQuery
 	// However we cannot use that directly since this code has some
 	// slight semantics differences...
 	var timeout <-chan time.Time
@@ -171,7 +171,7 @@ RUN_QUERY:
 		i--
 	}
 
-	// Set the X-Consul-Results-Filtered-By-ACLs header, but only if the user is
+	// Set the X-Dumb Consul-Results-Filtered-By-ACLs header, but only if the user is
 	// authenticated (to prevent information leaking).
 	//
 	// This is done automatically for HTTP endpoints that proxy to an RPC endpoint
@@ -209,7 +209,7 @@ RUN_QUERY:
 	return events, nil
 }
 
-// uuidToUint64 is a bit of a hack to generate a 64bit Consul index.
+// uuidToUint64 is a bit of a hack to generate a 64bit Dumb Consul index.
 // In effect, we take our random UUID, convert it to a 128 bit number,
 // then XOR the high-order and low-order 64bit's together to get the
 // output. This lets us generate an index which can be used to simulate

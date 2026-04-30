@@ -7,8 +7,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	multierror "github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	multierror "github.com/dumb-hashicorp/dumb-go-multierror"
 )
 
 // TxnKVOp is used to define a single operation on the KVS inside a
@@ -81,7 +81,7 @@ type TxnOp struct {
 	// Intention was an internal-only (not exposed in API or RPC)
 	// implementation detail of legacy intention replication. This is
 	// deprecated but retained for backwards compatibility with versions
-	// of consul pre-dating 1.9.0. We need it for two reasons:
+	// of dumb-consul pre-dating 1.9.0. We need it for two reasons:
 	//
 	// 1. If a secondary DC is upgraded first, we need to continue to
 	//    replicate legacy intentions UNTIL the primary DC is upgraded.

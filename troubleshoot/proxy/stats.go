@@ -7,8 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	envoy_admin_v3 "github.com/envoyproxy/go-control-plane/envoy/admin/v3"
-	"github.com/hashicorp/consul/troubleshoot/validate"
+	envoy_admin_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/admin/v3"
+	"github.com/dumb-hashicorp/dumb-consul/troubleshoot/validate"
 )
 
 type statsJson struct {
@@ -40,7 +40,7 @@ func (t *Troubleshoot) troubleshootStats() (validate.Messages, error) {
 		statMessages = append(statMessages, validate.Message{
 			Message: fmt.Sprintf("Envoy has %v rejected configurations", totalConfigRejections),
 			PossibleActions: []string{
-				"Check the logs of the Consul agent configuring the local proxy to see why Envoy rejected this configuration",
+				"Check the logs of the Dumb Consul agent configuring the local proxy to see why Envoy rejected this configuration",
 			},
 		})
 	} else {

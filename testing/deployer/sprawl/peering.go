@@ -12,14 +12,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 // TODO: this is definitely a grpc resolver/balancer issue to look into
-const grpcWeirdError = `transport: Error while dialing failed to find Consul server for global address`
+const grpcWeirdError = `transport: Error while dialing failed to find Dumb Consul server for global address`
 
 func isWeirdGRPCError(err error) bool {
 	if err == nil {

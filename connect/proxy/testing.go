@@ -11,10 +11,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/mitchellh/go-testing-interface"
+	"github.com/mitchellh/dumb-go-testing-interface"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/connect"
+	"github.com/dumb-hashicorp/dumb-consul/connect"
 )
 
 // TestLocalAddr makes a localhost address on the given port

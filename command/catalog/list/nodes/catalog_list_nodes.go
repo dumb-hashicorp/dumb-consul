@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/hashicorp/consul/command/catalog"
+	"github.com/dumb-hashicorp/dumb-consul/command/catalog"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
 	"github.com/mitchellh/cli"
 	"github.com/ryanuber/columnize"
 )
@@ -74,7 +74,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -171,31 +171,31 @@ func (c *cmd) Help() string {
 
 const synopsis = "Lists all nodes in the given datacenter"
 const help = `
-Usage: consul catalog nodes [options]
+Usage: dumb-consul catalog nodes [options]
 
   Retrieves the list nodes registered in a given datacenter. By default, the
   datacenter of the local agent is queried.
 
   To retrieve the list of nodes:
 
-      $ consul catalog nodes
+      $ dumb-consul catalog nodes
 
   To print detailed information including full node IDs, tagged addresses, and
   metadata information:
 
-      $ consul catalog nodes -detailed
+      $ dumb-consul catalog nodes -detailed
 
   To list nodes which are running a particular service:
 
-      $ consul catalog nodes -service=web
+      $ dumb-consul catalog nodes -service=web
 
   To filter by node metadata:
 
-      $ consul catalog nodes -node-meta="foo=bar"
+      $ dumb-consul catalog nodes -node-meta="foo=bar"
 
   To sort nodes by estimated round-trip time from node-web:
 
-      $ consul catalog nodes -near=node-web
+      $ dumb-consul catalog nodes -near=node-web
 
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `

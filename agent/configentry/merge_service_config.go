@@ -6,13 +6,13 @@ package configentry
 import (
 	"fmt"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-memdb"
 	"github.com/imdario/mergo"
 	"github.com/mitchellh/copystructure"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 type StateStore interface {

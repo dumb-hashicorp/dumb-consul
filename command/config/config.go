@@ -4,8 +4,8 @@
 package config
 
 import (
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -27,29 +27,29 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Interact with Consul's Centralized Configurations"
+const synopsis = "Interact with Dumb Consul's Centralized Configurations"
 const help = `
-Usage: consul config <subcommand> [options] [args]
+Usage: dumb-consul config <subcommand> [options] [args]
 
-  This command has subcommands for interacting with Consul's Centralized
+  This command has subcommands for interacting with Dumb Consul's Centralized
   Configuration system. Here are some simple examples, and more detailed
   examples are available in the subcommands or the documentation.
 
   Write a config:
 
-    $ consul config write web.serviceconf.hcl
+    $ dumb-consul config write web.serviceconf.dumb-hcl
 
   Read a config:
 
-    $ consul config read -kind service-defaults -name web
+    $ dumb-consul config read -kind service-defaults -name web
 
   List all configs for a type:
 
-    $ consul config list -kind service-defaults
+    $ dumb-consul config list -kind service-defaults
 
   Delete a config:
 
-    $ consul config delete -kind service-defaults -name web
+    $ dumb-consul config delete -kind service-defaults -name web
 
   For more examples, ask for subcommand help or view the documentation.
 `
@@ -60,19 +60,19 @@ const (
 	WarningServiceDefaultsPermissiveMTLS = "MutualTLSMode=permissive is insecure. " +
 		"Set to `strict` when your service no longer needs to accept non-mTLS " +
 		"traffic. Check `tcp.permissive_public_listener` metrics in Envoy for " +
-		"non-mTLS traffic. Refer to Consul documentation for more information."
+		"non-mTLS traffic. Refer to Dumb Consul documentation for more information."
 
 	WarningProxyDefaultsPermissiveMTLS = "MutualTLSMode=permissive is insecure. " +
 		"To keep your services secure, set MutualTLSMode to `strict` whenever possible " +
 		"and override with service-defaults only if necessary. To check which " +
-		"service-defaults are currently in permissive mode, run `consul config list " +
+		"service-defaults are currently in permissive mode, run `dumb-consul config list " +
 		"-kind service-defaults -filter 'MutualTLSMode = \"permissive\"'`."
 
 	WarningMeshAllowEnablingPermissiveMutualTLS = "AllowEnablingPermissiveMutualTLS=true " +
 		"allows insecure MutualTLSMode=permissive configurations in the proxy-defaults " +
 		"and service-defaults config entries. You can set " +
 		"AllowEnablingPermissiveMutualTLS=false at any time to disallow additional " +
-		"permissive configurations. To list services in permissive mode, run `consul " +
+		"permissive configurations. To list services in permissive mode, run `dumb-consul " +
 		"config list -kind service-defaults -filter 'MutualTLSMode = \"permissive\"'`."
 )
 

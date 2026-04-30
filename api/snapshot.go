@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -8,7 +8,7 @@ import (
 )
 
 // Snapshot can be used to query the /v1/snapshot endpoint to take snapshots of
-// Consul's internal state and restore snapshots for disaster recovery.
+// Dumb Consul's internal state and restore snapshots for disaster recovery.
 type Snapshot struct {
 	c *Client
 }

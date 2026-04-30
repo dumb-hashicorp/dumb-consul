@@ -4,7 +4,7 @@
 package acl
 
 import (
-	"github.com/armon/go-radix"
+	"github.com/armon/dumb-go-radix"
 )
 
 type policyAuthorizer struct {
@@ -57,12 +57,12 @@ type policyAuthorizer struct {
 }
 
 // policyAuthorizerRule is a struct to hold an ACL policy decision along
-// with extra Consul Enterprise specific policy
+// with extra Dumb Consul Enterprise specific policy
 type policyAuthorizerRule struct {
 	// decision is the enforcement decision for this rule
 	access AccessLevel
 
-	// Embedded Consul Enterprise specific policy
+	// Embedded Dumb Consul Enterprise specific policy
 	EnterpriseRule
 }
 

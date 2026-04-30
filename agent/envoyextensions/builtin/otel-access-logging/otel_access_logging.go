@@ -6,16 +6,16 @@ package otelaccesslogging
 import (
 	"fmt"
 
-	envoy_extensions_access_loggers_v3 "github.com/envoyproxy/go-control-plane/envoy/config/accesslog/v3"
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_extensions_access_loggers_otel_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/access_loggers/open_telemetry/v3"
-	"github.com/go-viper/mapstructure/v2"
+	envoy_extensions_access_loggers_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/accesslog/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_extensions_access_loggers_otel_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/access_loggers/open_telemetry/v3"
+	"github.com/dumb-go-viper/mapstructure/v2"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/api"
-	ext_cmn "github.com/hashicorp/consul/envoyextensions/extensioncommon"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	ext_cmn "github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-go-multierror"
 	v1 "go.opentelemetry.io/proto/otlp/common/v1"
 )
 

@@ -13,7 +13,7 @@
         {
           "filterChainMatch": {
             "serverNames": [
-              "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+              "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
             ]
           },
           "filters": [
@@ -29,7 +29,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.api.default.default.dc1"
               }
             }
@@ -68,7 +68,7 @@
         {
           "filterChainMatch": {
             "serverNames": [
-              "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+              "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
             ]
           },
           "filters": [
@@ -84,7 +84,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.cache.default.default.dc1"
               }
             }
@@ -123,7 +123,7 @@
         {
           "filterChainMatch": {
             "serverNames": [
-              "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+              "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
             ]
           },
           "filters": [
@@ -139,7 +139,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.db.default.default.dc1"
               }
             }
@@ -178,7 +178,7 @@
         {
           "filterChainMatch": {
             "serverNames": [
-              "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+              "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
             ]
           },
           "filters": [
@@ -194,7 +194,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.web.default.default.dc1"
               }
             }

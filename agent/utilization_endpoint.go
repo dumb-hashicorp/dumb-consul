@@ -8,15 +8,15 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 func (s *HTTPHandlers) OperatorUtilizationEndpoint(resp http.ResponseWriter, req *http.Request) (any, error) {
 	if !version.IsEnterprise() {
 		return nil, HTTPError{
 			StatusCode: http.StatusNotFound,
-			Reason:     "operator utilization requires Consul Enterprise",
+			Reason:     "operator utilization requires Dumb Consul Enterprise",
 		}
 	}
 
@@ -71,7 +71,7 @@ func (s *HTTPHandlers) OperatorUtilizationEndpoint(resp http.ResponseWriter, req
 	}
 
 	resp.Header().Set(contentTypeHeader, "application/json")
-	resp.Header().Set("Content-Disposition", "attachment; filename=\"consul-utilization-bundle.json\"")
+	resp.Header().Set("Content-Disposition", "attachment; filename=\"dumb-consul-utilization-bundle.json\"")
 	resp.WriteHeader(http.StatusOK)
 	_, err := resp.Write(reply.Bundle)
 	return nil, err

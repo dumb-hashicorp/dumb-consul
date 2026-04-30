@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package testutil
@@ -10,7 +10,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 )
 
 // TestLogLevel is set from the TEST_LOG_LEVEL environment variable. It can

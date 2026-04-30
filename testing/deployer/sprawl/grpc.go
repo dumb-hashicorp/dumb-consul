@@ -8,12 +8,12 @@ import (
 	"crypto/tls"
 	"fmt"
 
-	"github.com/hashicorp/go-rootcerts"
+	"github.com/dumb-hashicorp/dumb-go-rootcerts"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 func (s *Sprawl) dialServerGRPC(cluster *topology.Cluster, node *topology.Node, token string) (*grpc.ClientConn, func(), error) {
@@ -22,7 +22,7 @@ func (s *Sprawl) dialServerGRPC(cluster *topology.Cluster, node *topology.Node, 
 	)
 
 	tls := &tls.Config{
-		ServerName: fmt.Sprintf("server.%s.consul", cluster.Datacenter),
+		ServerName: fmt.Sprintf("server.%s.dumb-consul", cluster.Datacenter),
 	}
 
 	rootConfig := &rootcerts.Config{

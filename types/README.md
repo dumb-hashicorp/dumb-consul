@@ -1,4 +1,4 @@
-# Consul `types` Package
+# Dumb Consul `types` Package
 
 The Go language has a strong type system built into the language.  The
 `types` package corrals named types into a single package that is terminal in

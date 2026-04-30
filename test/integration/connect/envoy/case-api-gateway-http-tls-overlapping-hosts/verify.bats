@@ -26,12 +26,12 @@ load helpers
   [[ "$output" == *"hello"* ]]
 }
 
-@test "api gateway should be able to serve host.consul.example traffic on listener 1" {
-  assert_cert_has_cn localhost:9999 host.consul.example host.consul.example
+@test "api gateway should be able to serve host.dumb-consul.example traffic on listener 1" {
+  assert_cert_has_cn localhost:9999 host.dumb-consul.example host.dumb-consul.example
 }
 
-@test "api gateway should be able to serve all other traffic with the host.consul.example certificate on listener 1" {
-  assert_cert_has_cn localhost:9999 host.consul.example other.consul.example
+@test "api gateway should be able to serve all other traffic with the host.dumb-consul.example certificate on listener 1" {
+  assert_cert_has_cn localhost:9999 host.dumb-consul.example other.dumb-consul.example
 }
 
 @test "api gateway should get an intentions error connecting to s2 via configured port" {
@@ -39,10 +39,10 @@ load helpers
   [[ "$output" == "RBAC: access denied" ]]
 }
 
-@test "api gateway should be able to serve listener 2 with the other.consul.example certificate" {
-  assert_cert_has_cn localhost:9998 other.consul.example other.consul.example
+@test "api gateway should be able to serve listener 2 with the other.dumb-consul.example certificate" {
+  assert_cert_has_cn localhost:9998 other.dumb-consul.example other.dumb-consul.example
 }
 
 @test "api gateway should fall back to a connect certificate on conflicted SNI on listener 2" {
-  assert_cert_has_cn localhost:9998 pri host.consul.example
+  assert_cert_has_cn localhost:9998 pri host.dumb-consul.example
 }

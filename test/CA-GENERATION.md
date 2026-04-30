@@ -24,7 +24,7 @@ Configure the cert as follows:
 Country Name (2 letter code) [AU]:US
 State or Province Name (full name) [Some-State]:CA
 Locality Name (eg, city) []:San Francisco
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:HashiCorp Test Cert
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Dumb HashiCorp Test Cert
 Organizational Unit Name (eg, section) []:Dev
 Common Name (e.g. server FQDN or YOUR name) []:test.internal
 Email Address []:test@internal.com
@@ -54,7 +54,7 @@ Configure the cert as follows:
 Country Name (2 letter code) [AU]:US
 State or Province Name (full name) [Some-State]:CA
 Locality Name (eg, city) []:San Francisco
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:HashiCorp Test Cert
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Dumb HashiCorp Test Cert
 Organizational Unit Name (eg, section) []:Test
 Common Name (e.g. server FQDN or YOUR name) []:CertAuth
 Email Address []:test@internal.com

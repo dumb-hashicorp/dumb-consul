@@ -6,15 +6,15 @@ package proxycfgglue
 import (
 	"context"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-go-memdb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/consul/watch"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // CacheCompiledDiscoveryChain satisfies the proxycfg.CompiledDiscoveryChain

@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/policy"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/policy"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -67,7 +67,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -128,18 +128,18 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Read an ACL policy"
 	help     = `
-Usage: consul acl policy read [options] POLICY
+Usage: dumb-consul acl policy read [options] POLICY
 
     This command will retrieve and print out the details
     of a single policy.
 
     Read:
 
-        $ consul acl policy read -id fdabbcb5-9de5-4b1a-961f-77214ae88cba
+        $ dumb-consul acl policy read -id fdabbcb5-9de5-4b1a-961f-77214ae88cba
 
     Read by name:
 
-        $ consul acl policy read -name my-policy
+        $ dumb-consul acl policy read -name my-policy
 
 `
 )

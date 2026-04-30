@@ -14,14 +14,14 @@ func TestDestinationPortClusterName(t *testing.T) {
 		expected        string
 	}{
 		"empty destination port": {
-			clusterName:     "api-app.default.dc1.consul",
+			clusterName:     "api-app.default.dc1.dumb-consul",
 			destinationPort: "",
-			expected:        "api-app.default.dc1.consul",
+			expected:        "api-app.default.dc1.dumb-consul",
 		},
 		"destination port present": {
-			clusterName:     "api-app.default.dc1.consul",
+			clusterName:     "api-app.default.dc1.dumb-consul",
 			destinationPort: "admin-port",
-			expected:        "api-app.default.dc1.consul",
+			expected:        "api-app.default.dc1.dumb-consul",
 		},
 	}
 

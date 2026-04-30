@@ -13,10 +13,10 @@ import (
 	"strings"
 	"time"
 
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	prevpriorities "github.com/envoyproxy/go-control-plane/envoy/extensions/retry/priority/previous_priorities/v3"
-	envoy_matcher_v3 "github.com/envoyproxy/go-control-plane/envoy/type/matcher/v3"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	envoy_route_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
+	prevpriorities "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/retry/priority/previous_priorities/v3"
+	envoy_matcher_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/type/matcher/v3"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"google.golang.org/protobuf/proto"
@@ -24,12 +24,12 @@ import (
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/config"
-	"github.com/hashicorp/consul/agent/xds/response"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/response"
 )
 
 // routesFromSnapshot returns the xDS API representation of the "routes" in the

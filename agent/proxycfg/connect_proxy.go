@@ -11,15 +11,15 @@ import (
 	"path"
 	"strings"
 
-	"github.com/go-viper/mapstructure/v2"
+	"github.com/dumb-go-viper/mapstructure/v2"
 
-	"github.com/hashicorp/consul/acl"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/proxycfg/internal/watch"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg/internal/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 type handlerConnectProxy struct {
@@ -615,11 +615,11 @@ func (s *handlerConnectProxy) handleUpdate(ctx context.Context, u UpdateEvent, s
 }
 
 // telemetryCollectorConfig represents the basic opaque config values for pushing telemetry to
-// a consul telemetry collector.
+// a dumb-consul telemetry collector.
 type telemetryCollectorConfig struct {
 	// TelemetryCollectorBindSocketDir is a string that configures the directory for a
 	// unix socket where Envoy will forward metrics. These metrics get pushed to
-	// the Consul Telemetry collector.
+	// the Dumb Consul Telemetry collector.
 	TelemetryCollectorBindSocketDir string `mapstructure:"envoy_telemetry_collector_bind_socket_dir"`
 }
 
@@ -635,7 +635,7 @@ func parseTelemetryCollectorConfig(m map[string]interface{}) (telemetryCollector
 }
 
 // maybeInitializeTelemetryCollectorWatches will initialize a synthetic upstream and discovery chain
-// watch for the consul telemetry collector, if telemetry data collection is enabled on the proxy registration.
+// watch for the dumb-consul telemetry collector, if telemetry data collection is enabled on the proxy registration.
 func (s *handlerConnectProxy) maybeInitializeTelemetryCollectorWatches(ctx context.Context, snap ConfigSnapshot) error {
 	cfg, err := parseTelemetryCollectorConfig(s.proxyCfg.Config)
 	if err != nil {

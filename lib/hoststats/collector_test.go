@@ -6,10 +6,10 @@ package hoststats
 import (
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 // TestCollector_collect validates that metrics for host resource usage
@@ -27,7 +27,7 @@ func TestCollector_collect(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			dataDir := ""
 			if !tc.skipDataDir {
-				dataDir = testutil.TempDir(t, "consul-config")
+				dataDir = testutil.TempDir(t, "dumb-consul-config")
 			}
 
 			collector := initCollector(hclog.NewNullLogger(), dataDir)

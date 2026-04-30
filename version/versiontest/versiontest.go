@@ -3,9 +3,9 @@
 
 package versiontest
 
-import "github.com/hashicorp/consul/version"
+import "github.com/dumb-hashicorp/dumb-consul/version"
 
-// IsEnterprise returns true if the current build is a Consul Enterprise build.
+// IsEnterprise returns true if the current build is a Dumb Consul Enterprise build.
 //
 // This should only be called from test code.
 func IsEnterprise() bool {

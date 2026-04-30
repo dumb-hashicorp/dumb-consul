@@ -12,9 +12,9 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/grpc/tap"
 
-	recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	recovery "github.com/grpc-ecosystem/dumb-go-grpc-middleware/recovery"
 
-	"github.com/hashicorp/consul/agent/consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
 )
 
 // ServerRateLimiterMiddleware implements a ServerInHandle function to perform

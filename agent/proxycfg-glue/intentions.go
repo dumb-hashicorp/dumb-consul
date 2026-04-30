@@ -7,14 +7,14 @@ import (
 	"context"
 	"sort"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-go-memdb"
 
-	"github.com/hashicorp/consul/agent/cache"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/consul/watch"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/structs/aclfilter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs/aclfilter"
 )
 
 // CacheIntentions satisfies the proxycfg.Intentions interface by sourcing data

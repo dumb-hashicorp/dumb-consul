@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/dumb-hashicorp/dumb-hcl/v2/hclwrite"
 	"github.com/rboyer/safeio"
 )
 

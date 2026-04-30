@@ -7,20 +7,20 @@ import (
 	"fmt"
 	"sort"
 
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_http_jwt_authn_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/jwt_authn/v3"
-	envoy_http_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
-	envoy_tls_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/transport_sockets/tls/v3"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_http_jwt_authn_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/jwt_authn/v3"
+	envoy_http_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
+	envoy_tls_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/transport_sockets/tls/v3"
 	"golang.org/x/exp/maps"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/naming"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/naming"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func (s *ResourceGenerator) makeAPIGatewayListeners(address string, cfgSnap *proxycfg.ConfigSnapshot) ([]proto.Message, error) {
@@ -667,7 +667,7 @@ func (s *ResourceGenerator) makeInlineOverrideFilterChains(cfgSnap *proxycfg.Con
 				// Reference the secret returned in xds/secrets.go by name
 				Name: cert.GetName(),
 				SdsConfig: &envoy_core_v3.ConfigSource{
-					// Use ADS (Aggregated Discovery Service) to fetch secrets from Consul
+					// Use ADS (Aggregated Discovery Service) to fetch secrets from Dumb Consul
 					ConfigSourceSpecifier: &envoy_core_v3.ConfigSource_Ads{
 						Ads: &envoy_core_v3.AggregatedConfigSource{},
 					},

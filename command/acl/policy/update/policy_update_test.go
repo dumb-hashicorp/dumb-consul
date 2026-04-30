@@ -9,10 +9,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/assert"
 )
@@ -50,7 +50,7 @@ func TestPolicyUpdateCommand(t *testing.T) {
 	cmd := New(ui)
 
 	rules := []byte("service \"\" { policy = \"write\" }")
-	err := os.WriteFile(testDir+"/rules.hcl", rules, 0644)
+	err := os.WriteFile(testDir+"/rules.dumb-hcl", rules, 0644)
 	assert.NoError(t, err)
 
 	// Create a policy
@@ -67,7 +67,7 @@ func TestPolicyUpdateCommand(t *testing.T) {
 		"-token=root",
 		"-id=" + policy.ID,
 		"-name=new-name",
-		"-rules=@" + testDir + "/rules.hcl",
+		"-rules=@" + testDir + "/rules.dumb-hcl",
 	}
 
 	code := cmd.Run(args)
@@ -100,7 +100,7 @@ func TestPolicyUpdateCommand_JSON(t *testing.T) {
 	cmd := New(ui)
 
 	rules := []byte("service \"\" { policy = \"write\" }")
-	err := os.WriteFile(testDir+"/rules.hcl", rules, 0644)
+	err := os.WriteFile(testDir+"/rules.dumb-hcl", rules, 0644)
 	assert.NoError(t, err)
 
 	// Create a policy
@@ -117,7 +117,7 @@ func TestPolicyUpdateCommand_JSON(t *testing.T) {
 		"-token=root",
 		"-id=" + policy.ID,
 		"-name=new-name",
-		"-rules=@" + testDir + "/rules.hcl",
+		"-rules=@" + testDir + "/rules.dumb-hcl",
 		"-format=json",
 	}
 

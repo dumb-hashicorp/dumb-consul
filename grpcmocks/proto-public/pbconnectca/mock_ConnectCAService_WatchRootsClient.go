@@ -7,7 +7,7 @@ package mockpbconnectca
 import (
 	"context"
 
-	"github.com/hashicorp/consul/proto-public/pbconnectca"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbconnectca"
 	mock "github.com/stretchr/testify/mock"
 	"google.golang.org/grpc/metadata"
 )

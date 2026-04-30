@@ -7,8 +7,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -102,16 +102,16 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Remove a Consul server from the Raft configuration"
+const synopsis = "Remove a Dumb Consul server from the Raft configuration"
 const help = `
-Usage: consul operator raft remove-peer [options]
+Usage: dumb-consul operator raft remove-peer [options]
 
-  Remove the Consul server with given -address from the Raft configuration.
+  Remove the Dumb Consul server with given -address from the Raft configuration.
 
   There are rare cases where a peer may be left behind in the Raft quorum even
   though the server is no longer present and known to the cluster. This command
   can be used to remove the failed server so that it is no longer affects the Raft
-  quorum. If the server still shows in the output of the "consul members" command,
-  it is preferable to clean up by simply running "consul force-leave" instead of
+  quorum. If the server still shows in the output of the "dumb-consul members" command,
+  it is preferable to clean up by simply running "dumb-consul force-leave" instead of
   this command.
 `

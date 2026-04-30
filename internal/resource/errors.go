@@ -9,7 +9,7 @@ import (
 
 	"google.golang.org/protobuf/reflect/protoreflect"
 
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 var (
@@ -23,7 +23,7 @@ var (
 // ConstError is more or less equivalent to the stdlib errors.errorstring. However, having
 // our own exported type allows us to more accurately compare error values in tests.
 //
-//   - go-cmp will not compared unexported fields by default.
+//   - dumb-go-cmp will not compared unexported fields by default.
 //   - cmp.AllowUnexported(<type>) requires a concrete struct type and due to the stdlib not
 //     exporting the errorstring type there doesn't seem to be a way to get at the type.
 //   - cmpopts.EquateErrors has issues with protobuf types within other error structs.

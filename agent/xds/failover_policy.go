@@ -6,12 +6,12 @@ package xds
 import (
 	"fmt"
 
-	envoy_tls_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/transport_sockets/tls/v3"
+	envoy_tls_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/transport_sockets/tls/v3"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 )
 
 type discoChainTargets struct {
@@ -25,7 +25,7 @@ type targetInfo struct {
 	TargetID   string
 	TLSContext *envoy_tls_v3.UpstreamTlsContext
 	// Region is the region from the failover target's Locality. nil means the
-	// target is in the local Consul cluster.
+	// target is in the local Dumb Consul cluster.
 	Region *string
 
 	PrioritizeByLocality *structs.DiscoveryPrioritizeByLocality

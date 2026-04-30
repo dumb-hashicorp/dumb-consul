@@ -14,45 +14,45 @@ import (
 	"strings"
 	"time"
 
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	envoy_grpc_http1_bridge_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/grpc_http1_bridge/v3"
-	envoy_grpc_stats_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/grpc_stats/v3"
-	envoy_http_router_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/router/v3"
-	envoy_extensions_filters_listener_http_inspector_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/listener/http_inspector/v3"
-	envoy_original_dst_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/listener/original_dst/v3"
-	envoy_tls_inspector_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/listener/tls_inspector/v3"
-	envoy_connection_limit_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/connection_limit/v3"
-	envoy_http_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
-	envoy_sni_cluster_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/sni_cluster/v3"
-	envoy_tcp_proxy_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/tcp_proxy/v3"
-	envoy_tls_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/transport_sockets/tls/v3"
-	envoy_type_v3 "github.com/envoyproxy/go-control-plane/envoy/type/v3"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_route_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
+	envoy_grpc_http1_bridge_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/grpc_http1_bridge/v3"
+	envoy_grpc_stats_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/grpc_stats/v3"
+	envoy_http_router_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/router/v3"
+	envoy_extensions_filters_listener_http_inspector_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/listener/http_inspector/v3"
+	envoy_original_dst_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/listener/original_dst/v3"
+	envoy_tls_inspector_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/listener/tls_inspector/v3"
+	envoy_connection_limit_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/connection_limit/v3"
+	envoy_http_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
+	envoy_sni_cluster_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/sni_cluster/v3"
+	envoy_tcp_proxy_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/tcp_proxy/v3"
+	envoy_tls_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/transport_sockets/tls/v3"
+	envoy_type_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/type/v3"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/accesslogs"
-	"github.com/hashicorp/consul/agent/xds/config"
-	"github.com/hashicorp/consul/agent/xds/naming"
-	"github.com/hashicorp/consul/agent/xds/platform"
-	"github.com/hashicorp/consul/agent/xds/response"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/sdk/iptables"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/accesslogs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/naming"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/platform"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/response"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/iptables"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // listenersFromSnapshot returns the xDS API representation of the "listeners" in the snapshot.
@@ -256,7 +256,7 @@ func (s *ResourceGenerator) listenersFromSnapshotConnectProxy(cfgSnap *proxycfg.
 				uniqueAddrs[vip.Address] = struct{}{}
 			}
 
-			// The virtualIPTag is used by consul-k8s to store the ClusterIP for a service.
+			// The virtualIPTag is used by dumb-consul-k8s to store the ClusterIP for a service.
 			// We only match on this virtual IP if the upstream is in the proxy's partition.
 			// This is because the IP is not guaranteed to be unique across k8s clusters.
 			if acl.EqualPartitions(e.Node.PartitionOrDefault(), cfgSnap.ProxyID.PartitionOrDefault()) {
@@ -319,7 +319,7 @@ func (s *ResourceGenerator) listenersFromSnapshotConnectProxy(cfgSnap *proxycfg.
 					uniqueAddrs[vip.Address] = struct{}{}
 				}
 
-				// The virtualIPTag is used by consul-k8s to store the ClusterIP for a service.
+				// The virtualIPTag is used by dumb-consul-k8s to store the ClusterIP for a service.
 				// We only match on this virtual IP if the upstream is in the proxy's partition.
 				// This is because the IP is not guaranteed to be unique across k8s clusters.
 				if acl.EqualPartitions(e.Node.PartitionOrDefault(), cfgSnap.ProxyID.PartitionOrDefault()) {
@@ -547,7 +547,7 @@ func (s *ResourceGenerator) listenersFromSnapshotConnectProxy(cfgSnap *proxycfg.
 				uniqueAddrs[vip.Address] = struct{}{}
 			}
 
-			// The virtualIPTag is used by consul-k8s to store the ClusterIP for a service.
+			// The virtualIPTag is used by dumb-consul-k8s to store the ClusterIP for a service.
 			// For services imported from a peer,the partition will be equal in all cases.
 			if acl.EqualPartitions(e.Node.PartitionOrDefault(), cfgSnap.ProxyID.PartitionOrDefault()) {
 				if vip := e.Service.TaggedAddresses[naming.VirtualIPTag]; vip.Address != "" {
@@ -1063,15 +1063,15 @@ func makePipeListener(opts makeListenerOpts) *envoy_listener_v3.Listener {
 // makeListenerFromUserConfig returns the listener config decoded from an
 // arbitrary proto3 json format string or an error if it's invalid.
 //
-// For now we only support embedding in JSON strings because of the hcl parsing
+// For now we only support embedding in JSON strings because of the dumb-hcl parsing
 // pain (see Background section in the comment for decode.HookWeakDecodeFromSlice).
 // This may be fixed in decode.HookWeakDecodeFromSlice in the future.
 //
 // When we do that we can support just nesting the config directly into the
-// JSON/hcl naturally but this is a stop-gap that gets us an escape hatch
+// JSON/dumb-hcl naturally but this is a stop-gap that gets us an escape hatch
 // immediately. It's also probably not a bad thing to support long-term since
 // any config generated by other systems will likely be in canonical protobuf
-// from rather than our slight variant in JSON/hcl.
+// from rather than our slight variant in JSON/dumb-hcl.
 func makeListenerFromUserConfig(configJSON string) (*envoy_listener_v3.Listener, error) {
 	// Type field is present so decode it as a anypb.Any
 	var any anypb.Any
@@ -1419,7 +1419,7 @@ func (s *ResourceGenerator) makeInboundListener(cfgSnap *proxycfg.ConfigSnapshot
 
 		err := s.finalizePublicListenerFromConfig(l, cfgSnap, useHTTPFilter)
 		if err != nil {
-			return nil, fmt.Errorf("failed to attach Consul filters and TLS context to custom public listener: %v", err)
+			return nil, fmt.Errorf("failed to attach Dumb Consul filters and TLS context to custom public listener: %v", err)
 		}
 		return l, nil
 	}
@@ -1560,7 +1560,7 @@ func (s *ResourceGenerator) makeInboundListener(cfgSnap *proxycfg.ConfigSnapshot
 	}
 	err = s.finalizePublicListenerFromConfig(l, cfgSnap, useHTTPFilter)
 	if err != nil {
-		return nil, fmt.Errorf("failed to attach Consul filters and TLS context to custom public listener: %v", err)
+		return nil, fmt.Errorf("failed to attach Dumb Consul filters and TLS context to custom public listener: %v", err)
 	}
 
 	// When permissive mTLS mode is enabled, include an additional filter chain
@@ -1595,9 +1595,9 @@ func (s *ResourceGenerator) makeInboundListener(cfgSnap *proxycfg.ConfigSnapshot
 // This is only used for inbound listeners today (see MeshHTTPConfig).
 func setNormalizationOptions(rn *structs.RequestNormalizationMeshConfig, opts *listenerFilterOpts) {
 	// Note that these options are _always_ set, not just when rn is non-nil. This enables us to set
-	// Consul defaults (e.g. InsecureDisablePathNormalization = false) that override Envoy defaults
-	// (e.g. normalize_path = false). We override defaults here rather than in xDS code s.t. Consul
-	// defaults are only applied where Consul configuration dictates it should be.
+	// Dumb Consul defaults (e.g. InsecureDisablePathNormalization = false) that override Envoy defaults
+	// (e.g. normalize_path = false). We override defaults here rather than in xDS code s.t. Dumb Consul
+	// defaults are only applied where Dumb Consul configuration dictates it should be.
 
 	opts.normalizePath = !rn.GetInsecureDisablePathNormalization() // invert to enable path normalization by default
 	opts.mergeSlashes = rn.GetMergeSlashes()
@@ -1636,7 +1636,7 @@ func makePermissiveFilterChain(cfgSnap *proxycfg.ConfigSnapshot, opts listenerFi
 	return chain, nil
 }
 
-// finalizePublicListenerFromConfig is used for best-effort injection of Consul filter-chains onto listeners.
+// finalizePublicListenerFromConfig is used for best-effort injection of Dumb Consul filter-chains onto listeners.
 // This include L4 authorization filters and TLS context.
 func (s *ResourceGenerator) finalizePublicListenerFromConfig(l *envoy_listener_v3.Listener, cfgSnap *proxycfg.ConfigSnapshot, useHTTPFilter bool) error {
 	if !useHTTPFilter {
@@ -1713,7 +1713,7 @@ func (s *ResourceGenerator) makeExposedCheckListener(cfgSnap *proxycfg.ConfigSna
 		Filters: []*envoy_listener_v3.Filter{f},
 	}
 
-	// For registered checks restrict traffic sources to localhost and Consul's advertise addr
+	// For registered checks restrict traffic sources to localhost and Dumb Consul's advertise addr
 	if path.ParsedFromCheck {
 
 		// For the advertise addr we use a CidrRange that only matches one address

@@ -28,16 +28,16 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/serf/coordinate"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 const (
@@ -237,7 +237,7 @@ func TestDNS_Over_TCP(t *testing.T) {
 	}
 
 	m := new(dns.Msg)
-	m.SetQuestion("foo.node.dc1.consul.", dns.TypeANY)
+	m.SetQuestion("foo.node.dc1.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	c.Net = "tcp"
@@ -261,7 +261,7 @@ func TestDNS_EmptyAltDomain(t *testing.T) {
 	testrpc.WaitForLeader(t, a.RPC, "dc1")
 
 	m := new(dns.Msg)
-	m.SetQuestion("consul.service.", dns.TypeA)
+	m.SetQuestion("dumb-consul.service.", dns.TypeA)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -382,7 +382,7 @@ func TestDNS_CycleRecursorCheckAllFail(t *testing.T) {
 	client := new(dns.Client)
 	in, _, err := client.Exchange(m, agent.DNSAddr())
 	require.NoError(t, err)
-	// Verify if we hit SERVFAIL from Consul
+	// Verify if we hit SERVFAIL from Dumb Consul
 	require.NotNil(t, in)
 	require.Equal(t, dns.RcodeServerFailure, in.Rcode)
 }
@@ -417,7 +417,7 @@ func TestDNS_CycleRecursorCheckAllFail_IPv6(t *testing.T) {
 	client := new(dns.Client)
 	in, _, err := client.Exchange(m, agent.DNSAddr())
 	require.NoError(t, err)
-	// Verify if we hit SERVFAIL from Consul
+	// Verify if we hit SERVFAIL from Dumb Consul
 	require.NotNil(t, in)
 	require.Equal(t, dns.RcodeServerFailure, in.Rcode)
 }
@@ -445,7 +445,7 @@ func TestDNS_EDNS0(t *testing.T) {
 
 	m := new(dns.Msg)
 	m.SetEdns0(12345, true)
-	m.SetQuestion("foo.node.dc1.consul.", dns.TypeANY)
+	m.SetQuestion("foo.node.dc1.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -514,9 +514,9 @@ func TestDNS_EDNS0_ECS(t *testing.T) {
 		SourceNetmask uint8
 		ExpectedScope uint8
 	}{
-		{"global", "db.service.consul.", "198.18.0.1", 32, 0},
-		{"query", "test.query.consul.", "198.18.0.1", 32, 32},
-		{"query-subnet", "test.query.consul.", "198.18.0.0", 21, 21},
+		{"global", "db.service.dumb-consul.", "198.18.0.1", 32, 0},
+		{"query", "test.query.dumb-consul.", "198.18.0.1", 32, 32},
+		{"query-subnet", "test.query.dumb-consul.", "198.18.0.0", 21, 21},
 	}
 
 	for _, tc := range cases {
@@ -571,7 +571,7 @@ func TestDNS_SOA_Settings(t *testing.T) {
 
 		// lookup a non-existing node, we should receive a SOA
 		m := new(dns.Msg)
-		m.SetQuestion("nofoo.node.dc1.consul.", dns.TypeANY)
+		m.SetQuestion("nofoo.node.dc1.dumb-consul.", dns.TypeANY)
 
 		c := new(dns.Client)
 		in, _, err := c.Exchange(m, a.DNSAddr())
@@ -602,12 +602,12 @@ func TestDNS_VirtualIPLookup(t *testing.T) {
 		t.Skip("too slow for testing.Short")
 	}
 
-	a := StartTestAgent(t, TestAgent{HCL: "", Overrides: `peering = { test_allow_peer_registrations = true } log_level = "debug"`})
+	a := StartTestAgent(t, TestAgent{DUMB_HCL: "", Overrides: `peering = { test_allow_peer_registrations = true } log_level = "debug"`})
 	defer a.Shutdown()
 
 	testrpc.WaitForLeader(t, a.RPC, "dc1")
 
-	server, ok := a.delegate.(*consul.Server)
+	server, ok := a.delegate.(*dumb-consul.Server)
 	require.True(t, ok)
 
 	// The proxy service will not receive a virtual IP if the server is not assigning virtual IPs yet.
@@ -657,7 +657,7 @@ func TestDNS_VirtualIPLookup(t *testing.T) {
 					},
 				},
 			},
-			question: "db.virtual.consul.",
+			question: "db.virtual.dumb-consul.",
 			expect:   "240.0.0.1",
 		},
 		{
@@ -677,7 +677,7 @@ func TestDNS_VirtualIPLookup(t *testing.T) {
 					},
 				},
 			},
-			question: "db.virtual.frontend.consul.",
+			question: "db.virtual.frontend.dumb-consul.",
 			expect:   "240.0.0.2",
 		},
 	}
@@ -696,7 +696,7 @@ func TestDNS_InifiniteRecursion(t *testing.T) {
 
 	// This test should not create an infinite recursion
 	a := NewTestAgent(t, `
-		domain = "CONSUL."
+		domain = "DUMB_CONSUL."
 		node_name = "test node"
 	`)
 	defer a.Shutdown()
@@ -707,11 +707,11 @@ func TestDNS_InifiniteRecursion(t *testing.T) {
 		args := &structs.RegisterRequest{
 			Datacenter: "dc1",
 			Node:       "web",
-			Address:    "web.service.consul.",
+			Address:    "web.service.dumb-consul.",
 			Service: &structs.NodeService{
 				Service: "web",
 				Port:    12345,
-				Address: "web.service.consul.",
+				Address: "web.service.dumb-consul.",
 			},
 		}
 
@@ -723,7 +723,7 @@ func TestDNS_InifiniteRecursion(t *testing.T) {
 
 	// Look up the service directly
 	questions := []string{
-		"web.service.consul.",
+		"web.service.dumb-consul.",
 	}
 	for _, question := range questions {
 		m := new(dns.Msg)
@@ -741,7 +741,7 @@ func TestDNS_InifiniteRecursion(t *testing.T) {
 		if !ok {
 			t.Fatalf("Bad: %#v", in.Answer[0])
 		}
-		if aRec.Target != "web.service.consul." {
+		if aRec.Target != "web.service.dumb-consul." {
 			t.Fatalf("Bad: %#v, target:=%s", aRec, aRec.Target)
 		}
 	}
@@ -753,14 +753,14 @@ func TestDNS_NSRecords(t *testing.T) {
 	}
 
 	a := NewTestAgent(t, `
-		domain = "CONSUL."
+		domain = "DUMB_CONSUL."
 		node_name = "server1"
 	`)
 	defer a.Shutdown()
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
 	m := new(dns.Msg)
-	m.SetQuestion("something.node.consul.", dns.TypeNS)
+	m.SetQuestion("something.node.dumb-consul.", dns.TypeNS)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -770,14 +770,14 @@ func TestDNS_NSRecords(t *testing.T) {
 
 	wantAnswer := []dns.RR{
 		&dns.NS{
-			Hdr: dns.RR_Header{Name: "consul.", Rrtype: dns.TypeNS, Class: dns.ClassINET, Ttl: 0, Rdlength: 0x13},
-			Ns:  "server1.node.dc1.consul.",
+			Hdr: dns.RR_Header{Name: "dumb-consul.", Rrtype: dns.TypeNS, Class: dns.ClassINET, Ttl: 0, Rdlength: 0x13},
+			Ns:  "server1.node.dc1.dumb-consul.",
 		},
 	}
 	require.Equal(t, wantAnswer, in.Answer, "answer")
 	wantExtra := []dns.RR{
 		&dns.A{
-			Hdr: dns.RR_Header{Name: "server1.node.dc1.consul.", Rrtype: dns.TypeA, Class: dns.ClassINET, Rdlength: 0x4, Ttl: 0},
+			Hdr: dns.RR_Header{Name: "server1.node.dc1.dumb-consul.", Rrtype: dns.TypeA, Class: dns.ClassINET, Rdlength: 0x4, Ttl: 0},
 			A:   net.ParseIP("127.0.0.1").To4(),
 		},
 	}
@@ -791,7 +791,7 @@ func TestDNS_AltDomain_NSRecords(t *testing.T) {
 	}
 
 	a := NewTestAgent(t, `
-		domain = "CONSUL."
+		domain = "DUMB_CONSUL."
 		node_name = "server1"
 		alt_domain = "test-domain."
 	`)
@@ -803,7 +803,7 @@ func TestDNS_AltDomain_NSRecords(t *testing.T) {
 		domain     string
 		wantDomain string
 	}{
-		{"something.node.consul.", "consul.", "server1.node.dc1.consul."},
+		{"something.node.dumb-consul.", "dumb-consul.", "server1.node.dc1.dumb-consul."},
 		{"something.node.test-domain.", "test-domain.", "server1.node.dc1.test-domain."},
 	}
 
@@ -841,7 +841,7 @@ func TestDNS_NSRecords_IPV6(t *testing.T) {
 	}
 
 	a := NewTestAgent(t, `
- 		domain = "CONSUL."
+ 		domain = "DUMB_CONSUL."
  		node_name = "server1"
  		advertise_addr = "::1"
  	`)
@@ -849,7 +849,7 @@ func TestDNS_NSRecords_IPV6(t *testing.T) {
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
 	m := new(dns.Msg)
-	m.SetQuestion("server1.node.dc1.consul.", dns.TypeNS)
+	m.SetQuestion("server1.node.dc1.dumb-consul.", dns.TypeNS)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -859,14 +859,14 @@ func TestDNS_NSRecords_IPV6(t *testing.T) {
 
 	wantAnswer := []dns.RR{
 		&dns.NS{
-			Hdr: dns.RR_Header{Name: "consul.", Rrtype: dns.TypeNS, Class: dns.ClassINET, Ttl: 0, Rdlength: 0x2},
-			Ns:  "server1.node.dc1.consul.",
+			Hdr: dns.RR_Header{Name: "dumb-consul.", Rrtype: dns.TypeNS, Class: dns.ClassINET, Ttl: 0, Rdlength: 0x2},
+			Ns:  "server1.node.dc1.dumb-consul.",
 		},
 	}
 	require.Equal(t, wantAnswer, in.Answer, "answer")
 	wantExtra := []dns.RR{
 		&dns.AAAA{
-			Hdr:  dns.RR_Header{Name: "server1.node.dc1.consul.", Rrtype: dns.TypeAAAA, Class: dns.ClassINET, Rdlength: 0x10, Ttl: 0},
+			Hdr:  dns.RR_Header{Name: "server1.node.dc1.dumb-consul.", Rrtype: dns.TypeAAAA, Class: dns.ClassINET, Rdlength: 0x10, Ttl: 0},
 			AAAA: net.ParseIP("::1"),
 		},
 	}
@@ -880,7 +880,7 @@ func TestDNS_AltDomain_NSRecords_IPV6(t *testing.T) {
 	}
 
 	a := NewTestAgent(t, `
-		domain = "CONSUL."
+		domain = "DUMB_CONSUL."
 		node_name = "server1"
 		advertise_addr = "::1"
 		alt_domain = "test-domain."
@@ -893,7 +893,7 @@ func TestDNS_AltDomain_NSRecords_IPV6(t *testing.T) {
 		domain     string
 		wantDomain string
 	}{
-		{"server1.node.dc1.consul.", "consul.", "server1.node.dc1.consul."},
+		{"server1.node.dc1.dumb-consul.", "dumb-consul.", "server1.node.dc1.dumb-consul."},
 		{"server1.node.dc1.test-domain.", "test-domain.", "server1.node.dc1.test-domain."},
 	}
 
@@ -1037,8 +1037,8 @@ func TestDNS_Lookup_TaggedIPAddresses(t *testing.T) {
 
 			// Look up the SRV record via service and prepared query.
 			questions := []string{
-				"db.service.consul.",
-				id + ".query.consul.",
+				"db.service.dumb-consul.",
+				id + ".query.dumb-consul.",
 			}
 			for _, question := range questions {
 				m := new(dns.Msg)
@@ -1080,7 +1080,7 @@ func TestDNS_Lookup_TaggedIPAddresses(t *testing.T) {
 
 			// Look up node
 			m := new(dns.Msg)
-			m.SetQuestion("foo.node.consul.", dns.TypeA)
+			m.SetQuestion("foo.node.dumb-consul.", dns.TypeA)
 
 			c := new(dns.Client)
 			addr := a.config.DNSAddrs[0].String()
@@ -1091,14 +1091,14 @@ func TestDNS_Lookup_TaggedIPAddresses(t *testing.T) {
 				require.Len(t, in.Answer, 1)
 				aRec, ok := in.Answer[0].(*dns.A)
 				require.True(t, ok, "Bad: %#v", in.Answer[0])
-				require.Equal(t, "foo.node.consul.", aRec.Hdr.Name)
+				require.Equal(t, "foo.node.dumb-consul.", aRec.Hdr.Name)
 				require.Equal(t, tc.expectedNodeIPv4Address, aRec.A.String())
 			} else {
 				require.Len(t, in.Answer, 0)
 			}
 
 			m = new(dns.Msg)
-			m.SetQuestion("foo.node.consul.", dns.TypeAAAA)
+			m.SetQuestion("foo.node.dumb-consul.", dns.TypeAAAA)
 
 			c = new(dns.Client)
 			addr = a.config.DNSAddrs[0].String()
@@ -1109,7 +1109,7 @@ func TestDNS_Lookup_TaggedIPAddresses(t *testing.T) {
 				require.Len(t, in.Answer, 1)
 				aRec, ok := in.Answer[0].(*dns.AAAA)
 				require.True(t, ok, "Bad: %#v", in.Answer[0])
-				require.Equal(t, "foo.node.consul.", aRec.Hdr.Name)
+				require.Equal(t, "foo.node.dumb-consul.", aRec.Hdr.Name)
 				require.Equal(t, tc.expectedNodeIPv6Address, aRec.AAAA.String())
 			} else {
 				require.Len(t, in.Answer, 0)
@@ -1212,7 +1212,7 @@ func TestDNS_PreparedQueryNearIPEDNS(t *testing.T) {
 	}
 	retry.Run(t, func(r *retry.R) {
 		m := new(dns.Msg)
-		m.SetQuestion("some.query.we.like.query.consul.", dns.TypeA)
+		m.SetQuestion("some.query.we.like.query.dumb-consul.", dns.TypeA)
 		m.SetEdns0(4096, false)
 		o := new(dns.OPT)
 		o.Hdr.Name = "."
@@ -1343,7 +1343,7 @@ func TestDNS_PreparedQueryNearIP(t *testing.T) {
 
 	retry.Run(t, func(r *retry.R) {
 		m := new(dns.Msg)
-		m.SetQuestion("some.query.we.like.query.consul.", dns.TypeA)
+		m.SetQuestion("some.query.we.like.query.dumb-consul.", dns.TypeA)
 
 		c := new(dns.Client)
 		in, _, err := c.Exchange(m, a.DNSAddr())
@@ -1531,11 +1531,11 @@ func TestDNS_RecursorTimeout(t *testing.T) {
 func TestDNS_BinarySearch(t *testing.T) {
 	msgSrc := new(dns.Msg)
 	msgSrc.Compress = true
-	msgSrc.SetQuestion("redis.service.consul.", dns.TypeSRV)
+	msgSrc.SetQuestion("redis.service.dumb-consul.", dns.TypeSRV)
 
 	for i := 0; i < 5000; i++ {
-		target := fmt.Sprintf("host-redis-%d-%d.test.acme.com.node.dc1.consul.", i/256, i%256)
-		msgSrc.Answer = append(msgSrc.Answer, &dns.SRV{Hdr: dns.RR_Header{Name: "redis.service.consul.", Class: 1, Rrtype: dns.TypeSRV, Ttl: 0x3c}, Port: 0x4c57, Target: target})
+		target := fmt.Sprintf("host-redis-%d-%d.test.acme.com.node.dc1.dumb-consul.", i/256, i%256)
+		msgSrc.Answer = append(msgSrc.Answer, &dns.SRV{Hdr: dns.RR_Header{Name: "redis.service.dumb-consul.", Class: 1, Rrtype: dns.TypeSRV, Ttl: 0x3c}, Port: 0x4c57, Target: target})
 		msgSrc.Extra = append(msgSrc.Extra, &dns.CNAME{Hdr: dns.RR_Header{Name: target, Class: 1, Rrtype: dns.TypeCNAME, Ttl: 0x3c}, Target: fmt.Sprintf("fx.168.%d.%d.", i/256, i%256)})
 	}
 	for _, compress := range []bool{true, false} {
@@ -1543,7 +1543,7 @@ func TestDNS_BinarySearch(t *testing.T) {
 			t.Run(fmt.Sprintf("binarySearch %d", maxSize), func(t *testing.T) {
 				msg := new(dns.Msg)
 				msgSrc.Compress = compress
-				msgSrc.SetQuestion("redis.service.consul.", dns.TypeSRV)
+				msgSrc.SetQuestion("redis.service.dumb-consul.", dns.TypeSRV)
 				msg.Answer = msgSrc.Answer
 				msg.Extra = msgSrc.Extra
 				msg.Ns = msgSrc.Ns
@@ -1627,8 +1627,8 @@ func TestDNS_TCP_and_UDP_Truncate(t *testing.T) {
 		// Look up the service directly and via prepared query. Ensure the
 		// response is truncated each time.
 		questions := []string{
-			fmt.Sprintf("%s.service.consul.", service),
-			id + ".query.consul.",
+			fmt.Sprintf("%s.service.dumb-consul.", service),
+			id + ".query.dumb-consul.",
 		}
 		protocols := []string{
 			"tcp",
@@ -1692,7 +1692,7 @@ func TestDNS_AddressLookup(t *testing.T) {
 
 	// Look up the addresses
 	cases := map[string]string{
-		"7f000001.addr.dc1.consul.": "127.0.0.1",
+		"7f000001.addr.dc1.dumb-consul.": "127.0.0.1",
 	}
 	for question, answer := range cases {
 		m := new(dns.Msg)
@@ -1727,7 +1727,7 @@ func TestDNS_AddressLookupANY(t *testing.T) {
 
 	// Look up the addresses
 	cases := map[string]string{
-		"7f000001.addr.dc1.consul.": "127.0.0.1",
+		"7f000001.addr.dc1.dumb-consul.": "127.0.0.1",
 	}
 	for question, answer := range cases {
 		m := new(dns.Msg)
@@ -1758,7 +1758,7 @@ func TestDNS_AddressLookupInvalidType(t *testing.T) {
 
 	// Look up the addresses
 	cases := map[string]string{
-		"7f000001.addr.dc1.consul.": "",
+		"7f000001.addr.dc1.dumb-consul.": "",
 	}
 	for question := range cases {
 		m := new(dns.Msg)
@@ -1772,7 +1772,7 @@ func TestDNS_AddressLookupInvalidType(t *testing.T) {
 		require.NotNil(t, in.Extra)
 		require.Len(t, in.Extra, 1)
 		aRecord := in.Extra[0].(*dns.A)
-		require.Equal(t, "7f000001.addr.dc1.consul.", aRecord.Hdr.Name)
+		require.Equal(t, "7f000001.addr.dc1.dumb-consul.", aRecord.Hdr.Name)
 		require.Equal(t, dns.TypeA, aRecord.Hdr.Rrtype)
 		require.Zero(t, aRecord.Hdr.Ttl)
 		require.Equal(t, "127.0.0.1", aRecord.A.String())
@@ -1790,8 +1790,8 @@ func TestDNS_AddressLookupIPV6(t *testing.T) {
 
 	// Look up the addresses
 	cases := map[string]string{
-		"2607002040050808000000000000200e.addr.consul.": "2607:20:4005:808::200e",
-		"2607112040051808ffffffffffff200e.addr.consul.": "2607:1120:4005:1808:ffff:ffff:ffff:200e",
+		"2607002040050808000000000000200e.addr.dumb-consul.": "2607:20:4005:808::200e",
+		"2607112040051808ffffffffffff200e.addr.dumb-consul.": "2607:1120:4005:1808:ffff:ffff:ffff:200e",
 	}
 	for question, answer := range cases {
 		m := new(dns.Msg)
@@ -1834,8 +1834,8 @@ func TestDNS_AddressLookupIPV6InvalidType(t *testing.T) {
 
 	// Look up the addresses
 	cases := map[string]string{
-		"2607002040050808000000000000200e.addr.consul.": "2607:20:4005:808::200e",
-		"2607112040051808ffffffffffff200e.addr.consul.": "2607:1120:4005:1808:ffff:ffff:ffff:200e",
+		"2607002040050808000000000000200e.addr.dumb-consul.": "2607:20:4005:808::200e",
+		"2607112040051808ffffffffffff200e.addr.dumb-consul.": "2607:1120:4005:1808:ffff:ffff:ffff:200e",
 	}
 	for question := range cases {
 		m := new(dns.Msg)
@@ -1854,7 +1854,7 @@ func TestDNS_AddressLookupIPV6InvalidType(t *testing.T) {
 }
 
 // TestDNS_NonExistentDC_Server verifies NXDOMAIN is returned when
-// Consul server agent is queried for a service in a non-existent
+// Dumb Consul server agent is queried for a service in a non-existent
 // domain.
 func TestDNS_NonExistentDC_Server(t *testing.T) {
 	if testing.Short() {
@@ -1866,7 +1866,7 @@ func TestDNS_NonExistentDC_Server(t *testing.T) {
 	testrpc.WaitForLeader(t, a.RPC, "dc1")
 
 	m := new(dns.Msg)
-	m.SetQuestion("consul.service.dc2.consul.", dns.TypeANY)
+	m.SetQuestion("dumb-consul.service.dc2.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -1879,13 +1879,13 @@ func TestDNS_NonExistentDC_Server(t *testing.T) {
 	require.Equal(t, 0, len(in.Extra))
 	require.Equal(t, 1, len(in.Ns))
 	soa := in.Ns[0].(*dns.SOA)
-	require.Equal(t, "consul.", soa.Hdr.Name)
-	require.Equal(t, "ns.consul.", soa.Ns)
-	require.Equal(t, "hostmaster.consul.", soa.Mbox)
+	require.Equal(t, "dumb-consul.", soa.Hdr.Name)
+	require.Equal(t, "ns.dumb-consul.", soa.Ns)
+	require.Equal(t, "hostmaster.dumb-consul.", soa.Mbox)
 }
 
 // TestDNS_NonExistentDC_RPC verifies NXDOMAIN is returned when
-// Consul server agent is queried over RPC by a non-server agent
+// Dumb Consul server agent is queried over RPC by a non-server agent
 // for a service in a non-existent domain
 func TestDNS_NonExistentDC_RPC(t *testing.T) {
 	if testing.Short() {
@@ -1911,7 +1911,7 @@ func TestDNS_NonExistentDC_RPC(t *testing.T) {
 	testrpc.WaitForTestAgent(t, c.RPC, "dc1")
 
 	m := new(dns.Msg)
-	m.SetQuestion("consul.service.dc2.consul.", dns.TypeANY)
+	m.SetQuestion("dumb-consul.service.dc2.dumb-consul.", dns.TypeANY)
 
 	d := new(dns.Client)
 	in, _, err := d.Exchange(m, c.DNSAddr())
@@ -1935,7 +1935,7 @@ func TestDNS_NonExistentLookup(t *testing.T) {
 
 	// lookup a non-existing node, we should receive a SOA
 	m := new(dns.Msg)
-	m.SetQuestion("nonexisting.consul.", dns.TypeANY)
+	m.SetQuestion("nonexisting.dumb-consul.", dns.TypeANY)
 
 	c := new(dns.Client)
 	in, _, err := c.Exchange(m, a.DNSAddr())
@@ -2034,8 +2034,8 @@ func TestDNS_NonExistentLookupEmptyAorAAAA(t *testing.T) {
 	// Check for ipv6 records on ipv4-only service directly and via the
 	// prepared query.
 	questions := []string{
-		"webv4.service.consul.",
-		"webv4.query.consul.",
+		"webv4.service.dumb-consul.",
+		"webv4.query.dumb-consul.",
 	}
 	for _, question := range questions {
 		t.Run(question, func(t *testing.T) {
@@ -2064,8 +2064,8 @@ func TestDNS_NonExistentLookupEmptyAorAAAA(t *testing.T) {
 	// Check for ipv4 records on ipv6-only service directly and via the
 	// prepared query.
 	questions = []string{
-		"webv6.service.consul.",
-		"webv6.query.consul.",
+		"webv6.service.dumb-consul.",
+		"webv6.query.dumb-consul.",
 	}
 	for _, question := range questions {
 		t.Run(question, func(t *testing.T) {
@@ -2134,9 +2134,9 @@ func TestDNS_AltDomains_Service(t *testing.T) {
 		ask        string
 		wantDomain string
 	}{
-		{"db.service.consul.", "test-node.node.dc1.consul."},
+		{"db.service.dumb-consul.", "test-node.node.dc1.dumb-consul."},
 		{"db.service.test-domain.", "test-node.node.dc1.test-domain."},
-		{"db.service.dc1.consul.", "test-node.node.dc1.consul."},
+		{"db.service.dc1.dumb-consul.", "test-node.node.dc1.dumb-consul."},
 		{"db.service.dc1.test-domain.", "test-node.node.dc1.test-domain."},
 	}
 
@@ -2207,7 +2207,7 @@ func TestDNS_AltDomains_SOA(t *testing.T) {
 		ask         string
 		want_domain string
 	}{
-		{"test-node.node.consul.", "consul."},
+		{"test-node.node.dumb-consul.", "dumb-consul."},
 		{"test-node.node.test-domain.", "test-domain."},
 	}
 
@@ -2249,16 +2249,16 @@ func TestDNS_AltDomains_Overlap(t *testing.T) {
 	// it should select the longer matching domain when dispatching
 	a := NewTestAgent(t, `
 		node_name = "test-node"
-		alt_domain = "test.consul."
+		alt_domain = "test.dumb-consul."
 	`)
 	defer a.Shutdown()
 	testrpc.WaitForLeader(t, a.RPC, "dc1")
 
 	questions := []string{
-		"test-node.node.consul.",
-		"test-node.node.test.consul.",
-		"test-node.node.dc1.consul.",
-		"test-node.node.dc1.test.consul.",
+		"test-node.node.dumb-consul.",
+		"test-node.node.test.dumb-consul.",
+		"test-node.node.dc1.dumb-consul.",
+		"test-node.node.dc1.test.dumb-consul.",
 	}
 
 	for _, question := range questions {
@@ -2291,19 +2291,19 @@ func TestDNS_AltDomain_DCName_Overlap(t *testing.T) {
 		t.Skip("too slow for testing.Short")
 	}
 
-	// this tests the DC name overlap with the consul domain/alt-domain
-	// we should get response when DC suffix is a prefix of consul alt-domain
+	// this tests the DC name overlap with the dumb-consul domain/alt-domain
+	// we should get response when DC suffix is a prefix of dumb-consul alt-domain
 	a := NewTestAgent(t, `
 		datacenter = "dc-test"
 		node_name = "test-node"
-		alt_domain = "test.consul."
+		alt_domain = "test.dumb-consul."
 	`)
 	defer a.Shutdown()
 	testrpc.WaitForLeader(t, a.RPC, "dc-test")
 
 	questions := []string{
-		"test-node.node.dc-test.consul.",
-		"test-node.node.dc-test.test.consul.",
+		"test-node.node.dc-test.dumb-consul.",
+		"test-node.node.dc-test.test.dumb-consul.",
 	}
 
 	for _, question := range questions {
@@ -2354,7 +2354,7 @@ func TestDNS_PreparedQuery_AllowStale(t *testing.T) {
 	// the query doesn't exist.
 	{
 		m := new(dns.Msg)
-		m.SetQuestion("nope.query.consul.", dns.TypeSRV)
+		m.SetQuestion("nope.query.dumb-consul.", dns.TypeSRV)
 
 		c := new(dns.Client)
 		in, _, err := c.Exchange(m, a.DNSAddr())
@@ -2388,13 +2388,13 @@ func TestDNS_InvalidQueries(t *testing.T) {
 	// Try invalid forms of queries that should hit the special invalid case
 	// of our query parser.
 	questions := []string{
-		"consul.",
-		"node.consul.",
-		"service.consul.",
-		"query.consul.",
-		"foo.node.dc1.extra.more.consul.",
-		"foo.service.dc1.extra.more.consul.",
-		"foo.query.dc1.extra.more.consul.",
+		"dumb-consul.",
+		"node.dumb-consul.",
+		"service.dumb-consul.",
+		"query.dumb-consul.",
+		"foo.node.dc1.extra.more.dumb-consul.",
+		"foo.service.dc1.extra.more.dumb-consul.",
+		"foo.query.dc1.extra.more.dumb-consul.",
 	}
 	for _, question := range questions {
 		m := new(dns.Msg)
@@ -2447,7 +2447,7 @@ func TestDNS_PreparedQuery_AgentSource(t *testing.T) {
 
 	{
 		m := new(dns.Msg)
-		m.SetQuestion("foo.query.consul.", dns.TypeSRV)
+		m.SetQuestion("foo.query.dumb-consul.", dns.TypeSRV)
 
 		c := new(dns.Client)
 		if _, _, err := c.Exchange(m, a.DNSAddr()); err != nil {
@@ -2490,7 +2490,7 @@ func TestDNS_EDNS_Truncate_AgentSource(t *testing.T) {
 	}
 
 	req := new(dns.Msg)
-	req.SetQuestion("foo.query.consul.", dns.TypeSRV)
+	req.SetQuestion("foo.query.dumb-consul.", dns.TypeSRV)
 	req.SetEdns0(2048, true)
 	req.Compress = false
 
@@ -2506,17 +2506,17 @@ func TestDNS_trimUDPResponse_NoTrim(t *testing.T) {
 		Answer: []dns.RR{
 			&dns.SRV{
 				Hdr: dns.RR_Header{
-					Name:   "redis-cache-redis.service.consul.",
+					Name:   "redis-cache-redis.service.dumb-consul.",
 					Rrtype: dns.TypeSRV,
 					Class:  dns.ClassINET,
 				},
-				Target: "ip-10-0-1-185.node.dc1.consul.",
+				Target: "ip-10-0-1-185.node.dc1.dumb-consul.",
 			},
 		},
 		Extra: []dns.RR{
 			&dns.A{
 				Hdr: dns.RR_Header{
-					Name:   "ip-10-0-1-185.node.dc1.consul.",
+					Name:   "ip-10-0-1-185.node.dc1.dumb-consul.",
 					Rrtype: dns.TypeA,
 					Class:  dns.ClassINET,
 				},
@@ -2534,17 +2534,17 @@ func TestDNS_trimUDPResponse_NoTrim(t *testing.T) {
 		Answer: []dns.RR{
 			&dns.SRV{
 				Hdr: dns.RR_Header{
-					Name:   "redis-cache-redis.service.consul.",
+					Name:   "redis-cache-redis.service.dumb-consul.",
 					Rrtype: dns.TypeSRV,
 					Class:  dns.ClassINET,
 				},
-				Target: "ip-10-0-1-185.node.dc1.consul.",
+				Target: "ip-10-0-1-185.node.dc1.dumb-consul.",
 			},
 		},
 		Extra: []dns.RR{
 			&dns.A{
 				Hdr: dns.RR_Header{
-					Name:   "ip-10-0-1-185.node.dc1.consul.",
+					Name:   "ip-10-0-1-185.node.dc1.dumb-consul.",
 					Rrtype: dns.TypeA,
 					Class:  dns.ClassINET,
 				},
@@ -2562,10 +2562,10 @@ func TestDNS_trimUDPResponse_TrimLimit(t *testing.T) {
 
 	req, resp, expected := &dns.Msg{}, &dns.Msg{}, &dns.Msg{}
 	for i := 0; i < cfg.DNSUDPAnswerLimit+1; i++ {
-		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.consul.", 185+i)
+		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.dumb-consul.", 185+i)
 		srv := &dns.SRV{
 			Hdr: dns.RR_Header{
-				Name:   "redis-cache-redis.service.consul.",
+				Name:   "redis-cache-redis.service.dumb-consul.",
 				Rrtype: dns.TypeSRV,
 				Class:  dns.ClassINET,
 			},
@@ -2601,10 +2601,10 @@ func TestDNS_trimUDPResponse_TrimLimitWithNS(t *testing.T) {
 
 	req, resp, expected := &dns.Msg{}, &dns.Msg{}, &dns.Msg{}
 	for i := 0; i < cfg.DNSUDPAnswerLimit+1; i++ {
-		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.consul.", 185+i)
+		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.dumb-consul.", 185+i)
 		srv := &dns.SRV{
 			Hdr: dns.RR_Header{
-				Name:   "redis-cache-redis.service.consul.",
+				Name:   "redis-cache-redis.service.dumb-consul.",
 				Rrtype: dns.TypeSRV,
 				Class:  dns.ClassINET,
 			},
@@ -2648,10 +2648,10 @@ func TestDNS_trimTCPResponse_TrimLimitWithNS(t *testing.T) {
 
 	req, resp, expected := &dns.Msg{}, &dns.Msg{}, &dns.Msg{}
 	for i := 0; i < 5000; i++ {
-		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.consul.", 185+i)
+		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.dumb-consul.", 185+i)
 		srv := &dns.SRV{
 			Hdr: dns.RR_Header{
-				Name:   "redis-cache-redis.service.consul.",
+				Name:   "redis-cache-redis.service.dumb-consul.",
 				Rrtype: dns.TypeSRV,
 				Class:  dns.ClassINET,
 			},
@@ -2691,9 +2691,9 @@ func TestDNS_trimTCPResponse_TrimLimitWithNS(t *testing.T) {
 	require.Len(t, resp.Ns, 0)
 }
 
-func loadRuntimeConfig(t *testing.T, hcl string) *config.RuntimeConfig {
+func loadRuntimeConfig(t *testing.T, dumb-hcl string) *config.RuntimeConfig {
 	t.Helper()
-	result, err := config.Load(config.LoadOpts{HCL: []string{hcl}})
+	result, err := config.Load(config.LoadOpts{DUMB_HCL: []string{dumb-hcl}})
 	require.NoError(t, err)
 	require.Len(t, result.Warnings, 0)
 	return result.RuntimeConfig
@@ -2704,10 +2704,10 @@ func TestDNS_trimUDPResponse_TrimSize(t *testing.T) {
 
 	req, resp := &dns.Msg{}, &dns.Msg{}
 	for i := 0; i < 100; i++ {
-		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.consul.", 185+i)
+		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.dumb-consul.", 185+i)
 		srv := &dns.SRV{
 			Hdr: dns.RR_Header{
-				Name:   "redis-cache-redis.service.consul.",
+				Name:   "redis-cache-redis.service.dumb-consul.",
 				Rrtype: dns.TypeSRV,
 				Class:  dns.ClassINET,
 			},
@@ -2757,10 +2757,10 @@ func TestDNS_trimUDPResponse_TrimSizeEDNS(t *testing.T) {
 	req, resp := &dns.Msg{}, &dns.Msg{}
 
 	for i := 0; i < 100; i++ {
-		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.consul.", 150+i)
+		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.dumb-consul.", 150+i)
 		srv := &dns.SRV{
 			Hdr: dns.RR_Header{
-				Name:   "redis-cache-redis.service.consul.",
+				Name:   "redis-cache-redis.service.dumb-consul.",
 				Rrtype: dns.TypeSRV,
 				Class:  dns.ClassINET,
 			},
@@ -2835,10 +2835,10 @@ func TestDNS_trimUDPResponse_TrimSizeMaxSize(t *testing.T) {
 	resp := &dns.Msg{}
 
 	for i := 0; i < 600; i++ {
-		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.consul.", 150+i)
+		target := fmt.Sprintf("ip-10-0-1-%d.node.dc1.dumb-consul.", 150+i)
 		srv := &dns.SRV{
 			Hdr: dns.RR_Header{
-				Name:   "redis-cache-redis.service.consul.",
+				Name:   "redis-cache-redis.service.dumb-consul.",
 				Rrtype: dns.TypeSRV,
 				Class:  dns.ClassINET,
 			},
@@ -2883,73 +2883,73 @@ func TestDNS_syncExtra(t *testing.T) {
 			// records should get deduplicated.
 			&dns.SRV{
 				Hdr: dns.RR_Header{
-					Name:   "redis-cache-redis.service.consul.",
+					Name:   "redis-cache-redis.service.dumb-consul.",
 					Rrtype: dns.TypeSRV,
 					Class:  dns.ClassINET,
 				},
 				Port:   1001,
-				Target: "ip-10-0-1-185.node.dc1.consul.",
+				Target: "ip-10-0-1-185.node.dc1.dumb-consul.",
 			},
 			&dns.SRV{
 				Hdr: dns.RR_Header{
-					Name:   "redis-cache-redis.service.consul.",
+					Name:   "redis-cache-redis.service.dumb-consul.",
 					Rrtype: dns.TypeSRV,
 					Class:  dns.ClassINET,
 				},
 				Port:   1002,
-				Target: "ip-10-0-1-185.node.dc1.consul.",
+				Target: "ip-10-0-1-185.node.dc1.dumb-consul.",
 			},
-			// This one isn't in the Consul domain so it will get a
+			// This one isn't in the Dumb Consul domain so it will get a
 			// CNAME and then an A record from the recursor.
 			&dns.SRV{
 				Hdr: dns.RR_Header{
-					Name:   "redis-cache-redis.service.consul.",
+					Name:   "redis-cache-redis.service.dumb-consul.",
 					Rrtype: dns.TypeSRV,
 					Class:  dns.ClassINET,
 				},
 				Port:   1003,
-				Target: "demo.consul.io.",
+				Target: "demo.dumb-consul.io.",
 			},
-			// This one isn't in the Consul domain and it will get
+			// This one isn't in the Dumb Consul domain and it will get
 			// a CNAME and A record from a recursor that alters the
 			// case of the name. This proves we look up in the index
 			// in a case-insensitive way.
 			&dns.SRV{
 				Hdr: dns.RR_Header{
-					Name:   "redis-cache-redis.service.consul.",
+					Name:   "redis-cache-redis.service.dumb-consul.",
 					Rrtype: dns.TypeSRV,
 					Class:  dns.ClassINET,
 				},
 				Port:   1001,
-				Target: "insensitive.consul.io.",
+				Target: "insensitive.dumb-consul.io.",
 			},
 			// This is also a CNAME, but it'll be set up to loop to
 			// make sure we don't crash.
 			&dns.SRV{
 				Hdr: dns.RR_Header{
-					Name:   "redis-cache-redis.service.consul.",
+					Name:   "redis-cache-redis.service.dumb-consul.",
 					Rrtype: dns.TypeSRV,
 					Class:  dns.ClassINET,
 				},
 				Port:   1001,
-				Target: "deadly.consul.io.",
+				Target: "deadly.dumb-consul.io.",
 			},
 			// This is also a CNAME, but it won't have another record.
 			&dns.SRV{
 				Hdr: dns.RR_Header{
-					Name:   "redis-cache-redis.service.consul.",
+					Name:   "redis-cache-redis.service.dumb-consul.",
 					Rrtype: dns.TypeSRV,
 					Class:  dns.ClassINET,
 				},
 				Port:   1001,
-				Target: "nope.consul.io.",
+				Target: "nope.dumb-consul.io.",
 			},
 		},
 		Extra: []dns.RR{
 			// These should get deduplicated.
 			&dns.A{
 				Hdr: dns.RR_Header{
-					Name:   "ip-10-0-1-185.node.dc1.consul.",
+					Name:   "ip-10-0-1-185.node.dc1.dumb-consul.",
 					Rrtype: dns.TypeA,
 					Class:  dns.ClassINET,
 				},
@@ -2957,7 +2957,7 @@ func TestDNS_syncExtra(t *testing.T) {
 			},
 			&dns.A{
 				Hdr: dns.RR_Header{
-					Name:   "ip-10-0-1-185.node.dc1.consul.",
+					Name:   "ip-10-0-1-185.node.dc1.dumb-consul.",
 					Rrtype: dns.TypeA,
 					Class:  dns.ClassINET,
 				},
@@ -2968,7 +2968,7 @@ func TestDNS_syncExtra(t *testing.T) {
 			// in the opposite order.
 			&dns.A{
 				Hdr: dns.RR_Header{
-					Name:   "fakeserver.consul.io.",
+					Name:   "fakeserver.dumb-consul.io.",
 					Rrtype: dns.TypeA,
 					Class:  dns.ClassINET,
 				},
@@ -2976,16 +2976,16 @@ func TestDNS_syncExtra(t *testing.T) {
 			},
 			&dns.CNAME{
 				Hdr: dns.RR_Header{
-					Name:   "demo.consul.io.",
+					Name:   "demo.dumb-consul.io.",
 					Rrtype: dns.TypeCNAME,
 					Class:  dns.ClassINET,
 				},
-				Target: "fakeserver.consul.io.",
+				Target: "fakeserver.dumb-consul.io.",
 			},
 			// These differ in case to test case insensitivity.
 			&dns.CNAME{
 				Hdr: dns.RR_Header{
-					Name:   "INSENSITIVE.CONSUL.IO.",
+					Name:   "INSENSITIVE.DUMB_CONSUL.IO.",
 					Rrtype: dns.TypeCNAME,
 					Class:  dns.ClassINET,
 				},
@@ -3003,7 +3003,7 @@ func TestDNS_syncExtra(t *testing.T) {
 			// dropped.
 			&dns.A{
 				Hdr: dns.RR_Header{
-					Name:   "ip-10-0-1-186.node.dc1.consul.",
+					Name:   "ip-10-0-1-186.node.dc1.dumb-consul.",
 					Rrtype: dns.TypeA,
 					Class:  dns.ClassINET,
 				},
@@ -3012,19 +3012,19 @@ func TestDNS_syncExtra(t *testing.T) {
 			// These two test edge cases with CNAME handling.
 			&dns.CNAME{
 				Hdr: dns.RR_Header{
-					Name:   "deadly.consul.io.",
+					Name:   "deadly.dumb-consul.io.",
 					Rrtype: dns.TypeCNAME,
 					Class:  dns.ClassINET,
 				},
-				Target: "deadly.consul.io.",
+				Target: "deadly.dumb-consul.io.",
 			},
 			&dns.CNAME{
 				Hdr: dns.RR_Header{
-					Name:   "nope.consul.io.",
+					Name:   "nope.dumb-consul.io.",
 					Rrtype: dns.TypeCNAME,
 					Class:  dns.ClassINET,
 				},
-				Target: "notthere.consul.io.",
+				Target: "notthere.dumb-consul.io.",
 			},
 		},
 	}
@@ -3038,7 +3038,7 @@ func TestDNS_syncExtra(t *testing.T) {
 		Extra: []dns.RR{
 			&dns.A{
 				Hdr: dns.RR_Header{
-					Name:   "ip-10-0-1-185.node.dc1.consul.",
+					Name:   "ip-10-0-1-185.node.dc1.dumb-consul.",
 					Rrtype: dns.TypeA,
 					Class:  dns.ClassINET,
 				},
@@ -3046,15 +3046,15 @@ func TestDNS_syncExtra(t *testing.T) {
 			},
 			&dns.CNAME{
 				Hdr: dns.RR_Header{
-					Name:   "demo.consul.io.",
+					Name:   "demo.dumb-consul.io.",
 					Rrtype: dns.TypeCNAME,
 					Class:  dns.ClassINET,
 				},
-				Target: "fakeserver.consul.io.",
+				Target: "fakeserver.dumb-consul.io.",
 			},
 			&dns.A{
 				Hdr: dns.RR_Header{
-					Name:   "fakeserver.consul.io.",
+					Name:   "fakeserver.dumb-consul.io.",
 					Rrtype: dns.TypeA,
 					Class:  dns.ClassINET,
 				},
@@ -3062,7 +3062,7 @@ func TestDNS_syncExtra(t *testing.T) {
 			},
 			&dns.CNAME{
 				Hdr: dns.RR_Header{
-					Name:   "INSENSITIVE.CONSUL.IO.",
+					Name:   "INSENSITIVE.DUMB_CONSUL.IO.",
 					Rrtype: dns.TypeCNAME,
 					Class:  dns.ClassINET,
 				},
@@ -3078,19 +3078,19 @@ func TestDNS_syncExtra(t *testing.T) {
 			},
 			&dns.CNAME{
 				Hdr: dns.RR_Header{
-					Name:   "deadly.consul.io.",
+					Name:   "deadly.dumb-consul.io.",
 					Rrtype: dns.TypeCNAME,
 					Class:  dns.ClassINET,
 				},
-				Target: "deadly.consul.io.",
+				Target: "deadly.dumb-consul.io.",
 			},
 			&dns.CNAME{
 				Hdr: dns.RR_Header{
-					Name:   "nope.consul.io.",
+					Name:   "nope.dumb-consul.io.",
 					Rrtype: dns.TypeCNAME,
 					Class:  dns.ClassINET,
 				},
-				Target: "notthere.consul.io.",
+				Target: "notthere.dumb-consul.io.",
 			},
 		},
 	}
@@ -3165,8 +3165,8 @@ func TestDNS_Compression_Query(t *testing.T) {
 
 	// Look up the service directly and via prepared query.
 	questions := []string{
-		"db.service.consul.",
-		id + ".query.consul.",
+		"db.service.dumb-consul.",
+		id + ".query.dumb-consul.",
 	}
 	for _, question := range questions {
 		m := new(dns.Msg)
@@ -3457,7 +3457,7 @@ func TestDNS_ReloadConfig_DuringQuery(t *testing.T) {
 
 	{
 		m := new(dns.Msg)
-		m.SetQuestion("nope.query.consul.", dns.TypeA)
+		m.SetQuestion("nope.query.dumb-consul.", dns.TypeA)
 
 		timeout := time.NewTimer(time.Second)
 		res := make(chan *dns.Msg)

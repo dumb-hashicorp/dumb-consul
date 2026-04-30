@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"strings"
 
-	envoy_admin_v3 "github.com/envoyproxy/go-control-plane/envoy/admin/v3"
+	envoy_admin_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/admin/v3"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 

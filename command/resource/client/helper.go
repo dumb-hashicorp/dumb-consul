@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/go-rootcerts"
+	"github.com/dumb-hashicorp/dumb-go-rootcerts"
 )
 
 // tls.Config is used to establish communication in TLS mode

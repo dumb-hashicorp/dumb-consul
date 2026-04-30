@@ -8,8 +8,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/go-viper/mapstructure/v2"
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-go-viper/mapstructure/v2"
+	"github.com/dumb-hashicorp/dumb-hcl"
 	"github.com/stretchr/testify/require"
 )
 
@@ -288,7 +288,7 @@ sub {
 
 func decodeHCLToMapStructure(source string, target interface{}) error {
 	raw := map[string]interface{}{}
-	err := hcl.Decode(&raw, source)
+	err := dumb-hcl.Decode(&raw, source)
 	if err != nil {
 		return err
 	}

@@ -8,14 +8,14 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/hashicorp/go-bexpr"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-go-bexpr"
+	"github.com/dumb-hashicorp/dumb-go-memdb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/watch"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/structs/aclfilter"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs/aclfilter"
 )
 
 // ServerHealthBlocking exists due to a bug with the streaming backend and its interaction with ACLs.
@@ -48,7 +48,7 @@ type serverHealthBlocking struct {
 	watchTimeout time.Duration
 }
 
-// Notify is mostly a copy of the function in `agent/consul/health_endpoint.go` with a few minor tweaks.
+// Notify is mostly a copy of the function in `agent/dumb-consul/health_endpoint.go` with a few minor tweaks.
 // Most notably, some query features unnecessary for mesh have been stripped out.
 func (h *serverHealthBlocking) Notify(ctx context.Context, args *structs.ServiceSpecificRequest, correlationID string, ch chan<- proxycfg.UpdateEvent) error {
 	if args.Datacenter != h.deps.Datacenter {

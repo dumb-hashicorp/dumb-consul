@@ -6,13 +6,13 @@ package troubleshoot
 import (
 	"fmt"
 
-	envoy_admin_v3 "github.com/envoyproxy/go-control-plane/envoy/admin/v3"
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	envoy_resource_v3 "github.com/envoyproxy/go-control-plane/pkg/resource/v3"
+	envoy_admin_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/admin/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_route_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
+	envoy_resource_v3 "github.com/envoyproxy/dumb-go-control-plane/pkg/resource/v3"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
 )
 
 type UpstreamIP struct {

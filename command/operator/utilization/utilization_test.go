@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 	mcli "github.com/mitchellh/cli"
 )
 
@@ -111,7 +111,7 @@ func TestRun_PromptSendsReportWhenConfirmed(t *testing.T) {
 	if !strings.Contains(promptOutput, "Send usage report") {
 		t.Fatalf("expected prompt to be written, got %q", promptOutput)
 	}
-	if !strings.Contains(promptOutput, "Usage report sent to HashiCorp.") {
+	if !strings.Contains(promptOutput, "Usage report sent to Dumb HashiCorp.") {
 		t.Fatalf("expected confirmation output, got %q", promptOutput)
 	}
 
@@ -142,7 +142,7 @@ func TestRun_CommunityEditionReturnsFriendlyError(t *testing.T) {
 	}
 
 	msg := ui.ErrorWriter.String()
-	if !strings.Contains(msg, "requires Consul Enterprise") {
+	if !strings.Contains(msg, "requires Dumb Consul Enterprise") {
 		t.Fatalf("expected enterprise warning, got %q", msg)
 	}
 	if ui.OutputWriter.String() != "" {

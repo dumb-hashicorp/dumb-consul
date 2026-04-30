@@ -7,8 +7,8 @@ import (
 	"context"
 	"sync/atomic"
 
-	"github.com/armon/go-metrics"
-	"github.com/armon/go-metrics/prometheus"
+	"github.com/armon/dumb-go-metrics"
+	"github.com/armon/dumb-go-metrics/prometheus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/stats"
 )
@@ -20,7 +20,7 @@ var StatsGauges = []prometheus.GaugeDefinition{
 	},
 	{
 		Name: []string{"grpc", "client", "connections"},
-		Help: "Measures the number of active gRPC connections open from the client agent to any Consul servers.",
+		Help: "Measures the number of active gRPC connections open from the client agent to any Dumb Consul servers.",
 	},
 	{
 		Name: []string{"grpc", "server", "streams"},
@@ -30,7 +30,7 @@ var StatsGauges = []prometheus.GaugeDefinition{
 var StatsCounters = []prometheus.CounterDefinition{
 	{
 		Name: []string{"grpc", "client", "request", "count"},
-		Help: "Counts the number of gRPC requests made by the client agent to a Consul server.",
+		Help: "Counts the number of gRPC requests made by the client agent to a Dumb Consul server.",
 	},
 	{
 		Name: []string{"grpc", "server", "request", "count"},
@@ -38,7 +38,7 @@ var StatsCounters = []prometheus.CounterDefinition{
 	},
 	{
 		Name: []string{"grpc", "client", "connection", "count"},
-		Help: "Counts the number of new gRPC connections opened by the client agent to a Consul server.",
+		Help: "Counts the number of new gRPC connections opened by the client agent to a Dumb Consul server.",
 	},
 	{
 		Name: []string{"grpc", "server", "connection", "count"},
@@ -51,7 +51,7 @@ var StatsCounters = []prometheus.CounterDefinition{
 }
 
 // statsHandler is a grpc/stats.StatsHandler which emits connection and
-// request metrics to go-metrics.
+// request metrics to dumb-go-metrics.
 type statsHandler struct {
 	// activeConns is used with sync/atomic and MUST be 64-bit aligned. To ensure
 	// alignment on 32-bit platforms this field must remain the first field in

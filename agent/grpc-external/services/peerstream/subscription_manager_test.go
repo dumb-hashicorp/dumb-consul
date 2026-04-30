@@ -13,21 +13,21 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/autopilotevents"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/pbpeerstream"
-	"github.com/hashicorp/consul/proto/private/pbservice"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/autopilotevents"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeerstream"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestSubscriptionManager_RegisterDeregister(t *testing.T) {
@@ -285,12 +285,12 @@ func TestSubscriptionManager_RegisterDeregister(t *testing.T) {
 						Connect: &pbservice.ServiceConnect{
 							PeerMeta: &pbservice.PeeringServiceMeta{
 								SNI: []string{
-									"mysql.default.default.my-peering.external.11111111-2222-3333-4444-555555555555.consul",
+									"mysql.default.default.my-peering.external.11111111-2222-3333-4444-555555555555.dumb-consul",
 								},
 								SpiffeID: []string{
-									"spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/mysql",
-									"spiffe://11111111-2222-3333-4444-555555555555.consul/gateway/mesh/dc/dc1",
-									"spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/failover",
+									"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/mysql",
+									"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/gateway/mesh/dc/dc1",
+									"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/failover",
 								},
 								Protocol: "tcp",
 							},
@@ -335,11 +335,11 @@ func TestSubscriptionManager_RegisterDeregister(t *testing.T) {
 						Connect: &pbservice.ServiceConnect{
 							PeerMeta: &pbservice.PeeringServiceMeta{
 								SNI: []string{
-									"mysql.default.default.my-peering.external.11111111-2222-3333-4444-555555555555.consul",
+									"mysql.default.default.my-peering.external.11111111-2222-3333-4444-555555555555.dumb-consul",
 								},
 								SpiffeID: []string{
-									"spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/mysql",
-									"spiffe://11111111-2222-3333-4444-555555555555.consul/gateway/mesh/dc/dc1",
+									"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/mysql",
+									"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/gateway/mesh/dc/dc1",
 								},
 								Protocol: "tcp",
 							},
@@ -385,11 +385,11 @@ func TestSubscriptionManager_RegisterDeregister(t *testing.T) {
 						Connect: &pbservice.ServiceConnect{
 							PeerMeta: &pbservice.PeeringServiceMeta{
 								SNI: []string{
-									"mysql.default.default.my-peering.external.11111111-2222-3333-4444-555555555555.consul",
+									"mysql.default.default.my-peering.external.11111111-2222-3333-4444-555555555555.dumb-consul",
 								},
 								SpiffeID: []string{
-									"spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/mysql",
-									"spiffe://11111111-2222-3333-4444-555555555555.consul/gateway/mesh/dc/dc1",
+									"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/mysql",
+									"spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/gateway/mesh/dc/dc1",
 								},
 								Protocol: "grpc",
 							},
@@ -1032,7 +1032,7 @@ func newTestSubscriptionBackend(t *testing.T) *testSubscriptionBackend {
 	}
 
 	backend.ensureCAConfig(t, &structs.CAConfiguration{
-		Provider:  "consul",
+		Provider:  "dumb-consul",
 		ClusterID: connect.TestClusterID,
 	})
 

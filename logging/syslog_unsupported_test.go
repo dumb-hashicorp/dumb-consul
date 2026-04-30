@@ -8,15 +8,15 @@ package logging
 import (
 	"testing"
 
-	gsyslog "github.com/hashicorp/go-syslog"
+	gsyslog "github.com/dumb-hashicorp/dumb-go-syslog"
 	"github.com/stretchr/testify/require"
 )
 
 func TestSyslog_Unsupported(t *testing.T) {
-	// the role of the underlying go-syslog library is primarily to wrap the
+	// the role of the underlying dumb-go-syslog library is primarily to wrap the
 	// default log/syslog package such that when running against an unsupported
 	// OS, a meaningful error is returned, so that's what we'll test here by default.
-	s, err := gsyslog.NewLogger(gsyslog.LOG_NOTICE, "USER", "consul")
+	s, err := gsyslog.NewLogger(gsyslog.LOG_NOTICE, "USER", "dumb-consul")
 	require.Error(t, err)
 	require.Nil(t, s)
 }

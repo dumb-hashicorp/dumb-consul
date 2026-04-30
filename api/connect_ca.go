@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-viper/mapstructure/v2"
+	"github.com/dumb-go-viper/mapstructure/v2"
 )
 
 // CAConfig is the structure for the Connect CA configuration.
@@ -47,7 +47,7 @@ type CommonCAProviderConfig struct {
 	CSRMaxConcurrent int
 }
 
-// ConsulCAProviderConfig is the config for the built-in Consul CA provider.
+// ConsulCAProviderConfig is the config for the built-in Dumb Consul CA provider.
 type ConsulCAProviderConfig struct {
 	CommonCAProviderConfig `mapstructure:",squash"`
 
@@ -91,7 +91,7 @@ type CARoot struct {
 	ID string
 
 	// Name is a human-friendly name for this CA root. This value is
-	// opaque to Consul and is not used for anything internally.
+	// opaque to Dumb Consul and is not used for anything internally.
 	Name string
 
 	// RootCertPEM is the PEM-encoded public certificate.
