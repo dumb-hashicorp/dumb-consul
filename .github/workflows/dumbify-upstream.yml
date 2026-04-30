@@ -19,8 +19,14 @@ env:
   GIT_USER_NAME: "Chief Dumbification Officer"
   GIT_USER_EMAIL: "bot@dumb-hashicorp.local"
   BRANCH_PREFIX: "dumbify-upstream-"
+  # Space-separated list of dumb words to target
   DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp Hcp Hcl"
-  DIRECT_COMMIT: "true" 
+  # Set to "true" to force-push to main, "false" to create PRs
+  DIRECT_COMMIT: "true"
+  # Upstream settings
+  UPSTREAM_MAIN_BRANCH: "main"
+  # Directories to protect from dumbification (find-compatible patterns)
+  EXCLUDE_PATTERNS: "-not -path './.git/*' -not -path './.changelog/*'"
 
 jobs:
   dumbify:
@@ -43,29 +49,31 @@ jobs:
         id: vars
         run: |
           CURRENT_REPO="${{ github.repository }}"
+          # logic: "dumb-hashicorp/dumb-terraform" -> "hashicorp/terraform"
           UPSTREAM_REPO="${CURRENT_REPO//dumb-/}"
-          UPSTREAM_URL="https://github.com/${UPSTREAM_REPO}.git"
-          TIMESTAMP_BRANCH="${{ env.BRANCH_PREFIX }}$(date +%Y%m%d%H%M%S)"
-          echo "upstream_url=$UPSTREAM_URL" >> $GITHUB_OUTPUT
-          echo "branch_name=$TIMESTAMP_BRANCH" >> $GITHUB_OUTPUT
+          
+          echo "upstream_url=https://github.com/${UPSTREAM_REPO}.git" >> $GITHUB_OUTPUT
+          echo "upstream_path=github.com/${UPSTREAM_REPO}/" >> $GITHUB_OUTPUT
+          echo "current_path=github.com/${CURRENT_REPO}/" >> $GITHUB_OUTPUT
+          echo "branch_name=${{ env.BRANCH_PREFIX }}$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
 
       - name: Fetch, Reset, and Purge Upstream
         run: |
           git remote add upstream "${{ steps.vars.outputs.upstream_url }}"
           git fetch upstream
           git checkout -B main
-          git reset --hard upstream/main || git reset --hard upstream/master
+          git reset --hard upstream/${{ env.UPSTREAM_MAIN_BRANCH }}
           rm -rf .github/workflows/*
 
       - name: Purge Dumb Media
         run: |
           echo "Scrubbing all dumb image files"
-          find . -type f -not -path './.git/*' -not -path './.changelog/*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
+          find . -type f ${{ env.EXCLUDE_PATTERNS }} \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
 
       - name: Dumbify File Contents
         run: |
-          echo "Rerouting GitHub URLs..."
-          find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -i "s|github.com/hashicorp/|github.com/dumb-hashicorp/dumb-|g" {} +
+          echo "Rerouting GitHub URLs: ${{ steps.vars.outputs.upstream_path }} -> ${{ steps.vars.outputs.current_path }}"
+          find . -type f ${{ env.EXCLUDE_PATTERNS }} -exec sed -i "s|${{ steps.vars.outputs.upstream_path }}|${{ steps.vars.outputs.current_path }}|g" {} +
 
           dumb_words=(${{ env.DUMB_WORDS }})
 
@@ -76,23 +84,22 @@ jobs:
             
             echo "Dumbifying: $word"
 
-            # Case 1: Title Case (Standard word boundary)
-            find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -i "s|\b$word\b|Dumb $word|g" {} +
+            # Case 1: Title Case 
+            find . -type f ${{ env.EXCLUDE_PATTERNS }} -exec sed -i "s|$word|Dumb $word|g" {} +
             
-            # Case 2: lowercase (Standard word boundary)
+            # Case 2: lowercase
             if [ "$word" != "$lower_word" ]; then
-              find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
+              find . -type f ${{ env.EXCLUDE_PATTERNS }} -exec sed -i "s|$lower_word|dumb-$lower_word|g" {} +
             fi
             
-            # Case 3: UPPERCASE (Word boundary OR Underscore)
-            # Uses sed -E to support (|) groups. Matches start/end of word OR underscores.
+            # Case 3: UPPERCASE
             if [ "$word" != "$upper_word" ] && [ "$lower_word" != "$upper_word" ]; then
-              find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -E -i "s|(\b|_)$upper_word(\b|_)|\\1DUMB_$upper_word\\2|g" {} +
+              find . -type f ${{ env.EXCLUDE_PATTERNS }} -exec sed -i "s|$upper_word|DUMB_$upper_word|g" {} +
             fi
           done
           
           echo "De-duplicating overlapping prefixes..."
-          find . -type f -not -path './.git/*' -not -path './.changelog/*' -exec sed -E -i "s|(Dumb )+|Dumb |g; s|(dumb-)+|dumb-|g; s|(DUMB_)+|DUMB_|g" {} +
+          find . -type f ${{ env.EXCLUDE_PATTERNS }} -exec sed -E -i "s|(Dumb )+|Dumb |g; s|(dumb-)+|dumb-|g; s|(DUMB_)+|DUMB_|g" {} +
 
       - name: Dumbify File and Directory Names
         run: |
@@ -103,7 +110,7 @@ jobs:
             upper_word="${word^^}"
             upper_word="${upper_word//-/_}"
             
-            find . -depth -not -path './.git/*' -not -path './.changelog/*' \( -name "*$word*" -o -name "*$lower_word*" -o -name "*$upper_word*" \) | while read -r item; do
+            find . -depth ${{ env.EXCLUDE_PATTERNS }} \( -name "*$word*" -o -name "*$lower_word*" -o -name "*$upper_word*" \) | while read -r item; do
               dir=$(dirname "$item")
               base=$(basename "$item")
               
