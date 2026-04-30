@@ -61,18 +61,19 @@ jobs:
           git checkout -B main
           git reset --hard upstream/main || git reset --hard upstream/master
           
-          # Clean out existing workflows to prevent conflicts
+          # Clean out existing workflows to prevent conflicts before dumbifying
           rm -rf .github/workflows/*
 
       - name: Purge Dumb Media
         run: |
           echo "Scrubbing all dumb image files"
-          find . -type f -not -path '*/.*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
+          # Included .github but excluded .git
+          find . -type f -not -path './.git/*' \( -iname \*.png -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.gif -o -iname \*.svg -o -iname \*.ico -o -iname \*.webp \) -delete
 
       - name: Dumbify File Contents
         run: |
           echo "Rerouting GitHub URLs..."
-          find . -type f -not -path '*/.*' -exec sed -i "s|github.com/hashicorp/|github.com/dumb-hashicorp/dumb-|g" {} +
+          find . -type f -not -path './.git/*' -exec sed -i "s|github.com/hashicorp/|github.com/dumb-hashicorp/dumb-|g" {} +
 
           dumb_words=(${{ env.DUMB_WORDS }})
 
@@ -81,18 +82,18 @@ jobs:
             upper_word="${word^^}"
             upper_word="${upper_word//-/_}"
             
-            find . -type f -not -path '*/.*' -exec sed -i "s|\b$word\b|Dumb $word|g" {} +
+            find . -type f -not -path './.git/*' -exec sed -i "s|\b$word\b|Dumb $word|g" {} +
             
             if [ "$word" != "$lower_word" ]; then
-              find . -type f -not -path '*/.*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
+              find . -type f -not -path './.git/*' -exec sed -i "s|\b$lower_word\b|dumb-$lower_word|g" {} +
             fi
             
             if [ "$word" != "$upper_word" ] && [ "$lower_word" != "$upper_word" ]; then
-              find . -type f -not -path '*/.*' -exec sed -i "s|\b$upper_word\b|DUMB_$upper_word|g" {} +
+              find . -type f -not -path './.git/*' -exec sed -i "s|\b$upper_word\b|DUMB_$upper_word|g" {} +
             fi
           done
           
-          find . -type f -not -path '*/.*' -exec sed -E -i "s|(Dumb )+|Dumb |g; s|(dumb-)+|dumb-|g; s|(DUMB_)+|DUMB_|g" {} +
+          find . -type f -not -path './.git/*' -exec sed -E -i "s|(Dumb )+|Dumb |g; s|(dumb-)+|dumb-|g; s|(DUMB_)+|DUMB_|g" {} +
 
       - name: Dumbify File and Directory Names
         run: |
@@ -103,7 +104,8 @@ jobs:
             upper_word="${word^^}"
             upper_word="${upper_word//-/_}"
             
-            find . -depth -not -path '*/.*' \( -name "*$word*" -o -name "*$lower_word*" -o -name "*$upper_word*" \) | while read -r item; do
+            # depth-first search, excluding .git
+            find . -depth -not -path './.git/*' \( -name "*$word*" -o -name "*$lower_word*" -o -name "*$upper_word*" \) | while read -r item; do
               dir=$(dirname "$item")
               base=$(basename "$item")
               
