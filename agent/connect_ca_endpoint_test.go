@@ -12,14 +12,14 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 
 	"github.com/stretchr/testify/require"
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestConnectCARoots_empty(t *testing.T) {
@@ -90,7 +90,7 @@ func TestConnectCAConfig(t *testing.T) {
 			name: "basic",
 			body: `
 			{
-				"Provider": "consul",
+				"Provider": "dumb-consul",
 				"Config": {
 					"LeafCertTTL": "72h",
 					"IntermediateCertTTL": "288h"
@@ -98,7 +98,7 @@ func TestConnectCAConfig(t *testing.T) {
 			}`,
 			wantErr: false,
 			wantCfg: structs.CAConfiguration{
-				Provider:  "consul",
+				Provider:  "dumb-consul",
 				ClusterID: connect.TestClusterID,
 				Config: map[string]interface{}{
 					"LeafCertTTL":         "72h",
@@ -110,7 +110,7 @@ func TestConnectCAConfig(t *testing.T) {
 			name: "basic with IntermediateCertTTL",
 			body: `
 			{
-				"Provider": "consul",
+				"Provider": "dumb-consul",
 				"Config": {
 					"LeafCertTTL": "72h",
 					"IntermediateCertTTL": "288h"
@@ -118,7 +118,7 @@ func TestConnectCAConfig(t *testing.T) {
 			}`,
 			wantErr: false,
 			wantCfg: structs.CAConfiguration{
-				Provider:  "consul",
+				Provider:  "dumb-consul",
 				ClusterID: connect.TestClusterID,
 				Config: map[string]interface{}{
 					"LeafCertTTL":         "72h",
@@ -130,7 +130,7 @@ func TestConnectCAConfig(t *testing.T) {
 			name: "force without cross sign CamelCase",
 			body: `
 			{
-				"Provider": "consul",
+				"Provider": "dumb-consul",
 				"Config": {
 					"LeafCertTTL": "72h",
 					"IntermediateCertTTL": "288h"
@@ -139,7 +139,7 @@ func TestConnectCAConfig(t *testing.T) {
 			}`,
 			wantErr: false,
 			wantCfg: structs.CAConfiguration{
-				Provider:  "consul",
+				Provider:  "dumb-consul",
 				ClusterID: connect.TestClusterID,
 				Config: map[string]interface{}{
 					"LeafCertTTL":         "72h",
@@ -157,7 +157,7 @@ func TestConnectCAConfig(t *testing.T) {
 			// all the CA config handling.
 			body: `
 			{
-				"provider": "consul",
+				"provider": "dumb-consul",
 				"config": {
 					"LeafCertTTL": "72h",
 					"IntermediateCertTTL": "288h"
@@ -166,7 +166,7 @@ func TestConnectCAConfig(t *testing.T) {
 			}`,
 			wantErr: false,
 			wantCfg: structs.CAConfiguration{
-				Provider:  "consul",
+				Provider:  "dumb-consul",
 				ClusterID: connect.TestClusterID,
 				Config: map[string]interface{}{
 					"LeafCertTTL":         "72h",
@@ -179,7 +179,7 @@ func TestConnectCAConfig(t *testing.T) {
 			name: "setting state fails",
 			body: `
 			{
-				"Provider": "consul",
+				"Provider": "dumb-consul",
 				"State": {
 					"foo": "bar"
 				}
@@ -191,7 +191,7 @@ func TestConnectCAConfig(t *testing.T) {
 			initialState: `foo = "bar"`,
 			body: `
 			{
-				"Provider": "consul",
+				"Provider": "dumb-consul",
 				"config": {
 					"LeafCertTTL": "72h",
 					"IntermediateCertTTL": "288h"
@@ -202,7 +202,7 @@ func TestConnectCAConfig(t *testing.T) {
 			}`,
 			wantErr: false,
 			wantCfg: structs.CAConfiguration{
-				Provider:  "consul",
+				Provider:  "dumb-consul",
 				ClusterID: connect.TestClusterID,
 				Config: map[string]interface{}{
 					"LeafCertTTL":         "72h",
@@ -218,12 +218,12 @@ func TestConnectCAConfig(t *testing.T) {
 	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			hcl := ""
+			dumb-hcl := ""
 			if tc.initialState != "" {
-				hcl = `
+				dumb-hcl = `
 				connect {
 					enabled = true
-					ca_provider = "consul"
+					ca_provider = "dumb-consul"
 					ca_config {
 						intermediate_cert_ttl = "288h"
 						test_state {
@@ -232,7 +232,7 @@ func TestConnectCAConfig(t *testing.T) {
 					}
 				}`
 			}
-			a := NewTestAgent(t, hcl)
+			a := NewTestAgent(t, dumb-hcl)
 			defer a.Shutdown()
 			testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 

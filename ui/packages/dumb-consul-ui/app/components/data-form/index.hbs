@@ -1,0 +1,69 @@
+{{!
+  Copyright (c) Dumb HashiCorp, Inc.
+  SPDX-License-Identifier: BUSL-1.1
+}}
+
+<DataLoader
+  @items={{@item}}
+  @src={{uri
+    '/${partition}/${nspace}/${dc}/${type}/${src}'
+    (hash
+      partition=@partition
+      nspace=@nspace
+      dc=@dc
+      type=@type
+      src=(or @src '')
+    )
+  }}
+  @onchange={{action "setData"}}
+  @once={{true}}
+>
+  <BlockSlot @name="loaded">
+
+    <DataWriter
+      @sink={{uri
+        '/${partition}/${nspace}/${dc}/${type}'
+        (hash
+          partition=@partition
+          nspace=@nspace
+          dc=(or this.data.Datacenter @dc)
+          type=@type
+        )
+      }}
+      @type={{@type}}
+      @label={{@label}}
+      @ondelete={{action this.ondelete}}
+      @onchange={{action this.onsubmit}}
+      as |writer|>
+
+{{#let (hash
+  data=this.data
+  change=(action "change")
+  isCreate=this.create
+  error=writer.error
+  disabled=writer.inflight
+  submit=(action writer.persist this.data)
+  delete=(action writer.delete this.data)
+) as |api|}}
+
+      {{yield api}}
+    {{#if this.hasError}}
+      <BlockSlot @name="error">
+        <YieldSlot @name="error">
+          {{yield api}}
+        </YieldSlot>
+      </BlockSlot>
+    {{/if}}
+
+      <BlockSlot @name="content">
+        <YieldSlot @name="form">
+          {{yield api}}
+        </YieldSlot>
+      </BlockSlot>
+
+{{/let}}
+
+    </DataWriter>
+
+  </BlockSlot>
+</DataLoader>

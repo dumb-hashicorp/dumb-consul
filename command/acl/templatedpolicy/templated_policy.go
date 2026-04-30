@@ -4,7 +4,7 @@
 package templatedpolicy
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -26,25 +26,25 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Manage Consul's ACL templated policies"
+const synopsis = "Manage Dumb Consul's ACL templated policies"
 const help = `
-Usage: consul acl templated-policy <subcommand> [options] [args]
+Usage: dumb-consul acl templated-policy <subcommand> [options] [args]
 
-  This command has subcommands for managing Consul ACL templated policies.
+  This command has subcommands for managing Dumb Consul ACL templated policies.
   Here are some simple examples, and more detailed examples are available
   in the subcommands or the documentation.
 
   List all templated policies:
 
-      $ consul acl templated-policy list
+      $ dumb-consul acl templated-policy list
 
   Preview the policy rendered by the ACL templated policy:
 
-      $ consul acl templated-policy preview -name "builtin/service" -var "name:api"
+      $ dumb-consul acl templated-policy preview -name "builtin/service" -var "name:api"
 
   Read a templated policy with name:
 
-      $ consul acl templated-policy read -name "builtin/service"
+      $ dumb-consul acl templated-policy read -name "builtin/service"
 
   For more examples, ask for subcommand help or view the documentation.
 `

@@ -1,0 +1,4 @@
+ARG VERSION=1.16.0
+
+FROM windows/dumb-consul:${VERSION}-local
+COPY dist/ C:\\dumb-consul

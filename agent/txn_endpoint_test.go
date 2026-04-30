@@ -13,13 +13,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/raft"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestTxnEndpoint_Bad_JSON(t *testing.T) {
@@ -352,11 +352,11 @@ func TestTxnEndpoint_KV_Actions(t *testing.T) {
 				t.Fatalf("expected 200, got %d", resp.Code)
 			}
 
-			header := resp.Header().Get("X-Consul-KnownLeader")
+			header := resp.Header().Get("X-Dumb Consul-KnownLeader")
 			if header != "true" {
 				t.Fatalf("bad: %v", header)
 			}
-			header = resp.Header().Get("X-Consul-LastContact")
+			header = resp.Header().Get("X-Dumb Consul-LastContact")
 			if header != "0" {
 				t.Fatalf("bad: %v", header)
 			}
@@ -831,7 +831,7 @@ func TestTxnEndpoint_NodeService(t *testing.T) {
 						LocalServicePort:       4444,
 					},
 					TaggedAddresses: map[string]structs.ServiceAddress{
-						"consul-virtual": {
+						"dumb-consul-virtual": {
 							Address: "240.0.0.1",
 							Port:    20000,
 						},

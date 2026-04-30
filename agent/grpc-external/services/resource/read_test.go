@@ -17,17 +17,17 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	svc "github.com/hashicorp/consul/agent/grpc-external/services/resource"
-	svctest "github.com/hashicorp/consul/agent/grpc-external/services/resource/testing"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/demo"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	svc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource"
+	svctest "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource/testing"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/demo"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestRead_InputValidation(t *testing.T) {
@@ -293,7 +293,7 @@ func TestRead_ACLs(t *testing.T) {
 		token := fmt.Sprintf("token-%d", idx)
 		idx++
 		//nolint:staticcheck
-		return context.WithValue(testContext(t), "x-consul-token", token)
+		return context.WithValue(testContext(t), "x-dumb-consul-token", token)
 	}
 
 	for desc, tc := range testcases {
@@ -372,7 +372,7 @@ func readTestCases() map[string]readTestCase {
 			consistency: storage.StrongConsistency,
 			ctx: metadata.NewOutgoingContext(
 				context.Background(),
-				metadata.New(map[string]string{"x-consul-consistency-mode": "consistent"}),
+				metadata.New(map[string]string{"x-dumb-consul-consistency-mode": "consistent"}),
 			),
 		},
 	}

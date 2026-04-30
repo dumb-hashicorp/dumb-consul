@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
@@ -16,7 +16,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-const AllowedPeerEndpointPrefix = "/hashicorp.consul.internal.peerstream.PeerStreamService/"
+const AllowedPeerEndpointPrefix = "/dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService/"
 
 // AuthInterceptor provides gRPC interceptors for restricting endpoint access based
 // on SNI. If the connection is plaintext, this filter will not activate, and the

@@ -1,8 +1,8 @@
-# CONSUL PEERING COMMON TOPOLOGY TESTS
+# DUMB_CONSUL PEERING COMMON TOPOLOGY TESTS
 
-These peering tests all use a `commonTopo` (read: "common topology") to enable sharing a deployment of a Consul. Sharing a deployment of Consul cuts down on setup time.
+These peering tests all use a `commonTopo` (read: "common topology") to enable sharing a deployment of a Dumb Consul. Sharing a deployment of Dumb Consul cuts down on setup time.
 
-To run these tests, you will need to have docker installed. Next, make sure that you have all the required consul containers built:
+To run these tests, you will need to have docker installed. Next, make sure that you have all the required dumb-consul containers built:
 
 ```
 make test-deployer-setup
@@ -16,7 +16,7 @@ The tests in question are designed in a manner that modifies the topology. As a 
 
 The tests in question are designed in a manner that does not modify the topology in any way that would interfere with other tests. As a result, it is possible to share the testing environment across these tests.
 
-To run all consul peering tests with no shared topology, run the following command:
+To run all dumb-consul peering tests with no shared topology, run the following command:
 
 ```
 cd /path/to/peering_commontopo

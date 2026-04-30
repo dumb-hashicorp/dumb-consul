@@ -3,7 +3,7 @@
   "resources": [
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "circuitBreakers": {},
       "commonLbConfig": {
         "healthyPanicThreshold": {}
@@ -15,7 +15,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -37,7 +37,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/bar"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/bar"
                   },
                   "sanType": "URI"
                 }
@@ -47,7 +47,7 @@
               }
             }
           },
-          "sni": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "bar.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS",
@@ -62,7 +62,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "altStatName": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "altStatName": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "circuitBreakers": {},
       "commonLbConfig": {
         "healthyPanicThreshold": {}
@@ -74,7 +74,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -96,7 +96,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/foo"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/foo"
                   },
                   "sanType": "URI"
                 }
@@ -106,7 +106,7 @@
               }
             }
           },
-          "sni": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "foo.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS",

@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -88,7 +88,7 @@ func (op *Operator) LicenseGetSigned(q *QueryOptions) (string, error) {
 // LicenseReset will reset the license to the builtin one if it is still valid.
 // If the builtin license is invalid, the current license stays active.
 //
-// DEPRECATED: Consul 1.10 removes the corresponding HTTP endpoint as licenses
+// DEPRECATED: Dumb Consul 1.10 removes the corresponding HTTP endpoint as licenses
 // are now set via agent configuration instead of through the API
 func (op *Operator) LicenseReset(opts *WriteOptions) (*LicenseReply, error) {
 	var reply LicenseReply
@@ -108,9 +108,9 @@ func (op *Operator) LicenseReset(opts *WriteOptions) (*LicenseReply, error) {
 	return &reply, nil
 }
 
-// LicensePut will configure the Consul Enterprise license for the target datacenter
+// LicensePut will configure the Dumb Consul Enterprise license for the target datacenter
 //
-// DEPRECATED: Consul 1.10 removes the corresponding HTTP endpoint as licenses
+// DEPRECATED: Dumb Consul 1.10 removes the corresponding HTTP endpoint as licenses
 // are now set via agent configuration instead of through the API
 func (op *Operator) LicensePut(license string, opts *WriteOptions) (*LicenseReply, error) {
 	var reply LicenseReply

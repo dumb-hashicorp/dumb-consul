@@ -7,7 +7,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -38,7 +38,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -61,7 +61,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Triggers the agent to reload configuration files"
 const help = `
-Usage: consul reload
+Usage: dumb-consul reload
 
   Causes the agent to reload configurations. This can be used instead
   of sending the SIGHUP signal to the agent.

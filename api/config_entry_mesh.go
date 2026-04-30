@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -11,11 +11,11 @@ import (
 // proxies.
 type MeshConfigEntry struct {
 	// Partition is the partition the MeshConfigEntry applies to.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// Namespace is the namespace the MeshConfigEntry applies to.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// TransparentProxy applies configuration specific to proxies
@@ -87,7 +87,7 @@ type PeeringMeshConfig struct {
 // normalization of HTTP requests processed by mesh proxies.
 type RequestNormalizationMeshConfig struct {
 	// InsecureDisablePathNormalization sets the value of the \`normalize_path\` option in the Envoy listener's
-	// `HttpConnectionManager`. The default value is \`false\`. When set to \`true\` in Consul, \`normalize_path\` is
+	// `HttpConnectionManager`. The default value is \`false\`. When set to \`true\` in Dumb Consul, \`normalize_path\` is
 	// set to \`false\` for the Envoy proxy. This parameter disables the normalization of request URL paths according to
 	// RFC 3986, conversion of \`\\\` to \`/\`, and decoding non-reserved %-encoded characters. When using L7 intentions
 	// with path match rules, we recommend enabling path normalization in order to avoid match rule circumvention with

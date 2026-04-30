@@ -19,18 +19,18 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/response"
-	"github.com/hashicorp/consul/agent/xds/testcommon"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/response"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/testcommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 var testTypeUrlToPrettyName = map[string]string{
@@ -992,7 +992,7 @@ func getAPIGatewayGoldenTestCases(t *testing.T) []goldenTestCase {
 
 	service := structs.NewServiceName("service", nil)
 	serviceUID := proxycfg.NewUpstreamIDFromServiceName(service)
-	serviceChain := discoverychain.TestCompileConfigEntries(t, "service", "default", "default", "dc1", connect.TestClusterID+".consul", nil, nil)
+	serviceChain := discoverychain.TestCompileConfigEntries(t, "service", "default", "default", "dc1", connect.TestClusterID+".dumb-consul", nil, nil)
 
 	return []goldenTestCase{
 		{
@@ -1746,7 +1746,7 @@ func getAPIGatewayPeeringGoldenTestCases(t *testing.T) []goldenTestCase {
 	// the xDS resources for the upstream service in peer cluster.
 
 	t.Helper()
-	const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.consul"
+	const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul"
 
 	// paymentService is the upstream service in peer cluster for gateway.
 	paymentService := structs.NewServiceName("paymentService", nil)
@@ -1783,7 +1783,7 @@ func getAPIGatewayPeeringGoldenTestCases(t *testing.T) []goldenTestCase {
 		"default",
 		"default",
 		"dc1",
-		connect.TestClusterID+".consul",
+		connect.TestClusterID+".dumb-consul",
 		// Below discovery chain (re)compile request is sent, so that
 		// we could get the updated localGatewayEndpoint.
 		//
@@ -2352,7 +2352,7 @@ func getCustomConfigurationGoldenTestCases(enterprise bool) []goldenTestCase {
 		{
 			// Same as above case, but inverts the recommended default value of InsecureDisablePathNormalization
 			// to show that the value is respected when explicitly set (does not set `normalize_path`).
-			name: "connect-proxy-with-mesh-config-request-normalization-all-consul-options",
+			name: "connect-proxy-with-mesh-config-request-normalization-all-dumb-consul-options",
 			create: func(t testinf.T) *proxycfg.ConfigSnapshot {
 				cfgSnap := proxycfg.TestConfigSnapshot(t, func(ns *structs.NodeService) {
 					// Ensure public inbound listener has HTTP filter so normalization applies.

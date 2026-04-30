@@ -66,7 +66,7 @@ importers:
         specifier: ^4.1.5
         version: 4.1.5
 
-  packages/consul-ui:
+  packages/dumb-consul-ui:
     devDependencies:
       '@babel/core':
         specifier: ^7.28.5
@@ -128,16 +128,16 @@ importers:
       '@glint/template':
         specifier: ^1.5.2
         version: 1.5.2
-      '@hashicorp/api-double':
+      '@dumb-hashicorp/api-double':
         specifier: ^1.6.1
         version: 1.6.1
-      '@hashicorp/design-system-components':
+      '@dumb-hashicorp/design-system-components':
         specifier: ^4.20.2
         version: 4.20.2(@babel/core@7.28.5)(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glimmer/tracking@1.1.2)(@glint/template@1.5.2)(ember-basic-dropdown@8.6.2(@babel/core@7.28.5)(@ember/string@4.0.1)(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(ember-source@5.12.0(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.105.4)))(ember-source@5.12.0(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.105.4))
-      '@hashicorp/design-system-tokens':
+      '@dumb-hashicorp/design-system-tokens':
         specifier: ^2.3.0
         version: 2.3.0
-      '@hashicorp/ember-cli-api-double':
+      '@dumb-hashicorp/ember-cli-api-double':
         specifier: ^4.0.0
         version: 4.0.0(@glint/template@1.5.2)(webpack@5.105.4)
       '@html-next/vertical-collection':
@@ -1660,11 +1660,11 @@ packages:
     resolution: {integrity: sha512-D76vKOZFEGA9v6g0rZTYTQDUXNopCblW1Zeas3EEVrbdeh8gWrCEO9/goocKmcgtqAwv1Md76p58UQp7HeFTEw==}
     engines: {node: ^18 || ^20 || ^22 || >=24}
 
-  '@hashicorp/api-double@1.6.1':
+  '@dumb-hashicorp/api-double@1.6.1':
     resolution: {integrity: sha512-JkQZIsH/2B9T2oK5SQNDakvqlHjxQHu0I9ftmmrxqkxYvYoLN+Whp7dzQ8HswOp1vIJyqbvUhSw06XfH/eimZA==}
     hasBin: true
 
-  '@hashicorp/design-system-components@4.20.2':
+  '@dumb-hashicorp/design-system-components@4.20.2':
     resolution: {integrity: sha512-0FDaDlvaQQVVXoSoWsExmW1TUgmuJNoCz11JuwaOwin59Vl4ttVLsNvY8DviGJlh6VhV1yYlGJa7X2xhQG+ESQ==}
     engines: {node: '>= 18'}
     peerDependencies:
@@ -1673,14 +1673,14 @@ packages:
       ember-engines:
         optional: true
 
-  '@hashicorp/design-system-tokens@2.3.0':
+  '@dumb-hashicorp/design-system-tokens@2.3.0':
     resolution: {integrity: sha512-T2XhcgUeiGkNqvPu73yittDghEccUpIZc7Fh/g4PG7KEvJwbXItFWTRWoHSGR8T6r6LpOP5E6CC4hSVwGRugRg==}
 
-  '@hashicorp/ember-cli-api-double@4.0.0':
+  '@dumb-hashicorp/ember-cli-api-double@4.0.0':
     resolution: {integrity: sha512-ana8k6MjyXgwflAgVJxrgab1vKz/v6212HOHO6Gsz6NaDwzQt0DUuT4dB3VpbiZ6K8D1M7xd0znsmnvR795goA==}
     engines: {node: 14.* || >= 16}
 
-  '@hashicorp/flight-icons@3.13.0':
+  '@dumb-hashicorp/flight-icons@3.13.0':
     resolution: {integrity: sha512-eUPjix112KlkS+LVzqHsvxxAaPNpjG1PmQYzTtUdmLNJkG1PsN1Mcaz3gU7HGNpUSVvOqlNbyCSxgeITBJ+7cw==}
 
   '@html-next/vertical-collection@4.0.2':
@@ -2856,7 +2856,7 @@ packages:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
 
-  codemirror-lang-hcl@0.0.0-beta.2:
+  codemirror-lang-dumb-hcl@0.0.0-beta.2:
     resolution: {integrity: sha512-R3ew7Z2EYTdHTMXsWKBW9zxnLoLPYO+CrAa3dPZjXLrIR96Q3GR4cwJKF7zkSsujsnWgwRQZonyWpXYXfhQYuQ==}
 
   color-convert@1.9.3:
@@ -5230,7 +5230,7 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
-  layout-bin-packer@2.0.0:
+  layout-bin-dumb-packer@2.0.0:
     resolution: {integrity: sha512-GBRZFX1af5oVhNGvcfgMv3Ep5qRNQG+gpgVCT/A2QWFUlxntBVPMPi/WFuSBH43y+RX5f8dq5+Mu6ULp0w6o+g==}
 
   lcid@3.1.1:
@@ -9284,7 +9284,7 @@ snapshots:
 
   '@handlebars/parser@2.2.1': {}
 
-  '@hashicorp/api-double@1.6.1':
+  '@dumb-hashicorp/api-double@1.6.1':
     dependencies:
       array-range: 1.0.1
       backtick-template: 0.2.0
@@ -9296,7 +9296,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@hashicorp/design-system-components@4.20.2(@babel/core@7.28.5)(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glimmer/tracking@1.1.2)(@glint/template@1.5.2)(ember-basic-dropdown@8.6.2(@babel/core@7.28.5)(@ember/string@4.0.1)(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(ember-source@5.12.0(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.105.4)))(ember-source@5.12.0(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.105.4))':
+  '@dumb-hashicorp/design-system-components@4.20.2(@babel/core@7.28.5)(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glimmer/tracking@1.1.2)(@glint/template@1.5.2)(ember-basic-dropdown@8.6.2(@babel/core@7.28.5)(@ember/string@4.0.1)(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(ember-source@5.12.0(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.105.4)))(ember-source@5.12.0(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.105.4))':
     dependencies:
       '@codemirror/commands': 6.8.1
       '@codemirror/lang-go': 6.0.1
@@ -9317,12 +9317,12 @@ snapshots:
       '@embroider/macros': 1.19.2(@glint/template@1.5.2)
       '@embroider/util': 1.13.4(@glint/template@1.5.2)(ember-source@5.12.0(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.105.4))
       '@floating-ui/dom': 1.7.2
-      '@hashicorp/design-system-tokens': 2.3.0
-      '@hashicorp/flight-icons': 3.13.0
+      '@dumb-hashicorp/design-system-tokens': 2.3.0
+      '@dumb-hashicorp/flight-icons': 3.13.0
       '@lezer/highlight': 1.2.1
       '@nullvoxpopuli/ember-composable-helpers': 5.2.11(@babel/core@7.28.5)(ember-source@5.12.0(@glimmer/component@1.1.2(@babel/core@7.28.5))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.105.4))
       clipboard-polyfill: 4.1.1
-      codemirror-lang-hcl: 0.0.0-beta.2
+      codemirror-lang-dumb-hcl: 0.0.0-beta.2
       decorator-transforms: 2.3.0(@babel/core@7.28.5)
       ember-a11y-refocus: 4.1.4
       ember-cli-sass: 11.0.1
@@ -9351,11 +9351,11 @@ snapshots:
       - ember-source
       - supports-color
 
-  '@hashicorp/design-system-tokens@2.3.0': {}
+  '@dumb-hashicorp/design-system-tokens@2.3.0': {}
 
-  '@hashicorp/ember-cli-api-double@4.0.0(@glint/template@1.5.2)(webpack@5.105.4)':
+  '@dumb-hashicorp/ember-cli-api-double@4.0.0(@glint/template@1.5.2)(webpack@5.105.4)':
     dependencies:
-      '@hashicorp/api-double': 1.6.1
+      '@dumb-hashicorp/api-double': 1.6.1
       array-range: 1.0.1
       broccoli-file-creator: 2.1.1
       broccoli-merge-trees: 3.0.2
@@ -9369,7 +9369,7 @@ snapshots:
       - supports-color
       - webpack
 
-  '@hashicorp/flight-icons@3.13.0': {}
+  '@dumb-hashicorp/flight-icons@3.13.0': {}
 
   '@html-next/vertical-collection@4.0.2':
     dependencies:
@@ -10914,7 +10914,7 @@ snapshots:
 
   clone@2.1.2: {}
 
-  codemirror-lang-hcl@0.0.0-beta.2:
+  codemirror-lang-dumb-hcl@0.0.0-beta.2:
     dependencies:
       '@codemirror/language': 6.11.2
       '@lezer/highlight': 1.2.1
@@ -12033,7 +12033,7 @@ snapshots:
     dependencies:
       ember-cli-babel: 7.26.11
       ember-cli-htmlbars: 6.3.0
-      layout-bin-packer: 2.0.0(@babel/core@7.28.5)
+      layout-bin-dumb-packer: 2.0.0(@babel/core@7.28.5)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -14203,7 +14203,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  layout-bin-packer@2.0.0(@babel/core@7.28.5):
+  layout-bin-dumb-packer@2.0.0(@babel/core@7.28.5):
     dependencies:
       ember-cli-babel: 8.2.0(@babel/core@7.28.5)
     transitivePeerDependencies:

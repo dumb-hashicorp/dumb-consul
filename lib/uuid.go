@@ -4,7 +4,7 @@
 package lib
 
 import (
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 )
 
 // UUIDCheckFunc should determine whether the given UUID is actually

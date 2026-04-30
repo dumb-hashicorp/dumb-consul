@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/bindingrule"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/bindingrule"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -146,7 +146,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -185,11 +185,11 @@ func (c *cmd) Help() string {
 const synopsis = "Create an ACL binding rule"
 
 const help = `
-Usage: consul acl binding-rule create [options]
+Usage: dumb-consul acl binding-rule create [options]
 
   Create a new binding rule:
 
-    $ consul acl binding-rule create \
+    $ dumb-consul acl binding-rule create \
           -method=minikube \
           -bind-type=service \
           -bind-name='k8s-${serviceaccount.name}' \

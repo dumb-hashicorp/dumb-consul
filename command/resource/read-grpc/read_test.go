@@ -10,10 +10,10 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/command/resource/apply-grpc"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/apply-grpc"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestResourceReadInvalidArgs(t *testing.T) {
@@ -42,9 +42,9 @@ func TestResourceReadInvalidArgs(t *testing.T) {
 			expectedErr:  errors.New("Failed to parse args: flag needs an argument: -f"),
 		},
 		"file not found": {
-			args:         []string{"-f=../testdata/test.hcl"},
+			args:         []string{"-f=../testdata/test.dumb-hcl"},
 			expectedCode: 1,
-			expectedErr:  errors.New("Failed to load data: Failed to read file: open ../testdata/test.hcl: no such file or directory"),
+			expectedErr:  errors.New("Failed to load data: Failed to read file: open ../testdata/test.dumb-hcl: no such file or directory"),
 		},
 		"provide type and name": {
 			args:         []string{"a.b.c"},
@@ -52,12 +52,12 @@ func TestResourceReadInvalidArgs(t *testing.T) {
 			expectedErr:  errors.New("Incorrect argument format: Must specify two arguments: resource type and resource name"),
 		},
 		"provide type and name with -f": {
-			args:         []string{"a.b.c", "name", "-f", "test.hcl"},
+			args:         []string{"a.b.c", "name", "-f", "test.dumb-hcl"},
 			expectedCode: 1,
 			expectedErr:  errors.New("Incorrect argument format: File argument is not needed when resource information is provided with the command"),
 		},
 		"provide type and name with -f and other flags": {
-			args:         []string{"a.b.c", "name", "-f", "test.hcl", "-namespace", "default"},
+			args:         []string{"a.b.c", "name", "-f", "test.dumb-hcl", "-namespace", "default"},
 			expectedCode: 1,
 			expectedErr:  errors.New("Incorrect argument format: File argument is not needed when resource information is provided with the command"),
 		},
@@ -95,7 +95,7 @@ func createResource(t *testing.T, port int) {
 		"-token=root",
 	}
 
-	args = append(args, []string{"-f=../testdata/demo.hcl"}...)
+	args = append(args, []string{"-f=../testdata/demo.dumb-hcl"}...)
 
 	code := applyCmd.Run(args)
 	require.Equal(t, 0, code)
@@ -129,8 +129,8 @@ func TestResourceRead(t *testing.T) {
 		errMsg       string
 	}{
 		{
-			name:         "read resource in hcl format",
-			args:         []string{"-f=../testdata/demo.hcl"},
+			name:         "read resource in dumb-hcl format",
+			args:         []string{"-f=../testdata/demo.dumb-hcl"},
 			expectedCode: 0,
 			errMsg:       "",
 		},

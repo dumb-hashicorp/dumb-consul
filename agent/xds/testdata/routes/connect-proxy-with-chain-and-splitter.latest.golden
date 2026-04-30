@@ -16,7 +16,7 @@
                 "prefix": "/big-side"
               },
               "route": {
-                "cluster": "big-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "big-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "idleTimeout": "0s",
                 "timeout": "10s"
               }
@@ -26,7 +26,7 @@
                 "prefix": "/lil-bit-side"
               },
               "route": {
-                "cluster": "lil-bit-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "lil-bit-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             },
             {
@@ -37,7 +37,7 @@
                 "weightedClusters": {
                   "clusters": [
                     {
-                      "name": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                      "name": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                       "requestHeadersToAdd": [
                         {
                           "appendAction": "OVERWRITE_IF_EXISTS_OR_ADD",
@@ -59,7 +59,7 @@
                       "weight": 100
                     },
                     {
-                      "name": "big-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                      "name": "big-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                       "requestHeadersToAdd": [
                         {
                           "appendAction": "OVERWRITE_IF_EXISTS_OR_ADD",
@@ -81,7 +81,7 @@
                       "weight": 9550
                     },
                     {
-                      "name": "goldilocks-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                      "name": "goldilocks-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                       "requestHeadersToAdd": [
                         {
                           "appendAction": "OVERWRITE_IF_EXISTS_OR_ADD",
@@ -103,7 +103,7 @@
                       "weight": 300
                     },
                     {
-                      "name": "lil-bit-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                      "name": "lil-bit-side.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                       "requestHeadersToAdd": [
                         {
                           "appendAction": "OVERWRITE_IF_EXISTS_OR_ADD",

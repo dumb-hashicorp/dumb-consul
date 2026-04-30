@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 // CompiledDiscoveryChain is the result from taking a set of related config
@@ -327,7 +327,7 @@ type DiscoveryTarget struct {
 
 	ConnectTimeout time.Duration `json:",omitempty"`
 
-	// External is true if this target is outside of this consul cluster.
+	// External is true if this target is outside of this dumb-consul cluster.
 	External bool `json:",omitempty"`
 
 	// SNI is the sni field to use when connecting to this set of endpoints

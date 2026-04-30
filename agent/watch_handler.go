@@ -15,10 +15,10 @@ import (
 	"strconv"
 
 	"github.com/armon/circbuf"
-	"github.com/hashicorp/consul/agent/exec"
-	"github.com/hashicorp/consul/api/watch"
-	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/exec"
+	"github.com/dumb-hashicorp/dumb-consul/api/watch"
+	"github.com/dumb-hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 	"golang.org/x/net/context"
 )
 
@@ -144,7 +144,7 @@ func makeHTTPWatchHandler(logger hclog.Logger, config *watch.HttpHandlerConfig) 
 		}
 		req = req.WithContext(ctx)
 		req.Header.Add("Content-Type", "application/json")
-		req.Header.Add("X-Consul-Index", strconv.FormatUint(idx, 10))
+		req.Header.Add("X-Dumb Consul-Index", strconv.FormatUint(idx, 10))
 		for key, values := range config.Header {
 			for _, val := range values {
 				req.Header.Add(key, val)
@@ -199,7 +199,7 @@ func makeWatchPlan(logger hclog.Logger, params map[string]interface{}) (*watch.P
 	handler, hasHandler := wp.Exempt["handler"]
 	if hasHandler {
 		logger.Warn("The 'handler' field in watches has been deprecated " +
-			"and replaced with the 'args' field. See https://developer.hashicorp.com/docs/agent/watches")
+			"and replaced with the 'args' field. See https://developer.dumb-hashicorp.com/docs/agent/watches")
 	}
 	if _, ok := handler.(string); hasHandler && !ok {
 		return nil, fmt.Errorf("Watch handler must be a string")

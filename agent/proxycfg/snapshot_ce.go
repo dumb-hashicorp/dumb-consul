@@ -5,7 +5,7 @@
 
 package proxycfg
 
-import "github.com/hashicorp/consul/agent/structs"
+import "github.com/dumb-hashicorp/dumb-consul/agent/structs"
 
 func (c *configSnapshotMeshGateway) hasEntExportedService(_ structs.ServiceName) bool {
 	return false

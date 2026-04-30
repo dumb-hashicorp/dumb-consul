@@ -9,8 +9,8 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/go-multierror"
 )
 
 const (
@@ -69,7 +69,7 @@ type JWTProviderConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -461,7 +461,7 @@ func (e *JWTProviderConfigEntry) CanRead(authz acl.Authorizer) error {
 
 	// allow service-identity tokens the ability to read jwt-providers
 	// this is a workaround to allow sidecar proxies to read the jwt-providers
-	// see issue: https://github.com/hashicorp/consul/issues/17886 for more details
+	// see issue: https://github.com/dumb-hashicorp/dumb-consul/issues/17886 for more details
 	err := authz.ToAllowAuthorizer().ServiceWriteAnyAllowed(&authzContext)
 	if err == nil {
 		return err

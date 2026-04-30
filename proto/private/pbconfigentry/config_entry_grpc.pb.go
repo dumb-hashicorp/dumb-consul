@@ -22,8 +22,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ConfigEntryService_GetResolvedExportedServices_FullMethodName = "/hashicorp.consul.internal.configentry.ConfigEntryService/GetResolvedExportedServices"
-	ConfigEntryService_GetImportedServices_FullMethodName         = "/hashicorp.consul.internal.configentry.ConfigEntryService/GetImportedServices"
+	ConfigEntryService_GetResolvedExportedServices_FullMethodName = "/dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntryService/GetResolvedExportedServices"
+	ConfigEntryService_GetImportedServices_FullMethodName         = "/dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntryService/GetImportedServices"
 )
 
 // ConfigEntryServiceClient is the client API for ConfigEntryService service.
@@ -147,7 +147,7 @@ func _ConfigEntryService_GetImportedServices_Handler(srv interface{}, ctx contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ConfigEntryService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "hashicorp.consul.internal.configentry.ConfigEntryService",
+	ServiceName: "dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntryService",
 	HandlerType: (*ConfigEntryServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

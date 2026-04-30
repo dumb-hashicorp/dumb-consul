@@ -6,10 +6,10 @@ package util
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
-// functions copied out of consul:internal/resource/*.go
+// functions copied out of dumb-consul:internal/resource/*.go
 
 // IDToString returns a string representation of pbresource.ID. This should not
 // be relied upon nor parsed and is provided just for debugging and logging

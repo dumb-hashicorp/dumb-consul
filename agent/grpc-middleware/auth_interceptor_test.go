@@ -30,13 +30,13 @@ func TestGRPCMiddleware_restrictPeeringEndpoints(t *testing.T) {
 			name:       "plaintext_always_allowed",
 			authInfo:   nil,
 			peeringSNI: "expected-server-sni",
-			endpoint:   "/hashicorp.consul.internal.peerstream.PeerStreamService/SomeEndpoint",
+			endpoint:   "/dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService/SomeEndpoint",
 		},
 		{
 			name:       "peering_not_enabled",
 			authInfo:   nil,
 			peeringSNI: "",
-			endpoint:   "/hashicorp.consul.internal.peerstream.PeerStreamService/SomeEndpoint",
+			endpoint:   "/dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService/SomeEndpoint",
 		},
 		{
 			name:       "deny_invalid_credentials",
@@ -63,7 +63,7 @@ func TestGRPCMiddleware_restrictPeeringEndpoints(t *testing.T) {
 				},
 			},
 			peeringSNI: "peering-sni",
-			endpoint:   "/hashicorp.consul.internal.peerstream.PeerStreamService/SomeEndpoint",
+			endpoint:   "/dumb-hashicorp.dumb-consul.internal.peerstream.PeerStreamService/SomeEndpoint",
 		},
 		{
 			name: "non_peering_sni_always_allowed",

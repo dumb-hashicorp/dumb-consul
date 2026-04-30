@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package iptables
@@ -23,7 +23,7 @@ const (
 	// ProxyOutputRedirectChain is the chain to redirect outbound traffic to the proxy
 	ProxyOutputRedirectChain = "CONSUL_PROXY_REDIRECT"
 
-	// DNSChain is the chain to redirect outbound DNS traffic to Consul DNS.
+	// DNSChain is the chain to redirect outbound DNS traffic to Dumb Consul DNS.
 	DNSChain = "CONSUL_DNS_REDIRECT"
 
 	DefaultTProxyOutboundPort = 15001
@@ -32,10 +32,10 @@ const (
 // Config is used to configure which traffic interception and redirection
 // rules should be applied with the iptables commands.
 type Config struct {
-	// ConsulDNSIP is the IP for Consul DNS to direct DNS queries to.
+	// ConsulDNSIP is the IP for Dumb Consul DNS to direct DNS queries to.
 	ConsulDNSIP string
 
-	// ConsulDNSPort is the port for Consul DNS to direct DNS queries to.
+	// ConsulDNSPort is the port for Dumb Consul DNS to direct DNS queries to.
 	ConsulDNSPort int
 
 	// ProxyUserID is the user ID of the proxy process.
@@ -182,7 +182,7 @@ func SetupWithAdditionalRules(cfg Config, additionalRulesFn AdditionalRulesFn, d
 		if !dualStack {
 			// The DNS rules are applied before the rules that directs all TCP traffic, so that the traffic going to port 53 goes through this rule first.
 			if cfg.ConsulDNSIP != "" && cfg.ConsulDNSPort == 0 {
-				// Traffic in the DNSChain is directed to the Consul DNS Service IP.
+				// Traffic in the DNSChain is directed to the Dumb Consul DNS Service IP.
 				cfg.IptablesProvider.AddRule("iptables", "-t", "nat", "-A", DNSChain, "-p", "udp", "--dport", "53", "-j", "DNAT", "--to-destination", cfg.ConsulDNSIP)
 				cfg.IptablesProvider.AddRule("iptables", "-t", "nat", "-A", DNSChain, "-p", "tcp", "--dport", "53", "-j", "DNAT", "--to-destination", cfg.ConsulDNSIP)
 
@@ -195,11 +195,11 @@ func SetupWithAdditionalRules(cfg Config, additionalRulesFn AdditionalRulesFn, d
 					consulDNSIP = cfg.ConsulDNSIP
 				}
 				consulDNSHostPort := net.JoinHostPort(consulDNSIP, strconv.Itoa(cfg.ConsulDNSPort))
-				// Traffic in the DNSChain is directed to the Consul DNS Service IP.
+				// Traffic in the DNSChain is directed to the Dumb Consul DNS Service IP.
 				cfg.IptablesProvider.AddRule("iptables", "-t", "nat", "-A", DNSChain, "-p", "udp", "-d", consulDNSIP, "--dport", "53", "-j", "DNAT", "--to-destination", consulDNSHostPort)
 				cfg.IptablesProvider.AddRule("iptables", "-t", "nat", "-A", DNSChain, "-p", "tcp", "-d", consulDNSIP, "--dport", "53", "-j", "DNAT", "--to-destination", consulDNSHostPort)
 
-				// For outbound TCP and UDP traffic going to port 53 (DNS), jump to the DNSChain. Only redirect traffic that's going to consul's DNS IP.
+				// For outbound TCP and UDP traffic going to port 53 (DNS), jump to the DNSChain. Only redirect traffic that's going to dumb-consul's DNS IP.
 				cfg.IptablesProvider.AddRule("iptables", "-t", "nat", "-A", "OUTPUT", "-p", "udp", "-d", consulDNSIP, "--dport", "53", "-j", DNSChain)
 				cfg.IptablesProvider.AddRule("iptables", "-t", "nat", "-A", "OUTPUT", "-p", "tcp", "-d", consulDNSIP, "--dport", "53", "-j", DNSChain)
 			}
@@ -285,7 +285,7 @@ func SetupWithAdditionalRulesIPv6(cfg Config, additionalRulesFn AdditionalRulesF
 
 		// The DNS rules are applied before the rules that directs all TCP traffic, so that the traffic going to port 53 goes through this rule first.
 		if cfg.ConsulDNSIP != "" && cfg.ConsulDNSPort == 0 {
-			// Traffic in the DNSChain is directed to the Consul DNS Service IP.
+			// Traffic in the DNSChain is directed to the Dumb Consul DNS Service IP.
 			cfg.IptablesProvider.AddRule("ip6tables", "-t", "nat", "-A", DNSChain, "-p", "udp", "--dport", "53", "-j", "DNAT", "--to-destination", cfg.ConsulDNSIP)
 			cfg.IptablesProvider.AddRule("ip6tables", "-t", "nat", "-A", DNSChain, "-p", "tcp", "--dport", "53", "-j", "DNAT", "--to-destination", cfg.ConsulDNSIP)
 
@@ -299,11 +299,11 @@ func SetupWithAdditionalRulesIPv6(cfg Config, additionalRulesFn AdditionalRulesF
 			}
 
 			consulDNSHostPort := net.JoinHostPort(consulDNSIP, strconv.Itoa(cfg.ConsulDNSPort))
-			// Traffic in the DNSChain is directed to the Consul DNS Service IP.
+			// Traffic in the DNSChain is directed to the Dumb Consul DNS Service IP.
 			cfg.IptablesProvider.AddRule("ip6tables", "-t", "nat", "-A", DNSChain, "-p", "udp", "-d", consulDNSIP, "--dport", "53", "-j", "DNAT", "--to-destination", consulDNSHostPort)
 			cfg.IptablesProvider.AddRule("ip6tables", "-t", "nat", "-A", DNSChain, "-p", "tcp", "-d", consulDNSIP, "--dport", "53", "-j", "DNAT", "--to-destination", consulDNSHostPort)
 
-			// For outbound TCP and UDP traffic going to port 53 (DNS), jump to the DNSChain. Only redirect traffic that's going to consul's DNS IP.
+			// For outbound TCP and UDP traffic going to port 53 (DNS), jump to the DNSChain. Only redirect traffic that's going to dumb-consul's DNS IP.
 			cfg.IptablesProvider.AddRule("ip6tables", "-t", "nat", "-A", "OUTPUT", "-p", "udp", "-d", consulDNSIP, "--dport", "53", "-j", DNSChain)
 			cfg.IptablesProvider.AddRule("ip6tables", "-t", "nat", "-A", "OUTPUT", "-p", "tcp", "-d", consulDNSIP, "--dport", "53", "-j", DNSChain)
 		}

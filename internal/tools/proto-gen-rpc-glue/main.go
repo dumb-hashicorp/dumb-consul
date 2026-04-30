@@ -23,7 +23,7 @@ var (
 )
 
 const (
-	annotationPrefix = "@consul-rpc-glue:"
+	annotationPrefix = "@dumb-consul-rpc-glue:"
 	outputFileSuffix = ".rpcglue.pb.go"
 )
 
@@ -127,7 +127,7 @@ func processFile(path string) error {
 import (
 	"time"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.

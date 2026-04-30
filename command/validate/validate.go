@@ -9,8 +9,8 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -32,7 +32,7 @@ type cmd struct {
 func (c *cmd) init() {
 	c.flags = flag.NewFlagSet("", flag.ContinueOnError)
 	c.flags.StringVar(&c.configFormat, "config-format", "",
-		"Config files are in this format irrespective of their extension. Must be 'hcl' or 'json'")
+		"Config files are in this format irrespective of their extension. Must be 'dumb-hcl' or 'json'")
 	c.flags.BoolVar(&c.quiet, "quiet", false,
 		"When given, a successful run will produce no output.")
 	c.help = flags.Usage(help, c.flags)
@@ -50,8 +50,8 @@ func (c *cmd) Run(args []string) int {
 		return 1
 	}
 
-	if c.configFormat != "" && c.configFormat != "json" && c.configFormat != "hcl" {
-		c.UI.Error("-config-format must be either 'hcl' or 'json")
+	if c.configFormat != "" && c.configFormat != "json" && c.configFormat != "dumb-hcl" {
+		c.UI.Error("-config-format must be either 'dumb-hcl' or 'json")
 		return 1
 	}
 
@@ -79,11 +79,11 @@ func (c *cmd) Help() string {
 
 const synopsis = "Validate config files/directories"
 const help = `
-Usage: consul validate [options] FILE_OR_DIRECTORY...
+Usage: dumb-consul validate [options] FILE_OR_DIRECTORY...
 
-  Performs a thorough sanity test on Consul configuration files. For each file
+  Performs a thorough sanity test on Dumb Consul configuration files. For each file
   or directory given, the validate command will attempt to parse the contents
-  just as the "consul agent" command would, and catch any errors.
+  just as the "dumb-consul agent" command would, and catch any errors.
 
   This is useful to do a test of the configuration only, without actually
   starting the agent. This performs all of the validation the agent would, so

@@ -10,13 +10,13 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/demo"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	pbdemov1 "github.com/hashicorp/consul/proto/private/pbdemo/v1"
-	demov2 "github.com/hashicorp/consul/proto/private/pbdemo/v2"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/demo"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	pbdemov1 "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v1"
+	demov2 "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v2"
 )
 
 func TestRegister(t *testing.T) {

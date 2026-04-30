@@ -13,8 +13,8 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 func TestEqualType(t *testing.T) {
@@ -670,7 +670,7 @@ func TestEqualStatusMap(t *testing.T) {
 		{nil, map[string]*pbresource.Status{}, true},
 		{
 			map[string]*pbresource.Status{
-				"consul.io/some-controller": {
+				"dumb-consul.io/some-controller": {
 					ObservedGeneration: generation,
 					Conditions: []*pbresource.Condition{
 						{
@@ -683,7 +683,7 @@ func TestEqualStatusMap(t *testing.T) {
 				},
 			},
 			map[string]*pbresource.Status{
-				"consul.io/some-controller": {
+				"dumb-consul.io/some-controller": {
 					ObservedGeneration: generation,
 					Conditions: []*pbresource.Condition{
 						{
@@ -699,7 +699,7 @@ func TestEqualStatusMap(t *testing.T) {
 		},
 		{
 			map[string]*pbresource.Status{
-				"consul.io/some-controller": {
+				"dumb-consul.io/some-controller": {
 					ObservedGeneration: generation,
 					Conditions: []*pbresource.Condition{
 						{
@@ -712,7 +712,7 @@ func TestEqualStatusMap(t *testing.T) {
 				},
 			},
 			map[string]*pbresource.Status{
-				"consul.io/some-controller": {
+				"dumb-consul.io/some-controller": {
 					ObservedGeneration: generation,
 					Conditions: []*pbresource.Condition{
 						{
@@ -728,7 +728,7 @@ func TestEqualStatusMap(t *testing.T) {
 		},
 		{
 			map[string]*pbresource.Status{
-				"consul.io/some-controller": {
+				"dumb-consul.io/some-controller": {
 					ObservedGeneration: generation,
 					Conditions: []*pbresource.Condition{
 						{
@@ -741,7 +741,7 @@ func TestEqualStatusMap(t *testing.T) {
 				},
 			},
 			map[string]*pbresource.Status{
-				"consul.io/some-controller": {
+				"dumb-consul.io/some-controller": {
 					ObservedGeneration: generation,
 					Conditions: []*pbresource.Condition{
 						{
@@ -752,7 +752,7 @@ func TestEqualStatusMap(t *testing.T) {
 						},
 					},
 				},
-				"consul.io/other-controller": {
+				"dumb-consul.io/other-controller": {
 					ObservedGeneration: generation,
 					Conditions: []*pbresource.Condition{
 						{

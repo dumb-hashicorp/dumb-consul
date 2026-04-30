@@ -18,7 +18,7 @@
               "typedConfig":  {
                 "@type":  "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "statPrefix":  "upstream.db.default.default.dc1",
-                "cluster":  "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster":  "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]
@@ -43,7 +43,7 @@
               "typedConfig":  {
                 "@type":  "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "statPrefix":  "upstream.prepared_query_geo-cache",
-                "cluster":  "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul"
+                "cluster":  "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]
@@ -105,7 +105,7 @@
                         {
                           "header":  "x-forwarded-client-cert",
                           "onHeaderPresent":  {
-                            "metadataNamespace":  "consul",
+                            "metadataNamespace":  "dumb-consul",
                             "key":  "trust-domain",
                             "regexValueRewrite":  {
                               "pattern":  {
@@ -118,7 +118,7 @@
                         {
                           "header":  "x-forwarded-client-cert",
                           "onHeaderPresent":  {
-                            "metadataNamespace":  "consul",
+                            "metadataNamespace":  "dumb-consul",
                             "key":  "partition",
                             "regexValueRewrite":  {
                               "pattern":  {
@@ -131,7 +131,7 @@
                         {
                           "header":  "x-forwarded-client-cert",
                           "onHeaderPresent":  {
-                            "metadataNamespace":  "consul",
+                            "metadataNamespace":  "dumb-consul",
                             "key":  "namespace",
                             "regexValueRewrite":  {
                               "pattern":  {
@@ -144,7 +144,7 @@
                         {
                           "header":  "x-forwarded-client-cert",
                           "onHeaderPresent":  {
-                            "metadataNamespace":  "consul",
+                            "metadataNamespace":  "dumb-consul",
                             "key":  "datacenter",
                             "regexValueRewrite":  {
                               "pattern":  {
@@ -157,7 +157,7 @@
                         {
                           "header":  "x-forwarded-client-cert",
                           "onHeaderPresent":  {
-                            "metadataNamespace":  "consul",
+                            "metadataNamespace":  "dumb-consul",
                             "key":  "service",
                             "regexValueRewrite":  {
                               "pattern":  {

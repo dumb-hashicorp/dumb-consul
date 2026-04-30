@@ -4,9 +4,9 @@
 package peering
 
 import (
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 // same certificate that appears in our connect tests
@@ -40,14 +40,14 @@ var validIPv6Address = "[2001:db8::1]:80"
 var invalidIPv6Address = "[2001:db8::1:80]"
 var ipv6AddressWithoutPort = "2001:db8::1"
 
-var validServerName = "server.consul"
+var validServerName = "server.dumb-consul"
 
 var validPeerID = "peer1"
 
 // TODO(peering): the test methods below are exposed to prevent duplication,
 // these should be removed at same time tests in peering_test get refactored.
 // XXX: we can't put the existing tests in service_test.go into the peering
-// package because it causes an import cycle by importing the top-level consul
+// package because it causes an import cycle by importing the top-level dumb-consul
 // package (which correctly imports the agent/rpc/peering package)
 
 // TestPeering is a test utility for generating a pbpeering.Peering with valid

@@ -9,15 +9,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	// activate testing auth method
-	_ "github.com/hashicorp/consul/agent/consul/authmethod/testauth"
+	_ "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/testauth"
 )
 
 func TestBindingRuleListCommand_noTabs(t *testing.T) {

@@ -37,7 +37,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://1c053652-8512-4373-90cf-5a7f6263a994.consul/ns/default/dc/dc2/svc/db"
+                    "exact": "spiffe://1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul/ns/default/dc/dc2/svc/db"
                   },
                   "sanType": "URI"
                 }
@@ -47,7 +47,7 @@
               }
             }
           },
-          "sni": "db.default.default.cluster-01.external.1c053652-8512-4373-90cf-5a7f6263a994.consul"
+          "sni": "db.default.default.cluster-01.external.1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul"
         }
       },
       "type": "EDS"
@@ -62,7 +62,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+      "name": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -84,13 +84,13 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/geo-cache-target"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/geo-cache-target"
                   },
                   "sanType": "URI"
                 },
                 {
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc2/svc/geo-cache-target"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc2/svc/geo-cache-target"
                   },
                   "sanType": "URI"
                 }
@@ -100,7 +100,7 @@
               }
             }
           },
-          "sni": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul"
+          "sni": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       },
       "type": "EDS"

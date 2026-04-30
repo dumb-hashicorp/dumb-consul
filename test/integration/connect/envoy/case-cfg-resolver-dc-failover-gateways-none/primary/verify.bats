@@ -31,7 +31,7 @@ load helpers
 }
 
 @test "gateway-secondary should be up and listening" {
-  retry_long nc -z consul-secondary-client:4432
+  retry_long nc -z dumb-consul-secondary-client:4432
 }
 
 ################
