@@ -7,22 +7,22 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestStore_CAConfig(t *testing.T) {
 	s := testStateStore(t)
 
 	expected := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"PrivateKey": "asdf",
 			"RootCert":   "qwer",
@@ -49,7 +49,7 @@ func TestStore_CAConfigCAS(t *testing.T) {
 	s := testStateStore(t)
 
 	expected := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 	}
 
 	if err := s.CASetConfig(0, expected); err != nil {
@@ -78,7 +78,7 @@ func TestStore_CAConfigCAS(t *testing.T) {
 	if idx != 1 {
 		t.Fatalf("bad: %d", idx)
 	}
-	if config.Provider != "consul" {
+	if config.Provider != "dumb-consul" {
 		t.Fatalf("bad: %#v", config)
 	}
 
@@ -106,7 +106,7 @@ func TestStore_CAConfigCAS(t *testing.T) {
 func TestStore_CAConfig_Snapshot_Restore(t *testing.T) {
 	s := testStateStore(t)
 	before := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"PrivateKey": "asdf",
 			"RootCert":   "qwer",
@@ -151,7 +151,7 @@ func TestStore_CAConfig_Snapshot_Restore(t *testing.T) {
 }
 
 // Make sure we handle the case of a leftover blank CA config that
-// got stuck in a snapshot, as in https://github.com/hashicorp/consul/issues/4954
+// got stuck in a snapshot, as in https://github.com/dumb-hashicorp/dumb-consul/issues/4954
 func TestStore_CAConfig_Snapshot_Restore_BlankConfig(t *testing.T) {
 	s := testStateStore(t)
 	before := &structs.CAConfiguration{}

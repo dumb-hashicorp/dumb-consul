@@ -16,8 +16,8 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/internal/protohcl/testproto"
-	"github.com/hashicorp/hcl/v2/hclparse"
+	"github.com/dumb-hashicorp/dumb-consul/internal/protohcl/testproto"
+	"github.com/dumb-hashicorp/hcl/v2/hclparse"
 )
 
 func TestPrimitives(t *testing.T) {
@@ -288,17 +288,17 @@ func TestOneOf(t *testing.T) {
 func TestAny(t *testing.T) {
 	hcl := `
 		any_val {
-		    type_url = "hashicorp.consul.internal.protohcl.testproto.Primitives"
+		    type_url = "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives"
 		    uint32_val = 42
 		}
 
 		any_list = [
 			{
-				type_url = "hashicorp.consul.internal.protohcl.testproto.Primitives"
+				type_url = "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives"
 				uint32_val = 123
 			},
 			{
-				type_url = "hashicorp.consul.internal.protohcl.testproto.Wrappers"
+				type_url = "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Wrappers"
 				uint32_val = 321
 			}
 		]
@@ -308,7 +308,7 @@ func TestAny(t *testing.T) {
 	err := Unmarshal([]byte(hcl), &out)
 	require.NoError(t, err)
 	require.NotNil(t, out.AnyVal)
-	require.Equal(t, out.AnyVal.TypeUrl, "hashicorp.consul.internal.protohcl.testproto.Primitives")
+	require.Equal(t, out.AnyVal.TypeUrl, "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives")
 
 	raw, err := anypb.UnmarshalNew(out.AnyVal, proto.UnmarshalOptions{})
 	require.NoError(t, err)
@@ -322,9 +322,9 @@ func TestAny(t *testing.T) {
 func TestAnyTypeDynamicWellKnown(t *testing.T) {
 	hcl := `
 		any_val {
-			type_url = "hashicorp.consul.internal.protohcl.testproto.DynamicWellKnown"
+			type_url = "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.DynamicWellKnown"
 		    any_val {
-				type_url = "hashicorp.consul.internal.protohcl.testproto.Primitives"
+				type_url = "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives"
 				uint32_val = 42
 			}
 		}
@@ -334,7 +334,7 @@ func TestAnyTypeDynamicWellKnown(t *testing.T) {
 	err := Unmarshal([]byte(hcl), &out)
 	require.NoError(t, err)
 	require.NotNil(t, out.AnyVal)
-	require.Equal(t, out.AnyVal.TypeUrl, "hashicorp.consul.internal.protohcl.testproto.DynamicWellKnown")
+	require.Equal(t, out.AnyVal.TypeUrl, "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.DynamicWellKnown")
 
 	raw, err := anypb.UnmarshalNew(out.AnyVal, proto.UnmarshalOptions{})
 	require.NoError(t, err)
@@ -355,7 +355,7 @@ func TestAnyTypeDynamicWellKnown(t *testing.T) {
 func TestAnyTypeNestedAndCollections(t *testing.T) {
 	hcl := `
 		any_val {
-			type_url = "hashicorp.consul.internal.protohcl.testproto.NestedAndCollections"
+			type_url = "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections"
 		    primitives {
 				uint32_val = 42
 			}
@@ -366,7 +366,7 @@ func TestAnyTypeNestedAndCollections(t *testing.T) {
 	err := Unmarshal([]byte(hcl), &out)
 	require.NoError(t, err)
 	require.NotNil(t, out.AnyVal)
-	require.Equal(t, out.AnyVal.TypeUrl, "hashicorp.consul.internal.protohcl.testproto.NestedAndCollections")
+	require.Equal(t, out.AnyVal.TypeUrl, "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.NestedAndCollections")
 
 	raw, err := anypb.UnmarshalNew(out.AnyVal, proto.UnmarshalOptions{})
 	require.NoError(t, err)
@@ -398,17 +398,17 @@ func TestAnyTypeErrors(t *testing.T) {
 			description: "type_url is unknown",
 			hcl: `
 			  any_val {
-				type_url = "hashicorp.consul.internal.protohcl.testproto.Integer"
+				type_url = "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Integer"
 				uint32_val = 42
 			}
 			`,
-			error: "error looking up type information for hashicorp.consul.internal.protohcl.testproto.Integer",
+			error: "error looking up type information for dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Integer",
 		},
 		{
 			description: "unknown field",
 			hcl: `
 			  any_val {
-				type_url = "hashicorp.consul.internal.protohcl.testproto.Primitives"
+				type_url = "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives"
 				int_val = 42
 			}
 			`,
@@ -587,7 +587,7 @@ func TestSkipFields(t *testing.T) {
 
 	hcl := `
 		any_val {
-			type_url = "hashicorp.consul.internal.protohcl.testproto.Primitives"
+			type_url = "dumb-hashicorp.dumb-consul.internal.protohcl.testproto.Primitives"
 			uint32_val = 10
 		}`
 

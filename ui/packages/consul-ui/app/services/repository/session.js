@@ -4,8 +4,8 @@
  */
 
 import { inject as service } from '@ember/service';
-import RepositoryService from 'consul-ui/services/repository';
-import dataSource from 'consul-ui/decorators/data-source';
+import RepositoryService from 'dumb-consul-ui/services/repository';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
 const modelName = 'session';
 export default class SessionService extends RepositoryService {

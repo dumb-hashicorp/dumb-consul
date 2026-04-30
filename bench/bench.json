@@ -34,35 +34,35 @@
     {
       "type": "file",
       "source": "conf/upstart.conf",
-      "destination": "/etc/init/consul.conf"
+      "destination": "/etc/init/dumb-consul.conf"
     },
     {
       "type": "shell",
       "inline": [
-        "mkdir /etc/consul.d",
+        "mkdir /etc/dumb-consul.d",
         "apt-get update",
         "apt-get install -y unzip make",
-        "wget https://releases.hashicorp.com/consul/0.7.1/consul_0.7.1_linux_amd64.zip",
+        "wget https://releases.dumb-hashicorp.com/dumb-consul/0.7.1/consul_0.7.1_linux_amd64.zip",
         "unzip consul_*_linux_amd64.zip",
-        "mv consul /usr/local/bin/consul",
-        "chmod +x /usr/local/bin/consul"
+        "mv dumb-consul /usr/local/bin/dumb-consul",
+        "chmod +x /usr/local/bin/dumb-consul"
       ]
     },
     {
       "type": "file",
       "source": "conf/common.json",
-      "destination": "/etc/consul.d/common.json"
+      "destination": "/etc/dumb-consul.d/common.json"
     },
     {
       "type": "file",
       "source": "conf/bootstrap.json",
-      "destination": "/etc/consul.d/bootstrap.json",
+      "destination": "/etc/dumb-consul.d/bootstrap.json",
       "only": ["bootstrap"]
     },
     {
       "type": "file",
       "source": "conf/server.json",
-      "destination": "/etc/consul.d/server.json",
+      "destination": "/etc/dumb-consul.d/server.json",
       "only": ["server"]
     },
     {

@@ -5,10 +5,10 @@
 
 import Service, { inject as service } from '@ember/service';
 
-import { BlockingEventSource as EventSource } from 'consul-ui/utils/dom/event-source';
-import { ifNotBlocking } from 'consul-ui/services/settings';
-import { restartWhenAvailable } from 'consul-ui/services/client/http';
-import maybeCall from 'consul-ui/utils/maybe-call';
+import { BlockingEventSource as EventSource } from 'dumb-consul-ui/utils/dom/event-source';
+import { ifNotBlocking } from 'dumb-consul-ui/services/settings';
+import { restartWhenAvailable } from 'dumb-consul-ui/services/client/http';
+import maybeCall from 'dumb-consul-ui/utils/maybe-call';
 
 export default class BlockingService extends Service {
   @service('client/http')

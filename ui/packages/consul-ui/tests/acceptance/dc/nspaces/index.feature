@@ -4,7 +4,7 @@ Feature: dc / nspaces / index: Nspaces List
   Background:
     Given settings from yaml
     ---
-    consul:token:
+    dumb-consul:token:
       SecretID: secret
       AccessorID: accessor
       Namespace: default
@@ -24,7 +24,7 @@ Feature: dc / nspaces / index: Nspaces List
       dc: dc-1
     ---
     Then the url should be /dc-1/namespaces
-    And the title should be "Namespaces - Consul"
+    And the title should be "Namespaces - Dumb Consul"
   Scenario:
     Then I see 3 nspace models
   Scenario: Searching the nspaces

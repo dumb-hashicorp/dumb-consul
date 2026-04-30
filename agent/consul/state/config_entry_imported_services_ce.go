@@ -6,8 +6,8 @@
 package state
 
 import (
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/proto/private/pbconfigentry"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry"
 )
 
 func prepareImportedServicesResponse(importedServices []importedService, entMeta *acl.EnterpriseMeta) []*pbconfigentry.ImportedService {

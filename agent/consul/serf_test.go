@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"testing"
@@ -10,7 +10,7 @@ import (
 func TestUserEventNames(t *testing.T) {
 	t.Parallel()
 	out := userEventName("foo")
-	if out != "consul:event:foo" {
+	if out != "dumb-consul:event:foo" {
 		t.Fatalf("bad: %v", out)
 	}
 	if !isUserEvent(out) {

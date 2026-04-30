@@ -27,11 +27,11 @@ EOT
 
   volumes {
     volume_name    = "{{.Node.DockerName}}"
-    container_path = "/consul/data"
+    container_path = "/dumb-consul/data"
   }
 
   volumes {
     volume_name = "{{.TLSVolumeName}}"
-    container_path = "/consul/config/certs"
+    container_path = "/dumb-consul/config/certs"
   }
 }

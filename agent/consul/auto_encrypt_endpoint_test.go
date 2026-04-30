@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"crypto/x509"
@@ -14,12 +14,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 func TestAutoEncryptSign(t *testing.T) {
@@ -98,7 +98,7 @@ func TestAutoEncryptSign(t *testing.T) {
 
 			cfg := test.Config
 			cfg.AutoTLS = true
-			cfg.Domain = "consul"
+			cfg.Domain = "dumb-consul"
 			codec, err := insecureRPCClient(s, cfg)
 			if test.ConnError {
 				require.Error(t, err, info)
@@ -186,7 +186,7 @@ func TestAutoEncryptSign_MismatchedDC(t *testing.T) {
 
 	cfg := tlsutil.Config{
 		AutoTLS: true,
-		Domain:  "consul",
+		Domain:  "dumb-consul",
 	}
 	codec, err := insecureRPCClient(s, cfg)
 	require.NoError(t, err)

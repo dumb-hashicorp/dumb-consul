@@ -18,10 +18,10 @@
   }
   .point {
     stroke: var(--token-color-foreground-disabled);
-    fill: var(--token-color-consul-foreground);
+    fill: var(--token-color-dumb-consul-foreground);
   }
   .lines rect {
-    fill: var(--token-color-consul-foreground);
+    fill: var(--token-color-dumb-consul-foreground);
     stroke: transparent;
     stroke-width: 5px;
   }

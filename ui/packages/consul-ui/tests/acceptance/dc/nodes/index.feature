@@ -88,7 +88,7 @@ Feature: dc / nodes / index
       dc: dc-1
     ---
     Then the url should be /dc-1/nodes
-    And the title should be "Nodes - Consul"
+    And the title should be "Nodes - Dumb Consul"
     And a GET request was made to "/v1/internal/ui/nodes?dc=dc-1&ns=@namespace"
     Then I see 3 node models
   Scenario: Seeing the leader in node listing
@@ -159,8 +159,8 @@ Feature: dc / nodes / index
       dc: dc-1
     ---
     Then the url should be /dc-1/nodes
-    And the title should be "Nodes - Consul"
+    And the title should be "Nodes - Dumb Consul"
     Then I see 0 node models
-    And I see the text "There don't seem to be any registered Nodes in this Consul cluster, or you may not have service:read and node:read permissions access to this view." in ".empty-state p"
+    And I see the text "There don't seem to be any registered Nodes in this Dumb Consul cluster, or you may not have service:read and node:read permissions access to this view." in ".empty-state p"
     And I see the "[data-test-empty-state-login]" element
 

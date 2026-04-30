@@ -142,8 +142,8 @@
         "Datacenter": "dc-gcp",
         "MeshGateway": {},
         "Subset": {},
-        "SNI": "virtual-admin-6.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul",
-        "Name": "virtual-admin-6.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul"
+        "SNI": "virtual-admin-6.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul",
+        "Name": "virtual-admin-6.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul"
       },
       "web.default.default.dc-aws": {
         "ID": "web.default.default.dc-aws",
@@ -155,8 +155,8 @@
           "Mode": "local"
         },
         "Subset": {},
-        "SNI": "web.default.default.dc-aws.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul",
-        "Name": "web.default.default.dc-aws.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul"
+        "SNI": "web.default.default.dc-aws.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul",
+        "Name": "web.default.default.dc-aws.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul"
       },
       "web.default.default.dc-gcp": {
         "ID": "web.default.default.dc-gcp",
@@ -166,8 +166,8 @@
         "Datacenter": "dc-gcp",
         "MeshGateway": {},
         "Subset": {},
-        "SNI": "web.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul",
-        "Name": "web.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul"
+        "SNI": "web.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul",
+        "Name": "web.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul"
       },
       "db.default.partition.dc-gcp": {
         "ID": "db.default.partition.dc-gcp",
@@ -177,8 +177,8 @@
         "Datacenter": "dc-gcp",
         "MeshGateway": {},
         "Subset": {},
-        "SNI": "db.default.partition.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul",
-        "Name": "db.default.partition.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul"
+        "SNI": "db.default.partition.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul",
+        "Name": "db.default.partition.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul"
       },
       "db.default.default.dc-gcp": {
         "ID": "db.default.default.dc-gcp",
@@ -188,8 +188,8 @@
         "Datacenter": "dc-gcp",
         "MeshGateway": {},
         "Subset": {},
-        "SNI": "db.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul",
-        "Name": "db.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.consul"
+        "SNI": "db.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul",
+        "Name": "db.default.default.dc-gcp.internal.ede9daf4-b641-3954-5a52-15f4fd666f6e.dumb-consul"
       }
     }
   }

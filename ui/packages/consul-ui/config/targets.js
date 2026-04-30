@@ -12,7 +12,7 @@
 
 // We are moving to a rough ~2 years back support rather than a 2 versions
 // back support. This strikes a balance between folks who need to get a job
-// done in the Consul UI and keeping the codebase modern and being able to use
+// done in the Dumb Consul UI and keeping the codebase modern and being able to use
 // modern Web Platform features. This is not set in stone but please consult
 // with the rest of the team before bumping forwards (or backwards)
 // We pin specific versions rather than use a relative value so we can choose

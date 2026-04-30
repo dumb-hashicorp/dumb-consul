@@ -24,7 +24,7 @@ Feature: dc / services / instances / navigation
         Node: node-0
       Checks:
       - Status: passing
-    # A listing of instances from 2 services would never happen in consul but
+    # A listing of instances from 2 services would never happen in dumb-consul but
     # this satisfies our mocking needs for the moment, until we have a 'And 1
     # proxy on request.0 from yaml', 'And 1 proxy on request.1 from yaml' or
     # similar

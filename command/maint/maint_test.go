@@ -9,8 +9,8 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestMaintCommand_noTabs(t *testing.T) {
@@ -70,7 +70,7 @@ func TestMaintCommand_NoArgs(t *testing.T) {
 	// Enable node maintenance
 	a.EnableNodeMaintenance("broken 2", "")
 
-	// Run consul maint with no args (list mode)
+	// Run dumb-consul maint with no args (list mode)
 	ui := cli.NewMockUi()
 	c := New(ui)
 	c.flags.SetOutput(ui.ErrorWriter)

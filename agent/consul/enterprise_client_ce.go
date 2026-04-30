@@ -3,10 +3,10 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/serf/serf"
 )
 
 type EnterpriseClient struct{}

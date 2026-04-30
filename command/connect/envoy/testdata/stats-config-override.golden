@@ -91,7 +91,7 @@
       "grpc_services": {
         "initial_metadata": [
           {
-            "key": "x-consul-token",
+            "key": "x-dumb-consul-token",
             "value": ""
           }
         ],

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
@@ -10,15 +10,15 @@ import (
 	hashstructure_v2 "github.com/mitchellh/hashstructure/v2"
 	"golang.org/x/exp/maps"
 
-	"github.com/hashicorp/go-bexpr"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
 )
 
 const MaximumManualVIPsPerService = 8
@@ -855,7 +855,7 @@ func (m *Internal) EventFire(args *structs.EventFireRequest,
 	// Set the query meta data
 	m.srv.SetQueryMeta(&reply.QueryMeta, args.Token)
 
-	// Add the consul prefix to the event name
+	// Add the dumb-consul prefix to the event name
 	eventName := userEventName(args.Name)
 
 	// Fire the event on all LAN segments

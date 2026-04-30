@@ -6,8 +6,8 @@ package metadata
 import (
 	"testing"
 
-	"github.com/hashicorp/go-version"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-version"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
 )
 

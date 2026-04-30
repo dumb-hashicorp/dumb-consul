@@ -10,8 +10,8 @@ import (
 	"strings"
 
 	"github.com/go-jose/go-jose/v3/jwt"
-	cleanhttp "github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/go-hclog"
+	cleanhttp "github.com/dumb-hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/go-hclog"
 	authv1 "k8s.io/api/authentication/v1"
 	client_metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	k8s "k8s.io/client-go/kubernetes"
@@ -20,8 +20,8 @@ import (
 	client_rest "k8s.io/client-go/rest"
 	cert "k8s.io/client-go/util/cert"
 
-	"github.com/hashicorp/consul/agent/consul/authmethod"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func init() {
@@ -40,7 +40,7 @@ const (
 	serviceAccountNameField      = "serviceaccount.name"
 	serviceAccountUIDField       = "serviceaccount.uid"
 
-	serviceAccountServiceNameAnnotation = "consul.hashicorp.com/service-name"
+	serviceAccountServiceNameAnnotation = "dumb-consul.dumb-hashicorp.com/service-name"
 )
 
 type Config struct {

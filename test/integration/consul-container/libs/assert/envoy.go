@@ -14,14 +14,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/go-cleanhttp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 // GetEnvoyListenerTCPFilters validates that proxy was configured with tcp protocol and one rbac listener filter
@@ -248,7 +248,7 @@ func validateEnvoyCertificateURI(t *testing.T, dump string, serviceName string) 
 	}
 
 	for _, cert := range results {
-		cert, err := regexp.MatchString(fmt.Sprintf("spiffe://[a-zA-Z0-9-]+.consul/ns/%s/dc/%s/svc/%s", "default", "dc1", serviceName), cert)
+		cert, err := regexp.MatchString(fmt.Sprintf("spiffe://[a-zA-Z0-9-]+.dumb-consul/ns/%s/dc/%s/svc/%s", "default", "dc1", serviceName), cert)
 		require.NoError(t, err)
 		assert.True(t, cert)
 	}
@@ -340,7 +340,7 @@ func sanitizeResult(s string) []string {
 }
 
 // AssertServiceHasHealthyInstances asserts the number of instances of service equals count for a given service.
-// https://developer.hashicorp.com/consul/docs/connect/config-entries/service-resolver#onlypassing
+// https://developer.dumb-hashicorp.com/dumb-consul/docs/connect/config-entries/service-resolver#onlypassing
 func AssertServiceHasHealthyInstances(t *testing.T, node libcluster.Agent, service string, onlypassing bool, count int) {
 	failer := func() *retry.Timer {
 		return &retry.Timer{Timeout: 10 * time.Second, Wait: 500 * time.Millisecond}

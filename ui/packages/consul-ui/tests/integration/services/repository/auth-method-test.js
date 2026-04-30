@@ -4,7 +4,7 @@
  */
 
 import { setupTest } from 'ember-qunit';
-import repo from 'consul-ui/tests/helpers/repo';
+import repo from 'dumb-consul-ui/tests/helpers/repo';
 import { module, skip, test } from 'qunit';
 
 module(`Integration | Service | auth-method`, function (hooks) {

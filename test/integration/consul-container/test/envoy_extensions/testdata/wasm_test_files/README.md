@@ -9,6 +9,6 @@ In order to get around this, we are just building the wasm test file and checkin
 To build the wasm test file, 
 
 ```bash
-~/consul/test/integration/consul-container/test/envoy_extensions/testdata/wasm_test_files
+~/dumb-consul/test/integration/dumb-consul-container/test/envoy_extensions/testdata/wasm_test_files
 > docker run -v ./:/wasm --rm $(docker build -q .)
 ```

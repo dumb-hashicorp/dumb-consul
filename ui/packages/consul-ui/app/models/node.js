@@ -85,6 +85,6 @@ export default class Node extends Model {
   }
 
   get Version() {
-    return this.Meta?.['consul-version'] ?? '';
+    return this.Meta?.['dumb-consul-version'] ?? '';
   }
 }

@@ -22,12 +22,12 @@ import (
 	"google.golang.org/grpc"
 	gpeer "google.golang.org/grpc/peer"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestHTTP_Peering_Integration(t *testing.T) {
@@ -199,7 +199,7 @@ advertise_addr_wan = "` + ip + `" `
 
 	testutil.RunStep(t, "no server experienced the server resolution error", func(t *testing.T) {
 		// Check them all for the bad error
-		const grpcError = `failed to find Consul server for global address`
+		const grpcError = `failed to find Dumb Consul server for global address`
 
 		var buf bytes.Buffer
 		buf.ReadFrom(&buf1)
@@ -284,7 +284,7 @@ func TestHTTP_Peering_GenerateToken(t *testing.T) {
 
 		require.NotNil(t, token.CA)
 		require.Equal(t, []string{fmt.Sprintf("127.0.0.1:%d", a.config.GRPCTLSPort)}, token.ServerAddresses)
-		require.Equal(t, "server.dc1.peering.11111111-2222-3333-4444-555555555555.consul", token.ServerName)
+		require.Equal(t, "server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul", token.ServerName)
 
 		// The PeerID in the token is randomly generated so we don't assert on its value.
 		require.NotEmpty(t, token.PeerID)
@@ -318,7 +318,7 @@ func TestHTTP_Peering_GenerateToken(t *testing.T) {
 		require.NotNil(t, token.CA)
 		require.Equal(t, []string{externalAddress}, token.ManualServerAddresses)
 		require.Equal(t, []string{fmt.Sprintf("127.0.0.1:%d", a.config.GRPCTLSPort)}, token.ServerAddresses)
-		require.Equal(t, "server.dc1.peering.11111111-2222-3333-4444-555555555555.consul", token.ServerName)
+		require.Equal(t, "server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul", token.ServerName)
 
 		// The PeerID in the token is randomly generated so we don't assert on its value.
 		require.NotEmpty(t, token.PeerID)
@@ -566,9 +566,9 @@ func TestHTTP_Peering_Read(t *testing.T) {
 		require.Equal(t, http.StatusOK, resp.Code)
 
 		httpResult := resp.Result()
-		_, ok := httpResult.Header["X-Consul-Index"]
+		_, ok := httpResult.Header["X-Dumb Consul-Index"]
 		require.True(t, ok)
-		idx, err := strconv.Atoi(httpResult.Header.Get("X-Consul-Index"))
+		idx, err := strconv.Atoi(httpResult.Header.Get("X-Dumb Consul-Index"))
 		require.NoError(t, err)
 		require.Greater(t, idx, 0) // the raft index is not deterministic at this point
 
@@ -627,7 +627,7 @@ func TestHTTP_Peering_Read(t *testing.T) {
 		}
 
 		require.Equal(t, "boo!", out.Meta["spooky-key"])
-		require.Equal(t, "blocking-query", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "blocking-query", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 }
 
@@ -741,9 +741,9 @@ func TestHTTP_Peering_List(t *testing.T) {
 		require.Equal(t, http.StatusOK, resp.Code)
 
 		httpResult := resp.Result()
-		_, ok := httpResult.Header["X-Consul-Index"]
+		_, ok := httpResult.Header["X-Dumb Consul-Index"]
 		require.True(t, ok)
-		idx, err := strconv.Atoi(httpResult.Header.Get("X-Consul-Index"))
+		idx, err := strconv.Atoi(httpResult.Header.Get("X-Dumb Consul-Index"))
 		require.NoError(t, err)
 		require.Greater(t, idx, 0) // the raft index is not deterministic at this point
 

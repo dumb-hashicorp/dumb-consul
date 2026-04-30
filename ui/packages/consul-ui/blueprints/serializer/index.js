@@ -6,7 +6,7 @@
 'use strict';
 
 module.exports = {
-  description: 'Generates a Consul HTTP ember-data serializer',
+  description: 'Generates a Dumb Consul HTTP ember-data serializer',
 
   availableOptions: [{ name: 'base-class', type: String }],
 

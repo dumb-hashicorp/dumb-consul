@@ -1,11 +1,11 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <div
   ...attributes
-  class="consul-intention-permission-form"
+  class="dumb-consul-intention-permission-form"
   {{fix-super-select-aria}}
 >
 <FormGroup
@@ -129,18 +129,18 @@ as |group|>
   <fieldset>
     <h2>Headers</h2>
 
-    <Consul::Intention::Permission::Header::List
+    <Dumb Consul::Intention::Permission::Header::List
       @items={{changeset-get this.changeset 'HTTP.Header'}}
       @ondelete={{action 'delete' 'HTTP.Header' this.changeset}}
     as |headerList|>
 
-    </Consul::Intention::Permission::Header::List>
+    </Dumb Consul::Intention::Permission::Header::List>
 
-    <Consul::Intention::Permission::Header::Form
+    <Dumb Consul::Intention::Permission::Header::Form
       @onsubmit={{action 'add' 'HTTP.Header' this.changeset}}
     as |headerForm|>
       <Ref @target={{this}} @name="headerForm" @value={{headerForm}} />
-    </Consul::Intention::Permission::Header::Form>
+    </Dumb Consul::Intention::Permission::Header::Form>
 
     <Hds::ButtonSet>
       <Hds::Button

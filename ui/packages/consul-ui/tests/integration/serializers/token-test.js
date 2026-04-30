@@ -5,15 +5,15 @@
 
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import { get } from 'consul-ui/tests/helpers/api';
+import { get } from 'dumb-consul-ui/tests/helpers/api';
 import {
   HEADERS_SYMBOL as META,
   HEADERS_DATACENTER as DC,
   HEADERS_NAMESPACE as NSPACE,
   HEADERS_PARTITION as PARTITION,
-} from 'consul-ui/utils/http/consul';
+} from 'dumb-consul-ui/utils/http/dumb-consul';
 
-import { createPolicies } from 'consul-ui/tests/helpers/normalizers';
+import { createPolicies } from 'dumb-consul-ui/tests/helpers/normalizers';
 
 module('Integration | Serializer | token', function (hooks) {
   setupTest(hooks);

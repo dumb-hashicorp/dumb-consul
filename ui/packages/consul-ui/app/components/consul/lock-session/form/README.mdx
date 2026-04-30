@@ -1,4 +1,4 @@
-# Consul::LockSession::Form
+# Dumb Consul::LockSession::Form
 
 A component for rendering and deleting/invalidating a Lock Session.
 
@@ -9,7 +9,7 @@ notifications when pressing the delete/invalidate button.
 <DataSource
   @src={{uri "/partition/default/dc-1/sessions/for-key/my-kv"}} as |source|>
   {{#if source.data.ID}}
-    <Consul::LockSession::Form
+    <Dumb Consul::LockSession::Form
       @item={{source.data}}
       @ondelete={{noop}}
     />

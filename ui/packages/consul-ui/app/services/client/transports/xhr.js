@@ -5,10 +5,10 @@
 
 import Service from '@ember/service';
 
-import createHeaders from 'consul-ui/utils/http/create-headers';
-import createXHR from 'consul-ui/utils/http/xhr';
-import Request from 'consul-ui/utils/http/request';
-import HTTPError from 'consul-ui/utils/http/error';
+import createHeaders from 'dumb-consul-ui/utils/http/create-headers';
+import createXHR from 'dumb-consul-ui/utils/http/xhr';
+import Request from 'dumb-consul-ui/utils/http/request';
+import HTTPError from 'dumb-consul-ui/utils/http/error';
 
 const xhr = createXHR(createHeaders());
 

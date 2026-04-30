@@ -4,8 +4,8 @@
  */
 
 import { module, skip, test } from 'qunit';
-import createURL from 'consul-ui/utils/http/create-url';
-import createQueryParams from 'consul-ui/utils/http/create-query-params';
+import createURL from 'dumb-consul-ui/utils/http/create-url';
+import createQueryParams from 'dumb-consul-ui/utils/http/create-query-params';
 
 module('Unit | Utils | http/create-url', function () {
   skip("it isn't isolated enough, mock encodeURIComponent");

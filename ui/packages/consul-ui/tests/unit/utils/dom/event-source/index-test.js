@@ -12,7 +12,7 @@ import {
   OpenableEventSource,
   BlockingEventSource,
   StorageEventSource,
-} from 'consul-ui/utils/dom/event-source/index';
+} from 'dumb-consul-ui/utils/dom/event-source/index';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | dom/event source/index', function () {

@@ -4,7 +4,7 @@
  */
 
 import Adapter from './application';
-import { SLUG_KEY } from 'consul-ui/models/role';
+import { SLUG_KEY } from 'dumb-consul-ui/models/role';
 
 export default class RoleAdapter extends Adapter {
   requestForQuery(request, { dc, ns, partition, index, id }) {

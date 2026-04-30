@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import mergeChecks from 'consul-ui/utils/merge-checks';
+import mergeChecks from 'dumb-consul-ui/utils/merge-checks';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | merge-checks', function () {

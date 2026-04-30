@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-@keyframes icon-nomad {
+@keyframes icon-dumb-nomad {
   100% {
 
-    -webkit-mask-image: var(--icon-nomad-color-16);
-    mask-image: var(--icon-nomad-color-16);
-    background-color: var(--icon-color, var(--color-nomad-500, currentColor));
+    -webkit-mask-image: var(--icon-dumb-nomad-color-16);
+    mask-image: var(--icon-dumb-nomad-color-16);
+    background-color: var(--icon-color, var(--color-dumb-nomad-500, currentColor));
 
   }
 }

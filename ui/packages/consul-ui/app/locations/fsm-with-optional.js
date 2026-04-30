@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { env } from 'consul-ui/env';
+import { env } from 'dumb-consul-ui/env';
 const OPTIONAL = {};
 if (env('CONSUL_PARTITIONS_ENABLED')) {
   OPTIONAL.partition = /^_([a-zA-Z0-9]([a-zA-Z0-9-]{0,62}[a-zA-Z0-9])?)$/;

@@ -11,7 +11,7 @@ Feature: dc / acls / tokens / own-no-delete: Your current token has no delete bu
   Scenario: On the listing page
     Given settings from yaml
     ---
-    consul:token:
+    dumb-consul:token:
       SecretID: secret
       AccessorID: accessor
       Namespace: default
@@ -29,7 +29,7 @@ Feature: dc / acls / tokens / own-no-delete: Your current token has no delete bu
     And "[data-notification]" has the "hds-alert--color-success" class
     Then I have settings like yaml
     ---
-    consul:token: "{\"AccessorID\":\"token\",\"SecretID\":\"ee52203d-989f-4f7a-ab5a-2bef004164ca\",\"Namespace\":\"@namespace\",\"Partition\":\"default\"}"
+    dumb-consul:token: "{\"AccessorID\":\"token\",\"SecretID\":\"ee52203d-989f-4f7a-ab5a-2bef004164ca\",\"Namespace\":\"@namespace\",\"Partition\":\"default\"}"
     ---
     And I click actions on the tokens
     Then I don't see delete on the tokens

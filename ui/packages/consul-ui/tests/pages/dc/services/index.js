@@ -23,7 +23,7 @@ export default function (
   };
   return {
     visit: visitable('/:dc/services'),
-    services: collection('.consul-service-list > ul > li:not(:first-child)', service),
+    services: collection('.dumb-consul-service-list > ul > li:not(:first-child)', service),
     home: clickable('[data-test-home]'),
     sort: popoverSelect('[data-test-sort-control]'),
   };

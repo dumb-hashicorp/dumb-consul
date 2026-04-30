@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -28,8 +28,8 @@
   {{/if}}
 </BlockSlot>
 <BlockSlot @name='details'>
-  <Consul::Kind @item={{@item}} />
-  <Consul::ExternalSource @item={{@item}} />
+  <Dumb Consul::Kind @item={{@item}} />
+  <Dumb Consul::ExternalSource @item={{@item}} />
   {{#if
     (and
       (not-eq @item.InstanceCount 0)
@@ -43,7 +43,7 @@
   {{/if}}
   {{! we are displaying imported-services - don't show bucket-list }}
   {{#unless @isPeerDetail}}
-    <Consul::Bucket::List @item={{@item}} @nspace={{@nspace}} @partition={{@partition}} />
+    <Dumb Consul::Bucket::List @item={{@item}} @nspace={{@nspace}} @partition={{@partition}} />
   {{/unless}}
   {{#if (eq @item.Kind 'terminating-gateway')}}
     <span data-test-associated-service-count>
@@ -58,7 +58,7 @@
   {{/if}}
   {{#if (or @item.ConnectedWithGateway @item.ConnectedWithProxy)}}
     <dl class='mesh'>
-      <dt {{hds-tooltip "This service uses a proxy for the Consul service mesh" options=(detached-tooltip-options)}}></dt>
+      <dt {{hds-tooltip "This service uses a proxy for the Dumb Consul service mesh" options=(detached-tooltip-options)}}></dt>
       {{#if (and @item.ConnectedWithGateway @item.ConnectedWithProxy)}}
         <dd data-test-mesh>
           in service mesh with proxy and gateway

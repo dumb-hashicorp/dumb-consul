@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-.consul-intention-permission-form {
+.dumb-consul-intention-permission-form {
   h2 {
     padding-top: 1.4em;
     margin-top: 0.2em;
     margin-bottom: 0.6em;
   }
-  .consul-intention-permission-header-form {
+  .dumb-consul-intention-permission-header-form {
     margin-top: 10px;
   }
   fieldset:nth-child(2) > div,
-  .consul-intention-permission-header-form fieldset > div {
+  .dumb-consul-intention-permission-header-form fieldset > div {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     grid-gap: 12px;

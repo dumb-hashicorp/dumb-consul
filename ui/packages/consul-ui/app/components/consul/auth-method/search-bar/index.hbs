@@ -1,28 +1,28 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<SearchBar class='consul-auth-method-search-bar' ...attributes @filter={{@filter}}>
+<SearchBar class='dumb-consul-auth-method-search-bar' ...attributes @filter={{@filter}}>
   <:status as |search|>
 
     {{#let
       (t
-        (concat 'components.consul.auth-method.search-bar.' search.status.key '.name')
+        (concat 'components.dumb-consul.auth-method.search-bar.' search.status.key '.name')
         default=(array
-          (concat 'common.search.' search.status.key) (concat 'common.consul.' search.status.key)
+          (concat 'common.search.' search.status.key) (concat 'common.dumb-consul.' search.status.key)
         )
       )
       (t
         (concat
-          'components.consul.auth-method.search-bar.'
+          'components.dumb-consul.auth-method.search-bar.'
           search.status.key
           '.options.'
           search.status.value
         )
         default=(array
           (concat 'common.search.' search.status.value)
-          (concat 'common.consul.' search.status.value)
+          (concat 'common.dumb-consul.' search.status.value)
           (concat 'common.brand.' search.status.value)
         )
       )
@@ -60,7 +60,7 @@
           {{#let components.Optgroup components.Option as |Optgroup Option|}}
             {{#each @filter.searchproperty.default as |prop|}}
               <Option @value={{prop}} @selected={{includes prop @filter.searchproperty.value}}>
-                {{t (concat 'common.consul.' (lowercase prop))}}
+                {{t (concat 'common.dumb-consul.' (lowercase prop))}}
               </Option>
             {{/each}}
           {{/let}}
@@ -78,7 +78,7 @@
     >
       <BlockSlot @name='selected'>
         <span>
-          {{t 'components.consul.auth-method.search-bar.kind.name'}}
+          {{t 'components.dumb-consul.auth-method.search-bar.kind.name'}}
         </span>
       </BlockSlot>
       <BlockSlot @name='options'>
@@ -111,7 +111,7 @@
     >
       <BlockSlot @name='selected'>
         <span>
-          {{t 'components.consul.auth-method.search-bar.locality.name'}}
+          {{t 'components.dumb-consul.auth-method.search-bar.locality.name'}}
         </span>
       </BlockSlot>
       <BlockSlot @name='options'>
@@ -122,7 +122,7 @@
               @value={{option}}
               @selected={{includes option @filter.types}}
             >
-              {{t (concat 'components.consul.auth-method.search-bar.locality.options.' option)}}
+              {{t (concat 'components.dumb-consul.auth-method.search-bar.locality.options.' option)}}
             </Option>
           {{/each}}
         {{/let}}

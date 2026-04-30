@@ -7,15 +7,15 @@ Feature: dc / services / instances / show: Show Service Instance
     - Service:
         ID: service-0-with-id
         Meta:
-          external-source: consul
+          external-source: dumb-consul
       Node:
         Node: node-0
     - Service:
         ID: service-1-with-id
         Tags: ['Tag1', 'Tag2']
         Meta:
-          consul-dashboard-url: http://url.com
-          external-source: nomad
+          dumb-consul-dashboard-url: http://url.com
+          external-source: dumb-nomad
           test-meta: test-meta-value
       Node:
         Node: another-node
@@ -70,7 +70,7 @@ Feature: dc / services / instances / show: Show Service Instance
       id: service-1-with-id
     ---
     Then the url should be /dc1/services/service-0/instances/another-node/service-1-with-id/health-checks
-    Then I see externalSource like "nomad"
+    Then I see externalSource like "dumb-nomad"
     And I see the text "another-node" in "[data-test-service-instance-node-name]"
 
     And I don't see upstreams on the tabs
@@ -83,7 +83,7 @@ Feature: dc / services / instances / show: Show Service Instance
     Then I see the text "Tag1" in "[data-test-tags] span:nth-child(1)"
     Then I see the text "Tag2" in "[data-test-tags] span:nth-child(2)"
     And I see 3 of the metadata object
-    And the title should be "service-1-with-id - Consul"
+    And the title should be "service-1-with-id - Dumb Consul"
 
   Scenario: A Service instance warns when deregistered whilst blocking
     Given 1 proxy model from yaml
@@ -94,7 +94,7 @@ Feature: dc / services / instances / show: Show Service Instance
     ---
     Given settings from yaml
     ---
-    consul:client:
+    dumb-consul:client:
       blocking: 1
       throttle: 200
     ---

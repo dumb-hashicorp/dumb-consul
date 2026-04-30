@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import callableType from 'consul-ui/utils/callable-type';
+import callableType from 'dumb-consul-ui/utils/callable-type';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | callable type', function () {

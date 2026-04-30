@@ -14,13 +14,13 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/serf/coordinate"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 type mockCluster struct {
@@ -62,7 +62,7 @@ func (m *mockCluster) AddMember(dc string, name string, coord *coordinate.Coordi
 		Port: 8300,
 		Tags: map[string]string{
 			"dc":    dc,
-			"role":  "consul",
+			"role":  "dumb-consul",
 			"port":  "8300",
 			"build": "0.8.0",
 			"vsn":   "3",
@@ -518,7 +518,7 @@ func TestRouter_FindLANServer(t *testing.T) {
 	r := testRouter(t, "dc0")
 
 	lan := newMockCluster("node4.dc0")
-	lan.AddLANMember("dc0", "node0", "consul", librtt.GenerateCoordinate(10*time.Millisecond))
+	lan.AddLANMember("dc0", "node0", "dumb-consul", librtt.GenerateCoordinate(10*time.Millisecond))
 	lan.AddLANMember("dc0", "node1", "", librtt.GenerateCoordinate(20*time.Millisecond))
 	lan.AddLANMember("dc0", "node2", "", librtt.GenerateCoordinate(21*time.Millisecond))
 

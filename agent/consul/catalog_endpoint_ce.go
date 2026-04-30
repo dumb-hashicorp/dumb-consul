@@ -3,11 +3,11 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func virtualIPForServicePort(_ *state.Store, _ structs.PeeredServiceName, _ string) (string, bool, error) {

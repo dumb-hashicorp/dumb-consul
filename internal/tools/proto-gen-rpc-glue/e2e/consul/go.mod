@@ -1,4 +1,4 @@
-module github.com/hashicorp/consul
+module github.com/dumb-hashicorp/dumb-consul
 
 go 1.26
 

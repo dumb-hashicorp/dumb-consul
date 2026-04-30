@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -10,8 +10,8 @@
   (can "choose partitions" dc=@dc)
   as |SNL partition isManaging canChoose|
 }}
-  <SNL.Title class="consul-side-nav__selector-title">{{t
-      "components.hashicorp-consul.side-nav.partitions.title"
+  <SNL.Title class="dumb-consul-side-nav__selector-title">{{t
+      "components.dumb-hashicorp-dumb-consul.side-nav.partitions.title"
     }}</SNL.Title>
   <NavSelector
     @list={{@list}}
@@ -20,11 +20,11 @@
     @key="Name"
     @icon="users"
     @placeholder={{t
-      "components.hashicorp-consul.side-nav.partitions.placeholder"
+      "components.dumb-hashicorp-dumb-consul.side-nav.partitions.placeholder"
     }}
     @footerLink={{href-to "dc.partitions" @dc.Name}}
     @footerLinkText={{t
-      "components.hashicorp-consul.side-nav.partitions.footer"
+      "components.dumb-hashicorp-dumb-consul.side-nav.partitions.footer"
     }}
     @disabled={{not canChoose}}
     data-test-partition-menu

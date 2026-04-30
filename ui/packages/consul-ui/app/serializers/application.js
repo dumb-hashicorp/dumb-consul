@@ -12,12 +12,12 @@ import {
   HEADERS_DATACENTER as HTTP_HEADERS_DATACENTER,
   HEADERS_NAMESPACE as HTTP_HEADERS_NAMESPACE,
   HEADERS_PARTITION as HTTP_HEADERS_PARTITION,
-} from 'consul-ui/utils/http/consul';
-import { CACHE_CONTROL as HTTP_HEADERS_CACHE_CONTROL } from 'consul-ui/utils/http/headers';
-import { FOREIGN_KEY as DATACENTER_KEY } from 'consul-ui/models/dc';
-import { NSPACE_KEY } from 'consul-ui/models/nspace';
-import { PARTITION_KEY } from 'consul-ui/models/partition';
-import createFingerprinter from 'consul-ui/utils/create-fingerprinter';
+} from 'dumb-consul-ui/utils/http/dumb-consul';
+import { CACHE_CONTROL as HTTP_HEADERS_CACHE_CONTROL } from 'dumb-consul-ui/utils/http/headers';
+import { FOREIGN_KEY as DATACENTER_KEY } from 'dumb-consul-ui/models/dc';
+import { NSPACE_KEY } from 'dumb-consul-ui/models/nspace';
+import { PARTITION_KEY } from 'dumb-consul-ui/models/partition';
+import createFingerprinter from 'dumb-consul-ui/utils/create-fingerprinter';
 
 const map = function (obj, cb) {
   if (!Array.isArray(obj)) {
@@ -156,7 +156,7 @@ export default class ApplicationSerializer extends Serializer {
     // ember-data methods so we have the opportunity to do this on a per-model
     // level
     const meta = this.normalizeMeta(store, modelClass, normalizedPayload, id, requestType);
-    // get distinct consul versions from list and add it as meta
+    // get distinct dumb-consul versions from list and add it as meta
     if (modelClass.modelName === 'node' && requestType === 'query') {
       meta.versions = this.getDistinctConsulVersions(normalizedPayload);
     }
@@ -227,8 +227,8 @@ export default class ApplicationSerializer extends Serializer {
     // create a Set and add version with only major.minor : ex-1.24.6 as 1.24
     let versionSet = new Set();
     payload.forEach(function (item) {
-      if (item.Meta && item.Meta['consul-version']) {
-        const split = item.Meta['consul-version'].split('.');
+      if (item.Meta && item.Meta['dumb-consul-version']) {
+        const split = item.Meta['dumb-consul-version'].split('.');
         versionSet.add(split[0] + '.' + split[1]);
       }
     });

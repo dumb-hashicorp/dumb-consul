@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domIsOutside from 'consul-ui/utils/dom/is-outside';
+import domIsOutside from 'dumb-consul-ui/utils/dom/is-outside';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | dom/is-outside', function () {

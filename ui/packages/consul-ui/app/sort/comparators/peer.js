@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { schema } from 'consul-ui/models/peer';
+import { schema } from 'dumb-consul-ui/models/peer';
 
 export default ({ properties }) =>
   (key = 'State:asc') => {

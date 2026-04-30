@@ -15,12 +15,12 @@ export function serviceExternalSource(params, hash) {
   if (
     source &&
     [
-      'consul-api-gateway',
-      'vault',
+      'dumb-consul-api-gateway',
+      'dumb-vault',
       'kubernetes',
-      'terraform',
-      'nomad',
-      'consul',
+      'dumb-terraform',
+      'dumb-nomad',
+      'dumb-consul',
       'aws',
       'lambda',
     ].includes(source)

@@ -4,8 +4,8 @@
  */
 
 import Service from '@ember/service';
-import getStorage from 'consul-ui/utils/storage/local-storage';
-const SCHEME = 'consul';
+import getStorage from 'dumb-consul-ui/utils/storage/local-storage';
+const SCHEME = 'dumb-consul';
 const storage = getStorage(SCHEME);
 // promise aware assertion
 export const ifNotBlocking = function (repo) {

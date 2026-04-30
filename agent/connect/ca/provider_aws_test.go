@@ -16,9 +16,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/acmpca/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 // skipIfAWSNotConfigured skips the test unless ENABLE_AWS_PCA_TESTS=true.
@@ -226,7 +226,7 @@ func TestAWSBootstrapAndSignSecondaryConsul(t *testing.T) {
 	// all of these tests run at once.
 	skipIfAWSNotConfigured(t)
 
-	t.Run("pri=consul,sec=aws", func(t *testing.T) {
+	t.Run("pri=dumb-consul,sec=aws", func(t *testing.T) {
 		conf := testConsulCAConfig()
 		delegate := newMockDelegate(t, conf)
 		p1 := TestConsulProvider(t, delegate)
@@ -241,7 +241,7 @@ func TestAWSBootstrapAndSignSecondaryConsul(t *testing.T) {
 		testSignIntermediateCrossDC(t, p1, p2)
 	})
 
-	t.Run("pri=aws,sec=consul", func(t *testing.T) {
+	t.Run("pri=aws,sec=dumb-consul", func(t *testing.T) {
 		p1 := testAWSProvider(t, testProviderConfigPrimary(nil))
 		defer p1.Cleanup(true, nil)
 

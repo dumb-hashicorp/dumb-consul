@@ -48,7 +48,7 @@ Feature: dc / services / show / topology / metrics
       service: web
     ---
     And I see the "[data-test-sparkline]" element
-  Scenario: Metrics enabled but service source is Consul API Gateway
+  Scenario: Metrics enabled but service source is Dumb Consul API Gateway
     Given 1 datacenter model with the value "datacenter"
     And the local datacenter is "datacenter"
     And 1 service model from yaml
@@ -57,7 +57,7 @@ Feature: dc / services / show / topology / metrics
         Name: web
         Kind: ~
         Meta:
-        external-source: consul-api-gateway
+        external-source: dumb-consul-api-gateway
     ---
     And ui_config from yaml
     ---

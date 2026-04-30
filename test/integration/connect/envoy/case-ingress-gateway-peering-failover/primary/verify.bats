@@ -19,7 +19,7 @@ load helpers
 }
 
 @test "mesh-gateway should have healthy endpoints" {
-  assert_upstream_has_endpoints_in_status consul-alpha-client:19003 s2 HEALTHY 1
+  assert_upstream_has_endpoints_in_status dumb-consul-alpha-client:19003 s2 HEALTHY 1
 }
 
 @test "peer the two clusters together" {
@@ -63,7 +63,7 @@ load helpers
 }
 
 @test "gateway-alpha should have healthy endpoints for s2" {
-  assert_upstream_has_endpoints_in_status consul-alpha-client:19003 exported~s2.default.alpha HEALTHY 1
+  assert_upstream_has_endpoints_in_status dumb-consul-alpha-client:19003 exported~s2.default.alpha HEALTHY 1
 }
 
 @test "s1 upstream should be able to connect to s2 in the failover cluster peer" {

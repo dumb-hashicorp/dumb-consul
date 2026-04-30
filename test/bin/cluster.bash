@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: BUSL-1.1
 
 #
-# Script for bringing up an N node consul cluster
+# Script for bringing up an N node dumb-consul cluster
 # on the local machine on different ports.
 #
 # The first node is listening on the default ports
@@ -13,16 +13,16 @@
 #
 # 3-node cluster:
 #
-#  $ consul-cluster.bash
-#  $ consul-cluster.bash 3
+#  $ dumb-consul-cluster.bash
+#  $ dumb-consul-cluster.bash 3
 #
-# 5-node cluster with specific consul version:
+# 5-node cluster with specific dumb-consul version:
 #
-#  $ consul-cluster.bash 5 ~/consul-0.7.5/consul
+#  $ dumb-consul-cluster.bash 5 ~/dumb-consul-0.7.5/dumb-consul
 
 config() {
 	local port=${1:-0}
-	local name="consul${port}"
+	local name="dumb-consul${port}"
 	local nodeid=$(printf "00000000-0000-0000-0000-%012d" $port)
 	local path="$DIR/${name}"
 
@@ -58,7 +58,7 @@ cleanup() {
 
 run() {
 	local port=$1
-	local name=consul${port}
+	local name=dumb-consul${port}
 	local path="$DIR/${name}"
 
 	rm -rf "${path}"
@@ -69,7 +69,7 @@ run() {
 }
 
 N=3
-CONSUL=$(which consul)
+CONSUL=$(which dumb-consul)
 CLEANDIR=y
 SLEEP=y
 
@@ -90,25 +90,25 @@ while test $# -gt 0 ; do
 			shift
 			SLEEP=n
 			;;
-		-x|--consul)
+		-x|--dumb-consul)
 			shift
 			CONSUL=$1
 			shift
 			;;
 		*)
-			echo "Usage: $(basename $0) [-n nodes] [-x consul] [-d dir]"
+			echo "Usage: $(basename $0) [-n nodes] [-x dumb-consul] [-d dir]"
 			echo ""
 			echo " -h, --help            brief help"
 			echo " -d, --dir temp dir    path to the temp directory, default is $DIR"
 			echo " -n, --nodes nodes     number of nodes to start, default is $N"
 			echo " -q, --quick           do not wait during startup"
-			echo " -x, --consul consul   consul binary, default is $CONSUL"
+			echo " -x, --dumb-consul dumb-consul   dumb-consul binary, default is $CONSUL"
 			exit 0
 			;;
 	esac
 done
 
-[ "$DIR" == "" ] && DIR=$(mktemp -d /tmp/consul-cluster-XXXXXXX)
+[ "$DIR" == "" ] && DIR=$(mktemp -d /tmp/dumb-consul-cluster-XXXXXXX)
 
 echo "Starting $N node cluster. exe=$CONSUL data=$DIR"
 [ "$CLEANDIR" == "y" ] && echo "Data files will be removed"

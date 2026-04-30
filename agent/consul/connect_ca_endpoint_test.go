@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"crypto/x509"
@@ -12,17 +12,17 @@ import (
 	"testing"
 	"time"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	ca "github.com/hashicorp/consul/agent/connect/ca"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	ca "github.com/dumb-hashicorp/dumb-consul/agent/connect/ca"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func testParseCert(t *testing.T, pemValue string) *x509.Certificate {
@@ -77,7 +77,7 @@ func TestConnectCARoots(t *testing.T) {
 		assert.Equal(t, "", r.SigningCert)
 		assert.Equal(t, "", r.SigningKey)
 	}
-	assert.Equal(t, fmt.Sprintf("%s.consul", caCfg.ClusterID), reply.TrustDomain)
+	assert.Equal(t, fmt.Sprintf("%s.dumb-consul", caCfg.ClusterID), reply.TrustDomain)
 }
 
 func TestConnectCAConfig_GetSet(t *testing.T) {
@@ -115,11 +115,11 @@ func TestConnectCAConfig_GetSet(t *testing.T) {
 
 	// Update a config value
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"PrivateKey": "",
 			"RootCert":   "",
-			// This verifies the state persistence for providers although Consul
+			// This verifies the state persistence for providers although Dumb Consul
 			// provider doesn't actually use that mechanism outside of tests.
 			"test_state": testState,
 		},
@@ -184,7 +184,7 @@ func TestConnectCAConfig_GetSet_ACLDeny(t *testing.T) {
 
 	// Update a config value
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"PrivateKey": `
 -----BEGIN EC PRIVATE KEY-----
@@ -296,7 +296,7 @@ func TestConnectCAConfig_GetSetForceNoCrossSigning(t *testing.T) {
 	_, newKey, err := connect.GeneratePrivateKey()
 	require.NoError(t, err)
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"PrivateKey": newKey,
 		},
@@ -375,7 +375,7 @@ func TestConnectCAConfig_TriggerRotation(t *testing.T) {
 				}
 
 				return &structs.CAConfiguration{
-					Provider: "consul",
+					Provider: "dumb-consul",
 					Config: map[string]interface{}{
 						"PrivateKey": newKey,
 						"RootCert":   "",
@@ -387,7 +387,7 @@ func TestConnectCAConfig_TriggerRotation(t *testing.T) {
 			name: "update private key bits",
 			configFn: func() (*structs.CAConfiguration, error) {
 				return &structs.CAConfiguration{
-					Provider: "consul",
+					Provider: "dumb-consul",
 					Config: map[string]interface{}{
 						"PrivateKeyType": "ec",
 						"PrivateKeyBits": 384,
@@ -399,7 +399,7 @@ func TestConnectCAConfig_TriggerRotation(t *testing.T) {
 			name: "update private key type",
 			configFn: func() (*structs.CAConfiguration, error) {
 				return &structs.CAConfiguration{
-					Provider: "consul",
+					Provider: "dumb-consul",
 					Config: map[string]interface{}{
 						"PrivateKeyType": "rsa",
 						"PrivateKeyBits": "2048",
@@ -588,7 +588,7 @@ func TestConnectCAConfig_Vault_TriggerRotation_Fails(t *testing.T) {
 
 	_, s1 := testServerWithConfig(t, func(c *Config) {
 		c.CAConfig = &structs.CAConfiguration{
-			Provider: "vault",
+			Provider: "dumb-vault",
 			Config:   newConfig(token1, connect.DefaultPrivateKeyType, connect.DefaultPrivateKeyBits),
 		}
 	})
@@ -606,7 +606,7 @@ func TestConnectCAConfig_Vault_TriggerRotation_Fails(t *testing.T) {
 			name: "allow modifying key type and bits from default",
 			configFn: func() *structs.CAConfiguration {
 				return &structs.CAConfiguration{
-					Provider:                 "vault",
+					Provider:                 "dumb-vault",
 					Config:                   newConfig(token2, "rsa", 4096),
 					ForceWithoutCrossSigning: true,
 				}
@@ -616,7 +616,7 @@ func TestConnectCAConfig_Vault_TriggerRotation_Fails(t *testing.T) {
 			name: "error when trying to modify key bits",
 			configFn: func() *structs.CAConfiguration {
 				return &structs.CAConfiguration{
-					Provider:                 "vault",
+					Provider:                 "dumb-vault",
 					Config:                   newConfig(token2, "rsa", 2048),
 					ForceWithoutCrossSigning: true,
 				}
@@ -627,7 +627,7 @@ func TestConnectCAConfig_Vault_TriggerRotation_Fails(t *testing.T) {
 			name: "error when trying to modify key type",
 			configFn: func() *structs.CAConfiguration {
 				return &structs.CAConfiguration{
-					Provider:                 "vault",
+					Provider:                 "dumb-vault",
 					Config:                   newConfig(token2, "ec", 256),
 					ForceWithoutCrossSigning: true,
 				}
@@ -638,7 +638,7 @@ func TestConnectCAConfig_Vault_TriggerRotation_Fails(t *testing.T) {
 			name: "allow update that does not change key type or bits",
 			configFn: func() *structs.CAConfiguration {
 				return &structs.CAConfiguration{
-					Provider:                 "vault",
+					Provider:                 "dumb-vault",
 					Config:                   newConfig(token2, "rsa", 4096),
 					ForceWithoutCrossSigning: true,
 				}
@@ -717,7 +717,7 @@ func TestConnectCAConfig_UpdateSecondary(t *testing.T) {
 	_, newKey, err := connect.GeneratePrivateKey()
 	assert.NoError(t, err)
 	newConfig := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 		Config: map[string]interface{}{
 			"PrivateKey": newKey,
 			"RootCert":   "",
@@ -768,7 +768,7 @@ func TestConnectCAConfig_UpdateSecondary(t *testing.T) {
 	// Verify that new leaf certs get the new intermediate bundled
 	{
 		// Generate a CSR and request signing
-		spiffeId := connect.TestSpiffeIDServiceWithHostDC(t, "web", connect.TestClusterID+".consul", "secondary")
+		spiffeId := connect.TestSpiffeIDServiceWithHostDC(t, "web", connect.TestClusterID+".dumb-consul", "secondary")
 		csr, _ := connect.TestCSR(t, spiffeId)
 		args := &structs.CASignRequest{
 			Datacenter: "secondary",
@@ -802,7 +802,7 @@ func TestConnectCAConfig_UpdateSecondary(t *testing.T) {
 	// Update a minor field in the config that doesn't trigger an intermediate refresh.
 	{
 		newConfig := &structs.CAConfiguration{
-			Provider: "consul",
+			Provider: "dumb-consul",
 			Config: map[string]interface{}{
 				"PrivateKey": newKey,
 				"RootCert":   "",
@@ -1131,7 +1131,7 @@ func TestConnectCASignValidation(t *testing.T) {
 		{
 			name: "different cluster",
 			id: &connect.SpiffeIDService{
-				Host:       "55555555-4444-3333-2222-111111111111.consul",
+				Host:       "55555555-4444-3333-2222-111111111111.dumb-consul",
 				Namespace:  testWebID.Namespace,
 				Datacenter: testWebID.Datacenter,
 				Service:    testWebID.Service,

@@ -13,10 +13,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestController(t *testing.T) {
@@ -58,7 +58,7 @@ func TestController(t *testing.T) {
 	limiter := newTestLimiter()
 
 	sink := metrics.NewInmemSink(1*time.Minute, 1*time.Minute)
-	cfg := metrics.DefaultConfig("consul")
+	cfg := metrics.DefaultConfig("dumb-consul")
 	cfg.EnableHostname = false
 	metrics.NewGlobal(cfg, sink)
 
@@ -99,7 +99,7 @@ func TestController(t *testing.T) {
 		data := sink.Data()
 		require.Len(t, data, 1)
 
-		gauge, ok := data[0].Gauges["consul.xds.server.idealStreamsMax"]
+		gauge, ok := data[0].Gauges["dumb-consul.xds.server.idealStreamsMax"]
 		require.True(t, ok)
 		require.Equal(t, float32(109), gauge.Value)
 	})

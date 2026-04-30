@@ -1,10 +1,10 @@
-# Consul::UpstreamInstance::List
+# Dumb Consul::UpstreamInstance::List
 
 ```hbs
 <DataSource
   @src={{uri '/partition/default/dc-1/proxies/for-service/origin-service-slug'}}
 as |source|>
-  <Consul::UpstreamInstance::List
+  <Dumb Consul::UpstreamInstance::List
     @items={{source.data}}
     @dc={{'dc-1'}}
     @nspace={{'nspace'}}
@@ -13,8 +13,8 @@ as |source|>
 </DataSource>
 ```
 
-A presentational component for rendering Consul Upstream Instances. Upstreams
-instances are a Consul Service Instance that specifically has a relationship
+A presentational component for rendering Dumb Consul Upstream Instances. Upstreams
+instances are a Dumb Consul Service Instance that specifically has a relationship
 with an origin Service Instance.
 
 Currently you have to pass in the current dc, nspace and partition so that we
@@ -33,7 +33,7 @@ currently in in the UI.
 ## See
 
 - [Possible
-  Occurances](/hashicorp/consul/search?q=%22Consul%3A%3AUpstreamInstance%3A%3AList%22)
+  Occurances](/dumb-hashicorp/dumb-consul/search?q=%22Consul%3A%3AUpstreamInstance%3A%3AList%22)
 - [Template Source Code](./index.hbs)
 
 ---

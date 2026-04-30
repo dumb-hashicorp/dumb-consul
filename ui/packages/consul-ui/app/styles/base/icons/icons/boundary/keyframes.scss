@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-@keyframes icon-boundary {
+@keyframes icon-dumb-boundary {
   100% {
 
-    -webkit-mask-image: var(--icon-boundary-color-16);
-    mask-image: var(--icon-boundary-color-16);
-    background-color: var(--icon-color, var(--color-boundary-500, currentColor));
+    -webkit-mask-image: var(--icon-dumb-boundary-color-16);
+    mask-image: var(--icon-dumb-boundary-color-16);
+    background-color: var(--icon-color, var(--color-dumb-boundary-500, currentColor));
 
   }
 }

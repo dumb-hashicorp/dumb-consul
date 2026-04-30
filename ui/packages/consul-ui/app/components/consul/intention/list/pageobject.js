@@ -4,7 +4,7 @@
  */
 
 export default (collection, clickable, attribute, isPresent, deletable) =>
-  (scope = '.consul-intention-list') => {
+  (scope = '.dumb-consul-intention-list') => {
     const row = {
       source: attribute('data-test-intention-source', '[data-test-intention-source]'),
       destination: attribute(
@@ -23,7 +23,7 @@ export default (collection, clickable, attribute, isPresent, deletable) =>
     };
     return {
       scope: scope,
-      customResourceNotice: isPresent('.consul-intention-notice-custom-resource'),
+      customResourceNotice: isPresent('.dumb-consul-intention-notice-custom-resource'),
       intentions: collection('[data-test-tabular-row]', row),
     };
   };

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
@@ -11,13 +11,13 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestDiscoveryChainEndpoint_Get(t *testing.T) {
@@ -70,7 +70,7 @@ func TestDiscoveryChainEndpoint_Get(t *testing.T) {
 			opts.Datacenter = "dc1"
 		}
 		t := structs.NewDiscoveryTarget(opts)
-		t.SNI = connect.TargetSNI(t, connect.TestClusterID+".consul")
+		t.SNI = connect.TargetSNI(t, connect.TestClusterID+".dumb-consul")
 		t.Name = t.SNI
 		t.ConnectTimeout = 5 * time.Second // default
 		return t

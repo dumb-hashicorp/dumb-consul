@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 {{#if this.itemsToDisplay.length}}
-  <dl class="consul-bucket-list">
+  <dl class="dumb-consul-bucket-list">
     {{#each this.itemsToDisplay as |item|}}
       <dt class={{item.type}} {{hds-tooltip options=(detached-tooltip-options)}}>
         {{item.label}}

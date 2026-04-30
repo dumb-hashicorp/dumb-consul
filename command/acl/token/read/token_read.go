@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/token"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/token"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -72,7 +72,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -154,17 +154,17 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Read an ACL token"
 	help     = `
-Usage: consul acl token read [options] -accessor-id TOKENID
+Usage: dumb-consul acl token read [options] -accessor-id TOKENID
 
   This command will retrieve and print out the details of
   a single token.
 
   Using a partial ID:
 
-          $ consul acl token read -accessor-id 4be56c77-82
+          $ dumb-consul acl token read -accessor-id 4be56c77-82
 
   Using the full ID:
 
-          $ consul acl token read -accessor-id 4be56c77-8244-4c7d-b08c-667b8c71baed
+          $ dumb-consul acl token read -accessor-id 4be56c77-8244-4c7d-b08c-667b8c71baed
 `
 )

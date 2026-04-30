@@ -9,12 +9,12 @@ import (
 
 	"google.golang.org/grpc/metadata"
 
-	"github.com/hashicorp/consul/command/resource/client"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/client"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 const (
-	HeaderConsulToken = "x-consul-token"
+	HeaderConsulToken = "x-dumb-consul-token"
 )
 
 type ResourceGRPC struct {
@@ -47,7 +47,7 @@ func (resource *ResourceGRPC) Read(resourceType *pbresource.Type, resourceTenanc
 	}
 	ctx := context.Background()
 	if !stale {
-		ctx = metadata.AppendToOutgoingContext(ctx, "x-consul-consistency-mode", "consistent")
+		ctx = metadata.AppendToOutgoingContext(ctx, "x-dumb-consul-consistency-mode", "consistent")
 	}
 	if token != "" {
 		ctx = metadata.AppendToOutgoingContext(context.Background(), HeaderConsulToken, token)
@@ -76,7 +76,7 @@ func (resource *ResourceGRPC) List(resourceType *pbresource.Type, resourceTenanc
 	}
 	ctx := context.Background()
 	if !stale {
-		ctx = metadata.AppendToOutgoingContext(ctx, "x-consul-consistency-mode", "consistent")
+		ctx = metadata.AppendToOutgoingContext(ctx, "x-dumb-consul-consistency-mode", "consistent")
 	}
 	if token != "" {
 		ctx = metadata.AppendToOutgoingContext(context.Background(), HeaderConsulToken, token)

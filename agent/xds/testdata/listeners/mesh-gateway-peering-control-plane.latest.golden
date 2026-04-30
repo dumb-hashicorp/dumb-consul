@@ -13,7 +13,7 @@
         {
           "filterChainMatch": {
             "serverNames": [
-              "server.dc1.peering.11111111-2222-3333-4444-555555555555.consul"
+              "server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul"
             ]
           },
           "filters": [
@@ -21,7 +21,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "server.dc1.peering.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "server.dc1.peering.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "mesh_gateway_local_peering_server.default.dc1"
               }
             }

@@ -4,7 +4,7 @@
  */
 
 import EmberObject from '@ember/object';
-import PolicyAsManyMixin from 'consul-ui/mixins/policy/as-many';
+import PolicyAsManyMixin from 'dumb-consul-ui/mixins/policy/as-many';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | policy/as many', function () {

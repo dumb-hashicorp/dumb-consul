@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/proxy';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/proxy';
 
 export default class ProxySerializer extends Serializer {
   primaryKey = PRIMARY_KEY;

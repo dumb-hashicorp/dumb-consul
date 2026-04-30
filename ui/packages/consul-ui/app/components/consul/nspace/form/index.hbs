@@ -1,9 +1,9 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<div class="consul-nspace-form" ...attributes>
+<div class="dumb-consul-nspace-form" ...attributes>
   <DataWriter
     @sink={{uri
       "/${partition}/${nspace}/${dc}/nspace"
@@ -16,7 +16,7 @@
     as |writer|
   >
     <BlockSlot @name="removed" as |after|>
-      <Consul::Nspace::Notifications
+      <Dumb Consul::Nspace::Notifications
         {{notification after=(action after)}}
         @type="remove"
       />

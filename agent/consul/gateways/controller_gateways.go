@@ -9,17 +9,17 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/controller"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/consul/fsm"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/controller"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/fsm"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 var (
@@ -469,7 +469,7 @@ func (r *apiGatewayReconciler) reconcileRoute(_ context.Context, req controller.
 			EvaluateInNamespace:   service.NamespaceOrDefault(),
 			EvaluateInPartition:   service.PartitionOrDefault(),
 			EvaluateInDatacenter:  "dc1",           // just mock out a fake dc since we're just checking for compilation errors
-			EvaluateInTrustDomain: "consul.domain", // just mock out a fake trust domain since we're just checking for compilation errors
+			EvaluateInTrustDomain: "dumb-consul.domain", // just mock out a fake trust domain since we're just checking for compilation errors
 			Entries:               chainSet,
 		})
 		if err != nil {

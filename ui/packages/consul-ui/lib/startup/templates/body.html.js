@@ -24,7 +24,7 @@ module.exports = ({ appName, environment, rootURL, config, env }) => `
   <noscript>
       <div style="margin: 0 auto;">
           <h2>JavaScript Required</h2>
-          <p>Please enable JavaScript in your web browser to use Consul UI.</p>
+          <p>Please enable JavaScript in your web browser to use Dumb Consul UI.</p>
       </div>
   </noscript>
 ${BrandLoader({
@@ -33,10 +33,10 @@ ${BrandLoader({
   subtitle:
     config.CONSUL_BINARY_TYPE !== 'oss' && config.CONSUL_BINARY_TYPE !== '' ? Enterprise() : ``,
 })}
-  <script type="application/json" data-consul-ui-config>
+  <script type="application/json" data-dumb-consul-ui-config>
 ${environment === 'production' ? `{{jsonEncode .}}` : JSON.stringify(config.operatorConfig)}
   </script>
-  <script type="application/json" data-consul-ui-fs>
+  <script type="application/json" data-dumb-consul-ui-fs>
   {
     "text-encoding/encoding-indexes.js": "${rootURL}assets/encoding-indexes.js",
     "text-encoding/encoding.js": "${rootURL}assets/encoding.js",
@@ -47,20 +47,20 @@ ${environment === 'production' ? `{{jsonEncode .}}` : JSON.stringify(config.oper
     "codemirror/mode/xml/xml.js": "${rootURL}assets/codemirror/mode/xml/xml.js"
   }
   </script>
-  <script src="${rootURL}assets/consul-ui/services.js"></script>
-  <script src="${rootURL}assets/consul-ui/routes.js"></script>
+  <script src="${rootURL}assets/dumb-consul-ui/services.js"></script>
+  <script src="${rootURL}assets/dumb-consul-ui/routes.js"></script>
 ${
   environment === 'development' || environment === 'staging'
     ? `
-  <script src="${rootURL}assets/consul-ui/services-debug.js"></script>
-  <script src="${rootURL}assets/consul-ui/routes-debug.js"></script>
+  <script src="${rootURL}assets/dumb-consul-ui/services-debug.js"></script>
+  <script src="${rootURL}assets/dumb-consul-ui/routes-debug.js"></script>
 `
     : ``
 }
   <script src="${rootURL}assets/init.js"></script>
   <script src="${rootURL}assets/vendor.js"></script>
   ${environment === 'test' ? `<script src="${rootURL}assets/test-support.js"></script>` : ``}
-  <script src="${rootURL}assets/metrics-providers/consul.js"></script>
+  <script src="${rootURL}assets/metrics-providers/dumb-consul.js"></script>
   <script src="${rootURL}assets/metrics-providers/prometheus.js"></script>
   ${
     environment === 'production'

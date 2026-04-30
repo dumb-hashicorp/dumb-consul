@@ -6,8 +6,8 @@
 import Helper from '@ember/component/helper';
 import { get } from '@ember/object';
 
-import { Collection as Service } from 'consul-ui/models/service';
-import { Collection as ServiceInstance } from 'consul-ui/models/service-instance';
+import { Collection as Service } from 'dumb-consul-ui/models/service';
+import { Collection as ServiceInstance } from 'dumb-consul-ui/models/service-instance';
 
 const collections = {
   service: Service,

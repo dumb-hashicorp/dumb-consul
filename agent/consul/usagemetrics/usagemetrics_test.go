@@ -10,19 +10,19 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 type mockStateProvider struct {
@@ -95,11 +95,11 @@ func benchmarkRunOnce(b *testing.B, store *state.Store) {
 	b.Helper()
 
 	config := lib.TelemetryConfig{
-		MetricsPrefix: "consul",
+		MetricsPrefix: "dumb-consul",
 		FilterDefault: true,
 		PrometheusOpts: prometheus.PrometheusOpts{
 			Expiration: time.Second * 30,
-			Name:       "consul",
+			Name:       "dumb-consul",
 		},
 	}
 
@@ -134,256 +134,256 @@ var baseCases = map[string]testCase{
 	"empty-state": {
 		expectedGauges: map[string]metrics.GaugeValue{
 			// --- node ---
-			"consul.usage.test.state.nodes;datacenter=dc1": {
-				Name:   "consul.usage.test.state.nodes",
+			"dumb-consul.usage.test.state.nodes;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.nodes",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- peering ---
-			"consul.usage.test.state.peerings;datacenter=dc1": {
-				Name:   "consul.usage.test.state.peerings",
+			"dumb-consul.usage.test.state.peerings;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.peerings",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- member ---
-			"consul.usage.test.members.clients;datacenter=dc1": {
-				Name:   "consul.usage.test.members.clients",
+			"dumb-consul.usage.test.members.clients;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.members.clients",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
-			"consul.usage.test.members.servers;datacenter=dc1": {
-				Name:   "consul.usage.test.members.servers",
+			"dumb-consul.usage.test.members.servers;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.members.servers",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- service ---
-			"consul.usage.test.state.services;datacenter=dc1": {
-				Name:   "consul.usage.test.state.services",
+			"dumb-consul.usage.test.state.services;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.services",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
-			"consul.usage.test.state.service_instances;datacenter=dc1": {
-				Name:   "consul.usage.test.state.service_instances",
+			"dumb-consul.usage.test.state.service_instances;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.service_instances",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- service mesh ---
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-proxy": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-proxy": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "connect-proxy"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=terminating-gateway": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=terminating-gateway": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "terminating-gateway"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=ingress-gateway": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=ingress-gateway": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "ingress-gateway"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=api-gateway": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=api-gateway": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "api-gateway"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=mesh-gateway": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=mesh-gateway": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "mesh-gateway"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-native": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-native": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "connect-native"},
 				},
 			},
-			"consul.usage.test.state.billable_service_instances;datacenter=dc1": {
-				Name:  "consul.usage.test.state.billable_service_instances",
+			"dumb-consul.usage.test.state.billable_service_instances;datacenter=dc1": {
+				Name:  "dumb-consul.usage.test.state.billable_service_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 				},
 			},
 			// --- kv ---
-			"consul.usage.test.state.kv_entries;datacenter=dc1": {
-				Name:   "consul.usage.test.state.kv_entries",
+			"dumb-consul.usage.test.state.kv_entries;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.kv_entries",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- config entries ---
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-intentions": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-intentions": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-intentions"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-resolver": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-resolver": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-resolver"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-router": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-router": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-router"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-defaults": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-defaults": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-defaults"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=ingress-gateway": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=ingress-gateway": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "ingress-gateway"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-splitter": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-splitter": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-splitter"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=mesh": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=mesh": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "mesh"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=proxy-defaults": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=proxy-defaults": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "proxy-defaults"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=terminating-gateway": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=terminating-gateway": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "terminating-gateway"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=exported-services": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=exported-services": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "exported-services"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=sameness-group": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=sameness-group": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "sameness-group"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=api-gateway": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=api-gateway": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "api-gateway"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=bound-api-gateway": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=bound-api-gateway": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "bound-api-gateway"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=file-system-certificate": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=file-system-certificate": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "file-system-certificate"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=inline-certificate": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=inline-certificate": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "inline-certificate"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=http-route": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=http-route": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "http-route"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=tcp-route": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=tcp-route": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "tcp-route"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=jwt-provider": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=jwt-provider": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "jwt-provider"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=control-plane-request-limit": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=control-plane-request-limit": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "control-plane-request-limit"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=rate-limit": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=rate-limit": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
@@ -391,8 +391,8 @@ var baseCases = map[string]testCase{
 				},
 			},
 			// --- version ---
-			fmt.Sprintf("consul.usage.test.version;version=%s;pre_release=%s", versionWithMetadata(), version.VersionPrerelease): {
-				Name:  "consul.usage.test.version",
+			fmt.Sprintf("dumb-consul.usage.test.version;version=%s;pre_release=%s", versionWithMetadata(), version.VersionPrerelease): {
+				Name:  "dumb-consul.usage.test.version",
 				Value: 1,
 				Labels: []metrics.Label{
 					{Name: "version", Value: versionWithMetadata()},
@@ -411,268 +411,268 @@ var baseCases = map[string]testCase{
 			return []serf.Member{
 				{
 					Name:   "foo",
-					Tags:   map[string]string{"role": "consul"},
+					Tags:   map[string]string{"role": "dumb-consul"},
 					Status: serf.StatusAlive,
 				},
 				{
 					Name:   "bar",
-					Tags:   map[string]string{"role": "consul"},
+					Tags:   map[string]string{"role": "dumb-consul"},
 					Status: serf.StatusAlive,
 				},
 			}
 		},
 		expectedGauges: map[string]metrics.GaugeValue{
 			// --- node ---
-			"consul.usage.test.state.nodes;datacenter=dc1": {
-				Name:   "consul.usage.test.state.nodes",
+			"dumb-consul.usage.test.state.nodes;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.nodes",
 				Value:  2,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- peering ---
-			"consul.usage.test.state.peerings;datacenter=dc1": {
-				Name:   "consul.usage.test.state.peerings",
+			"dumb-consul.usage.test.state.peerings;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.peerings",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- member ---
-			"consul.usage.test.members.servers;datacenter=dc1": {
-				Name:   "consul.usage.test.members.servers",
+			"dumb-consul.usage.test.members.servers;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.members.servers",
 				Value:  2,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
-			"consul.usage.test.members.clients;datacenter=dc1": {
-				Name:   "consul.usage.test.members.clients",
+			"dumb-consul.usage.test.members.clients;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.members.clients",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- service ---
-			"consul.usage.test.state.services;datacenter=dc1": {
-				Name:   "consul.usage.test.state.services",
+			"dumb-consul.usage.test.state.services;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.services",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
-			"consul.usage.test.state.service_instances;datacenter=dc1": {
-				Name:   "consul.usage.test.state.service_instances",
+			"dumb-consul.usage.test.state.service_instances;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.service_instances",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- service mesh ---
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-proxy": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-proxy": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "connect-proxy"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=terminating-gateway": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=terminating-gateway": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "terminating-gateway"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=ingress-gateway": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=ingress-gateway": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "ingress-gateway"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=api-gateway": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=api-gateway": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "api-gateway"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=mesh-gateway": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=mesh-gateway": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "mesh-gateway"},
 				},
 			},
-			"consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-native": {
-				Name:  "consul.usage.test.state.connect_instances",
+			"dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-native": {
+				Name:  "dumb-consul.usage.test.state.connect_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "connect-native"},
 				},
 			},
-			"consul.usage.test.state.billable_service_instances;datacenter=dc1": {
-				Name:  "consul.usage.test.state.billable_service_instances",
+			"dumb-consul.usage.test.state.billable_service_instances;datacenter=dc1": {
+				Name:  "dumb-consul.usage.test.state.billable_service_instances",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 				},
 			},
 			// --- kv ---
-			"consul.usage.test.state.kv_entries;datacenter=dc1": {
-				Name:   "consul.usage.test.state.kv_entries",
+			"dumb-consul.usage.test.state.kv_entries;datacenter=dc1": {
+				Name:   "dumb-consul.usage.test.state.kv_entries",
 				Value:  0,
 				Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 			},
 			// --- config entries ---
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-intentions": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-intentions": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-intentions"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-resolver": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-resolver": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-resolver"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-router": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-router": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-router"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-defaults": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-defaults": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-defaults"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=ingress-gateway": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=ingress-gateway": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "ingress-gateway"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=service-splitter": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=service-splitter": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "service-splitter"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=mesh": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=mesh": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "mesh"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=proxy-defaults": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=proxy-defaults": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "proxy-defaults"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=terminating-gateway": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=terminating-gateway": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "terminating-gateway"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=exported-services": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=exported-services": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "exported-services"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=sameness-group": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=sameness-group": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "sameness-group"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=api-gateway": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=api-gateway": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "api-gateway"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=bound-api-gateway": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=bound-api-gateway": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "bound-api-gateway"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=file-system-certificate": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=file-system-certificate": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "file-system-certificate"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=inline-certificate": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=inline-certificate": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "inline-certificate"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=http-route": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=http-route": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "http-route"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=tcp-route": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=tcp-route": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "tcp-route"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=jwt-provider": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=jwt-provider": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "jwt-provider"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=control-plane-request-limit": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=control-plane-request-limit": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
 					{Name: "kind", Value: "control-plane-request-limit"},
 				},
 			},
-			"consul.usage.test.state.config_entries;datacenter=dc1;kind=rate-limit": {
-				Name:  "consul.usage.test.state.config_entries",
+			"dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=rate-limit": {
+				Name:  "dumb-consul.usage.test.state.config_entries",
 				Value: 0,
 				Labels: []metrics.Label{
 					{Name: "datacenter", Value: "dc1"},
@@ -680,8 +680,8 @@ var baseCases = map[string]testCase{
 				},
 			},
 			// --- version ---
-			fmt.Sprintf("consul.usage.test.version;version=%s;pre_release=%s", versionWithMetadata(), version.VersionPrerelease): {
-				Name:  "consul.usage.test.version",
+			fmt.Sprintf("dumb-consul.usage.test.version;version=%s;pre_release=%s", versionWithMetadata(), version.VersionPrerelease): {
+				Name:  "dumb-consul.usage.test.version",
 				Value: 1,
 				Labels: []metrics.Label{
 					{Name: "version", Value: versionWithMetadata()},
@@ -754,28 +754,28 @@ func testUsageReporter_emitPeeringUsage_CE(t *testing.T, getMetricsReporter func
 		return []serf.Member{
 			{
 				Name:   "foo",
-				Tags:   map[string]string{"role": "consul"},
+				Tags:   map[string]string{"role": "dumb-consul"},
 				Status: serf.StatusAlive,
 			},
 			{
 				Name:   "bar",
-				Tags:   map[string]string{"role": "consul"},
+				Tags:   map[string]string{"role": "dumb-consul"},
 				Status: serf.StatusAlive,
 			},
 		}
 	}
-	peeringsCase.expectedGauges["consul.usage.test.state.nodes;datacenter=dc1"] = metrics.GaugeValue{
-		Name:   "consul.usage.test.state.nodes",
+	peeringsCase.expectedGauges["dumb-consul.usage.test.state.nodes;datacenter=dc1"] = metrics.GaugeValue{
+		Name:   "dumb-consul.usage.test.state.nodes",
 		Value:  0,
 		Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 	}
-	peeringsCase.expectedGauges["consul.usage.test.state.peerings;datacenter=dc1"] = metrics.GaugeValue{
-		Name:   "consul.usage.test.state.peerings",
+	peeringsCase.expectedGauges["dumb-consul.usage.test.state.peerings;datacenter=dc1"] = metrics.GaugeValue{
+		Name:   "dumb-consul.usage.test.state.peerings",
 		Value:  3,
 		Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 	}
-	peeringsCase.expectedGauges["consul.usage.test.members.clients;datacenter=dc1"] = metrics.GaugeValue{
-		Name:   "consul.usage.test.members.clients",
+	peeringsCase.expectedGauges["dumb-consul.usage.test.members.clients;datacenter=dc1"] = metrics.GaugeValue{
+		Name:   "dumb-consul.usage.test.members.clients",
 		Value:  0,
 		Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 	}
@@ -823,11 +823,11 @@ func testUsageReporter_emitServiceUsage_CE(t *testing.T, getMetricsReporter func
 
 		tgw := structs.TestNodeServiceTerminatingGateway(t, "1.1.1.1")
 		tgw.ID = "terminating-gateway"
-		// Typical services and some consul services spread across two nodes
+		// Typical services and some dumb-consul services spread across two nodes
 		require.NoError(t, s.EnsureService(5, "foo", &structs.NodeService{ID: "db", Service: "db", Tags: nil, Address: "", Port: 5000}))
 		require.NoError(t, s.EnsureService(6, "bar", &structs.NodeService{ID: "api", Service: "api", Tags: nil, Address: "", Port: 5000}))
-		require.NoError(t, s.EnsureService(7, "foo", &structs.NodeService{ID: "consul", Service: "consul", Tags: nil}))
-		require.NoError(t, s.EnsureService(8, "bar", &structs.NodeService{ID: "consul", Service: "consul", Tags: nil}))
+		require.NoError(t, s.EnsureService(7, "foo", &structs.NodeService{ID: "dumb-consul", Service: "dumb-consul", Tags: nil}))
+		require.NoError(t, s.EnsureService(8, "bar", &structs.NodeService{ID: "dumb-consul", Service: "dumb-consul", Tags: nil}))
 		require.NoError(t, s.EnsureService(9, "foo", &structs.NodeService{ID: "db-connect-proxy", Service: "db-connect-proxy", Tags: nil, Address: "", Port: 5000, Kind: structs.ServiceKindConnectProxy}))
 		require.NoError(t, s.EnsureRegistration(10, structs.TestRegisterIngressGateway(t)))
 		require.NoError(t, s.EnsureService(11, "foo", mgw))
@@ -861,91 +861,91 @@ func testUsageReporter_emitServiceUsage_CE(t *testing.T, getMetricsReporter func
 		})
 		return baseCaseMembers
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.nodes;datacenter=dc1"] = metrics.GaugeValue{
-		Name:   "consul.usage.test.state.nodes",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.nodes;datacenter=dc1"] = metrics.GaugeValue{
+		Name:   "dumb-consul.usage.test.state.nodes",
 		Value:  4,
 		Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.members.clients;datacenter=dc1"] = metrics.GaugeValue{
-		Name:   "consul.usage.test.members.clients",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.members.clients;datacenter=dc1"] = metrics.GaugeValue{
+		Name:   "dumb-consul.usage.test.members.clients",
 		Value:  2,
 		Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.services;datacenter=dc1"] = metrics.GaugeValue{
-		Name:   "consul.usage.test.state.services",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.services;datacenter=dc1"] = metrics.GaugeValue{
+		Name:   "dumb-consul.usage.test.state.services",
 		Value:  8,
 		Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.service_instances;datacenter=dc1"] = metrics.GaugeValue{
-		Name:   "consul.usage.test.state.service_instances",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.service_instances;datacenter=dc1"] = metrics.GaugeValue{
+		Name:   "dumb-consul.usage.test.state.service_instances",
 		Value:  10,
 		Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-proxy"] = metrics.GaugeValue{
-		Name:  "consul.usage.test.state.connect_instances",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-proxy"] = metrics.GaugeValue{
+		Name:  "dumb-consul.usage.test.state.connect_instances",
 		Value: 1,
 		Labels: []metrics.Label{
 			{Name: "datacenter", Value: "dc1"},
 			{Name: "kind", Value: "connect-proxy"},
 		},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.connect_instances;datacenter=dc1;kind=terminating-gateway"] = metrics.GaugeValue{
-		Name:  "consul.usage.test.state.connect_instances",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=terminating-gateway"] = metrics.GaugeValue{
+		Name:  "dumb-consul.usage.test.state.connect_instances",
 		Value: 1,
 		Labels: []metrics.Label{
 			{Name: "datacenter", Value: "dc1"},
 			{Name: "kind", Value: "terminating-gateway"},
 		},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.connect_instances;datacenter=dc1;kind=ingress-gateway"] = metrics.GaugeValue{
-		Name:  "consul.usage.test.state.connect_instances",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=ingress-gateway"] = metrics.GaugeValue{
+		Name:  "dumb-consul.usage.test.state.connect_instances",
 		Value: 1,
 		Labels: []metrics.Label{
 			{Name: "datacenter", Value: "dc1"},
 			{Name: "kind", Value: "ingress-gateway"},
 		},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.connect_instances;datacenter=dc1;kind=api-gateway"] = metrics.GaugeValue{
-		Name:  "consul.usage.test.state.connect_instances",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=api-gateway"] = metrics.GaugeValue{
+		Name:  "dumb-consul.usage.test.state.connect_instances",
 		Value: 1,
 		Labels: []metrics.Label{
 			{Name: "datacenter", Value: "dc1"},
 			{Name: "kind", Value: "api-gateway"},
 		},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.connect_instances;datacenter=dc1;kind=mesh-gateway"] = metrics.GaugeValue{
-		Name:  "consul.usage.test.state.connect_instances",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=mesh-gateway"] = metrics.GaugeValue{
+		Name:  "dumb-consul.usage.test.state.connect_instances",
 		Value: 1,
 		Labels: []metrics.Label{
 			{Name: "datacenter", Value: "dc1"},
 			{Name: "kind", Value: "mesh-gateway"},
 		},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-native"] = metrics.GaugeValue{
-		Name:  "consul.usage.test.state.connect_instances",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.connect_instances;datacenter=dc1;kind=connect-native"] = metrics.GaugeValue{
+		Name:  "dumb-consul.usage.test.state.connect_instances",
 		Value: 1,
 		Labels: []metrics.Label{
 			{Name: "datacenter", Value: "dc1"},
 			{Name: "kind", Value: "connect-native"},
 		},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.billable_service_instances;datacenter=dc1"] = metrics.GaugeValue{
-		Name:  "consul.usage.test.state.billable_service_instances",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.billable_service_instances;datacenter=dc1"] = metrics.GaugeValue{
+		Name:  "dumb-consul.usage.test.state.billable_service_instances",
 		Value: 3,
 		Labels: []metrics.Label{
 			{Name: "datacenter", Value: "dc1"},
 		},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.config_entries;datacenter=dc1;kind=ingress-gateway"] = metrics.GaugeValue{
-		Name:  "consul.usage.test.state.config_entries",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=ingress-gateway"] = metrics.GaugeValue{
+		Name:  "dumb-consul.usage.test.state.config_entries",
 		Value: 3,
 		Labels: []metrics.Label{
 			{Name: "datacenter", Value: "dc1"},
 			{Name: "kind", Value: "ingress-gateway"},
 		},
 	}
-	nodesAndSvcsCase.expectedGauges["consul.usage.test.state.config_entries;datacenter=dc1;kind=rate-limit"] = metrics.GaugeValue{
-		Name:  "consul.usage.test.state.config_entries",
+	nodesAndSvcsCase.expectedGauges["dumb-consul.usage.test.state.config_entries;datacenter=dc1;kind=rate-limit"] = metrics.GaugeValue{
+		Name:  "dumb-consul.usage.test.state.config_entries",
 		Value: 0,
 		Labels: []metrics.Label{
 			{Name: "datacenter", Value: "dc1"},
@@ -994,8 +994,8 @@ func testUsageReporter_emitKVUsage_CE(t *testing.T, getMetricsReporter func(test
 		require.NoError(t, s.KVSSet(10, &structs.DirEntry{Key: "e", Value: []byte{1}}))
 		require.NoError(t, s.KVSSet(11, &structs.DirEntry{Key: "f", Value: []byte{1}}))
 	}
-	nodesCase.expectedGauges["consul.usage.test.state.kv_entries;datacenter=dc1"] = metrics.GaugeValue{
-		Name:   "consul.usage.test.state.kv_entries",
+	nodesCase.expectedGauges["dumb-consul.usage.test.state.kv_entries;datacenter=dc1"] = metrics.GaugeValue{
+		Name:   "dumb-consul.usage.test.state.kv_entries",
 		Value:  4,
 		Labels: []metrics.Label{{Name: "datacenter", Value: "dc1"}},
 	}

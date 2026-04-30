@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { processIpAddress } from 'consul-ui/utils/process-ip-address';
+import { processIpAddress } from 'dumb-consul-ui/utils/process-ip-address';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | Process Ip Address', function () {

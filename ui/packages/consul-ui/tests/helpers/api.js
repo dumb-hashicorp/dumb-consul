@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import config from 'consul-ui/config/environment';
+import config from 'dumb-consul-ui/config/environment';
 
-import apiDouble from '@hashicorp/ember-cli-api-double';
-import setCookies from 'consul-ui/tests/helpers/set-cookies';
-import typeToURL from 'consul-ui/tests/helpers/type-to-url';
+import apiDouble from '@dumb-hashicorp/ember-cli-api-double';
+import setCookies from 'dumb-consul-ui/tests/helpers/set-cookies';
+import typeToURL from 'dumb-consul-ui/tests/helpers/type-to-url';
 
-const addon = config['@hashicorp/ember-cli-api-double'];
+const addon = config['@dumb-hashicorp/ember-cli-api-double'];
 const api = apiDouble(addon, setCookies, typeToURL);
 export const get = function (_url, options = { headers: { cookie: {} } }) {
   const url = new URL(_url, 'http://localhost');

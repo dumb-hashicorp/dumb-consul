@@ -1,9 +1,9 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
-<div class="consul-auth-method-binding-list">
+<div class="dumb-consul-auth-method-binding-list">
   <h2>{{@item.BindName}}</h2>
   <dl>
     <dt class="type">{{t "models.binding-rule.BindType"}}</dt>
@@ -12,13 +12,13 @@
       {{#let
         (if
           (eq @item.BindType 'service')
-          (t "components.consul.auth-method.binding-list.bind-type.service")
+          (t "components.dumb-consul.auth-method.binding-list.bind-type.service")
           (if
             (eq @item.BindType 'node')
-            (t "components.consul.auth-method.binding-list.bind-type.node")
+            (t "components.dumb-consul.auth-method.binding-list.bind-type.node")
             (if
               (eq @item.BindType 'role')
-              (t "components.consul.auth-method.binding-list.bind-type.role")
+              (t "components.dumb-consul.auth-method.binding-list.bind-type.role")
               ''
             )
           )

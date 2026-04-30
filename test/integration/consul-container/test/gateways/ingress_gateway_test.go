@@ -12,11 +12,11 @@ import (
 	"github.com/docker/go-connections/nat"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
 )
 
 // TestIngressGateway Summary
@@ -24,15 +24,15 @@ import (
 //
 // Steps:
 //   - Create a cluster (1 server and 1 client).
-//   - Create the example static-server and sidecar containers, then register them both with Consul
-//   - Create an ingress gateway and register it with Consul on the client agent
+//   - Create the example static-server and sidecar containers, then register them both with Dumb Consul
+//   - Create an ingress gateway and register it with Dumb Consul on the client agent
 //   - Create a config entry that binds static-server to a new listener on the ingress gateway
 //   - Verify that static-service is accessible through the ingress gateway port
 func TestIngressGateway(t *testing.T) {
 	t.Parallel()
 
 	// Ingress gateways must have a listener other than 8443, which is used for health checks.
-	// 9999 is already exposed from consul agents
+	// 9999 is already exposed from dumb-consul agents
 	gatewayListenerPort := 9999
 
 	cluster, _, _ := topology.NewCluster(t, &topology.ClusterConfig{
@@ -69,7 +69,7 @@ func TestIngressGateway(t *testing.T) {
 
 	// Register a service to the ingress gateway
 	// **NOTE**: We intentionally wait until after the gateway starts to create the config entry.
-	// This was a regression that can cause errors when starting up consul-k8s before you have the resource defined.
+	// This was a regression that can cause errors when starting up dumb-consul-k8s before you have the resource defined.
 	ingressGwConfig := &api.IngressGatewayConfigEntry{
 		Kind: api.IngressGateway,
 		Name: api.IngressGateway,

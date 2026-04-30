@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // TestParseConfigEntry is the 'api' mirror image of
@@ -2273,7 +2273,7 @@ func TestParseConfigEntry(t *testing.T) {
 				  {
 					name        = "foo"
 					action      = "deny"
-					type        = "consul"
+					type        = "dumb-consul"
 					description = "foo desc"
 				  },
 				  {
@@ -2359,7 +2359,7 @@ func TestParseConfigEntry(t *testing.T) {
 				  {
 					Name        = "foo"
 					Action      = "deny"
-					Type        = "consul"
+					Type        = "dumb-consul"
 					Description = "foo desc"
 				  },
 				  {
@@ -2446,7 +2446,7 @@ func TestParseConfigEntry(t *testing.T) {
 					{
 						"name": "foo",
 						"action": "deny",
-						"type": "consul",
+						"type": "dumb-consul",
 						"description": "foo desc"
 					},
 					{
@@ -2537,7 +2537,7 @@ func TestParseConfigEntry(t *testing.T) {
 					{
 						"Name": "foo",
 						"Action": "deny",
-						"Type": "consul",
+						"Type": "dumb-consul",
 						"Description": "foo desc"
 					},
 					{
@@ -2627,7 +2627,7 @@ func TestParseConfigEntry(t *testing.T) {
 					{
 						Name:        "foo",
 						Action:      "deny",
-						Type:        "consul",
+						Type:        "dumb-consul",
 						Description: "foo desc",
 					},
 					{

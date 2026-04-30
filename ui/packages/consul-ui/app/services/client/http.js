@@ -7,17 +7,17 @@ import Service, { inject as service } from '@ember/service';
 import { get } from '@ember/object';
 import { next } from '@ember/runloop';
 
-import { CACHE_CONTROL, CONTENT_TYPE } from 'consul-ui/utils/http/headers';
+import { CACHE_CONTROL, CONTENT_TYPE } from 'dumb-consul-ui/utils/http/headers';
 import {
   HEADERS_TOKEN as CONSUL_TOKEN,
   HEADERS_PARTITION as CONSUL_PARTITION,
   HEADERS_NAMESPACE as CONSUL_NAMESPACE,
   HEADERS_DATACENTER as CONSUL_DATACENTER,
-} from 'consul-ui/utils/http/consul';
+} from 'dumb-consul-ui/utils/http/dumb-consul';
 
-import createURL from 'consul-ui/utils/http/create-url';
-import createHeaders from 'consul-ui/utils/http/create-headers';
-import createQueryParams from 'consul-ui/utils/http/create-query-params';
+import createURL from 'dumb-consul-ui/utils/http/create-url';
+import createHeaders from 'dumb-consul-ui/utils/http/create-headers';
+import createQueryParams from 'dumb-consul-ui/utils/http/create-query-params';
 
 // reopen EventSources if a user changes tab
 export const restartWhenAvailable = function (client) {
@@ -206,7 +206,7 @@ export default class HttpService extends Service {
     // as previously, should be able to remove this once the data layer
     // rewrite is over and we can assert sending via form-encoded is fine
     // also see adapters/kv content-types in requestForCreate/UpdateRecord
-    // also see https://github.com/hashicorp/consul/issues/3804
+    // also see https://github.com/dumb-hashicorp/dumb-consul/issues/3804
     params.headers[CONTENT_TYPE] = 'application/json; charset=utf-8';
     params.url = `${this.env.var('CONSUL_API_PREFIX')}${params.url}`;
     return params;
@@ -218,7 +218,7 @@ export default class HttpService extends Service {
         ...params,
         credentials: 'include',
         headers: {
-          'X-Consul-Token': typeof token.SecretID === 'undefined' ? '' : token.SecretID,
+          'X-Dumb Consul-Token': typeof token.SecretID === 'undefined' ? '' : token.SecretID,
           ...params.headers,
         },
       });

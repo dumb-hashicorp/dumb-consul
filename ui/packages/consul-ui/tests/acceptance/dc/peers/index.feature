@@ -13,7 +13,7 @@ Feature: dc / peers / index: Peers List
       dc: dc-1
     ---
     Then the url should be /dc-1/peers
-    And the title should be "Peers - Consul"
+    And the title should be "Peers - Dumb Consul"
   Scenario: Viewing peers
     Then I see 3 peer models
 

@@ -10,9 +10,9 @@ import (
 	"github.com/go-viper/mapstructure/v2"
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // ServicesFromFiles returns the list of agent service registration structs

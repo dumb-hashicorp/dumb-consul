@@ -13,23 +13,23 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 
 	"github.com/armon/go-metrics"
 	envoy_cluster_v3 "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
 	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
 	envoy_discovery_v3 "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/grpc-external/limiter"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/version"
-	"github.com/hashicorp/go-hclog"
-	goversion "github.com/hashicorp/go-version"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/version"
+	"github.com/dumb-hashicorp/go-hclog"
+	goversion "github.com/dumb-hashicorp/go-version"
 	"github.com/stretchr/testify/require"
 	rpcstatus "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc/codes"
@@ -109,11 +109,11 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_TCP(t *testing.T) {
 				makeTestEndpoints(t, snap, "tcp:geo-cache"),
 			),
 			ResourceNamesSubscribe: []string{
-				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-				// "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+				// "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 				//
 				// Include "fake-endpoints" here to test subscribing to an unknown
-				// thing and have consul tell us there's no data for it.
+				// thing and have dumb-consul tell us there's no data for it.
 				"fake-endpoints",
 			},
 		})
@@ -165,7 +165,7 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_TCP(t *testing.T) {
 		// fresh copy.
 		envoy.SendDeltaReq(t, xdscommon.EndpointType, &envoy_discovery_v3.DeltaDiscoveryRequest{
 			ResourceNamesSubscribe: []string{
-				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 			},
 		})
 
@@ -193,7 +193,7 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_TCP(t *testing.T) {
 	testutil.RunStep(t, "avoid sending config for unsubscribed resource", func(t *testing.T) {
 		envoy.SendDeltaReq(t, xdscommon.EndpointType, &envoy_discovery_v3.DeltaDiscoveryRequest{
 			ResourceNamesUnsubscribe: []string{
-				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 			},
 		})
 
@@ -219,7 +219,7 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_TCP(t *testing.T) {
 		// When Envoy re-subscribes to db we send the endpoints for it.
 		envoy.SendDeltaReq(t, xdscommon.EndpointType, &envoy_discovery_v3.DeltaDiscoveryRequest{
 			ResourceNamesSubscribe: []string{
-				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 			},
 		})
 		assertDeltaResponseSent(t, envoy.deltaStream.sendCh, &envoy_discovery_v3.DeltaDiscoveryResponse{
@@ -303,8 +303,8 @@ func TestServer_DeltaAggregatedResources_v3_NackLoop(t *testing.T) {
 		// Envoy then tries to discover endpoints for those clusters.
 		envoy.SendDeltaReq(t, xdscommon.EndpointType, &envoy_discovery_v3.DeltaDiscoveryRequest{
 			ResourceNamesSubscribe: []string{
-				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 			},
 		})
 
@@ -351,7 +351,7 @@ func TestServer_DeltaAggregatedResources_v3_NackLoop(t *testing.T) {
 		// Envoy NACKs the listener update due to the bad public listener
 		envoy.SendDeltaReqNACK(t, xdscommon.ListenerType, 3, &rpcstatus.Status{})
 
-		// Consul should not respond until a new snapshot is delivered
+		// Dumb Consul should not respond until a new snapshot is delivered
 		// because the current snapshot is known to be bad.
 		assertDeltaChanBlocked(t, envoy.deltaStream.sendCh)
 	})
@@ -429,8 +429,8 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_HTTP2(t *testing.T) {
 		// Envoy then tries to discover endpoints for those clusters.
 		envoy.SendDeltaReq(t, xdscommon.EndpointType, &envoy_discovery_v3.DeltaDiscoveryRequest{
 			ResourceNamesSubscribe: []string{
-				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 			},
 		})
 
@@ -539,7 +539,7 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_HTTP2(t *testing.T) {
 }
 
 func TestServer_DeltaAggregatedResources_v3_SlowEndpointPopulation(t *testing.T) {
-	// This illustrates a scenario related to https://github.com/hashicorp/consul/issues/10563
+	// This illustrates a scenario related to https://github.com/dumb-hashicorp/dumb-consul/issues/10563
 
 	aclResolve := func(id string) (acl.Authorizer, error) {
 		// Allow all
@@ -597,8 +597,8 @@ func TestServer_DeltaAggregatedResources_v3_SlowEndpointPopulation(t *testing.T)
 		// Envoy then tries to discover endpoints for those clusters.
 		envoy.SendDeltaReq(t, xdscommon.EndpointType, &envoy_discovery_v3.DeltaDiscoveryRequest{
 			ResourceNamesSubscribe: []string{
-				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 			},
 		})
 
@@ -726,8 +726,8 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_TCP_clusterChangesImpa
 		// Envoy then tries to discover endpoints for those clusters.
 		envoy.SendDeltaReq(t, xdscommon.EndpointType, &envoy_discovery_v3.DeltaDiscoveryRequest{
 			ResourceNamesSubscribe: []string{
-				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 			},
 		})
 
@@ -880,8 +880,8 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_TCP_clusterChangeBefor
 		// Envoy then tries to discover endpoints for clusters.
 		envoy.SendDeltaReq(t, xdscommon.EndpointType, &envoy_discovery_v3.DeltaDiscoveryRequest{
 			ResourceNamesSubscribe: []string{
-				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 			},
 		})
 
@@ -1010,8 +1010,8 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_HTTP2_RDS_listenerChan
 		// Envoy then tries to discover endpoints for those clusters.
 		envoy.SendDeltaReq(t, xdscommon.EndpointType, &envoy_discovery_v3.DeltaDiscoveryRequest{
 			ResourceNamesSubscribe: []string{
-				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+				"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+				"geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
 			},
 		})
 
@@ -1273,7 +1273,7 @@ func TestServer_DeltaAggregatedResources_v3_ACLEnforcement(t *testing.T) {
 					require.Len(r, data, 1)
 
 					item := data[0]
-					val, ok := item.Gauges["consul.xds.test.xds.server.streamsUnauthenticated"]
+					val, ok := item.Gauges["dumb-consul.xds.test.xds.server.streamsUnauthenticated"]
 					require.True(r, ok)
 					require.Equal(r, float32(1), val.Value)
 				})
@@ -1318,7 +1318,7 @@ func TestServer_DeltaAggregatedResources_v3_ACLEnforcement(t *testing.T) {
 					require.Len(r, data, 1)
 
 					item := data[0]
-					val, ok := item.Gauges["consul.xds.test.xds.server.streamsUnauthenticated"]
+					val, ok := item.Gauges["dumb-consul.xds.test.xds.server.streamsUnauthenticated"]
 					require.True(r, ok)
 					require.Equal(r, float32(0), val.Value)
 				})
@@ -1691,7 +1691,7 @@ func TestServer_DeltaAggregatedResources_v3_StreamDrained(t *testing.T) {
 		item := data[0]
 		require.Len(t, item.Counters, 1)
 
-		val, ok := item.Counters["consul.xds.test.xds.server.streamDrained"]
+		val, ok := item.Counters["dumb-consul.xds.test.xds.server.streamDrained"]
 		require.True(t, ok)
 		require.Equal(t, 1, val.Count)
 	})
@@ -1703,7 +1703,7 @@ func TestServer_DeltaAggregatedResources_v3_StreamDrained(t *testing.T) {
 		item := data[0]
 		require.Len(t, item.Samples, 1)
 
-		val, ok := item.Samples["consul.xds.test.xds.server.streamStart"]
+		val, ok := item.Samples["dumb-consul.xds.test.xds.server.streamStart"]
 		require.True(t, ok)
 		require.Equal(t, 1, val.Count)
 	})
@@ -1770,9 +1770,9 @@ func requireExtensionMetrics(
 	}
 
 	for _, s := range []string{
-		"consul.xds.test.envoy_extension.validate_arguments;",
-		"consul.xds.test.envoy_extension.validate;",
-		"consul.xds.test.envoy_extension.extend;",
+		"dumb-consul.xds.test.envoy_extension.validate_arguments;",
+		"dumb-consul.xds.test.envoy_extension.validate;",
+		"dumb-consul.xds.test.envoy_extension.extend;",
 	} {
 		foundLabel := false
 		for k, v := range item.Samples {
@@ -1823,13 +1823,13 @@ func Test_validateAndApplyEnvoyExtension_Validations(t *testing.T) {
 
 	cases := []testCase{
 		{
-			name:          "invalid consul version constraint - required",
+			name:          "invalid dumb-consul version constraint - required",
 			runtimeConfig: makeRuntimeConfig(true, "bad", ">= 1.0", nil),
 			err:           true,
-			errString:     "failed to parse Consul version constraint for extension",
+			errString:     "failed to parse Dumb Consul version constraint for extension",
 		},
 		{
-			name:          "invalid consul version constraint - not required",
+			name:          "invalid dumb-consul version constraint - not required",
 			runtimeConfig: makeRuntimeConfig(false, "bad", ">= 1.0", nil),
 			err:           false,
 		},
@@ -1850,7 +1850,7 @@ func Test_validateAndApplyEnvoyExtension_Validations(t *testing.T) {
 			err:           false,
 		},
 		{
-			name:          "no consul version constraint match",
+			name:          "no dumb-consul version constraint match",
 			runtimeConfig: makeRuntimeConfig(false, ">= 2.0.0", "", nil),
 			err:           false,
 		},

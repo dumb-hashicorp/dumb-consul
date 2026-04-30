@@ -12,7 +12,7 @@
         "wan_ipv4": "172.17.0.2"
       },
       "Meta": {
-        "consul-network-segment": ""
+        "dumb-consul-network-segment": ""
       },
       "CreateIndex": 14,
       "ModifyIndex": 17
@@ -72,7 +72,7 @@
         "wan_ipv4": "172.17.0.2"
       },
       "Meta": {
-        "consul-network-segment": ""
+        "dumb-consul-network-segment": ""
       },
       "CreateIndex": 14,
       "ModifyIndex": 17

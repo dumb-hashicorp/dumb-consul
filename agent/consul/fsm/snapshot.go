@@ -9,13 +9,13 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-raftchunking"
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/go-raftchunking"
+	"github.com/dumb-hashicorp/raft"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
-	raftstorage "github.com/hashicorp/consul/internal/storage/raft"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	raftstorage "github.com/dumb-hashicorp/dumb-consul/internal/storage/raft"
 )
 
 var cePersister, entPersister persister

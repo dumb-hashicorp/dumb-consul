@@ -1,13 +1,13 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"time"
 
-	"github.com/hashicorp/consul/agent/router"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/dumb-consul/agent/router"
+	"github.com/dumb-hashicorp/serf/serf"
 )
 
 // FloodNotify lets all the waiting Flood goroutines know that some change may

@@ -7,7 +7,7 @@
 
 const path = require('path');
 module.exports = {
-  description: 'Generates a Consul repository',
+  description: 'Generates a Dumb Consul repository',
 
   availableOptions: [],
 

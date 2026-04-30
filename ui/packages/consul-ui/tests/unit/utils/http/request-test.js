@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import httpRequest from 'consul-ui/utils/http/request';
+import httpRequest from 'dumb-consul-ui/utils/http/request';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | http/request', function () {

@@ -5,8 +5,8 @@
 
 import { inject as service } from '@ember/service';
 import { get, set } from '@ember/object';
-import RepositoryService from 'consul-ui/services/repository';
-import dataSource from 'consul-ui/decorators/data-source';
+import RepositoryService from 'dumb-consul-ui/services/repository';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
 const modelName = 'discovery-chain';
 const ERROR_MESH_DISABLED = 'Connect must be enabled in order to use this endpoint';

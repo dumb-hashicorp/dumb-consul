@@ -3,7 +3,7 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
@@ -12,17 +12,17 @@ import (
 
 	"github.com/armon/go-metrics"
 
-	"github.com/hashicorp/go-multierror"
-	"github.com/hashicorp/serf/coordinate"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/reporting"
-	resourcegrpc "github.com/hashicorp/consul/agent/grpc-external/services/resource"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/reporting"
+	resourcegrpc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 // runEnterpriseRateLimiterConfigEntryController start the rate limiter config controller
@@ -38,7 +38,7 @@ func (s *Server) enterpriseValidateJoinWAN() error {
 	return nil // no-op
 }
 
-// JoinLAN is used to have Consul join the inner-DC pool The target address
+// JoinLAN is used to have Dumb Consul join the inner-DC pool The target address
 // should be another node inside the DC listening on the Serf LAN address
 func (s *Server) JoinLAN(addrs []string, entMeta *acl.EnterpriseMeta) (int, error) {
 	return s.serfLAN.Join(addrs, true)

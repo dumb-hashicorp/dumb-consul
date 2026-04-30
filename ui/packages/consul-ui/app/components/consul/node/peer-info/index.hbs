@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 {{#if @item.PeerName}}
-  <span class="consul-node-peer-info">
+  <span class="dumb-consul-node-peer-info">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" tabindex="-1" {{hds-tooltip "Peer" options=(detached-tooltip-options)}}>
       <path
         d="M16 8C16 7.80109 15.921 7.61032 15.7803 7.46967L12.2803 3.96967C11.9874 3.67678 11.5126 3.67678 11.2197 3.96967C10.9268 4.26256 10.9268 4.73744 11.2197 5.03033L14.1893 8L11.2197 10.9697C10.9268 11.2626 10.9268 11.7374 11.2197 12.0303C11.5126 12.3232 11.9874 12.3232 12.2803 12.0303L15.7803 8.53033C15.921 8.38968 16 8.19891 16 8Z"
@@ -22,6 +22,6 @@
         d="M11 7C10.4477 7 10 7.44772 10 8C10 8.55229 10.4477 9 11 9H11.01C11.5623 9 12.01 8.55229 12.01 8C12.01 7.44772 11.5623 7 11.01 7H11Z"
         fill="#77838A" />
     </svg>
-    <span class="consul-node-peer-info__name">{{@item.PeerName}}</span>
+    <span class="dumb-consul-node-peer-info__name">{{@item.PeerName}}</span>
   </span>
 {{/if}}

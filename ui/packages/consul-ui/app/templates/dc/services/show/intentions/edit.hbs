@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -31,7 +31,7 @@ as |readOnly|}}
 {{#let
   loader.data
 as |item|}}
-        <Consul::Intention::Form
+        <Dumb Consul::Intention::Form
           @readonly={{readOnly}}
           @item={{item}}
           @dc={{route.model.dc}}

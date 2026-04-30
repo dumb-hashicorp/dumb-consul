@@ -20,18 +20,18 @@ import (
 	"github.com/armon/go-radix"
 	"github.com/miekg/dns"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/config"
-	agentdns "github.com/hashicorp/consul/agent/dns"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/internal/dnsutil"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	agentdns "github.com/dumb-hashicorp/dumb-consul/agent/dns"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/internal/dnsutil"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 const (
@@ -49,9 +49,9 @@ const (
 	defaultMaxUDPSize = 512
 
 	// If a consumer sets a buffer size greater than this amount we will default it down
-	// to this amount to ensure that consul does respond. Previously if consumer had a larger buffer
+	// to this amount to ensure that dumb-consul does respond. Previously if consumer had a larger buffer
 	// size than 65535 - 60 bytes (maximim 60 bytes for IP header. UDP header will be offset in the
-	// trimUDP call) consul would fail to respond and the consumer timesout
+	// trimUDP call) dumb-consul would fail to respond and the consumer timesout
 	// the request.
 	maxUDPDatagramSize = math.MaxUint16 - 68
 )
@@ -166,7 +166,7 @@ func NewDNSServer(a *Agent) (*DNSServer, error) {
 	// converted the configured alt domain into an FQDN which will ensure that
 	// the value ends with a ".". Therefore "." is the empty string equivalent
 	// for originally having no alternate domain set. If there is a reason
-	// why consul should be configured to handle the root zone I have yet
+	// why dumb-consul should be configured to handle the root zone I have yet
 	// to think of it.
 	if srv.altDomain != "." {
 		srv.mux.HandleFunc(srv.altDomain, srv.handleQuery)
@@ -731,27 +731,27 @@ func (e ecsNotGlobalError) Unwrap() error {
 
 type queryLocality struct {
 	// datacenter is the datacenter parsed from a label that has an explicit datacenter part.
-	// Example query: <service>.virtual.<namespace>.ns.<partition>.ap.<datacenter>.dc.consul
+	// Example query: <service>.virtual.<namespace>.ns.<partition>.ap.<datacenter>.dc.dumb-consul
 	datacenter string
 
 	// peer is the peer name parsed from a label that has explicit parts.
-	// Example query: <service>.virtual.<namespace>.ns.<peer>.peer.<partition>.ap.consul
+	// Example query: <service>.virtual.<namespace>.ns.<peer>.peer.<partition>.ap.dumb-consul
 	peer string
 
 	// peerOrDatacenter is parsed from DNS queries where the datacenter and peer name are
 	// specified in the same query part.
-	// Example query: <service>.virtual.<peerOrDatacenter>.consul
+	// Example query: <service>.virtual.<peerOrDatacenter>.dumb-consul
 	//
 	// Note that this field should only be a "peer" for virtual queries, since virtual IPs should
 	// not be shared between datacenters. In all other cases, it should be considered a DC.
 	peerOrDatacenter string
 
 	// samenessGroup is the samenessGroup name parsed from a label that has explicit parts.
-	// Example query: <service>.service.<sameness group>.sg.consul
+	// Example query: <service>.service.<sameness group>.sg.dumb-consul
 	samenessGroup string
 
 	// portName is the portName parsed from a label that has explicit parts ( only applicable for SRV records )
-	// Example query: _<service>._<protocol>.service.<port_name>.port.consul
+	// Example query: _<service>._<protocol>.service.<port_name>.port.dumb-consul
 	portName string
 
 	acl.EnterpriseMeta
@@ -845,16 +845,16 @@ func (d *DNSServer) dispatch(remoteAddr net.Addr, req, resp *dns.Msg, cfg *dnsRe
 			// Grab the tag since we make nuke it if it's tcp
 			tag := queryParts[1][1:]
 
-			// Treat _name._tcp.service.consul as a default, no need to filter on that tag
+			// Treat _name._tcp.service.dumb-consul as a default, no need to filter on that tag
 			if tag == "tcp" {
 				tag = ""
 			}
 
 			lookup.Tag = tag
 			lookup.Service = queryParts[0][1:]
-			// _name._tag.service.consul
+			// _name._tag.service.dumb-consul
 		} else {
-			// Consul 0.3 and prior format for SRV queries
+			// Dumb Consul 0.3 and prior format for SRV queries
 			// Support "." in the label, re-join all the parts
 			tag := ""
 			if n >= 2 {
@@ -863,7 +863,7 @@ func (d *DNSServer) dispatch(remoteAddr net.Addr, req, resp *dns.Msg, cfg *dnsRe
 
 			lookup.Tag = tag
 			lookup.Service = queryParts[n-1]
-			// tag[.tag].name.service.consul
+			// tag[.tag].name.service.dumb-consul
 		}
 
 		err = d.handleServiceQuery(cfg, lookup, req, resp)
@@ -895,7 +895,7 @@ func (d *DNSServer) dispatch(remoteAddr net.Addr, req, resp *dns.Msg, cfg *dnsRe
 			MaxRecursionLevel: maxRecursionLevel,
 			EnterpriseMeta:    locality.EnterpriseMeta,
 		}
-		// name.connect.consul
+		// name.connect.dumb-consul
 		return d.handleServiceQuery(cfg, lookup, req, resp)
 
 	case "virtual":
@@ -909,8 +909,8 @@ func (d *DNSServer) dispatch(remoteAddr net.Addr, req, resp *dns.Msg, cfg *dnsRe
 		}
 
 		// queryParts is in reverse label order (innermost first).
-		// For "db.virtual.consul."            → queryParts = ["db"]
-		// For "http.db.virtual.consul."       → queryParts = ["http", "db"]
+		// For "db.virtual.dumb-consul."            → queryParts = ["db"]
+		// For "http.db.virtual.dumb-consul."       → queryParts = ["http", "db"]
 		// The last element is always the service name; the optional first
 		// element (when len > 1) is a named port for multiport services.
 		serviceName := queryParts[len(queryParts)-1]
@@ -999,7 +999,7 @@ func (d *DNSServer) dispatch(remoteAddr net.Addr, req, resp *dns.Msg, cfg *dnsRe
 			MaxRecursionLevel: maxRecursionLevel,
 			EnterpriseMeta:    locality.EnterpriseMeta,
 		}
-		// name.ingress.consul
+		// name.ingress.dumb-consul
 		return d.handleServiceQuery(cfg, lookup, req, resp)
 
 	case "node":
@@ -1212,7 +1212,7 @@ func (d *DNSServer) handleNodeQuery(cfg *dnsRequestConfig, lookup nodeLookup, re
 	return nil
 }
 
-// lookupNode is used to look up a node in the Consul catalog within NodeServices.
+// lookupNode is used to look up a node in the Dumb Consul catalog within NodeServices.
 // If the config is set to UseCache, it will get the record from the agent cache.
 func (d *DNSServer) lookupNode(cfg *dnsRequestConfig, args *structs.NodeSpecificRequest) (*structs.IndexedNodeServices, error) {
 	var out structs.IndexedNodeServices
@@ -1494,7 +1494,7 @@ func (d *DNSServer) trimDNSResponse(cfg *dnsRequestConfig, network string, req, 
 	}
 }
 
-// lookupServiceNodes is used to look up a node in the Consul health catalog within ServiceNodes.
+// lookupServiceNodes is used to look up a node in the Dumb Consul health catalog within ServiceNodes.
 // If the config is set to UseCache, it will get the record from the agent cache.
 func (d *DNSServer) lookupServiceNodes(cfg *dnsRequestConfig, lookup serviceLookup) (structs.IndexedCheckServiceNodes, error) {
 	serviceTags := []string{}
@@ -1678,7 +1678,7 @@ func (d *DNSServer) handlePreparedQuery(cfg *dnsRequestConfig, datacenter, query
 	return nil
 }
 
-// lookupPreparedQuery is used to execute a PreparedQuery against the Consul catalog.
+// lookupPreparedQuery is used to execute a PreparedQuery against the Dumb Consul catalog.
 // If the config is set to UseCache, it will use agent cache.
 func (d *DNSServer) lookupPreparedQuery(cfg *dnsRequestConfig, args structs.PreparedQueryExecuteRequest) (*structs.PreparedQueryExecuteResponse, error) {
 	var out structs.PreparedQueryExecuteResponse
@@ -2226,7 +2226,7 @@ func (d *DNSServer) handleRecurse(resp dns.ResponseWriter, req *dns.Msg) {
 
 // resolveCNAME is used to recursively resolve CNAME records
 func (d *DNSServer) resolveCNAME(cfg *dnsRequestConfig, name string, maxRecursionLevel int) []dns.RR {
-	// If the CNAME record points to a Consul address, resolve it internally
+	// If the CNAME record points to a Dumb Consul address, resolve it internally
 	// Convert query to lowercase because DNS is case insensitive; d.domain and
 	// d.altDomain are already converted
 
@@ -2284,7 +2284,7 @@ func (d *DNSServer) resolveCNAME(cfg *dnsRequestConfig, name string, maxRecursio
 // 2. The DNSToken from the agent.
 // 3. The UserToken from the agent.
 func (d *DNSServer) coalesceDNSToken(requestToken string) string {
-	// if the request token is set, which occurs when consul-dataplane forwards requests over gRPC, use it
+	// if the request token is set, which occurs when dumb-consul-dataplane forwards requests over gRPC, use it
 	if requestToken != "" {
 		return requestToken
 	}
@@ -2311,7 +2311,7 @@ func (d *DNSServer) getRequestConfig(resp dns.ResponseWriter) *dnsRequestConfig 
 	// implementation of dns.ResponseWriter to pass the context from the request.
 	if rw, ok := resp.(*agentdns.BufferResponseWriter); ok {
 		// use the ACL token from the request if available.  Regular DNS hitting the
-		// agent will not carry a token, but gRPC requests from consul-dataplane will.
+		// agent will not carry a token, but gRPC requests from dumb-consul-dataplane will.
 		if rw.RequestContext.Token != "" {
 			requestDnsConfig.token = rw.RequestContext.Token
 		}

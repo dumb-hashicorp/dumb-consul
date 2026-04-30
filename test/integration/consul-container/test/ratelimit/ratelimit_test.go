@@ -10,14 +10,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 	"github.com/stretchr/testify/require"
 
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libtopology "github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libtopology "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 const (
@@ -292,7 +292,7 @@ func checkForMetric(t testutil.TestingTB, cluster *libcluster.Cluster, operation
 	//			require.NoError(t, err)
 	if metricsInfo != nil && err == nil {
 		if expectMetric {
-			const counterName = "consul.rpc.rate_limit.exceeded"
+			const counterName = "dumb-consul.rpc.rate_limit.exceeded"
 
 			var counter api.SampledValue
 			for _, c := range metricsInfo.Counters {

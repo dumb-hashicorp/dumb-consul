@@ -10,9 +10,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/config"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/command/config"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -73,7 +73,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -90,7 +90,7 @@ func (c *cmd) Run(args []string) int {
 		baseErr := fmt.Sprintf("%v", err)
 
 		// Build enriched Jira-specific guidance
-		enrichedMsg := fmt.Sprintf("Error writing config entry %s/%s: %s — The target config entry is referenced by gateway/router and cannot be modified or deleted until it is unreferenced. "+"Check upstream configs (routers/gateways) referencing service '%s' with `consul config list` and `consul config read`.", entry.GetKind(), entry.GetName(), baseErr, entry.GetName())
+		enrichedMsg := fmt.Sprintf("Error writing config entry %s/%s: %s — The target config entry is referenced by gateway/router and cannot be modified or deleted until it is unreferenced. "+"Check upstream configs (routers/gateways) referencing service '%s' with `dumb-consul config list` and `dumb-consul config read`.", entry.GetKind(), entry.GetName(), baseErr, entry.GetName())
 		c.UI.Error(enrichedMsg)
 		return 1
 	}
@@ -120,7 +120,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Create or update a centralized config entry"
 	help     = `
-Usage: consul config write [options] <configuration>
+Usage: dumb-consul config write [options] <configuration>
 
   Request a config entry to be created or updated. The configuration
   argument is either a file path or '-' to indicate that the config
@@ -129,10 +129,10 @@ Usage: consul config write [options] <configuration>
 
   Example (from file):
 
-    $ consul config write web.service.hcl
+    $ dumb-consul config write web.service.hcl
 
   Example (from stdin):
 
-    $ consul config write -
+    $ dumb-consul config write -
 `
 )

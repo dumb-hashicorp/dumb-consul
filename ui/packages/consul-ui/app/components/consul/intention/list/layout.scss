@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-.consul-intention-list {
+.dumb-consul-intention-list {
   td {
     height: 59px;
   }
@@ -31,7 +31,7 @@
 }
 
 @media #{$--lt-horizontal-nav} {
-  .consul-intention-list tr > :not(.source):not(.destination):not(.intent) {
+  .dumb-consul-intention-list tr > :not(.source):not(.destination):not(.intent) {
     display: none;
   }
 }

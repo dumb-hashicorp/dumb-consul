@@ -11,10 +11,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/fsm"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/fsm"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 type consulCAMockDelegate struct {
@@ -54,7 +54,7 @@ func newMockDelegate(t *testing.T, conf *structs.CAConfiguration) *consulCAMockD
 func testConsulCAConfig() *structs.CAConfiguration {
 	return &structs.CAConfiguration{
 		ClusterID: connect.TestClusterID,
-		Provider:  "consul",
+		Provider:  "dumb-consul",
 		Config: map[string]interface{}{
 			// Tests duration parsing after msgpack type mangling during raft apply.
 			"LeafCertTTL":         []byte("72h"),
@@ -98,7 +98,7 @@ func TestConsulCAProvider_Bootstrap(t *testing.T) {
 	// Should be a valid cert
 	parsed, err := connect.ParseCert(root)
 	require.NoError(t, err)
-	require.Equal(t, parsed.URIs[0].String(), fmt.Sprintf("spiffe://%s.consul", conf.ClusterID))
+	require.Equal(t, parsed.URIs[0].String(), fmt.Sprintf("spiffe://%s.dumb-consul", conf.ClusterID))
 	requireNotEncoded(t, parsed.SubjectKeyId)
 	requireNotEncoded(t, parsed.AuthorityKeyId)
 
@@ -165,7 +165,7 @@ func TestConsulCAProvider_SignLeaf(t *testing.T) {
 			require.NoError(t, err)
 
 			spiffeService := &connect.SpiffeIDService{
-				Host:       connect.TestClusterID + ".consul",
+				Host:       connect.TestClusterID + ".dumb-consul",
 				Namespace:  "default",
 				Datacenter: "dc1",
 				Service:    "foo",
@@ -224,7 +224,7 @@ func TestConsulCAProvider_SignLeaf(t *testing.T) {
 			}
 
 			spiffeAgent := &connect.SpiffeIDAgent{
-				Host:       connect.TestClusterID + ".consul",
+				Host:       connect.TestClusterID + ".dumb-consul",
 				Datacenter: "dc1",
 				Agent:      "uuid",
 			}
@@ -342,7 +342,7 @@ func testCrossSignProviders(t *testing.T, provider1, provider2 Provider) {
 
 	// Get a leaf cert so we can verify against the cross-signed cert.
 	spiffeService := &connect.SpiffeIDService{
-		Host:       connect.TestClusterID + ".consul",
+		Host:       connect.TestClusterID + ".dumb-consul",
 		Namespace:  "default",
 		Datacenter: "dc1",
 		Service:    "foo",
@@ -461,7 +461,7 @@ func testSignIntermediateCrossDC(t *testing.T, provider1, provider2 Provider) {
 
 	// Have provider2 sign a leaf cert and make sure the chain is correct.
 	spiffeService := &connect.SpiffeIDService{
-		Host:       connect.TestClusterID + ".consul",
+		Host:       connect.TestClusterID + ".dumb-consul",
 		Namespace:  "default",
 		Datacenter: "dc1",
 		Service:    "foo",

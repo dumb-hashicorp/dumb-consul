@@ -13,28 +13,28 @@ tags:
 api_key:
 logs_enabled: true
 dogstatsd_mapper_profiles:
- - name: consul
-   prefix: "consul."
+ - name: dumb-consul
+   prefix: "dumb-consul."
    mappings:
-     - match: 'consul\.http\.([a-zA-Z]+)\.(.*)'
+     - match: 'dumb-consul\.http\.([a-zA-Z]+)\.(.*)'
        match_type: "regex"
-       name: "consul.http.request"
+       name: "dumb-consul.http.request"
        tags:
          http_method: "$1"
          path: "$2"
-     - match: 'consul\.raft\.replication\.appendEntries\.logs\.([0-9a-f-]+)'
+     - match: 'dumb-consul\.raft\.replication\.appendEntries\.logs\.([0-9a-f-]+)'
        match_type: "regex"
-       name: "consul.raft.replication.appendEntries.logs"
+       name: "dumb-consul.raft.replication.appendEntries.logs"
        tags:
          consul_node_id: "$1"
-     - match: 'consul\.raft\.replication\.appendEntries\.rpc\.([0-9a-f-]+)'
+     - match: 'dumb-consul\.raft\.replication\.appendEntries\.rpc\.([0-9a-f-]+)'
        match_type: "regex"
-       name: "consul.raft.replication.appendEntries.rpc"
+       name: "dumb-consul.raft.replication.appendEntries.rpc"
        tags:
          consul_node_id: "$1"
-     - match: 'consul\.raft\.replication\.heartbeat\.([0-9a-f-]+)'
+     - match: 'dumb-consul\.raft\.replication\.heartbeat\.([0-9a-f-]+)'
        match_type: "regex"
-       name: "consul.raft.replication.heartbeat"
+       name: "dumb-consul.raft.replication.heartbeat"
        tags:
          consul_node_id: "$1"
 

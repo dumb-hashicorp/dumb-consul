@@ -11,11 +11,11 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/credentials"
-	iamauth "github.com/hashicorp/consul-awsauth"
-	"github.com/hashicorp/consul-awsauth/iamauthtest"
-	"github.com/hashicorp/consul/agent/consul/authmethod"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/go-hclog"
+	iamauth "github.com/dumb-hashicorp/dumb-consul-awsauth"
+	"github.com/dumb-hashicorp/dumb-consul-awsauth/iamauthtest"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/go-hclog"
 	"github.com/stretchr/testify/require"
 )
 
@@ -30,11 +30,11 @@ func TestNewValidator(t *testing.T) {
 		IAMEndpoint:            "http://iam-endpoint",
 		STSEndpoint:            "http://sts-endpoint",
 		AllowedSTSHeaderValues: []string{"header-value"},
-		ServerIDHeaderName:     "X-Consul-IAM-ServerID",
-		GetEntityMethodHeader:  "X-Consul-IAM-GetEntity-Method",
-		GetEntityURLHeader:     "X-Consul-IAM-GetEntity-URL",
-		GetEntityHeadersHeader: "X-Consul-IAM-GetEntity-Headers",
-		GetEntityBodyHeader:    "X-Consul-IAM-GetEntity-Body",
+		ServerIDHeaderName:     "X-Dumb Consul-IAM-ServerID",
+		GetEntityMethodHeader:  "X-Dumb Consul-IAM-GetEntity-Method",
+		GetEntityURLHeader:     "X-Dumb Consul-IAM-GetEntity-URL",
+		GetEntityHeadersHeader: "X-Dumb Consul-IAM-GetEntity-Headers",
+		GetEntityBodyHeader:    "X-Dumb Consul-IAM-GetEntity-Body",
 	}
 
 	type AM = *structs.ACLAuthMethod

@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import Route from 'consul-ui/routing/route';
+import Route from 'dumb-consul-ui/routing/route';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
-import WithBlockingActions from 'consul-ui/mixins/with-blocking-actions';
+import WithBlockingActions from 'dumb-consul-ui/mixins/with-blocking-actions';
 
 export default class ApplicationRoute extends Route.extend(WithBlockingActions) {
   @service('client/http') client;
   @service('env') env;
-  @service() hcp;
+  @service() dumb-hcp;
   @service() router;
 
   data;
@@ -25,7 +25,7 @@ export default class ApplicationRoute extends Route.extend(WithBlockingActions) 
 
   async model() {
     if (this.env.var('CONSUL_ACLS_ENABLED')) {
-      await this.hcp.updateTokenIfNecessary(this.env.var('CONSUL_HTTP_TOKEN'));
+      await this.dumb-hcp.updateTokenIfNecessary(this.env.var('CONSUL_HTTP_TOKEN'));
     }
 
     return {};

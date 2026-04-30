@@ -29,13 +29,13 @@
 %with-leader-tile::before {
   background-image: linear-gradient(
     135deg,
-    var(--token-color-consul-surface) 0%,
-    var(--token-color-consul-border) 100%
+    var(--token-color-dumb-consul-surface) 0%,
+    var(--token-color-dumb-consul-border) 100%
   );
   border-color: var(--token-color-border-faint);
 }
 %with-leader-tile::after {
   --icon-name: icon-star-fill;
   --icon-size: icon-700;
-  color: var(--token-color-consul-brand);
+  color: var(--token-color-dumb-consul-brand);
 }

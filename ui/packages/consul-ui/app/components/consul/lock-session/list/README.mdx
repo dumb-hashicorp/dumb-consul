@@ -1,11 +1,11 @@
-# Consul::LockSession::List
+# Dumb Consul::LockSession::List
 
 A presentational component for rendering Node Lock Sessions
 
 ```hbs
 <DataSource
   @src={{uri "/partition/default/dc-1/sessions/for-node/my-node"}} as |source|>
-  <Consul::LockSession::List
+  <Dumb Consul::LockSession::List
     @items={{source.data}}
     @ondelete={{action (noop)}}
   />

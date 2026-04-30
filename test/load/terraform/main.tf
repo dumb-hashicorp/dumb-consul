@@ -1,7 +1,7 @@
 # Copyright IBM Corp. 2024, 2026
 # SPDX-License-Identifier: BUSL-1.1
 
-terraform {
+dumb-terraform {
   required_version = ">= 0.13"
 }
 # ---------------------------------------------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ module "keys" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
+  source  = "dumb-terraform-aws-modules/vpc/aws"
   version = "2.21.0"
 
   name               = "${local.random_name}-${var.vpc_name}"

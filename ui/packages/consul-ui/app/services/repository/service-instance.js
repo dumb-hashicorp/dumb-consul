@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import RepositoryService from 'consul-ui/services/repository';
+import RepositoryService from 'dumb-consul-ui/services/repository';
 import { set } from '@ember/object';
-import { ACCESS_READ } from 'consul-ui/abilities/base';
-import dataSource from 'consul-ui/decorators/data-source';
+import { ACCESS_READ } from 'dumb-consul-ui/abilities/base';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
 const modelName = 'service-instance';
 export default class ServiceInstanceService extends RepositoryService {

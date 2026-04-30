@@ -9,15 +9,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 	"github.com/stretchr/testify/require"
 
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	libtopology "github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	libtopology "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 const externalServerName = libservice.StaticServerServiceName
@@ -28,14 +28,14 @@ func requestRetryTimer() *retry.Timer {
 
 // TestTerminatingGateway Summary
 // This test makes sure an external service can be reached via and terminating gateway. External server
-// refers to being outside of the consul service mesh but it runs under the same docker network.
+// refers to being outside of the dumb-consul service mesh but it runs under the same docker network.
 //
 // Steps:
 //   - Create a cluster (1 server and 1 client).
 //   - Create the external service static-server (a single container, no proxy).
-//   - Register an external node and the external service on that node in Consul.
+//   - Register an external node and the external service on that node in Dumb Consul.
 //   - Create a terminating gateway config entry that includes an entry for the "external" static-server.
-//   - Create the terminating gateway and register it with Consul.
+//   - Create the terminating gateway and register it with Dumb Consul.
 //   - Create a static-client proxy (no need for a service container).
 //   - Verify that the static-client can communicate with the external static-server through the terminating gateway
 func TestTerminatingGatewayBasic(t *testing.T) {
@@ -43,7 +43,7 @@ func TestTerminatingGatewayBasic(t *testing.T) {
 	var deferClean utils.ResettableDefer
 	defer deferClean.Execute()
 
-	t.Logf("creating consul cluster")
+	t.Logf("creating dumb-consul cluster")
 	cluster, _, client := libtopology.NewCluster(t, &libtopology.ClusterConfig{
 		NumServers: 1,
 		NumClients: 1,
@@ -54,7 +54,7 @@ func TestTerminatingGatewayBasic(t *testing.T) {
 	})
 	node := cluster.Clients()[0]
 
-	// Creates an external server that is not part of consul (no proxy)
+	// Creates an external server that is not part of dumb-consul (no proxy)
 	t.Logf("creating external server: %s", externalServerName)
 	externalServerPort := 8083
 	externalServerGRPCPort := 8079
@@ -64,7 +64,7 @@ func TestTerminatingGatewayBasic(t *testing.T) {
 		_ = externalServer.Terminate()
 	})
 
-	// Register the external service in the default namespace. Tell consul it is located on an 'external node' and
+	// Register the external service in the default namespace. Tell dumb-consul it is located on an 'external node' and
 	// not part of the service mesh. Because of the way that containers are created, the terminating gateway can
 	// make a call to the address `localhost:<externalServerPort` and reach the external service.
 	registerExternalService(t, client, externalServerName, "", "", "localhost", externalServerPort)
@@ -93,7 +93,7 @@ func TestTerminatingGatewayBasic(t *testing.T) {
 	assertHTTPRequestToServiceAddress(t, staticClient, externalServerName, libcluster.ServiceUpstreamLocalBindPort, true)
 }
 
-// registerExternalService registers a service on an external node so that Consul knows
+// registerExternalService registers a service on an external node so that Dumb Consul knows
 // that the service is not being managed by an agent.
 func registerExternalService(t *testing.T, consulClient *api.Client, name, namespace, partition, address string, port int) {
 	t.Helper()
@@ -112,7 +112,7 @@ func registerExternalService(t *testing.T, consulClient *api.Client, name, names
 	if namespace != "" {
 		service.Namespace = namespace
 
-		t.Logf("creating the %s namespace in Consul", namespace)
+		t.Logf("creating the %s namespace in Dumb Consul", namespace)
 		_, _, err := consulClient.Namespaces().Create(&api.Namespace{
 			Name:      namespace,
 			Partition: part,
@@ -138,7 +138,7 @@ func createTerminatingGatewayConfigEntry(t *testing.T, consulClient *api.Client,
 	t.Logf("creating terminating gateway config entry")
 
 	if serviceNamespace != "" {
-		t.Logf("creating the %s namespace in Consul", serviceNamespace)
+		t.Logf("creating the %s namespace in Dumb Consul", serviceNamespace)
 		_, _, err := consulClient.Namespaces().Create(&api.Namespace{
 			Name: serviceNamespace,
 		}, nil)

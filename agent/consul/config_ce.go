@@ -3,11 +3,11 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func (c *Config) AgentEnterpriseMeta() *acl.EnterpriseMeta {

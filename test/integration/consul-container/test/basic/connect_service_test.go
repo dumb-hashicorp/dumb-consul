@@ -9,9 +9,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
 )
 
 // TestBasicConnectService Summary
@@ -20,8 +20,8 @@ import (
 //
 // Steps:
 //   - Create a single agent cluster.
-//   - Create the example static-server and sidecar containers, then register them both with Consul
-//   - Create an example static-client sidecar, then register both the service and sidecar with Consul
+//   - Create the example static-server and sidecar containers, then register them both with Dumb Consul
+//   - Create an example static-client sidecar, then register both the service and sidecar with Dumb Consul
 //   - Make sure a call to the client sidecar local bind port returns a response from the upstream, static-server
 func TestBasicConnectService(t *testing.T) {
 	t.Parallel()

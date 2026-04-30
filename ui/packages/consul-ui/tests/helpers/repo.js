@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { get as httpGet } from 'consul-ui/tests/helpers/api';
+import { get as httpGet } from 'dumb-consul-ui/tests/helpers/api';
 import { getProperties, set } from '@ember/object';
-import measure from 'consul-ui/tests/helpers/measure';
+import measure from 'dumb-consul-ui/tests/helpers/measure';
 
 /**
  * A method that returns all attribute names for a given instance of an ember-data
@@ -47,8 +47,8 @@ const stubAdapterResponse = function (cb, payload, adapter) {
     request: function (cb) {
       return cb(function () {
         const params = client.requestParams(...arguments);
-        payload.headers['X-Consul-Namespace'] = params.data.ns || 'default';
-        payload.headers['X-Consul-Partition'] = params.data.partition || 'default';
+        payload.headers['X-Dumb Consul-Namespace'] = params.data.ns || 'default';
+        payload.headers['X-Dumb Consul-Partition'] = params.data.partition || 'default';
         return Promise.resolve(function (cb) {
           return cb(payload.headers, payloadClone.payload);
         });
@@ -62,7 +62,7 @@ const stubAdapterResponse = function (cb, payload, adapter) {
 };
 /** `repo` a helper function to faciliate easy integration testing of ember-data Service 'repo' layers
  *
- * Test performance is also measured using `consul-ui/tests/helpers/measure` and therefore results
+ * Test performance is also measured using `dumb-consul-ui/tests/helpers/measure` and therefore results
  * can optionally be sent to a centralized metrics collection stack
  *
  * @param {string}   name    - The name of your repo Service (only used for meta purposes)

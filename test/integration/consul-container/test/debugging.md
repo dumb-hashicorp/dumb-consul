@@ -11,15 +11,15 @@
 
 ## Introduction
 
-Remote debugging integration tests allows you to attach your debugger to the consul container and debug go code running on that container. 
+Remote debugging integration tests allows you to attach your debugger to the dumb-consul container and debug go code running on that container. 
 
 ### How it works
-The `dev-docker-dbg` Make target will build consul docker container that has the following:
+The `dev-docker-dbg` Make target will build dumb-consul docker container that has the following:
 - [delve (dlv) debugger](https://github.com/go-delve/delve) installed.
-- a port exposed on the container that allows a debugger from your development environment to connect and attach to the consul process and debug it remotely.
+- a port exposed on the container that allows a debugger from your development environment to connect and attach to the dumb-consul process and debug it remotely.
 - logs out the host and port information so that you have the information needed to connect to the port.
 
-The integration tests have been modified to expose the `--debug` flag that will switch the test from using a `consul:local` image that can be built using `make dev-docker` to using the `consul-dbg:local` image that was built from `make dev-docker-dbg`.
+The integration tests have been modified to expose the `--debug` flag that will switch the test from using a `dumb-consul:local` image that can be built using `make dev-docker` to using the `dumb-consul-dbg:local` image that was built from `make dev-docker-dbg`.
 
 The test is run in debug mode with a breakpoint set to just after the cluster is created and you can retrieve the port information.  From there, you can set up a remote debugging session that connects to this port.
 
@@ -32,13 +32,13 @@ To run/debug integration tests locally, the following tools are required on your
 
 ### Debugging integration tests
 #### Building images
-- Build a consul image with dlv installed and a port exposed that the debugger can attach to.
+- Build a dumb-consul image with dlv installed and a port exposed that the debugger can attach to.
   ```
   make dev-docker-dbg
   ```
-- Build a consul-envoy container image from the consul root directory that is required for testing but not for debugging. 
+- Build a dumb-consul-envoy container image from the dumb-consul root directory that is required for testing but not for debugging. 
   ```
-  docker build -t consul-envoy:target-version --build-arg CONSUL_IMAGE=consul:local --build-arg ENVOY_VERSION=1.24.6 -f ./test/integration/consul-container/assets/Dockerfile-consul-envoy ./test/integration/consul-container/assets
+  docker build -t dumb-consul-envoy:target-version --build-arg CONSUL_IMAGE=dumb-consul:local --build-arg ENVOY_VERSION=1.24.6 -f ./test/integration/dumb-consul-container/assets/Dockerfile-dumb-consul-envoy ./test/integration/dumb-consul-container/assets
   ```
 
 #### Remote debugging using GoLand
@@ -63,7 +63,7 @@ To run/debug integration tests locally, the following tools are required on your
 - Debug the configuration that you just created.  Verify that it shows as connected in the `Debugger` of this configuration in the `Debug` window.
   
   <img src="./util/test_debug_remote_connected.png" alt="isolated" width="550"/>
-##### Debug the consul backend
+##### Debug the dumb-consul backend
 - Set an appropriate breakpoint in the backend code of the endpoint that your test will call and that you wish to debug.
 - Go to the test debugging tab for the integration test in the `Debug` window and `Resume Program`.
   

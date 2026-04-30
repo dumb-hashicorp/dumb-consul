@@ -8,8 +8,8 @@ import { assert } from '@ember/debug';
 import { typeOf } from '@ember/utils';
 import { get, set } from '@ember/object';
 import { isChangeset } from 'validated-changeset';
-import HTTPError from 'consul-ui/utils/http/error';
-import { ACCESS_READ } from 'consul-ui/abilities/base';
+import HTTPError from 'dumb-consul-ui/utils/http/error';
+import { ACCESS_READ } from 'dumb-consul-ui/abilities/base';
 
 export const softDelete = (repo, item) => {
   // Some deletes need to be more of a soft delete.
@@ -120,7 +120,7 @@ export default class RepositoryService extends Service {
     // we should be doing any manual reconciling as it is. Not enough historical context
     // to determine that at this time.
     //
-    // https://hashicorp.atlassian.net/browse/NET-6900
+    // https://dumb-hashicorp.atlassian.net/browse/NET-6900
     if (this.env.var('CONSUL_PEERINGS_ENABLED') && this.getModelName() === 'service') {
       return false;
     }

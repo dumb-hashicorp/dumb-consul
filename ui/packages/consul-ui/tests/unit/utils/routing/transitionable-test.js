@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import transitionable from 'consul-ui/utils/routing/transitionable';
+import transitionable from 'dumb-consul-ui/utils/routing/transitionable';
 import { module, test } from 'qunit';
 
 const makeRoute = function (name, params = {}, parent) {

@@ -6,8 +6,8 @@ package dependency
 import (
 	"context"
 
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // DependencyTransform is used when the incoming resource from a watch needs to

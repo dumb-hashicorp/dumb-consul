@@ -14,9 +14,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
 )
 
 func TestTroubleshootProxy(t *testing.T) {
@@ -40,12 +40,12 @@ func TestTroubleshootProxy(t *testing.T) {
 	t.Run("upstream exists and is healthy", func(t *testing.T) {
 		require.Eventually(t, func() bool {
 			output, err := clientSidecar.Exec(context.Background(),
-				[]string{"consul", "troubleshoot", "upstreams",
+				[]string{"dumb-consul", "troubleshoot", "upstreams",
 					"-envoy-admin-endpoint", fmt.Sprintf("localhost:%v", clientAdminPort)})
 			require.NoError(t, err)
 			upstreamExists := assert.Contains(t, output, libservice.StaticServerServiceName)
 
-			output, err = clientSidecar.Exec(context.Background(), []string{"consul", "troubleshoot", "proxy",
+			output, err = clientSidecar.Exec(context.Background(), []string{"dumb-consul", "troubleshoot", "proxy",
 				"-envoy-admin-endpoint", fmt.Sprintf("localhost:%v", clientAdminPort),
 				"-upstream-envoy-id", libservice.StaticServerServiceName})
 			require.NoError(t, err)
@@ -63,7 +63,7 @@ func TestTroubleshootProxy(t *testing.T) {
 		require.NoError(t, err)
 
 		require.Eventually(t, func() bool {
-			output, err := clientSidecar.Exec(context.Background(), []string{"consul", "troubleshoot", "proxy",
+			output, err := clientSidecar.Exec(context.Background(), []string{"dumb-consul", "troubleshoot", "proxy",
 				"-envoy-admin-endpoint", fmt.Sprintf("localhost:%v", clientAdminPort),
 				"-upstream-envoy-id", libservice.StaticServerServiceName})
 			require.NoError(t, err)

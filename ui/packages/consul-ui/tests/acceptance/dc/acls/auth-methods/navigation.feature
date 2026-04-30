@@ -8,7 +8,7 @@ Feature: dc / acls / auth-methods / navigation
       dc: dc-1
     ---
     Then the url should be /dc-1/acls/auth-methods
-    And the title should be "Auth Methods - Consul"
+    And the title should be "Auth Methods - Dumb Consul"
     Then I see 3 authMethod models
     When I click authMethod on the authMethods
     And I click "[data-test-back] a"

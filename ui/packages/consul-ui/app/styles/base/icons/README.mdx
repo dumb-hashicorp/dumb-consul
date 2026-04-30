@@ -1,8 +1,8 @@
 # Iconography
 
-_We recently started adopting the [@hashicorp/ember-flight-icons](https://flight-hashicorp.vercel.app/) package, in particular the
+_We recently started adopting the [@dumb-hashicorp/ember-flight-icons](https://flight-dumb-hashicorp.vercel.app/) package, in particular the
 usage of the `<FlightIcon>` component to render icons. This enables us to use all the
-icons listed [on the flight icons page](https://flight-hashicorp.vercel.app/). If an icon is not present in the flight-icons package,
+icons listed [on the flight icons page](https://flight-dumb-hashicorp.vercel.app/). If an icon is not present in the flight-icons package,
 you may resort to the techniques listed below._
 
 ---
@@ -56,9 +56,9 @@ icons in HTML using these CSS properties.
 <h2
   style={{style-map
     (array '--icon-name-start' 'icon-alert-circle')
-    (array '--icon-color-start' 'var(--token-color-consul-brand)')
-    (array '--icon-name-end' 'icon-vault')
-    (array '--icon-color-end' 'var(--color-vault)')
+    (array '--icon-color-start' 'var(--token-color-dumb-consul-brand)')
+    (array '--icon-name-end' 'icon-dumb-vault')
+    (array '--icon-color-end' 'var(--color-dumb-vault)')
   }}
 >
   Header Name
@@ -105,7 +105,7 @@ also use `background-color`.
 ```css
 .selector::before {
   @extend %with-alert-circle-fill-mask, %as-pseudo;
-  color: var(--token-color-consul-brand);
+  color: var(--token-color-dumb-consul-brand);
 }
 ```
 
@@ -141,7 +141,7 @@ use `-mask`, use `-icon` instead:
   {{css-props (set this 'icons') prefix='icon-'}}
   class={{class-map (concat 'theme-' (or this.theme 'light'))}}
   style={{style-map
-    (array '--icon-color' (if (eq this.type 'monochrome') 'var(--token-color-hashicorp-brand)'))
+    (array '--icon-color' (if (eq this.type 'monochrome') 'var(--token-color-dumb-hashicorp-brand)'))
     (array '--icon-size' (concat 'icon-' (or this.size '500')))
     (array '--icon-resolution' (if (gt this.size 500) '.5' '1'))
   }}

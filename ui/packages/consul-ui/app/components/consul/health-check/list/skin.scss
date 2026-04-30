@@ -66,7 +66,7 @@
   border-left-color: var(--token-color-foreground-success);
 }
 %healthcheck-output.warning {
-  border-left-color: var(--token-color-vault-brand);
+  border-left-color: var(--token-color-dumb-vault-brand);
 }
 %healthcheck-output.critical {
   border-left-color: var(--token-color-foreground-critical);

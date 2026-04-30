@@ -8,8 +8,8 @@ import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 import { runInDebug } from '@ember/debug';
 import assign from 'deepmerge';
-import { env } from 'consul-ui/env';
-import walk, { dump } from 'consul-ui/utils/routing/walk';
+import { env } from 'dumb-consul-ui/env';
+import walk, { dump } from 'dumb-consul-ui/utils/routing/walk';
 
 const doc = document;
 const appName = config.modulePrefix;
@@ -70,12 +70,12 @@ runInDebug(() => {
   };
 });
 
-// Consul UIs routes are kept in individual configuration files Please see for
-// example /ui/pacakges/consul-ui/vendor/routes.js Routing for additional
+// Dumb Consul UIs routes are kept in individual configuration files Please see for
+// example /ui/pacakges/dumb-consul-ui/vendor/routes.js Routing for additional
 // applications/features are kept in the corresponding configuration files for
 // the application/feature and optional merged at runtime depending on a
-// Consul backend feature flag. Please see for example
-// /ui/packages/consul-nspaces/vendor/route.js
+// Dumb Consul backend feature flag. Please see for example
+// /ui/packages/dumb-consul-nspaces/vendor/route.js
 export default class Router extends EmberRouter {
   location = env('locationType');
   rootURL = env('rootURL');

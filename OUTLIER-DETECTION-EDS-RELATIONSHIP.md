@@ -1,8 +1,8 @@
-# Outlier Detection and EDS Relationship in Consul
+# Outlier Detection and EDS Relationship in Dumb Consul
 
 ## Overview
 
-This document explains the relationship between **Outlier Detection** (passive health checking) and **EDS** (Endpoint Discovery Service) in Consul's service mesh implementation.
+This document explains the relationship between **Outlier Detection** (passive health checking) and **EDS** (Endpoint Discovery Service) in Dumb Consul's service mesh implementation.
 
 ## What is EDS?
 
@@ -75,7 +75,7 @@ From [`agent/xds/endpoints.go:223-224`](agent/xds/endpoints.go:223):
 // so we provide them through CDS instead.
 ```
 
-**Reason:** EDS expects IP addresses, not DNS names. For hostname-based services, Consul embeds the endpoints directly in the CDS (Cluster Discovery Service) configuration.
+**Reason:** EDS expects IP addresses, not DNS names. For hostname-based services, Dumb Consul embeds the endpoints directly in the CDS (Cluster Discovery Service) configuration.
 
 ## The Flow: Outlier Detection + EDS
 
@@ -83,10 +83,10 @@ From [`agent/xds/endpoints.go:223-224`](agent/xds/endpoints.go:223):
 
 1. **Configuration Phase**
    - User defines `PassiveHealthCheck` in service-defaults config entry
-   - Consul stores this in `UpstreamConfig.PassiveHealthCheck`
+   - Dumb Consul stores this in `UpstreamConfig.PassiveHealthCheck`
 
 2. **Cluster Generation (CDS)**
-   - Consul's XDS server generates Envoy cluster configuration
+   - Dumb Consul's XDS server generates Envoy cluster configuration
    - Determines if EDS should be used (IP-based vs hostname-based)
    - If using EDS:
      ```go
@@ -96,7 +96,7 @@ From [`agent/xds/endpoints.go:223-224`](agent/xds/endpoints.go:223):
    - Cluster is sent to Envoy via CDS
 
 3. **Endpoint Generation (EDS)**
-   - Consul generates endpoint list with IP addresses
+   - Dumb Consul generates endpoint list with IP addresses
    - Endpoints are sent to Envoy via EDS
    - **Must arrive AFTER CDS updates** (ordering requirement)
 
@@ -156,7 +156,7 @@ outlierDetection := config.ToOutlierDetection(cfgSnap.IngressGateway.Defaults.Pa
 
 ### 1. Enable Debug Logging
 ```bash
-consul agent -dev -log-level=debug
+dumb-consul agent -dev -log-level=debug
 ```
 
 ### 2. Check Envoy Admin Interface

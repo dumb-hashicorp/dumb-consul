@@ -13,10 +13,10 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/ryanuber/columnize"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/peering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/peering"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -70,7 +70,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -141,7 +141,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Lists exported services to a peer"
 	help     = `
-Usage: consul peering exported-services [options] -name <peer name>
+Usage: dumb-consul peering exported-services [options] -name <peer name>
 
   Lists services exported to the peer with the provided name. If the peer is not found,
   the command exits with a non-zero code. The result is filtered according
@@ -149,6 +149,6 @@ Usage: consul peering exported-services [options] -name <peer name>
 
   Example:
 
-    $ consul peering exported-services -name west-dc
+    $ dumb-consul peering exported-services -name west-dc
 `
 )

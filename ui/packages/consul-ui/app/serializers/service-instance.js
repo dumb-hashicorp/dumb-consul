@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/service-instance';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/service-instance';
 
 export default class ServiceInstanceSerializer extends Serializer {
   primaryKey = PRIMARY_KEY;

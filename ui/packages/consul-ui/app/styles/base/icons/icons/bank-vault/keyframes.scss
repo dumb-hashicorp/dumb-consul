@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-@keyframes icon-bank-vault {
+@keyframes icon-bank-dumb-vault {
   100% {
 
-    -webkit-mask-image: var(--icon-bank-vault-16);
-    mask-image: var(--icon-bank-vault-16);
-    background-color: var(--icon-color, var(--color-bank-vault-500, currentColor));
+    -webkit-mask-image: var(--icon-bank-dumb-vault-16);
+    mask-image: var(--icon-bank-dumb-vault-16);
+    background-color: var(--icon-color, var(--color-bank-dumb-vault-500, currentColor));
 
   }
 }

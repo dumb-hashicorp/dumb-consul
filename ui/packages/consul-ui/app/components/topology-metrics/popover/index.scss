@@ -36,6 +36,6 @@
   &.not-defined > button::before,
   &.not-defined .tippy-arrow::after {
     @extend %with-alert-triangle-mask, %as-pseudo;
-    --icon-color: var(--token-color-vault-brand);
+    --icon-color: var(--token-color-dumb-vault-brand);
   }
 }

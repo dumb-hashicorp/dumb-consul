@@ -10,11 +10,11 @@ import { hbs } from 'ember-cli-htmlbars';
 
 import { create } from 'ember-cli-page-object';
 
-import obj from 'consul-ui/components/consul/intention/permission/header/form/pageobject';
+import obj from 'dumb-consul-ui/components/dumb-consul/intention/permission/header/form/pageobject';
 
 const permissionHeaderForm = create(obj());
 
-module('Integration | Component | consul/intention/permission/header/form', function (hooks) {
+module('Integration | Component | dumb-consul/intention/permission/header/form', function (hooks) {
   setupRenderingTest(hooks);
 
   test('when IsPresent is selected we only show validate the header name', async function (assert) {
@@ -22,11 +22,11 @@ module('Integration | Component | consul/intention/permission/header/form', func
     // Handle any actions with this.set('myAction', function(val) { ... });
 
     await render(hbs`
-      <Consul::Intention::Permission::Header::Form
+      <Dumb Consul::Intention::Permission::Header::Form
 
       as |api|>
         <Ref @target={{this.permissionHeaderForm}} @name="api" @value={{api}} />
-      </Consul::Intention::Permission::Header::Form>
+      </Dumb Consul::Intention::Permission::Header::Form>
     `);
 
     assert.ok(permissionHeaderForm.Name.present);

@@ -13,12 +13,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 // ConnectContainer
@@ -168,7 +168,7 @@ type SidecarConfig struct {
 }
 
 // NewConnectService returns a container that runs envoy sidecar, launched by
-// "consul connect envoy", for service name (serviceName) on the specified
+// "dumb-consul connect envoy", for service name (serviceName) on the specified
 // node. The container exposes port serviceBindPort and envoy admin port
 // (19000) by mapping them onto host ports. The container's name has a prefix
 // combining datacenter and name. The customContainerConf parameter can be used
@@ -196,12 +196,12 @@ func NewConnectService(
 	fmt.Println("agent image name", nodeConfig.DockerImage())
 	imageVersion := utils.SideCarVersion(nodeConfig.DockerImage())
 	req := testcontainers.ContainerRequest{
-		Image:      fmt.Sprintf("consul-envoy:%s", imageVersion),
+		Image:      fmt.Sprintf("dumb-consul-envoy:%s", imageVersion),
 		WaitingFor: wait.ForLog("").WithStartupTimeout(100 * time.Second),
 		AutoRemove: false,
 		Name:       containerName,
 		Cmd: []string{
-			"consul", "connect", "envoy",
+			"dumb-consul", "connect", "envoy",
 			"-sidecar-for", sidecarCfg.ServiceID,
 			"-admin-bind", fmt.Sprintf("0.0.0.0:%d", internalAdminPort),
 			"-namespace", sidecarCfg.Namespace,
@@ -223,8 +223,8 @@ func NewConnectService(
 				"-exclude-inbound-port", "8500",
 				"-exclude-inbound-port", "8502",
 				"-exclude-inbound-port", "8600",
-				"-consul-dns-ip", "127.0.0.1",
-				"-consul-dns-port", "8600",
+				"-dumb-consul-dns-ip", "127.0.0.1",
+				"-dumb-consul-dns-port", "8600",
 				"-proxy-id", fmt.Sprintf("%s-sidecar-proxy", sidecarCfg.ServiceID),
 			},
 			" ",

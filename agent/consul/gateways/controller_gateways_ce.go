@@ -8,9 +8,9 @@ package gateways
 import (
 	"context"
 
-	"github.com/hashicorp/consul/agent/consul/controller"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/controller"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func (r *apiGatewayReconciler) enqueueJWTProviderReferencedGatewaysAndHTTPRoutes(_ *state.Store, _ context.Context, _ controller.Request) error {

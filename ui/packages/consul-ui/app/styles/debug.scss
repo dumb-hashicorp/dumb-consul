@@ -6,14 +6,14 @@
 @import 'prism-coldark-dark';
 
 // temporary component debugging setup
-@import 'consul-ui/components/badge/debug';
-@import 'consul-ui/components/panel/debug';
-@import 'consul-ui/components/tile/debug';
-@import 'consul-ui/components/csv-list/debug';
-@import 'consul-ui/components/horizontal-kv-list/debug';
-@import 'consul-ui/components/icon-definition/debug';
-@import 'consul-ui/components/inline-alert/debug';
-@import 'consul-ui/components/definition-table/debug';
+@import 'dumb-consul-ui/components/badge/debug';
+@import 'dumb-consul-ui/components/panel/debug';
+@import 'dumb-consul-ui/components/tile/debug';
+@import 'dumb-consul-ui/components/csv-list/debug';
+@import 'dumb-consul-ui/components/horizontal-kv-list/debug';
+@import 'dumb-consul-ui/components/icon-definition/debug';
+@import 'dumb-consul-ui/components/inline-alert/debug';
+@import 'dumb-consul-ui/components/definition-table/debug';
 
 %debug-grid {
   display: flex;
@@ -59,7 +59,7 @@
   background-color: var(--token-color-surface-primary);
 }
 #docfy-demo-preview-color1 {
-  background-color: var(--token-color-hashicorp-brand);
+  background-color: var(--token-color-dumb-hashicorp-brand);
 }
 
 [id^='docfy-demo-preview-typography'] {
@@ -153,17 +153,17 @@ html.with-route-announcer .route-title {
       padding-top: 0 !important;
     }
     li.provider-components a::before,
-    li.consul-components a::before,
+    li.dumb-consul-components a::before,
     li.components a::before {
       @extend %with-logo-glimmer-color-icon, %as-pseudo;
       margin-right: 5px;
     }
-    li.consul-components.css-component a::before,
+    li.dumb-consul-components.css-component a::before,
     li.components.css-component a::before {
       @extend %with-logo-glimmer-color-icon, %as-pseudo;
     }
     li.provider-components.ember-component a::before,
-    li.consul-components.ember-component a::before,
+    li.dumb-consul-components.ember-component a::before,
     li.components.ember-component a::before {
       @extend %with-logo-ember-circle-color-icon, %as-pseudo;
     }
@@ -252,12 +252,12 @@ html.with-route-announcer .route-title {
         @extend %inline-code;
       }
       figure > [type='text'] {
-        border: 1px solid var(--token-color-hashicorp-brand);
+        border: 1px solid var(--token-color-dumb-hashicorp-brand);
         width: 100%;
         padding: 0.5rem;
       }
       figure > select {
-        border: 1px solid var(--token-color-hashicorp-brand);
+        border: 1px solid var(--token-color-dumb-hashicorp-brand);
         padding: 0.5rem;
       }
     }

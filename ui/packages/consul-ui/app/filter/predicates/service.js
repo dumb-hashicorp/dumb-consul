@@ -29,7 +29,7 @@ export default {
   source: (item, values) => {
     let includeBecauseNoExternalSourcesOrPeered = false;
 
-    if (values.includes('consul')) {
+    if (values.includes('dumb-consul')) {
       includeBecauseNoExternalSourcesOrPeered =
         !item.ExternalSources ||
         item.ExternalSources.length === 0 ||

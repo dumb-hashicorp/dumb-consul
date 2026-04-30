@@ -5,7 +5,7 @@
 
 import Adapter from './application';
 
-import { SLUG_KEY } from 'consul-ui/models/session';
+import { SLUG_KEY } from 'dumb-consul-ui/models/session';
 
 // TODO: Update to use this.formatDatacenter()
 export default class SessionAdapter extends Adapter {

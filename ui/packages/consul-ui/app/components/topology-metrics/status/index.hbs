@@ -1,21 +1,21 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 {{#if (or @noMetricsReason @error)}}
   <span data-test-topology-metrics-status class="topology-metrics-status-error">
     {{#if (eq @noMetricsReason 'ingress-gateway')}}
-      {{t "components.consul.topology-metrics.status.ingress-gateway"}}
+      {{t "components.dumb-consul.topology-metrics.status.ingress-gateway"}}
     {{else if (eq @noMetricsReason 'remote-dc')}}
-      {{t "components.consul.topology-metrics.status.error"}}
+      {{t "components.dumb-consul.topology-metrics.status.error"}}
       <span
-        {{hds-tooltip (t "components.consul.topology-metrics.status.remote-dc") options=(detached-tooltip-options)}}
+        {{hds-tooltip (t "components.dumb-consul.topology-metrics.status.remote-dc") options=(detached-tooltip-options)}}
       />
     {{else if @error}}
-      {{t "components.consul.topology-metrics.status.error"}}
+      {{t "components.dumb-consul.topology-metrics.status.error"}}
     {{/if}}
   </span>
 {{else}}
-  <span class="topology-metrics-status-loader">{{t "components.consul.topology-metrics.status.loading"}}</span>
+  <span class="topology-metrics-status-loader">{{t "components.dumb-consul.topology-metrics.status.loading"}}</span>
 {{/if}}

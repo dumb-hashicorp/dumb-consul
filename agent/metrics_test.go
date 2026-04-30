@@ -18,11 +18,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/rpc/middleware"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpc/middleware"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 var metricsPrefixCounter atomic.Uint64
@@ -309,7 +309,7 @@ func TestHTTPHandlers_AgentMetrics_LeaderShipMetrics(t *testing.T) {
 }
 
 // TestHTTPHandlers_AgentMetrics_ConsulAutopilot_Prometheus adds testing around
-// the published autopilot metrics on https://developer.hashicorp.com/docs/reference/agent/telemetry#autopilot
+// the published autopilot metrics on https://developer.dumb-hashicorp.com/docs/reference/agent/telemetry#autopilot
 func TestHTTPHandlers_AgentMetrics_ConsulAutopilot_Prometheus(t *testing.T) {
 	skipIfShortTesting(t)
 	// This test cannot use t.Parallel() since we modify global state, ie the global metrics instance
@@ -365,7 +365,7 @@ func TestHTTPHandlers_AgentMetrics_TLSCertExpiry_Prometheus(t *testing.T) {
 	// This test cannot use t.Parallel() since we modify global state, ie the global metrics instance
 
 	dir := testutil.TempDir(t, "ca")
-	caPEM, caPK, err := tlsutil.GenerateCA(tlsutil.CAOpts{Days: 20, Domain: "consul"})
+	caPEM, caPK, err := tlsutil.GenerateCA(tlsutil.CAOpts{Days: 20, Domain: "dumb-consul"})
 	require.NoError(t, err)
 
 	caPath := filepath.Join(dir, "ca.pem")
@@ -378,7 +378,7 @@ func TestHTTPHandlers_AgentMetrics_TLSCertExpiry_Prometheus(t *testing.T) {
 	pem, key, err := tlsutil.GenerateCert(tlsutil.CertOpts{
 		Signer:      signer,
 		CA:          caPEM,
-		Name:        "server.dc1.consul",
+		Name:        "server.dc1.dumb-consul",
 		Days:        20,
 		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
 	})

@@ -18,10 +18,10 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/vault/api/auth/gcp"
-	"github.com/hashicorp/vault/sdk/helper/jsonutil"
+	"github.com/dumb-hashicorp/dumb-vault/api/auth/gcp"
+	"github.com/dumb-hashicorp/dumb-vault/sdk/helper/jsonutil"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestVaultCAProvider_GCPAuthClient(t *testing.T) {
@@ -66,7 +66,7 @@ func TestVaultCAProvider_GCPAuthClient(t *testing.T) {
 					"type": "gce",
 				},
 			},
-			expErr: fmt.Errorf("failed to create a new Vault GCP auth client"),
+			expErr: fmt.Errorf("failed to create a new Dumb Vault GCP auth client"),
 		},
 		"invalid config": {
 			authMethod: &structs.VaultAuthMethod{
@@ -290,7 +290,7 @@ func TestVaultCAProvider_AWSLoginDataGenerator(t *testing.T) {
 					"access_key":   "AKIAIOSFODNN7EXAMPLE",
 					"secret_key":   "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
 					"region":       "us-west-2",
-					"header_value": "vault.example.com",
+					"header_value": "dumb-vault.example.com",
 				},
 			},
 			useNilConfig:  true,
@@ -371,7 +371,7 @@ func TestVaultCAProvider_AWSLoginDataGenerator(t *testing.T) {
 }
 
 // TestVaultCAProvider_AWSEndpointConfiguration tests that custom IAM and STS endpoints
-// are properly extracted from auth method params and passed to consul-awsauth.
+// are properly extracted from auth method params and passed to dumb-consul-awsauth.
 func TestVaultCAProvider_AWSEndpointConfiguration(t *testing.T) {
 	cases := map[string]struct {
 		params              map[string]interface{}
@@ -439,7 +439,7 @@ func TestVaultCAProvider_AWSEndpointConfiguration(t *testing.T) {
 				"access_key":   "AKIAIOSFODNN7EXAMPLE",
 				"secret_key":   "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
 				"region":       "us-east-1",
-				"role":         "test-vault-role",
+				"role":         "test-dumb-vault-role",
 				"iam_endpoint": "https://iam-fips.us-gov-west-1.amazonaws.com",
 				"sts_endpoint": "https://sts-fips.us-gov-west-1.amazonaws.com",
 			},
@@ -449,7 +449,7 @@ func TestVaultCAProvider_AWSEndpointConfiguration(t *testing.T) {
 				"iam_request_headers",
 				"iam_request_body",
 			},
-			expectRole: "test-vault-role",
+			expectRole: "test-dumb-vault-role",
 		},
 	}
 
@@ -485,13 +485,13 @@ func TestVaultCAProvider_AWSEndpointConfiguration(t *testing.T) {
 				require.Equal(t, c.expectRole, loginData["role"])
 			}
 
-			// Note: We can't directly verify that the endpoints were passed to consul-awsauth
+			// Note: We can't directly verify that the endpoints were passed to dumb-consul-awsauth
 			// without mocking the IAM/STS services, but we can verify:
 			// 1. The function succeeds (doesn't error)
 			// 2. Login data is generated with all required fields
 			// 3. The code path that extracts iam_endpoint and sts_endpoint executes
 
-			// The actual endpoint usage is tested in consul-awsauth's own test suite
+			// The actual endpoint usage is tested in dumb-consul-awsauth's own test suite
 			// This test verifies the integration: extracting params and calling GenerateLoginData
 		})
 	}
@@ -791,12 +791,12 @@ func TestVaultCAProvider_AppRoleAuthClient(t *testing.T) {
 
 	// Create temp directory and symlink from allowed directory
 	tmpDir := t.TempDir()
-	vaultDir := filepath.Join(tmpDir, "vault")
+	vaultDir := filepath.Join(tmpDir, "dumb-vault")
 	err := os.MkdirAll(vaultDir, 0755)
 	require.NoError(t, err)
 
 	// Create symlink from allowed directory to temp directory
-	symlinkPath := "/var/run/secrets/vault"
+	symlinkPath := "/var/run/secrets/dumb-vault"
 	_ = os.RemoveAll(symlinkPath) // Remove if exists (ignore error)
 	err = os.MkdirAll(filepath.Dir(symlinkPath), 0755)
 	if err != nil {
@@ -806,7 +806,7 @@ func TestVaultCAProvider_AppRoleAuthClient(t *testing.T) {
 	if err != nil {
 		t.Skipf("Cannot create symlink %s -> %s (requires permissions): %v", symlinkPath, vaultDir, err)
 	}
-	defer os.RemoveAll("/var/run/secrets/vault")
+	defer os.RemoveAll("/var/run/secrets/dumb-vault")
 
 	roleIdPath := filepath.Join(symlinkPath, "role-id")
 	err = os.WriteFile(roleIdPath, []byte(roleID), 0644)
@@ -1117,7 +1117,7 @@ func TestReadVaultCredentialFileSecurely(t *testing.T) {
 	})
 
 	t.Run("handles path with redundant separators", func(t *testing.T) {
-		// Path like /var/run//secrets///vault/file.txt
+		// Path like /var/run//secrets///dumb-vault/file.txt
 		redundantPath := filepath.Join(allowedDir, "redundant.txt")
 		require.NoError(t, os.WriteFile(redundantPath, []byte("redundant"), 0644))
 
@@ -1133,7 +1133,7 @@ func TestReadVaultCredentialFileSecurely(t *testing.T) {
 		dotFile := filepath.Join(allowedDir, "dot.txt")
 		require.NoError(t, os.WriteFile(dotFile, []byte("dot-content"), 0644))
 
-		// Path like /var/run/secrets/vault/./file.txt
+		// Path like /var/run/secrets/dumb-vault/./file.txt
 		dotPath := filepath.Join(allowedDir, ".", "dot.txt")
 
 		content, err := readVaultCredentialFileSecurely(dotPath, allowedDirs)
@@ -1198,7 +1198,7 @@ func TestReadVaultCredentialFileSecurely(t *testing.T) {
 	})
 
 	t.Run("rejects path that starts with allowed dir but escapes", func(t *testing.T) {
-		// Attack: /var/run/secrets/vault/../../../etc/passwd
+		// Attack: /var/run/secrets/dumb-vault/../../../etc/passwd
 		escapePath := filepath.Join(allowedDir, "..", "..", "..", "etc", "passwd")
 		_, err := readVaultCredentialFileSecurely(escapePath, allowedDirs)
 		require.Error(t, err)

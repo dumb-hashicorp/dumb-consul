@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domEventSourceOpenable from 'consul-ui/utils/dom/event-source/openable';
+import domEventSourceOpenable from 'dumb-consul-ui/utils/dom/event-source/openable';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 

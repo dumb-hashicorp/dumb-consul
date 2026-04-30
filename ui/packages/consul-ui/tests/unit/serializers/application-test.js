@@ -5,8 +5,8 @@
 
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import { HEADERS_SYMBOL as META } from 'consul-ui/utils/http/consul';
-import Node from 'consul-ui/models/node';
+import { HEADERS_SYMBOL as META } from 'dumb-consul-ui/utils/http/dumb-consul';
+import Node from 'dumb-consul-ui/models/node';
 
 module('Unit | Serializer | application', function (hooks) {
   setupTest(hooks);
@@ -144,17 +144,17 @@ module('Unit | Serializer | application', function (hooks) {
     const payload = [
       {
         Node: 'node-0',
-        Meta: { 'consul-version': '1.7.2' },
+        Meta: { 'dumb-consul-version': '1.7.2' },
         uid: '1234',
         SyncTime: 1234567890,
       },
       {
         Node: 'node-1',
-        Meta: { 'consul-version': '1.18.0' },
+        Meta: { 'dumb-consul-version': '1.18.0' },
         uid: '1235',
         SyncTime: 1234567891,
       },
-      // synthetic-node without consul-version meta
+      // synthetic-node without dumb-consul-version meta
       {
         Node: 'node-2',
         Meta: { 'synthetic-node': true },
@@ -168,7 +168,7 @@ module('Unit | Serializer | application', function (hooks) {
         {
           attributes: {
             Node: 'node-0',
-            Meta: { 'consul-version': '1.7.2' },
+            Meta: { 'dumb-consul-version': '1.7.2' },
             SyncTime: 1234567890,
             uid: '1234',
           },
@@ -179,7 +179,7 @@ module('Unit | Serializer | application', function (hooks) {
         {
           attributes: {
             Node: 'node-1',
-            Meta: { 'consul-version': '1.18.0' },
+            Meta: { 'dumb-consul-version': '1.18.0' },
             SyncTime: 1234567890,
             uid: '1235',
           },

@@ -16,7 +16,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.db.default.default.dc1"
               }
             }
@@ -50,8 +50,8 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-                "statPrefix": "upstream.destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+                "statPrefix": "upstream.destination.192-168-2-1.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]
@@ -71,8 +71,8 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "destination.192-168-2-2.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-                "statPrefix": "upstream.destination.192-168-2-2.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "destination.192-168-2-2.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+                "statPrefix": "upstream.destination.192-168-2-2.kafka.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]
@@ -89,8 +89,8 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "destination.api-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-                "statPrefix": "upstream.destination.api-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "destination.api-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+                "statPrefix": "upstream.destination.api-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]
@@ -107,8 +107,8 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-                "statPrefix": "upstream.destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+                "statPrefix": "upstream.destination.www-google-com.google.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]
@@ -146,7 +146,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
                 "statPrefix": "upstream.prepared_query_geo-cache"
               }
             }

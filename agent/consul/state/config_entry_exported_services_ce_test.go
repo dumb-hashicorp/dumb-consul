@@ -8,9 +8,9 @@ package state
 import (
 	"testing"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbconfigentry"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry"
+	"github.com/dumb-hashicorp/go-memdb"
 	"github.com/stretchr/testify/require"
 )
 
@@ -118,7 +118,7 @@ func TestStore_ResolvedExportingServices(t *testing.T) {
 			ID: "backend", Service: "backend", Port: 5000,
 		}))
 
-		// The consul service should never be exported.
+		// The dumb-consul service should never be exported.
 		require.NoError(t, s.EnsureService(c.Next(), "foo", &structs.NodeService{
 			ID: structs.ConsulServiceID, Service: structs.ConsulServiceName, Port: 8000,
 		}))

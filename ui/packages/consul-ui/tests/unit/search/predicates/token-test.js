@@ -5,8 +5,8 @@
 
 import { module, test } from 'qunit';
 
-import ExactSearch from 'consul-ui/utils/search/exact';
-import predicates from 'consul-ui/search/predicates/token';
+import ExactSearch from 'dumb-consul-ui/utils/search/exact';
+import predicates from 'dumb-consul-ui/search/predicates/token';
 
 module('Unit | Search | Predicate | token', function () {
   test('items are found by properties', function (assert) {

@@ -5,4 +5,4 @@
 
 cd ../../
 VERSION=1.16.0
-docker build -t windows/consul:${VERSION}-dev -f build-support/windows/Dockerfile-consul-dev-windows . --build-arg VERSION=${VERSION}
+docker build -t windows/dumb-consul:${VERSION}-dev -f build-support/windows/Dockerfile-dumb-consul-dev-windows . --build-arg VERSION=${VERSION}

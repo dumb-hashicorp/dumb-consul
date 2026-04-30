@@ -5,7 +5,7 @@
 
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { hrefTo } from 'consul-ui/helpers/href-to';
+import { hrefTo } from 'dumb-consul-ui/helpers/href-to';
 
 /**
  * A class that encapsulates the data abstraction that we expect the TabNav to

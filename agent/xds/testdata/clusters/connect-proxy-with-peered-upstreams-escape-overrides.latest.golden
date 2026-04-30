@@ -69,7 +69,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://1c053652-8512-4373-90cf-5a7f6263a994.consul/ns/default/dc/cloud-dc/svc/payments"
+                    "exact": "spiffe://1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul/ns/default/dc/cloud-dc/svc/payments"
                   },
                   "sanType": "URI"
                 }
@@ -79,7 +79,7 @@
               }
             }
           },
-          "sni": "payments.default.default.cloud.external.1c053652-8512-4373-90cf-5a7f6263a994.consul"
+          "sni": "payments.default.default.cloud.external.1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul"
         }
       }
     },
@@ -96,7 +96,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "refunds.default.cloud.external.1c053652-8512-4373-90cf-5a7f6263a994.consul",
+      "name": "refunds.default.cloud.external.1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul",
       "outlierDetection": {
         "maxEjectionPercent": 100
       },
@@ -120,7 +120,7 @@
               "matchTypedSubjectAltNames": [
                 {
                   "matcher": {
-                    "exact": "spiffe://1c053652-8512-4373-90cf-5a7f6263a994.consul/ns/default/dc/cloud-dc/svc/refunds"
+                    "exact": "spiffe://1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul/ns/default/dc/cloud-dc/svc/refunds"
                   },
                   "sanType": "URI"
                 }
@@ -130,7 +130,7 @@
               }
             }
           },
-          "sni": "refunds.default.default.cloud.external.1c053652-8512-4373-90cf-5a7f6263a994.consul"
+          "sni": "refunds.default.default.cloud.external.1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul"
         }
       },
       "type": "EDS"

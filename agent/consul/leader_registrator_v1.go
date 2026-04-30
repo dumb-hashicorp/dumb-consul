@@ -1,22 +1,22 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"reflect"
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/fsm"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/fsm"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 var _ ConsulRegistrator = (*V1ConsulRegistrator)(nil)
@@ -37,7 +37,7 @@ func (r V1ConsulRegistrator) HandleAliveMember(member serf.Member, nodeEntMeta *
 		nodeEntMeta = structs.NodeEnterpriseMetaInDefaultPartition()
 	}
 
-	// Register consul service if a server
+	// Register dumb-consul service if a server
 	var service *structs.NodeService
 	if valid, parts := metadata.IsConsulServer(member); valid {
 		service = &structs.NodeService{
@@ -50,7 +50,7 @@ func (r V1ConsulRegistrator) HandleAliveMember(member serf.Member, nodeEntMeta *
 			},
 			EnterpriseMeta: *nodeEntMeta,
 			Meta: map[string]string{
-				// DEPRECATED - remove nonvoter in favor of read_replica in a future version of consul
+				// DEPRECATED - remove nonvoter in favor of read_replica in a future version of dumb-consul
 				"non_voter":             strconv.FormatBool(member.Tags["nonvoter"] == "1"),
 				"read_replica":          strconv.FormatBool(member.Tags["read_replica"] == "1"),
 				"raft_version":          strconv.Itoa(parts.RaftVersion),
@@ -68,7 +68,7 @@ func (r V1ConsulRegistrator) HandleAliveMember(member serf.Member, nodeEntMeta *
 			service.Meta["grpc_tls_port"] = strconv.Itoa(parts.ExternalGRPCTLSPort)
 		}
 
-		// Attempt to join the consul server
+		// Attempt to join the dumb-consul server
 		if err := joinServer(member, parts); err != nil {
 			return err
 		}
@@ -118,7 +118,7 @@ AFTER_CHECK:
 		"partition", getSerfMemberEnterpriseMeta(member).PartitionOrDefault(),
 	)
 
-	// Get consul version from serf member
+	// Get dumb-consul version from serf member
 	// add this as node meta in catalog register request
 	buildVersion, err := metadata.Build(&member)
 	if err != nil {

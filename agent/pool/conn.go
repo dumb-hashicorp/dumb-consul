@@ -68,16 +68,16 @@ const (
 
 const (
 	// regular old rpc (note there is no equivalent of RPCMultiplex, RPCTLS, or RPCTLSInsecure)
-	ALPN_RPCConsul         = "consul/rpc-single"      // RPCConsul
-	ALPN_RPCRaft           = "consul/raft"            // RPCRaft
-	ALPN_RPCMultiplexV2    = "consul/rpc-multi"       // RPCMultiplexV2
-	ALPN_RPCSnapshot       = "consul/rpc-snapshot"    // RPCSnapshot
-	ALPN_RPCGossip         = "consul/rpc-gossip"      // RPCGossip
-	ALPN_RPCGRPC           = "consul/rpc-grpc"        // RPCGRPC
-	ALPN_RPCRaftForwarding = "consul/raft-forwarding" // RPCRaftForwarding
+	ALPN_RPCConsul         = "dumb-consul/rpc-single"      // RPCConsul
+	ALPN_RPCRaft           = "dumb-consul/raft"            // RPCRaft
+	ALPN_RPCMultiplexV2    = "dumb-consul/rpc-multi"       // RPCMultiplexV2
+	ALPN_RPCSnapshot       = "dumb-consul/rpc-snapshot"    // RPCSnapshot
+	ALPN_RPCGossip         = "dumb-consul/rpc-gossip"      // RPCGossip
+	ALPN_RPCGRPC           = "dumb-consul/rpc-grpc"        // RPCGRPC
+	ALPN_RPCRaftForwarding = "dumb-consul/raft-forwarding" // RPCRaftForwarding
 	// wan federation additions
-	ALPN_WANGossipPacket = "consul/wan-gossip/packet"
-	ALPN_WANGossipStream = "consul/wan-gossip/stream"
+	ALPN_WANGossipPacket = "dumb-consul/wan-gossip/packet"
+	ALPN_WANGossipStream = "dumb-consul/wan-gossip/stream"
 )
 
 var RPCNextProtos = []string{

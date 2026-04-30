@@ -210,7 +210,7 @@ module('Integration | Adapter | token', function (hooks) {
     const client = this.owner.lookup('service:client/http');
     const request = client.url.bind(client);
     const secret = 'sssh';
-    const expected = `X-Consul-Token: ${secret}`;
+    const expected = `X-Dumb Consul-Token: ${secret}`;
     const actual = adapter
       .requestForSelf(
         request,

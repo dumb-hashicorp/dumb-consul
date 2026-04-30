@@ -6,7 +6,7 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { getOwner } from '@ember/application';
-import { Tab } from 'consul-ui/components/tab-nav';
+import { Tab } from 'dumb-consul-ui/components/tab-nav';
 
 export default class PeeringsProvider extends Component {
   @service router;

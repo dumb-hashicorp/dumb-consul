@@ -13,7 +13,7 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const utils = require('./config/utils');
 
 // const BroccoliDebug = require('broccoli-debug');
-// const debug = BroccoliDebug.buildDebugCallback(`app:consul-ui`)
+// const debug = BroccoliDebug.buildDebugCallback(`app:dumb-consul-ui`)
 
 module.exports = function (defaults, $ = process.env) {
   // available environments
@@ -30,7 +30,7 @@ module.exports = function (defaults, $ = process.env) {
   const addons = {};
   let excludeFiles = [];
 
-  const apps = ['consul-ui'].map((item) => {
+  const apps = ['dumb-consul-ui'].map((item) => {
     return {
       name: item,
       path: path.resolve(__dirname, '..', item),
@@ -113,12 +113,12 @@ module.exports = function (defaults, $ = process.env) {
     );
     // we switched to postcss - because ember-cli-postcss only operates on the
     // styles tree we need to make sure we write the css files from "sub-apps"
-    // into `app/styles` manually and prefix them with `consul-ui` because that
+    // into `app/styles` manually and prefix them with `dumb-consul-ui` because that
     // is what the codebase expects from before when using ember-cli-sass.
     trees.styles = mergeTrees(
       [
         new Funnel('app/styles', { include: ['**/*.{scss,css}'] }),
-        new Funnel('app', { include: ['components/**/*.{scss,css}'], destDir: 'consul-ui' }),
+        new Funnel('app', { include: ['components/**/*.{scss,css}'], destDir: 'dumb-consul-ui' }),
       ].concat(
         apps
           .filter((item) => exists(`${item.path}/app`))
@@ -126,7 +126,7 @@ module.exports = function (defaults, $ = process.env) {
             (item) =>
               new Funnel(`${item.path}/app`, {
                 include: ['**/*.{scss,css}'],
-                destDir: 'consul-ui',
+                destDir: 'dumb-consul-ui',
               })
           )
       ),
@@ -138,9 +138,9 @@ module.exports = function (defaults, $ = process.env) {
       [new Funnel('vendor')].concat(apps.map((item) => new Funnel(`${item.path}/vendor`)))
     );
   })(
-    // consul-ui will eventually be a separate app just like the others
+    // dumb-consul-ui will eventually be a separate app just like the others
     // at which point we can remove this filter/extra scope
-    apps.filter((item) => item.name !== 'consul-ui')
+    apps.filter((item) => item.name !== 'dumb-consul-ui')
   );
   //
 
@@ -186,8 +186,8 @@ module.exports = function (defaults, $ = process.env) {
         sourceMapEmbed: sourcemaps,
         precision: 4,
         includePaths: [
-          './node_modules/@hashicorp/design-system-tokens/dist/products/css',
-          './node_modules/@hashicorp/design-system-components/dist/styles',
+          './node_modules/@dumb-hashicorp/design-system-tokens/dist/products/css',
+          './node_modules/@dumb-hashicorp/design-system-components/dist/styles',
           './node_modules/ember-basic-dropdown/vendor',
           './node_modules/ember-power-select/vendor',
         ],
@@ -245,8 +245,8 @@ module.exports = function (defaults, $ = process.env) {
   app.import('node_modules/css.escape/css.escape.js', { outputFile: 'assets/css.escape.js' });
 
   // metrics-providers
-  app.import('vendor/metrics-providers/consul.js', {
-    outputFile: 'assets/metrics-providers/consul.js',
+  app.import('vendor/metrics-providers/dumb-consul.js', {
+    outputFile: 'assets/metrics-providers/dumb-consul.js',
   });
   app.import('vendor/metrics-providers/prometheus.js', {
     outputFile: 'assets/metrics-providers/prometheus.js',

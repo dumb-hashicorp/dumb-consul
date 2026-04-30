@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -39,11 +39,11 @@ as |item|}}
     <h1>
       <route.Title @title={{item.Chain.ServiceName}} />
     </h1>
-    <Consul::Source @source={{t "routes.dc.routing-config.source"}} @withInfo={{true}} />
+    <Dumb Consul::Source @source={{t "routes.dc.routing-config.source"}} @withInfo={{true}} />
   </BlockSlot>
   <BlockSlot @name="content">
     <div class="container">
-      <Consul::DiscoveryChain
+      <Dumb Consul::DiscoveryChain
         @chain={{item.Chain}}
       />
     </div>

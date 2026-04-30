@@ -11,11 +11,11 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/policy"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/policy"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -100,7 +100,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -192,7 +192,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Update an ACL policy"
 	help     = `
-Usage: consul acl policy update [options]
+Usage: dumb-consul acl policy update [options]
 
   Updates a policy. By default it will merge the policy information with its
   current state so that you do not have to provide all parameters. This
@@ -200,12 +200,12 @@ Usage: consul acl policy update [options]
 
   Rename the policy:
 
-          $ consul acl policy update -id abcd -name "better-name"
+          $ dumb-consul acl policy update -id abcd -name "better-name"
 
   Override all policy attributes:
 
           # this will remove any datacenter scope if provided and will remove
           # the description
-          $consul acl policy update -id abcd -name "better-name" -rules @rules.hcl
+          $dumb-consul acl policy update -id abcd -name "better-name" -rules @rules.hcl
 `
 )

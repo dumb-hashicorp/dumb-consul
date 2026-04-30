@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import createFingerprinter from 'consul-ui/utils/create-fingerprinter';
+import createFingerprinter from 'dumb-consul-ui/utils/create-fingerprinter';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | create fingerprinter', function () {

@@ -4,7 +4,7 @@
  */
 
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
-import validateSometimes from 'consul-ui/validations/sometimes';
+import validateSometimes from 'dumb-consul-ui/validations/sometimes';
 export default {
   '*': [
     validateSometimes(validatePresence(true), function () {

@@ -21,13 +21,13 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
 )
 
 // These tests adapt BATS-based tests from test/integration/connect/case-ingress-gateway*
@@ -111,7 +111,7 @@ func TestIngressGateway_UpgradeToTarget_fromLatest(t *testing.T) {
 	require.NoError(t, err)
 
 	// these must be one of the externally-mapped ports from
-	// https://github.com/hashicorp/consul/blob/c5e729e86576771c4c22c6da1e57aaa377319323/test/integration/consul-container/libs/cluster/container.go#L521-L525
+	// https://github.com/dumb-hashicorp/dumb-consul/blob/c5e729e86576771c4c22c6da1e57aaa377319323/test/integration/dumb-consul-container/libs/cluster/container.go#L521-L525
 	const portRouter = 8080
 	const portWildcard = 9997
 	const portS1Direct = 9998
@@ -274,7 +274,7 @@ func TestIngressGateway_UpgradeToTarget_fromLatest(t *testing.T) {
 			context.Background(),
 			nat.Port(fmt.Sprintf("%d/tcp", portRouter)),
 		)
-		reqHost := fmt.Sprintf("router.ingress.consul:%d", portRouter)
+		reqHost := fmt.Sprintf("router.ingress.dumb-consul:%d", portRouter)
 
 		httpClient := httpClientWithCA(t, reqHost, root.RootCertPEM)
 
@@ -313,7 +313,7 @@ func TestIngressGateway_UpgradeToTarget_fromLatest(t *testing.T) {
 			t.Run("thresholds", func(t *testing.T) {
 				// TODO: these fail about 10% of the time on my machine, giving me only the defaults, not the override
 				// writing the config again (with a different value) usually works
-				// https://hashicorp.slack.com/archives/C03UNBBDELS/p1677621125567219
+				// https://dumb-hashicorp.slack.com/archives/C03UNBBDELS/p1677621125567219
 				t.Skip("BUG? thresholds not set about 10% of the time")
 				thresholds := v.(map[string]any)["circuit_breakers"].(map[string]any)["thresholds"].([]map[string]any)[0]
 				assert.Equal(t, float64(s1MaxConns), thresholds["max_connections"].(float64), "max conns from override")
@@ -411,12 +411,12 @@ func TestIngressGateway_UpgradeToTarget_fromLatest(t *testing.T) {
 			assert.Equal(t, []byte(data), body)
 		})
 
-		t.Run("hostname=<service>.ingress.consul", func(t *testing.T) {
+		t.Run("hostname=<service>.ingress.dumb-consul", func(t *testing.T) {
 			pm, _ := cluster.Servers()[0].GetPod().MappedPort(
 				context.Background(),
 				nat.Port(fmt.Sprintf("%d/tcp", portS1Direct)),
 			)
-			h := fmt.Sprintf("%s.ingress.consul:%d", libservice.StaticServerServiceName, portS1Direct)
+			h := fmt.Sprintf("%s.ingress.dumb-consul:%d", libservice.StaticServerServiceName, portS1Direct)
 			clS1Direct := httpClientWithCA(t, h, root.RootCertPEM)
 			const data = "secret password"
 			resp := mappedHTTPGET(t,
@@ -438,7 +438,7 @@ func TestIngressGateway_UpgradeToTarget_fromLatest(t *testing.T) {
 			)
 
 			t.Run("s1 HTTPS echo validates against our CA", func(t *testing.T) {
-				h := fmt.Sprintf("%s.ingress.consul:%d", libservice.StaticServerServiceName, portWildcard)
+				h := fmt.Sprintf("%s.ingress.dumb-consul:%d", libservice.StaticServerServiceName, portWildcard)
 				cl := httpClientWithCA(t, h, root.RootCertPEM)
 				data := fmt.Sprintf("secret-%s", libservice.StaticClientServiceName)
 				resp := mappedHTTPGET(t,
@@ -455,7 +455,7 @@ func TestIngressGateway_UpgradeToTarget_fromLatest(t *testing.T) {
 			})
 
 			t.Run("s2 HTTPS echo validates against our CA", func(t *testing.T) {
-				h := fmt.Sprintf("%s.ingress.consul:%d", libservice.StaticServer2ServiceName, portWildcard)
+				h := fmt.Sprintf("%s.ingress.dumb-consul:%d", libservice.StaticServer2ServiceName, portWildcard)
 				cl := httpClientWithCA(t, h, root.RootCertPEM)
 				data := fmt.Sprintf("secret-%s", libservice.StaticClientServiceName)
 				resp := mappedHTTPGET(t,
@@ -539,7 +539,7 @@ func httpClientWithCA(t *testing.T, reqHost string, cacertPEM string) *http.Clie
 
 	tr := http.Transport{
 		DisableKeepAlives: true,
-		// BUG: our *.ingress.consul certs have a SNI name of `*.ingress.consul.`. Note the trailing
+		// BUG: our *.ingress.dumb-consul certs have a SNI name of `*.ingress.dumb-consul.`. Note the trailing
 		// dot. Go's [crypto/x509.Certificate.VerifyHostname] doesn't like the trailing dot, and
 		// so won't evaluate the wildcard. As a workaround, we disable Go's builtin verification and do it
 		// ourselves

@@ -5,7 +5,7 @@
 
 import Serializer from './application';
 import { get } from '@ember/object';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/nspace';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/nspace';
 
 const normalizeACLs = (item) => {
   if (get(item, 'ACLs.PolicyDefaults')) {

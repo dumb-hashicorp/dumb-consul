@@ -5,7 +5,7 @@
 
 import Serializer from './application';
 import { inject as service } from '@ember/service';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/kv';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/kv';
 
 export default class KvSerializer extends Serializer {
   @service('atob') decoder;

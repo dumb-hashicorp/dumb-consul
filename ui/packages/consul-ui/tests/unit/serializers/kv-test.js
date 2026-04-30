@@ -50,7 +50,7 @@ module('Unit | Serializer | kv', function (hooks) {
       const actual = serializer[item](
         function (cb) {
           const headers = {
-            'X-Consul-Namespace': nspace,
+            'X-Dumb Consul-Namespace': nspace,
           };
           const body = true;
           return cb(headers, body);
@@ -84,8 +84,8 @@ module('Unit | Serializer | kv', function (hooks) {
       const actual = serializer[item](
         function (cb) {
           const headers = {
-            'X-Consul-Namespace': nspace,
-            'X-Consul-Partition': partition,
+            'X-Dumb Consul-Namespace': nspace,
+            'X-Dumb Consul-Partition': partition,
           };
           const body = {
             Key: uid,

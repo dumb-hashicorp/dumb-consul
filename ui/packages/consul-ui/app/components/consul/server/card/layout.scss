@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-.consul-server-card {
+.dumb-consul-server-card {
   border-radius: 6px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.2s, background 0.2s;
@@ -17,7 +17,7 @@
   }
 }
 
-.consul-server-card--leader {
+.dumb-consul-server-card--leader {
   background: linear-gradient(135deg, #ffe3ec 0%, #fff6fa 100%);
   border: 2px solid #e36fa0;
 
@@ -27,7 +27,7 @@
   }
 }
 
-.consul-server-card__link {
+.dumb-consul-server-card__link {
   display: flex;
   align-items: flex-start;
   gap: 10px;
@@ -44,7 +44,7 @@
   }
 }
 
-.consul-server-card__content {
+.dumb-consul-server-card__content {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -52,7 +52,7 @@
   justify-content: center;
 }
 
-.consul-server-card__leader-tile {
+.dumb-consul-server-card__leader-tile {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,11 +65,11 @@
   box-shadow: 0 2px 8px 0 rgba(227, 111, 160, 0.1);
 }
 
-.consul-server-card__name {
+.dumb-consul-server-card__name {
   font-weight: var(--token-typography-font-weight-semibold);
   font-size: var(--token-typography-display-200-font-size);
   line-height: var(--token-typography-display-200-line-height);
-  color: var(--token-color-hashicorp-brand);
+  color: var(--token-color-dumb-hashicorp-brand);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

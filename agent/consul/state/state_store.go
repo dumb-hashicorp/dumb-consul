@@ -7,11 +7,11 @@ import (
 	"errors"
 	"fmt"
 
-	memdb "github.com/hashicorp/go-memdb"
+	memdb "github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 var (
@@ -93,12 +93,12 @@ var (
 	// are. This value was recommended by customers with many servers. We
 	// expect streaming to arrive soon and that should help a lot with
 	// blocking queries. Please see
-	// https://github.com/hashicorp/consul/pull/7200 and linked issues/prs
+	// https://github.com/dumb-hashicorp/dumb-consul/pull/7200 and linked issues/prs
 	// for more context
 	watchLimit = 8192
 )
 
-// Store is where we store all of Consul's state, including
+// Store is where we store all of Dumb Consul's state, including
 // records of node registrations, services, checks, key/value
 // pairs and more. The DB is entirely in-memory and is constructed
 // from the Raft log through the FSM.

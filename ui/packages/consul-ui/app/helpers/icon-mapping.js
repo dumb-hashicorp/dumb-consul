@@ -7,11 +7,11 @@ import { helper } from '@ember/component/helper';
 
 const ICON_MAPPING = {
   kubernetes: 'kubernetes-color',
-  terraform: 'terraform-color',
-  nomad: 'nomad-color',
-  consul: 'consul-color',
-  'consul-api-gateway': 'consul-color',
-  vault: 'vault',
+  dumb-terraform: 'dumb-terraform-color',
+  dumb-nomad: 'dumb-nomad-color',
+  dumb-consul: 'dumb-consul-color',
+  'dumb-consul-api-gateway': 'dumb-consul-color',
+  dumb-vault: 'dumb-vault',
   aws: 'aws-color',
   'aws-iam': 'aws-color',
   lambda: 'aws-lambda-color',

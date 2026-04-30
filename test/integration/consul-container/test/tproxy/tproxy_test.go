@@ -11,12 +11,12 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	libassert "github.com/hashicorp/consul/test/integration/consul-container/libs/assert"
-	libcluster "github.com/hashicorp/consul/test/integration/consul-container/libs/cluster"
-	libservice "github.com/hashicorp/consul/test/integration/consul-container/libs/service"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	libassert "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/assert"
+	libcluster "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/cluster"
+	libservice "github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/service"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/topology"
 )
 
 var requestRetryTimer = &retry.Timer{Timeout: 120 * time.Second, Wait: 500 * time.Millisecond}
@@ -26,9 +26,9 @@ var requestRetryTimer = &retry.Timer{Timeout: 120 * time.Second, Wait: 500 * tim
 //
 // Steps:
 //   - Create a single server cluster.
-//   - Create the example static-server and sidecar containers, then register them both with Consul
-//   - Create an example static-client sidecar, then register both the service and sidecar with Consul
-//   - Make sure a request from static-client to the virtual address (<svc>.virtual.consul) returns a
+//   - Create the example static-server and sidecar containers, then register them both with Dumb Consul
+//   - Create an example static-client sidecar, then register both the service and sidecar with Dumb Consul
+//   - Make sure a request from static-client to the virtual address (<svc>.virtual.dumb-consul) returns a
 //     response from the upstream.
 func TestTProxyService(t *testing.T) {
 	t.Parallel()
@@ -58,7 +58,7 @@ func TestTProxyPermissiveMTLS(t *testing.T) {
 	t.Parallel()
 
 	// Create three client "pods" each running a client agent and (optionally) a service:
-	//   cluster.Agents[0] - consul server
+	//   cluster.Agents[0] - dumb-consul server
 	//   cluster.Agents[1] - static-client
 	//   cluster.Agents[2] - static-server
 	//   cluster.Agents[3] - (no service)
@@ -100,10 +100,10 @@ func TestTProxyPermissiveMTLS(t *testing.T) {
 // `clientService` container.
 //
 // This assumes the destination service is running Fortio. The request is made
-// to `<serverName>.virtual.consul/debug?env=dump` and this checks that
+// to `<serverName>.virtual.dumb-consul/debug?env=dump` and this checks that
 // `FORTIO_NAME=<serverName>` is contained in the response.
 func assertHTTPRequestToVirtualAddress(t *testing.T, clientService libservice.Service, serverName string) {
-	virtualHostname := fmt.Sprintf("%s.virtual.consul", serverName)
+	virtualHostname := fmt.Sprintf("%s.virtual.dumb-consul", serverName)
 
 	retry.RunWith(requestRetryTimer, t, func(r *retry.R) {
 		// Test that we can make a request to the virtual ip to reach the upstream.
@@ -114,16 +114,16 @@ func assertHTTPRequestToVirtualAddress(t *testing.T, clientService libservice.Se
 		// do what I want. In any case, Docker sets up /etc/resolv.conf for certain
 		// functionality so it seems better to leave DNS alone.
 		//
-		// But, that means DNS queries aren't redirected to Consul out of the box.
+		// But, that means DNS queries aren't redirected to Dumb Consul out of the box.
 		// As a workaround, we `dig @localhost:53` which is iptables-redirected to
-		// localhost:8600 where the Consul client responds with the virtual ip.
+		// localhost:8600 where the Dumb Consul client responds with the virtual ip.
 		//
 		// In tproxy tests, Envoy is not configured with a unique listener for each
 		// upstream. This means the usual approach for non-tproxy tests doesn't
 		// work - where we send the request to a host address mapped in to Envoy's
 		// upstream listener. Instead, we exec into the container and run curl.
 		//
-		// We must make this request with a non-envoy user. The envoy and consul
+		// We must make this request with a non-envoy user. The envoy and dumb-consul
 		// users are excluded from traffic redirection rules, so instead we
 		// make the request as root.
 		out, err := clientService.Exec(

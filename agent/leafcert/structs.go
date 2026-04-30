@@ -10,15 +10,15 @@ import (
 
 	"github.com/mitchellh/hashstructure"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cacheshim"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cacheshim"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // ConnectCALeafRequest is the cache.Request implementation for the
 // ConnectCALeaf cache type. This is implemented here and not in structs
 // since this is only used for cache-related requests and not forwarded
-// directly to any Consul servers.
+// directly to any Dumb Consul servers.
 type ConnectCALeafRequest struct {
 	Token         string
 	Datacenter    string

@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-%consul-upstream-list {
+%dumb-consul-upstream-list {
   dl.partition dt::before {
     @extend %with-user-team-mask, %as-pseudo;
   }
 }
-.consul-upstream-list {
-  @extend %consul-upstream-list;
+.dumb-consul-upstream-list {
+  @extend %dumb-consul-upstream-list;
 }

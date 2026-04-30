@@ -8,7 +8,7 @@ package authmethod
 import (
 	"sync"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 type syncCache struct {

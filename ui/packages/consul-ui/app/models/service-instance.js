@@ -103,7 +103,7 @@ export default class ServiceInstance extends Model {
   }
 
   // IsMeshOrigin means that the service can have associated up or downstreams
-  // that are in the Consul mesh itself
+  // that are in the Dumb Consul mesh itself
   @computed('IsOrigin', 'Service.Kind')
   get IsMeshOrigin() {
     return this.IsOrigin && !['terminating-gateway'].includes(this.Service.Kind);

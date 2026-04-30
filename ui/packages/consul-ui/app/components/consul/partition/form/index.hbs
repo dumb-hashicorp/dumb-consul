@@ -1,10 +1,10 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
 <div
-  class="consul-partition-form"
+  class="dumb-consul-partition-form"
   ...attributes
 >
     <DataWriter
@@ -22,7 +22,7 @@
       @onchange={{fn (optional @onsubmit) @item}}
       as |writer|>
     <BlockSlot @name="removed" as |after|>
-      <Consul::Partition::Notifications 
+      <Dumb Consul::Partition::Notifications 
         {{notification
           after=(action after)
         }}

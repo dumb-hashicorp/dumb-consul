@@ -5,7 +5,7 @@
 
 import Service, { inject as service } from '@ember/service';
 import { runInDebug } from '@ember/debug';
-import { proxy } from 'consul-ui/utils/dom/event-source';
+import { proxy } from 'dumb-consul-ui/utils/dom/event-source';
 import { schedule } from '@ember/runloop';
 
 import MultiMap from 'mnemonist/multi-map';
@@ -29,7 +29,7 @@ class URI {
 export default class DataSourceService extends Service {
   @service('dom') dom;
   @service('encoder') encoder;
-  @service('data-source/protocols/http') consul;
+  @service('data-source/protocols/http') dumb-consul;
   @service('data-source/protocols/local-storage') settings;
 
   constructor(...args) {
@@ -115,7 +115,7 @@ export default class DataSourceService extends Service {
     // Check the cache for an EventSource that is already being used
     // for this uri. If we don't have one, set one up.
     if (uri.indexOf('://') === -1) {
-      uri = `consul://${uri}`;
+      uri = `dumb-consul://${uri}`;
     }
     let [providerName, pathname] = uri.split('://');
     const provider = this[providerName];

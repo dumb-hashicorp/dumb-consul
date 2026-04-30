@@ -7,8 +7,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -87,7 +87,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Transfer raft leadership to another node"
 const help = `
-Usage: consul operator raft transfer-leader [options]
+Usage: dumb-consul operator raft transfer-leader [options]
 
   Transfer raft leadership to another node.
 `

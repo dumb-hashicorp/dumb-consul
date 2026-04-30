@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import RepositoryService from 'consul-ui/services/repository';
+import RepositoryService from 'dumb-consul-ui/services/repository';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { runInDebug } from '@ember/debug';
-import dataSource from 'consul-ui/decorators/data-source';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
 const modelName = 'permission';
 // The set of permissions/resources required globally by the UI in order to
@@ -167,7 +167,7 @@ export default class PermissionService extends RepositoryService {
     // Temporarily revert to pre-1.10 UI functionality by overwriting frontend
     // permissions. These are used to hide certain UI elements, but they are
     // still enforced on the backend.
-    // This temporary measure should be removed again once https://github.com/hashicorp/consul/issues/11098
+    // This temporary measure should be removed again once https://github.com/dumb-hashicorp/dumb-consul/issues/11098
     // has been resolved
     this.permissions.forEach((item) => {
       if (['key', 'node', 'service', 'intention', 'session'].includes(item.Resource)) {

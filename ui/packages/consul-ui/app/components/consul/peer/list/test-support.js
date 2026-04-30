@@ -4,7 +4,7 @@
  */
 
 export const selectors = {
-  $: '.consul-peer-list',
+  $: '.dumb-consul-peer-list',
   collection: {
     $: '[data-test-list-row]',
     peer: {

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"fmt"
@@ -13,21 +13,21 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	msgpackrpc "github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc"
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
-	"github.com/hashicorp/go-uuid"
+	msgpackrpc "github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
+	"github.com/dumb-hashicorp/go-uuid"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestCatalog_Register(t *testing.T) {
@@ -236,8 +236,8 @@ node "foo" {
 		t.Fatalf("err: %v", err)
 	}
 
-	// Try the former special case for the "consul" service.
-	argR.Service.Service = "consul"
+	// Try the former special case for the "dumb-consul" service.
+	argR.Service.Service = "dumb-consul"
 	err = msgpackrpc.CallWithCodec(codec, "Catalog.Register", &argR, &outR)
 	if !acl.IsErrPermissionDenied(err) {
 		t.Fatalf("err: %v", err)
@@ -1557,8 +1557,8 @@ func TestCatalog_ListServices(t *testing.T) {
 			t.Fatalf("bad: %v", s)
 		}
 	}
-	// Consul service should auto-register
-	if _, ok := out.Services["consul"]; !ok {
+	// Dumb Consul service should auto-register
+	if _, ok := out.Services["dumb-consul"]; !ok {
 		t.Fatalf("bad: %v", out)
 	}
 	if len(out.Services["db"]) != 1 {
@@ -2032,7 +2032,7 @@ func TestCatalog_ListServiceNodes_ByAddress(t *testing.T) {
 }
 
 // TestCatalog_ListServiceNodes_ServiceTags_V1_2_3Compat asserts the compatibility between <=v1.2.3 agents and >=v1.3.0 servers
-// see https://github.com/hashicorp/consul/issues/4922
+// see https://github.com/dumb-hashicorp/dumb-consul/issues/4922
 func TestCatalog_ListServiceNodes_ServiceTags_V1_2_3Compat(t *testing.T) {
 	if testing.Short() {
 		t.Skip("too slow for testing.Short")
@@ -3269,7 +3269,7 @@ func TestCatalog_NodeServices_ACL(t *testing.T) {
 	token := func(policy string) string {
 		rules := fmt.Sprintf(`
 				node "%s" { policy = "%s" }
-				service "consul" { policy = "%s" }
+				service "dumb-consul" { policy = "%s" }
 			`,
 			s1.config.NodeName,
 			policy,

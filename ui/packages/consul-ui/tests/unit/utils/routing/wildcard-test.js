@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import wildcard from 'consul-ui/utils/routing/wildcard';
+import wildcard from 'dumb-consul-ui/utils/routing/wildcard';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | routing/wildcard', function () {

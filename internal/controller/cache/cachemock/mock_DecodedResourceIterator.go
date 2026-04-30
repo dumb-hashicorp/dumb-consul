@@ -5,7 +5,7 @@
 package cachemock
 
 import (
-	"github.com/hashicorp/consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
 	mock "github.com/stretchr/testify/mock"
 	"google.golang.org/protobuf/proto"
 )

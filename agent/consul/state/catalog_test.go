@@ -19,16 +19,16 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-uuid"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func makeRandomNodeID(t *testing.T) types.NodeID {
@@ -1032,7 +1032,7 @@ func TestStateStore_EnsureRegistration_Restore(t *testing.T) {
 }
 
 func deprecatedEnsureNodeWithoutIDCanRegister(t *testing.T, s *Store, nodeName string, txIdx uint64) {
-	// All the following is deprecated, and should be removed in future Consul versions
+	// All the following is deprecated, and should be removed in future Dumb Consul versions
 	in := &structs.Node{
 		Node:    nodeName,
 		Address: "1.1.1.9",
@@ -1486,8 +1486,8 @@ func TestStateStore_EnsureNode(t *testing.T) {
 		t.Fatalf("bad index: %d", idx)
 	}
 
-	// All the remaining tests are deprecated, please remove them on next Consul major release
-	// See https://github.com/hashicorp/consul/pull/3983 for context
+	// All the remaining tests are deprecated, please remove them on next Dumb Consul major release
+	// See https://github.com/dumb-hashicorp/dumb-consul/pull/3983 for context
 
 	// Deprecated behavior is following
 	deprecatedEnsureNodeWithoutIDCanRegister(t, s, "new-node-without-id", 13)
@@ -3337,7 +3337,7 @@ func TestStateStore_Service_Snapshot(t *testing.T) {
 		},
 		{
 			ID:             "service2",
-			Service:        "nomad",
+			Service:        "dumb-nomad",
 			Tags:           []string{"dev"},
 			Address:        "1.1.1.2",
 			Port:           1112,
@@ -4409,7 +4409,7 @@ func TestStateStore_ConnectQueryBlocking(t *testing.T) {
 			wantAfterWatchSetSize: 3,
 		},
 		{
-			// See https://github.com/hashicorp/consul/issues/5506. The issue is cause
+			// See https://github.com/dumb-hashicorp/dumb-consul/issues/5506. The issue is cause
 			// if the target service exists and is registered meaning it has a
 			// service-specific index. This index is then used for the connect query
 			// even though it is not updated by changes to the actual proxy or it's
@@ -4439,7 +4439,7 @@ func TestStateStore_ConnectQueryBlocking(t *testing.T) {
 			wantAfterWatchSetSize: 3,
 		},
 		{
-			// See https://github.com/hashicorp/consul/issues/5506. This is the edge
+			// See https://github.com/dumb-hashicorp/dumb-consul/issues/5506. This is the edge
 			// case that the simple solution wouldn't catch.
 			name: "unblocks on different service name proxy-service registration when service is present",
 			setupFn: func(s *Store) {
@@ -5268,9 +5268,9 @@ func TestStateStore_NodeInfo_NodeDump(t *testing.T) {
 	}
 
 	// Register some nodes
-	// node1 is registered withOut any nodemeta, and a consul service with id
-	// 'consul' is added later with meta 'version'. The expected node must have
-	// meta 'consul-version' with same value
+	// node1 is registered withOut any nodemeta, and a dumb-consul service with id
+	// 'dumb-consul' is added later with meta 'version'. The expected node must have
+	// meta 'dumb-consul-version' with same value
 	testRegisterNode(t, s, 0, "node1")
 	testRegisterNode(t, s, 1, "node2")
 
@@ -5279,8 +5279,8 @@ func TestStateStore_NodeInfo_NodeDump(t *testing.T) {
 	testRegisterService(t, s, 3, "node1", "service2")
 	testRegisterService(t, s, 4, "node2", "service1")
 	testRegisterService(t, s, 5, "node2", "service2")
-	// Register consul service with meta 'version' for node1
-	testRegisterServiceWithMeta(t, s, 10, "node1", "consul", map[string]string{"version": "1.17.0"})
+	// Register dumb-consul service with meta 'version' for node1
+	testRegisterServiceWithMeta(t, s, 10, "node1", "dumb-consul", map[string]string{"version": "1.17.0"})
 
 	// Register service-level checks
 	testRegisterCheck(t, s, 6, "node1", "service1", "check1", api.HealthPassing)
@@ -5331,8 +5331,8 @@ func TestStateStore_NodeInfo_NodeDump(t *testing.T) {
 			},
 			Services: []*structs.NodeService{
 				{
-					ID:      "consul",
-					Service: "consul",
+					ID:      "dumb-consul",
+					Service: "dumb-consul",
 					Address: "1.1.1.1",
 					Meta:    map[string]string{"version": "1.17.0"},
 					Port:    1111,
@@ -5370,7 +5370,7 @@ func TestStateStore_NodeInfo_NodeDump(t *testing.T) {
 					EnterpriseMeta: *structs.DefaultEnterpriseMetaInDefaultPartition(),
 				},
 			},
-			Meta: map[string]string{"consul-version": "1.17.0"},
+			Meta: map[string]string{"dumb-consul-version": "1.17.0"},
 		},
 		&structs.NodeInfo{
 			Node:      "node2",
@@ -5568,11 +5568,11 @@ func TestStateStore_GatewayServices_Terminating(t *testing.T) {
 	assert.Nil(t, s.EnsureNode(11, &structs.Node{Node: "bar", Address: "127.0.0.2"}))
 	assert.Nil(t, s.EnsureNode(12, &structs.Node{Node: "baz", Address: "127.0.0.2"}))
 
-	// Typical services and some consul services spread across two nodes
+	// Typical services and some dumb-consul services spread across two nodes
 	assert.Nil(t, s.EnsureService(13, "foo", &structs.NodeService{ID: "db", Service: "db", Tags: nil, Address: "", Port: 5000}))
 	assert.Nil(t, s.EnsureService(15, "bar", &structs.NodeService{ID: "api", Service: "api", Tags: nil, Address: "", Port: 5000}))
-	assert.Nil(t, s.EnsureService(16, "bar", &structs.NodeService{ID: "consul", Service: "consul", Tags: nil}))
-	assert.Nil(t, s.EnsureService(17, "bar", &structs.NodeService{ID: "consul", Service: "consul", Tags: nil}))
+	assert.Nil(t, s.EnsureService(16, "bar", &structs.NodeService{ID: "dumb-consul", Service: "dumb-consul", Tags: nil}))
+	assert.Nil(t, s.EnsureService(17, "bar", &structs.NodeService{ID: "dumb-consul", Service: "dumb-consul", Tags: nil}))
 
 	// Add ingress gateway and a connect proxy, neither should get picked up by terminating gateway
 	ingressNS := &structs.NodeService{
@@ -6011,11 +6011,11 @@ func TestStateStore_ServiceGateways_Terminating(t *testing.T) {
 	assert.Nil(t, s.EnsureNode(11, &structs.Node{Node: "bar", Address: "127.0.0.2"}))
 	assert.Nil(t, s.EnsureNode(12, &structs.Node{Node: "baz", Address: "127.0.0.2"}))
 
-	// Typical services and some consul services spread across two nodes
+	// Typical services and some dumb-consul services spread across two nodes
 	assert.Nil(t, s.EnsureService(13, "foo", &structs.NodeService{ID: "db", Service: "db", Tags: nil, Address: "", Port: 5000}))
 	assert.Nil(t, s.EnsureService(15, "bar", &structs.NodeService{ID: "api", Service: "api", Tags: nil, Address: "", Port: 5000}))
-	assert.Nil(t, s.EnsureService(16, "bar", &structs.NodeService{ID: "consul", Service: "consul", Tags: nil}))
-	assert.Nil(t, s.EnsureService(17, "bar", &structs.NodeService{ID: "consul", Service: "consul", Tags: nil}))
+	assert.Nil(t, s.EnsureService(16, "bar", &structs.NodeService{ID: "dumb-consul", Service: "dumb-consul", Tags: nil}))
+	assert.Nil(t, s.EnsureService(17, "bar", &structs.NodeService{ID: "dumb-consul", Service: "dumb-consul", Tags: nil}))
 
 	// Add ingress gateway and a connect proxy, neither should get picked up by terminating gateway
 	ingressNS := &structs.NodeService{
@@ -6398,7 +6398,7 @@ func TestStateStore_GatewayServices_ServiceDeletion(t *testing.T) {
 	assert.Nil(t, s.EnsureNode(11, &structs.Node{Node: "bar", Address: "127.0.0.2"}))
 	assert.Nil(t, s.EnsureNode(12, &structs.Node{Node: "baz", Address: "127.0.0.2"}))
 
-	// Typical services and some consul services spread across two nodes
+	// Typical services and some dumb-consul services spread across two nodes
 	assert.Nil(t, s.EnsureService(13, "foo", &structs.NodeService{ID: "db", Service: "db", Tags: nil, Address: "", Port: 5000}))
 	assert.Nil(t, s.EnsureService(14, "foo", &structs.NodeService{ID: "api", Service: "api", Tags: nil, Address: "", Port: 5000}))
 
@@ -7034,13 +7034,13 @@ func TestStateStore_GatewayServices_WildcardAssociation(t *testing.T) {
 		require.ElementsMatch(t, results, expected)
 	})
 
-	t.Run("do not associate consul services with gateway", func(t *testing.T) {
+	t.Run("do not associate dumb-consul services with gateway", func(t *testing.T) {
 		ws := memdb.NewWatchSet()
 		_, _, err := s.GatewayServices(ws, "wildcardIngress", nil)
 		require.NoError(t, err)
 
 		require.Nil(t, s.EnsureService(20, "node1",
-			&structs.NodeService{ID: "consul", Service: "consul", Tags: nil},
+			&structs.NodeService{ID: "dumb-consul", Service: "dumb-consul", Tags: nil},
 		))
 		require.False(t, watchFired(ws))
 		idx, results, err := s.GatewayServices(ws, "wildcardIngress", nil)
@@ -7416,11 +7416,11 @@ func TestStateStore_DumpGatewayServices(t *testing.T) {
 	assert.Nil(t, s.EnsureNode(11, &structs.Node{Node: "bar", Address: "127.0.0.2"}))
 	assert.Nil(t, s.EnsureNode(12, &structs.Node{Node: "baz", Address: "127.0.0.2"}))
 
-	// Typical services and some consul services spread across two nodes
+	// Typical services and some dumb-consul services spread across two nodes
 	assert.Nil(t, s.EnsureService(13, "foo", &structs.NodeService{ID: "db", Service: "db", Tags: nil, Address: "", Port: 5000}))
 	assert.Nil(t, s.EnsureService(15, "bar", &structs.NodeService{ID: "api", Service: "api", Tags: nil, Address: "", Port: 5000}))
-	assert.Nil(t, s.EnsureService(16, "bar", &structs.NodeService{ID: "consul", Service: "consul", Tags: nil}))
-	assert.Nil(t, s.EnsureService(17, "bar", &structs.NodeService{ID: "consul", Service: "consul", Tags: nil}))
+	assert.Nil(t, s.EnsureService(16, "bar", &structs.NodeService{ID: "dumb-consul", Service: "dumb-consul", Tags: nil}))
+	assert.Nil(t, s.EnsureService(17, "bar", &structs.NodeService{ID: "dumb-consul", Service: "dumb-consul", Tags: nil}))
 
 	ingressNS := &structs.NodeService{
 		Kind:    structs.ServiceKindIngressGateway,
@@ -8967,7 +8967,7 @@ func TestCatalog_DownstreamsForService(t *testing.T) {
 			}
 
 			ca := &structs.CAConfiguration{
-				Provider: "consul",
+				Provider: "dumb-consul",
 			}
 			err := s.CASetConfig(0, ca)
 			require.NoError(t, err)
@@ -9000,7 +9000,7 @@ func TestCatalog_DownstreamsForService_Updates(t *testing.T) {
 
 	s := testStateStore(t)
 	ca := &structs.CAConfiguration{
-		Provider: "consul",
+		Provider: "dumb-consul",
 	}
 	err := s.CASetConfig(1, ca)
 	require.NoError(t, err)

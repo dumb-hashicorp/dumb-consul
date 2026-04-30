@@ -1,6 +1,6 @@
-# Consul::Partition::List
+# Dumb Consul::Partition::List
 
-A presentational component for rendering Consul Partitions
+A presentational component for rendering Dumb Consul Partitions
 
 Please note: 
 
@@ -9,7 +9,7 @@ Please note:
 
 ```hbs
 <DataSource @src={{uri '/partition/default/dc-1/partitions'}} as |source|>
-  <Consul::Partition::List
+  <Dumb Consul::Partition::List
     @items={{source.data}}
     @ondelete={{noop}}
   />

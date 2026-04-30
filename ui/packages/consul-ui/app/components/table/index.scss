@@ -17,10 +17,10 @@
   right: 5px;
 }
 
-table.consul-metadata-list tbody tr {
+table.dumb-consul-metadata-list tbody tr {
   cursor: default;
 }
-table.consul-metadata-list tbody tr:hover {
+table.dumb-consul-metadata-list tbody tr:hover {
   box-shadow: none;
 }
 
@@ -52,7 +52,7 @@ table.consul-metadata-list tbody tr:hover {
   %table tr > .actions {
     display: none;
   }
-  .consul-intention-list tr > :nth-last-child(2) {
+  .dumb-consul-intention-list tr > :nth-last-child(2) {
     display: none;
   }
 }

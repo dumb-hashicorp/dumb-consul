@@ -13,17 +13,17 @@ module('Integration | Helper | service/external-source', function (hooks) {
 
   // Replace this with your real tests.
   test('it renders', async function (assert) {
-    this.set('inputValue', { Meta: { 'external-source': 'consul' } });
+    this.set('inputValue', { Meta: { 'external-source': 'dumb-consul' } });
 
     await render(hbs`{{service/external-source this.inputValue}}`);
 
-    assert.strictEqual(this.element.textContent.trim(), 'consul');
+    assert.strictEqual(this.element.textContent.trim(), 'dumb-consul');
   });
   test('it renders prefixed', async function (assert) {
-    this.set('inputValue', { Meta: { 'external-source': 'consul' } });
+    this.set('inputValue', { Meta: { 'external-source': 'dumb-consul' } });
 
     await render(hbs`{{service/external-source this.inputValue prefix='external-source-'}}`);
 
-    assert.strictEqual(this.element.textContent.trim(), 'external-source-consul');
+    assert.strictEqual(this.element.textContent.trim(), 'external-source-dumb-consul');
   });
 });

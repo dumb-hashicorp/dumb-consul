@@ -1,4 +1,4 @@
-// filepath: /Users/rishabh/Documents/Hashicorp/consul/ui/packages/consul-ui/tests/lib/page-object/visitable.js
+// filepath: /Users/rishabh/Documents/Hashicorp/dumb-consul/ui/packages/dumb-consul-ui/tests/lib/page-object/visitable.js
 /**
  * Copyright IBM Corp. 2024, 2026
  * SPDX-License-Identifier: BUSL-1.1
@@ -6,7 +6,7 @@
 
 import { visit as emberVisit, getContext } from '@ember/test-helpers';
 import action from 'ember-cli-page-object/-private/action';
-import createQueryParams from 'consul-ui/utils/http/create-query-params';
+import createQueryParams from 'dumb-consul-ui/utils/http/create-query-params';
 
 const qpStringify = createQueryParams();
 
@@ -35,7 +35,7 @@ function appendQueryParams(path, queryParams) {
 }
 
 /**
- * Custom implementation of `visitable` for Consul UI
+ * Custom implementation of `visitable` for Dumb Consul UI
  *
  * Enhanced version based on ember-cli-page-object v2.3.2
  *
@@ -43,7 +43,7 @@ function appendQueryParams(path, queryParams) {
  * 1. Injectable encoder - customize dynamic segment encoding (for KV URLs, etc.)
  * 2. Multiple path templates - automatic fallback when segments are missing
  * 3. Namespace injection - auto-prepends `/:nspace` segment when needed
- * 4. Custom location service - integrates with Consul's routing system
+ * 4. Custom location service - integrates with Dumb Consul's routing system
  *
  * @param {string|string[]} path - Single path or array of path templates
  * @param {Function} encoder - Encoding function (default: encodeURIComponent)

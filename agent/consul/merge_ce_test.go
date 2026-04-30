@@ -3,16 +3,16 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
 	"testing"
 
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestMerge_CE_LAN(t *testing.T) {
@@ -55,7 +55,7 @@ func TestMerge_CE_LAN(t *testing.T) {
 					segment: "alpha",
 				}),
 			},
-			expect: `Member 'node1' part of segment 'alpha'; Network Segments are a Consul Enterprise feature`,
+			expect: `Member 'node1' part of segment 'alpha'; Network Segments are a Dumb Consul Enterprise feature`,
 		},
 		"node in a partition": {
 			members: []*serf.Member{
@@ -66,7 +66,7 @@ func TestMerge_CE_LAN(t *testing.T) {
 					partition: "part1",
 				}),
 			},
-			expect: `Member 'node1' part of partition 'part1'; Partitions are a Consul Enterprise feature`,
+			expect: `Member 'node1' part of partition 'part1'; Partitions are a Dumb Consul Enterprise feature`,
 		},
 	}
 

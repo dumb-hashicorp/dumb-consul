@@ -4,7 +4,7 @@
  */
 
 import { module, test } from 'qunit';
-import keyToArray from 'consul-ui/utils/keyToArray';
+import keyToArray from 'dumb-consul-ui/utils/keyToArray';
 
 module('Unit | Utils | keyToArray', function () {
   test('it splits a string by a separator, unless the string is the separator', function (assert) {

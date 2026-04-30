@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import getFormNameProperty from 'consul-ui/utils/get-form-name-property';
+import getFormNameProperty from 'dumb-consul-ui/utils/get-form-name-property';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | get form name property', function () {

@@ -18,7 +18,7 @@ ${ http.method !== "PUT" ? `
     "DestinationNS": "${destination[1]}",
     ${sourceIsPeered ? sourcePeerString : sourcePartitionString}
     "DestinationPartition": "${destination[0]}",
-    "SourceType": "${fake.helpers.randomize(['consul', 'externaluri'])}",
+    "SourceType": "${fake.helpers.randomize(['dumb-consul', 'externaluri'])}",
 ${legacy ? `
     "Action": "${fake.helpers.randomize(['allow', 'deny'])}",
 `:``}

@@ -7,8 +7,8 @@ package acl
 
 import (
 	"fmt"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/hcl"
 	"strings"
 )
 

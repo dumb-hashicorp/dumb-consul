@@ -35,7 +35,7 @@ export default function (
       'tags',
     ]),
     // TODO: These need to somehow move to subpages
-    instances: collection('.consul-service-instance-list > ul > li:not(:first-child)', {
+    instances: collection('.dumb-consul-service-instance-list > ul > li:not(:first-child)', {
       address: text('[data-test-address]'),
       externalSource: attribute('data-test-external-source', '[data-test-external-source]'),
       instance: clickable('a', { at: 0 }),
@@ -65,12 +65,12 @@ export default function (
     },
   };
   page.tabs.upstreamsTab = {
-    services: collection('.consul-upstream-list > ul > li:not(:first-child)', {
+    services: collection('.dumb-consul-upstream-list > ul > li:not(:first-child)', {
       name: text('[data-test-service-name]'),
     }),
   };
   page.tabs.linkedServicesTab = {
-    services: collection('.consul-service-list > ul > li:not(:first-child)', {
+    services: collection('.dumb-consul-service-list > ul > li:not(:first-child)', {
       name: text('[data-test-service-name]'),
     }),
   };

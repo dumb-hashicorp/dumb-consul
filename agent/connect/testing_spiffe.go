@@ -3,11 +3,11 @@
 
 package connect
 
-import "github.com/hashicorp/consul/sdk/testutil"
+import "github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 
 // TestSpiffeIDService returns a SPIFFE ID representing a service.
 func TestSpiffeIDService(t testutil.TestingTB, service string) *SpiffeIDService {
-	return TestSpiffeIDServiceWithHost(t, service, TestClusterID+".consul")
+	return TestSpiffeIDServiceWithHost(t, service, TestClusterID+".dumb-consul")
 }
 
 // TestSpiffeIDServiceWithHost returns a SPIFFE ID representing a service with

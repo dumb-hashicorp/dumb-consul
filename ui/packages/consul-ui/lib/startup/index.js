@@ -13,12 +13,12 @@ const fs = require('fs');
 const path = require('path');
 const promisify = require('util').promisify;
 const read = promisify(fs.readFile);
-const apiDouble = require('@hashicorp/api-double');
+const apiDouble = require('@dumb-hashicorp/api-double');
 
 const mergeTrees = require('broccoli-merge-trees');
 const writeFile = require('broccoli-file-creator');
 
-const apiDoubleHeaders = require('@hashicorp/api-double/lib/headers');
+const apiDoubleHeaders = require('@dumb-hashicorp/api-double/lib/headers');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -10,14 +10,14 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/authmethod/testauth"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/structs"
-	tokenStore "github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/proto-public/pbacl"
-	"github.com/hashicorp/consul/proto-public/pbconnectca"
-	"github.com/hashicorp/consul/proto-public/pbserverdiscovery"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/testauth"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	tokenStore "github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbacl"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbconnectca"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbserverdiscovery"
 )
 
 func TestGRPCIntegration_ConnectCA_Sign(t *testing.T) {
@@ -53,7 +53,7 @@ func TestGRPCIntegration_ConnectCA_Sign(t *testing.T) {
 	client := pbconnectca.NewConnectCAServiceClient(conn)
 
 	csr, _ := connect.TestCSR(t, &connect.SpiffeIDService{
-		Host:       connect.TestClusterID + ".consul",
+		Host:       connect.TestClusterID + ".dumb-consul",
 		Namespace:  "default",
 		Datacenter: "dc1",
 		Service:    "foo",

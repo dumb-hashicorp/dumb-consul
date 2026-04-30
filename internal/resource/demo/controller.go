@@ -13,14 +13,14 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/controller/dependency"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	pbdemov2 "github.com/hashicorp/consul/proto/private/pbdemo/v2"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/dependency"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	pbdemov2 "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v2"
 )
 
-const statusKeyArtistController = "consul.io/artist-controller"
+const statusKeyArtistController = "dumb-consul.io/artist-controller"
 
 // RegisterControllers registers controllers for the demo types. Should only be
 // called in dev mode.

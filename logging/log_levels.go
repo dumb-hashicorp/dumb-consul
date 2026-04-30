@@ -6,7 +6,7 @@ package logging
 import (
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 )
 
 var (

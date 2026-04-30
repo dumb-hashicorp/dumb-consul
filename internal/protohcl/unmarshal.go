@@ -4,8 +4,8 @@
 package protohcl
 
 import (
-	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/hcl/v2/hclparse"
+	"github.com/dumb-hashicorp/hcl/v2"
+	"github.com/dumb-hashicorp/hcl/v2/hclparse"
 	"github.com/zclconf/go-cty/cty/function"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )

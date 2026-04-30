@@ -9,9 +9,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
 )
 
 const aclToken = "67b04fbc-e35f-494a-ad43-739f1c8b839c"
@@ -44,7 +44,7 @@ func TestPBToStreamSubscribeRequest(t *testing.T) {
 				Topic:     EventTopicServiceDefaults,
 				Key:       "key",
 				Partition: "partition",
-				Namespace: "consul",
+				Namespace: "dumb-consul",
 				PeerName:  "peer",
 			},
 			entMeta: acl.EnterpriseMeta{},
@@ -63,7 +63,7 @@ func TestPBToStreamSubscribeRequest(t *testing.T) {
 				Subject: &pbsubscribe.SubscribeRequest_NamedSubject{
 					NamedSubject: &pbsubscribe.NamedSubject{
 						Key:       "key",
-						Namespace: "consul",
+						Namespace: "dumb-consul",
 						Partition: "partition",
 						PeerName:  "peer",
 					},
@@ -90,7 +90,7 @@ func TestPBToStreamSubscribeRequest(t *testing.T) {
 				Subject: &pbsubscribe.SubscribeRequest_NamedSubject{
 					NamedSubject: &pbsubscribe.NamedSubject{
 						Key:       "sg",
-						Namespace: "consul",
+						Namespace: "dumb-consul",
 						Partition: "partition",
 						PeerName:  "peer",
 					},
@@ -116,7 +116,7 @@ func TestPBToStreamSubscribeRequest(t *testing.T) {
 				Subject: &pbsubscribe.SubscribeRequest_NamedSubject{
 					NamedSubject: &pbsubscribe.NamedSubject{
 						Key:       "key",
-						Namespace: "consul",
+						Namespace: "dumb-consul",
 						Partition: "partition",
 						PeerName:  "peer",
 					},
@@ -142,7 +142,7 @@ func TestPBToStreamSubscribeRequest(t *testing.T) {
 				Subject: &pbsubscribe.SubscribeRequest_NamedSubject{
 					NamedSubject: &pbsubscribe.NamedSubject{
 						Key:       "key",
-						Namespace: "consul",
+						Namespace: "dumb-consul",
 						Partition: "partition",
 						PeerName:  "peer",
 					},
@@ -158,7 +158,7 @@ func TestPBToStreamSubscribeRequest(t *testing.T) {
 				Subject: &pbsubscribe.SubscribeRequest_NamedSubject{
 					NamedSubject: &pbsubscribe.NamedSubject{
 						Key:       "key",
-						Namespace: "consul",
+						Namespace: "dumb-consul",
 						Partition: "partition",
 						PeerName:  "peer",
 					},

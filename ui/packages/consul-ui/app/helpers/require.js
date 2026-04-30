@@ -7,9 +7,9 @@ import { helper } from '@ember/component/helper';
 import require from 'require';
 
 import { css } from '@lit/reactive-element';
-import resolve from 'consul-ui/utils/path/resolve';
+import resolve from 'dumb-consul-ui/utils/path/resolve';
 
-const appName = 'consul-ui';
+const appName = 'dumb-consul-ui';
 
 const container = new Map();
 

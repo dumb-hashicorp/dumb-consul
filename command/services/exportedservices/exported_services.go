@@ -11,9 +11,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/go-bexpr"
 	"github.com/ryanuber/columnize"
 )
 
@@ -83,7 +83,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -165,12 +165,12 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Lists exported services"
 	help     = `
-Usage: consul services exported-services [options]
+Usage: dumb-consul services exported-services [options]
 
   Lists all the exported services and their consumers. Wildcards and sameness groups(Enterprise) are expanded.
 
   Example:
 
-    $ consul services exported-services
+    $ dumb-consul services exported-services
 `
 )

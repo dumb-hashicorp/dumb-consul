@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-.consul-intention-permission-form {
+.dumb-consul-intention-permission-form {
   h2 {
     border-top: 1px solid var(--token-color-foreground-action);
     @extend %display-400-semibold;
@@ -20,7 +20,7 @@
   }
 }
 
-.consul-intention-view {
+.dumb-consul-intention-view {
   h2 {
     @extend %display-400-semibold;
   }

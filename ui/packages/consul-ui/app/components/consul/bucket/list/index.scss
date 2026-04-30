@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-%consul-bucket-list {
+%dumb-consul-bucket-list {
   & {
     @extend %horizontal-kv-list;
   }
@@ -36,6 +36,6 @@
   }
   /**/
 }
-.consul-bucket-list {
-  @extend %consul-bucket-list;
+.dumb-consul-bucket-list {
+  @extend %dumb-consul-bucket-list;
 }

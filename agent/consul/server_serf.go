@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"errors"
@@ -13,18 +13,18 @@ import (
 
 	"github.com/armon/go-metrics"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/memberlist"
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/memberlist"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/consul/wanfed"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/gossip/libserf"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/wanfed"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/libserf"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 const (
@@ -33,7 +33,7 @@ const (
 	StatusReap = serf.MemberStatus(-1)
 
 	// userEventPrefix is pre-pended to a user event to distinguish it
-	userEventPrefix = "consul:event:"
+	userEventPrefix = "dumb-consul:event:"
 
 	// maxPeerRetries limits how many invalidate attempts are made
 	maxPeerRetries = 6
@@ -98,7 +98,7 @@ func (s *Server) setupSerfConfig(opts setupSerfOptions) (*serf.Config, error) {
 			}
 		}
 	}
-	conf.Tags["role"] = "consul"
+	conf.Tags["role"] = "dumb-consul"
 	conf.Tags["dc"] = s.config.Datacenter
 	conf.Tags["segment"] = opts.Segment
 	conf.Tags["id"] = string(s.config.NodeID)
@@ -212,7 +212,7 @@ func (s *Server) setupSerfConfig(opts setupSerfOptions) (*serf.Config, error) {
 		}
 	}
 
-	// Until Consul supports this fully, we disable automatic resolution.
+	// Until Dumb Consul supports this fully, we disable automatic resolution.
 	// When enabled, the Serf gossip may just turn off if we are the minority
 	// node which is rather unexpected.
 	conf.EnableNameConflictResolution = false
@@ -322,8 +322,8 @@ func (s *Server) localMemberEvent(me serf.MemberEvent) {
 
 // localEvent is called when we receive an event on the local Serf
 func (s *Server) localEvent(event serf.UserEvent) {
-	// Handle only consul events
-	if !strings.HasPrefix(event.Name, "consul:") {
+	// Handle only dumb-consul events
+	if !strings.HasPrefix(event.Name, "dumb-consul:") {
 		return
 	}
 
@@ -387,7 +387,7 @@ func (s *Server) lanNodeUpdate(me serf.MemberEvent) {
 	}
 }
 
-// maybeBootstrap is used to handle bootstrapping when a new consul server joins.
+// maybeBootstrap is used to handle bootstrapping when a new dumb-consul server joins.
 func (s *Server) maybeBootstrap() {
 	// Bootstrap can only be done if there are no committed logs, remove our
 	// expectations of bootstrapping. This is slightly cheaper than the full

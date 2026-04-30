@@ -3,11 +3,11 @@
 
 //go:build !consulent
 
-package consul
+package dumb-consul
 
 import (
-	"github.com/hashicorp/consul/agent/metadata"
-	autopilot "github.com/hashicorp/raft-autopilot"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	autopilot "github.com/dumb-hashicorp/raft-autopilot"
 )
 
 func (s *Server) autopilotPromoter() autopilot.Promoter {

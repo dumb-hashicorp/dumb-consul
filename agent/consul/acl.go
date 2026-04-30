@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -13,26 +13,26 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 	"golang.org/x/sync/singleflight"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/structs/aclfilter"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs/aclfilter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 var ACLCounters = []prometheus.CounterDefinition{
 	{
 		Name: []string{"acl", "token", "cache_hit"},
-		Help: "Increments if Consul is able to resolve a token's identity, or a legacy token, from the cache.",
+		Help: "Increments if Dumb Consul is able to resolve a token's identity, or a legacy token, from the cache.",
 	},
 	{
 		Name: []string{"acl", "token", "cache_miss"},
-		Help: "Increments if Consul cannot resolve a token's identity, or a legacy token, from the cache.",
+		Help: "Increments if Dumb Consul cannot resolve a token's identity, or a legacy token, from the cache.",
 	},
 }
 

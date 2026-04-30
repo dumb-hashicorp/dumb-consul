@@ -4,7 +4,7 @@
  */
 
 import Model, { attr } from '@ember-data/model';
-import { nullValue } from 'consul-ui/decorators/replace';
+import { nullValue } from 'dumb-consul-ui/decorators/replace';
 
 export const PRIMARY_KEY = 'uid';
 export const SLUG_KEY = 'ID';

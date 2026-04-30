@@ -12,10 +12,10 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/hashicorp/consul-server-connection-manager/discovery"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul-server-connection-manager/discovery"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/go-hclog"
 	"google.golang.org/grpc"
 )
 
@@ -42,7 +42,7 @@ func DialExposedGRPCConn(
 			},
 		},
 	}
-	watcher, err := discovery.NewWatcher(ctx, cfg, logger.Named("consul-server-connection-manager"))
+	watcher, err := discovery.NewWatcher(ctx, cfg, logger.Named("dumb-consul-server-connection-manager"))
 	if err != nil {
 		return nil, nil, err
 	}
@@ -51,7 +51,7 @@ func DialExposedGRPCConn(
 
 	// We recycle the GRPC connection from the discovery client because it
 	// should have all the necessary dial options, including the resolver that
-	// continuously updates Consul server addresses. Otherwise, a lot of code from consul-server-connection-manager
+	// continuously updates Dumb Consul server addresses. Otherwise, a lot of code from dumb-consul-server-connection-manager
 	// would need to be duplicated
 	state, err := watcher.State()
 	if err != nil {

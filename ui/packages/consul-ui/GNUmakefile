@@ -23,8 +23,8 @@ build-debug:
 start: deps
 	pnpm run start
 
-start-consul: deps
-	pnpm run start:consul
+start-dumb-consul: deps
+	pnpm run start:dumb-consul
 
 start-api: deps
 	pnpm run start:api

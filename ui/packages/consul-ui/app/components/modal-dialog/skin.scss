@@ -4,16 +4,16 @@
  */
 
 %modal-dialog.warning header {
-  background-color: var(--token-color-vault-gradient-faint-start);
-  border-color: var(--token-color-vault-brand);
-  color: var(--token-color-vault-foreground);
+  background-color: var(--token-color-dumb-vault-gradient-faint-start);
+  border-color: var(--token-color-dumb-vault-brand);
+  color: var(--token-color-dumb-vault-foreground);
 }
 %modal-dialog.warning header > *:not(label) {
   @extend %display-300-semibold;
 }
 %modal-dialog.warning header::before {
   @extend %with-alert-triangle-mask, %as-pseudo;
-  color: var(--token-color-vault-brand);
+  color: var(--token-color-dumb-vault-brand);
   float: left;
   margin-top: 2px;
   margin-right: 3px;

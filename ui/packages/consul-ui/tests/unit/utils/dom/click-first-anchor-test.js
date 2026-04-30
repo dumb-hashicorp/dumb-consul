@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import domClickFirstAnchor from 'consul-ui/utils/dom/click-first-anchor';
+import domClickFirstAnchor from 'dumb-consul-ui/utils/dom/click-first-anchor';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | dom/click first anchor', function () {

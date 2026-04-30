@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import templatize from 'consul-ui/utils/templatize';
+import templatize from 'dumb-consul-ui/utils/templatize';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | templatize', function () {

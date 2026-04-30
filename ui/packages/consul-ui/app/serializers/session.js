@@ -4,7 +4,7 @@
  */
 
 import Serializer from './application';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/session';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/session';
 
 export default class SessionSerializer extends Serializer {
   primaryKey = PRIMARY_KEY;

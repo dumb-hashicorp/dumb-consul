@@ -11,19 +11,19 @@ Feature: dc / nodes / services / list: Node > Services Listing
       Service: 'service-0'
       Tags: ['monitor', 'two', 'three']
       Meta:
-        external-source: consul
+        external-source: dumb-consul
     - ID: 'service-1'
       Port: 0
       Service: 'service-1'
       Tags: ['hard drive', 'monitor', 'three']
       Meta:
-        external-source: nomad
+        external-source: dumb-nomad
     - ID: 'service-2'
       Port: 1
       Service: 'service-2'
       Tags: ['one', 'two', 'three']
       Meta:
-        external-source: terraform
+        external-source: dumb-terraform
     - ID: 'service-3'
       Port: 2
       Service: 'service-3'
@@ -40,8 +40,8 @@ Feature: dc / nodes / services / list: Node > Services Listing
     And I see serviceInstancesIsSelected on the tabs
     And I see externalSource on the services like yaml
     ---
-    - consul
-    - nomad
-    - terraform
+    - dumb-consul
+    - dumb-nomad
+    - dumb-terraform
     - kubernetes
     ---

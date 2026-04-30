@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-.consul-node-peer-info {
+.dumb-consul-node-peer-info {
   display: flex;
   align-items: center;
 
-  .consul-node-peer-info__name {
+  .dumb-consul-node-peer-info__name {
     margin-left: 4px;
   }
 }

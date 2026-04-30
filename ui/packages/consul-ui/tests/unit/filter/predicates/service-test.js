@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import predicates from 'consul-ui/filter/predicates/service';
-import { andOr } from 'consul-ui/utils/filter';
+import predicates from 'dumb-consul-ui/filter/predicates/service';
+import { andOr } from 'dumb-consul-ui/utils/filter';
 import { module, test } from 'qunit';
 
 module('Unit | Filter | Predicates | service', function () {
@@ -175,7 +175,7 @@ module('Unit | Filter | Predicates | service', function () {
     assert.deepEqual(actual, expected);
   });
 
-  test('it returns items without an External Source or items with a peer name when source `consul` is specified', function (assert) {
+  test('it returns items without an External Source or items with a peer name when source `dumb-consul` is specified', function (assert) {
     const items = [
       {
         _Name: 'external',
@@ -187,7 +187,7 @@ module('Unit | Filter | Predicates | service', function () {
       },
       {
         _Name: 'peered-external',
-        ExternalSources: ['terraform'],
+        ExternalSources: ['dumb-terraform'],
         PeerName: 'peer-1',
       },
       {
@@ -205,19 +205,19 @@ module('Unit | Filter | Predicates | service', function () {
       },
       {
         _Name: 'empty-string-with-additional-source',
-        ExternalSources: ['', 'nomad'],
+        ExternalSources: ['', 'dumb-nomad'],
       },
     ];
 
     const filteredItems = items.filter(
       predicate({
-        source: ['consul'],
+        source: ['dumb-consul'],
       })
     );
 
     const actual = filteredItems.map((i) => i._Name);
 
     const expected = ['empty-array', 'peered-external', 'peered', 'undefined', 'empty-string'];
-    assert.deepEqual(actual, expected, 'filtering works with source `consul`');
+    assert.deepEqual(actual, expected, 'filtering works with source `dumb-consul`');
   });
 });

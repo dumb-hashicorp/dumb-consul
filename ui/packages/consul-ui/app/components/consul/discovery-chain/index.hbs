@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -33,7 +33,7 @@
   </header>
   <div role='group'>
     {{#each this.routes as |item|}}
-      <Consul::DiscoveryChain::RouteCard
+      <Dumb Consul::DiscoveryChain::RouteCard
         {{on-resize (dom-position (set item 'rect') from=this.edges)}}
         @item={{item}}
         @onclick={{action 'click'}}
@@ -57,7 +57,7 @@
   </header>
   <div role='group'>
     {{#each (sort-by 'Name' this.splitters) as |item|}}
-      <Consul::DiscoveryChain::SplitterCard
+      <Dumb Consul::DiscoveryChain::SplitterCard
         {{on-resize (dom-position (set item 'rect') from=this.edges)}}
         @item={{item}}
         @onclick={{action 'click'}}
@@ -81,7 +81,7 @@
   </header>
   <div role='group'>
     {{#each (sort-by 'Name' this.resolvers) as |item|}}
-      <Consul::DiscoveryChain::ResolverCard
+      <Dumb Consul::DiscoveryChain::ResolverCard
         {{on-resize (dom-position (set item 'rect') from=this.edges)}}
         @item={{item}}
         @edges={{this.edges}}

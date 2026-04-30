@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { andOr } from 'consul-ui/utils/filter';
-import predicates from 'consul-ui/filter/predicates/intention';
+import { andOr } from 'dumb-consul-ui/utils/filter';
+import predicates from 'dumb-consul-ui/filter/predicates/intention';
 import { module, test } from 'qunit';
 
 module('Unit | Filter | Predicates | intention', function () {

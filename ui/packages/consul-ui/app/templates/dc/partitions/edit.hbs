@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -52,7 +52,7 @@ as |dc partition nspace item|}}
     </BlockSlot>
     <BlockSlot @name="content">
 
-      <Consul::Partition::Form
+      <Dumb Consul::Partition::Form
         @item={{item}}
         @dc={{route.params.dc}}
         @nspace={{route.params.nspace}}

@@ -9,10 +9,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-memdb"
 	hashstructure_v2 "github.com/mitchellh/hashstructure/v2"
 
-	"github.com/hashicorp/consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
 )
 
 var (
@@ -56,13 +56,13 @@ func defaultWaiter() *retry.Waiter {
 func noopDone() {}
 
 // ServerLocalBlockingQuery performs a blocking query similar to the pre-existing blockingQuery
-// method on the agent/consul.Server type. There are a few key differences.
+// method on the agent/dumb-consul.Server type. There are a few key differences.
 //
 //  1. This function makes use of Go 1.18 generics. The function is parameterized with two
 //     types. The first is the ResultType which can be anything. Having this be parameterized
 //     instead of using interface{} allows us to simplify the call sites so that no type
 //     coercion from interface{} to the real type is necessary. The second parameterized type
-//     is something that VERY loosely resembles a agent/consul/state.Store type. The StateStore
+//     is something that VERY loosely resembles a agent/dumb-consul/state.Store type. The StateStore
 //     interface in this package has a single method to get the stores abandon channel so we
 //     know when a snapshot restore is occurring and can act accordingly. We could have not
 //     parameterized this type and used a real *state.Store instead but then we would have

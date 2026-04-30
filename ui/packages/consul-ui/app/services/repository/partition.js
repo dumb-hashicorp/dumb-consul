@@ -5,11 +5,11 @@
 
 import { inject as service } from '@ember/service';
 import { runInDebug } from '@ember/debug';
-import RepositoryService, { softDelete } from 'consul-ui/services/repository';
-import { PRIMARY_KEY, SLUG_KEY } from 'consul-ui/models/partition';
-import dataSource from 'consul-ui/decorators/data-source';
+import RepositoryService, { softDelete } from 'dumb-consul-ui/services/repository';
+import { PRIMARY_KEY, SLUG_KEY } from 'dumb-consul-ui/models/partition';
+import dataSource from 'dumb-consul-ui/decorators/data-source';
 
-import { defaultChangeset as changeset } from 'consul-ui/utils/form/builder';
+import { defaultChangeset as changeset } from 'dumb-consul-ui/utils/form/builder';
 
 const findActive = function (items, item) {
   let found = items.find(function (i) {

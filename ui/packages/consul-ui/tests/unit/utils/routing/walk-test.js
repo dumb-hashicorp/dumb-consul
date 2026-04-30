@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BUSL-1.1
  */
 
-import { walk } from 'consul-ui/utils/routing/walk';
+import { walk } from 'dumb-consul-ui/utils/routing/walk';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 

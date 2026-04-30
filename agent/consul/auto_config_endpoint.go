@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-package consul
+package dumb-consul
 
 import (
 	"context"
@@ -10,19 +10,19 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/internal/dnsutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/internal/dnsutil"
 
-	bexpr "github.com/hashicorp/go-bexpr"
+	bexpr "github.com/dumb-hashicorp/go-bexpr"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/authmethod/ssoauth"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib/template"
-	"github.com/hashicorp/consul/proto/private/pbautoconf"
-	"github.com/hashicorp/consul/proto/private/pbconfig"
-	"github.com/hashicorp/consul/proto/private/pbconnect"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/ssoauth"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib/template"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbautoconf"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfig"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconnect"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 type AutoConfigOptions struct {
@@ -58,7 +58,7 @@ type jwtAuthorizer struct {
 
 // Invalidate any quote or whitespace characters that could cause an escape with bexpr.
 // This includes an extra single-quote character not specified in the grammar for safety in case it is later added.
-// https://github.com/hashicorp/go-bexpr/blob/v0.1.11/grammar/grammar.peg#L188-L191
+// https://github.com/dumb-hashicorp/go-bexpr/blob/v0.1.11/grammar/grammar.peg#L188-L191
 var invalidSegmentName = regexp.MustCompile("[`'\"\\s]+")
 var InvalidNodeName = invalidSegmentName
 

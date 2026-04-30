@@ -17,10 +17,10 @@ import (
 	"github.com/armon/go-metrics/prometheus"
 	prometheuscore "github.com/prometheus/client_golang/prometheus"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
 )
 
 // TelemetryConfig is embedded in config.RuntimeConfig and holds the
@@ -50,7 +50,7 @@ type TelemetryConfig struct {
 	//      metric management enabled (use check with specified id)
 
 	// CirconusAPIApp is an app name associated with API token.
-	// Default: "consul"
+	// Default: "dumb-consul"
 	//
 	// hcl: telemetry { circonus_api_app = string }
 	CirconusAPIApp string `json:"circonus_api_app,omitempty" mapstructure:"circonus_api_app"`
@@ -120,14 +120,14 @@ type TelemetryConfig struct {
 
 	// CirconusCheckSearchTag is a special tag which, when coupled with the instance id, helps to
 	// narrow down the search results when neither a Submission URL or Check ID is provided.
-	// Default: service:app (e.g. service:consul)
+	// Default: service:app (e.g. service:dumb-consul)
 	//
 	// hcl: telemetry { circonus_check_search_tag = string }
 	CirconusCheckSearchTag string `json:"circonus_check_search_tag,omitempty" mapstructure:"circonus_check_search_tag"`
 
 	// CirconusCheckSearchTag is a special tag which, when coupled with the instance id, helps to
 	// narrow down the search results when neither a Submission URL or Check ID is provided.
-	// Default: service:app (e.g. service:consul)
+	// Default: service:app (e.g. service:dumb-consul)
 	//
 	// hcl: telemetry { circonus_check_tags = string }
 	CirconusCheckTags string `json:"circonus_check_tags,omitempty" mapstructure:"circonus_check_tags"`
@@ -193,7 +193,7 @@ type TelemetryConfig struct {
 	BlockedPrefixes []string `json:"blocked_prefixes,omitempty" mapstructure:"blocked_prefixes"`
 
 	// MetricsPrefix is the prefix used to write stats values to.
-	// Default: "consul."
+	// Default: "dumb-consul."
 	//
 	// hcl: telemetry { metrics_prefix = string }
 	MetricsPrefix string `json:"metrics_prefix,omitempty" mapstructure:"metrics_prefix"`
@@ -326,15 +326,15 @@ func circonusSink(cfg TelemetryConfig, _ string) (metrics.MetricSink, error) {
 	conf.CheckManager.Broker.SelectTag = cfg.CirconusBrokerSelectTag
 
 	if conf.CheckManager.Check.DisplayName == "" {
-		conf.CheckManager.Check.DisplayName = "Consul"
+		conf.CheckManager.Check.DisplayName = "Dumb Consul"
 	}
 
 	if conf.CheckManager.API.TokenApp == "" {
-		conf.CheckManager.API.TokenApp = "consul"
+		conf.CheckManager.API.TokenApp = "dumb-consul"
 	}
 
 	if conf.CheckManager.Check.SearchTag == "" {
-		conf.CheckManager.Check.SearchTag = "service:consul"
+		conf.CheckManager.Check.SearchTag = "service:dumb-consul"
 	}
 
 	sink, err := circonus.NewCirconusSink(conf)

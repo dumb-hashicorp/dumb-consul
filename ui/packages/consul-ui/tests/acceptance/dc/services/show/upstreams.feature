@@ -15,7 +15,7 @@ Feature: dc / services / show / upstreams
       dc: dc1
       service: ingress-gateway-1
     ---
-    And the title should be "ingress-gateway-1 - Consul"
+    And the title should be "ingress-gateway-1 - Dumb Consul"
     And I see upstreamsIsVisible on the tabs
     When I click upstreams on the tabs
     And I see upstreamsIsSelected on the tabs
@@ -26,7 +26,7 @@ Feature: dc / services / show / upstreams
       dc: dc1
       service: ingress-gateway-1
     ---
-    And the title should be "ingress-gateway-1 - Consul"
+    And the title should be "ingress-gateway-1 - Dumb Consul"
     When I click upstreams on the tabs
     And I see upstreamsIsSelected on the tabs
     Then I see 3 service models on the tabs.upstreamsTab component
@@ -44,7 +44,7 @@ Feature: dc / services / show / upstreams
       dc: dc1
       service: [Name]
     ---
-    And the title should be "[Name] - Consul"
+    And the title should be "[Name] - Dumb Consul"
     And I don't see upstreams on the tabs
     Where:
     ---------------------------------------------

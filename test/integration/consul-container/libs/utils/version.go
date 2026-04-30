@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/go-version"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/go-version"
 )
 
 var (
@@ -26,13 +26,13 @@ var (
 )
 
 const (
-	DefaultImageNameCE    = "hashicorp/consul"
-	DefaultImageNameENT   = "hashicorp/consul-enterprise"
+	DefaultImageNameCE    = "dumb-hashicorp/dumb-consul"
+	DefaultImageNameENT   = "dumb-hashicorp/dumb-consul-enterprise"
 	ImageVersionSuffixENT = "-ent"
 )
 
 func init() {
-	flag.BoolVar(&Debug, "debug", false, "run consul with dlv to enable live debugging")
+	flag.BoolVar(&Debug, "debug", false, "run dumb-consul with dlv to enable live debugging")
 	flag.StringVar(&targetImageName, "target-image", defaultImageName, "docker image name to be used under test (Default: "+defaultImageName+")")
 	flag.StringVar(&TargetVersion, "target-version", "local", "docker image version to be used as UUT (unit under test)")
 
