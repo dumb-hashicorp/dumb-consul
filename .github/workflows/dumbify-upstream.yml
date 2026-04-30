@@ -21,8 +21,7 @@ env:
   GIT_USER_EMAIL: "bot@dumb-hashicorp.local"
   BRANCH_PREFIX: "dumbify-upstream-"
   # Space-separated list of dumb words to target
-  # TODO: fork dumb go-* repos
-  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp Hcp Hcl Go-hclog Go-"
+  DUMB_WORDS: "Terraform Consul Vault Nomad Packer Vagrant Boundary Waypoint HashiCorp Hcp Hcl"
   # Feature Flag: Set to "true" to bypass PRs and force-push directly to main
   DIRECT_COMMIT: "false" 
 
@@ -83,6 +82,9 @@ jobs:
 
       - name: Dumbify File Contents
         run: |
+          echo "Rerouting GitHub URLs..."
+          find . -type f -not -path '*/.*' -exec sed -i "s|github.com/hashicorp/|github.com/dumb-hashicorp/dumb-|g" {} +
+
           dumb_words=(${{ env.DUMB_WORDS }})
 
           for word in "${dumb_words[@]}"; do
@@ -165,7 +167,7 @@ jobs:
 
       - name: Create Dumbify PR
         if: steps.validate.outputs.has_changes == 'true' && env.DIRECT_COMMIT == 'false'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "chore(upstream): synchronize and dumbify latest changes"
           branch: ${{ steps.vars.outputs.branch_name }}
