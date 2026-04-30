@@ -7,7 +7,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -27,7 +27,7 @@
           }
         ]
       },
-      "name": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",
@@ -92,7 +92,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -112,7 +112,7 @@
           }
         ]
       },
-      "name": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     },
@@ -122,7 +122,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -142,7 +142,7 @@
           }
         ]
       },
-      "name": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     },
@@ -155,7 +155,7 @@
           "resourceApiVersion": "V3"
         }
       },
-      "name": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "outlierDetection": {},
       "transportSocket": {
         "name": "tls",

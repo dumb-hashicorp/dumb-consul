@@ -9,9 +9,9 @@ import (
 	"net"
 	"os"
 
-	"github.com/hashicorp/consul/command/cli"
-	"github.com/hashicorp/consul/command/flags"
-	troubleshoot "github.com/hashicorp/consul/troubleshoot/proxy"
+	"github.com/dumb-hashicorp/dumb-consul/command/cli"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	troubleshoot "github.com/dumb-hashicorp/dumb-consul/troubleshoot/proxy"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -59,7 +59,7 @@ func (c *cmd) Run(args []string) int {
 
 	if c.upstreamEnvoyID == "" && c.upstreamIP == "" {
 		c.UI.Error("-upstream-envoy-id OR -upstream-ip is required.")
-		c.UI.Error("Please run `consul troubleshoot upstreams` to find the corresponding upstream.")
+		c.UI.Error("Please run `dumb-consul troubleshoot upstreams` to find the corresponding upstream.")
 		return 1
 	}
 
@@ -119,19 +119,19 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Troubleshoots service mesh issues from the current envoy instance"
 	help     = `
-Usage: consul troubleshoot proxy [options]
+Usage: dumb-consul troubleshoot proxy [options]
   
   Connects to local envoy proxy and troubleshoots service mesh communication issues.
   Requires an upstream service identifier. When debugging explicitly configured upstreams,
   use -upstream-envoy-id, when debugging transparent proxy upstreams use -upstream-ip.
   Examples:
     (explicit upstreams only)
-      $ consul troubleshoot proxy -upstream-envoy-id foo
+      $ dumb-consul troubleshoot proxy -upstream-envoy-id foo
     (transparent proxy only)
-      $ consul troubleshoot proxy -upstream-ip 240.0.0.1
+      $ dumb-consul troubleshoot proxy -upstream-ip 240.0.0.1
  
     where 'foo' is the upstream envoy identifier and '240.0.0.1' is an upstream ip which
     can be obtained by running:
-    $ consul troubleshoot upstreams [options]
+    $ dumb-consul troubleshoot upstreams [options]
 `
 )

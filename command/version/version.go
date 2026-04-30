@@ -11,9 +11,9 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -67,7 +67,7 @@ func (c *cmd) Run(args []string) int {
 		return 1
 	}
 
-	// We parse this here because consul version is used in our 'smoke' tests and we want to fail early
+	// We parse this here because dumb-consul version is used in our 'smoke' tests and we want to fail early
 	buildDate, err := time.Parse(time.RFC3339, version.BuildDate)
 	if err != nil {
 		c.UI.Error(err.Error())
@@ -82,9 +82,9 @@ func (c *cmd) Run(args []string) int {
 		BuildDate:    buildDate,
 		FIPS:         version.GetFIPSInfo(),
 		RPC: RPCVersionInfo{
-			Default: consul.DefaultRPCProtocol,
-			Min:     int(consul.ProtocolVersionMin),
-			Max:     consul.ProtocolVersionMax,
+			Default: dumb-consul.DefaultRPCProtocol,
+			Min:     int(dumb-consul.ProtocolVersionMin),
+			Max:     dumb-consul.ProtocolVersionMax,
 		},
 	})
 	if err != nil {
@@ -96,14 +96,14 @@ func (c *cmd) Run(args []string) int {
 }
 
 func (c *cmd) Synopsis() string {
-	return "Prints the Consul version"
+	return "Prints the Dumb Consul version"
 }
 
 func (c *cmd) Help() string {
 	return flags.Usage(c.help, nil)
 }
 
-const synopsis = "Output Consul version information"
+const synopsis = "Output Dumb Consul version information"
 const help = `
-Usage: consul version [options]
+Usage: dumb-consul version [options]
 `

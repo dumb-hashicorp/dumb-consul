@@ -6,8 +6,8 @@ package extensioncommon
 import (
 	"testing"
 
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_http_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_http_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
 	"github.com/stretchr/testify/require"
 )
 

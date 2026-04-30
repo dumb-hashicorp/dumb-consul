@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/dumb-go-msgpack/codec"
 	"github.com/stretchr/testify/require"
 )
 

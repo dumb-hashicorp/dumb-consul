@@ -11,7 +11,7 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -93,5 +93,5 @@ func (c *cmd) Help() string {
 
 const synopsis = "Internal shim for delivering Envoy bootstrap without writing to file system"
 const help = `
-Usage: should only be used internally by consul connect envoy
+Usage: should only be used internally by dumb-consul connect envoy
 `

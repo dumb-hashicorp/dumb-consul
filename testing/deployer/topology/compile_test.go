@@ -6,14 +6,14 @@ package topology
 import (
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
+	"github.com/google/dumb-go-cmp/cmp"
+	"github.com/google/dumb-go-cmp/cmp/cmpopts"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/testing/protocmp"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestCompile_CE(t *testing.T) {
@@ -55,11 +55,11 @@ func TestCompile_CE(t *testing.T) {
 			in:        nil,
 			expectErr: `config is required`,
 		},
-		"consul image cannot be set at the top level": {
+		"dumb-consul image cannot be set at the top level": {
 			in: &Config{
 				Images: DefaultImages().ChooseConsul(true),
 			},
-			expectErr: `topology.images.consul cannot be set at this level`,
+			expectErr: `topology.images.dumb-consul cannot be set at this level`,
 		},
 		"no networks": {
 			in:        &Config{},

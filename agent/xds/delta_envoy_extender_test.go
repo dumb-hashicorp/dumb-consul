@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 func makeExtAuthzEnvoyExtension(svc string, opts ...string) []structs.EnvoyExtension {

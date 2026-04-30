@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package iptables
@@ -42,7 +42,7 @@ func TestSetup_IPv4(t *testing.T) {
 			},
 		},
 		{
-			"Consul DNS IP provided",
+			"Dumb Consul DNS IP provided",
 			Config{
 				ProxyUserID:      "123",
 				ProxyInboundPort: 20000,
@@ -71,7 +71,7 @@ func TestSetup_IPv4(t *testing.T) {
 			},
 		},
 		{
-			"Consul DNS port provided",
+			"Dumb Consul DNS port provided",
 			Config{
 				ProxyUserID:      "123",
 				ProxyInboundPort: 20000,
@@ -100,7 +100,7 @@ func TestSetup_IPv4(t *testing.T) {
 			},
 		},
 		{
-			"Consul DNS IP and port provided",
+			"Dumb Consul DNS IP and port provided",
 			Config{
 				ProxyUserID:      "123",
 				ProxyInboundPort: 20000,
@@ -351,7 +351,7 @@ func TestSetup_IPv4_Dualstack(t *testing.T) {
 			},
 		},
 		{
-			"Consul DNS IP provided",
+			"Dumb Consul DNS IP provided",
 			Config{
 				ProxyUserID:      "123",
 				ProxyInboundPort: 20000,
@@ -380,7 +380,7 @@ func TestSetup_IPv4_Dualstack(t *testing.T) {
 			},
 		},
 		{
-			"Consul DNS port provided",
+			"Dumb Consul DNS port provided",
 			Config{
 				ProxyUserID:      "123",
 				ProxyInboundPort: 20000,
@@ -409,7 +409,7 @@ func TestSetup_IPv4_Dualstack(t *testing.T) {
 			},
 		},
 		{
-			"Consul DNS IP and port provided",
+			"Dumb Consul DNS IP and port provided",
 			Config{
 				ProxyUserID:      "123",
 				ProxyInboundPort: 20000,
@@ -661,7 +661,7 @@ func TestSetup_IPv6(t *testing.T) {
 			},
 		},
 		{
-			"Consul DNS IP provided",
+			"Dumb Consul DNS IP provided",
 			Config{
 				ProxyUserID:      "123",
 				ProxyInboundPort: 20000,
@@ -690,7 +690,7 @@ func TestSetup_IPv6(t *testing.T) {
 			},
 		},
 		{
-			"Consul DNS port provided",
+			"Dumb Consul DNS port provided",
 			Config{
 				ProxyUserID:      "123",
 				ProxyInboundPort: 20000,
@@ -719,7 +719,7 @@ func TestSetup_IPv6(t *testing.T) {
 			},
 		},
 		{
-			"Consul DNS IP and port provided",
+			"Dumb Consul DNS IP and port provided",
 			Config{
 				ProxyUserID:      "123",
 				ProxyInboundPort: 20000,

@@ -6,9 +6,9 @@ package local
 import (
 	"os"
 
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/go-hclog"
-	"github.com/mitchellh/go-testing-interface"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
+	"github.com/mitchellh/dumb-go-testing-interface"
 )
 
 // TestState returns a configured *State for testing.

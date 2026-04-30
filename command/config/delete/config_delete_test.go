@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 )
@@ -131,7 +131,7 @@ func TestConfigDelete_CAS(t *testing.T) {
 
 		ui := cli.NewMockUi()
 		c := New(ui)
-		f := testutil.TempFile(t, "config-write-svc-web.hcl")
+		f := testutil.TempFile(t, "config-write-svc-web.dumb-hcl")
 		_, err = f.WriteString(`
 	  Kind = "service-defaults"
 	  Name = "web"
@@ -190,15 +190,15 @@ func TestConfigDelete_InvalidArgs(t *testing.T) {
 			err:  "Cannot specify -modify-index without -cas",
 		},
 		"kind and filename": {
-			args: []string{"-kind", api.ServiceDefaults, "-filename", "config-file.hcl"},
+			args: []string{"-kind", api.ServiceDefaults, "-filename", "config-file.dumb-hcl"},
 			err:  "filename can't be used with kind or name",
 		},
 		"name and filename": {
-			args: []string{"-name", "db", "-filename", "config-file.hcl"},
+			args: []string{"-name", "db", "-filename", "config-file.dumb-hcl"},
 			err:  "filename can't be used with kind or name",
 		},
 		"kind, name, and filename": {
-			args: []string{"-kind", api.ServiceDefaults, "-name", "db", "-filename", "config-file.hcl"},
+			args: []string{"-kind", api.ServiceDefaults, "-name", "db", "-filename", "config-file.dumb-hcl"},
 			err:  "filename can't be used with kind or name",
 		},
 	}

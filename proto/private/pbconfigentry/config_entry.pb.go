@@ -10,8 +10,8 @@
 package pbconfigentry
 
 import (
-	_ "github.com/hashicorp/consul/proto-public/annotations/ratelimit"
-	pbcommon "github.com/hashicorp/consul/proto/private/pbcommon"
+	_ "github.com/dumb-hashicorp/dumb-consul/proto-public/annotations/ratelimit"
+	pbcommon "github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -272,10 +272,10 @@ const (
 // Enum value maps for IntentionSourceType.
 var (
 	IntentionSourceType_name = map[int32]string{
-		0: "Consul",
+		0: "Dumb Consul",
 	}
 	IntentionSourceType_value = map[string]int32{
-		"Consul": 0,
+		"Dumb Consul": 0,
 	}
 )
 
@@ -1083,7 +1083,7 @@ func (x *ImportedService) GetSourcePartition() string {
 
 type ConfigEntry struct {
 	state          protoimpl.MessageState   `protogen:"open.v1"`
-	Kind           Kind                     `protobuf:"varint,1,opt,name=Kind,proto3,enum=hashicorp.consul.internal.configentry.Kind" json:"Kind,omitempty"`
+	Kind           Kind                     `protobuf:"varint,1,opt,name=Kind,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.Kind" json:"Kind,omitempty"`
 	Name           string                   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
 	EnterpriseMeta *pbcommon.EnterpriseMeta `protobuf:"bytes,3,opt,name=EnterpriseMeta,proto3" json:"EnterpriseMeta,omitempty"`
 	RaftIndex      *pbcommon.RaftIndex      `protobuf:"bytes,4,opt,name=RaftIndex,proto3" json:"RaftIndex,omitempty"`
@@ -1389,7 +1389,7 @@ func (*ConfigEntry_FileSystemCertificate) isConfigEntry_Entry() {}
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=RaftIndex,EnterpriseMeta
@@ -1495,7 +1495,7 @@ func (x *MeshConfig) GetValidateClusters() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TransparentProxyMeshConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TransparentProxyMeshConfig
 // output=config_entry.gen.go
 // name=Structs
 type TransparentProxyMeshConfig struct {
@@ -1544,7 +1544,7 @@ func (x *TransparentProxyMeshConfig) GetMeshDestinationsOnly() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshTLSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshTLSConfig
 // output=config_entry.gen.go
 // name=Structs
 type MeshTLSConfig struct {
@@ -1601,7 +1601,7 @@ func (x *MeshTLSConfig) GetOutgoing() *MeshDirectionalTLSConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshDirectionalTLSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshDirectionalTLSConfig
 // output=config_entry.gen.go
 // name=Structs
 type MeshDirectionalTLSConfig struct {
@@ -1669,7 +1669,7 @@ func (x *MeshDirectionalTLSConfig) GetCipherSuites() []string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshHTTPConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshHTTPConfig
 // output=config_entry.gen.go
 // name=Structs
 type MeshHTTPConfig struct {
@@ -1726,7 +1726,7 @@ func (x *MeshHTTPConfig) GetIncoming() *MeshDirectionalHTTPConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshDirectionalHTTPConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshDirectionalHTTPConfig
 // output=config_entry.gen.go
 // name=Structs
 type MeshDirectionalHTTPConfig struct {
@@ -1775,7 +1775,7 @@ func (x *MeshDirectionalHTTPConfig) GetRequestNormalization() *RequestNormalizat
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.PeeringMeshConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.PeeringMeshConfig
 // output=config_entry.gen.go
 // name=Structs
 type PeeringMeshConfig struct {
@@ -1824,7 +1824,7 @@ func (x *PeeringMeshConfig) GetPeerThroughMeshGateways() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RequestNormalizationMeshConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RequestNormalizationMeshConfig
 // output=config_entry.gen.go
 // name=Structs
 type RequestNormalizationMeshConfig struct {
@@ -1832,9 +1832,9 @@ type RequestNormalizationMeshConfig struct {
 	InsecureDisablePathNormalization bool                   `protobuf:"varint,1,opt,name=InsecureDisablePathNormalization,proto3" json:"InsecureDisablePathNormalization,omitempty"`
 	MergeSlashes                     bool                   `protobuf:"varint,2,opt,name=MergeSlashes,proto3" json:"MergeSlashes,omitempty"`
 	// mog: func-to=pathWithEscapedSlashesActionToStructs func-from=pathWithEscapedSlashesActionFromStructs
-	PathWithEscapedSlashesAction PathWithEscapedSlashesAction `protobuf:"varint,3,opt,name=PathWithEscapedSlashesAction,proto3,enum=hashicorp.consul.internal.configentry.PathWithEscapedSlashesAction" json:"PathWithEscapedSlashesAction,omitempty"`
+	PathWithEscapedSlashesAction PathWithEscapedSlashesAction `protobuf:"varint,3,opt,name=PathWithEscapedSlashesAction,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.PathWithEscapedSlashesAction" json:"PathWithEscapedSlashesAction,omitempty"`
 	// mog: func-to=headersWithUnderscoresActionToStructs func-from=headersWithUnderscoresActionFromStructs
-	HeadersWithUnderscoresAction HeadersWithUnderscoresAction `protobuf:"varint,4,opt,name=HeadersWithUnderscoresAction,proto3,enum=hashicorp.consul.internal.configentry.HeadersWithUnderscoresAction" json:"HeadersWithUnderscoresAction,omitempty"`
+	HeadersWithUnderscoresAction HeadersWithUnderscoresAction `protobuf:"varint,4,opt,name=HeadersWithUnderscoresAction,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.HeadersWithUnderscoresAction" json:"HeadersWithUnderscoresAction,omitempty"`
 	unknownFields                protoimpl.UnknownFields
 	sizeCache                    protoimpl.SizeCache
 }
@@ -1899,7 +1899,7 @@ func (x *RequestNormalizationMeshConfig) GetHeadersWithUnderscoresAction() Heade
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -2023,7 +2023,7 @@ func (x *ServiceResolver) GetHash() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverSubset
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverSubset
 // output=config_entry.gen.go
 // name=Structs
 type ServiceResolverSubset struct {
@@ -2080,7 +2080,7 @@ func (x *ServiceResolverSubset) GetOnlyPassing() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverRedirect
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverRedirect
 // output=config_entry.gen.go
 // name=Structs
 type ServiceResolverRedirect struct {
@@ -2177,7 +2177,7 @@ func (x *ServiceResolverRedirect) GetSamenessGroup() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverFailover
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverFailover
 // output=config_entry.gen.go
 // name=Structs
 type ServiceResolverFailover struct {
@@ -2274,7 +2274,7 @@ func (x *ServiceResolverFailover) GetSamenessGroup() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverFailoverPolicy
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverFailoverPolicy
 // output=config_entry.gen.go
 // name=Structs
 type ServiceResolverFailoverPolicy struct {
@@ -2331,7 +2331,7 @@ func (x *ServiceResolverFailoverPolicy) GetRegions() []string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverPrioritizeByLocality
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverPrioritizeByLocality
 // output=config_entry.gen.go
 // name=Structs
 type ServiceResolverPrioritizeByLocality struct {
@@ -2380,7 +2380,7 @@ func (x *ServiceResolverPrioritizeByLocality) GetMode() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceResolverFailoverTarget
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceResolverFailoverTarget
 // output=config_entry.gen.go
 // name=Structs
 type ServiceResolverFailoverTarget struct {
@@ -2469,7 +2469,7 @@ func (x *ServiceResolverFailoverTarget) GetPeer() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.LoadBalancer
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.LoadBalancer
 // output=config_entry.gen.go
 // name=Structs
 type LoadBalancer struct {
@@ -2542,7 +2542,7 @@ func (x *LoadBalancer) GetHashPolicies() []*HashPolicy {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RingHashConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RingHashConfig
 // output=config_entry.gen.go
 // name=Structs
 type RingHashConfig struct {
@@ -2599,7 +2599,7 @@ func (x *RingHashConfig) GetMaximumRingSize() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.LeastRequestConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.LeastRequestConfig
 // output=config_entry.gen.go
 // name=Structs
 type LeastRequestConfig struct {
@@ -2648,7 +2648,7 @@ func (x *LeastRequestConfig) GetChoiceCount() uint32 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HashPolicy
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HashPolicy
 // output=config_entry.gen.go
 // name=Structs
 type HashPolicy struct {
@@ -2729,7 +2729,7 @@ func (x *HashPolicy) GetTerminal() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.CookieConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.CookieConfig
 // output=config_entry.gen.go
 // name=Structs
 type CookieConfig struct {
@@ -2795,7 +2795,7 @@ func (x *CookieConfig) GetPath() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IngressGatewayConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IngressGatewayConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -2877,7 +2877,7 @@ func (x *IngressGateway) GetHash() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IngressServiceConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IngressServiceConfig
 // output=config_entry.gen.go
 // name=Structs
 type IngressServiceConfig struct {
@@ -2950,7 +2950,7 @@ func (x *IngressServiceConfig) GetPassiveHealthCheck() *PassiveHealthCheck {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.GatewayTLSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.GatewayTLSConfig
 // output=config_entry.gen.go
 // name=Structs
 type GatewayTLSConfig struct {
@@ -3034,7 +3034,7 @@ func (x *GatewayTLSConfig) GetCipherSuites() []string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.GatewayTLSSDSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.GatewayTLSSDSConfig
 // output=config_entry.gen.go
 // name=Structs
 type GatewayTLSSDSConfig struct {
@@ -3091,7 +3091,7 @@ func (x *GatewayTLSSDSConfig) GetCertResource() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IngressListener
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IngressListener
 // output=config_entry.gen.go
 // name=Structs
 type IngressListener struct {
@@ -3165,7 +3165,7 @@ func (x *IngressListener) GetTLS() *GatewayTLSConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IngressService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IngressService
 // output=config_entry.gen.go
 // name=Structs
 type IngressService struct {
@@ -3295,7 +3295,7 @@ func (x *IngressService) GetPassiveHealthCheck() *PassiveHealthCheck {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.GatewayServiceTLSConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.GatewayServiceTLSConfig
 // output=config_entry.gen.go
 // name=Structs
 type GatewayServiceTLSConfig struct {
@@ -3344,7 +3344,7 @@ func (x *GatewayServiceTLSConfig) GetSDS() *GatewayTLSSDSConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPHeaderModifiers
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPHeaderModifiers
 // output=config_entry.gen.go
 // name=Structs
 type HTTPHeaderModifiers struct {
@@ -3409,7 +3409,7 @@ func (x *HTTPHeaderModifiers) GetRemove() []string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceIntentionsConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceIntentionsConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -3483,7 +3483,7 @@ func (x *ServiceIntentions) GetHash() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionJWTRequirement
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionJWTRequirement
 // output=config_entry.gen.go
 // name=Structs
 type IntentionJWTRequirement struct {
@@ -3532,7 +3532,7 @@ func (x *IntentionJWTRequirement) GetProviders() []*IntentionJWTProvider {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionJWTProvider
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionJWTProvider
 // output=config_entry.gen.go
 // name=Structs
 type IntentionJWTProvider struct {
@@ -3589,7 +3589,7 @@ func (x *IntentionJWTProvider) GetVerifyClaims() []*IntentionJWTClaimVerificatio
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionJWTClaimVerification
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionJWTClaimVerification
 // output=config_entry.gen.go
 // name=Structs
 type IntentionJWTClaimVerification struct {
@@ -3646,20 +3646,20 @@ func (x *IntentionJWTClaimVerification) GetValue() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.SourceIntention
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.SourceIntention
 // output=config_entry.gen.go
 // name=Structs
 type SourceIntention struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	Name  string                 `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
 	// mog: func-to=intentionActionToStructs func-from=intentionActionFromStructs
-	Action      IntentionAction        `protobuf:"varint,2,opt,name=Action,proto3,enum=hashicorp.consul.internal.configentry.IntentionAction" json:"Action,omitempty"`
+	Action      IntentionAction        `protobuf:"varint,2,opt,name=Action,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.IntentionAction" json:"Action,omitempty"`
 	Permissions []*IntentionPermission `protobuf:"bytes,3,rep,name=Permissions,proto3" json:"Permissions,omitempty"`
 	// mog: func-to=int func-from=int32
 	Precedence int32  `protobuf:"varint,4,opt,name=Precedence,proto3" json:"Precedence,omitempty"`
 	LegacyID   string `protobuf:"bytes,5,opt,name=LegacyID,proto3" json:"LegacyID,omitempty"`
 	// mog: func-to=intentionSourceTypeToStructs func-from=intentionSourceTypeFromStructs
-	Type        IntentionSourceType `protobuf:"varint,6,opt,name=Type,proto3,enum=hashicorp.consul.internal.configentry.IntentionSourceType" json:"Type,omitempty"`
+	Type        IntentionSourceType `protobuf:"varint,6,opt,name=Type,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.IntentionSourceType" json:"Type,omitempty"`
 	Description string              `protobuf:"bytes,7,opt,name=Description,proto3" json:"Description,omitempty"`
 	LegacyMeta  map[string]string   `protobuf:"bytes,8,rep,name=LegacyMeta,proto3" json:"LegacyMeta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// mog: func-to=timeToStructs func-from=timeFromStructs
@@ -3797,13 +3797,13 @@ func (x *SourceIntention) GetSamenessGroup() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionPermission
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionPermission
 // output=config_entry.gen.go
 // name=Structs
 type IntentionPermission struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// mog: func-to=intentionActionToStructs func-from=intentionActionFromStructs
-	Action        IntentionAction          `protobuf:"varint,1,opt,name=Action,proto3,enum=hashicorp.consul.internal.configentry.IntentionAction" json:"Action,omitempty"`
+	Action        IntentionAction          `protobuf:"varint,1,opt,name=Action,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.IntentionAction" json:"Action,omitempty"`
 	HTTP          *IntentionHTTPPermission `protobuf:"bytes,2,opt,name=HTTP,proto3" json:"HTTP,omitempty"`
 	JWT           *IntentionJWTRequirement `protobuf:"bytes,3,opt,name=JWT,proto3" json:"JWT,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -3863,7 +3863,7 @@ func (x *IntentionPermission) GetJWT() *IntentionJWTRequirement {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionHTTPPermission
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionHTTPPermission
 // output=config_entry.gen.go
 // name=Structs
 type IntentionHTTPPermission struct {
@@ -3944,7 +3944,7 @@ func (x *IntentionHTTPPermission) GetMethods() []string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.IntentionHTTPHeaderPermission
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.IntentionHTTPHeaderPermission
 // output=config_entry.gen.go
 // name=Structs
 type IntentionHTTPHeaderPermission struct {
@@ -4057,7 +4057,7 @@ func (x *IntentionHTTPHeaderPermission) GetIgnoreCase() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -4065,7 +4065,7 @@ type ServiceDefaults struct {
 	state    protoimpl.MessageState `protogen:"open.v1"`
 	Protocol string                 `protobuf:"bytes,1,opt,name=Protocol,proto3" json:"Protocol,omitempty"`
 	// mog: func-to=proxyModeToStructs func-from=proxyModeFromStructs
-	Mode             ProxyMode               `protobuf:"varint,2,opt,name=Mode,proto3,enum=hashicorp.consul.internal.configentry.ProxyMode" json:"Mode,omitempty"`
+	Mode             ProxyMode               `protobuf:"varint,2,opt,name=Mode,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.ProxyMode" json:"Mode,omitempty"`
 	TransparentProxy *TransparentProxyConfig `protobuf:"bytes,3,opt,name=TransparentProxy,proto3" json:"TransparentProxy,omitempty"`
 	MeshGateway      *MeshGatewayConfig      `protobuf:"bytes,4,opt,name=MeshGateway,proto3" json:"MeshGateway,omitempty"`
 	Expose           *ExposeConfig           `protobuf:"bytes,5,opt,name=Expose,proto3" json:"Expose,omitempty"`
@@ -4084,7 +4084,7 @@ type ServiceDefaults struct {
 	// mog: func-to=EnvoyExtensionsToStructs func-from=EnvoyExtensionsFromStructs
 	EnvoyExtensions []*pbcommon.EnvoyExtension `protobuf:"bytes,14,rep,name=EnvoyExtensions,proto3" json:"EnvoyExtensions,omitempty"`
 	// mog: func-to=mutualTLSModeToStructs func-from=mutualTLSModeFromStructs
-	MutualTLSMode       MutualTLSMode `protobuf:"varint,15,opt,name=MutualTLSMode,proto3,enum=hashicorp.consul.internal.configentry.MutualTLSMode" json:"MutualTLSMode,omitempty"`
+	MutualTLSMode       MutualTLSMode `protobuf:"varint,15,opt,name=MutualTLSMode,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.MutualTLSMode" json:"MutualTLSMode,omitempty"`
 	Hash                uint64        `protobuf:"varint,17,opt,name=Hash,proto3" json:"Hash,omitempty"`
 	MaxRequestHeadersKB *uint32       `protobuf:"varint,18,opt,name=MaxRequestHeadersKB,proto3,oneof" json:"MaxRequestHeadersKB,omitempty"`
 	unknownFields       protoimpl.UnknownFields
@@ -4249,7 +4249,7 @@ func (x *ServiceDefaults) GetMaxRequestHeadersKB() uint32 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TransparentProxyConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TransparentProxyConfig
 // output=config_entry.gen.go
 // name=Structs
 type TransparentProxyConfig struct {
@@ -4307,13 +4307,13 @@ func (x *TransparentProxyConfig) GetDialedDirectly() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.MeshGatewayConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.MeshGatewayConfig
 // output=config_entry.gen.go
 // name=Structs
 type MeshGatewayConfig struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// mog: func-to=meshGatewayModeToStructs func-from=meshGatewayModeFromStructs
-	Mode          MeshGatewayMode `protobuf:"varint,1,opt,name=Mode,proto3,enum=hashicorp.consul.internal.configentry.MeshGatewayMode" json:"Mode,omitempty"`
+	Mode          MeshGatewayMode `protobuf:"varint,1,opt,name=Mode,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayMode" json:"Mode,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4357,7 +4357,7 @@ func (x *MeshGatewayConfig) GetMode() MeshGatewayMode {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExposeConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExposeConfig
 // output=config_entry.gen.go
 // name=Structs
 type ExposeConfig struct {
@@ -4414,7 +4414,7 @@ func (x *ExposeConfig) GetPaths() []*ExposePath {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExposePath
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExposePath
 // output=config_entry.gen.go
 // name=Structs
 type ExposePath struct {
@@ -4497,7 +4497,7 @@ func (x *ExposePath) GetParsedFromCheck() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.UpstreamConfiguration
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.UpstreamConfiguration
 // output=config_entry.gen.go
 // name=Structs
 type UpstreamConfiguration struct {
@@ -4554,7 +4554,7 @@ func (x *UpstreamConfiguration) GetDefaults() *UpstreamConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.UpstreamConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.UpstreamConfig
 // output=config_entry.gen.go
 // name=Structs
 type UpstreamConfig struct {
@@ -4685,7 +4685,7 @@ func (x *UpstreamConfig) GetPeer() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.UpstreamLimits
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.UpstreamLimits
 // output=config_entry.gen.go
 // name=Structs
 type UpstreamLimits struct {
@@ -4753,7 +4753,7 @@ func (x *UpstreamLimits) GetMaxConcurrentRequests() int32 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.PassiveHealthCheck
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.PassiveHealthCheck
 // output=config_entry.gen.go
 // name=Structs
 type PassiveHealthCheck struct {
@@ -4838,7 +4838,7 @@ func (x *PassiveHealthCheck) GetBaseEjectionTime() *durationpb.Duration {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.DestinationConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.DestinationConfig
 // output=config_entry.gen.go
 // name=Structs
 type DestinationConfig struct {
@@ -4896,7 +4896,7 @@ func (x *DestinationConfig) GetPort() int32 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RateLimits
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RateLimits
 // output=config_entry.gen.go
 // name=Structs
 type RateLimits struct {
@@ -4945,7 +4945,7 @@ func (x *RateLimits) GetInstanceLevel() *InstanceLevelRateLimits {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.InstanceLevelRateLimits
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.InstanceLevelRateLimits
 // output=config_entry.gen.go
 // name=Structs
 type InstanceLevelRateLimits struct {
@@ -5012,7 +5012,7 @@ func (x *InstanceLevelRateLimits) GetRoutes() []*InstanceLevelRouteRateLimits {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.InstanceLevelRouteRateLimits
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.InstanceLevelRouteRateLimits
 // output=config_entry.gen.go
 // name=Structs
 type InstanceLevelRouteRateLimits struct {
@@ -5095,7 +5095,7 @@ func (x *InstanceLevelRouteRateLimits) GetRequestsMaxBurst() uint32 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.APIGatewayConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.APIGatewayConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -5185,7 +5185,7 @@ func (x *APIGateway) GetDefaults() *UpstreamLimits {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Status
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Status
 // output=config_entry.gen.go
 // name=Structs
 type Status struct {
@@ -5234,7 +5234,7 @@ func (x *Status) GetConditions() []*Condition {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Condition
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Condition
 // output=config_entry.gen.go
 // name=Structs
 type Condition struct {
@@ -5324,7 +5324,7 @@ func (x *Condition) GetLastTransitionTime() *timestamppb.Timestamp {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.APIGatewayListener
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.APIGatewayListener
 // output=config_entry.gen.go
 // name=Structs
 type APIGatewayListener struct {
@@ -5334,7 +5334,7 @@ type APIGatewayListener struct {
 	// mog: func-to=int func-from=int32
 	Port int32 `protobuf:"varint,3,opt,name=Port,proto3" json:"Port,omitempty"`
 	// mog: func-to=apiGatewayProtocolToStructs func-from=apiGatewayProtocolFromStructs
-	Protocol            APIGatewayListenerProtocol  `protobuf:"varint,4,opt,name=Protocol,proto3,enum=hashicorp.consul.internal.configentry.APIGatewayListenerProtocol" json:"Protocol,omitempty"`
+	Protocol            APIGatewayListenerProtocol  `protobuf:"varint,4,opt,name=Protocol,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListenerProtocol" json:"Protocol,omitempty"`
 	TLS                 *APIGatewayTLSConfiguration `protobuf:"bytes,5,opt,name=TLS,proto3" json:"TLS,omitempty"`
 	Override            *APIGatewayPolicy           `protobuf:"bytes,6,opt,name=Override,proto3" json:"Override,omitempty"`
 	Default             *APIGatewayPolicy           `protobuf:"bytes,7,opt,name=Default,proto3" json:"Default,omitempty"`
@@ -5431,7 +5431,7 @@ func (x *APIGatewayListener) GetMaxRequestHeadersKB() uint32 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.APIGatewayTLSConfiguration
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.APIGatewayTLSConfiguration
 // output=config_entry.gen.go
 // name=Structs
 type APIGatewayTLSConfiguration struct {
@@ -5515,7 +5515,7 @@ func (x *APIGatewayTLSConfiguration) GetSDS() *GatewayTLSSDSConfig {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.APIGatewayPolicy
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.APIGatewayPolicy
 // output=config_entry.gen.go
 // name=Structs
 type APIGatewayPolicy struct {
@@ -5713,7 +5713,7 @@ func (x *APIGatewayJWTClaimVerification) GetValue() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ResourceReference
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ResourceReference
 // output=config_entry.gen.go
 // name=Structs
 type ResourceReference struct {
@@ -5787,7 +5787,7 @@ func (x *ResourceReference) GetEnterpriseMeta() *pbcommon.EnterpriseMeta {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.BoundAPIGatewayConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.BoundAPIGatewayConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -5906,7 +5906,7 @@ func (x *ListOfResourceReference) GetRef() []*ResourceReference {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.BoundAPIGatewayListener
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.BoundAPIGatewayListener
 // output=config_entry.gen.go
 // name=Structs
 type BoundAPIGatewayListener struct {
@@ -5971,7 +5971,7 @@ func (x *BoundAPIGatewayListener) GetRoutes() []*ResourceReference {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.FileSystemCertificateConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.FileSystemCertificateConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -6045,7 +6045,7 @@ func (x *FileSystemCertificate) GetHash() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.InlineCertificateConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.InlineCertificateConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -6119,7 +6119,7 @@ func (x *InlineCertificate) GetHash() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPRouteConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPRouteConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -6209,7 +6209,7 @@ func (x *HTTPRoute) GetHash() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPRouteRule
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPRouteRule
 // output=config_entry.gen.go
 // name=Structs
 type HTTPRouteRule struct {
@@ -6282,14 +6282,14 @@ func (x *HTTPRouteRule) GetResponseFilters() *HTTPResponseFilters {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPMatch
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPMatch
 // output=config_entry.gen.go
 // name=Structs
 type HTTPMatch struct {
 	state   protoimpl.MessageState `protogen:"open.v1"`
 	Headers []*HTTPHeaderMatch     `protobuf:"bytes,1,rep,name=Headers,proto3" json:"Headers,omitempty"`
 	// mog: func-to=httpMatchMethodToStructs func-from=httpMatchMethodFromStructs
-	Method        HTTPMatchMethod   `protobuf:"varint,2,opt,name=Method,proto3,enum=hashicorp.consul.internal.configentry.HTTPMatchMethod" json:"Method,omitempty"`
+	Method        HTTPMatchMethod   `protobuf:"varint,2,opt,name=Method,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatchMethod" json:"Method,omitempty"`
 	Path          *HTTPPathMatch    `protobuf:"bytes,3,opt,name=Path,proto3" json:"Path,omitempty"`
 	Query         []*HTTPQueryMatch `protobuf:"bytes,4,rep,name=Query,proto3" json:"Query,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -6356,13 +6356,13 @@ func (x *HTTPMatch) GetQuery() []*HTTPQueryMatch {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPHeaderMatch
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPHeaderMatch
 // output=config_entry.gen.go
 // name=Structs
 type HTTPHeaderMatch struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// mog: func-to=httpHeaderMatchToStructs func-from=httpHeaderMatchFromStructs
-	Match         HTTPHeaderMatchType `protobuf:"varint,1,opt,name=Match,proto3,enum=hashicorp.consul.internal.configentry.HTTPHeaderMatchType" json:"Match,omitempty"`
+	Match         HTTPHeaderMatchType `protobuf:"varint,1,opt,name=Match,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderMatchType" json:"Match,omitempty"`
 	Name          string              `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
 	Value         string              `protobuf:"bytes,3,opt,name=Value,proto3" json:"Value,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -6422,13 +6422,13 @@ func (x *HTTPHeaderMatch) GetValue() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPPathMatch
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPPathMatch
 // output=config_entry.gen.go
 // name=Structs
 type HTTPPathMatch struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// mog: func-to=httpPathMatchToStructs func-from=httpPathMatchFromStructs
-	Match         HTTPPathMatchType `protobuf:"varint,1,opt,name=Match,proto3,enum=hashicorp.consul.internal.configentry.HTTPPathMatchType" json:"Match,omitempty"`
+	Match         HTTPPathMatchType `protobuf:"varint,1,opt,name=Match,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.HTTPPathMatchType" json:"Match,omitempty"`
 	Value         string            `protobuf:"bytes,2,opt,name=Value,proto3" json:"Value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -6480,13 +6480,13 @@ func (x *HTTPPathMatch) GetValue() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPQueryMatch
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPQueryMatch
 // output=config_entry.gen.go
 // name=Structs
 type HTTPQueryMatch struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// mog: func-to=httpQueryMatchToStructs func-from=httpQueryMatchFromStructs
-	Match         HTTPQueryMatchType `protobuf:"varint,1,opt,name=Match,proto3,enum=hashicorp.consul.internal.configentry.HTTPQueryMatchType" json:"Match,omitempty"`
+	Match         HTTPQueryMatchType `protobuf:"varint,1,opt,name=Match,proto3,enum=dumb-hashicorp.dumb-consul.internal.configentry.HTTPQueryMatchType" json:"Match,omitempty"`
 	Name          string             `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
 	Value         string             `protobuf:"bytes,3,opt,name=Value,proto3" json:"Value,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -6546,7 +6546,7 @@ func (x *HTTPQueryMatch) GetValue() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPFilters
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPFilters
 // output=config_entry.gen.go
 // name=Structs
 type HTTPFilters struct {
@@ -6628,7 +6628,7 @@ func (x *HTTPFilters) GetJWT() *JWTFilter {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPResponseFilters
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPResponseFilters
 // output=config_entry.gen.go
 // name=Structs
 type HTTPResponseFilters struct {
@@ -6677,7 +6677,7 @@ func (x *HTTPResponseFilters) GetHeaders() []*HTTPHeaderFilter {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.URLRewrite
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.URLRewrite
 // output=config_entry.gen.go
 // name=Structs
 type URLRewrite struct {
@@ -6726,7 +6726,7 @@ func (x *URLRewrite) GetPath() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RetryFilter
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RetryFilter
 // output=config_entry.gen.go
 // name=Structs
 type RetryFilter struct {
@@ -6799,7 +6799,7 @@ func (x *RetryFilter) GetRetryOnConnectFailure() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TimeoutFilter
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TimeoutFilter
 // output=config_entry.gen.go
 // name=Structs
 type TimeoutFilter struct {
@@ -6902,7 +6902,7 @@ func (x *JWTFilter) GetProviders() []*APIGatewayJWTProvider {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPHeaderFilter
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPHeaderFilter
 // output=config_entry.gen.go
 // name=Structs
 type HTTPHeaderFilter struct {
@@ -6967,7 +6967,7 @@ func (x *HTTPHeaderFilter) GetSet() map[string]string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.HTTPService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.HTTPService
 // output=config_entry.gen.go
 // name=Structs
 type HTTPService struct {
@@ -7066,7 +7066,7 @@ func (x *HTTPService) GetLimits() *UpstreamLimits {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TCPRouteConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TCPRouteConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -7148,7 +7148,7 @@ func (x *TCPRoute) GetHash() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.TCPService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.TCPService
 // output=config_entry.gen.go
 // name=Structs
 type TCPService struct {
@@ -7222,7 +7222,7 @@ func (x *TCPService) GetLimits() *UpstreamLimits {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.SamenessGroupConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.SamenessGroupConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=RaftIndex
@@ -7321,7 +7321,7 @@ func (x *SamenessGroup) GetHash() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.SamenessGroupMember
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.SamenessGroupMember
 // output=config_entry.gen.go
 // name=Structs
 type SamenessGroupMember struct {
@@ -7378,7 +7378,7 @@ func (x *SamenessGroupMember) GetPeer() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTProviderConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTProviderConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Name,Kind,RaftIndex,EnterpriseMeta
@@ -7493,7 +7493,7 @@ func (x *JWTProvider) GetHash() uint64 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JSONWebKeySet
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JSONWebKeySet
 // output=config_entry.gen.go
 // name=Structs
 type JSONWebKeySet struct {
@@ -7550,7 +7550,7 @@ func (x *JSONWebKeySet) GetRemote() *RemoteJWKS {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.LocalJWKS
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.LocalJWKS
 // output=config_entry.gen.go
 // name=Structs
 type LocalJWKS struct {
@@ -7607,7 +7607,7 @@ func (x *LocalJWKS) GetFilename() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RemoteJWKS
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RemoteJWKS
 // output=config_entry.gen.go
 // name=Structs
 type RemoteJWKS struct {
@@ -7706,7 +7706,7 @@ func (x *RemoteJWKS) GetUseSNI() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSCluster
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSCluster
 // output=config_entry.gen.go
 // name=Structs
 type JWKSCluster struct {
@@ -7772,7 +7772,7 @@ func (x *JWKSCluster) GetConnectTimeout() *durationpb.Duration {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSTLSCertificate
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSTLSCertificate
 // output=config_entry.gen.go
 // name=Structs
 type JWKSTLSCertificate struct {
@@ -7829,7 +7829,7 @@ func (x *JWKSTLSCertificate) GetTrustedCA() *JWKSTLSCertTrustedCA {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSTLSCertProviderInstance
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSTLSCertProviderInstance
 // output=config_entry.gen.go
 // name=Structs
 type JWKSTLSCertProviderInstance struct {
@@ -7886,7 +7886,7 @@ func (x *JWKSTLSCertProviderInstance) GetCertificateName() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSTLSCertTrustedCA
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSTLSCertTrustedCA
 // output=config_entry.gen.go
 // name=Structs
 type JWKSTLSCertTrustedCA struct {
@@ -7959,7 +7959,7 @@ func (x *JWKSTLSCertTrustedCA) GetInlineBytes() []byte {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWKSRetryPolicy
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWKSRetryPolicy
 // output=config_entry.gen.go
 // name=Structs
 type JWKSRetryPolicy struct {
@@ -8017,7 +8017,7 @@ func (x *JWKSRetryPolicy) GetRetryPolicyBackOff() *RetryPolicyBackOff {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RetryPolicyBackOff
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RetryPolicyBackOff
 // output=config_entry.gen.go
 // name=Structs
 type RetryPolicyBackOff struct {
@@ -8076,7 +8076,7 @@ func (x *RetryPolicyBackOff) GetMaxInterval() *durationpb.Duration {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTLocation
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTLocation
 // output=config_entry.gen.go
 // name=Structs
 type JWTLocation struct {
@@ -8141,7 +8141,7 @@ func (x *JWTLocation) GetCookie() *JWTLocationCookie {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTLocationHeader
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTLocationHeader
 // output=config_entry.gen.go
 // name=Structs
 type JWTLocationHeader struct {
@@ -8206,7 +8206,7 @@ func (x *JWTLocationHeader) GetForward() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTLocationQueryParam
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTLocationQueryParam
 // output=config_entry.gen.go
 // name=Structs
 type JWTLocationQueryParam struct {
@@ -8255,7 +8255,7 @@ func (x *JWTLocationQueryParam) GetName() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTLocationCookie
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTLocationCookie
 // output=config_entry.gen.go
 // name=Structs
 type JWTLocationCookie struct {
@@ -8304,7 +8304,7 @@ func (x *JWTLocationCookie) GetName() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTForwardingConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTForwardingConfig
 // output=config_entry.gen.go
 // name=Structs
 type JWTForwardingConfig struct {
@@ -8361,7 +8361,7 @@ func (x *JWTForwardingConfig) GetPadForwardPayloadHeader() bool {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.JWTCacheConfig
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.JWTCacheConfig
 // output=config_entry.gen.go
 // name=Structs
 type JWTCacheConfig struct {
@@ -8411,7 +8411,7 @@ func (x *JWTCacheConfig) GetSize() int32 {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExportedServicesConfigEntry
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExportedServicesConfigEntry
 // output=config_entry.gen.go
 // name=Structs
 // ignore-fields=Kind,Name,RaftIndex,EnterpriseMeta
@@ -8494,7 +8494,7 @@ func (x *ExportedServices) GetServices() []*ExportedServicesService {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ExportedService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ExportedService
 // output=config_entry.gen.go
 // name=Structs
 type ExportedServicesService struct {
@@ -8559,7 +8559,7 @@ func (x *ExportedServicesService) GetConsumers() []*ExportedServicesConsumer {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.ServiceConsumer
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.ServiceConsumer
 // output=config_entry.gen.go
 // name=Structs
 type ExportedServicesConsumer struct {
@@ -8626,15 +8626,15 @@ var File_private_pbconfigentry_config_entry_proto protoreflect.FileDescriptor
 
 const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\n" +
-	"(private/pbconfigentry/config_entry.proto\x12%hashicorp.consul.internal.configentry\x1a%annotations/ratelimit/ratelimit.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dprivate/pbcommon/common.proto\"B\n" +
+	"(private/pbconfigentry/config_entry.proto\x12%dumb-hashicorp.dumb-consul.internal.configentry\x1a%annotations/ratelimit/ratelimit.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dprivate/pbcommon/common.proto\"B\n" +
 	"\"GetResolvedExportedServicesRequest\x12\x1c\n" +
 	"\tPartition\x18\x01 \x01(\tR\tPartition\"\x81\x01\n" +
 	"#GetResolvedExportedServicesResponse\x12Z\n" +
-	"\bservices\x18\x01 \x03(\v2>.hashicorp.consul.internal.configentry.ResolvedExportedServiceR\bservices\"\xdd\x01\n" +
+	"\bservices\x18\x01 \x03(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.ResolvedExportedServiceR\bservices\"\xdd\x01\n" +
 	"\x17ResolvedExportedService\x12\x18\n" +
 	"\aService\x18\x01 \x01(\tR\aService\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12N\n" +
-	"\tConsumers\x18\x03 \x01(\v20.hashicorp.consul.internal.configentry.ConsumersR\tConsumers\"A\n" +
+	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12N\n" +
+	"\tConsumers\x18\x03 \x01(\v20.dumb-hashicorp.dumb-consul.internal.configentry.ConsumersR\tConsumers\"A\n" +
 	"\tConsumers\x12\x14\n" +
 	"\x05Peers\x18\x01 \x03(\tR\x05Peers\x12\x1e\n" +
 	"\n" +
@@ -8643,46 +8643,46 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x1aGetImportedServicesRequest\x12\x1c\n" +
 	"\tPartition\x18\x01 \x01(\tR\tPartition\"q\n" +
 	"\x1bGetImportedServicesResponse\x12R\n" +
-	"\bServices\x18\x01 \x03(\v26.hashicorp.consul.internal.configentry.ImportedServiceR\bServices\"\xcf\x01\n" +
+	"\bServices\x18\x01 \x03(\v26.dumb-hashicorp.dumb-consul.internal.configentry.ImportedServiceR\bServices\"\xcf\x01\n" +
 	"\x0fImportedService\x12\x18\n" +
 	"\aService\x18\x01 \x01(\tR\aService\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x1e\n" +
+	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x1e\n" +
 	"\n" +
 	"SourcePeer\x18\x03 \x01(\tR\n" +
 	"SourcePeer\x12(\n" +
 	"\x0fSourcePartition\x18\x04 \x01(\tR\x0fSourcePartition\"\xcf\f\n" +
 	"\vConfigEntry\x12?\n" +
-	"\x04Kind\x18\x01 \x01(\x0e2+.hashicorp.consul.internal.configentry.KindR\x04Kind\x12\x12\n" +
+	"\x04Kind\x18\x01 \x01(\x0e2+.dumb-hashicorp.dumb-consul.internal.configentry.KindR\x04Kind\x12\x12\n" +
 	"\x04Name\x18\x02 \x01(\tR\x04Name\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x03 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12I\n" +
-	"\tRaftIndex\x18\x04 \x01(\v2+.hashicorp.consul.internal.common.RaftIndexR\tRaftIndex\x12S\n" +
+	"\x0eEnterpriseMeta\x18\x03 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12I\n" +
+	"\tRaftIndex\x18\x04 \x01(\v2+.dumb-hashicorp.dumb-consul.internal.common.RaftIndexR\tRaftIndex\x12S\n" +
 	"\n" +
-	"MeshConfig\x18\x05 \x01(\v21.hashicorp.consul.internal.configentry.MeshConfigH\x00R\n" +
+	"MeshConfig\x18\x05 \x01(\v21.dumb-hashicorp.dumb-consul.internal.configentry.MeshConfigH\x00R\n" +
 	"MeshConfig\x12b\n" +
-	"\x0fServiceResolver\x18\x06 \x01(\v26.hashicorp.consul.internal.configentry.ServiceResolverH\x00R\x0fServiceResolver\x12_\n" +
-	"\x0eIngressGateway\x18\a \x01(\v25.hashicorp.consul.internal.configentry.IngressGatewayH\x00R\x0eIngressGateway\x12h\n" +
-	"\x11ServiceIntentions\x18\b \x01(\v28.hashicorp.consul.internal.configentry.ServiceIntentionsH\x00R\x11ServiceIntentions\x12b\n" +
-	"\x0fServiceDefaults\x18\t \x01(\v26.hashicorp.consul.internal.configentry.ServiceDefaultsH\x00R\x0fServiceDefaults\x12S\n" +
+	"\x0fServiceResolver\x18\x06 \x01(\v26.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverH\x00R\x0fServiceResolver\x12_\n" +
+	"\x0eIngressGateway\x18\a \x01(\v25.dumb-hashicorp.dumb-consul.internal.configentry.IngressGatewayH\x00R\x0eIngressGateway\x12h\n" +
+	"\x11ServiceIntentions\x18\b \x01(\v28.dumb-hashicorp.dumb-consul.internal.configentry.ServiceIntentionsH\x00R\x11ServiceIntentions\x12b\n" +
+	"\x0fServiceDefaults\x18\t \x01(\v26.dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaultsH\x00R\x0fServiceDefaults\x12S\n" +
 	"\n" +
 	"APIGateway\x18\n" +
-	" \x01(\v21.hashicorp.consul.internal.configentry.APIGatewayH\x00R\n" +
+	" \x01(\v21.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayH\x00R\n" +
 	"APIGateway\x12b\n" +
-	"\x0fBoundAPIGateway\x18\v \x01(\v26.hashicorp.consul.internal.configentry.BoundAPIGatewayH\x00R\x0fBoundAPIGateway\x12M\n" +
-	"\bTCPRoute\x18\f \x01(\v2/.hashicorp.consul.internal.configentry.TCPRouteH\x00R\bTCPRoute\x12P\n" +
-	"\tHTTPRoute\x18\r \x01(\v20.hashicorp.consul.internal.configentry.HTTPRouteH\x00R\tHTTPRoute\x12h\n" +
-	"\x11InlineCertificate\x18\x0e \x01(\v28.hashicorp.consul.internal.configentry.InlineCertificateH\x00R\x11InlineCertificate\x12\\\n" +
-	"\rSamenessGroup\x18\x0f \x01(\v24.hashicorp.consul.internal.configentry.SamenessGroupH\x00R\rSamenessGroup\x12V\n" +
-	"\vJWTProvider\x18\x10 \x01(\v22.hashicorp.consul.internal.configentry.JWTProviderH\x00R\vJWTProvider\x12e\n" +
-	"\x10ExportedServices\x18\x11 \x01(\v27.hashicorp.consul.internal.configentry.ExportedServicesH\x00R\x10ExportedServices\x12t\n" +
-	"\x15FileSystemCertificate\x18\x12 \x01(\v2<.hashicorp.consul.internal.configentry.FileSystemCertificateH\x00R\x15FileSystemCertificateB\a\n" +
+	"\x0fBoundAPIGateway\x18\v \x01(\v26.dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGatewayH\x00R\x0fBoundAPIGateway\x12M\n" +
+	"\bTCPRoute\x18\f \x01(\v2/.dumb-hashicorp.dumb-consul.internal.configentry.TCPRouteH\x00R\bTCPRoute\x12P\n" +
+	"\tHTTPRoute\x18\r \x01(\v20.dumb-hashicorp.dumb-consul.internal.configentry.HTTPRouteH\x00R\tHTTPRoute\x12h\n" +
+	"\x11InlineCertificate\x18\x0e \x01(\v28.dumb-hashicorp.dumb-consul.internal.configentry.InlineCertificateH\x00R\x11InlineCertificate\x12\\\n" +
+	"\rSamenessGroup\x18\x0f \x01(\v24.dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroupH\x00R\rSamenessGroup\x12V\n" +
+	"\vJWTProvider\x18\x10 \x01(\v22.dumb-hashicorp.dumb-consul.internal.configentry.JWTProviderH\x00R\vJWTProvider\x12e\n" +
+	"\x10ExportedServices\x18\x11 \x01(\v27.dumb-hashicorp.dumb-consul.internal.configentry.ExportedServicesH\x00R\x10ExportedServices\x12t\n" +
+	"\x15FileSystemCertificate\x18\x12 \x01(\v2<.dumb-hashicorp.dumb-consul.internal.configentry.FileSystemCertificateH\x00R\x15FileSystemCertificateB\a\n" +
 	"\x05Entry\"\xf8\x04\n" +
 	"\n" +
 	"MeshConfig\x12m\n" +
-	"\x10TransparentProxy\x18\x01 \x01(\v2A.hashicorp.consul.internal.configentry.TransparentProxyMeshConfigR\x10TransparentProxy\x12F\n" +
-	"\x03TLS\x18\x02 \x01(\v24.hashicorp.consul.internal.configentry.MeshTLSConfigR\x03TLS\x12I\n" +
-	"\x04HTTP\x18\x03 \x01(\v25.hashicorp.consul.internal.configentry.MeshHTTPConfigR\x04HTTP\x12O\n" +
-	"\x04Meta\x18\x04 \x03(\v2;.hashicorp.consul.internal.configentry.MeshConfig.MetaEntryR\x04Meta\x12R\n" +
-	"\aPeering\x18\x05 \x01(\v28.hashicorp.consul.internal.configentry.PeeringMeshConfigR\aPeering\x12J\n" +
+	"\x10TransparentProxy\x18\x01 \x01(\v2A.dumb-hashicorp.dumb-consul.internal.configentry.TransparentProxyMeshConfigR\x10TransparentProxy\x12F\n" +
+	"\x03TLS\x18\x02 \x01(\v24.dumb-hashicorp.dumb-consul.internal.configentry.MeshTLSConfigR\x03TLS\x12I\n" +
+	"\x04HTTP\x18\x03 \x01(\v25.dumb-hashicorp.dumb-consul.internal.configentry.MeshHTTPConfigR\x04HTTP\x12O\n" +
+	"\x04Meta\x18\x04 \x03(\v2;.dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig.MetaEntryR\x04Meta\x12R\n" +
+	"\aPeering\x18\x05 \x01(\v28.dumb-hashicorp.dumb-consul.internal.configentry.PeeringMeshConfigR\aPeering\x12J\n" +
 	" AllowEnablingPermissiveMutualTLS\x18\x06 \x01(\bR AllowEnablingPermissiveMutualTLS\x12\x12\n" +
 	"\x04Hash\x18\a \x01(\x04R\x04Hash\x12*\n" +
 	"\x10ValidateClusters\x18\b \x01(\bR\x10ValidateClusters\x1a7\n" +
@@ -8692,42 +8692,42 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x1aTransparentProxyMeshConfig\x122\n" +
 	"\x14MeshDestinationsOnly\x18\x01 \x01(\bR\x14MeshDestinationsOnly\"\xc9\x01\n" +
 	"\rMeshTLSConfig\x12[\n" +
-	"\bIncoming\x18\x01 \x01(\v2?.hashicorp.consul.internal.configentry.MeshDirectionalTLSConfigR\bIncoming\x12[\n" +
-	"\bOutgoing\x18\x02 \x01(\v2?.hashicorp.consul.internal.configentry.MeshDirectionalTLSConfigR\bOutgoing\"\x8a\x01\n" +
+	"\bIncoming\x18\x01 \x01(\v2?.dumb-hashicorp.dumb-consul.internal.configentry.MeshDirectionalTLSConfigR\bIncoming\x12[\n" +
+	"\bOutgoing\x18\x02 \x01(\v2?.dumb-hashicorp.dumb-consul.internal.configentry.MeshDirectionalTLSConfigR\bOutgoing\"\x8a\x01\n" +
 	"\x18MeshDirectionalTLSConfig\x12$\n" +
 	"\rTLSMinVersion\x18\x01 \x01(\tR\rTLSMinVersion\x12$\n" +
 	"\rTLSMaxVersion\x18\x02 \x01(\tR\rTLSMaxVersion\x12\"\n" +
 	"\fCipherSuites\x18\x03 \x03(\tR\fCipherSuites\"\xb2\x01\n" +
 	"\x0eMeshHTTPConfig\x12B\n" +
 	"\x1cSanitizeXForwardedClientCert\x18\x01 \x01(\bR\x1cSanitizeXForwardedClientCert\x12\\\n" +
-	"\bIncoming\x18\x02 \x01(\v2@.hashicorp.consul.internal.configentry.MeshDirectionalHTTPConfigR\bIncoming\"\x96\x01\n" +
+	"\bIncoming\x18\x02 \x01(\v2@.dumb-hashicorp.dumb-consul.internal.configentry.MeshDirectionalHTTPConfigR\bIncoming\"\x96\x01\n" +
 	"\x19MeshDirectionalHTTPConfig\x12y\n" +
-	"\x14RequestNormalization\x18\x01 \x01(\v2E.hashicorp.consul.internal.configentry.RequestNormalizationMeshConfigR\x14RequestNormalization\"M\n" +
+	"\x14RequestNormalization\x18\x01 \x01(\v2E.dumb-hashicorp.dumb-consul.internal.configentry.RequestNormalizationMeshConfigR\x14RequestNormalization\"M\n" +
 	"\x11PeeringMeshConfig\x128\n" +
 	"\x17PeerThroughMeshGateways\x18\x01 \x01(\bR\x17PeerThroughMeshGateways\"\xa4\x03\n" +
 	"\x1eRequestNormalizationMeshConfig\x12J\n" +
 	" InsecureDisablePathNormalization\x18\x01 \x01(\bR InsecureDisablePathNormalization\x12\"\n" +
 	"\fMergeSlashes\x18\x02 \x01(\bR\fMergeSlashes\x12\x87\x01\n" +
-	"\x1cPathWithEscapedSlashesAction\x18\x03 \x01(\x0e2C.hashicorp.consul.internal.configentry.PathWithEscapedSlashesActionR\x1cPathWithEscapedSlashesAction\x12\x87\x01\n" +
-	"\x1cHeadersWithUnderscoresAction\x18\x04 \x01(\x0e2C.hashicorp.consul.internal.configentry.HeadersWithUnderscoresActionR\x1cHeadersWithUnderscoresAction\"\xcd\b\n" +
+	"\x1cPathWithEscapedSlashesAction\x18\x03 \x01(\x0e2C.dumb-hashicorp.dumb-consul.internal.configentry.PathWithEscapedSlashesActionR\x1cPathWithEscapedSlashesAction\x12\x87\x01\n" +
+	"\x1cHeadersWithUnderscoresAction\x18\x04 \x01(\x0e2C.dumb-hashicorp.dumb-consul.internal.configentry.HeadersWithUnderscoresActionR\x1cHeadersWithUnderscoresAction\"\xcd\b\n" +
 	"\x0fServiceResolver\x12$\n" +
 	"\rDefaultSubset\x18\x01 \x01(\tR\rDefaultSubset\x12]\n" +
-	"\aSubsets\x18\x02 \x03(\v2C.hashicorp.consul.internal.configentry.ServiceResolver.SubsetsEntryR\aSubsets\x12Z\n" +
-	"\bRedirect\x18\x03 \x01(\v2>.hashicorp.consul.internal.configentry.ServiceResolverRedirectR\bRedirect\x12`\n" +
-	"\bFailover\x18\x04 \x03(\v2D.hashicorp.consul.internal.configentry.ServiceResolver.FailoverEntryR\bFailover\x12A\n" +
+	"\aSubsets\x18\x02 \x03(\v2C.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.SubsetsEntryR\aSubsets\x12Z\n" +
+	"\bRedirect\x18\x03 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverRedirectR\bRedirect\x12`\n" +
+	"\bFailover\x18\x04 \x03(\v2D.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.FailoverEntryR\bFailover\x12A\n" +
 	"\x0eConnectTimeout\x18\x05 \x01(\v2\x19.google.protobuf.DurationR\x0eConnectTimeout\x12W\n" +
-	"\fLoadBalancer\x18\x06 \x01(\v23.hashicorp.consul.internal.configentry.LoadBalancerR\fLoadBalancer\x12T\n" +
-	"\x04Meta\x18\a \x03(\v2@.hashicorp.consul.internal.configentry.ServiceResolver.MetaEntryR\x04Meta\x12A\n" +
+	"\fLoadBalancer\x18\x06 \x01(\v23.dumb-hashicorp.dumb-consul.internal.configentry.LoadBalancerR\fLoadBalancer\x12T\n" +
+	"\x04Meta\x18\a \x03(\v2@.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.MetaEntryR\x04Meta\x12A\n" +
 	"\x0eRequestTimeout\x18\b \x01(\v2\x19.google.protobuf.DurationR\x0eRequestTimeout\x12~\n" +
-	"\x14PrioritizeByLocality\x18\t \x01(\v2J.hashicorp.consul.internal.configentry.ServiceResolverPrioritizeByLocalityR\x14PrioritizeByLocality\x12\x12\n" +
+	"\x14PrioritizeByLocality\x18\t \x01(\v2J.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverPrioritizeByLocalityR\x14PrioritizeByLocality\x12\x12\n" +
 	"\x04Hash\x18\n" +
 	" \x01(\x04R\x04Hash\x1ax\n" +
 	"\fSubsetsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12R\n" +
-	"\x05value\x18\x02 \x01(\v2<.hashicorp.consul.internal.configentry.ServiceResolverSubsetR\x05value:\x028\x01\x1a{\n" +
+	"\x05value\x18\x02 \x01(\v2<.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverSubsetR\x05value:\x028\x01\x1a{\n" +
 	"\rFailoverEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12T\n" +
-	"\x05value\x18\x02 \x01(\v2>.hashicorp.consul.internal.configentry.ServiceResolverFailoverR\x05value:\x028\x01\x1a7\n" +
+	"\x05value\x18\x02 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailoverR\x05value:\x028\x01\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"Q\n" +
@@ -8749,8 +8749,8 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\rServiceSubset\x18\x02 \x01(\tR\rServiceSubset\x12\x1c\n" +
 	"\tNamespace\x18\x03 \x01(\tR\tNamespace\x12 \n" +
 	"\vDatacenters\x18\x04 \x03(\tR\vDatacenters\x12^\n" +
-	"\aTargets\x18\x05 \x03(\v2D.hashicorp.consul.internal.configentry.ServiceResolverFailoverTargetR\aTargets\x12\\\n" +
-	"\x06Policy\x18\x06 \x01(\v2D.hashicorp.consul.internal.configentry.ServiceResolverFailoverPolicyR\x06Policy\x12$\n" +
+	"\aTargets\x18\x05 \x03(\v2D.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailoverTargetR\aTargets\x12\\\n" +
+	"\x06Policy\x18\x06 \x01(\v2D.dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailoverPolicyR\x06Policy\x12$\n" +
 	"\rSamenessGroup\x18\a \x01(\tR\rSamenessGroup\"M\n" +
 	"\x1dServiceResolverFailoverPolicy\x12\x12\n" +
 	"\x04Mode\x18\x01 \x01(\tR\x04Mode\x12\x18\n" +
@@ -8768,9 +8768,9 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x04Peer\x18\x06 \x01(\tR\x04Peer\"\xc7\x02\n" +
 	"\fLoadBalancer\x12\x16\n" +
 	"\x06Policy\x18\x01 \x01(\tR\x06Policy\x12]\n" +
-	"\x0eRingHashConfig\x18\x02 \x01(\v25.hashicorp.consul.internal.configentry.RingHashConfigR\x0eRingHashConfig\x12i\n" +
-	"\x12LeastRequestConfig\x18\x03 \x01(\v29.hashicorp.consul.internal.configentry.LeastRequestConfigR\x12LeastRequestConfig\x12U\n" +
-	"\fHashPolicies\x18\x04 \x03(\v21.hashicorp.consul.internal.configentry.HashPolicyR\fHashPolicies\"d\n" +
+	"\x0eRingHashConfig\x18\x02 \x01(\v25.dumb-hashicorp.dumb-consul.internal.configentry.RingHashConfigR\x0eRingHashConfig\x12i\n" +
+	"\x12LeastRequestConfig\x18\x03 \x01(\v29.dumb-hashicorp.dumb-consul.internal.configentry.LeastRequestConfigR\x12LeastRequestConfig\x12U\n" +
+	"\fHashPolicies\x18\x04 \x03(\v21.dumb-hashicorp.dumb-consul.internal.configentry.HashPolicyR\fHashPolicies\"d\n" +
 	"\x0eRingHashConfig\x12(\n" +
 	"\x0fMinimumRingSize\x18\x01 \x01(\x04R\x0fMinimumRingSize\x12(\n" +
 	"\x0fMaximumRingSize\x18\x02 \x01(\x04R\x0fMaximumRingSize\"6\n" +
@@ -8782,7 +8782,7 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\n" +
 	"FieldValue\x18\x02 \x01(\tR\n" +
 	"FieldValue\x12W\n" +
-	"\fCookieConfig\x18\x03 \x01(\v23.hashicorp.consul.internal.configentry.CookieConfigR\fCookieConfig\x12\x1a\n" +
+	"\fCookieConfig\x18\x03 \x01(\v23.dumb-hashicorp.dumb-consul.internal.configentry.CookieConfigR\fCookieConfig\x12\x1a\n" +
 	"\bSourceIP\x18\x04 \x01(\bR\bSourceIP\x12\x1a\n" +
 	"\bTerminal\x18\x05 \x01(\bR\bTerminal\"i\n" +
 	"\fCookieConfig\x12\x18\n" +
@@ -8790,10 +8790,10 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x03TTL\x18\x02 \x01(\v2\x19.google.protobuf.DurationR\x03TTL\x12\x12\n" +
 	"\x04Path\x18\x03 \x01(\tR\x04Path\"\xac\x03\n" +
 	"\x0eIngressGateway\x12I\n" +
-	"\x03TLS\x18\x01 \x01(\v27.hashicorp.consul.internal.configentry.GatewayTLSConfigR\x03TLS\x12T\n" +
-	"\tListeners\x18\x02 \x03(\v26.hashicorp.consul.internal.configentry.IngressListenerR\tListeners\x12S\n" +
-	"\x04Meta\x18\x03 \x03(\v2?.hashicorp.consul.internal.configentry.IngressGateway.MetaEntryR\x04Meta\x12W\n" +
-	"\bDefaults\x18\x04 \x01(\v2;.hashicorp.consul.internal.configentry.IngressServiceConfigR\bDefaults\x12\x12\n" +
+	"\x03TLS\x18\x01 \x01(\v27.dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSConfigR\x03TLS\x12T\n" +
+	"\tListeners\x18\x02 \x03(\v26.dumb-hashicorp.dumb-consul.internal.configentry.IngressListenerR\tListeners\x12S\n" +
+	"\x04Meta\x18\x03 \x03(\v2?.dumb-hashicorp.dumb-consul.internal.configentry.IngressGateway.MetaEntryR\x04Meta\x12W\n" +
+	"\bDefaults\x18\x04 \x01(\v2;.dumb-hashicorp.dumb-consul.internal.configentry.IngressServiceConfigR\bDefaults\x12\x12\n" +
 	"\x04Hash\x18\x05 \x01(\x04R\x04Hash\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
@@ -8802,10 +8802,10 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x0eMaxConnections\x18\x01 \x01(\rR\x0eMaxConnections\x12.\n" +
 	"\x12MaxPendingRequests\x18\x02 \x01(\rR\x12MaxPendingRequests\x124\n" +
 	"\x15MaxConcurrentRequests\x18\x03 \x01(\rR\x15MaxConcurrentRequests\x12i\n" +
-	"\x12PassiveHealthCheck\x18\x04 \x01(\v29.hashicorp.consul.internal.configentry.PassiveHealthCheckR\x12PassiveHealthCheck\"\xea\x01\n" +
+	"\x12PassiveHealthCheck\x18\x04 \x01(\v29.dumb-hashicorp.dumb-consul.internal.configentry.PassiveHealthCheckR\x12PassiveHealthCheck\"\xea\x01\n" +
 	"\x10GatewayTLSConfig\x12\x18\n" +
 	"\aEnabled\x18\x01 \x01(\bR\aEnabled\x12L\n" +
-	"\x03SDS\x18\x02 \x01(\v2:.hashicorp.consul.internal.configentry.GatewayTLSSDSConfigR\x03SDS\x12$\n" +
+	"\x03SDS\x18\x02 \x01(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSSDSConfigR\x03SDS\x12$\n" +
 	"\rTLSMinVersion\x18\x03 \x01(\tR\rTLSMinVersion\x12$\n" +
 	"\rTLSMaxVersion\x18\x04 \x01(\tR\rTLSMaxVersion\x12\"\n" +
 	"\fCipherSuites\x18\x05 \x03(\tR\fCipherSuites\"[\n" +
@@ -8815,29 +8815,29 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x0fIngressListener\x12\x12\n" +
 	"\x04Port\x18\x01 \x01(\x05R\x04Port\x12\x1a\n" +
 	"\bProtocol\x18\x02 \x01(\tR\bProtocol\x12Q\n" +
-	"\bServices\x18\x03 \x03(\v25.hashicorp.consul.internal.configentry.IngressServiceR\bServices\x12I\n" +
-	"\x03TLS\x18\x04 \x01(\v27.hashicorp.consul.internal.configentry.GatewayTLSConfigR\x03TLS\"\xb7\x06\n" +
+	"\bServices\x18\x03 \x03(\v25.dumb-hashicorp.dumb-consul.internal.configentry.IngressServiceR\bServices\x12I\n" +
+	"\x03TLS\x18\x04 \x01(\v27.dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSConfigR\x03TLS\"\xb7\x06\n" +
 	"\x0eIngressService\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x14\n" +
 	"\x05Hosts\x18\x02 \x03(\tR\x05Hosts\x12P\n" +
-	"\x03TLS\x18\x03 \x01(\v2>.hashicorp.consul.internal.configentry.GatewayServiceTLSConfigR\x03TLS\x12b\n" +
-	"\x0eRequestHeaders\x18\x04 \x01(\v2:.hashicorp.consul.internal.configentry.HTTPHeaderModifiersR\x0eRequestHeaders\x12d\n" +
-	"\x0fResponseHeaders\x18\x05 \x01(\v2:.hashicorp.consul.internal.configentry.HTTPHeaderModifiersR\x0fResponseHeaders\x12S\n" +
-	"\x04Meta\x18\x06 \x03(\v2?.hashicorp.consul.internal.configentry.IngressService.MetaEntryR\x04Meta\x12X\n" +
-	"\x0eEnterpriseMeta\x18\a \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12&\n" +
+	"\x03TLS\x18\x03 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.GatewayServiceTLSConfigR\x03TLS\x12b\n" +
+	"\x0eRequestHeaders\x18\x04 \x01(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiersR\x0eRequestHeaders\x12d\n" +
+	"\x0fResponseHeaders\x18\x05 \x01(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiersR\x0fResponseHeaders\x12S\n" +
+	"\x04Meta\x18\x06 \x03(\v2?.dumb-hashicorp.dumb-consul.internal.configentry.IngressService.MetaEntryR\x04Meta\x12X\n" +
+	"\x0eEnterpriseMeta\x18\a \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12&\n" +
 	"\x0eMaxConnections\x18\b \x01(\rR\x0eMaxConnections\x12.\n" +
 	"\x12MaxPendingRequests\x18\t \x01(\rR\x12MaxPendingRequests\x124\n" +
 	"\x15MaxConcurrentRequests\x18\n" +
 	" \x01(\rR\x15MaxConcurrentRequests\x12i\n" +
-	"\x12PassiveHealthCheck\x18\v \x01(\v29.hashicorp.consul.internal.configentry.PassiveHealthCheckR\x12PassiveHealthCheck\x1a7\n" +
+	"\x12PassiveHealthCheck\x18\v \x01(\v29.dumb-hashicorp.dumb-consul.internal.configentry.PassiveHealthCheckR\x12PassiveHealthCheck\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"g\n" +
 	"\x17GatewayServiceTLSConfig\x12L\n" +
-	"\x03SDS\x18\x01 \x01(\v2:.hashicorp.consul.internal.configentry.GatewayTLSSDSConfigR\x03SDS\"\xcb\x02\n" +
+	"\x03SDS\x18\x01 \x01(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSSDSConfigR\x03SDS\"\xcb\x02\n" +
 	"\x13HTTPHeaderModifiers\x12U\n" +
-	"\x03Add\x18\x01 \x03(\v2C.hashicorp.consul.internal.configentry.HTTPHeaderModifiers.AddEntryR\x03Add\x12U\n" +
-	"\x03Set\x18\x02 \x03(\v2C.hashicorp.consul.internal.configentry.HTTPHeaderModifiers.SetEntryR\x03Set\x12\x16\n" +
+	"\x03Add\x18\x01 \x03(\v2C.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers.AddEntryR\x03Add\x12U\n" +
+	"\x03Set\x18\x02 \x03(\v2C.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers.SetEntryR\x03Set\x12\x16\n" +
 	"\x06Remove\x18\x03 \x03(\tR\x06Remove\x1a6\n" +
 	"\bAddEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
@@ -8846,54 +8846,54 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xdc\x02\n" +
 	"\x11ServiceIntentions\x12P\n" +
-	"\aSources\x18\x01 \x03(\v26.hashicorp.consul.internal.configentry.SourceIntentionR\aSources\x12V\n" +
-	"\x04Meta\x18\x02 \x03(\v2B.hashicorp.consul.internal.configentry.ServiceIntentions.MetaEntryR\x04Meta\x12P\n" +
-	"\x03JWT\x18\x03 \x01(\v2>.hashicorp.consul.internal.configentry.IntentionJWTRequirementR\x03JWT\x12\x12\n" +
+	"\aSources\x18\x01 \x03(\v26.dumb-hashicorp.dumb-consul.internal.configentry.SourceIntentionR\aSources\x12V\n" +
+	"\x04Meta\x18\x02 \x03(\v2B.dumb-hashicorp.dumb-consul.internal.configentry.ServiceIntentions.MetaEntryR\x04Meta\x12P\n" +
+	"\x03JWT\x18\x03 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTRequirementR\x03JWT\x12\x12\n" +
 	"\x04Hash\x18\x04 \x01(\x04R\x04Hash\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"t\n" +
 	"\x17IntentionJWTRequirement\x12Y\n" +
-	"\tProviders\x18\x01 \x03(\v2;.hashicorp.consul.internal.configentry.IntentionJWTProviderR\tProviders\"\x94\x01\n" +
+	"\tProviders\x18\x01 \x03(\v2;.dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTProviderR\tProviders\"\x94\x01\n" +
 	"\x14IntentionJWTProvider\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12h\n" +
-	"\fVerifyClaims\x18\x02 \x03(\v2D.hashicorp.consul.internal.configentry.IntentionJWTClaimVerificationR\fVerifyClaims\"I\n" +
+	"\fVerifyClaims\x18\x02 \x03(\v2D.dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTClaimVerificationR\fVerifyClaims\"I\n" +
 	"\x1dIntentionJWTClaimVerification\x12\x12\n" +
 	"\x04Path\x18\x01 \x03(\tR\x04Path\x12\x14\n" +
 	"\x05Value\x18\x02 \x01(\tR\x05Value\"\xcc\x06\n" +
 	"\x0fSourceIntention\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12N\n" +
-	"\x06Action\x18\x02 \x01(\x0e26.hashicorp.consul.internal.configentry.IntentionActionR\x06Action\x12\\\n" +
-	"\vPermissions\x18\x03 \x03(\v2:.hashicorp.consul.internal.configentry.IntentionPermissionR\vPermissions\x12\x1e\n" +
+	"\x06Action\x18\x02 \x01(\x0e26.dumb-hashicorp.dumb-consul.internal.configentry.IntentionActionR\x06Action\x12\\\n" +
+	"\vPermissions\x18\x03 \x03(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.IntentionPermissionR\vPermissions\x12\x1e\n" +
 	"\n" +
 	"Precedence\x18\x04 \x01(\x05R\n" +
 	"Precedence\x12\x1a\n" +
 	"\bLegacyID\x18\x05 \x01(\tR\bLegacyID\x12N\n" +
-	"\x04Type\x18\x06 \x01(\x0e2:.hashicorp.consul.internal.configentry.IntentionSourceTypeR\x04Type\x12 \n" +
+	"\x04Type\x18\x06 \x01(\x0e2:.dumb-hashicorp.dumb-consul.internal.configentry.IntentionSourceTypeR\x04Type\x12 \n" +
 	"\vDescription\x18\a \x01(\tR\vDescription\x12f\n" +
 	"\n" +
-	"LegacyMeta\x18\b \x03(\v2F.hashicorp.consul.internal.configentry.SourceIntention.LegacyMetaEntryR\n" +
+	"LegacyMeta\x18\b \x03(\v2F.dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.LegacyMetaEntryR\n" +
 	"LegacyMeta\x12F\n" +
 	"\x10LegacyCreateTime\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\x10LegacyCreateTime\x12F\n" +
 	"\x10LegacyUpdateTime\x18\n" +
 	" \x01(\v2\x1a.google.protobuf.TimestampR\x10LegacyUpdateTime\x12X\n" +
-	"\x0eEnterpriseMeta\x18\v \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x12\n" +
+	"\x0eEnterpriseMeta\x18\v \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x12\n" +
 	"\x04Peer\x18\f \x01(\tR\x04Peer\x12$\n" +
 	"\rSamenessGroup\x18\r \x01(\tR\rSamenessGroup\x1a=\n" +
 	"\x0fLegacyMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x8b\x02\n" +
 	"\x13IntentionPermission\x12N\n" +
-	"\x06Action\x18\x01 \x01(\x0e26.hashicorp.consul.internal.configentry.IntentionActionR\x06Action\x12R\n" +
-	"\x04HTTP\x18\x02 \x01(\v2>.hashicorp.consul.internal.configentry.IntentionHTTPPermissionR\x04HTTP\x12P\n" +
-	"\x03JWT\x18\x03 \x01(\v2>.hashicorp.consul.internal.configentry.IntentionJWTRequirementR\x03JWT\"\xed\x01\n" +
+	"\x06Action\x18\x01 \x01(\x0e26.dumb-hashicorp.dumb-consul.internal.configentry.IntentionActionR\x06Action\x12R\n" +
+	"\x04HTTP\x18\x02 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.IntentionHTTPPermissionR\x04HTTP\x12P\n" +
+	"\x03JWT\x18\x03 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTRequirementR\x03JWT\"\xed\x01\n" +
 	"\x17IntentionHTTPPermission\x12\x1c\n" +
 	"\tPathExact\x18\x01 \x01(\tR\tPathExact\x12\x1e\n" +
 	"\n" +
 	"PathPrefix\x18\x02 \x01(\tR\n" +
 	"PathPrefix\x12\x1c\n" +
 	"\tPathRegex\x18\x03 \x01(\tR\tPathRegex\x12\\\n" +
-	"\x06Header\x18\x04 \x03(\v2D.hashicorp.consul.internal.configentry.IntentionHTTPHeaderPermissionR\x06Header\x12\x18\n" +
+	"\x06Header\x18\x04 \x03(\v2D.dumb-hashicorp.dumb-consul.internal.configentry.IntentionHTTPHeaderPermissionR\x06Header\x12\x18\n" +
 	"\aMethods\x18\x05 \x03(\tR\aMethods\"\xfd\x01\n" +
 	"\x1dIntentionHTTPHeaderPermission\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x18\n" +
@@ -8910,24 +8910,24 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\n" +
 	"\x0fServiceDefaults\x12\x1a\n" +
 	"\bProtocol\x18\x01 \x01(\tR\bProtocol\x12D\n" +
-	"\x04Mode\x18\x02 \x01(\x0e20.hashicorp.consul.internal.configentry.ProxyModeR\x04Mode\x12i\n" +
-	"\x10TransparentProxy\x18\x03 \x01(\v2=.hashicorp.consul.internal.configentry.TransparentProxyConfigR\x10TransparentProxy\x12Z\n" +
-	"\vMeshGateway\x18\x04 \x01(\v28.hashicorp.consul.internal.configentry.MeshGatewayConfigR\vMeshGateway\x12K\n" +
-	"\x06Expose\x18\x05 \x01(\v23.hashicorp.consul.internal.configentry.ExposeConfigR\x06Expose\x12 \n" +
+	"\x04Mode\x18\x02 \x01(\x0e20.dumb-hashicorp.dumb-consul.internal.configentry.ProxyModeR\x04Mode\x12i\n" +
+	"\x10TransparentProxy\x18\x03 \x01(\v2=.dumb-hashicorp.dumb-consul.internal.configentry.TransparentProxyConfigR\x10TransparentProxy\x12Z\n" +
+	"\vMeshGateway\x18\x04 \x01(\v28.dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayConfigR\vMeshGateway\x12K\n" +
+	"\x06Expose\x18\x05 \x01(\v23.dumb-hashicorp.dumb-consul.internal.configentry.ExposeConfigR\x06Expose\x12 \n" +
 	"\vExternalSNI\x18\x06 \x01(\tR\vExternalSNI\x12d\n" +
-	"\x0eUpstreamConfig\x18\a \x01(\v2<.hashicorp.consul.internal.configentry.UpstreamConfigurationR\x0eUpstreamConfig\x12Z\n" +
-	"\vDestination\x18\b \x01(\v28.hashicorp.consul.internal.configentry.DestinationConfigR\vDestination\x124\n" +
+	"\x0eUpstreamConfig\x18\a \x01(\v2<.dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfigurationR\x0eUpstreamConfig\x12Z\n" +
+	"\vDestination\x18\b \x01(\v28.dumb-hashicorp.dumb-consul.internal.configentry.DestinationConfigR\vDestination\x124\n" +
 	"\x15MaxInboundConnections\x18\t \x01(\x05R\x15MaxInboundConnections\x124\n" +
 	"\x15LocalConnectTimeoutMs\x18\n" +
 	" \x01(\x05R\x15LocalConnectTimeoutMs\x124\n" +
 	"\x15LocalRequestTimeoutMs\x18\v \x01(\x05R\x15LocalRequestTimeoutMs\x12<\n" +
 	"\x19BalanceInboundConnections\x18\f \x01(\tR\x19BalanceInboundConnections\x12Q\n" +
 	"\n" +
-	"RateLimits\x18\x10 \x01(\v21.hashicorp.consul.internal.configentry.RateLimitsR\n" +
+	"RateLimits\x18\x10 \x01(\v21.dumb-hashicorp.dumb-consul.internal.configentry.RateLimitsR\n" +
 	"RateLimits\x12T\n" +
-	"\x04Meta\x18\r \x03(\v2@.hashicorp.consul.internal.configentry.ServiceDefaults.MetaEntryR\x04Meta\x12Z\n" +
-	"\x0fEnvoyExtensions\x18\x0e \x03(\v20.hashicorp.consul.internal.common.EnvoyExtensionR\x0fEnvoyExtensions\x12Z\n" +
-	"\rMutualTLSMode\x18\x0f \x01(\x0e24.hashicorp.consul.internal.configentry.MutualTLSModeR\rMutualTLSMode\x12\x12\n" +
+	"\x04Meta\x18\r \x03(\v2@.dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.MetaEntryR\x04Meta\x12Z\n" +
+	"\x0fEnvoyExtensions\x18\x0e \x03(\v20.dumb-hashicorp.dumb-consul.internal.common.EnvoyExtensionR\x0fEnvoyExtensions\x12Z\n" +
+	"\rMutualTLSMode\x18\x0f \x01(\x0e24.dumb-hashicorp.dumb-consul.internal.configentry.MutualTLSModeR\rMutualTLSMode\x12\x12\n" +
 	"\x04Hash\x18\x11 \x01(\x04R\x04Hash\x125\n" +
 	"\x13MaxRequestHeadersKB\x18\x12 \x01(\rH\x00R\x13MaxRequestHeadersKB\x88\x01\x01\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
@@ -8938,10 +8938,10 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x14OutboundListenerPort\x18\x01 \x01(\x05R\x14OutboundListenerPort\x12&\n" +
 	"\x0eDialedDirectly\x18\x02 \x01(\bR\x0eDialedDirectly\"_\n" +
 	"\x11MeshGatewayConfig\x12J\n" +
-	"\x04Mode\x18\x01 \x01(\x0e26.hashicorp.consul.internal.configentry.MeshGatewayModeR\x04Mode\"o\n" +
+	"\x04Mode\x18\x01 \x01(\x0e26.dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayModeR\x04Mode\"o\n" +
 	"\fExposeConfig\x12\x16\n" +
 	"\x06Checks\x18\x01 \x01(\bR\x06Checks\x12G\n" +
-	"\x05Paths\x18\x02 \x03(\v21.hashicorp.consul.internal.configentry.ExposePathR\x05Paths\"\xb0\x01\n" +
+	"\x05Paths\x18\x02 \x03(\v21.dumb-hashicorp.dumb-consul.internal.configentry.ExposePathR\x05Paths\"\xb0\x01\n" +
 	"\n" +
 	"ExposePath\x12\"\n" +
 	"\fListenerPort\x18\x01 \x01(\x05R\fListenerPort\x12\x12\n" +
@@ -8950,18 +8950,18 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\bProtocol\x18\x04 \x01(\tR\bProtocol\x12(\n" +
 	"\x0fParsedFromCheck\x18\x05 \x01(\bR\x0fParsedFromCheck\"\xbf\x01\n" +
 	"\x15UpstreamConfiguration\x12S\n" +
-	"\tOverrides\x18\x01 \x03(\v25.hashicorp.consul.internal.configentry.UpstreamConfigR\tOverrides\x12Q\n" +
-	"\bDefaults\x18\x02 \x01(\v25.hashicorp.consul.internal.configentry.UpstreamConfigR\bDefaults\"\x8a\x05\n" +
+	"\tOverrides\x18\x01 \x03(\v25.dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfigR\tOverrides\x12Q\n" +
+	"\bDefaults\x18\x02 \x01(\v25.dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfigR\bDefaults\"\x8a\x05\n" +
 	"\x0eUpstreamConfig\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12,\n" +
+	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12,\n" +
 	"\x11EnvoyListenerJSON\x18\x03 \x01(\tR\x11EnvoyListenerJSON\x12*\n" +
 	"\x10EnvoyClusterJSON\x18\x04 \x01(\tR\x10EnvoyClusterJSON\x12\x1a\n" +
 	"\bProtocol\x18\x05 \x01(\tR\bProtocol\x12*\n" +
 	"\x10ConnectTimeoutMs\x18\x06 \x01(\x05R\x10ConnectTimeoutMs\x12M\n" +
-	"\x06Limits\x18\a \x01(\v25.hashicorp.consul.internal.configentry.UpstreamLimitsR\x06Limits\x12i\n" +
-	"\x12PassiveHealthCheck\x18\b \x01(\v29.hashicorp.consul.internal.configentry.PassiveHealthCheckR\x12PassiveHealthCheck\x12Z\n" +
-	"\vMeshGateway\x18\t \x01(\v28.hashicorp.consul.internal.configentry.MeshGatewayConfigR\vMeshGateway\x12>\n" +
+	"\x06Limits\x18\a \x01(\v25.dumb-hashicorp.dumb-consul.internal.configentry.UpstreamLimitsR\x06Limits\x12i\n" +
+	"\x12PassiveHealthCheck\x18\b \x01(\v29.dumb-hashicorp.dumb-consul.internal.configentry.PassiveHealthCheckR\x12PassiveHealthCheck\x12Z\n" +
+	"\vMeshGateway\x18\t \x01(\v28.dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayConfigR\vMeshGateway\x12>\n" +
 	"\x1aBalanceOutboundConnections\x18\n" +
 	" \x01(\tR\x1aBalanceOutboundConnections\x12\x12\n" +
 	"\x04Peer\x18\v \x01(\tR\x04Peer\"\x9e\x01\n" +
@@ -8980,11 +8980,11 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x04Port\x18\x02 \x01(\x05R\x04Port\"r\n" +
 	"\n" +
 	"RateLimits\x12d\n" +
-	"\rInstanceLevel\x18\x01 \x01(\v2>.hashicorp.consul.internal.configentry.InstanceLevelRateLimitsR\rInstanceLevel\"\xd0\x01\n" +
+	"\rInstanceLevel\x18\x01 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.InstanceLevelRateLimitsR\rInstanceLevel\"\xd0\x01\n" +
 	"\x17InstanceLevelRateLimits\x12,\n" +
 	"\x11RequestsPerSecond\x18\x01 \x01(\rR\x11RequestsPerSecond\x12*\n" +
 	"\x10RequestsMaxBurst\x18\x02 \x01(\rR\x10RequestsMaxBurst\x12[\n" +
-	"\x06Routes\x18\x03 \x03(\v2C.hashicorp.consul.internal.configentry.InstanceLevelRouteRateLimitsR\x06Routes\"\xd4\x01\n" +
+	"\x06Routes\x18\x03 \x03(\v2C.dumb-hashicorp.dumb-consul.internal.configentry.InstanceLevelRouteRateLimitsR\x06Routes\"\xd4\x01\n" +
 	"\x1cInstanceLevelRouteRateLimits\x12\x1c\n" +
 	"\tPathExact\x18\x01 \x01(\tR\tPathExact\x12\x1e\n" +
 	"\n" +
@@ -8995,38 +8995,38 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x10RequestsMaxBurst\x18\x05 \x01(\rR\x10RequestsMaxBurst\"\xe8\x03\n" +
 	"\n" +
 	"APIGateway\x12O\n" +
-	"\x04Meta\x18\x01 \x03(\v2;.hashicorp.consul.internal.configentry.APIGateway.MetaEntryR\x04Meta\x12W\n" +
-	"\tListeners\x18\x02 \x03(\v29.hashicorp.consul.internal.configentry.APIGatewayListenerR\tListeners\x12E\n" +
-	"\x06Status\x18\x03 \x01(\v2-.hashicorp.consul.internal.configentry.StatusR\x06Status\x12\x12\n" +
+	"\x04Meta\x18\x01 \x03(\v2;.dumb-hashicorp.dumb-consul.internal.configentry.APIGateway.MetaEntryR\x04Meta\x12W\n" +
+	"\tListeners\x18\x02 \x03(\v29.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListenerR\tListeners\x12E\n" +
+	"\x06Status\x18\x03 \x01(\v2-.dumb-hashicorp.dumb-consul.internal.configentry.StatusR\x06Status\x12\x12\n" +
 	"\x04Hash\x18\x04 \x01(\x04R\x04Hash\x12I\n" +
-	"\x03TLS\x18\x05 \x01(\v27.hashicorp.consul.internal.configentry.GatewayTLSConfigR\x03TLS\x12Q\n" +
-	"\bDefaults\x18\x06 \x01(\v25.hashicorp.consul.internal.configentry.UpstreamLimitsR\bDefaults\x1a7\n" +
+	"\x03TLS\x18\x05 \x01(\v27.dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSConfigR\x03TLS\x12Q\n" +
+	"\bDefaults\x18\x06 \x01(\v25.dumb-hashicorp.dumb-consul.internal.configentry.UpstreamLimitsR\bDefaults\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"Z\n" +
 	"\x06Status\x12P\n" +
 	"\n" +
-	"Conditions\x18\x01 \x03(\v20.hashicorp.consul.internal.configentry.ConditionR\n" +
+	"Conditions\x18\x01 \x03(\v20.dumb-hashicorp.dumb-consul.internal.configentry.ConditionR\n" +
 	"Conditions\"\x8b\x02\n" +
 	"\tCondition\x12\x12\n" +
 	"\x04Type\x18\x01 \x01(\tR\x04Type\x12\x16\n" +
 	"\x06Status\x18\x02 \x01(\tR\x06Status\x12\x16\n" +
 	"\x06Reason\x18\x03 \x01(\tR\x06Reason\x12\x18\n" +
 	"\aMessage\x18\x04 \x01(\tR\aMessage\x12T\n" +
-	"\bResource\x18\x05 \x01(\v28.hashicorp.consul.internal.configentry.ResourceReferenceR\bResource\x12J\n" +
+	"\bResource\x18\x05 \x01(\v28.dumb-hashicorp.dumb-consul.internal.configentry.ResourceReferenceR\bResource\x12J\n" +
 	"\x12LastTransitionTime\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\x12LastTransitionTime\"\x83\x04\n" +
 	"\x12APIGatewayListener\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x1a\n" +
 	"\bHostname\x18\x02 \x01(\tR\bHostname\x12\x12\n" +
 	"\x04Port\x18\x03 \x01(\x05R\x04Port\x12]\n" +
-	"\bProtocol\x18\x04 \x01(\x0e2A.hashicorp.consul.internal.configentry.APIGatewayListenerProtocolR\bProtocol\x12S\n" +
-	"\x03TLS\x18\x05 \x01(\v2A.hashicorp.consul.internal.configentry.APIGatewayTLSConfigurationR\x03TLS\x12S\n" +
-	"\bOverride\x18\x06 \x01(\v27.hashicorp.consul.internal.configentry.APIGatewayPolicyR\bOverride\x12Q\n" +
-	"\aDefault\x18\a \x01(\v27.hashicorp.consul.internal.configentry.APIGatewayPolicyR\aDefault\x125\n" +
+	"\bProtocol\x18\x04 \x01(\x0e2A.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListenerProtocolR\bProtocol\x12S\n" +
+	"\x03TLS\x18\x05 \x01(\v2A.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayTLSConfigurationR\x03TLS\x12S\n" +
+	"\bOverride\x18\x06 \x01(\v27.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayPolicyR\bOverride\x12Q\n" +
+	"\aDefault\x18\a \x01(\v27.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayPolicyR\aDefault\x125\n" +
 	"\x13MaxRequestHeadersKB\x18\b \x01(\rH\x00R\x13MaxRequestHeadersKB\x88\x01\x01B\x16\n" +
 	"\x14_MaxRequestHeadersKB\"\xac\x02\n" +
 	"\x1aAPIGatewayTLSConfiguration\x12\\\n" +
-	"\fCertificates\x18\x01 \x03(\v28.hashicorp.consul.internal.configentry.ResourceReferenceR\fCertificates\x12\x1e\n" +
+	"\fCertificates\x18\x01 \x03(\v28.dumb-hashicorp.dumb-consul.internal.configentry.ResourceReferenceR\fCertificates\x12\x1e\n" +
 	"\n" +
 	"MinVersion\x18\x02 \x01(\tR\n" +
 	"MinVersion\x12\x1e\n" +
@@ -9034,14 +9034,14 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"MaxVersion\x18\x03 \x01(\tR\n" +
 	"MaxVersion\x12\"\n" +
 	"\fCipherSuites\x18\x04 \x03(\tR\fCipherSuites\x12L\n" +
-	"\x03SDS\x18\x05 \x01(\v2:.hashicorp.consul.internal.configentry.GatewayTLSSDSConfigR\x03SDS\"e\n" +
+	"\x03SDS\x18\x05 \x01(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSSDSConfigR\x03SDS\"e\n" +
 	"\x10APIGatewayPolicy\x12Q\n" +
-	"\x03JWT\x18\x01 \x01(\v2?.hashicorp.consul.internal.configentry.APIGatewayJWTRequirementR\x03JWT\"v\n" +
+	"\x03JWT\x18\x01 \x01(\v2?.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTRequirementR\x03JWT\"v\n" +
 	"\x18APIGatewayJWTRequirement\x12Z\n" +
-	"\tProviders\x18\x01 \x03(\v2<.hashicorp.consul.internal.configentry.APIGatewayJWTProviderR\tProviders\"\x96\x01\n" +
+	"\tProviders\x18\x01 \x03(\v2<.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTProviderR\tProviders\"\x96\x01\n" +
 	"\x15APIGatewayJWTProvider\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12i\n" +
-	"\fVerifyClaims\x18\x02 \x03(\v2E.hashicorp.consul.internal.configentry.APIGatewayJWTClaimVerificationR\fVerifyClaims\"J\n" +
+	"\fVerifyClaims\x18\x02 \x03(\v2E.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTClaimVerificationR\fVerifyClaims\"J\n" +
 	"\x1eAPIGatewayJWTClaimVerification\x12\x12\n" +
 	"\x04Path\x18\x01 \x03(\tR\x04Path\x12\x14\n" +
 	"\x05Value\x18\x02 \x01(\tR\x05Value\"\xb7\x01\n" +
@@ -9049,26 +9049,26 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x04Kind\x18\x01 \x01(\tR\x04Kind\x12\x12\n" +
 	"\x04Name\x18\x02 \x01(\tR\x04Name\x12 \n" +
 	"\vSectionName\x18\x03 \x01(\tR\vSectionName\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x04 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\"\xf1\x03\n" +
+	"\x0eEnterpriseMeta\x18\x04 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\"\xf1\x03\n" +
 	"\x0fBoundAPIGateway\x12T\n" +
-	"\x04Meta\x18\x01 \x03(\v2@.hashicorp.consul.internal.configentry.BoundAPIGateway.MetaEntryR\x04Meta\x12\\\n" +
-	"\tListeners\x18\x02 \x03(\v2>.hashicorp.consul.internal.configentry.BoundAPIGatewayListenerR\tListeners\x12`\n" +
-	"\bServices\x18\x03 \x03(\v2D.hashicorp.consul.internal.configentry.BoundAPIGateway.ServicesEntryR\bServices\x12\x12\n" +
+	"\x04Meta\x18\x01 \x03(\v2@.dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.MetaEntryR\x04Meta\x12\\\n" +
+	"\tListeners\x18\x02 \x03(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGatewayListenerR\tListeners\x12`\n" +
+	"\bServices\x18\x03 \x03(\v2D.dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.ServicesEntryR\bServices\x12\x12\n" +
 	"\x04Hash\x18\x04 \x01(\x04R\x04Hash\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\x1a{\n" +
 	"\rServicesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12T\n" +
-	"\x05value\x18\x02 \x01(\v2>.hashicorp.consul.internal.configentry.ListOfResourceReferenceR\x05value:\x028\x01\"e\n" +
+	"\x05value\x18\x02 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.ListOfResourceReferenceR\x05value:\x028\x01\"e\n" +
 	"\x17ListOfResourceReference\x12J\n" +
-	"\x03Ref\x18\x01 \x03(\v28.hashicorp.consul.internal.configentry.ResourceReferenceR\x03Ref\"\xdd\x01\n" +
+	"\x03Ref\x18\x01 \x03(\v28.dumb-hashicorp.dumb-consul.internal.configentry.ResourceReferenceR\x03Ref\"\xdd\x01\n" +
 	"\x17BoundAPIGatewayListener\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\\\n" +
-	"\fCertificates\x18\x02 \x03(\v28.hashicorp.consul.internal.configentry.ResourceReferenceR\fCertificates\x12P\n" +
-	"\x06Routes\x18\x03 \x03(\v28.hashicorp.consul.internal.configentry.ResourceReferenceR\x06Routes\"\x82\x02\n" +
+	"\fCertificates\x18\x02 \x03(\v28.dumb-hashicorp.dumb-consul.internal.configentry.ResourceReferenceR\fCertificates\x12P\n" +
+	"\x06Routes\x18\x03 \x03(\v28.dumb-hashicorp.dumb-consul.internal.configentry.ResourceReferenceR\x06Routes\"\x82\x02\n" +
 	"\x15FileSystemCertificate\x12Z\n" +
-	"\x04Meta\x18\x01 \x03(\v2F.hashicorp.consul.internal.configentry.FileSystemCertificate.MetaEntryR\x04Meta\x12 \n" +
+	"\x04Meta\x18\x01 \x03(\v2F.dumb-hashicorp.dumb-consul.internal.configentry.FileSystemCertificate.MetaEntryR\x04Meta\x12 \n" +
 	"\vCertificate\x18\x02 \x01(\tR\vCertificate\x12\x1e\n" +
 	"\n" +
 	"PrivateKey\x18\x03 \x01(\tR\n" +
@@ -9078,7 +9078,7 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xfa\x01\n" +
 	"\x11InlineCertificate\x12V\n" +
-	"\x04Meta\x18\x01 \x03(\v2B.hashicorp.consul.internal.configentry.InlineCertificate.MetaEntryR\x04Meta\x12 \n" +
+	"\x04Meta\x18\x01 \x03(\v2B.dumb-hashicorp.dumb-consul.internal.configentry.InlineCertificate.MetaEntryR\x04Meta\x12 \n" +
 	"\vCertificate\x18\x02 \x01(\tR\vCertificate\x12\x1e\n" +
 	"\n" +
 	"PrivateKey\x18\x03 \x01(\tR\n" +
@@ -9088,46 +9088,46 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xad\x03\n" +
 	"\tHTTPRoute\x12N\n" +
-	"\x04Meta\x18\x01 \x03(\v2:.hashicorp.consul.internal.configentry.HTTPRoute.MetaEntryR\x04Meta\x12R\n" +
-	"\aParents\x18\x02 \x03(\v28.hashicorp.consul.internal.configentry.ResourceReferenceR\aParents\x12J\n" +
-	"\x05Rules\x18\x03 \x03(\v24.hashicorp.consul.internal.configentry.HTTPRouteRuleR\x05Rules\x12\x1c\n" +
+	"\x04Meta\x18\x01 \x03(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.HTTPRoute.MetaEntryR\x04Meta\x12R\n" +
+	"\aParents\x18\x02 \x03(\v28.dumb-hashicorp.dumb-consul.internal.configentry.ResourceReferenceR\aParents\x12J\n" +
+	"\x05Rules\x18\x03 \x03(\v24.dumb-hashicorp.dumb-consul.internal.configentry.HTTPRouteRuleR\x05Rules\x12\x1c\n" +
 	"\tHostnames\x18\x04 \x03(\tR\tHostnames\x12E\n" +
-	"\x06Status\x18\x05 \x01(\v2-.hashicorp.consul.internal.configentry.StatusR\x06Status\x12\x12\n" +
+	"\x06Status\x18\x05 \x01(\v2-.dumb-hashicorp.dumb-consul.internal.configentry.StatusR\x06Status\x12\x12\n" +
 	"\x04Hash\x18\x06 \x01(\x04R\x04Hash\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xdf\x02\n" +
 	"\rHTTPRouteRule\x12L\n" +
-	"\aFilters\x18\x01 \x01(\v22.hashicorp.consul.internal.configentry.HTTPFiltersR\aFilters\x12J\n" +
-	"\aMatches\x18\x02 \x03(\v20.hashicorp.consul.internal.configentry.HTTPMatchR\aMatches\x12N\n" +
-	"\bServices\x18\x03 \x03(\v22.hashicorp.consul.internal.configentry.HTTPServiceR\bServices\x12d\n" +
-	"\x0fResponseFilters\x18\x04 \x01(\v2:.hashicorp.consul.internal.configentry.HTTPResponseFiltersR\x0fResponseFilters\"\xc4\x02\n" +
+	"\aFilters\x18\x01 \x01(\v22.dumb-hashicorp.dumb-consul.internal.configentry.HTTPFiltersR\aFilters\x12J\n" +
+	"\aMatches\x18\x02 \x03(\v20.dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatchR\aMatches\x12N\n" +
+	"\bServices\x18\x03 \x03(\v22.dumb-hashicorp.dumb-consul.internal.configentry.HTTPServiceR\bServices\x12d\n" +
+	"\x0fResponseFilters\x18\x04 \x01(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.HTTPResponseFiltersR\x0fResponseFilters\"\xc4\x02\n" +
 	"\tHTTPMatch\x12P\n" +
-	"\aHeaders\x18\x01 \x03(\v26.hashicorp.consul.internal.configentry.HTTPHeaderMatchR\aHeaders\x12N\n" +
-	"\x06Method\x18\x02 \x01(\x0e26.hashicorp.consul.internal.configentry.HTTPMatchMethodR\x06Method\x12H\n" +
-	"\x04Path\x18\x03 \x01(\v24.hashicorp.consul.internal.configentry.HTTPPathMatchR\x04Path\x12K\n" +
-	"\x05Query\x18\x04 \x03(\v25.hashicorp.consul.internal.configentry.HTTPQueryMatchR\x05Query\"\x8d\x01\n" +
+	"\aHeaders\x18\x01 \x03(\v26.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderMatchR\aHeaders\x12N\n" +
+	"\x06Method\x18\x02 \x01(\x0e26.dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatchMethodR\x06Method\x12H\n" +
+	"\x04Path\x18\x03 \x01(\v24.dumb-hashicorp.dumb-consul.internal.configentry.HTTPPathMatchR\x04Path\x12K\n" +
+	"\x05Query\x18\x04 \x03(\v25.dumb-hashicorp.dumb-consul.internal.configentry.HTTPQueryMatchR\x05Query\"\x8d\x01\n" +
 	"\x0fHTTPHeaderMatch\x12P\n" +
-	"\x05Match\x18\x01 \x01(\x0e2:.hashicorp.consul.internal.configentry.HTTPHeaderMatchTypeR\x05Match\x12\x12\n" +
+	"\x05Match\x18\x01 \x01(\x0e2:.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderMatchTypeR\x05Match\x12\x12\n" +
 	"\x04Name\x18\x02 \x01(\tR\x04Name\x12\x14\n" +
 	"\x05Value\x18\x03 \x01(\tR\x05Value\"u\n" +
 	"\rHTTPPathMatch\x12N\n" +
-	"\x05Match\x18\x01 \x01(\x0e28.hashicorp.consul.internal.configentry.HTTPPathMatchTypeR\x05Match\x12\x14\n" +
+	"\x05Match\x18\x01 \x01(\x0e28.dumb-hashicorp.dumb-consul.internal.configentry.HTTPPathMatchTypeR\x05Match\x12\x14\n" +
 	"\x05Value\x18\x02 \x01(\tR\x05Value\"\x8b\x01\n" +
 	"\x0eHTTPQueryMatch\x12O\n" +
-	"\x05Match\x18\x01 \x01(\x0e29.hashicorp.consul.internal.configentry.HTTPQueryMatchTypeR\x05Match\x12\x12\n" +
+	"\x05Match\x18\x01 \x01(\x0e29.dumb-hashicorp.dumb-consul.internal.configentry.HTTPQueryMatchTypeR\x05Match\x12\x12\n" +
 	"\x04Name\x18\x02 \x01(\tR\x04Name\x12\x14\n" +
 	"\x05Value\x18\x03 \x01(\tR\x05Value\"\xa9\x03\n" +
 	"\vHTTPFilters\x12Q\n" +
-	"\aHeaders\x18\x01 \x03(\v27.hashicorp.consul.internal.configentry.HTTPHeaderFilterR\aHeaders\x12Q\n" +
+	"\aHeaders\x18\x01 \x03(\v27.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilterR\aHeaders\x12Q\n" +
 	"\n" +
-	"URLRewrite\x18\x02 \x01(\v21.hashicorp.consul.internal.configentry.URLRewriteR\n" +
+	"URLRewrite\x18\x02 \x01(\v21.dumb-hashicorp.dumb-consul.internal.configentry.URLRewriteR\n" +
 	"URLRewrite\x12T\n" +
-	"\vRetryFilter\x18\x03 \x01(\v22.hashicorp.consul.internal.configentry.RetryFilterR\vRetryFilter\x12Z\n" +
-	"\rTimeoutFilter\x18\x04 \x01(\v24.hashicorp.consul.internal.configentry.TimeoutFilterR\rTimeoutFilter\x12B\n" +
-	"\x03JWT\x18\x05 \x01(\v20.hashicorp.consul.internal.configentry.JWTFilterR\x03JWT\"h\n" +
+	"\vRetryFilter\x18\x03 \x01(\v22.dumb-hashicorp.dumb-consul.internal.configentry.RetryFilterR\vRetryFilter\x12Z\n" +
+	"\rTimeoutFilter\x18\x04 \x01(\v24.dumb-hashicorp.dumb-consul.internal.configentry.TimeoutFilterR\rTimeoutFilter\x12B\n" +
+	"\x03JWT\x18\x05 \x01(\v20.dumb-hashicorp.dumb-consul.internal.configentry.JWTFilterR\x03JWT\"h\n" +
 	"\x13HTTPResponseFilters\x12Q\n" +
-	"\aHeaders\x18\x01 \x03(\v27.hashicorp.consul.internal.configentry.HTTPHeaderFilterR\aHeaders\" \n" +
+	"\aHeaders\x18\x01 \x03(\v27.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilterR\aHeaders\" \n" +
 	"\n" +
 	"URLRewrite\x12\x12\n" +
 	"\x04Path\x18\x01 \x01(\tR\x04Path\"\xad\x01\n" +
@@ -9142,11 +9142,11 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x0eRequestTimeout\x18\x01 \x01(\v2\x19.google.protobuf.DurationR\x0eRequestTimeout\x12;\n" +
 	"\vIdleTimeout\x18\x02 \x01(\v2\x19.google.protobuf.DurationR\vIdleTimeout\"g\n" +
 	"\tJWTFilter\x12Z\n" +
-	"\tProviders\x18\x01 \x03(\v2<.hashicorp.consul.internal.configentry.APIGatewayJWTProviderR\tProviders\"\xc2\x02\n" +
+	"\tProviders\x18\x01 \x03(\v2<.dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTProviderR\tProviders\"\xc2\x02\n" +
 	"\x10HTTPHeaderFilter\x12R\n" +
-	"\x03Add\x18\x01 \x03(\v2@.hashicorp.consul.internal.configentry.HTTPHeaderFilter.AddEntryR\x03Add\x12\x16\n" +
+	"\x03Add\x18\x01 \x03(\v2@.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter.AddEntryR\x03Add\x12\x16\n" +
 	"\x06Remove\x18\x02 \x03(\tR\x06Remove\x12R\n" +
-	"\x03Set\x18\x03 \x03(\v2@.hashicorp.consul.internal.configentry.HTTPHeaderFilter.SetEntryR\x03Set\x1a6\n" +
+	"\x03Set\x18\x03 \x03(\v2@.dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter.SetEntryR\x03Set\x1a6\n" +
 	"\bAddEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\x1a6\n" +
@@ -9156,16 +9156,16 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\vHTTPService\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x16\n" +
 	"\x06Weight\x18\x02 \x01(\x05R\x06Weight\x12L\n" +
-	"\aFilters\x18\x03 \x01(\v22.hashicorp.consul.internal.configentry.HTTPFiltersR\aFilters\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x04 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12d\n" +
-	"\x0fResponseFilters\x18\x05 \x01(\v2:.hashicorp.consul.internal.configentry.HTTPResponseFiltersR\x0fResponseFilters\x12P\n" +
-	"\x03TLS\x18\x06 \x01(\v2>.hashicorp.consul.internal.configentry.GatewayServiceTLSConfigR\x03TLS\x12M\n" +
-	"\x06Limits\x18\a \x01(\v25.hashicorp.consul.internal.configentry.UpstreamLimitsR\x06Limits\"\x90\x03\n" +
+	"\aFilters\x18\x03 \x01(\v22.dumb-hashicorp.dumb-consul.internal.configentry.HTTPFiltersR\aFilters\x12X\n" +
+	"\x0eEnterpriseMeta\x18\x04 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12d\n" +
+	"\x0fResponseFilters\x18\x05 \x01(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.HTTPResponseFiltersR\x0fResponseFilters\x12P\n" +
+	"\x03TLS\x18\x06 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.GatewayServiceTLSConfigR\x03TLS\x12M\n" +
+	"\x06Limits\x18\a \x01(\v25.dumb-hashicorp.dumb-consul.internal.configentry.UpstreamLimitsR\x06Limits\"\x90\x03\n" +
 	"\bTCPRoute\x12M\n" +
-	"\x04Meta\x18\x01 \x03(\v29.hashicorp.consul.internal.configentry.TCPRoute.MetaEntryR\x04Meta\x12R\n" +
-	"\aParents\x18\x02 \x03(\v28.hashicorp.consul.internal.configentry.ResourceReferenceR\aParents\x12M\n" +
-	"\bServices\x18\x03 \x03(\v21.hashicorp.consul.internal.configentry.TCPServiceR\bServices\x12E\n" +
-	"\x06Status\x18\x04 \x01(\v2-.hashicorp.consul.internal.configentry.StatusR\x06Status\x12\x12\n" +
+	"\x04Meta\x18\x01 \x03(\v29.dumb-hashicorp.dumb-consul.internal.configentry.TCPRoute.MetaEntryR\x04Meta\x12R\n" +
+	"\aParents\x18\x02 \x03(\v28.dumb-hashicorp.dumb-consul.internal.configentry.ResourceReferenceR\aParents\x12M\n" +
+	"\bServices\x18\x03 \x03(\v21.dumb-hashicorp.dumb-consul.internal.configentry.TCPServiceR\bServices\x12E\n" +
+	"\x06Status\x18\x04 \x01(\v2-.dumb-hashicorp.dumb-consul.internal.configentry.StatusR\x06Status\x12\x12\n" +
 	"\x04Hash\x18\x05 \x01(\x04R\x04Hash\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
@@ -9173,16 +9173,16 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\n" +
 	"TCPService\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12P\n" +
-	"\x03TLS\x18\x03 \x01(\v2>.hashicorp.consul.internal.configentry.GatewayServiceTLSConfigR\x03TLS\x12M\n" +
-	"\x06Limits\x18\x04 \x01(\v25.hashicorp.consul.internal.configentry.UpstreamLimitsR\x06Limits\"\xc8\x03\n" +
+	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12P\n" +
+	"\x03TLS\x18\x03 \x01(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.GatewayServiceTLSConfigR\x03TLS\x12M\n" +
+	"\x06Limits\x18\x04 \x01(\v25.dumb-hashicorp.dumb-consul.internal.configentry.UpstreamLimitsR\x06Limits\"\xc8\x03\n" +
 	"\rSamenessGroup\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12.\n" +
 	"\x12DefaultForFailover\x18\x02 \x01(\bR\x12DefaultForFailover\x12\"\n" +
 	"\fIncludeLocal\x18\x03 \x01(\bR\fIncludeLocal\x12T\n" +
-	"\aMembers\x18\x04 \x03(\v2:.hashicorp.consul.internal.configentry.SamenessGroupMemberR\aMembers\x12R\n" +
-	"\x04Meta\x18\x05 \x03(\v2>.hashicorp.consul.internal.configentry.SamenessGroup.MetaEntryR\x04Meta\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x06 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x12\n" +
+	"\aMembers\x18\x04 \x03(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroupMemberR\aMembers\x12R\n" +
+	"\x04Meta\x18\x05 \x03(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroup.MetaEntryR\x04Meta\x12X\n" +
+	"\x0eEnterpriseMeta\x18\x06 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x12\n" +
 	"\x04Hash\x18\a \x01(\x04R\x04Hash\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
@@ -9191,23 +9191,23 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\tPartition\x18\x01 \x01(\tR\tPartition\x12\x12\n" +
 	"\x04Peer\x18\x02 \x01(\tR\x04Peer\"\xf1\x04\n" +
 	"\vJWTProvider\x12Z\n" +
-	"\rJSONWebKeySet\x18\x01 \x01(\v24.hashicorp.consul.internal.configentry.JSONWebKeySetR\rJSONWebKeySet\x12\x16\n" +
+	"\rJSONWebKeySet\x18\x01 \x01(\v24.dumb-hashicorp.dumb-consul.internal.configentry.JSONWebKeySetR\rJSONWebKeySet\x12\x16\n" +
 	"\x06Issuer\x18\x02 \x01(\tR\x06Issuer\x12\x1c\n" +
 	"\tAudiences\x18\x03 \x03(\tR\tAudiences\x12P\n" +
-	"\tLocations\x18\x04 \x03(\v22.hashicorp.consul.internal.configentry.JWTLocationR\tLocations\x12Z\n" +
+	"\tLocations\x18\x04 \x03(\v22.dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationR\tLocations\x12Z\n" +
 	"\n" +
-	"Forwarding\x18\x05 \x01(\v2:.hashicorp.consul.internal.configentry.JWTForwardingConfigR\n" +
+	"Forwarding\x18\x05 \x01(\v2:.dumb-hashicorp.dumb-consul.internal.configentry.JWTForwardingConfigR\n" +
 	"Forwarding\x12W\n" +
-	"\vCacheConfig\x18\x06 \x01(\v25.hashicorp.consul.internal.configentry.JWTCacheConfigR\vCacheConfig\x12P\n" +
-	"\x04Meta\x18\a \x03(\v2<.hashicorp.consul.internal.configentry.JWTProvider.MetaEntryR\x04Meta\x12*\n" +
+	"\vCacheConfig\x18\x06 \x01(\v25.dumb-hashicorp.dumb-consul.internal.configentry.JWTCacheConfigR\vCacheConfig\x12P\n" +
+	"\x04Meta\x18\a \x03(\v2<.dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider.MetaEntryR\x04Meta\x12*\n" +
 	"\x10ClockSkewSeconds\x18\b \x01(\x05R\x10ClockSkewSeconds\x12\x12\n" +
 	"\x04Hash\x18\t \x01(\x04R\x04Hash\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xa2\x01\n" +
 	"\rJSONWebKeySet\x12F\n" +
-	"\x05Local\x18\x01 \x01(\v20.hashicorp.consul.internal.configentry.LocalJWKSR\x05Local\x12I\n" +
-	"\x06Remote\x18\x02 \x01(\v21.hashicorp.consul.internal.configentry.RemoteJWKSR\x06Remote\";\n" +
+	"\x05Local\x18\x01 \x01(\v20.dumb-hashicorp.dumb-consul.internal.configentry.LocalJWKSR\x05Local\x12I\n" +
+	"\x06Remote\x18\x02 \x01(\v21.dumb-hashicorp.dumb-consul.internal.configentry.RemoteJWKSR\x06Remote\";\n" +
 	"\tLocalJWKS\x12\x12\n" +
 	"\x04JWKS\x18\x01 \x01(\tR\x04JWKS\x12\x1a\n" +
 	"\bFilename\x18\x02 \x01(\tR\bFilename\"\x85\x03\n" +
@@ -9217,16 +9217,16 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x10RequestTimeoutMs\x18\x02 \x01(\x05R\x10RequestTimeoutMs\x12?\n" +
 	"\rCacheDuration\x18\x03 \x01(\v2\x19.google.protobuf.DurationR\rCacheDuration\x120\n" +
 	"\x13FetchAsynchronously\x18\x04 \x01(\bR\x13FetchAsynchronously\x12X\n" +
-	"\vRetryPolicy\x18\x05 \x01(\v26.hashicorp.consul.internal.configentry.JWKSRetryPolicyR\vRetryPolicy\x12T\n" +
-	"\vJWKSCluster\x18\x06 \x01(\v22.hashicorp.consul.internal.configentry.JWKSClusterR\vJWKSCluster\x12\x16\n" +
+	"\vRetryPolicy\x18\x05 \x01(\v26.dumb-hashicorp.dumb-consul.internal.configentry.JWKSRetryPolicyR\vRetryPolicy\x12T\n" +
+	"\vJWKSCluster\x18\x06 \x01(\v22.dumb-hashicorp.dumb-consul.internal.configentry.JWKSClusterR\vJWKSCluster\x12\x16\n" +
 	"\x06UseSNI\x18\a \x01(\bR\x06UseSNI\"\xdb\x01\n" +
 	"\vJWKSCluster\x12$\n" +
 	"\rDiscoveryType\x18\x01 \x01(\tR\rDiscoveryType\x12c\n" +
-	"\x0fTLSCertificates\x18\x02 \x01(\v29.hashicorp.consul.internal.configentry.JWKSTLSCertificateR\x0fTLSCertificates\x12A\n" +
+	"\x0fTLSCertificates\x18\x02 \x01(\v29.dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertificateR\x0fTLSCertificates\x12A\n" +
 	"\x0eConnectTimeout\x18\x03 \x01(\v2\x19.google.protobuf.DurationR\x0eConnectTimeout\"\xfa\x01\n" +
 	"\x12JWKSTLSCertificate\x12\x88\x01\n" +
-	"\x1dCaCertificateProviderInstance\x18\x01 \x01(\v2B.hashicorp.consul.internal.configentry.JWKSTLSCertProviderInstanceR\x1dCaCertificateProviderInstance\x12Y\n" +
-	"\tTrustedCA\x18\x02 \x01(\v2;.hashicorp.consul.internal.configentry.JWKSTLSCertTrustedCAR\tTrustedCA\"k\n" +
+	"\x1dCaCertificateProviderInstance\x18\x01 \x01(\v2B.dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertProviderInstanceR\x1dCaCertificateProviderInstance\x12Y\n" +
+	"\tTrustedCA\x18\x02 \x01(\v2;.dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertTrustedCAR\tTrustedCA\"k\n" +
 	"\x1bJWKSTLSCertProviderInstance\x12\"\n" +
 	"\fInstanceName\x18\x01 \x01(\tR\fInstanceName\x12(\n" +
 	"\x0fCertificateName\x18\x02 \x01(\tR\x0fCertificateName\"\xaa\x01\n" +
@@ -9239,16 +9239,16 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\n" +
 	"NumRetries\x18\x01 \x01(\x05R\n" +
 	"NumRetries\x12i\n" +
-	"\x12RetryPolicyBackOff\x18\x02 \x01(\v29.hashicorp.consul.internal.configentry.RetryPolicyBackOffR\x12RetryPolicyBackOff\"\x90\x01\n" +
+	"\x12RetryPolicyBackOff\x18\x02 \x01(\v29.dumb-hashicorp.dumb-consul.internal.configentry.RetryPolicyBackOffR\x12RetryPolicyBackOff\"\x90\x01\n" +
 	"\x12RetryPolicyBackOff\x12=\n" +
 	"\fBaseInterval\x18\x01 \x01(\v2\x19.google.protobuf.DurationR\fBaseInterval\x12;\n" +
 	"\vMaxInterval\x18\x02 \x01(\v2\x19.google.protobuf.DurationR\vMaxInterval\"\x8f\x02\n" +
 	"\vJWTLocation\x12P\n" +
-	"\x06Header\x18\x01 \x01(\v28.hashicorp.consul.internal.configentry.JWTLocationHeaderR\x06Header\x12\\\n" +
+	"\x06Header\x18\x01 \x01(\v28.dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationHeaderR\x06Header\x12\\\n" +
 	"\n" +
-	"QueryParam\x18\x02 \x01(\v2<.hashicorp.consul.internal.configentry.JWTLocationQueryParamR\n" +
+	"QueryParam\x18\x02 \x01(\v2<.dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationQueryParamR\n" +
 	"QueryParam\x12P\n" +
-	"\x06Cookie\x18\x03 \x01(\v28.hashicorp.consul.internal.configentry.JWTLocationCookieR\x06Cookie\"c\n" +
+	"\x06Cookie\x18\x03 \x01(\v28.dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationCookieR\x06Cookie\"c\n" +
 	"\x11JWTLocationHeader\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12 \n" +
 	"\vValuePrefix\x18\x02 \x01(\tR\vValuePrefix\x12\x18\n" +
@@ -9266,17 +9266,17 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x04Size\x18\x01 \x01(\x05R\x04Size\"\x80\x03\n" +
 	"\x10ExportedServices\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12U\n" +
-	"\x04Meta\x18\x03 \x03(\v2A.hashicorp.consul.internal.configentry.ExportedServices.MetaEntryR\x04Meta\x12\x12\n" +
+	"\x0eEnterpriseMeta\x18\x02 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12U\n" +
+	"\x04Meta\x18\x03 \x03(\v2A.dumb-hashicorp.dumb-consul.internal.configentry.ExportedServices.MetaEntryR\x04Meta\x12\x12\n" +
 	"\x04Hash\x18\x04 \x01(\x04R\x04Hash\x12Z\n" +
-	"\bServices\x18\x05 \x03(\v2>.hashicorp.consul.internal.configentry.ExportedServicesServiceR\bServices\x1a7\n" +
+	"\bServices\x18\x05 \x03(\v2>.dumb-hashicorp.dumb-consul.internal.configentry.ExportedServicesServiceR\bServices\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xaa\x01\n" +
 	"\x17ExportedServicesService\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x1c\n" +
 	"\tNamespace\x18\x02 \x01(\tR\tNamespace\x12]\n" +
-	"\tConsumers\x18\x03 \x03(\v2?.hashicorp.consul.internal.configentry.ExportedServicesConsumerR\tConsumers\"r\n" +
+	"\tConsumers\x18\x03 \x03(\v2?.dumb-hashicorp.dumb-consul.internal.configentry.ExportedServicesConsumerR\tConsumers\"r\n" +
 	"\x18ExportedServicesConsumer\x12\x1c\n" +
 	"\tPartition\x18\x01 \x01(\tR\tPartition\x12\x12\n" +
 	"\x04Peer\x18\x02 \x01(\tR\x04Peer\x12$\n" +
@@ -9356,9 +9356,9 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x15HTTPQueryMatchPresent\x10\x01\x12#\n" +
 	"\x1fHTTPQueryMatchRegularExpression\x10\x032\xfe\x02\n" +
 	"\x12ConfigEntryService\x12\xbe\x01\n" +
-	"\x1bGetResolvedExportedServices\x12I.hashicorp.consul.internal.configentry.GetResolvedExportedServicesRequest\x1aJ.hashicorp.consul.internal.configentry.GetResolvedExportedServicesResponse\"\b\xe2\x86\x04\x04\b\x02\x10\f\x12\xa6\x01\n" +
-	"\x13GetImportedServices\x12A.hashicorp.consul.internal.configentry.GetImportedServicesRequest\x1aB.hashicorp.consul.internal.configentry.GetImportedServicesResponse\"\b\xe2\x86\x04\x04\b\x02\x10\fB\xae\x02\n" +
-	")com.hashicorp.consul.internal.configentryB\x10ConfigEntryProtoP\x01Z7github.com/hashicorp/consul/proto/private/pbconfigentry\xa2\x02\x04HCIC\xaa\x02%Hashicorp.Consul.Internal.Configentry\xca\x02%Hashicorp\\Consul\\Internal\\Configentry\xe2\x021Hashicorp\\Consul\\Internal\\Configentry\\GPBMetadata\xea\x02(Hashicorp::Consul::Internal::Configentryb\x06proto3"
+	"\x1bGetResolvedExportedServices\x12I.dumb-hashicorp.dumb-consul.internal.configentry.GetResolvedExportedServicesRequest\x1aJ.dumb-hashicorp.dumb-consul.internal.configentry.GetResolvedExportedServicesResponse\"\b\xe2\x86\x04\x04\b\x02\x10\f\x12\xa6\x01\n" +
+	"\x13GetImportedServices\x12A.dumb-hashicorp.dumb-consul.internal.configentry.GetImportedServicesRequest\x1aB.dumb-hashicorp.dumb-consul.internal.configentry.GetImportedServicesResponse\"\b\xe2\x86\x04\x04\b\x02\x10\fB\xae\x02\n" +
+	")com.dumb-hashicorp.dumb-consul.internal.configentryB\x10ConfigEntryProtoP\x01Z7github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry\xa2\x02\x04HCIC\xaa\x02%Hashicorp.Dumb Consul.Internal.Configentry\xca\x02%Hashicorp\\Dumb Consul\\Internal\\Configentry\xe2\x021Hashicorp\\Dumb Consul\\Internal\\Configentry\\GPBMetadata\xea\x02(Hashicorp::Dumb Consul::Internal::Configentryb\x06proto3"
 
 var (
 	file_private_pbconfigentry_config_entry_proto_rawDescOnce sync.Once
@@ -9375,359 +9375,359 @@ func file_private_pbconfigentry_config_entry_proto_rawDescGZIP() []byte {
 var file_private_pbconfigentry_config_entry_proto_enumTypes = make([]protoimpl.EnumInfo, 13)
 var file_private_pbconfigentry_config_entry_proto_msgTypes = make([]protoimpl.MessageInfo, 132)
 var file_private_pbconfigentry_config_entry_proto_goTypes = []any{
-	(Kind)(0),                                   // 0: hashicorp.consul.internal.configentry.Kind
-	(PathWithEscapedSlashesAction)(0),           // 1: hashicorp.consul.internal.configentry.PathWithEscapedSlashesAction
-	(HeadersWithUnderscoresAction)(0),           // 2: hashicorp.consul.internal.configentry.HeadersWithUnderscoresAction
-	(IntentionAction)(0),                        // 3: hashicorp.consul.internal.configentry.IntentionAction
-	(IntentionSourceType)(0),                    // 4: hashicorp.consul.internal.configentry.IntentionSourceType
-	(ProxyMode)(0),                              // 5: hashicorp.consul.internal.configentry.ProxyMode
-	(MutualTLSMode)(0),                          // 6: hashicorp.consul.internal.configentry.MutualTLSMode
-	(MeshGatewayMode)(0),                        // 7: hashicorp.consul.internal.configentry.MeshGatewayMode
-	(APIGatewayListenerProtocol)(0),             // 8: hashicorp.consul.internal.configentry.APIGatewayListenerProtocol
-	(HTTPMatchMethod)(0),                        // 9: hashicorp.consul.internal.configentry.HTTPMatchMethod
-	(HTTPHeaderMatchType)(0),                    // 10: hashicorp.consul.internal.configentry.HTTPHeaderMatchType
-	(HTTPPathMatchType)(0),                      // 11: hashicorp.consul.internal.configentry.HTTPPathMatchType
-	(HTTPQueryMatchType)(0),                     // 12: hashicorp.consul.internal.configentry.HTTPQueryMatchType
-	(*GetResolvedExportedServicesRequest)(nil),  // 13: hashicorp.consul.internal.configentry.GetResolvedExportedServicesRequest
-	(*GetResolvedExportedServicesResponse)(nil), // 14: hashicorp.consul.internal.configentry.GetResolvedExportedServicesResponse
-	(*ResolvedExportedService)(nil),             // 15: hashicorp.consul.internal.configentry.ResolvedExportedService
-	(*Consumers)(nil),                           // 16: hashicorp.consul.internal.configentry.Consumers
-	(*GetImportedServicesRequest)(nil),          // 17: hashicorp.consul.internal.configentry.GetImportedServicesRequest
-	(*GetImportedServicesResponse)(nil),         // 18: hashicorp.consul.internal.configentry.GetImportedServicesResponse
-	(*ImportedService)(nil),                     // 19: hashicorp.consul.internal.configentry.ImportedService
-	(*ConfigEntry)(nil),                         // 20: hashicorp.consul.internal.configentry.ConfigEntry
-	(*MeshConfig)(nil),                          // 21: hashicorp.consul.internal.configentry.MeshConfig
-	(*TransparentProxyMeshConfig)(nil),          // 22: hashicorp.consul.internal.configentry.TransparentProxyMeshConfig
-	(*MeshTLSConfig)(nil),                       // 23: hashicorp.consul.internal.configentry.MeshTLSConfig
-	(*MeshDirectionalTLSConfig)(nil),            // 24: hashicorp.consul.internal.configentry.MeshDirectionalTLSConfig
-	(*MeshHTTPConfig)(nil),                      // 25: hashicorp.consul.internal.configentry.MeshHTTPConfig
-	(*MeshDirectionalHTTPConfig)(nil),           // 26: hashicorp.consul.internal.configentry.MeshDirectionalHTTPConfig
-	(*PeeringMeshConfig)(nil),                   // 27: hashicorp.consul.internal.configentry.PeeringMeshConfig
-	(*RequestNormalizationMeshConfig)(nil),      // 28: hashicorp.consul.internal.configentry.RequestNormalizationMeshConfig
-	(*ServiceResolver)(nil),                     // 29: hashicorp.consul.internal.configentry.ServiceResolver
-	(*ServiceResolverSubset)(nil),               // 30: hashicorp.consul.internal.configentry.ServiceResolverSubset
-	(*ServiceResolverRedirect)(nil),             // 31: hashicorp.consul.internal.configentry.ServiceResolverRedirect
-	(*ServiceResolverFailover)(nil),             // 32: hashicorp.consul.internal.configentry.ServiceResolverFailover
-	(*ServiceResolverFailoverPolicy)(nil),       // 33: hashicorp.consul.internal.configentry.ServiceResolverFailoverPolicy
-	(*ServiceResolverPrioritizeByLocality)(nil), // 34: hashicorp.consul.internal.configentry.ServiceResolverPrioritizeByLocality
-	(*ServiceResolverFailoverTarget)(nil),       // 35: hashicorp.consul.internal.configentry.ServiceResolverFailoverTarget
-	(*LoadBalancer)(nil),                        // 36: hashicorp.consul.internal.configentry.LoadBalancer
-	(*RingHashConfig)(nil),                      // 37: hashicorp.consul.internal.configentry.RingHashConfig
-	(*LeastRequestConfig)(nil),                  // 38: hashicorp.consul.internal.configentry.LeastRequestConfig
-	(*HashPolicy)(nil),                          // 39: hashicorp.consul.internal.configentry.HashPolicy
-	(*CookieConfig)(nil),                        // 40: hashicorp.consul.internal.configentry.CookieConfig
-	(*IngressGateway)(nil),                      // 41: hashicorp.consul.internal.configentry.IngressGateway
-	(*IngressServiceConfig)(nil),                // 42: hashicorp.consul.internal.configentry.IngressServiceConfig
-	(*GatewayTLSConfig)(nil),                    // 43: hashicorp.consul.internal.configentry.GatewayTLSConfig
-	(*GatewayTLSSDSConfig)(nil),                 // 44: hashicorp.consul.internal.configentry.GatewayTLSSDSConfig
-	(*IngressListener)(nil),                     // 45: hashicorp.consul.internal.configentry.IngressListener
-	(*IngressService)(nil),                      // 46: hashicorp.consul.internal.configentry.IngressService
-	(*GatewayServiceTLSConfig)(nil),             // 47: hashicorp.consul.internal.configentry.GatewayServiceTLSConfig
-	(*HTTPHeaderModifiers)(nil),                 // 48: hashicorp.consul.internal.configentry.HTTPHeaderModifiers
-	(*ServiceIntentions)(nil),                   // 49: hashicorp.consul.internal.configentry.ServiceIntentions
-	(*IntentionJWTRequirement)(nil),             // 50: hashicorp.consul.internal.configentry.IntentionJWTRequirement
-	(*IntentionJWTProvider)(nil),                // 51: hashicorp.consul.internal.configentry.IntentionJWTProvider
-	(*IntentionJWTClaimVerification)(nil),       // 52: hashicorp.consul.internal.configentry.IntentionJWTClaimVerification
-	(*SourceIntention)(nil),                     // 53: hashicorp.consul.internal.configentry.SourceIntention
-	(*IntentionPermission)(nil),                 // 54: hashicorp.consul.internal.configentry.IntentionPermission
-	(*IntentionHTTPPermission)(nil),             // 55: hashicorp.consul.internal.configentry.IntentionHTTPPermission
-	(*IntentionHTTPHeaderPermission)(nil),       // 56: hashicorp.consul.internal.configentry.IntentionHTTPHeaderPermission
-	(*ServiceDefaults)(nil),                     // 57: hashicorp.consul.internal.configentry.ServiceDefaults
-	(*TransparentProxyConfig)(nil),              // 58: hashicorp.consul.internal.configentry.TransparentProxyConfig
-	(*MeshGatewayConfig)(nil),                   // 59: hashicorp.consul.internal.configentry.MeshGatewayConfig
-	(*ExposeConfig)(nil),                        // 60: hashicorp.consul.internal.configentry.ExposeConfig
-	(*ExposePath)(nil),                          // 61: hashicorp.consul.internal.configentry.ExposePath
-	(*UpstreamConfiguration)(nil),               // 62: hashicorp.consul.internal.configentry.UpstreamConfiguration
-	(*UpstreamConfig)(nil),                      // 63: hashicorp.consul.internal.configentry.UpstreamConfig
-	(*UpstreamLimits)(nil),                      // 64: hashicorp.consul.internal.configentry.UpstreamLimits
-	(*PassiveHealthCheck)(nil),                  // 65: hashicorp.consul.internal.configentry.PassiveHealthCheck
-	(*DestinationConfig)(nil),                   // 66: hashicorp.consul.internal.configentry.DestinationConfig
-	(*RateLimits)(nil),                          // 67: hashicorp.consul.internal.configentry.RateLimits
-	(*InstanceLevelRateLimits)(nil),             // 68: hashicorp.consul.internal.configentry.InstanceLevelRateLimits
-	(*InstanceLevelRouteRateLimits)(nil),        // 69: hashicorp.consul.internal.configentry.InstanceLevelRouteRateLimits
-	(*APIGateway)(nil),                          // 70: hashicorp.consul.internal.configentry.APIGateway
-	(*Status)(nil),                              // 71: hashicorp.consul.internal.configentry.Status
-	(*Condition)(nil),                           // 72: hashicorp.consul.internal.configentry.Condition
-	(*APIGatewayListener)(nil),                  // 73: hashicorp.consul.internal.configentry.APIGatewayListener
-	(*APIGatewayTLSConfiguration)(nil),          // 74: hashicorp.consul.internal.configentry.APIGatewayTLSConfiguration
-	(*APIGatewayPolicy)(nil),                    // 75: hashicorp.consul.internal.configentry.APIGatewayPolicy
-	(*APIGatewayJWTRequirement)(nil),            // 76: hashicorp.consul.internal.configentry.APIGatewayJWTRequirement
-	(*APIGatewayJWTProvider)(nil),               // 77: hashicorp.consul.internal.configentry.APIGatewayJWTProvider
-	(*APIGatewayJWTClaimVerification)(nil),      // 78: hashicorp.consul.internal.configentry.APIGatewayJWTClaimVerification
-	(*ResourceReference)(nil),                   // 79: hashicorp.consul.internal.configentry.ResourceReference
-	(*BoundAPIGateway)(nil),                     // 80: hashicorp.consul.internal.configentry.BoundAPIGateway
-	(*ListOfResourceReference)(nil),             // 81: hashicorp.consul.internal.configentry.ListOfResourceReference
-	(*BoundAPIGatewayListener)(nil),             // 82: hashicorp.consul.internal.configentry.BoundAPIGatewayListener
-	(*FileSystemCertificate)(nil),               // 83: hashicorp.consul.internal.configentry.FileSystemCertificate
-	(*InlineCertificate)(nil),                   // 84: hashicorp.consul.internal.configentry.InlineCertificate
-	(*HTTPRoute)(nil),                           // 85: hashicorp.consul.internal.configentry.HTTPRoute
-	(*HTTPRouteRule)(nil),                       // 86: hashicorp.consul.internal.configentry.HTTPRouteRule
-	(*HTTPMatch)(nil),                           // 87: hashicorp.consul.internal.configentry.HTTPMatch
-	(*HTTPHeaderMatch)(nil),                     // 88: hashicorp.consul.internal.configentry.HTTPHeaderMatch
-	(*HTTPPathMatch)(nil),                       // 89: hashicorp.consul.internal.configentry.HTTPPathMatch
-	(*HTTPQueryMatch)(nil),                      // 90: hashicorp.consul.internal.configentry.HTTPQueryMatch
-	(*HTTPFilters)(nil),                         // 91: hashicorp.consul.internal.configentry.HTTPFilters
-	(*HTTPResponseFilters)(nil),                 // 92: hashicorp.consul.internal.configentry.HTTPResponseFilters
-	(*URLRewrite)(nil),                          // 93: hashicorp.consul.internal.configentry.URLRewrite
-	(*RetryFilter)(nil),                         // 94: hashicorp.consul.internal.configentry.RetryFilter
-	(*TimeoutFilter)(nil),                       // 95: hashicorp.consul.internal.configentry.TimeoutFilter
-	(*JWTFilter)(nil),                           // 96: hashicorp.consul.internal.configentry.JWTFilter
-	(*HTTPHeaderFilter)(nil),                    // 97: hashicorp.consul.internal.configentry.HTTPHeaderFilter
-	(*HTTPService)(nil),                         // 98: hashicorp.consul.internal.configentry.HTTPService
-	(*TCPRoute)(nil),                            // 99: hashicorp.consul.internal.configentry.TCPRoute
-	(*TCPService)(nil),                          // 100: hashicorp.consul.internal.configentry.TCPService
-	(*SamenessGroup)(nil),                       // 101: hashicorp.consul.internal.configentry.SamenessGroup
-	(*SamenessGroupMember)(nil),                 // 102: hashicorp.consul.internal.configentry.SamenessGroupMember
-	(*JWTProvider)(nil),                         // 103: hashicorp.consul.internal.configentry.JWTProvider
-	(*JSONWebKeySet)(nil),                       // 104: hashicorp.consul.internal.configentry.JSONWebKeySet
-	(*LocalJWKS)(nil),                           // 105: hashicorp.consul.internal.configentry.LocalJWKS
-	(*RemoteJWKS)(nil),                          // 106: hashicorp.consul.internal.configentry.RemoteJWKS
-	(*JWKSCluster)(nil),                         // 107: hashicorp.consul.internal.configentry.JWKSCluster
-	(*JWKSTLSCertificate)(nil),                  // 108: hashicorp.consul.internal.configentry.JWKSTLSCertificate
-	(*JWKSTLSCertProviderInstance)(nil),         // 109: hashicorp.consul.internal.configentry.JWKSTLSCertProviderInstance
-	(*JWKSTLSCertTrustedCA)(nil),                // 110: hashicorp.consul.internal.configentry.JWKSTLSCertTrustedCA
-	(*JWKSRetryPolicy)(nil),                     // 111: hashicorp.consul.internal.configentry.JWKSRetryPolicy
-	(*RetryPolicyBackOff)(nil),                  // 112: hashicorp.consul.internal.configentry.RetryPolicyBackOff
-	(*JWTLocation)(nil),                         // 113: hashicorp.consul.internal.configentry.JWTLocation
-	(*JWTLocationHeader)(nil),                   // 114: hashicorp.consul.internal.configentry.JWTLocationHeader
-	(*JWTLocationQueryParam)(nil),               // 115: hashicorp.consul.internal.configentry.JWTLocationQueryParam
-	(*JWTLocationCookie)(nil),                   // 116: hashicorp.consul.internal.configentry.JWTLocationCookie
-	(*JWTForwardingConfig)(nil),                 // 117: hashicorp.consul.internal.configentry.JWTForwardingConfig
-	(*JWTCacheConfig)(nil),                      // 118: hashicorp.consul.internal.configentry.JWTCacheConfig
-	(*ExportedServices)(nil),                    // 119: hashicorp.consul.internal.configentry.ExportedServices
-	(*ExportedServicesService)(nil),             // 120: hashicorp.consul.internal.configentry.ExportedServicesService
-	(*ExportedServicesConsumer)(nil),            // 121: hashicorp.consul.internal.configentry.ExportedServicesConsumer
-	nil,                                         // 122: hashicorp.consul.internal.configentry.MeshConfig.MetaEntry
-	nil,                                         // 123: hashicorp.consul.internal.configentry.ServiceResolver.SubsetsEntry
-	nil,                                         // 124: hashicorp.consul.internal.configentry.ServiceResolver.FailoverEntry
-	nil,                                         // 125: hashicorp.consul.internal.configentry.ServiceResolver.MetaEntry
-	nil,                                         // 126: hashicorp.consul.internal.configentry.IngressGateway.MetaEntry
-	nil,                                         // 127: hashicorp.consul.internal.configentry.IngressService.MetaEntry
-	nil,                                         // 128: hashicorp.consul.internal.configentry.HTTPHeaderModifiers.AddEntry
-	nil,                                         // 129: hashicorp.consul.internal.configentry.HTTPHeaderModifiers.SetEntry
-	nil,                                         // 130: hashicorp.consul.internal.configentry.ServiceIntentions.MetaEntry
-	nil,                                         // 131: hashicorp.consul.internal.configentry.SourceIntention.LegacyMetaEntry
-	nil,                                         // 132: hashicorp.consul.internal.configentry.ServiceDefaults.MetaEntry
-	nil,                                         // 133: hashicorp.consul.internal.configentry.APIGateway.MetaEntry
-	nil,                                         // 134: hashicorp.consul.internal.configentry.BoundAPIGateway.MetaEntry
-	nil,                                         // 135: hashicorp.consul.internal.configentry.BoundAPIGateway.ServicesEntry
-	nil,                                         // 136: hashicorp.consul.internal.configentry.FileSystemCertificate.MetaEntry
-	nil,                                         // 137: hashicorp.consul.internal.configentry.InlineCertificate.MetaEntry
-	nil,                                         // 138: hashicorp.consul.internal.configentry.HTTPRoute.MetaEntry
-	nil,                                         // 139: hashicorp.consul.internal.configentry.HTTPHeaderFilter.AddEntry
-	nil,                                         // 140: hashicorp.consul.internal.configentry.HTTPHeaderFilter.SetEntry
-	nil,                                         // 141: hashicorp.consul.internal.configentry.TCPRoute.MetaEntry
-	nil,                                         // 142: hashicorp.consul.internal.configentry.SamenessGroup.MetaEntry
-	nil,                                         // 143: hashicorp.consul.internal.configentry.JWTProvider.MetaEntry
-	nil,                                         // 144: hashicorp.consul.internal.configentry.ExportedServices.MetaEntry
-	(*pbcommon.EnterpriseMeta)(nil),             // 145: hashicorp.consul.internal.common.EnterpriseMeta
-	(*pbcommon.RaftIndex)(nil),                  // 146: hashicorp.consul.internal.common.RaftIndex
+	(Kind)(0),                                   // 0: dumb-hashicorp.dumb-consul.internal.configentry.Kind
+	(PathWithEscapedSlashesAction)(0),           // 1: dumb-hashicorp.dumb-consul.internal.configentry.PathWithEscapedSlashesAction
+	(HeadersWithUnderscoresAction)(0),           // 2: dumb-hashicorp.dumb-consul.internal.configentry.HeadersWithUnderscoresAction
+	(IntentionAction)(0),                        // 3: dumb-hashicorp.dumb-consul.internal.configentry.IntentionAction
+	(IntentionSourceType)(0),                    // 4: dumb-hashicorp.dumb-consul.internal.configentry.IntentionSourceType
+	(ProxyMode)(0),                              // 5: dumb-hashicorp.dumb-consul.internal.configentry.ProxyMode
+	(MutualTLSMode)(0),                          // 6: dumb-hashicorp.dumb-consul.internal.configentry.MutualTLSMode
+	(MeshGatewayMode)(0),                        // 7: dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayMode
+	(APIGatewayListenerProtocol)(0),             // 8: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListenerProtocol
+	(HTTPMatchMethod)(0),                        // 9: dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatchMethod
+	(HTTPHeaderMatchType)(0),                    // 10: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderMatchType
+	(HTTPPathMatchType)(0),                      // 11: dumb-hashicorp.dumb-consul.internal.configentry.HTTPPathMatchType
+	(HTTPQueryMatchType)(0),                     // 12: dumb-hashicorp.dumb-consul.internal.configentry.HTTPQueryMatchType
+	(*GetResolvedExportedServicesRequest)(nil),  // 13: dumb-hashicorp.dumb-consul.internal.configentry.GetResolvedExportedServicesRequest
+	(*GetResolvedExportedServicesResponse)(nil), // 14: dumb-hashicorp.dumb-consul.internal.configentry.GetResolvedExportedServicesResponse
+	(*ResolvedExportedService)(nil),             // 15: dumb-hashicorp.dumb-consul.internal.configentry.ResolvedExportedService
+	(*Consumers)(nil),                           // 16: dumb-hashicorp.dumb-consul.internal.configentry.Consumers
+	(*GetImportedServicesRequest)(nil),          // 17: dumb-hashicorp.dumb-consul.internal.configentry.GetImportedServicesRequest
+	(*GetImportedServicesResponse)(nil),         // 18: dumb-hashicorp.dumb-consul.internal.configentry.GetImportedServicesResponse
+	(*ImportedService)(nil),                     // 19: dumb-hashicorp.dumb-consul.internal.configentry.ImportedService
+	(*ConfigEntry)(nil),                         // 20: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry
+	(*MeshConfig)(nil),                          // 21: dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig
+	(*TransparentProxyMeshConfig)(nil),          // 22: dumb-hashicorp.dumb-consul.internal.configentry.TransparentProxyMeshConfig
+	(*MeshTLSConfig)(nil),                       // 23: dumb-hashicorp.dumb-consul.internal.configentry.MeshTLSConfig
+	(*MeshDirectionalTLSConfig)(nil),            // 24: dumb-hashicorp.dumb-consul.internal.configentry.MeshDirectionalTLSConfig
+	(*MeshHTTPConfig)(nil),                      // 25: dumb-hashicorp.dumb-consul.internal.configentry.MeshHTTPConfig
+	(*MeshDirectionalHTTPConfig)(nil),           // 26: dumb-hashicorp.dumb-consul.internal.configentry.MeshDirectionalHTTPConfig
+	(*PeeringMeshConfig)(nil),                   // 27: dumb-hashicorp.dumb-consul.internal.configentry.PeeringMeshConfig
+	(*RequestNormalizationMeshConfig)(nil),      // 28: dumb-hashicorp.dumb-consul.internal.configentry.RequestNormalizationMeshConfig
+	(*ServiceResolver)(nil),                     // 29: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver
+	(*ServiceResolverSubset)(nil),               // 30: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverSubset
+	(*ServiceResolverRedirect)(nil),             // 31: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverRedirect
+	(*ServiceResolverFailover)(nil),             // 32: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailover
+	(*ServiceResolverFailoverPolicy)(nil),       // 33: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailoverPolicy
+	(*ServiceResolverPrioritizeByLocality)(nil), // 34: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverPrioritizeByLocality
+	(*ServiceResolverFailoverTarget)(nil),       // 35: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailoverTarget
+	(*LoadBalancer)(nil),                        // 36: dumb-hashicorp.dumb-consul.internal.configentry.LoadBalancer
+	(*RingHashConfig)(nil),                      // 37: dumb-hashicorp.dumb-consul.internal.configentry.RingHashConfig
+	(*LeastRequestConfig)(nil),                  // 38: dumb-hashicorp.dumb-consul.internal.configentry.LeastRequestConfig
+	(*HashPolicy)(nil),                          // 39: dumb-hashicorp.dumb-consul.internal.configentry.HashPolicy
+	(*CookieConfig)(nil),                        // 40: dumb-hashicorp.dumb-consul.internal.configentry.CookieConfig
+	(*IngressGateway)(nil),                      // 41: dumb-hashicorp.dumb-consul.internal.configentry.IngressGateway
+	(*IngressServiceConfig)(nil),                // 42: dumb-hashicorp.dumb-consul.internal.configentry.IngressServiceConfig
+	(*GatewayTLSConfig)(nil),                    // 43: dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSConfig
+	(*GatewayTLSSDSConfig)(nil),                 // 44: dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSSDSConfig
+	(*IngressListener)(nil),                     // 45: dumb-hashicorp.dumb-consul.internal.configentry.IngressListener
+	(*IngressService)(nil),                      // 46: dumb-hashicorp.dumb-consul.internal.configentry.IngressService
+	(*GatewayServiceTLSConfig)(nil),             // 47: dumb-hashicorp.dumb-consul.internal.configentry.GatewayServiceTLSConfig
+	(*HTTPHeaderModifiers)(nil),                 // 48: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers
+	(*ServiceIntentions)(nil),                   // 49: dumb-hashicorp.dumb-consul.internal.configentry.ServiceIntentions
+	(*IntentionJWTRequirement)(nil),             // 50: dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTRequirement
+	(*IntentionJWTProvider)(nil),                // 51: dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTProvider
+	(*IntentionJWTClaimVerification)(nil),       // 52: dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTClaimVerification
+	(*SourceIntention)(nil),                     // 53: dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention
+	(*IntentionPermission)(nil),                 // 54: dumb-hashicorp.dumb-consul.internal.configentry.IntentionPermission
+	(*IntentionHTTPPermission)(nil),             // 55: dumb-hashicorp.dumb-consul.internal.configentry.IntentionHTTPPermission
+	(*IntentionHTTPHeaderPermission)(nil),       // 56: dumb-hashicorp.dumb-consul.internal.configentry.IntentionHTTPHeaderPermission
+	(*ServiceDefaults)(nil),                     // 57: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults
+	(*TransparentProxyConfig)(nil),              // 58: dumb-hashicorp.dumb-consul.internal.configentry.TransparentProxyConfig
+	(*MeshGatewayConfig)(nil),                   // 59: dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayConfig
+	(*ExposeConfig)(nil),                        // 60: dumb-hashicorp.dumb-consul.internal.configentry.ExposeConfig
+	(*ExposePath)(nil),                          // 61: dumb-hashicorp.dumb-consul.internal.configentry.ExposePath
+	(*UpstreamConfiguration)(nil),               // 62: dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfiguration
+	(*UpstreamConfig)(nil),                      // 63: dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfig
+	(*UpstreamLimits)(nil),                      // 64: dumb-hashicorp.dumb-consul.internal.configentry.UpstreamLimits
+	(*PassiveHealthCheck)(nil),                  // 65: dumb-hashicorp.dumb-consul.internal.configentry.PassiveHealthCheck
+	(*DestinationConfig)(nil),                   // 66: dumb-hashicorp.dumb-consul.internal.configentry.DestinationConfig
+	(*RateLimits)(nil),                          // 67: dumb-hashicorp.dumb-consul.internal.configentry.RateLimits
+	(*InstanceLevelRateLimits)(nil),             // 68: dumb-hashicorp.dumb-consul.internal.configentry.InstanceLevelRateLimits
+	(*InstanceLevelRouteRateLimits)(nil),        // 69: dumb-hashicorp.dumb-consul.internal.configentry.InstanceLevelRouteRateLimits
+	(*APIGateway)(nil),                          // 70: dumb-hashicorp.dumb-consul.internal.configentry.APIGateway
+	(*Status)(nil),                              // 71: dumb-hashicorp.dumb-consul.internal.configentry.Status
+	(*Condition)(nil),                           // 72: dumb-hashicorp.dumb-consul.internal.configentry.Condition
+	(*APIGatewayListener)(nil),                  // 73: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListener
+	(*APIGatewayTLSConfiguration)(nil),          // 74: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayTLSConfiguration
+	(*APIGatewayPolicy)(nil),                    // 75: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayPolicy
+	(*APIGatewayJWTRequirement)(nil),            // 76: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTRequirement
+	(*APIGatewayJWTProvider)(nil),               // 77: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTProvider
+	(*APIGatewayJWTClaimVerification)(nil),      // 78: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTClaimVerification
+	(*ResourceReference)(nil),                   // 79: dumb-hashicorp.dumb-consul.internal.configentry.ResourceReference
+	(*BoundAPIGateway)(nil),                     // 80: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway
+	(*ListOfResourceReference)(nil),             // 81: dumb-hashicorp.dumb-consul.internal.configentry.ListOfResourceReference
+	(*BoundAPIGatewayListener)(nil),             // 82: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGatewayListener
+	(*FileSystemCertificate)(nil),               // 83: dumb-hashicorp.dumb-consul.internal.configentry.FileSystemCertificate
+	(*InlineCertificate)(nil),                   // 84: dumb-hashicorp.dumb-consul.internal.configentry.InlineCertificate
+	(*HTTPRoute)(nil),                           // 85: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRoute
+	(*HTTPRouteRule)(nil),                       // 86: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRouteRule
+	(*HTTPMatch)(nil),                           // 87: dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatch
+	(*HTTPHeaderMatch)(nil),                     // 88: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderMatch
+	(*HTTPPathMatch)(nil),                       // 89: dumb-hashicorp.dumb-consul.internal.configentry.HTTPPathMatch
+	(*HTTPQueryMatch)(nil),                      // 90: dumb-hashicorp.dumb-consul.internal.configentry.HTTPQueryMatch
+	(*HTTPFilters)(nil),                         // 91: dumb-hashicorp.dumb-consul.internal.configentry.HTTPFilters
+	(*HTTPResponseFilters)(nil),                 // 92: dumb-hashicorp.dumb-consul.internal.configentry.HTTPResponseFilters
+	(*URLRewrite)(nil),                          // 93: dumb-hashicorp.dumb-consul.internal.configentry.URLRewrite
+	(*RetryFilter)(nil),                         // 94: dumb-hashicorp.dumb-consul.internal.configentry.RetryFilter
+	(*TimeoutFilter)(nil),                       // 95: dumb-hashicorp.dumb-consul.internal.configentry.TimeoutFilter
+	(*JWTFilter)(nil),                           // 96: dumb-hashicorp.dumb-consul.internal.configentry.JWTFilter
+	(*HTTPHeaderFilter)(nil),                    // 97: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter
+	(*HTTPService)(nil),                         // 98: dumb-hashicorp.dumb-consul.internal.configentry.HTTPService
+	(*TCPRoute)(nil),                            // 99: dumb-hashicorp.dumb-consul.internal.configentry.TCPRoute
+	(*TCPService)(nil),                          // 100: dumb-hashicorp.dumb-consul.internal.configentry.TCPService
+	(*SamenessGroup)(nil),                       // 101: dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroup
+	(*SamenessGroupMember)(nil),                 // 102: dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroupMember
+	(*JWTProvider)(nil),                         // 103: dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider
+	(*JSONWebKeySet)(nil),                       // 104: dumb-hashicorp.dumb-consul.internal.configentry.JSONWebKeySet
+	(*LocalJWKS)(nil),                           // 105: dumb-hashicorp.dumb-consul.internal.configentry.LocalJWKS
+	(*RemoteJWKS)(nil),                          // 106: dumb-hashicorp.dumb-consul.internal.configentry.RemoteJWKS
+	(*JWKSCluster)(nil),                         // 107: dumb-hashicorp.dumb-consul.internal.configentry.JWKSCluster
+	(*JWKSTLSCertificate)(nil),                  // 108: dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertificate
+	(*JWKSTLSCertProviderInstance)(nil),         // 109: dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertProviderInstance
+	(*JWKSTLSCertTrustedCA)(nil),                // 110: dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertTrustedCA
+	(*JWKSRetryPolicy)(nil),                     // 111: dumb-hashicorp.dumb-consul.internal.configentry.JWKSRetryPolicy
+	(*RetryPolicyBackOff)(nil),                  // 112: dumb-hashicorp.dumb-consul.internal.configentry.RetryPolicyBackOff
+	(*JWTLocation)(nil),                         // 113: dumb-hashicorp.dumb-consul.internal.configentry.JWTLocation
+	(*JWTLocationHeader)(nil),                   // 114: dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationHeader
+	(*JWTLocationQueryParam)(nil),               // 115: dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationQueryParam
+	(*JWTLocationCookie)(nil),                   // 116: dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationCookie
+	(*JWTForwardingConfig)(nil),                 // 117: dumb-hashicorp.dumb-consul.internal.configentry.JWTForwardingConfig
+	(*JWTCacheConfig)(nil),                      // 118: dumb-hashicorp.dumb-consul.internal.configentry.JWTCacheConfig
+	(*ExportedServices)(nil),                    // 119: dumb-hashicorp.dumb-consul.internal.configentry.ExportedServices
+	(*ExportedServicesService)(nil),             // 120: dumb-hashicorp.dumb-consul.internal.configentry.ExportedServicesService
+	(*ExportedServicesConsumer)(nil),            // 121: dumb-hashicorp.dumb-consul.internal.configentry.ExportedServicesConsumer
+	nil,                                         // 122: dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig.MetaEntry
+	nil,                                         // 123: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.SubsetsEntry
+	nil,                                         // 124: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.FailoverEntry
+	nil,                                         // 125: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.MetaEntry
+	nil,                                         // 126: dumb-hashicorp.dumb-consul.internal.configentry.IngressGateway.MetaEntry
+	nil,                                         // 127: dumb-hashicorp.dumb-consul.internal.configentry.IngressService.MetaEntry
+	nil,                                         // 128: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers.AddEntry
+	nil,                                         // 129: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers.SetEntry
+	nil,                                         // 130: dumb-hashicorp.dumb-consul.internal.configentry.ServiceIntentions.MetaEntry
+	nil,                                         // 131: dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.LegacyMetaEntry
+	nil,                                         // 132: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.MetaEntry
+	nil,                                         // 133: dumb-hashicorp.dumb-consul.internal.configentry.APIGateway.MetaEntry
+	nil,                                         // 134: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.MetaEntry
+	nil,                                         // 135: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.ServicesEntry
+	nil,                                         // 136: dumb-hashicorp.dumb-consul.internal.configentry.FileSystemCertificate.MetaEntry
+	nil,                                         // 137: dumb-hashicorp.dumb-consul.internal.configentry.InlineCertificate.MetaEntry
+	nil,                                         // 138: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRoute.MetaEntry
+	nil,                                         // 139: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter.AddEntry
+	nil,                                         // 140: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter.SetEntry
+	nil,                                         // 141: dumb-hashicorp.dumb-consul.internal.configentry.TCPRoute.MetaEntry
+	nil,                                         // 142: dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroup.MetaEntry
+	nil,                                         // 143: dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider.MetaEntry
+	nil,                                         // 144: dumb-hashicorp.dumb-consul.internal.configentry.ExportedServices.MetaEntry
+	(*pbcommon.EnterpriseMeta)(nil),             // 145: dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	(*pbcommon.RaftIndex)(nil),                  // 146: dumb-hashicorp.dumb-consul.internal.common.RaftIndex
 	(*durationpb.Duration)(nil),                 // 147: google.protobuf.Duration
 	(*timestamppb.Timestamp)(nil),               // 148: google.protobuf.Timestamp
-	(*pbcommon.EnvoyExtension)(nil),             // 149: hashicorp.consul.internal.common.EnvoyExtension
+	(*pbcommon.EnvoyExtension)(nil),             // 149: dumb-hashicorp.dumb-consul.internal.common.EnvoyExtension
 }
 var file_private_pbconfigentry_config_entry_proto_depIdxs = []int32{
-	15,  // 0: hashicorp.consul.internal.configentry.GetResolvedExportedServicesResponse.services:type_name -> hashicorp.consul.internal.configentry.ResolvedExportedService
-	145, // 1: hashicorp.consul.internal.configentry.ResolvedExportedService.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	16,  // 2: hashicorp.consul.internal.configentry.ResolvedExportedService.Consumers:type_name -> hashicorp.consul.internal.configentry.Consumers
-	19,  // 3: hashicorp.consul.internal.configentry.GetImportedServicesResponse.Services:type_name -> hashicorp.consul.internal.configentry.ImportedService
-	145, // 4: hashicorp.consul.internal.configentry.ImportedService.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	0,   // 5: hashicorp.consul.internal.configentry.ConfigEntry.Kind:type_name -> hashicorp.consul.internal.configentry.Kind
-	145, // 6: hashicorp.consul.internal.configentry.ConfigEntry.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	146, // 7: hashicorp.consul.internal.configentry.ConfigEntry.RaftIndex:type_name -> hashicorp.consul.internal.common.RaftIndex
-	21,  // 8: hashicorp.consul.internal.configentry.ConfigEntry.MeshConfig:type_name -> hashicorp.consul.internal.configentry.MeshConfig
-	29,  // 9: hashicorp.consul.internal.configentry.ConfigEntry.ServiceResolver:type_name -> hashicorp.consul.internal.configentry.ServiceResolver
-	41,  // 10: hashicorp.consul.internal.configentry.ConfigEntry.IngressGateway:type_name -> hashicorp.consul.internal.configentry.IngressGateway
-	49,  // 11: hashicorp.consul.internal.configentry.ConfigEntry.ServiceIntentions:type_name -> hashicorp.consul.internal.configentry.ServiceIntentions
-	57,  // 12: hashicorp.consul.internal.configentry.ConfigEntry.ServiceDefaults:type_name -> hashicorp.consul.internal.configentry.ServiceDefaults
-	70,  // 13: hashicorp.consul.internal.configentry.ConfigEntry.APIGateway:type_name -> hashicorp.consul.internal.configentry.APIGateway
-	80,  // 14: hashicorp.consul.internal.configentry.ConfigEntry.BoundAPIGateway:type_name -> hashicorp.consul.internal.configentry.BoundAPIGateway
-	99,  // 15: hashicorp.consul.internal.configentry.ConfigEntry.TCPRoute:type_name -> hashicorp.consul.internal.configentry.TCPRoute
-	85,  // 16: hashicorp.consul.internal.configentry.ConfigEntry.HTTPRoute:type_name -> hashicorp.consul.internal.configentry.HTTPRoute
-	84,  // 17: hashicorp.consul.internal.configentry.ConfigEntry.InlineCertificate:type_name -> hashicorp.consul.internal.configentry.InlineCertificate
-	101, // 18: hashicorp.consul.internal.configentry.ConfigEntry.SamenessGroup:type_name -> hashicorp.consul.internal.configentry.SamenessGroup
-	103, // 19: hashicorp.consul.internal.configentry.ConfigEntry.JWTProvider:type_name -> hashicorp.consul.internal.configentry.JWTProvider
-	119, // 20: hashicorp.consul.internal.configentry.ConfigEntry.ExportedServices:type_name -> hashicorp.consul.internal.configentry.ExportedServices
-	83,  // 21: hashicorp.consul.internal.configentry.ConfigEntry.FileSystemCertificate:type_name -> hashicorp.consul.internal.configentry.FileSystemCertificate
-	22,  // 22: hashicorp.consul.internal.configentry.MeshConfig.TransparentProxy:type_name -> hashicorp.consul.internal.configentry.TransparentProxyMeshConfig
-	23,  // 23: hashicorp.consul.internal.configentry.MeshConfig.TLS:type_name -> hashicorp.consul.internal.configentry.MeshTLSConfig
-	25,  // 24: hashicorp.consul.internal.configentry.MeshConfig.HTTP:type_name -> hashicorp.consul.internal.configentry.MeshHTTPConfig
-	122, // 25: hashicorp.consul.internal.configentry.MeshConfig.Meta:type_name -> hashicorp.consul.internal.configentry.MeshConfig.MetaEntry
-	27,  // 26: hashicorp.consul.internal.configentry.MeshConfig.Peering:type_name -> hashicorp.consul.internal.configentry.PeeringMeshConfig
-	24,  // 27: hashicorp.consul.internal.configentry.MeshTLSConfig.Incoming:type_name -> hashicorp.consul.internal.configentry.MeshDirectionalTLSConfig
-	24,  // 28: hashicorp.consul.internal.configentry.MeshTLSConfig.Outgoing:type_name -> hashicorp.consul.internal.configentry.MeshDirectionalTLSConfig
-	26,  // 29: hashicorp.consul.internal.configentry.MeshHTTPConfig.Incoming:type_name -> hashicorp.consul.internal.configentry.MeshDirectionalHTTPConfig
-	28,  // 30: hashicorp.consul.internal.configentry.MeshDirectionalHTTPConfig.RequestNormalization:type_name -> hashicorp.consul.internal.configentry.RequestNormalizationMeshConfig
-	1,   // 31: hashicorp.consul.internal.configentry.RequestNormalizationMeshConfig.PathWithEscapedSlashesAction:type_name -> hashicorp.consul.internal.configentry.PathWithEscapedSlashesAction
-	2,   // 32: hashicorp.consul.internal.configentry.RequestNormalizationMeshConfig.HeadersWithUnderscoresAction:type_name -> hashicorp.consul.internal.configentry.HeadersWithUnderscoresAction
-	123, // 33: hashicorp.consul.internal.configentry.ServiceResolver.Subsets:type_name -> hashicorp.consul.internal.configentry.ServiceResolver.SubsetsEntry
-	31,  // 34: hashicorp.consul.internal.configentry.ServiceResolver.Redirect:type_name -> hashicorp.consul.internal.configentry.ServiceResolverRedirect
-	124, // 35: hashicorp.consul.internal.configentry.ServiceResolver.Failover:type_name -> hashicorp.consul.internal.configentry.ServiceResolver.FailoverEntry
-	147, // 36: hashicorp.consul.internal.configentry.ServiceResolver.ConnectTimeout:type_name -> google.protobuf.Duration
-	36,  // 37: hashicorp.consul.internal.configentry.ServiceResolver.LoadBalancer:type_name -> hashicorp.consul.internal.configentry.LoadBalancer
-	125, // 38: hashicorp.consul.internal.configentry.ServiceResolver.Meta:type_name -> hashicorp.consul.internal.configentry.ServiceResolver.MetaEntry
-	147, // 39: hashicorp.consul.internal.configentry.ServiceResolver.RequestTimeout:type_name -> google.protobuf.Duration
-	34,  // 40: hashicorp.consul.internal.configentry.ServiceResolver.PrioritizeByLocality:type_name -> hashicorp.consul.internal.configentry.ServiceResolverPrioritizeByLocality
-	35,  // 41: hashicorp.consul.internal.configentry.ServiceResolverFailover.Targets:type_name -> hashicorp.consul.internal.configentry.ServiceResolverFailoverTarget
-	33,  // 42: hashicorp.consul.internal.configentry.ServiceResolverFailover.Policy:type_name -> hashicorp.consul.internal.configentry.ServiceResolverFailoverPolicy
-	37,  // 43: hashicorp.consul.internal.configentry.LoadBalancer.RingHashConfig:type_name -> hashicorp.consul.internal.configentry.RingHashConfig
-	38,  // 44: hashicorp.consul.internal.configentry.LoadBalancer.LeastRequestConfig:type_name -> hashicorp.consul.internal.configentry.LeastRequestConfig
-	39,  // 45: hashicorp.consul.internal.configentry.LoadBalancer.HashPolicies:type_name -> hashicorp.consul.internal.configentry.HashPolicy
-	40,  // 46: hashicorp.consul.internal.configentry.HashPolicy.CookieConfig:type_name -> hashicorp.consul.internal.configentry.CookieConfig
-	147, // 47: hashicorp.consul.internal.configentry.CookieConfig.TTL:type_name -> google.protobuf.Duration
-	43,  // 48: hashicorp.consul.internal.configentry.IngressGateway.TLS:type_name -> hashicorp.consul.internal.configentry.GatewayTLSConfig
-	45,  // 49: hashicorp.consul.internal.configentry.IngressGateway.Listeners:type_name -> hashicorp.consul.internal.configentry.IngressListener
-	126, // 50: hashicorp.consul.internal.configentry.IngressGateway.Meta:type_name -> hashicorp.consul.internal.configentry.IngressGateway.MetaEntry
-	42,  // 51: hashicorp.consul.internal.configentry.IngressGateway.Defaults:type_name -> hashicorp.consul.internal.configentry.IngressServiceConfig
-	65,  // 52: hashicorp.consul.internal.configentry.IngressServiceConfig.PassiveHealthCheck:type_name -> hashicorp.consul.internal.configentry.PassiveHealthCheck
-	44,  // 53: hashicorp.consul.internal.configentry.GatewayTLSConfig.SDS:type_name -> hashicorp.consul.internal.configentry.GatewayTLSSDSConfig
-	46,  // 54: hashicorp.consul.internal.configentry.IngressListener.Services:type_name -> hashicorp.consul.internal.configentry.IngressService
-	43,  // 55: hashicorp.consul.internal.configentry.IngressListener.TLS:type_name -> hashicorp.consul.internal.configentry.GatewayTLSConfig
-	47,  // 56: hashicorp.consul.internal.configentry.IngressService.TLS:type_name -> hashicorp.consul.internal.configentry.GatewayServiceTLSConfig
-	48,  // 57: hashicorp.consul.internal.configentry.IngressService.RequestHeaders:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderModifiers
-	48,  // 58: hashicorp.consul.internal.configentry.IngressService.ResponseHeaders:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderModifiers
-	127, // 59: hashicorp.consul.internal.configentry.IngressService.Meta:type_name -> hashicorp.consul.internal.configentry.IngressService.MetaEntry
-	145, // 60: hashicorp.consul.internal.configentry.IngressService.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	65,  // 61: hashicorp.consul.internal.configentry.IngressService.PassiveHealthCheck:type_name -> hashicorp.consul.internal.configentry.PassiveHealthCheck
-	44,  // 62: hashicorp.consul.internal.configentry.GatewayServiceTLSConfig.SDS:type_name -> hashicorp.consul.internal.configentry.GatewayTLSSDSConfig
-	128, // 63: hashicorp.consul.internal.configentry.HTTPHeaderModifiers.Add:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderModifiers.AddEntry
-	129, // 64: hashicorp.consul.internal.configentry.HTTPHeaderModifiers.Set:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderModifiers.SetEntry
-	53,  // 65: hashicorp.consul.internal.configentry.ServiceIntentions.Sources:type_name -> hashicorp.consul.internal.configentry.SourceIntention
-	130, // 66: hashicorp.consul.internal.configentry.ServiceIntentions.Meta:type_name -> hashicorp.consul.internal.configentry.ServiceIntentions.MetaEntry
-	50,  // 67: hashicorp.consul.internal.configentry.ServiceIntentions.JWT:type_name -> hashicorp.consul.internal.configentry.IntentionJWTRequirement
-	51,  // 68: hashicorp.consul.internal.configentry.IntentionJWTRequirement.Providers:type_name -> hashicorp.consul.internal.configentry.IntentionJWTProvider
-	52,  // 69: hashicorp.consul.internal.configentry.IntentionJWTProvider.VerifyClaims:type_name -> hashicorp.consul.internal.configentry.IntentionJWTClaimVerification
-	3,   // 70: hashicorp.consul.internal.configentry.SourceIntention.Action:type_name -> hashicorp.consul.internal.configentry.IntentionAction
-	54,  // 71: hashicorp.consul.internal.configentry.SourceIntention.Permissions:type_name -> hashicorp.consul.internal.configentry.IntentionPermission
-	4,   // 72: hashicorp.consul.internal.configentry.SourceIntention.Type:type_name -> hashicorp.consul.internal.configentry.IntentionSourceType
-	131, // 73: hashicorp.consul.internal.configentry.SourceIntention.LegacyMeta:type_name -> hashicorp.consul.internal.configentry.SourceIntention.LegacyMetaEntry
-	148, // 74: hashicorp.consul.internal.configentry.SourceIntention.LegacyCreateTime:type_name -> google.protobuf.Timestamp
-	148, // 75: hashicorp.consul.internal.configentry.SourceIntention.LegacyUpdateTime:type_name -> google.protobuf.Timestamp
-	145, // 76: hashicorp.consul.internal.configentry.SourceIntention.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	3,   // 77: hashicorp.consul.internal.configentry.IntentionPermission.Action:type_name -> hashicorp.consul.internal.configentry.IntentionAction
-	55,  // 78: hashicorp.consul.internal.configentry.IntentionPermission.HTTP:type_name -> hashicorp.consul.internal.configentry.IntentionHTTPPermission
-	50,  // 79: hashicorp.consul.internal.configentry.IntentionPermission.JWT:type_name -> hashicorp.consul.internal.configentry.IntentionJWTRequirement
-	56,  // 80: hashicorp.consul.internal.configentry.IntentionHTTPPermission.Header:type_name -> hashicorp.consul.internal.configentry.IntentionHTTPHeaderPermission
-	5,   // 81: hashicorp.consul.internal.configentry.ServiceDefaults.Mode:type_name -> hashicorp.consul.internal.configentry.ProxyMode
-	58,  // 82: hashicorp.consul.internal.configentry.ServiceDefaults.TransparentProxy:type_name -> hashicorp.consul.internal.configentry.TransparentProxyConfig
-	59,  // 83: hashicorp.consul.internal.configentry.ServiceDefaults.MeshGateway:type_name -> hashicorp.consul.internal.configentry.MeshGatewayConfig
-	60,  // 84: hashicorp.consul.internal.configentry.ServiceDefaults.Expose:type_name -> hashicorp.consul.internal.configentry.ExposeConfig
-	62,  // 85: hashicorp.consul.internal.configentry.ServiceDefaults.UpstreamConfig:type_name -> hashicorp.consul.internal.configentry.UpstreamConfiguration
-	66,  // 86: hashicorp.consul.internal.configentry.ServiceDefaults.Destination:type_name -> hashicorp.consul.internal.configentry.DestinationConfig
-	67,  // 87: hashicorp.consul.internal.configentry.ServiceDefaults.RateLimits:type_name -> hashicorp.consul.internal.configentry.RateLimits
-	132, // 88: hashicorp.consul.internal.configentry.ServiceDefaults.Meta:type_name -> hashicorp.consul.internal.configentry.ServiceDefaults.MetaEntry
-	149, // 89: hashicorp.consul.internal.configentry.ServiceDefaults.EnvoyExtensions:type_name -> hashicorp.consul.internal.common.EnvoyExtension
-	6,   // 90: hashicorp.consul.internal.configentry.ServiceDefaults.MutualTLSMode:type_name -> hashicorp.consul.internal.configentry.MutualTLSMode
-	7,   // 91: hashicorp.consul.internal.configentry.MeshGatewayConfig.Mode:type_name -> hashicorp.consul.internal.configentry.MeshGatewayMode
-	61,  // 92: hashicorp.consul.internal.configentry.ExposeConfig.Paths:type_name -> hashicorp.consul.internal.configentry.ExposePath
-	63,  // 93: hashicorp.consul.internal.configentry.UpstreamConfiguration.Overrides:type_name -> hashicorp.consul.internal.configentry.UpstreamConfig
-	63,  // 94: hashicorp.consul.internal.configentry.UpstreamConfiguration.Defaults:type_name -> hashicorp.consul.internal.configentry.UpstreamConfig
-	145, // 95: hashicorp.consul.internal.configentry.UpstreamConfig.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	64,  // 96: hashicorp.consul.internal.configentry.UpstreamConfig.Limits:type_name -> hashicorp.consul.internal.configentry.UpstreamLimits
-	65,  // 97: hashicorp.consul.internal.configentry.UpstreamConfig.PassiveHealthCheck:type_name -> hashicorp.consul.internal.configentry.PassiveHealthCheck
-	59,  // 98: hashicorp.consul.internal.configentry.UpstreamConfig.MeshGateway:type_name -> hashicorp.consul.internal.configentry.MeshGatewayConfig
-	147, // 99: hashicorp.consul.internal.configentry.PassiveHealthCheck.Interval:type_name -> google.protobuf.Duration
-	147, // 100: hashicorp.consul.internal.configentry.PassiveHealthCheck.BaseEjectionTime:type_name -> google.protobuf.Duration
-	68,  // 101: hashicorp.consul.internal.configentry.RateLimits.InstanceLevel:type_name -> hashicorp.consul.internal.configentry.InstanceLevelRateLimits
-	69,  // 102: hashicorp.consul.internal.configentry.InstanceLevelRateLimits.Routes:type_name -> hashicorp.consul.internal.configentry.InstanceLevelRouteRateLimits
-	133, // 103: hashicorp.consul.internal.configentry.APIGateway.Meta:type_name -> hashicorp.consul.internal.configentry.APIGateway.MetaEntry
-	73,  // 104: hashicorp.consul.internal.configentry.APIGateway.Listeners:type_name -> hashicorp.consul.internal.configentry.APIGatewayListener
-	71,  // 105: hashicorp.consul.internal.configentry.APIGateway.Status:type_name -> hashicorp.consul.internal.configentry.Status
-	43,  // 106: hashicorp.consul.internal.configentry.APIGateway.TLS:type_name -> hashicorp.consul.internal.configentry.GatewayTLSConfig
-	64,  // 107: hashicorp.consul.internal.configentry.APIGateway.Defaults:type_name -> hashicorp.consul.internal.configentry.UpstreamLimits
-	72,  // 108: hashicorp.consul.internal.configentry.Status.Conditions:type_name -> hashicorp.consul.internal.configentry.Condition
-	79,  // 109: hashicorp.consul.internal.configentry.Condition.Resource:type_name -> hashicorp.consul.internal.configentry.ResourceReference
-	148, // 110: hashicorp.consul.internal.configentry.Condition.LastTransitionTime:type_name -> google.protobuf.Timestamp
-	8,   // 111: hashicorp.consul.internal.configentry.APIGatewayListener.Protocol:type_name -> hashicorp.consul.internal.configentry.APIGatewayListenerProtocol
-	74,  // 112: hashicorp.consul.internal.configentry.APIGatewayListener.TLS:type_name -> hashicorp.consul.internal.configentry.APIGatewayTLSConfiguration
-	75,  // 113: hashicorp.consul.internal.configentry.APIGatewayListener.Override:type_name -> hashicorp.consul.internal.configentry.APIGatewayPolicy
-	75,  // 114: hashicorp.consul.internal.configentry.APIGatewayListener.Default:type_name -> hashicorp.consul.internal.configentry.APIGatewayPolicy
-	79,  // 115: hashicorp.consul.internal.configentry.APIGatewayTLSConfiguration.Certificates:type_name -> hashicorp.consul.internal.configentry.ResourceReference
-	44,  // 116: hashicorp.consul.internal.configentry.APIGatewayTLSConfiguration.SDS:type_name -> hashicorp.consul.internal.configentry.GatewayTLSSDSConfig
-	76,  // 117: hashicorp.consul.internal.configentry.APIGatewayPolicy.JWT:type_name -> hashicorp.consul.internal.configentry.APIGatewayJWTRequirement
-	77,  // 118: hashicorp.consul.internal.configentry.APIGatewayJWTRequirement.Providers:type_name -> hashicorp.consul.internal.configentry.APIGatewayJWTProvider
-	78,  // 119: hashicorp.consul.internal.configentry.APIGatewayJWTProvider.VerifyClaims:type_name -> hashicorp.consul.internal.configentry.APIGatewayJWTClaimVerification
-	145, // 120: hashicorp.consul.internal.configentry.ResourceReference.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	134, // 121: hashicorp.consul.internal.configentry.BoundAPIGateway.Meta:type_name -> hashicorp.consul.internal.configentry.BoundAPIGateway.MetaEntry
-	82,  // 122: hashicorp.consul.internal.configentry.BoundAPIGateway.Listeners:type_name -> hashicorp.consul.internal.configentry.BoundAPIGatewayListener
-	135, // 123: hashicorp.consul.internal.configentry.BoundAPIGateway.Services:type_name -> hashicorp.consul.internal.configentry.BoundAPIGateway.ServicesEntry
-	79,  // 124: hashicorp.consul.internal.configentry.ListOfResourceReference.Ref:type_name -> hashicorp.consul.internal.configentry.ResourceReference
-	79,  // 125: hashicorp.consul.internal.configentry.BoundAPIGatewayListener.Certificates:type_name -> hashicorp.consul.internal.configentry.ResourceReference
-	79,  // 126: hashicorp.consul.internal.configentry.BoundAPIGatewayListener.Routes:type_name -> hashicorp.consul.internal.configentry.ResourceReference
-	136, // 127: hashicorp.consul.internal.configentry.FileSystemCertificate.Meta:type_name -> hashicorp.consul.internal.configentry.FileSystemCertificate.MetaEntry
-	137, // 128: hashicorp.consul.internal.configentry.InlineCertificate.Meta:type_name -> hashicorp.consul.internal.configentry.InlineCertificate.MetaEntry
-	138, // 129: hashicorp.consul.internal.configentry.HTTPRoute.Meta:type_name -> hashicorp.consul.internal.configentry.HTTPRoute.MetaEntry
-	79,  // 130: hashicorp.consul.internal.configentry.HTTPRoute.Parents:type_name -> hashicorp.consul.internal.configentry.ResourceReference
-	86,  // 131: hashicorp.consul.internal.configentry.HTTPRoute.Rules:type_name -> hashicorp.consul.internal.configentry.HTTPRouteRule
-	71,  // 132: hashicorp.consul.internal.configentry.HTTPRoute.Status:type_name -> hashicorp.consul.internal.configentry.Status
-	91,  // 133: hashicorp.consul.internal.configentry.HTTPRouteRule.Filters:type_name -> hashicorp.consul.internal.configentry.HTTPFilters
-	87,  // 134: hashicorp.consul.internal.configentry.HTTPRouteRule.Matches:type_name -> hashicorp.consul.internal.configentry.HTTPMatch
-	98,  // 135: hashicorp.consul.internal.configentry.HTTPRouteRule.Services:type_name -> hashicorp.consul.internal.configentry.HTTPService
-	92,  // 136: hashicorp.consul.internal.configentry.HTTPRouteRule.ResponseFilters:type_name -> hashicorp.consul.internal.configentry.HTTPResponseFilters
-	88,  // 137: hashicorp.consul.internal.configentry.HTTPMatch.Headers:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderMatch
-	9,   // 138: hashicorp.consul.internal.configentry.HTTPMatch.Method:type_name -> hashicorp.consul.internal.configentry.HTTPMatchMethod
-	89,  // 139: hashicorp.consul.internal.configentry.HTTPMatch.Path:type_name -> hashicorp.consul.internal.configentry.HTTPPathMatch
-	90,  // 140: hashicorp.consul.internal.configentry.HTTPMatch.Query:type_name -> hashicorp.consul.internal.configentry.HTTPQueryMatch
-	10,  // 141: hashicorp.consul.internal.configentry.HTTPHeaderMatch.Match:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderMatchType
-	11,  // 142: hashicorp.consul.internal.configentry.HTTPPathMatch.Match:type_name -> hashicorp.consul.internal.configentry.HTTPPathMatchType
-	12,  // 143: hashicorp.consul.internal.configentry.HTTPQueryMatch.Match:type_name -> hashicorp.consul.internal.configentry.HTTPQueryMatchType
-	97,  // 144: hashicorp.consul.internal.configentry.HTTPFilters.Headers:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderFilter
-	93,  // 145: hashicorp.consul.internal.configentry.HTTPFilters.URLRewrite:type_name -> hashicorp.consul.internal.configentry.URLRewrite
-	94,  // 146: hashicorp.consul.internal.configentry.HTTPFilters.RetryFilter:type_name -> hashicorp.consul.internal.configentry.RetryFilter
-	95,  // 147: hashicorp.consul.internal.configentry.HTTPFilters.TimeoutFilter:type_name -> hashicorp.consul.internal.configentry.TimeoutFilter
-	96,  // 148: hashicorp.consul.internal.configentry.HTTPFilters.JWT:type_name -> hashicorp.consul.internal.configentry.JWTFilter
-	97,  // 149: hashicorp.consul.internal.configentry.HTTPResponseFilters.Headers:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderFilter
-	147, // 150: hashicorp.consul.internal.configentry.TimeoutFilter.RequestTimeout:type_name -> google.protobuf.Duration
-	147, // 151: hashicorp.consul.internal.configentry.TimeoutFilter.IdleTimeout:type_name -> google.protobuf.Duration
-	77,  // 152: hashicorp.consul.internal.configentry.JWTFilter.Providers:type_name -> hashicorp.consul.internal.configentry.APIGatewayJWTProvider
-	139, // 153: hashicorp.consul.internal.configentry.HTTPHeaderFilter.Add:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderFilter.AddEntry
-	140, // 154: hashicorp.consul.internal.configentry.HTTPHeaderFilter.Set:type_name -> hashicorp.consul.internal.configentry.HTTPHeaderFilter.SetEntry
-	91,  // 155: hashicorp.consul.internal.configentry.HTTPService.Filters:type_name -> hashicorp.consul.internal.configentry.HTTPFilters
-	145, // 156: hashicorp.consul.internal.configentry.HTTPService.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	92,  // 157: hashicorp.consul.internal.configentry.HTTPService.ResponseFilters:type_name -> hashicorp.consul.internal.configentry.HTTPResponseFilters
-	47,  // 158: hashicorp.consul.internal.configentry.HTTPService.TLS:type_name -> hashicorp.consul.internal.configentry.GatewayServiceTLSConfig
-	64,  // 159: hashicorp.consul.internal.configentry.HTTPService.Limits:type_name -> hashicorp.consul.internal.configentry.UpstreamLimits
-	141, // 160: hashicorp.consul.internal.configentry.TCPRoute.Meta:type_name -> hashicorp.consul.internal.configentry.TCPRoute.MetaEntry
-	79,  // 161: hashicorp.consul.internal.configentry.TCPRoute.Parents:type_name -> hashicorp.consul.internal.configentry.ResourceReference
-	100, // 162: hashicorp.consul.internal.configentry.TCPRoute.Services:type_name -> hashicorp.consul.internal.configentry.TCPService
-	71,  // 163: hashicorp.consul.internal.configentry.TCPRoute.Status:type_name -> hashicorp.consul.internal.configentry.Status
-	145, // 164: hashicorp.consul.internal.configentry.TCPService.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	47,  // 165: hashicorp.consul.internal.configentry.TCPService.TLS:type_name -> hashicorp.consul.internal.configentry.GatewayServiceTLSConfig
-	64,  // 166: hashicorp.consul.internal.configentry.TCPService.Limits:type_name -> hashicorp.consul.internal.configentry.UpstreamLimits
-	102, // 167: hashicorp.consul.internal.configentry.SamenessGroup.Members:type_name -> hashicorp.consul.internal.configentry.SamenessGroupMember
-	142, // 168: hashicorp.consul.internal.configentry.SamenessGroup.Meta:type_name -> hashicorp.consul.internal.configentry.SamenessGroup.MetaEntry
-	145, // 169: hashicorp.consul.internal.configentry.SamenessGroup.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	104, // 170: hashicorp.consul.internal.configentry.JWTProvider.JSONWebKeySet:type_name -> hashicorp.consul.internal.configentry.JSONWebKeySet
-	113, // 171: hashicorp.consul.internal.configentry.JWTProvider.Locations:type_name -> hashicorp.consul.internal.configentry.JWTLocation
-	117, // 172: hashicorp.consul.internal.configentry.JWTProvider.Forwarding:type_name -> hashicorp.consul.internal.configentry.JWTForwardingConfig
-	118, // 173: hashicorp.consul.internal.configentry.JWTProvider.CacheConfig:type_name -> hashicorp.consul.internal.configentry.JWTCacheConfig
-	143, // 174: hashicorp.consul.internal.configentry.JWTProvider.Meta:type_name -> hashicorp.consul.internal.configentry.JWTProvider.MetaEntry
-	105, // 175: hashicorp.consul.internal.configentry.JSONWebKeySet.Local:type_name -> hashicorp.consul.internal.configentry.LocalJWKS
-	106, // 176: hashicorp.consul.internal.configentry.JSONWebKeySet.Remote:type_name -> hashicorp.consul.internal.configentry.RemoteJWKS
-	147, // 177: hashicorp.consul.internal.configentry.RemoteJWKS.CacheDuration:type_name -> google.protobuf.Duration
-	111, // 178: hashicorp.consul.internal.configentry.RemoteJWKS.RetryPolicy:type_name -> hashicorp.consul.internal.configentry.JWKSRetryPolicy
-	107, // 179: hashicorp.consul.internal.configentry.RemoteJWKS.JWKSCluster:type_name -> hashicorp.consul.internal.configentry.JWKSCluster
-	108, // 180: hashicorp.consul.internal.configentry.JWKSCluster.TLSCertificates:type_name -> hashicorp.consul.internal.configentry.JWKSTLSCertificate
-	147, // 181: hashicorp.consul.internal.configentry.JWKSCluster.ConnectTimeout:type_name -> google.protobuf.Duration
-	109, // 182: hashicorp.consul.internal.configentry.JWKSTLSCertificate.CaCertificateProviderInstance:type_name -> hashicorp.consul.internal.configentry.JWKSTLSCertProviderInstance
-	110, // 183: hashicorp.consul.internal.configentry.JWKSTLSCertificate.TrustedCA:type_name -> hashicorp.consul.internal.configentry.JWKSTLSCertTrustedCA
-	112, // 184: hashicorp.consul.internal.configentry.JWKSRetryPolicy.RetryPolicyBackOff:type_name -> hashicorp.consul.internal.configentry.RetryPolicyBackOff
-	147, // 185: hashicorp.consul.internal.configentry.RetryPolicyBackOff.BaseInterval:type_name -> google.protobuf.Duration
-	147, // 186: hashicorp.consul.internal.configentry.RetryPolicyBackOff.MaxInterval:type_name -> google.protobuf.Duration
-	114, // 187: hashicorp.consul.internal.configentry.JWTLocation.Header:type_name -> hashicorp.consul.internal.configentry.JWTLocationHeader
-	115, // 188: hashicorp.consul.internal.configentry.JWTLocation.QueryParam:type_name -> hashicorp.consul.internal.configentry.JWTLocationQueryParam
-	116, // 189: hashicorp.consul.internal.configentry.JWTLocation.Cookie:type_name -> hashicorp.consul.internal.configentry.JWTLocationCookie
-	145, // 190: hashicorp.consul.internal.configentry.ExportedServices.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	144, // 191: hashicorp.consul.internal.configentry.ExportedServices.Meta:type_name -> hashicorp.consul.internal.configentry.ExportedServices.MetaEntry
-	120, // 192: hashicorp.consul.internal.configentry.ExportedServices.Services:type_name -> hashicorp.consul.internal.configentry.ExportedServicesService
-	121, // 193: hashicorp.consul.internal.configentry.ExportedServicesService.Consumers:type_name -> hashicorp.consul.internal.configentry.ExportedServicesConsumer
-	30,  // 194: hashicorp.consul.internal.configentry.ServiceResolver.SubsetsEntry.value:type_name -> hashicorp.consul.internal.configentry.ServiceResolverSubset
-	32,  // 195: hashicorp.consul.internal.configentry.ServiceResolver.FailoverEntry.value:type_name -> hashicorp.consul.internal.configentry.ServiceResolverFailover
-	81,  // 196: hashicorp.consul.internal.configentry.BoundAPIGateway.ServicesEntry.value:type_name -> hashicorp.consul.internal.configentry.ListOfResourceReference
-	13,  // 197: hashicorp.consul.internal.configentry.ConfigEntryService.GetResolvedExportedServices:input_type -> hashicorp.consul.internal.configentry.GetResolvedExportedServicesRequest
-	17,  // 198: hashicorp.consul.internal.configentry.ConfigEntryService.GetImportedServices:input_type -> hashicorp.consul.internal.configentry.GetImportedServicesRequest
-	14,  // 199: hashicorp.consul.internal.configentry.ConfigEntryService.GetResolvedExportedServices:output_type -> hashicorp.consul.internal.configentry.GetResolvedExportedServicesResponse
-	18,  // 200: hashicorp.consul.internal.configentry.ConfigEntryService.GetImportedServices:output_type -> hashicorp.consul.internal.configentry.GetImportedServicesResponse
+	15,  // 0: dumb-hashicorp.dumb-consul.internal.configentry.GetResolvedExportedServicesResponse.services:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ResolvedExportedService
+	145, // 1: dumb-hashicorp.dumb-consul.internal.configentry.ResolvedExportedService.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	16,  // 2: dumb-hashicorp.dumb-consul.internal.configentry.ResolvedExportedService.Consumers:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.Consumers
+	19,  // 3: dumb-hashicorp.dumb-consul.internal.configentry.GetImportedServicesResponse.Services:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ImportedService
+	145, // 4: dumb-hashicorp.dumb-consul.internal.configentry.ImportedService.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	0,   // 5: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.Kind:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.Kind
+	145, // 6: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	146, // 7: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.RaftIndex:type_name -> dumb-hashicorp.dumb-consul.internal.common.RaftIndex
+	21,  // 8: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.MeshConfig:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig
+	29,  // 9: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.ServiceResolver:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver
+	41,  // 10: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.IngressGateway:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IngressGateway
+	49,  // 11: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.ServiceIntentions:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceIntentions
+	57,  // 12: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.ServiceDefaults:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults
+	70,  // 13: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.APIGateway:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGateway
+	80,  // 14: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.BoundAPIGateway:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway
+	99,  // 15: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.TCPRoute:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.TCPRoute
+	85,  // 16: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.HTTPRoute:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPRoute
+	84,  // 17: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.InlineCertificate:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.InlineCertificate
+	101, // 18: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.SamenessGroup:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroup
+	103, // 19: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.JWTProvider:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider
+	119, // 20: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.ExportedServices:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ExportedServices
+	83,  // 21: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntry.FileSystemCertificate:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.FileSystemCertificate
+	22,  // 22: dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig.TransparentProxy:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.TransparentProxyMeshConfig
+	23,  // 23: dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig.TLS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshTLSConfig
+	25,  // 24: dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig.HTTP:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshHTTPConfig
+	122, // 25: dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig.MetaEntry
+	27,  // 26: dumb-hashicorp.dumb-consul.internal.configentry.MeshConfig.Peering:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.PeeringMeshConfig
+	24,  // 27: dumb-hashicorp.dumb-consul.internal.configentry.MeshTLSConfig.Incoming:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshDirectionalTLSConfig
+	24,  // 28: dumb-hashicorp.dumb-consul.internal.configentry.MeshTLSConfig.Outgoing:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshDirectionalTLSConfig
+	26,  // 29: dumb-hashicorp.dumb-consul.internal.configentry.MeshHTTPConfig.Incoming:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshDirectionalHTTPConfig
+	28,  // 30: dumb-hashicorp.dumb-consul.internal.configentry.MeshDirectionalHTTPConfig.RequestNormalization:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.RequestNormalizationMeshConfig
+	1,   // 31: dumb-hashicorp.dumb-consul.internal.configentry.RequestNormalizationMeshConfig.PathWithEscapedSlashesAction:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.PathWithEscapedSlashesAction
+	2,   // 32: dumb-hashicorp.dumb-consul.internal.configentry.RequestNormalizationMeshConfig.HeadersWithUnderscoresAction:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HeadersWithUnderscoresAction
+	123, // 33: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.Subsets:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.SubsetsEntry
+	31,  // 34: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.Redirect:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverRedirect
+	124, // 35: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.Failover:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.FailoverEntry
+	147, // 36: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.ConnectTimeout:type_name -> google.protobuf.Duration
+	36,  // 37: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.LoadBalancer:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.LoadBalancer
+	125, // 38: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.MetaEntry
+	147, // 39: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.RequestTimeout:type_name -> google.protobuf.Duration
+	34,  // 40: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.PrioritizeByLocality:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverPrioritizeByLocality
+	35,  // 41: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailover.Targets:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailoverTarget
+	33,  // 42: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailover.Policy:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailoverPolicy
+	37,  // 43: dumb-hashicorp.dumb-consul.internal.configentry.LoadBalancer.RingHashConfig:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.RingHashConfig
+	38,  // 44: dumb-hashicorp.dumb-consul.internal.configentry.LoadBalancer.LeastRequestConfig:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.LeastRequestConfig
+	39,  // 45: dumb-hashicorp.dumb-consul.internal.configentry.LoadBalancer.HashPolicies:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HashPolicy
+	40,  // 46: dumb-hashicorp.dumb-consul.internal.configentry.HashPolicy.CookieConfig:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.CookieConfig
+	147, // 47: dumb-hashicorp.dumb-consul.internal.configentry.CookieConfig.TTL:type_name -> google.protobuf.Duration
+	43,  // 48: dumb-hashicorp.dumb-consul.internal.configentry.IngressGateway.TLS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSConfig
+	45,  // 49: dumb-hashicorp.dumb-consul.internal.configentry.IngressGateway.Listeners:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IngressListener
+	126, // 50: dumb-hashicorp.dumb-consul.internal.configentry.IngressGateway.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IngressGateway.MetaEntry
+	42,  // 51: dumb-hashicorp.dumb-consul.internal.configentry.IngressGateway.Defaults:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IngressServiceConfig
+	65,  // 52: dumb-hashicorp.dumb-consul.internal.configentry.IngressServiceConfig.PassiveHealthCheck:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.PassiveHealthCheck
+	44,  // 53: dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSConfig.SDS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSSDSConfig
+	46,  // 54: dumb-hashicorp.dumb-consul.internal.configentry.IngressListener.Services:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IngressService
+	43,  // 55: dumb-hashicorp.dumb-consul.internal.configentry.IngressListener.TLS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSConfig
+	47,  // 56: dumb-hashicorp.dumb-consul.internal.configentry.IngressService.TLS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.GatewayServiceTLSConfig
+	48,  // 57: dumb-hashicorp.dumb-consul.internal.configentry.IngressService.RequestHeaders:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers
+	48,  // 58: dumb-hashicorp.dumb-consul.internal.configentry.IngressService.ResponseHeaders:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers
+	127, // 59: dumb-hashicorp.dumb-consul.internal.configentry.IngressService.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IngressService.MetaEntry
+	145, // 60: dumb-hashicorp.dumb-consul.internal.configentry.IngressService.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	65,  // 61: dumb-hashicorp.dumb-consul.internal.configentry.IngressService.PassiveHealthCheck:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.PassiveHealthCheck
+	44,  // 62: dumb-hashicorp.dumb-consul.internal.configentry.GatewayServiceTLSConfig.SDS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSSDSConfig
+	128, // 63: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers.Add:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers.AddEntry
+	129, // 64: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers.Set:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderModifiers.SetEntry
+	53,  // 65: dumb-hashicorp.dumb-consul.internal.configentry.ServiceIntentions.Sources:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention
+	130, // 66: dumb-hashicorp.dumb-consul.internal.configentry.ServiceIntentions.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceIntentions.MetaEntry
+	50,  // 67: dumb-hashicorp.dumb-consul.internal.configentry.ServiceIntentions.JWT:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTRequirement
+	51,  // 68: dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTRequirement.Providers:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTProvider
+	52,  // 69: dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTProvider.VerifyClaims:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTClaimVerification
+	3,   // 70: dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.Action:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionAction
+	54,  // 71: dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.Permissions:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionPermission
+	4,   // 72: dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.Type:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionSourceType
+	131, // 73: dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.LegacyMeta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.LegacyMetaEntry
+	148, // 74: dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.LegacyCreateTime:type_name -> google.protobuf.Timestamp
+	148, // 75: dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.LegacyUpdateTime:type_name -> google.protobuf.Timestamp
+	145, // 76: dumb-hashicorp.dumb-consul.internal.configentry.SourceIntention.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	3,   // 77: dumb-hashicorp.dumb-consul.internal.configentry.IntentionPermission.Action:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionAction
+	55,  // 78: dumb-hashicorp.dumb-consul.internal.configentry.IntentionPermission.HTTP:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionHTTPPermission
+	50,  // 79: dumb-hashicorp.dumb-consul.internal.configentry.IntentionPermission.JWT:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionJWTRequirement
+	56,  // 80: dumb-hashicorp.dumb-consul.internal.configentry.IntentionHTTPPermission.Header:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.IntentionHTTPHeaderPermission
+	5,   // 81: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.Mode:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ProxyMode
+	58,  // 82: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.TransparentProxy:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.TransparentProxyConfig
+	59,  // 83: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.MeshGateway:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayConfig
+	60,  // 84: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.Expose:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ExposeConfig
+	62,  // 85: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.UpstreamConfig:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfiguration
+	66,  // 86: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.Destination:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.DestinationConfig
+	67,  // 87: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.RateLimits:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.RateLimits
+	132, // 88: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.MetaEntry
+	149, // 89: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.EnvoyExtensions:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnvoyExtension
+	6,   // 90: dumb-hashicorp.dumb-consul.internal.configentry.ServiceDefaults.MutualTLSMode:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MutualTLSMode
+	7,   // 91: dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayConfig.Mode:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayMode
+	61,  // 92: dumb-hashicorp.dumb-consul.internal.configentry.ExposeConfig.Paths:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ExposePath
+	63,  // 93: dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfiguration.Overrides:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfig
+	63,  // 94: dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfiguration.Defaults:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfig
+	145, // 95: dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfig.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	64,  // 96: dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfig.Limits:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.UpstreamLimits
+	65,  // 97: dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfig.PassiveHealthCheck:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.PassiveHealthCheck
+	59,  // 98: dumb-hashicorp.dumb-consul.internal.configentry.UpstreamConfig.MeshGateway:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.MeshGatewayConfig
+	147, // 99: dumb-hashicorp.dumb-consul.internal.configentry.PassiveHealthCheck.Interval:type_name -> google.protobuf.Duration
+	147, // 100: dumb-hashicorp.dumb-consul.internal.configentry.PassiveHealthCheck.BaseEjectionTime:type_name -> google.protobuf.Duration
+	68,  // 101: dumb-hashicorp.dumb-consul.internal.configentry.RateLimits.InstanceLevel:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.InstanceLevelRateLimits
+	69,  // 102: dumb-hashicorp.dumb-consul.internal.configentry.InstanceLevelRateLimits.Routes:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.InstanceLevelRouteRateLimits
+	133, // 103: dumb-hashicorp.dumb-consul.internal.configentry.APIGateway.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGateway.MetaEntry
+	73,  // 104: dumb-hashicorp.dumb-consul.internal.configentry.APIGateway.Listeners:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListener
+	71,  // 105: dumb-hashicorp.dumb-consul.internal.configentry.APIGateway.Status:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.Status
+	43,  // 106: dumb-hashicorp.dumb-consul.internal.configentry.APIGateway.TLS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSConfig
+	64,  // 107: dumb-hashicorp.dumb-consul.internal.configentry.APIGateway.Defaults:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.UpstreamLimits
+	72,  // 108: dumb-hashicorp.dumb-consul.internal.configentry.Status.Conditions:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.Condition
+	79,  // 109: dumb-hashicorp.dumb-consul.internal.configentry.Condition.Resource:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ResourceReference
+	148, // 110: dumb-hashicorp.dumb-consul.internal.configentry.Condition.LastTransitionTime:type_name -> google.protobuf.Timestamp
+	8,   // 111: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListener.Protocol:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListenerProtocol
+	74,  // 112: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListener.TLS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayTLSConfiguration
+	75,  // 113: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListener.Override:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayPolicy
+	75,  // 114: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayListener.Default:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayPolicy
+	79,  // 115: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayTLSConfiguration.Certificates:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ResourceReference
+	44,  // 116: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayTLSConfiguration.SDS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.GatewayTLSSDSConfig
+	76,  // 117: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayPolicy.JWT:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTRequirement
+	77,  // 118: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTRequirement.Providers:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTProvider
+	78,  // 119: dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTProvider.VerifyClaims:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTClaimVerification
+	145, // 120: dumb-hashicorp.dumb-consul.internal.configentry.ResourceReference.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	134, // 121: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.MetaEntry
+	82,  // 122: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.Listeners:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGatewayListener
+	135, // 123: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.Services:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.ServicesEntry
+	79,  // 124: dumb-hashicorp.dumb-consul.internal.configentry.ListOfResourceReference.Ref:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ResourceReference
+	79,  // 125: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGatewayListener.Certificates:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ResourceReference
+	79,  // 126: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGatewayListener.Routes:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ResourceReference
+	136, // 127: dumb-hashicorp.dumb-consul.internal.configentry.FileSystemCertificate.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.FileSystemCertificate.MetaEntry
+	137, // 128: dumb-hashicorp.dumb-consul.internal.configentry.InlineCertificate.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.InlineCertificate.MetaEntry
+	138, // 129: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRoute.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPRoute.MetaEntry
+	79,  // 130: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRoute.Parents:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ResourceReference
+	86,  // 131: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRoute.Rules:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPRouteRule
+	71,  // 132: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRoute.Status:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.Status
+	91,  // 133: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRouteRule.Filters:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPFilters
+	87,  // 134: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRouteRule.Matches:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatch
+	98,  // 135: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRouteRule.Services:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPService
+	92,  // 136: dumb-hashicorp.dumb-consul.internal.configentry.HTTPRouteRule.ResponseFilters:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPResponseFilters
+	88,  // 137: dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatch.Headers:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderMatch
+	9,   // 138: dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatch.Method:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatchMethod
+	89,  // 139: dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatch.Path:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPPathMatch
+	90,  // 140: dumb-hashicorp.dumb-consul.internal.configentry.HTTPMatch.Query:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPQueryMatch
+	10,  // 141: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderMatch.Match:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderMatchType
+	11,  // 142: dumb-hashicorp.dumb-consul.internal.configentry.HTTPPathMatch.Match:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPPathMatchType
+	12,  // 143: dumb-hashicorp.dumb-consul.internal.configentry.HTTPQueryMatch.Match:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPQueryMatchType
+	97,  // 144: dumb-hashicorp.dumb-consul.internal.configentry.HTTPFilters.Headers:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter
+	93,  // 145: dumb-hashicorp.dumb-consul.internal.configentry.HTTPFilters.URLRewrite:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.URLRewrite
+	94,  // 146: dumb-hashicorp.dumb-consul.internal.configentry.HTTPFilters.RetryFilter:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.RetryFilter
+	95,  // 147: dumb-hashicorp.dumb-consul.internal.configentry.HTTPFilters.TimeoutFilter:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.TimeoutFilter
+	96,  // 148: dumb-hashicorp.dumb-consul.internal.configentry.HTTPFilters.JWT:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWTFilter
+	97,  // 149: dumb-hashicorp.dumb-consul.internal.configentry.HTTPResponseFilters.Headers:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter
+	147, // 150: dumb-hashicorp.dumb-consul.internal.configentry.TimeoutFilter.RequestTimeout:type_name -> google.protobuf.Duration
+	147, // 151: dumb-hashicorp.dumb-consul.internal.configentry.TimeoutFilter.IdleTimeout:type_name -> google.protobuf.Duration
+	77,  // 152: dumb-hashicorp.dumb-consul.internal.configentry.JWTFilter.Providers:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.APIGatewayJWTProvider
+	139, // 153: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter.Add:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter.AddEntry
+	140, // 154: dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter.Set:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPHeaderFilter.SetEntry
+	91,  // 155: dumb-hashicorp.dumb-consul.internal.configentry.HTTPService.Filters:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPFilters
+	145, // 156: dumb-hashicorp.dumb-consul.internal.configentry.HTTPService.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	92,  // 157: dumb-hashicorp.dumb-consul.internal.configentry.HTTPService.ResponseFilters:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.HTTPResponseFilters
+	47,  // 158: dumb-hashicorp.dumb-consul.internal.configentry.HTTPService.TLS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.GatewayServiceTLSConfig
+	64,  // 159: dumb-hashicorp.dumb-consul.internal.configentry.HTTPService.Limits:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.UpstreamLimits
+	141, // 160: dumb-hashicorp.dumb-consul.internal.configentry.TCPRoute.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.TCPRoute.MetaEntry
+	79,  // 161: dumb-hashicorp.dumb-consul.internal.configentry.TCPRoute.Parents:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ResourceReference
+	100, // 162: dumb-hashicorp.dumb-consul.internal.configentry.TCPRoute.Services:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.TCPService
+	71,  // 163: dumb-hashicorp.dumb-consul.internal.configentry.TCPRoute.Status:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.Status
+	145, // 164: dumb-hashicorp.dumb-consul.internal.configentry.TCPService.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	47,  // 165: dumb-hashicorp.dumb-consul.internal.configentry.TCPService.TLS:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.GatewayServiceTLSConfig
+	64,  // 166: dumb-hashicorp.dumb-consul.internal.configentry.TCPService.Limits:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.UpstreamLimits
+	102, // 167: dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroup.Members:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroupMember
+	142, // 168: dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroup.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroup.MetaEntry
+	145, // 169: dumb-hashicorp.dumb-consul.internal.configentry.SamenessGroup.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	104, // 170: dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider.JSONWebKeySet:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JSONWebKeySet
+	113, // 171: dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider.Locations:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWTLocation
+	117, // 172: dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider.Forwarding:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWTForwardingConfig
+	118, // 173: dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider.CacheConfig:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWTCacheConfig
+	143, // 174: dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWTProvider.MetaEntry
+	105, // 175: dumb-hashicorp.dumb-consul.internal.configentry.JSONWebKeySet.Local:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.LocalJWKS
+	106, // 176: dumb-hashicorp.dumb-consul.internal.configentry.JSONWebKeySet.Remote:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.RemoteJWKS
+	147, // 177: dumb-hashicorp.dumb-consul.internal.configentry.RemoteJWKS.CacheDuration:type_name -> google.protobuf.Duration
+	111, // 178: dumb-hashicorp.dumb-consul.internal.configentry.RemoteJWKS.RetryPolicy:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWKSRetryPolicy
+	107, // 179: dumb-hashicorp.dumb-consul.internal.configentry.RemoteJWKS.JWKSCluster:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWKSCluster
+	108, // 180: dumb-hashicorp.dumb-consul.internal.configentry.JWKSCluster.TLSCertificates:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertificate
+	147, // 181: dumb-hashicorp.dumb-consul.internal.configentry.JWKSCluster.ConnectTimeout:type_name -> google.protobuf.Duration
+	109, // 182: dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertificate.CaCertificateProviderInstance:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertProviderInstance
+	110, // 183: dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertificate.TrustedCA:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWKSTLSCertTrustedCA
+	112, // 184: dumb-hashicorp.dumb-consul.internal.configentry.JWKSRetryPolicy.RetryPolicyBackOff:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.RetryPolicyBackOff
+	147, // 185: dumb-hashicorp.dumb-consul.internal.configentry.RetryPolicyBackOff.BaseInterval:type_name -> google.protobuf.Duration
+	147, // 186: dumb-hashicorp.dumb-consul.internal.configentry.RetryPolicyBackOff.MaxInterval:type_name -> google.protobuf.Duration
+	114, // 187: dumb-hashicorp.dumb-consul.internal.configentry.JWTLocation.Header:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationHeader
+	115, // 188: dumb-hashicorp.dumb-consul.internal.configentry.JWTLocation.QueryParam:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationQueryParam
+	116, // 189: dumb-hashicorp.dumb-consul.internal.configentry.JWTLocation.Cookie:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.JWTLocationCookie
+	145, // 190: dumb-hashicorp.dumb-consul.internal.configentry.ExportedServices.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	144, // 191: dumb-hashicorp.dumb-consul.internal.configentry.ExportedServices.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ExportedServices.MetaEntry
+	120, // 192: dumb-hashicorp.dumb-consul.internal.configentry.ExportedServices.Services:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ExportedServicesService
+	121, // 193: dumb-hashicorp.dumb-consul.internal.configentry.ExportedServicesService.Consumers:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ExportedServicesConsumer
+	30,  // 194: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.SubsetsEntry.value:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverSubset
+	32,  // 195: dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolver.FailoverEntry.value:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ServiceResolverFailover
+	81,  // 196: dumb-hashicorp.dumb-consul.internal.configentry.BoundAPIGateway.ServicesEntry.value:type_name -> dumb-hashicorp.dumb-consul.internal.configentry.ListOfResourceReference
+	13,  // 197: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntryService.GetResolvedExportedServices:input_type -> dumb-hashicorp.dumb-consul.internal.configentry.GetResolvedExportedServicesRequest
+	17,  // 198: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntryService.GetImportedServices:input_type -> dumb-hashicorp.dumb-consul.internal.configentry.GetImportedServicesRequest
+	14,  // 199: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntryService.GetResolvedExportedServices:output_type -> dumb-hashicorp.dumb-consul.internal.configentry.GetResolvedExportedServicesResponse
+	18,  // 200: dumb-hashicorp.dumb-consul.internal.configentry.ConfigEntryService.GetImportedServices:output_type -> dumb-hashicorp.dumb-consul.internal.configentry.GetImportedServicesResponse
 	199, // [199:201] is the sub-list for method output_type
 	197, // [197:199] is the sub-list for method input_type
 	197, // [197:197] is the sub-list for extension type_name

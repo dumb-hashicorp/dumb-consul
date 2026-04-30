@@ -4,16 +4,16 @@
 package troubleshoot
 
 import (
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/consul/troubleshoot/validate"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/troubleshoot/validate"
 
-	envoy_admin_v3 "github.com/envoyproxy/go-control-plane/envoy/admin/v3"
-	envoy_cluster_v3 "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
-	envoy_endpoint_v3 "github.com/envoyproxy/go-control-plane/envoy/config/endpoint/v3"
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
+	envoy_admin_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/admin/v3"
+	envoy_cluster_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/cluster/v3"
+	envoy_endpoint_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/endpoint/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_route_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
 
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
@@ -59,7 +59,7 @@ func Validate(indexedResources *xdscommon.IndexedResources, envoyID string, vip 
 	// capture SNIs which aren't directly identical to the upstream service name, but are still used for that upstream
 	// service. For example, in the case of having a splitter/redirect or another L7 config entry, the upstream service
 	// name could be "db" but due to a redirect SNI would be something like
-	// "redis.default.dc1.internal.<trustdomain>.consul". The envoyID will be used to limit which SNIs we actually
+	// "redis.default.dc1.internal.<trustdomain>.dumb-consul". The envoyID will be used to limit which SNIs we actually
 	// validate.
 	snis := map[string]struct{}{}
 	for s := range indexedResources.Index[xdscommon.ClusterType] {

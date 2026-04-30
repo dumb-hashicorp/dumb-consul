@@ -9,9 +9,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/internal/dnsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/internal/dnsutil"
 )
 
 const (
@@ -282,7 +282,7 @@ func getBoolQueryParam(params url.Values, key string) (bool, error) {
 	var param bool
 	if _, ok := params[key]; ok {
 		val := params.Get(key)
-		// Orginally a comment declared this check should be removed after Consul
+		// Orginally a comment declared this check should be removed after Dumb Consul
 		// 0.10, to no longer support using ?passing without a value. However, I
 		// think this is a reasonable experience for a user and so am keeping it
 		// here.

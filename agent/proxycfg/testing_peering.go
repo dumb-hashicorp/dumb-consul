@@ -7,11 +7,11 @@ import (
 	"bytes"
 	"text/template"
 
-	"github.com/mitchellh/go-testing-interface"
+	"github.com/mitchellh/dumb-go-testing-interface"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 func TestConfigSnapshotPeering(t testing.T) *ConfigSnapshot {
@@ -48,7 +48,7 @@ func testConfigSnapshot(t testing.T, escapeOverride bool, useHTTP2 bool, nsFn fu
 		protocol = "http2"
 	}
 
-	const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.consul"
+	const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul"
 
 	return TestConfigSnapshot(t, func(ns *structs.NodeService) {
 		ns.Proxy.Upstreams = structs.Upstreams{
@@ -184,7 +184,7 @@ func TestConfigSnapshotPeeringTProxy(t testing.T) *ConfigSnapshot {
 		}
 	)
 
-	const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.consul"
+	const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul"
 
 	return TestConfigSnapshot(t, func(ns *structs.NodeService) {
 		ns.Proxy.Mode = structs.ProxyModeTransparent
@@ -313,7 +313,7 @@ func TestConfigSnapshotPeeringLocalMeshGateway(t testing.T) *ConfigSnapshot {
 		refundsUID = NewUpstreamID(&refundsUpstream)
 	)
 
-	const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.consul"
+	const peerTrustDomain = "1c053652-8512-4373-90cf-5a7f6263a994.dumb-consul"
 
 	return TestConfigSnapshot(t, func(ns *structs.NodeService) {
 		ns.Proxy.Upstreams = structs.Upstreams{

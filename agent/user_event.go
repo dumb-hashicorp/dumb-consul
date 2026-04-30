@@ -9,10 +9,10 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/dumb-go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 const (

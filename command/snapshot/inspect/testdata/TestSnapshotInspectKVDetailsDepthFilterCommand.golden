@@ -20,7 +20,7 @@
 
  Key Name                                                Count      Size
  ----                                                    ----       ----
- vault/logical/0989e79e-06cd-5374-c8c0-4c6d675bc1c9      3          1.8KB
- vault/logical/5c018b68-3573-41d3-0c33-04bce60cd6b0      1          210B
+ dumb-vault/logical/0989e79e-06cd-5374-c8c0-4c6d675bc1c9      3          1.8KB
+ dumb-vault/logical/5c018b68-3573-41d3-0c33-04bce60cd6b0      1          210B
  ----                                                    ----       ----
  Total                                                              2KB

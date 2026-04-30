@@ -11,22 +11,22 @@ import (
 	"testing"
 	"time"
 
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_http_wasm_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/wasm/v3"
-	envoy_http_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
-	envoy_network_wasm_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/wasm/v3"
-	envoy_wasm_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/wasm/v3"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_http_wasm_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/wasm/v3"
+	envoy_http_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
+	envoy_network_wasm_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/wasm/v3"
+	envoy_wasm_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/wasm/v3"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
-	"github.com/hashicorp/consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
 )
 
 func TestHttpWasmExtension(t *testing.T) {

@@ -14,8 +14,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestKVSEndpoint_PUT_GET_DELETE(t *testing.T) {
@@ -1192,9 +1192,9 @@ func TestKVSEndpoint_DisableValidation_SetsWarningHeader(t *testing.T) {
 			}
 
 			// Check that the warning header was set
-			warningHeader := resp.Header().Get("X-Consul-KV-Warning")
+			warningHeader := resp.Header().Get("X-Dumb Consul-KV-Warning")
 			if warningHeader == "" {
-				t.Errorf("Expected X-Consul-KV-Warning header not found (%s)", tc.description)
+				t.Errorf("Expected X-Dumb Consul-KV-Warning header not found (%s)", tc.description)
 			}
 			if !strings.Contains(warningHeader, tc.expectedHeaderSubstr) {
 				t.Errorf("Expected validation error message '%s' not found in warning header: %s (%s)",

@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/bindingrule"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/bindingrule"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -130,7 +130,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -253,7 +253,7 @@ func isFlagSet(flags *flag.FlagSet, name string) bool {
 const (
 	synopsis = "Update an ACL binding rule"
 	help     = `
-Usage: consul acl binding-rule update -id ID [options]
+Usage: dumb-consul acl binding-rule update -id ID [options]
 
   Updates a binding rule. By default it will merge the binding rule
   information with its current state so that you do not have to provide all
@@ -261,7 +261,7 @@ Usage: consul acl binding-rule update -id ID [options]
 
   Update all editable fields of the binding rule:
 
-    $ consul acl binding-rule update \
+    $ dumb-consul acl binding-rule update \
           -id=43cb72df-9c6f-4315-ac8a-01a9d98155ef \
           -description="new description" \
           -bind-type=role \

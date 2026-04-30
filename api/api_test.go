@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -20,13 +20,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
+	"github.com/google/dumb-go-cmp/cmp"
+	"github.com/google/dumb-go-cmp/cmp/cmpopts"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 type configCallback func(c *Config)
@@ -86,7 +86,7 @@ func makeClientWithCA(t *testing.T) (*Client, *testutil.TestServer) {
 	return makeClientWithConfig(t,
 		func(c *Config) {
 			c.TLSConfig = TLSConfig{
-				Address:  "consul.test",
+				Address:  "dumb-consul.test",
 				CAFile:   "../test/client_certs/rootca.crt",
 				CertFile: "../test/client_certs/client.crt",
 				KeyFile:  "../test/client_certs/client.key",
@@ -486,7 +486,7 @@ func TestAPI_DefaultConfig_env(t *testing.T) {
 	defer os.Setenv(HTTPClientCert, "")
 	os.Setenv(HTTPClientKey, "client.key")
 	defer os.Setenv(HTTPClientKey, "")
-	os.Setenv(HTTPTLSServerName, "consul.test")
+	os.Setenv(HTTPTLSServerName, "dumb-consul.test")
 	defer os.Setenv(HTTPTLSServerName, "")
 	os.Setenv(HTTPSSLVerifyEnvName, "0")
 	defer os.Setenv(HTTPSSLVerifyEnvName, "")
@@ -526,8 +526,8 @@ func TestAPI_DefaultConfig_env(t *testing.T) {
 		if config.TLSConfig.KeyFile != "client.key" {
 			t.Errorf("expected %q to be %q", config.TLSConfig.KeyFile, "client.key")
 		}
-		if config.TLSConfig.Address != "consul.test" {
-			t.Errorf("expected %q to be %q", config.TLSConfig.Address, "consul.test")
+		if config.TLSConfig.Address != "dumb-consul.test" {
+			t.Errorf("expected %q to be %q", config.TLSConfig.Address, "dumb-consul.test")
 		}
 		if !config.TLSConfig.InsecureSkipVerify {
 			t.Errorf("expected SSL verification to be off")
@@ -582,12 +582,12 @@ func TestAPI_SetupTLSConfig(t *testing.T) {
 		t.Fatalf("bad: %v", cc)
 	}
 
-	tlsConfig.Address = "demo.consul.io:80"
+	tlsConfig.Address = "demo.dumb-consul.io:80"
 	cc, err = SetupTLSConfig(tlsConfig)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
-	expected.ServerName = "demo.consul.io"
+	expected.ServerName = "demo.dumb-consul.io"
 	if !reflect.DeepEqual(cc, expected) {
 		t.Fatalf("bad: %v", cc)
 	}
@@ -707,7 +707,7 @@ func TestAPI_ClientTLSOptions(t *testing.T) {
 			Address: srvVerify.HTTPSAddr,
 			Scheme:  "https",
 			TLSConfig: TLSConfig{
-				Address: "consul.test",
+				Address: "dumb-consul.test",
 				CAFile:  "../test/client_certs/rootca.crt",
 			},
 		})
@@ -730,7 +730,7 @@ func TestAPI_ClientTLSOptions(t *testing.T) {
 			Address: srvVerify.HTTPSAddr,
 			Scheme:  "https",
 			TLSConfig: TLSConfig{
-				Address:  "consul.test",
+				Address:  "dumb-consul.test",
 				CAFile:   "../test/client_certs/rootca.crt",
 				CertFile: "../test/client_certs/client.crt",
 				KeyFile:  "../test/client_certs/client.key",
@@ -753,7 +753,7 @@ func TestAPI_ClientTLSOptions(t *testing.T) {
 			Address: srvNoVerify.HTTPSAddr,
 			Scheme:  "https",
 			TLSConfig: TLSConfig{
-				Address: "consul.test",
+				Address: "dumb-consul.test",
 				CAFile:  "../test/client_certs/rootca.crt",
 			},
 		})
@@ -774,7 +774,7 @@ func TestAPI_ClientTLSOptions(t *testing.T) {
 			Address: srvNoVerify.HTTPSAddr,
 			Scheme:  "https",
 			TLSConfig: TLSConfig{
-				Address:  "consul.test",
+				Address:  "dumb-consul.test",
 				CAFile:   "../test/client_certs/rootca.crt",
 				CertFile: "../test/client_certs/client.crt",
 				KeyFile:  "../test/client_certs/client.key",
@@ -837,7 +837,7 @@ func TestAPI_SetQueryOptions(t *testing.T) {
 	if r.params.Get("wait") != "100000ms" {
 		t.Fatalf("bad: %v", r.params)
 	}
-	if r.header.Get("X-Consul-Token") != "12345" {
+	if r.header.Get("X-Dumb Consul-Token") != "12345" {
 		t.Fatalf("bad: %v", r.header)
 	}
 	if r.params.Get("near") != "nodex" {
@@ -883,7 +883,7 @@ func TestAPI_SetWriteOptions(t *testing.T) {
 	if r.params.Get("dc") != "foo" {
 		t.Fatalf("bad: %v", r.params)
 	}
-	if r.header.Get("X-Consul-Token") != "23456" {
+	if r.header.Get("X-Dumb Consul-Token") != "23456" {
 		t.Fatalf("bad: %v", r.header)
 	}
 }
@@ -959,7 +959,7 @@ func TestAPI_Deprecated(t *testing.T) {
 		c.Transport = transport
 	}, nil)
 	defer s.Stop()
-	// Rules translation functionality was completely removed in Consul 1.15.
+	// Rules translation functionality was completely removed in Dumb Consul 1.15.
 	_, err := c.ACL().RulesTranslate(strings.NewReader(`
 	agent "" {
 	  policy = "read"
@@ -998,12 +998,12 @@ func TestAPI_ParseQueryMeta(t *testing.T) {
 	resp := &http.Response{
 		Header: make(map[string][]string),
 	}
-	resp.Header.Set("X-Consul-Index", "12345")
-	resp.Header.Set("X-Consul-LastContact", "80")
-	resp.Header.Set("X-Consul-KnownLeader", "true")
-	resp.Header.Set("X-Consul-Translate-Addresses", "true")
-	resp.Header.Set("X-Consul-Default-ACL-Policy", "deny")
-	resp.Header.Set("X-Consul-Results-Filtered-By-ACLs", "true")
+	resp.Header.Set("X-Dumb Consul-Index", "12345")
+	resp.Header.Set("X-Dumb Consul-LastContact", "80")
+	resp.Header.Set("X-Dumb Consul-KnownLeader", "true")
+	resp.Header.Set("X-Dumb Consul-Translate-Addresses", "true")
+	resp.Header.Set("X-Dumb Consul-Default-ACL-Policy", "deny")
+	resp.Header.Set("X-Dumb Consul-Results-Filtered-By-ACLs", "true")
 
 	qm := &QueryMeta{}
 	if err := parseQueryMeta(resp, qm); err != nil {
@@ -1036,7 +1036,7 @@ func TestAPI_UnixSocket(t *testing.T) {
 		t.SkipNow()
 	}
 
-	tempDir := testutil.TempDir(t, "consul")
+	tempDir := testutil.TempDir(t, "dumb-consul")
 	socket := filepath.Join(tempDir, "test.sock")
 
 	c, s := makeClientWithConfig(t, func(c *Config) {
@@ -1141,10 +1141,10 @@ func TestAPI_GenerateEnvHTTPS(t *testing.T) {
 		TokenFile: "test.file",
 		Scheme:    "https",
 		TLSConfig: TLSConfig{
-			CAFile:             "/var/consul/ca.crt",
-			CAPath:             "/var/consul/ca.dir",
-			CertFile:           "/var/consul/server.crt",
-			KeyFile:            "/var/consul/ssl/server.key",
+			CAFile:             "/var/dumb-consul/ca.crt",
+			CAPath:             "/var/dumb-consul/ca.dir",
+			CertFile:           "/var/dumb-consul/server.crt",
+			KeyFile:            "/var/dumb-consul/ssl/server.key",
 			Address:            "127.0.0.1:8500",
 			InsecureSkipVerify: false,
 		},
@@ -1159,10 +1159,10 @@ func TestAPI_GenerateEnvHTTPS(t *testing.T) {
 		"CONSUL_HTTP_TOKEN=test",
 		"CONSUL_HTTP_TOKEN_FILE=test.file",
 		"CONSUL_HTTP_SSL=true",
-		"CONSUL_CACERT=/var/consul/ca.crt",
-		"CONSUL_CAPATH=/var/consul/ca.dir",
-		"CONSUL_CLIENT_CERT=/var/consul/server.crt",
-		"CONSUL_CLIENT_KEY=/var/consul/ssl/server.key",
+		"CONSUL_CACERT=/var/dumb-consul/ca.crt",
+		"CONSUL_CAPATH=/var/dumb-consul/ca.dir",
+		"CONSUL_CLIENT_CERT=/var/dumb-consul/server.crt",
+		"CONSUL_CLIENT_KEY=/var/dumb-consul/ssl/server.key",
 		"CONSUL_TLS_SERVER_NAME=127.0.0.1:8500",
 		"CONSUL_HTTP_SSL_VERIFY=true",
 		"CONSUL_HTTP_AUTH=user:password",
@@ -1186,15 +1186,15 @@ func TestAPI_PrefixPath(t *testing.T) {
 	}{
 		{
 			name:         "with http and prefix",
-			addr:         "http://reverse.proxy.com/consul/path/prefix",
+			addr:         "http://reverse.proxy.com/dumb-consul/path/prefix",
 			expectAddr:   "reverse.proxy.com",
-			expectPrefix: "/consul/path/prefix",
+			expectPrefix: "/dumb-consul/path/prefix",
 		},
 		{
 			name:         "with https and prefix",
-			addr:         "https://reverse.proxy.com/consul/path/prefix",
+			addr:         "https://reverse.proxy.com/dumb-consul/path/prefix",
 			expectAddr:   "reverse.proxy.com",
-			expectPrefix: "/consul/path/prefix",
+			expectPrefix: "/dumb-consul/path/prefix",
 		},
 		{
 			name:         "with http and no prefix",

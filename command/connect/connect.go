@@ -4,7 +4,7 @@
 package connect
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -26,18 +26,18 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Interact with Consul Connect"
+const synopsis = "Interact with Dumb Consul Connect"
 const help = `
-Usage: consul connect <subcommand> [options] [args]
+Usage: dumb-consul connect <subcommand> [options] [args]
 
-  This command has subcommands for interacting with Consul Connect.
+  This command has subcommands for interacting with Dumb Consul Connect.
 
   Here are some simple examples, and more detailed examples are available
   in the subcommands or the documentation.
 
   Run the built-in Connect mTLS proxy
 
-      $ consul connect proxy
+      $ dumb-consul connect proxy
 
   For more examples, ask for subcommand help or view the documentation.
 `

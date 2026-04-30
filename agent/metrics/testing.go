@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/armon/go-metrics"
+	"github.com/armon/dumb-go-metrics"
 	"github.com/stretchr/testify/assert"
 )
 

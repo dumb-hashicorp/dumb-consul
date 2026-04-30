@@ -10,7 +10,7 @@
 package pbservice
 
 import (
-	pbcommon "github.com/hashicorp/consul/proto/private/pbcommon"
+	pbcommon "github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -144,7 +144,7 @@ func (x *CheckServiceNode) GetChecks() []*HealthCheck {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Node
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Node
 // output=node.gen.go
 // name=Structs
 type Node struct {
@@ -271,7 +271,7 @@ func (x *Node) GetLocality() *pbcommon.Locality {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.NodeService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.NodeService
 // output=node.gen.go
 // name=Structs
 type NodeService struct {
@@ -315,7 +315,7 @@ type NodeService struct {
 	// parent service is deregistered. Relying only on ID would cause us to
 	// deregister regular services if they happen to be registered using the same
 	// ID scheme as our sidecars do by default. We could use meta but that gets
-	// unpleasant because we can't use the consul- prefix from an agent (reserved
+	// unpleasant because we can't use the dumb-consul- prefix from an agent (reserved
 	// for use internally but in practice that means within the state store or in
 	// responses only), and it leaks the detail publicly which people might rely
 	// on which is a bit unpleasant for something that is meant to be config-file
@@ -507,14 +507,14 @@ var File_private_pbservice_node_proto protoreflect.FileDescriptor
 
 const file_private_pbservice_node_proto_rawDesc = "" +
 	"\n" +
-	"\x1cprivate/pbservice/node.proto\x12!hashicorp.consul.internal.service\x1a\x1dprivate/pbcommon/common.proto\x1a#private/pbservice/healthcheck.proto\x1a\x1fprivate/pbservice/service.proto\"{\n" +
+	"\x1cprivate/pbservice/node.proto\x12!dumb-hashicorp.dumb-consul.internal.service\x1a\x1dprivate/pbcommon/common.proto\x1a#private/pbservice/healthcheck.proto\x1a\x1fprivate/pbservice/service.proto\"{\n" +
 	"\x18IndexedCheckServiceNodes\x12\x14\n" +
 	"\x05Index\x18\x01 \x01(\x04R\x05Index\x12I\n" +
-	"\x05Nodes\x18\x02 \x03(\v23.hashicorp.consul.internal.service.CheckServiceNodeR\x05Nodes\"\xe1\x01\n" +
+	"\x05Nodes\x18\x02 \x03(\v23.dumb-hashicorp.dumb-consul.internal.service.CheckServiceNodeR\x05Nodes\"\xe1\x01\n" +
 	"\x10CheckServiceNode\x12;\n" +
-	"\x04Node\x18\x01 \x01(\v2'.hashicorp.consul.internal.service.NodeR\x04Node\x12H\n" +
-	"\aService\x18\x02 \x01(\v2..hashicorp.consul.internal.service.NodeServiceR\aService\x12F\n" +
-	"\x06Checks\x18\x03 \x03(\v2..hashicorp.consul.internal.service.HealthCheckR\x06Checks\"\xdd\x04\n" +
+	"\x04Node\x18\x01 \x01(\v2'.dumb-hashicorp.dumb-consul.internal.service.NodeR\x04Node\x12H\n" +
+	"\aService\x18\x02 \x01(\v2..dumb-hashicorp.dumb-consul.internal.service.NodeServiceR\aService\x12F\n" +
+	"\x06Checks\x18\x03 \x03(\v2..dumb-hashicorp.dumb-consul.internal.service.HealthCheckR\x06Checks\"\xdd\x04\n" +
 	"\x04Node\x12\x0e\n" +
 	"\x02ID\x18\x01 \x01(\tR\x02ID\x12\x12\n" +
 	"\x04Node\x18\x02 \x01(\tR\x04Node\x12\x1c\n" +
@@ -524,11 +524,11 @@ const file_private_pbservice_node_proto_rawDesc = "" +
 	"\n" +
 	"Datacenter\x18\x04 \x01(\tR\n" +
 	"Datacenter\x12f\n" +
-	"\x0fTaggedAddresses\x18\x05 \x03(\v2<.hashicorp.consul.internal.service.Node.TaggedAddressesEntryR\x0fTaggedAddresses\x12E\n" +
-	"\x04Meta\x18\x06 \x03(\v21.hashicorp.consul.internal.service.Node.MetaEntryR\x04Meta\x12I\n" +
-	"\tRaftIndex\x18\a \x01(\v2+.hashicorp.consul.internal.common.RaftIndexR\tRaftIndex\x12F\n" +
+	"\x0fTaggedAddresses\x18\x05 \x03(\v2<.dumb-hashicorp.dumb-consul.internal.service.Node.TaggedAddressesEntryR\x0fTaggedAddresses\x12E\n" +
+	"\x04Meta\x18\x06 \x03(\v21.dumb-hashicorp.dumb-consul.internal.service.Node.MetaEntryR\x04Meta\x12I\n" +
+	"\tRaftIndex\x18\a \x01(\v2+.dumb-hashicorp.dumb-consul.internal.common.RaftIndexR\tRaftIndex\x12F\n" +
 	"\bLocality\x18\n" +
-	" \x01(\v2*.hashicorp.consul.internal.common.LocalityR\bLocality\x1aB\n" +
+	" \x01(\v2*.dumb-hashicorp.dumb-consul.internal.common.LocalityR\bLocality\x1aB\n" +
 	"\x14TaggedAddressesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\x1a7\n" +
@@ -541,29 +541,29 @@ const file_private_pbservice_node_proto_rawDesc = "" +
 	"\aService\x18\x03 \x01(\tR\aService\x12\x12\n" +
 	"\x04Tags\x18\x04 \x03(\tR\x04Tags\x12\x18\n" +
 	"\aAddress\x18\x05 \x01(\tR\aAddress\x12m\n" +
-	"\x0fTaggedAddresses\x18\x0f \x03(\v2C.hashicorp.consul.internal.service.NodeService.TaggedAddressesEntryR\x0fTaggedAddresses\x12L\n" +
-	"\x04Meta\x18\x06 \x03(\v28.hashicorp.consul.internal.service.NodeService.MetaEntryR\x04Meta\x12\x12\n" +
+	"\x0fTaggedAddresses\x18\x0f \x03(\v2C.dumb-hashicorp.dumb-consul.internal.service.NodeService.TaggedAddressesEntryR\x0fTaggedAddresses\x12L\n" +
+	"\x04Meta\x18\x06 \x03(\v28.dumb-hashicorp.dumb-consul.internal.service.NodeService.MetaEntryR\x04Meta\x12\x12\n" +
 	"\x04Port\x18\a \x01(\x05R\x04Port\x12\x1e\n" +
 	"\n" +
 	"SocketPath\x18\x11 \x01(\tR\n" +
 	"SocketPath\x12D\n" +
-	"\aWeights\x18\b \x01(\v2*.hashicorp.consul.internal.service.WeightsR\aWeights\x12,\n" +
+	"\aWeights\x18\b \x01(\v2*.dumb-hashicorp.dumb-consul.internal.service.WeightsR\aWeights\x12,\n" +
 	"\x11EnableTagOverride\x18\t \x01(\bR\x11EnableTagOverride\x12K\n" +
-	"\x05Proxy\x18\v \x01(\v25.hashicorp.consul.internal.service.ConnectProxyConfigR\x05Proxy\x12K\n" +
-	"\aConnect\x18\f \x01(\v21.hashicorp.consul.internal.service.ServiceConnectR\aConnect\x12>\n" +
+	"\x05Proxy\x18\v \x01(\v25.dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfigR\x05Proxy\x12K\n" +
+	"\aConnect\x18\f \x01(\v21.dumb-hashicorp.dumb-consul.internal.service.ServiceConnectR\aConnect\x12>\n" +
 	"\x1aLocallyRegisteredAsSidecar\x18\r \x01(\bR\x1aLocallyRegisteredAsSidecar\x12X\n" +
-	"\x0eEnterpriseMeta\x18\x10 \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x1a\n" +
+	"\x0eEnterpriseMeta\x18\x10 \x01(\v20.dumb-hashicorp.dumb-consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12\x1a\n" +
 	"\bPeerName\x18\x12 \x01(\tR\bPeerName\x12I\n" +
-	"\tRaftIndex\x18\x0e \x01(\v2+.hashicorp.consul.internal.common.RaftIndexR\tRaftIndex\x12F\n" +
-	"\bLocality\x18\x13 \x01(\v2*.hashicorp.consul.internal.common.LocalityR\bLocality\x12D\n" +
-	"\x05Ports\x18\x14 \x03(\v2..hashicorp.consul.internal.service.ServicePortR\x05Ports\x1au\n" +
+	"\tRaftIndex\x18\x0e \x01(\v2+.dumb-hashicorp.dumb-consul.internal.common.RaftIndexR\tRaftIndex\x12F\n" +
+	"\bLocality\x18\x13 \x01(\v2*.dumb-hashicorp.dumb-consul.internal.common.LocalityR\bLocality\x12D\n" +
+	"\x05Ports\x18\x14 \x03(\v2..dumb-hashicorp.dumb-consul.internal.service.ServicePortR\x05Ports\x1au\n" +
 	"\x14TaggedAddressesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12G\n" +
-	"\x05value\x18\x02 \x01(\v21.hashicorp.consul.internal.service.ServiceAddressR\x05value:\x028\x01\x1a7\n" +
+	"\x05value\x18\x02 \x01(\v21.dumb-hashicorp.dumb-consul.internal.service.ServiceAddressR\x05value:\x028\x01\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\x8f\x02\n" +
-	"%com.hashicorp.consul.internal.serviceB\tNodeProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Consul.Internal.Service\xca\x02!Hashicorp\\Consul\\Internal\\Service\xe2\x02-Hashicorp\\Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Serviceb\x06proto3"
+	"%com.dumb-hashicorp.dumb-consul.internal.serviceB\tNodeProtoP\x01Z3github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Dumb Consul.Internal.Service\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Service\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Serviceb\x06proto3"
 
 var (
 	file_private_pbservice_node_proto_rawDescOnce sync.Once
@@ -579,43 +579,43 @@ func file_private_pbservice_node_proto_rawDescGZIP() []byte {
 
 var file_private_pbservice_node_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_private_pbservice_node_proto_goTypes = []any{
-	(*IndexedCheckServiceNodes)(nil), // 0: hashicorp.consul.internal.service.IndexedCheckServiceNodes
-	(*CheckServiceNode)(nil),         // 1: hashicorp.consul.internal.service.CheckServiceNode
-	(*Node)(nil),                     // 2: hashicorp.consul.internal.service.Node
-	(*NodeService)(nil),              // 3: hashicorp.consul.internal.service.NodeService
-	nil,                              // 4: hashicorp.consul.internal.service.Node.TaggedAddressesEntry
-	nil,                              // 5: hashicorp.consul.internal.service.Node.MetaEntry
-	nil,                              // 6: hashicorp.consul.internal.service.NodeService.TaggedAddressesEntry
-	nil,                              // 7: hashicorp.consul.internal.service.NodeService.MetaEntry
-	(*HealthCheck)(nil),              // 8: hashicorp.consul.internal.service.HealthCheck
-	(*pbcommon.RaftIndex)(nil),       // 9: hashicorp.consul.internal.common.RaftIndex
-	(*pbcommon.Locality)(nil),        // 10: hashicorp.consul.internal.common.Locality
-	(*Weights)(nil),                  // 11: hashicorp.consul.internal.service.Weights
-	(*ConnectProxyConfig)(nil),       // 12: hashicorp.consul.internal.service.ConnectProxyConfig
-	(*ServiceConnect)(nil),           // 13: hashicorp.consul.internal.service.ServiceConnect
-	(*pbcommon.EnterpriseMeta)(nil),  // 14: hashicorp.consul.internal.common.EnterpriseMeta
-	(*ServicePort)(nil),              // 15: hashicorp.consul.internal.service.ServicePort
-	(*ServiceAddress)(nil),           // 16: hashicorp.consul.internal.service.ServiceAddress
+	(*IndexedCheckServiceNodes)(nil), // 0: dumb-hashicorp.dumb-consul.internal.service.IndexedCheckServiceNodes
+	(*CheckServiceNode)(nil),         // 1: dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode
+	(*Node)(nil),                     // 2: dumb-hashicorp.dumb-consul.internal.service.Node
+	(*NodeService)(nil),              // 3: dumb-hashicorp.dumb-consul.internal.service.NodeService
+	nil,                              // 4: dumb-hashicorp.dumb-consul.internal.service.Node.TaggedAddressesEntry
+	nil,                              // 5: dumb-hashicorp.dumb-consul.internal.service.Node.MetaEntry
+	nil,                              // 6: dumb-hashicorp.dumb-consul.internal.service.NodeService.TaggedAddressesEntry
+	nil,                              // 7: dumb-hashicorp.dumb-consul.internal.service.NodeService.MetaEntry
+	(*HealthCheck)(nil),              // 8: dumb-hashicorp.dumb-consul.internal.service.HealthCheck
+	(*pbcommon.RaftIndex)(nil),       // 9: dumb-hashicorp.dumb-consul.internal.common.RaftIndex
+	(*pbcommon.Locality)(nil),        // 10: dumb-hashicorp.dumb-consul.internal.common.Locality
+	(*Weights)(nil),                  // 11: dumb-hashicorp.dumb-consul.internal.service.Weights
+	(*ConnectProxyConfig)(nil),       // 12: dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig
+	(*ServiceConnect)(nil),           // 13: dumb-hashicorp.dumb-consul.internal.service.ServiceConnect
+	(*pbcommon.EnterpriseMeta)(nil),  // 14: dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	(*ServicePort)(nil),              // 15: dumb-hashicorp.dumb-consul.internal.service.ServicePort
+	(*ServiceAddress)(nil),           // 16: dumb-hashicorp.dumb-consul.internal.service.ServiceAddress
 }
 var file_private_pbservice_node_proto_depIdxs = []int32{
-	1,  // 0: hashicorp.consul.internal.service.IndexedCheckServiceNodes.Nodes:type_name -> hashicorp.consul.internal.service.CheckServiceNode
-	2,  // 1: hashicorp.consul.internal.service.CheckServiceNode.Node:type_name -> hashicorp.consul.internal.service.Node
-	3,  // 2: hashicorp.consul.internal.service.CheckServiceNode.Service:type_name -> hashicorp.consul.internal.service.NodeService
-	8,  // 3: hashicorp.consul.internal.service.CheckServiceNode.Checks:type_name -> hashicorp.consul.internal.service.HealthCheck
-	4,  // 4: hashicorp.consul.internal.service.Node.TaggedAddresses:type_name -> hashicorp.consul.internal.service.Node.TaggedAddressesEntry
-	5,  // 5: hashicorp.consul.internal.service.Node.Meta:type_name -> hashicorp.consul.internal.service.Node.MetaEntry
-	9,  // 6: hashicorp.consul.internal.service.Node.RaftIndex:type_name -> hashicorp.consul.internal.common.RaftIndex
-	10, // 7: hashicorp.consul.internal.service.Node.Locality:type_name -> hashicorp.consul.internal.common.Locality
-	6,  // 8: hashicorp.consul.internal.service.NodeService.TaggedAddresses:type_name -> hashicorp.consul.internal.service.NodeService.TaggedAddressesEntry
-	7,  // 9: hashicorp.consul.internal.service.NodeService.Meta:type_name -> hashicorp.consul.internal.service.NodeService.MetaEntry
-	11, // 10: hashicorp.consul.internal.service.NodeService.Weights:type_name -> hashicorp.consul.internal.service.Weights
-	12, // 11: hashicorp.consul.internal.service.NodeService.Proxy:type_name -> hashicorp.consul.internal.service.ConnectProxyConfig
-	13, // 12: hashicorp.consul.internal.service.NodeService.Connect:type_name -> hashicorp.consul.internal.service.ServiceConnect
-	14, // 13: hashicorp.consul.internal.service.NodeService.EnterpriseMeta:type_name -> hashicorp.consul.internal.common.EnterpriseMeta
-	9,  // 14: hashicorp.consul.internal.service.NodeService.RaftIndex:type_name -> hashicorp.consul.internal.common.RaftIndex
-	10, // 15: hashicorp.consul.internal.service.NodeService.Locality:type_name -> hashicorp.consul.internal.common.Locality
-	15, // 16: hashicorp.consul.internal.service.NodeService.Ports:type_name -> hashicorp.consul.internal.service.ServicePort
-	16, // 17: hashicorp.consul.internal.service.NodeService.TaggedAddressesEntry.value:type_name -> hashicorp.consul.internal.service.ServiceAddress
+	1,  // 0: dumb-hashicorp.dumb-consul.internal.service.IndexedCheckServiceNodes.Nodes:type_name -> dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode
+	2,  // 1: dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode.Node:type_name -> dumb-hashicorp.dumb-consul.internal.service.Node
+	3,  // 2: dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode.Service:type_name -> dumb-hashicorp.dumb-consul.internal.service.NodeService
+	8,  // 3: dumb-hashicorp.dumb-consul.internal.service.CheckServiceNode.Checks:type_name -> dumb-hashicorp.dumb-consul.internal.service.HealthCheck
+	4,  // 4: dumb-hashicorp.dumb-consul.internal.service.Node.TaggedAddresses:type_name -> dumb-hashicorp.dumb-consul.internal.service.Node.TaggedAddressesEntry
+	5,  // 5: dumb-hashicorp.dumb-consul.internal.service.Node.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.service.Node.MetaEntry
+	9,  // 6: dumb-hashicorp.dumb-consul.internal.service.Node.RaftIndex:type_name -> dumb-hashicorp.dumb-consul.internal.common.RaftIndex
+	10, // 7: dumb-hashicorp.dumb-consul.internal.service.Node.Locality:type_name -> dumb-hashicorp.dumb-consul.internal.common.Locality
+	6,  // 8: dumb-hashicorp.dumb-consul.internal.service.NodeService.TaggedAddresses:type_name -> dumb-hashicorp.dumb-consul.internal.service.NodeService.TaggedAddressesEntry
+	7,  // 9: dumb-hashicorp.dumb-consul.internal.service.NodeService.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.service.NodeService.MetaEntry
+	11, // 10: dumb-hashicorp.dumb-consul.internal.service.NodeService.Weights:type_name -> dumb-hashicorp.dumb-consul.internal.service.Weights
+	12, // 11: dumb-hashicorp.dumb-consul.internal.service.NodeService.Proxy:type_name -> dumb-hashicorp.dumb-consul.internal.service.ConnectProxyConfig
+	13, // 12: dumb-hashicorp.dumb-consul.internal.service.NodeService.Connect:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServiceConnect
+	14, // 13: dumb-hashicorp.dumb-consul.internal.service.NodeService.EnterpriseMeta:type_name -> dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	9,  // 14: dumb-hashicorp.dumb-consul.internal.service.NodeService.RaftIndex:type_name -> dumb-hashicorp.dumb-consul.internal.common.RaftIndex
+	10, // 15: dumb-hashicorp.dumb-consul.internal.service.NodeService.Locality:type_name -> dumb-hashicorp.dumb-consul.internal.common.Locality
+	15, // 16: dumb-hashicorp.dumb-consul.internal.service.NodeService.Ports:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServicePort
+	16, // 17: dumb-hashicorp.dumb-consul.internal.service.NodeService.TaggedAddressesEntry.value:type_name -> dumb-hashicorp.dumb-consul.internal.service.ServiceAddress
 	18, // [18:18] is the sub-list for method output_type
 	18, // [18:18] is the sub-list for method input_type
 	18, // [18:18] is the sub-list for extension type_name

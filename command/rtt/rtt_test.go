@@ -9,14 +9,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/serf/coordinate"
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestRTTCommand_noTabs(t *testing.T) {
@@ -56,7 +56,7 @@ func TestRTTCommand_LAN(t *testing.T) {
 
 	t.Parallel()
 	a := agent.NewTestAgent(t, `
-		consul = {
+		dumb-consul = {
 			coordinate = {
 				update_period = "10ms"
 			}

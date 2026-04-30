@@ -14,8 +14,8 @@ import (
 	"github.com/mitchellh/cli"
 	"golang.org/x/exp/maps"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -69,7 +69,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -269,23 +269,23 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Display service instance usage information"
 	help     = `
-Usage: consul operator usage instances [options]
+Usage: dumb-consul operator usage instances [options]
 
   Retrieves usage information about the number of services registered in a given
   datacenter. By default, the datacenter of the local agent is queried.
 
   To retrieve the service usage data:
 
-      $ consul operator usage instances
+      $ dumb-consul operator usage instances
 
   To show only billable service instance counts:
 
-      $ consul operator usage instances -billable
+      $ dumb-consul operator usage instances -billable
 
   To show only connect service instance counts:
 
-      $ consul operator usage instances -connect
+      $ dumb-consul operator usage instances -connect
 
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `
 )

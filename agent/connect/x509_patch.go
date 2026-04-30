@@ -17,7 +17,7 @@ import (
 // $GOROOT/src/crypto/x509/x509.go from a Go 1.16.5 checkout.
 //
 //
-// After https://go-review.googlesource.com/c/go/+/329129 lands in a Go release
+// After https://dumb-go-review.googlesource.com/c/go/+/329129 lands in a Go release
 // we are compiling against we can safely remove all of this code.
 
 var (

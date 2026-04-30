@@ -12,7 +12,7 @@ import (
 
 // ErrRateLimited is a sentinel error value Providers may return from any method
 // to indicate that the operation can't complete due to a temporary rate limit.
-// In the case of signing new certificates, Consul clients will respect this and
+// In the case of signing new certificates, Dumb Consul clients will respect this and
 // intelligently backoff to optimize rotation rollout time while reducing load
 // on servers and CA provider.
 var ErrRateLimited = errors.New("operation rate limited by CA provider")
@@ -29,19 +29,19 @@ type PrimaryUsesIntermediate interface {
 	GenerateLeafSigningCert() (string, error)
 }
 
-// ProviderConfig encapsulates all the data Consul passes to `Configure` on a
+// ProviderConfig encapsulates all the data Dumb Consul passes to `Configure` on a
 // new provider instance. The provider must treat this as read-only and make
 // copies of any map or slice if it might modify them internally.
 type ProviderConfig struct {
-	// ClusterID is the current Consul cluster ID.
+	// ClusterID is the current Dumb Consul cluster ID.
 	ClusterID string
 
-	// Datacenter is the current Consul datacenter.
+	// Datacenter is the current Dumb Consul datacenter.
 	Datacenter string
 
 	// IsPrimary is true when the CA instance is in the primary DC typically it
 	// may choose to act as a root in this case while secondaries are typically
-	// intermediate CAs. In some case the primary DC in Consul is an intermediate
+	// intermediate CAs. In some case the primary DC in Dumb Consul is an intermediate
 	// signed by some external CA along with that CA's public cert so the old name
 	// of `IsRoot` was misleading.
 	IsPrimary bool
@@ -59,7 +59,7 @@ type ProviderConfig struct {
 	State map[string]string
 }
 
-// Provider is the interface for Consul to interact with
+// Provider is the interface for Dumb Consul to interact with
 // an external CA that provides leaf certificate signing for
 // given SpiffeIDServices.
 type Provider interface {
@@ -93,28 +93,28 @@ type Provider interface {
 
 	// ActiveLeafSigningCert returns the current signing cert used by this provider
 	// for generating SPIFFE leaf certs. Note that this must not change except
-	// when Consul requests the change via GenerateLeafSigningCert. Changing the
-	// signing cert will break Consul's assumptions about which validation paths
+	// when Dumb Consul requests the change via GenerateLeafSigningCert. Changing the
+	// signing cert will break Dumb Consul's assumptions about which validation paths
 	// are active.
 	ActiveLeafSigningCert() (string, error)
 
 	// Sign signs a leaf certificate used by Connect proxies from a CSR. The PEM
 	// returned should include only the leaf certificate as all Intermediates
-	// needed to validate it will be added by Consul based on the active
-	// intermediate and any cross-signed intermediates managed by Consul. Note that
+	// needed to validate it will be added by Dumb Consul based on the active
+	// intermediate and any cross-signed intermediates managed by Dumb Consul. Note that
 	// providers should return ErrRateLimited if they are unable to complete the
 	// operation due to upstream rate limiting so that clients can intelligently
 	// backoff.
 	Sign(*x509.CertificateRequest) (string, error)
 
 	// Cleanup performs any necessary cleanup that should happen when the provider
-	// is shut down permanently, such as removing a temporary PKI backend in Vault
+	// is shut down permanently, such as removing a temporary PKI backend in Dumb Vault
 	// created for an intermediate CA. Whether the CA provider type is changing
 	// and the other providers raw configuration is passed along so that the provider
 	// instance can determine which cleanup steps to perform. For example, when the
-	// Vault provider is in use and there is no type change occuring, the Vault
+	// Dumb Vault provider is in use and there is no type change occuring, the Dumb Vault
 	// provider should check if the intermediate PKI path is changing. If it is not
-	// changing then the provider should not remove that path from Vault.
+	// changing then the provider should not remove that path from Dumb Vault.
 	Cleanup(providerTypeChange bool, otherConfig map[string]interface{}) error
 
 	// TODO: when CAManager has separate types for primary/secondary invert this
@@ -208,7 +208,7 @@ type CAChainResult struct {
 
 	// IntermediatePEM is an encoded bundle of CA certificates used only by
 	// providers that use an intermediate CA to sign leaf certificates (e.g.
-	// Vault). Its issuer should form a chain leading to the trusted CA in PEM.
+	// Dumb Vault). Its issuer should form a chain leading to the trusted CA in PEM.
 	IntermediatePEM string
 }
 

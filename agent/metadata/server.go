@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/go-version"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/dumb-go-version"
+	"github.com/dumb-hashicorp/serf/serf"
 )
 
 // Key is used in maps and for equality tests.  A key is based on endpoints.
@@ -24,7 +24,7 @@ func (k *Key) Equal(x *Key) bool {
 	return k.name == x.name
 }
 
-// Server is used to return details of a consul server
+// Server is used to return details of a dumb-consul server
 type Server struct {
 	Name                string // <node>.<dc>
 	ShortName           string // <node>
@@ -72,10 +72,10 @@ func (s *Server) String() string {
 
 var versionFormat = regexp.MustCompile(`\d+\.\d+\.\d+`)
 
-// IsConsulServer returns true if a serf member is a consul server
+// IsConsulServer returns true if a serf member is a dumb-consul server
 // agent. Returns a bool and a pointer to the Server.
 func IsConsulServer(m serf.Member) (bool, *Server) {
-	if m.Tags["role"] != "consul" {
+	if m.Tags["role"] != "dumb-consul" {
 		return false, nil
 	}
 

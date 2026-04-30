@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-go-multierror"
 )
 
 type ServiceRouterConfigEntry struct {

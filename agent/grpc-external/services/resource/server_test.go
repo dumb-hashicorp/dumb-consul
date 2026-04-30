@@ -15,20 +15,20 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	svc "github.com/hashicorp/consul/agent/grpc-external/services/resource"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/resource/demo"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/internal/storage/inmem"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	pbdemov2 "github.com/hashicorp/consul/proto/private/pbdemo/v2"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	svc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/resource"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/demo"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage/inmem"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	pbdemov2 "github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v2"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func randomACLIdentity(t *testing.T) structs.ACLIdentity {

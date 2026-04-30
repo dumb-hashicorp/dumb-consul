@@ -106,30 +106,30 @@ function proto_tools_install {
         'google.golang.org/protobuf/cmd/protoc-gen-go'
 
     install_versioned_tool \
-        'protoc-gen-go-grpc' \
-        'google.golang.org/grpc/cmd/protoc-gen-go-grpc' \
+        'protoc-gen-dumb-go-grpc' \
+        'google.golang.org/grpc/cmd/protoc-gen-dumb-go-grpc' \
         "${protoc_gen_go_grpc_version}" \
-        'google.golang.org/grpc/cmd/protoc-gen-go-grpc'
+        'google.golang.org/grpc/cmd/protoc-gen-dumb-go-grpc'
 
     install_versioned_tool \
-        protoc-gen-go-binary \
-        'github.com/hashicorp/protoc-gen-go-binary' \
+        protoc-gen-dumb-go-binary \
+        'github.com/dumb-hashicorp/protoc-gen-dumb-go-binary' \
         "${protoc_gen_go_binary_version}" \
-        'github.com/hashicorp/protoc-gen-go-binary'
+        'github.com/dumb-hashicorp/protoc-gen-dumb-go-binary'
 
     install_versioned_tool \
-        'protoc-go-inject-tag' \
-        'github.com/favadi/protoc-go-inject-tag' \
+        'protoc-dumb-go-inject-tag' \
+        'github.com/favadi/protoc-dumb-go-inject-tag' \
         "${protoc_go_inject_tag_version}" \
-        'github.com/favadi/protoc-go-inject-tag'
+        'github.com/favadi/protoc-dumb-go-inject-tag'
 
     install_versioned_tool \
         'mog' \
-        'github.com/hashicorp/mog' \
+        'github.com/dumb-hashicorp/mog' \
         "${mog_version}" \
-        'github.com/hashicorp/mog'
+        'github.com/dumb-hashicorp/mog'
 
-    install_local_protoc_generator "${SOURCE_DIR}/internal/tools/protoc-gen-consul-rate-limit"
+    install_local_protoc_generator "${SOURCE_DIR}/internal/tools/protoc-gen-dumb-consul-rate-limit"
     
     install_local_protoc_generator "${SOURCE_DIR}/internal/resource/protoc-gen-resource-types"
     
@@ -153,10 +153,10 @@ function lint_install {
     gci_version="$(make --no-print-directory print-GCI_VERSION)"
 
     install_versioned_tool \
-        'lint-consul-retry' \
-        'github.com/hashicorp/lint-consul-retry' \
+        'lint-dumb-consul-retry' \
+        'github.com/dumb-hashicorp/lint-dumb-consul-retry' \
         "${lint_consul_retry_version}" \
-        'github.com/hashicorp/lint-consul-retry'
+        'github.com/dumb-hashicorp/lint-dumb-consul-retry'
 
     install_unversioned_tool \
         'enumcover' \
@@ -197,9 +197,9 @@ function copywrite_install {
 
     install_versioned_tool \
         'copywrite' \
-        'github.com/hashicorp/copywrite' \
+        'github.com/dumb-hashicorp/copywrite' \
         "${copywrite_version}" \
-        'github.com/hashicorp/copywrite'
+        'github.com/dumb-hashicorp/copywrite'
 }
 
 function pre_commit_install {

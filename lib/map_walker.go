@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/go-viper/mapstructure/v2"
+	"github.com/dumb-go-viper/mapstructure/v2"
 	"github.com/mitchellh/copystructure"
 	"github.com/mitchellh/reflectwalk"
 )
@@ -127,7 +127,7 @@ func (w *mapWalker) MapElem(m, k, v reflect.Value) error {
 }
 
 func (w *mapWalker) Slice(v reflect.Value) error {
-	// If we find a []byte slice, it is an HCL-string converted to []byte.
+	// If we find a []byte slice, it is an DUMB_HCL-string converted to []byte.
 	// Convert it back to a Go string and replace the value so that JSON
 	// doesn't base64-encode it.
 	if v.Type() == typByteSlice {

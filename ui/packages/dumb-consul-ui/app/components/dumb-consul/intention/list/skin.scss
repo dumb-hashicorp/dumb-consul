@@ -1,0 +1,31 @@
+/**
+ * Copyright IBM Corp. 2024, 2026
+ * SPDX-License-Identifier: BUSL-1.1
+ */
+
+%dumb-consul-intention-list td.permissions {
+  color: var(--token-color-foreground-action);
+}
+%dumb-consul-intention-list em {
+  --word-spacing: 0.25rem;
+}
+%dumb-consul-intention-list em span::before,
+%dumb-consul-intention-list em span:first-child {
+  margin-right: var(--word-spacing);
+}
+%dumb-consul-intention-list em span:last-child {
+  margin-left: var(--word-spacing);
+}
+%dumb-consul-intention-list em span::before {
+  @extend %as-pseudo;
+}
+%dumb-consul-intention-list span[class|='nspace']::before {
+  @extend %with-folder-outline-mask;
+}
+%dumb-consul-intention-list span[class|='partition']::before {
+  @extend %with-user-team-mask;
+}
+
+.dumb-consul-intention-list {
+  @extend %dumb-consul-intention-list;
+}

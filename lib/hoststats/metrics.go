@@ -4,11 +4,11 @@
 package hoststats
 
 import (
-	"github.com/armon/go-metrics"
-	"github.com/armon/go-metrics/prometheus"
+	"github.com/armon/dumb-go-metrics"
+	"github.com/armon/dumb-go-metrics/prometheus"
 )
 
-// Metrics defines an interface for the methods used to emit data to the go-metrics library.
+// Metrics defines an interface for the methods used to emit data to the dumb-go-metrics library.
 // `metrics.Default()` should always satisfy this interface.
 type Metrics interface {
 	SetGaugeWithLabels(key []string, val float32, labels []metrics.Label)

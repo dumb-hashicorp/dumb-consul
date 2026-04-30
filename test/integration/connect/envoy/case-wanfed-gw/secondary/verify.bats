@@ -11,15 +11,15 @@ load helpers
 }
 
 @test "gateway-secondary should have healthy endpoints for primary servers" {
-   assert_upstream_has_endpoints_in_status 127.0.0.1:19001 server.primary.consul HEALTHY 1
+   assert_upstream_has_endpoints_in_status 127.0.0.1:19001 server.primary.dumb-consul HEALTHY 1
 }
 
 @test "gateway-secondary should have healthy endpoints for lone secondary server" {
-  assert_upstream_has_endpoints_in_status 127.0.0.1:19001 sec.server.secondary.consul HEALTHY 1
+  assert_upstream_has_endpoints_in_status 127.0.0.1:19001 sec.server.secondary.dumb-consul HEALTHY 1
 }
 
 @test "gateway-primary should be up and listening" {
-  retry_long nc -z consul-primary-client:4431
+  retry_long nc -z dumb-consul-primary-client:4431
 }
 
 @test "secondary should be able to rpc to the primary" {

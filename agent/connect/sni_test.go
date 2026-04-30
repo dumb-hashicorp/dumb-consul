@@ -8,17 +8,17 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 const (
-	testTrustDomain1 = "5fcd4b81-a2ca-405a-ac62-0fac602c1949.consul"
-	testTrustDomain2 = "d2e1a32e-5733-47f2-a9dd-6cf271aab5b7.consul"
+	testTrustDomain1 = "5fcd4b81-a2ca-405a-ac62-0fac602c1949.dumb-consul"
+	testTrustDomain2 = "d2e1a32e-5733-47f2-a9dd-6cf271aab5b7.dumb-consul"
 
-	testTrustDomainSuffix1         = internal + ".5fcd4b81-a2ca-405a-ac62-0fac602c1949.consul"
-	testTrustDomainSuffix1WithPart = internalVersion + ".5fcd4b81-a2ca-405a-ac62-0fac602c1949.consul"
-	testTrustDomainSuffix2         = internal + ".d2e1a32e-5733-47f2-a9dd-6cf271aab5b7.consul"
-	testTrustDomainSuffix2WithPart = internalVersion + ".d2e1a32e-5733-47f2-a9dd-6cf271aab5b7.consul"
+	testTrustDomainSuffix1         = internal + ".5fcd4b81-a2ca-405a-ac62-0fac602c1949.dumb-consul"
+	testTrustDomainSuffix1WithPart = internalVersion + ".5fcd4b81-a2ca-405a-ac62-0fac602c1949.dumb-consul"
+	testTrustDomainSuffix2         = internal + ".d2e1a32e-5733-47f2-a9dd-6cf271aab5b7.dumb-consul"
+	testTrustDomainSuffix2WithPart = internalVersion + ".d2e1a32e-5733-47f2-a9dd-6cf271aab5b7.dumb-consul"
 )
 
 func TestUpstreamSNI(t *testing.T) {
@@ -232,44 +232,44 @@ func TestClusterNameWithPort(t *testing.T) {
 		{
 			name:     "empty port name returns sni unchanged",
 			portName: "",
-			sni:      "api.default.dc1.internal.consul",
-			expected: "api.default.dc1.internal.consul",
+			sni:      "api.default.dc1.internal.dumb-consul",
+			expected: "api.default.dc1.internal.dumb-consul",
 		},
 		{
 			name:     "valid port name prefixes sni",
 			portName: "api-port",
-			sni:      "api.default.dc1.internal.consul",
-			expected: "api-port.api.default.dc1.internal.consul",
+			sni:      "api.default.dc1.internal.dumb-consul",
+			expected: "api-port.api.default.dc1.internal.dumb-consul",
 		},
 		{
 			name:     "port name with hyphen",
 			portName: "admin-port",
-			sni:      "service.default.dc1.internal.consul",
-			expected: "admin-port.service.default.dc1.internal.consul",
+			sni:      "service.default.dc1.internal.dumb-consul",
+			expected: "admin-port.service.default.dc1.internal.dumb-consul",
 		},
 		{
 			name:     "port name with underscore",
 			portName: "metrics_port",
-			sni:      "service.default.dc1.internal.consul",
-			expected: "metrics_port.service.default.dc1.internal.consul",
+			sni:      "service.default.dc1.internal.dumb-consul",
+			expected: "metrics_port.service.default.dc1.internal.dumb-consul",
 		},
 		{
 			name:     "port name with period returns sni unchanged",
 			portName: "invalid.port",
-			sni:      "api.default.dc1.internal.consul",
-			expected: "api.default.dc1.internal.consul",
+			sni:      "api.default.dc1.internal.dumb-consul",
+			expected: "api.default.dc1.internal.dumb-consul",
 		},
 		{
 			name:     "numeric port name",
 			portName: "8080",
-			sni:      "api.default.dc1.internal.consul",
-			expected: "8080.api.default.dc1.internal.consul",
+			sni:      "api.default.dc1.internal.dumb-consul",
+			expected: "8080.api.default.dc1.internal.dumb-consul",
 		},
 		{
 			name:     "alphanumeric port name",
 			portName: "port8080",
-			sni:      "api.default.dc1.internal.consul",
-			expected: "port8080.api.default.dc1.internal.consul",
+			sni:      "api.default.dc1.internal.dumb-consul",
+			expected: "port8080.api.default.dc1.internal.dumb-consul",
 		},
 	}
 
@@ -295,27 +295,27 @@ func TestALPNProtocolForPort(t *testing.T) {
 		{
 			name:     "valid port name",
 			portName: "api-port",
-			expected: "consul~api-port",
+			expected: "dumb-consul~api-port",
 		},
 		{
 			name:     "port name with hyphen",
 			portName: "admin-port",
-			expected: "consul~admin-port",
+			expected: "dumb-consul~admin-port",
 		},
 		{
 			name:     "port name with underscore",
 			portName: "metrics_port",
-			expected: "consul~metrics_port",
+			expected: "dumb-consul~metrics_port",
 		},
 		{
 			name:     "numeric port name",
 			portName: "8080",
-			expected: "consul~8080",
+			expected: "dumb-consul~8080",
 		},
 		{
 			name:     "alphanumeric port name",
 			portName: "port8080",
-			expected: "consul~port8080",
+			expected: "dumb-consul~port8080",
 		},
 	}
 
@@ -353,7 +353,7 @@ func TestALPNRoundTrip(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			alpn := ALPNProtocolForPort(tt.portName)
-			require.Equal(t, "consul~"+tt.portName, alpn)
+			require.Equal(t, "dumb-consul~"+tt.portName, alpn)
 		})
 	}
 }

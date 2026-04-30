@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/mitchellh/cli"
 )
 
@@ -141,7 +141,7 @@ func TestCatalogListNodesCommand(t *testing.T) {
 		c := New(ui)
 		args := []string{
 			"-http-addr=" + a.HTTPAddr(),
-			"-service", "consul",
+			"-service", "dumb-consul",
 		}
 		code := c.Run(args)
 		if code != 0 {

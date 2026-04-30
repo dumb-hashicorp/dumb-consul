@@ -7,16 +7,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/consul/authmethod/kubeauth"
-	"github.com/hashicorp/consul/agent/consul/authmethod/testauth"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/kubeauth"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/testauth"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestLogout_noTabs(t *testing.T) {

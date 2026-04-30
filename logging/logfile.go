@@ -86,7 +86,7 @@ func (l *LogFile) renameCurrentFile() error {
 	fileNamePattern := l.fileNamePattern()
 
 	createTime := now()
-	// Current file is consul.log always
+	// Current file is dumb-consul.log always
 	currentFilePath := filepath.Join(l.logPath, l.fileName)
 
 	oldFileName := fmt.Sprintf(fileNamePattern, strconv.FormatInt(createTime.UnixNano(), 10))

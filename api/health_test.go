@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 	"github.com/stretchr/testify/require"
 )
 
@@ -319,8 +319,8 @@ func TestAPI_HealthService(t *testing.T) {
 
 	health := c.Health()
 	retry.Run(t, func(r *retry.R) {
-		// consul service should always exist...
-		checks, meta, err := health.Service("consul", "", true, nil)
+		// dumb-consul service should always exist...
+		checks, meta, err := health.Service("dumb-consul", "", true, nil)
 		if err != nil {
 			r.Fatal(err)
 		}
@@ -436,8 +436,8 @@ func TestAPI_HealthService_NodeMetaFilter(t *testing.T) {
 
 	health := c.Health()
 	retry.Run(t, func(r *retry.R) {
-		// consul service should always exist...
-		checks, meta, err := health.Service("consul", "", true, &QueryOptions{NodeMeta: meta})
+		// dumb-consul service should always exist...
+		checks, meta, err := health.Service("dumb-consul", "", true, &QueryOptions{NodeMeta: meta})
 		require.NoError(r, err)
 		require.NotEqual(r, meta.LastIndex, 0)
 		require.NotEqual(r, len(checks), 0)

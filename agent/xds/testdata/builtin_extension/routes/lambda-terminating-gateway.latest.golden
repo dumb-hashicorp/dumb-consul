@@ -3,20 +3,20 @@
   "resources": [
     {
       "@type": "type.googleapis.com/envoy.config.route.v3.RouteConfiguration",
-      "name": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "virtualHosts": [
         {
           "domains": [
             "*"
           ],
-          "name": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+          "name": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
           "routes": [
             {
               "match": {
                 "prefix": "/"
               },
               "route": {
-                "cluster": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+                "cluster": "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
               }
             }
           ]

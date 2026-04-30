@@ -486,7 +486,7 @@ func TestPolicySourceParse(t *testing.T) {
 		t.Run(tc.Name, func(t *testing.T) {
 			require.True(t, tc.Rules != "" || tc.RulesJSON != "")
 			if tc.Rules != "" {
-				t.Run("hcl", func(t *testing.T) {
+				t.Run("dumb-hcl", func(t *testing.T) {
 					actual, err := NewPolicyFromSource(tc.Rules, nil, nil)
 					if tc.Err != "" {
 						errStartsWith(t, err, tc.Err)

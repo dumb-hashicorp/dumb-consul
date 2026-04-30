@@ -22,16 +22,16 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	cleanhttp "github.com/hashicorp/go-cleanhttp"
+	cleanhttp "github.com/dumb-hashicorp/dumb-go-cleanhttp"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestUIIndex(t *testing.T) {
@@ -41,7 +41,7 @@ func TestUIIndex(t *testing.T) {
 
 	t.Parallel()
 	// Make a test dir to serve UI files
-	uiDir := testutil.TempDir(t, "consul")
+	uiDir := testutil.TempDir(t, "dumb-consul")
 
 	// Make the server
 	a := NewTestAgent(t, `
@@ -90,7 +90,7 @@ func TestUINodes(t *testing.T) {
 	}
 
 	t.Parallel()
-	a := StartTestAgent(t, TestAgent{HCL: ``, Overrides: `peering = { test_allow_peer_registrations = true }`})
+	a := StartTestAgent(t, TestAgent{DUMB_HCL: ``, Overrides: `peering = { test_allow_peer_registrations = true }`})
 	defer a.Shutdown()
 
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
@@ -165,7 +165,7 @@ func TestUINodes(t *testing.T) {
 	require.NotNil(t, nodes[1].Checks)
 	require.Len(t, nodes[2].Services, 0)
 
-	// check for consul-version in node meta
+	// check for dumb-consul-version in node meta
 	require.Equal(t, nodes[0].Meta[structs.MetaConsulVersion], a.Config.Version)
 }
 
@@ -266,7 +266,7 @@ func TestUINodeInfo(t *testing.T) {
 		t.Fatalf("bad: %v", node)
 	}
 
-	// check for consul-version in node meta
+	// check for dumb-consul-version in node meta
 	require.Equal(t, node.Meta[structs.MetaConsulVersion], a.Config.Version)
 }
 
@@ -276,7 +276,7 @@ func TestUIServices(t *testing.T) {
 	}
 
 	t.Parallel()
-	a := StartTestAgent(t, TestAgent{HCL: ``, Overrides: `peering = { test_allow_peer_registrations = true }`})
+	a := StartTestAgent(t, TestAgent{DUMB_HCL: ``, Overrides: `peering = { test_allow_peer_registrations = true }`})
 	defer a.Shutdown()
 
 	testrpc.WaitForTestAgent(t, a.RPC, "dc1")
@@ -551,7 +551,7 @@ func TestUIServices(t *testing.T) {
 			{
 				ServiceSummary: ServiceSummary{
 					Kind:           structs.ServiceKindTypical,
-					Name:           "consul",
+					Name:           "dumb-consul",
 					Datacenter:     "dc1",
 					Tags:           nil,
 					Nodes:          []string{a.Config.NodeName},
@@ -1001,7 +1001,7 @@ func TestUIGatewayServiceNodes_Ingress(t *testing.T) {
 
 	t.Parallel()
 
-	a := NewTestAgent(t, `alt_domain = "alt.consul."`)
+	a := NewTestAgent(t, `alt_domain = "alt.dumb-consul."`)
 	defer a.Shutdown()
 
 	// Register ingress gateway and a service that will be associated with it
@@ -1126,10 +1126,10 @@ func TestUIGatewayServiceNodes_Ingress(t *testing.T) {
 	// Construct expected addresses so that differences between CE/Ent are
 	// handled by code. We specifically don't include the trailing DNS . here as
 	// we are constructing what we are expecting, not the actual value
-	webDNS := serviceIngressDNSName("web", "dc1", "consul", structs.DefaultEnterpriseMetaInDefaultPartition())
-	webDNSAlt := serviceIngressDNSName("web", "dc1", "alt.consul", structs.DefaultEnterpriseMetaInDefaultPartition())
-	dbDNS := serviceIngressDNSName("db", "dc1", "consul", structs.DefaultEnterpriseMetaInDefaultPartition())
-	dbDNSAlt := serviceIngressDNSName("db", "dc1", "alt.consul", structs.DefaultEnterpriseMetaInDefaultPartition())
+	webDNS := serviceIngressDNSName("web", "dc1", "dumb-consul", structs.DefaultEnterpriseMetaInDefaultPartition())
+	webDNSAlt := serviceIngressDNSName("web", "dc1", "alt.dumb-consul", structs.DefaultEnterpriseMetaInDefaultPartition())
+	dbDNS := serviceIngressDNSName("db", "dc1", "dumb-consul", structs.DefaultEnterpriseMetaInDefaultPartition())
+	dbDNSAlt := serviceIngressDNSName("db", "dc1", "alt.dumb-consul", structs.DefaultEnterpriseMetaInDefaultPartition())
 
 	dump := obj.([]*ServiceSummary)
 	expect := []*ServiceSummary{
@@ -1276,11 +1276,11 @@ func TestUIGatewayIntentions(t *testing.T) {
 
 func TestUIEndpoint_modifySummaryForGatewayService_UseRequestedDCInsteadOfConfigured(t *testing.T) {
 	dc := "dc2"
-	cfg := config.RuntimeConfig{Datacenter: "dc1", DNSDomain: "consul"}
+	cfg := config.RuntimeConfig{Datacenter: "dc1", DNSDomain: "dumb-consul"}
 	sum := ServiceSummary{GatewayConfig: GatewayConfig{}}
 	gwsvc := structs.GatewayService{Service: structs.ServiceName{Name: "test"}, Port: 42}
 	modifySummaryForGatewayService(&cfg, dc, &sum, &gwsvc)
-	expected := serviceCanonicalDNSName("test", "ingress", "dc2", "consul", nil) + ":42"
+	expected := serviceCanonicalDNSName("test", "ingress", "dc2", "dumb-consul", nil) + ":42"
 	require.Equal(t, expected, sum.GatewayConfig.Addresses[0])
 }
 
@@ -1768,7 +1768,7 @@ func TestUIServiceTopology(t *testing.T) {
 				Entry: &structs.ServiceIntentionsConfigEntry{
 					Kind: structs.ServiceIntentions,
 					Name: "*",
-					Meta: map[string]string{structs.MetaExternalSource: "nomad"},
+					Meta: map[string]string{structs.MetaExternalSource: "dumb-nomad"},
 					Sources: []*structs.SourceIntention{
 						{
 							Name:   "*",

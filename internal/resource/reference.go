@@ -3,7 +3,7 @@
 
 package resource
 
-import "github.com/hashicorp/consul/proto-public/pbresource"
+import "github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 
 // Reference returns a reference to the resource with the given ID.
 func Reference(id *pbresource.ID, section string) *pbresource.Reference {

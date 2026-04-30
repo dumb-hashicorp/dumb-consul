@@ -7,17 +7,17 @@ import (
 	"errors"
 	"fmt"
 
-	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
+	envoy_core_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/core/v3"
 
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_lua_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/lua/v3"
-	envoy_http_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
-	envoy_resource_v3 "github.com/envoyproxy/go-control-plane/pkg/resource/v3"
-	"github.com/go-viper/mapstructure/v2"
-	"github.com/hashicorp/go-multierror"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_lua_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/lua/v3"
+	envoy_http_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
+	envoy_resource_v3 "github.com/envoyproxy/dumb-go-control-plane/pkg/resource/v3"
+	"github.com/dumb-go-viper/mapstructure/v2"
+	"github.com/dumb-hashicorp/dumb-go-multierror"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
 )
 
 var _ extensioncommon.BasicExtension = (*lua)(nil)

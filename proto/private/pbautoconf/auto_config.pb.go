@@ -10,8 +10,8 @@
 package pbautoconf
 
 import (
-	pbconfig "github.com/hashicorp/consul/proto/private/pbconfig"
-	pbconnect "github.com/hashicorp/consul/proto/private/pbconnect"
+	pbconfig "github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfig"
+	pbconnect "github.com/dumb-hashicorp/dumb-consul/proto/private/pbconnect"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -44,7 +44,7 @@ type AutoConfigRequest struct {
 	Partition string `protobuf:"bytes,8,opt,name=Partition,proto3" json:"Partition,omitempty"`
 	// JWT is a signed JSON Web Token used to authorize the request
 	JWT string `protobuf:"bytes,5,opt,name=JWT,proto3" json:"JWT,omitempty"`
-	// ConsulToken is a Consul ACL token that the agent requesting the
+	// ConsulToken is a Dumb Consul ACL token that the agent requesting the
 	// configuration already has.
 	ConsulToken string `protobuf:"bytes,6,opt,name=ConsulToken,proto3" json:"ConsulToken,omitempty"`
 	// CSR is a certificate signing request to be used when generating the
@@ -136,14 +136,14 @@ func (x *AutoConfigRequest) GetCSR() string {
 // AutoConfigResponse is the data structure sent in response to a AutoConfig.InitialConfiguration request
 type AutoConfigResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Config is the partial Consul configuration to inject into the agents own configuration
+	// Config is the partial Dumb Consul configuration to inject into the agents own configuration
 	Config *pbconfig.Config `protobuf:"bytes,1,opt,name=Config,proto3" json:"Config,omitempty"`
 	// CARoots is the current list of Connect CA Roots
 	CARoots *pbconnect.CARoots `protobuf:"bytes,2,opt,name=CARoots,proto3" json:"CARoots,omitempty"`
 	// Certificate is the TLS certificate issued for the agent
 	Certificate *pbconnect.IssuedCert `protobuf:"bytes,3,opt,name=Certificate,proto3" json:"Certificate,omitempty"`
 	// ExtraCACertificates holds non-Connect certificates that may be necessary
-	// to verify TLS connections with the Consul servers
+	// to verify TLS connections with the Dumb Consul servers
 	ExtraCACertificates []string `protobuf:"bytes,4,rep,name=ExtraCACertificates,proto3" json:"ExtraCACertificates,omitempty"`
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
@@ -211,7 +211,7 @@ var File_private_pbautoconf_auto_config_proto protoreflect.FileDescriptor
 
 const file_private_pbautoconf_auto_config_proto_rawDesc = "" +
 	"\n" +
-	"$private/pbautoconf/auto_config.proto\x12\"hashicorp.consul.internal.autoconf\x1a\x1dprivate/pbconfig/config.proto\x1a\x1fprivate/pbconnect/connect.proto\"\xc5\x01\n" +
+	"$private/pbautoconf/auto_config.proto\x12\"dumb-hashicorp.dumb-consul.internal.autoconf\x1a\x1dprivate/pbconfig/config.proto\x1a\x1fprivate/pbconnect/connect.proto\"\xc5\x01\n" +
 	"\x11AutoConfigRequest\x12\x1e\n" +
 	"\n" +
 	"Datacenter\x18\x01 \x01(\tR\n" +
@@ -223,11 +223,11 @@ const file_private_pbautoconf_auto_config_proto_rawDesc = "" +
 	"\vConsulToken\x18\x06 \x01(\tR\vConsulToken\x12\x10\n" +
 	"\x03CSR\x18\a \x01(\tR\x03CSR\"\x9f\x02\n" +
 	"\x12AutoConfigResponse\x12@\n" +
-	"\x06Config\x18\x01 \x01(\v2(.hashicorp.consul.internal.config.ConfigR\x06Config\x12D\n" +
-	"\aCARoots\x18\x02 \x01(\v2*.hashicorp.consul.internal.connect.CARootsR\aCARoots\x12O\n" +
-	"\vCertificate\x18\x03 \x01(\v2-.hashicorp.consul.internal.connect.IssuedCertR\vCertificate\x120\n" +
+	"\x06Config\x18\x01 \x01(\v2(.dumb-hashicorp.dumb-consul.internal.config.ConfigR\x06Config\x12D\n" +
+	"\aCARoots\x18\x02 \x01(\v2*.dumb-hashicorp.dumb-consul.internal.connect.CARootsR\aCARoots\x12O\n" +
+	"\vCertificate\x18\x03 \x01(\v2-.dumb-hashicorp.dumb-consul.internal.connect.IssuedCertR\vCertificate\x120\n" +
 	"\x13ExtraCACertificates\x18\x04 \x03(\tR\x13ExtraCACertificatesB\x9b\x02\n" +
-	"&com.hashicorp.consul.internal.autoconfB\x0fAutoConfigProtoP\x01Z4github.com/hashicorp/consul/proto/private/pbautoconf\xa2\x02\x04HCIA\xaa\x02\"Hashicorp.Consul.Internal.Autoconf\xca\x02\"Hashicorp\\Consul\\Internal\\Autoconf\xe2\x02.Hashicorp\\Consul\\Internal\\Autoconf\\GPBMetadata\xea\x02%Hashicorp::Consul::Internal::Autoconfb\x06proto3"
+	"&com.dumb-hashicorp.dumb-consul.internal.autoconfB\x0fAutoConfigProtoP\x01Z4github.com/dumb-hashicorp/dumb-consul/proto/private/pbautoconf\xa2\x02\x04HCIA\xaa\x02\"Hashicorp.Dumb Consul.Internal.Autoconf\xca\x02\"Hashicorp\\Dumb Consul\\Internal\\Autoconf\xe2\x02.Hashicorp\\Dumb Consul\\Internal\\Autoconf\\GPBMetadata\xea\x02%Hashicorp::Dumb Consul::Internal::Autoconfb\x06proto3"
 
 var (
 	file_private_pbautoconf_auto_config_proto_rawDescOnce sync.Once
@@ -243,16 +243,16 @@ func file_private_pbautoconf_auto_config_proto_rawDescGZIP() []byte {
 
 var file_private_pbautoconf_auto_config_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_private_pbautoconf_auto_config_proto_goTypes = []any{
-	(*AutoConfigRequest)(nil),    // 0: hashicorp.consul.internal.autoconf.AutoConfigRequest
-	(*AutoConfigResponse)(nil),   // 1: hashicorp.consul.internal.autoconf.AutoConfigResponse
-	(*pbconfig.Config)(nil),      // 2: hashicorp.consul.internal.config.Config
-	(*pbconnect.CARoots)(nil),    // 3: hashicorp.consul.internal.connect.CARoots
-	(*pbconnect.IssuedCert)(nil), // 4: hashicorp.consul.internal.connect.IssuedCert
+	(*AutoConfigRequest)(nil),    // 0: dumb-hashicorp.dumb-consul.internal.autoconf.AutoConfigRequest
+	(*AutoConfigResponse)(nil),   // 1: dumb-hashicorp.dumb-consul.internal.autoconf.AutoConfigResponse
+	(*pbconfig.Config)(nil),      // 2: dumb-hashicorp.dumb-consul.internal.config.Config
+	(*pbconnect.CARoots)(nil),    // 3: dumb-hashicorp.dumb-consul.internal.connect.CARoots
+	(*pbconnect.IssuedCert)(nil), // 4: dumb-hashicorp.dumb-consul.internal.connect.IssuedCert
 }
 var file_private_pbautoconf_auto_config_proto_depIdxs = []int32{
-	2, // 0: hashicorp.consul.internal.autoconf.AutoConfigResponse.Config:type_name -> hashicorp.consul.internal.config.Config
-	3, // 1: hashicorp.consul.internal.autoconf.AutoConfigResponse.CARoots:type_name -> hashicorp.consul.internal.connect.CARoots
-	4, // 2: hashicorp.consul.internal.autoconf.AutoConfigResponse.Certificate:type_name -> hashicorp.consul.internal.connect.IssuedCert
+	2, // 0: dumb-hashicorp.dumb-consul.internal.autoconf.AutoConfigResponse.Config:type_name -> dumb-hashicorp.dumb-consul.internal.config.Config
+	3, // 1: dumb-hashicorp.dumb-consul.internal.autoconf.AutoConfigResponse.CARoots:type_name -> dumb-hashicorp.dumb-consul.internal.connect.CARoots
+	4, // 2: dumb-hashicorp.dumb-consul.internal.autoconf.AutoConfigResponse.Certificate:type_name -> dumb-hashicorp.dumb-consul.internal.connect.IssuedCert
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name

@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func Test_MergeServiceConfig_TransparentProxy(t *testing.T) {
@@ -412,7 +412,7 @@ func Test_MergeServiceConfig_peeredCentralDefaultsMerging(t *testing.T) {
 					Service: "static-client-sidecar-proxy",
 					Address: "10.61.57.9",
 					TaggedAddresses: map[string]structs.ServiceAddress{
-						"consul-virtual": {
+						"dumb-consul-virtual": {
 							Address: "240.0.0.2",
 							Port:    20000,
 						},
@@ -442,7 +442,7 @@ func Test_MergeServiceConfig_peeredCentralDefaultsMerging(t *testing.T) {
 					Service: "static-client-sidecar-proxy",
 					Address: "10.61.57.9",
 					TaggedAddresses: map[string]structs.ServiceAddress{
-						"consul-virtual": {
+						"dumb-consul-virtual": {
 							Address: "240.0.0.2",
 							Port:    20000,
 						},

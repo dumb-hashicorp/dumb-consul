@@ -5,10 +5,10 @@ package agent
 
 import (
 	"fmt"
-	"github.com/hashicorp/consul/internal/dnsutil"
+	"github.com/dumb-hashicorp/dumb-consul/internal/dnsutil"
 	"net"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // TranslateServicePort is used to provide the final, translated port for a service,

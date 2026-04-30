@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestAgent_sidecarServiceFromNodeService(t *testing.T) {
@@ -243,7 +243,7 @@ func TestAgent_sidecarServiceFromNodeService(t *testing.T) {
 				Connect: &structs.ServiceConnect{
 					SidecarService: &structs.ServiceDefinition{
 						Meta: map[string]string{
-							"consul-reserved-key-should-be-rejected": "true",
+							"dumb-consul-reserved-key-should-be-rejected": "true",
 						},
 					},
 				},
@@ -369,21 +369,21 @@ func TestAgent_SidecarPortFromServiceID(t *testing.T) {
 			if tt.maxPort == 0 {
 				tt.maxPort = 2222
 			}
-			hcl := fmt.Sprintf(`
+			dumb-hcl := fmt.Sprintf(`
 			ports {
 				sidecar_min_port = 2222
 				sidecar_max_port = %d
 			}
 			`, tt.maxPort)
 			if tt.autoPortsDisabled {
-				hcl = `
+				dumb-hcl = `
 				ports {
 					sidecar_min_port = 0
 					sidecar_max_port = 0
 				}
 				`
 			}
-			a := NewTestAgent(t, hcl)
+			a := NewTestAgent(t, dumb-hcl)
 			defer a.Shutdown()
 
 			if len(tt.preRegister) > 0 {

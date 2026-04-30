@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	envoy_admin_v3 "github.com/envoyproxy/go-control-plane/envoy/admin/v3"
+	envoy_admin_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/admin/v3"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )

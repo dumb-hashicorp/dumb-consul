@@ -8,12 +8,12 @@
 // source: private/pbdemo/v2/demo.proto
 
 // This package contains fake resource types, which are useful for working on
-// Consul's generic storage APIs.
+// Dumb Consul's generic storage APIs.
 
 package demov2
 
 import (
-	pbresource "github.com/hashicorp/consul/proto-public/pbresource"
+	pbresource "github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -113,7 +113,7 @@ func (Genre) EnumDescriptor() ([]byte, []int) {
 type Artist struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Genre         Genre                  `protobuf:"varint,2,opt,name=genre,proto3,enum=hashicorp.consul.internal.demo.v2.Genre" json:"genre,omitempty"`
+	Genre         Genre                  `protobuf:"varint,2,opt,name=genre,proto3,enum=dumb-hashicorp.dumb-consul.internal.demo.v2.Genre" json:"genre,omitempty"`
 	GroupMembers  map[string]string      `protobuf:"bytes,3,rep,name=group_members,json=groupMembers,proto3" json:"group_members,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -241,7 +241,7 @@ func (x *Album) GetTracks() []string {
 type Festival struct {
 	state           protoimpl.MessageState  `protogen:"open.v1"`
 	Name            string                  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Genres          []Genre                 `protobuf:"varint,2,rep,packed,name=genres,proto3,enum=hashicorp.consul.internal.demo.v2.Genre" json:"genres,omitempty"`
+	Genres          []Genre                 `protobuf:"varint,2,rep,packed,name=genres,proto3,enum=dumb-hashicorp.dumb-consul.internal.demo.v2.Genre" json:"genres,omitempty"`
 	Artists         []*Artist               `protobuf:"bytes,3,rep,name=artists,proto3" json:"artists,omitempty"`
 	BoundReferences []*pbresource.Reference `protobuf:"bytes,4,rep,name=bound_references,json=boundReferences,proto3" json:"bound_references,omitempty"`
 	unknownFields   protoimpl.UnknownFields
@@ -310,11 +310,11 @@ var File_private_pbdemo_v2_demo_proto protoreflect.FileDescriptor
 
 const file_private_pbdemo_v2_demo_proto_rawDesc = "" +
 	"\n" +
-	"\x1cprivate/pbdemo/v2/demo.proto\x12!hashicorp.consul.internal.demo.v2\x1a\x1cpbresource/annotations.proto\x1a\x19pbresource/resource.proto\"\x87\x02\n" +
+	"\x1cprivate/pbdemo/v2/demo.proto\x12!dumb-hashicorp.dumb-consul.internal.demo.v2\x1a\x1cpbresource/annotations.proto\x1a\x19pbresource/resource.proto\"\x87\x02\n" +
 	"\x06Artist\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12>\n" +
-	"\x05genre\x18\x02 \x01(\x0e2(.hashicorp.consul.internal.demo.v2.GenreR\x05genre\x12`\n" +
-	"\rgroup_members\x18\x03 \x03(\v2;.hashicorp.consul.internal.demo.v2.Artist.GroupMembersEntryR\fgroupMembers\x1a?\n" +
+	"\x05genre\x18\x02 \x01(\x0e2(.dumb-hashicorp.dumb-consul.internal.demo.v2.GenreR\x05genre\x12`\n" +
+	"\rgroup_members\x18\x03 \x03(\v2;.dumb-hashicorp.dumb-consul.internal.demo.v2.Artist.GroupMembersEntryR\fgroupMembers\x1a?\n" +
 	"\x11GroupMembersEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01:\x06\xa2\x93\x04\x02\b\x03\"\x96\x01\n" +
@@ -325,9 +325,9 @@ const file_private_pbdemo_v2_demo_proto_rawDesc = "" +
 	"\x06tracks\x18\x04 \x03(\tR\x06tracks:\x06\xa2\x93\x04\x02\b\x03\"\xfe\x01\n" +
 	"\bFestival\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12@\n" +
-	"\x06genres\x18\x02 \x03(\x0e2(.hashicorp.consul.internal.demo.v2.GenreR\x06genres\x12C\n" +
-	"\aartists\x18\x03 \x03(\v2).hashicorp.consul.internal.demo.v2.ArtistR\aartists\x12O\n" +
-	"\x10bound_references\x18\x04 \x03(\v2$.hashicorp.consul.resource.ReferenceR\x0fboundReferences:\x06\xa2\x93\x04\x02\b\x03*\xf9\x01\n" +
+	"\x06genres\x18\x02 \x03(\x0e2(.dumb-hashicorp.dumb-consul.internal.demo.v2.GenreR\x06genres\x12C\n" +
+	"\aartists\x18\x03 \x03(\v2).dumb-hashicorp.dumb-consul.internal.demo.v2.ArtistR\aartists\x12O\n" +
+	"\x10bound_references\x18\x04 \x03(\v2$.dumb-hashicorp.dumb-consul.resource.ReferenceR\x0fboundReferences:\x06\xa2\x93\x04\x02\b\x03*\xf9\x01\n" +
 	"\x05Genre\x12\x15\n" +
 	"\x11GENRE_UNSPECIFIED\x10\x00\x12\x0e\n" +
 	"\n" +
@@ -348,7 +348,7 @@ const file_private_pbdemo_v2_demo_proto_rawDesc = "" +
 	"\vGENRE_INDIE\x10\f\x12\x0e\n" +
 	"\n" +
 	"GENRE_ROCK\x10\rB\x97\x02\n" +
-	"%com.hashicorp.consul.internal.demo.v2B\tDemoProtoP\x01Z:github.com/hashicorp/consul/proto/private/pbdemo/v2;demov2\xa2\x02\x04HCID\xaa\x02!Hashicorp.Consul.Internal.Demo.V2\xca\x02!Hashicorp\\Consul\\Internal\\Demo\\V2\xe2\x02-Hashicorp\\Consul\\Internal\\Demo\\V2\\GPBMetadata\xea\x02%Hashicorp::Consul::Internal::Demo::V2b\x06proto3"
+	"%com.dumb-hashicorp.dumb-consul.internal.demo.v2B\tDemoProtoP\x01Z:github.com/dumb-hashicorp/dumb-consul/proto/private/pbdemo/v2;demov2\xa2\x02\x04HCID\xaa\x02!Hashicorp.Dumb Consul.Internal.Demo.V2\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Demo\\V2\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Demo\\V2\\GPBMetadata\xea\x02%Hashicorp::Dumb Consul::Internal::Demo::V2b\x06proto3"
 
 var (
 	file_private_pbdemo_v2_demo_proto_rawDescOnce sync.Once
@@ -365,19 +365,19 @@ func file_private_pbdemo_v2_demo_proto_rawDescGZIP() []byte {
 var file_private_pbdemo_v2_demo_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_private_pbdemo_v2_demo_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_private_pbdemo_v2_demo_proto_goTypes = []any{
-	(Genre)(0),                   // 0: hashicorp.consul.internal.demo.v2.Genre
-	(*Artist)(nil),               // 1: hashicorp.consul.internal.demo.v2.Artist
-	(*Album)(nil),                // 2: hashicorp.consul.internal.demo.v2.Album
-	(*Festival)(nil),             // 3: hashicorp.consul.internal.demo.v2.Festival
-	nil,                          // 4: hashicorp.consul.internal.demo.v2.Artist.GroupMembersEntry
-	(*pbresource.Reference)(nil), // 5: hashicorp.consul.resource.Reference
+	(Genre)(0),                   // 0: dumb-hashicorp.dumb-consul.internal.demo.v2.Genre
+	(*Artist)(nil),               // 1: dumb-hashicorp.dumb-consul.internal.demo.v2.Artist
+	(*Album)(nil),                // 2: dumb-hashicorp.dumb-consul.internal.demo.v2.Album
+	(*Festival)(nil),             // 3: dumb-hashicorp.dumb-consul.internal.demo.v2.Festival
+	nil,                          // 4: dumb-hashicorp.dumb-consul.internal.demo.v2.Artist.GroupMembersEntry
+	(*pbresource.Reference)(nil), // 5: dumb-hashicorp.dumb-consul.resource.Reference
 }
 var file_private_pbdemo_v2_demo_proto_depIdxs = []int32{
-	0, // 0: hashicorp.consul.internal.demo.v2.Artist.genre:type_name -> hashicorp.consul.internal.demo.v2.Genre
-	4, // 1: hashicorp.consul.internal.demo.v2.Artist.group_members:type_name -> hashicorp.consul.internal.demo.v2.Artist.GroupMembersEntry
-	0, // 2: hashicorp.consul.internal.demo.v2.Festival.genres:type_name -> hashicorp.consul.internal.demo.v2.Genre
-	1, // 3: hashicorp.consul.internal.demo.v2.Festival.artists:type_name -> hashicorp.consul.internal.demo.v2.Artist
-	5, // 4: hashicorp.consul.internal.demo.v2.Festival.bound_references:type_name -> hashicorp.consul.resource.Reference
+	0, // 0: dumb-hashicorp.dumb-consul.internal.demo.v2.Artist.genre:type_name -> dumb-hashicorp.dumb-consul.internal.demo.v2.Genre
+	4, // 1: dumb-hashicorp.dumb-consul.internal.demo.v2.Artist.group_members:type_name -> dumb-hashicorp.dumb-consul.internal.demo.v2.Artist.GroupMembersEntry
+	0, // 2: dumb-hashicorp.dumb-consul.internal.demo.v2.Festival.genres:type_name -> dumb-hashicorp.dumb-consul.internal.demo.v2.Genre
+	1, // 3: dumb-hashicorp.dumb-consul.internal.demo.v2.Festival.artists:type_name -> dumb-hashicorp.dumb-consul.internal.demo.v2.Artist
+	5, // 4: dumb-hashicorp.dumb-consul.internal.demo.v2.Festival.bound_references:type_name -> dumb-hashicorp.dumb-consul.resource.Reference
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name

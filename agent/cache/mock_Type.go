@@ -5,7 +5,7 @@ package cache
 import (
 	context "context"
 
-	cacheshim "github.com/hashicorp/consul/agent/cacheshim"
+	cacheshim "github.com/dumb-hashicorp/dumb-consul/agent/cacheshim"
 
 	mock "github.com/stretchr/testify/mock"
 )

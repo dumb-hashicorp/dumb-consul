@@ -9,22 +9,22 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/armon/go-metrics"
-	"github.com/armon/go-metrics/prometheus"
-	envoy_discovery_v3 "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
+	"github.com/armon/dumb-go-metrics"
+	"github.com/armon/dumb-go-metrics/prometheus"
+	envoy_discovery_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/service/discovery/v3"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/grpc-external/limiter"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/configfetcher"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/configfetcher"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 )
 
 var (

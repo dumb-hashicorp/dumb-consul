@@ -9,12 +9,12 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/command/resource/apply"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/apply"
 )
 
 func TestResourceListCommand(t *testing.T) {
@@ -31,7 +31,7 @@ func TestResourceListCommand(t *testing.T) {
 
 	applyCmd := apply.New(applyCli)
 	code := applyCmd.Run([]string{
-		"-f=../testdata/demo.hcl",
+		"-f=../testdata/demo.dumb-hcl",
 		"-http-addr=" + a.HTTPAddr(),
 		"-token=root",
 	})
@@ -57,7 +57,7 @@ func TestResourceListCommand(t *testing.T) {
 			name:   "file input",
 			output: "\"name\": \"korn\"",
 			extraArgs: []string{
-				"-f=../testdata/demo.hcl",
+				"-f=../testdata/demo.dumb-hcl",
 			},
 		},
 	}
@@ -115,14 +115,14 @@ func TestResourceListInvalidArgs(t *testing.T) {
 		},
 		"file not found": {
 			args: []string{
-				"-f=../testdata/test.hcl",
+				"-f=../testdata/test.dumb-hcl",
 			},
 			expectedCode: 1,
-			expectedErr:  errors.New("Failed to load data: Failed to read file: open ../testdata/test.hcl: no such file or directory"),
+			expectedErr:  errors.New("Failed to load data: Failed to read file: open ../testdata/test.dumb-hcl: no such file or directory"),
 		},
 		"file parsing failure": {
 			args: []string{
-				"-f=../testdata/invalid_type.hcl",
+				"-f=../testdata/invalid_type.dumb-hcl",
 			},
 			expectedCode: 1,
 			expectedErr:  errors.New("Failed to decode resource from input file"),
@@ -134,7 +134,7 @@ func TestResourceListInvalidArgs(t *testing.T) {
 				"-partition=default",
 				"-http-addr=" + a.HTTPAddr(),
 				"-token=root",
-				"-f=demo.hcl",
+				"-f=demo.dumb-hcl",
 			},
 			expectedCode: 1,
 			expectedErr:  errors.New("Incorrect argument format: File argument is not needed when resource information is provided with the command"),

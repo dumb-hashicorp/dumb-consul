@@ -10,8 +10,8 @@
 package pbpeering
 
 import (
-	_ "github.com/hashicorp/consul/proto-public/annotations/ratelimit"
-	pbcommon "github.com/hashicorp/consul/proto/private/pbcommon"
+	_ "github.com/dumb-hashicorp/dumb-consul/proto-public/annotations/ratelimit"
+	pbcommon "github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -290,11 +290,11 @@ func (x *PeeringSecrets) GetStream() *PeeringSecrets_Stream {
 	return nil
 }
 
-// Peering defines a peering relationship between two disparate Consul clusters
+// Peering defines a peering relationship between two disparate Dumb Consul clusters
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.Peering
+// target=github.com/dumb-hashicorp/dumb-consul/api.Peering
 // output=peering.gen.go
 // name=API
 type Peering struct {
@@ -316,7 +316,7 @@ type Peering struct {
 	// peering relationship.
 	//
 	// mog: func-to=PeeringStateToAPI func-from=PeeringStateFromAPI
-	State PeeringState `protobuf:"varint,6,opt,name=State,proto3,enum=hashicorp.consul.internal.peering.PeeringState" json:"State,omitempty"`
+	State PeeringState `protobuf:"varint,6,opt,name=State,proto3,enum=dumb-hashicorp.dumb-consul.internal.peering.PeeringState" json:"State,omitempty"`
 	// PeerID is the ID that our peer assigned to this peering.
 	// This ID is to be used when dialing the peer, so that it can know who dialed it.
 	PeerID string `protobuf:"bytes,7,opt,name=PeerID,proto3" json:"PeerID,omitempty"`
@@ -482,7 +482,7 @@ func (x *Peering) GetManualServerAddresses() []string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringRemoteInfo
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringRemoteInfo
 // output=peering.gen.go
 // name=API
 type RemoteInfo struct {
@@ -1636,7 +1636,7 @@ func (*PeeringTrustBundleDeleteResponse) Descriptor() ([]byte, []int) {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringGenerateTokenRequest
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringGenerateTokenRequest
 // output=peering.gen.go
 // name=API
 type GenerateTokenRequest struct {
@@ -1649,7 +1649,7 @@ type GenerateTokenRequest struct {
 	Meta map[string]string `protobuf:"bytes,5,rep,name=Meta,proto3" json:"Meta,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	// ServerExternalAddresses is a list of addresses to put into the generated token. This could be used to specify
 	// load balancer(s) or external IPs to reach the servers from the dialing side, and will override any server
-	// addresses obtained from the "consul" service.
+	// addresses obtained from the "dumb-consul" service.
 	ServerExternalAddresses []string `protobuf:"bytes,6,rep,name=ServerExternalAddresses,proto3" json:"ServerExternalAddresses,omitempty"`
 	unknownFields           protoimpl.UnknownFields
 	sizeCache               protoimpl.SizeCache
@@ -1715,7 +1715,7 @@ func (x *GenerateTokenRequest) GetServerExternalAddresses() []string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringGenerateTokenResponse
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringGenerateTokenResponse
 // output=peering.gen.go
 // name=API
 type GenerateTokenResponse struct {
@@ -1766,7 +1766,7 @@ func (x *GenerateTokenResponse) GetPeeringToken() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringEstablishRequest
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringEstablishRequest
 // output=peering.gen.go
 // name=API
 type EstablishRequest struct {
@@ -1843,7 +1843,7 @@ func (x *EstablishRequest) GetMeta() map[string]string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/api.PeeringEstablishResponse
+// target=github.com/dumb-hashicorp/dumb-consul/api.PeeringEstablishResponse
 // output=peering.gen.go
 // name=API
 type EstablishResponse struct {
@@ -2198,13 +2198,13 @@ var File_private_pbpeering_peering_proto protoreflect.FileDescriptor
 
 const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\n" +
-	"\x1fprivate/pbpeering/peering.proto\x12!hashicorp.consul.internal.peering\x1a%annotations/ratelimit/ratelimit.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dprivate/pbcommon/common.proto\"\xe5\x06\n" +
+	"\x1fprivate/pbpeering/peering.proto\x12!dumb-hashicorp.dumb-consul.internal.peering\x1a%annotations/ratelimit/ratelimit.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1dprivate/pbcommon/common.proto\"\xe5\x06\n" +
 	"\x13SecretsWriteRequest\x12\x16\n" +
 	"\x06PeerID\x18\x01 \x01(\tR\x06PeerID\x12t\n" +
-	"\x0egenerate_token\x18\x02 \x01(\v2K.hashicorp.consul.internal.peering.SecretsWriteRequest.GenerateTokenRequestH\x00R\rgenerateToken\x12w\n" +
-	"\x0fexchange_secret\x18\x03 \x01(\v2L.hashicorp.consul.internal.peering.SecretsWriteRequest.ExchangeSecretRequestH\x00R\x0eexchangeSecret\x12w\n" +
-	"\x0fpromote_pending\x18\x04 \x01(\v2L.hashicorp.consul.internal.peering.SecretsWriteRequest.PromotePendingRequestH\x00R\x0epromotePending\x12g\n" +
-	"\testablish\x18\x05 \x01(\v2G.hashicorp.consul.internal.peering.SecretsWriteRequest.EstablishRequestH\x00R\testablish\x1aI\n" +
+	"\x0egenerate_token\x18\x02 \x01(\v2K.dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.GenerateTokenRequestH\x00R\rgenerateToken\x12w\n" +
+	"\x0fexchange_secret\x18\x03 \x01(\v2L.dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.ExchangeSecretRequestH\x00R\x0eexchangeSecret\x12w\n" +
+	"\x0fpromote_pending\x18\x04 \x01(\v2L.dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.PromotePendingRequestH\x00R\x0epromotePending\x12g\n" +
+	"\testablish\x18\x05 \x01(\v2G.dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.EstablishRequestH\x00R\testablish\x1aI\n" +
 	"\x14GenerateTokenRequest\x121\n" +
 	"\x14establishment_secret\x18\x01 \x01(\tR\x13establishmentSecret\x1a~\n" +
 	"\x15ExchangeSecretRequest\x121\n" +
@@ -2217,8 +2217,8 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\aRequest\"\xea\x02\n" +
 	"\x0ePeeringSecrets\x12\x16\n" +
 	"\x06PeerID\x18\x01 \x01(\tR\x06PeerID\x12e\n" +
-	"\restablishment\x18\x02 \x01(\v2?.hashicorp.consul.internal.peering.PeeringSecrets.EstablishmentR\restablishment\x12P\n" +
-	"\x06stream\x18\x03 \x01(\v28.hashicorp.consul.internal.peering.PeeringSecrets.StreamR\x06stream\x1a+\n" +
+	"\restablishment\x18\x02 \x01(\v2?.dumb-hashicorp.dumb-consul.internal.peering.PeeringSecrets.EstablishmentR\restablishment\x12P\n" +
+	"\x06stream\x18\x03 \x01(\v28.dumb-hashicorp.dumb-consul.internal.peering.PeeringSecrets.StreamR\x06stream\x1a+\n" +
 	"\rEstablishment\x12\x1a\n" +
 	"\bSecretID\x18\x01 \x01(\tR\bSecretID\x1aZ\n" +
 	"\x06Stream\x12&\n" +
@@ -2229,8 +2229,8 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\x04Name\x18\x02 \x01(\tR\x04Name\x12\x1c\n" +
 	"\tPartition\x18\x03 \x01(\tR\tPartition\x128\n" +
 	"\tDeletedAt\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tDeletedAt\x12H\n" +
-	"\x04Meta\x18\x05 \x03(\v24.hashicorp.consul.internal.peering.Peering.MetaEntryR\x04Meta\x12E\n" +
-	"\x05State\x18\x06 \x01(\x0e2/.hashicorp.consul.internal.peering.PeeringStateR\x05State\x12\x16\n" +
+	"\x04Meta\x18\x05 \x03(\v24.dumb-hashicorp.dumb-consul.internal.peering.Peering.MetaEntryR\x04Meta\x12E\n" +
+	"\x05State\x18\x06 \x01(\x0e2/.dumb-hashicorp.dumb-consul.internal.peering.PeeringStateR\x05State\x12\x16\n" +
 	"\x06PeerID\x18\a \x01(\tR\x06PeerID\x12\x1e\n" +
 	"\n" +
 	"PeerCAPems\x18\b \x03(\tR\n" +
@@ -2238,10 +2238,10 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\x0ePeerServerName\x18\t \x01(\tR\x0ePeerServerName\x120\n" +
 	"\x13PeerServerAddresses\x18\n" +
 	" \x03(\tR\x13PeerServerAddresses\x12S\n" +
-	"\fStreamStatus\x18\r \x01(\v2/.hashicorp.consul.internal.peering.StreamStatusR\fStreamStatus\x12 \n" +
+	"\fStreamStatus\x18\r \x01(\v2/.dumb-hashicorp.dumb-consul.internal.peering.StreamStatusR\fStreamStatus\x12 \n" +
 	"\vCreateIndex\x18\v \x01(\x04R\vCreateIndex\x12 \n" +
 	"\vModifyIndex\x18\f \x01(\x04R\vModifyIndex\x12E\n" +
-	"\x06Remote\x18\x11 \x01(\v2-.hashicorp.consul.internal.peering.RemoteInfoR\x06Remote\x124\n" +
+	"\x06Remote\x18\x11 \x01(\v2-.dumb-hashicorp.dumb-consul.internal.peering.RemoteInfoR\x06Remote\x124\n" +
 	"\x15ManualServerAddresses\x18\x12 \x03(\tR\x15ManualServerAddresses\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
@@ -2252,7 +2252,7 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\n" +
 	"Datacenter\x18\x02 \x01(\tR\n" +
 	"Datacenter\x12F\n" +
-	"\bLocality\x18\x03 \x01(\v2*.hashicorp.consul.internal.common.LocalityR\bLocality\"\x9e\x02\n" +
+	"\bLocality\x18\x03 \x01(\v2*.dumb-hashicorp.dumb-consul.internal.common.LocalityR\bLocality\"\x9e\x02\n" +
 	"\fStreamStatus\x12*\n" +
 	"\x10ImportedServices\x18\x01 \x03(\tR\x10ImportedServices\x12*\n" +
 	"\x10ExportedServices\x18\x02 \x03(\tR\x10ExportedServices\x12@\n" +
@@ -2273,16 +2273,16 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x1c\n" +
 	"\tPartition\x18\x02 \x01(\tR\tPartition\"[\n" +
 	"\x13PeeringReadResponse\x12D\n" +
-	"\aPeering\x18\x01 \x01(\v2*.hashicorp.consul.internal.peering.PeeringR\aPeering\"2\n" +
+	"\aPeering\x18\x01 \x01(\v2*.dumb-hashicorp.dumb-consul.internal.peering.PeeringR\aPeering\"2\n" +
 	"\x12PeeringListRequest\x12\x1c\n" +
 	"\tPartition\x18\x01 \x01(\tR\tPartition\"\x84\x01\n" +
 	"\x13PeeringListResponse\x12F\n" +
-	"\bPeerings\x18\x01 \x03(\v2*.hashicorp.consul.internal.peering.PeeringR\bPeerings\x12%\n" +
+	"\bPeerings\x18\x01 \x03(\v2*.dumb-hashicorp.dumb-consul.internal.peering.PeeringR\bPeerings\x12%\n" +
 	"\x0eOBSOLETE_Index\x18\x02 \x01(\x04R\rOBSOLETEIndex\"\xca\x02\n" +
 	"\x13PeeringWriteRequest\x12D\n" +
-	"\aPeering\x18\x01 \x01(\v2*.hashicorp.consul.internal.peering.PeeringR\aPeering\x12^\n" +
-	"\x0eSecretsRequest\x18\x02 \x01(\v26.hashicorp.consul.internal.peering.SecretsWriteRequestR\x0eSecretsRequest\x12T\n" +
-	"\x04Meta\x18\x03 \x03(\v2@.hashicorp.consul.internal.peering.PeeringWriteRequest.MetaEntryR\x04Meta\x1a7\n" +
+	"\aPeering\x18\x01 \x01(\v2*.dumb-hashicorp.dumb-consul.internal.peering.PeeringR\aPeering\x12^\n" +
+	"\x0eSecretsRequest\x18\x02 \x01(\v26.dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequestR\x0eSecretsRequest\x12T\n" +
+	"\x04Meta\x18\x03 \x03(\v2@.dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteRequest.MetaEntryR\x04Meta\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x16\n" +
@@ -2298,18 +2298,18 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\x04Kind\x18\x04 \x01(\tR\x04Kind\"\x9a\x01\n" +
 	" TrustBundleListByServiceResponse\x12%\n" +
 	"\x0eOBSOLETE_Index\x18\x01 \x01(\x04R\rOBSOLETEIndex\x12O\n" +
-	"\aBundles\x18\x02 \x03(\v25.hashicorp.consul.internal.peering.PeeringTrustBundleR\aBundles\"J\n" +
+	"\aBundles\x18\x02 \x03(\v25.dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundleR\aBundles\"J\n" +
 	"\x16TrustBundleReadRequest\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x1c\n" +
 	"\tPartition\x18\x02 \x01(\tR\tPartition\"\x8f\x01\n" +
 	"\x17TrustBundleReadResponse\x12%\n" +
 	"\x0eOBSOLETE_Index\x18\x01 \x01(\x04R\rOBSOLETEIndex\x12M\n" +
-	"\x06Bundle\x18\x02 \x01(\v25.hashicorp.consul.internal.peering.PeeringTrustBundleR\x06Bundle\"-\n" +
+	"\x06Bundle\x18\x02 \x01(\v25.dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundleR\x06Bundle\"-\n" +
 	"\x1bPeeringTerminateByIDRequest\x12\x0e\n" +
 	"\x02ID\x18\x01 \x01(\tR\x02ID\"\x1e\n" +
 	"\x1cPeeringTerminateByIDResponse\"\x87\x01\n" +
 	"\x1ePeeringTrustBundleWriteRequest\x12e\n" +
-	"\x12PeeringTrustBundle\x18\x01 \x01(\v25.hashicorp.consul.internal.peering.PeeringTrustBundleR\x12PeeringTrustBundle\"!\n" +
+	"\x12PeeringTrustBundle\x18\x01 \x01(\v25.dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundleR\x12PeeringTrustBundle\"!\n" +
 	"\x1fPeeringTrustBundleWriteResponse\"S\n" +
 	"\x1fPeeringTrustBundleDeleteRequest\x12\x12\n" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x1c\n" +
@@ -2318,7 +2318,7 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\x14GenerateTokenRequest\x12\x1a\n" +
 	"\bPeerName\x18\x01 \x01(\tR\bPeerName\x12\x1c\n" +
 	"\tPartition\x18\x02 \x01(\tR\tPartition\x12U\n" +
-	"\x04Meta\x18\x05 \x03(\v2A.hashicorp.consul.internal.peering.GenerateTokenRequest.MetaEntryR\x04Meta\x128\n" +
+	"\x04Meta\x18\x05 \x03(\v2A.dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenRequest.MetaEntryR\x04Meta\x128\n" +
 	"\x17ServerExternalAddresses\x18\x06 \x03(\tR\x17ServerExternalAddresses\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
@@ -2329,7 +2329,7 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\bPeerName\x18\x01 \x01(\tR\bPeerName\x12\"\n" +
 	"\fPeeringToken\x18\x02 \x01(\tR\fPeeringToken\x12\x1c\n" +
 	"\tPartition\x18\x03 \x01(\tR\tPartition\x12Q\n" +
-	"\x04Meta\x18\x04 \x03(\v2=.hashicorp.consul.internal.peering.EstablishRequest.MetaEntryR\x04Meta\x1a7\n" +
+	"\x04Meta\x18\x04 \x03(\v2=.dumb-hashicorp.dumb-consul.internal.peering.EstablishRequest.MetaEntryR\x04Meta\x1a7\n" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x13\n" +
@@ -2345,15 +2345,15 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\n" +
 	"TERMINATED\x10\x062\x94\t\n" +
 	"\x0ePeeringService\x12\x8c\x01\n" +
-	"\rGenerateToken\x127.hashicorp.consul.internal.peering.GenerateTokenRequest\x1a8.hashicorp.consul.internal.peering.GenerateTokenResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x05\x12\x80\x01\n" +
-	"\tEstablish\x123.hashicorp.consul.internal.peering.EstablishRequest\x1a4.hashicorp.consul.internal.peering.EstablishResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x05\x12\x86\x01\n" +
-	"\vPeeringRead\x125.hashicorp.consul.internal.peering.PeeringReadRequest\x1a6.hashicorp.consul.internal.peering.PeeringReadResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05\x12\x86\x01\n" +
-	"\vPeeringList\x125.hashicorp.consul.internal.peering.PeeringListRequest\x1a6.hashicorp.consul.internal.peering.PeeringListResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05\x12\x8c\x01\n" +
-	"\rPeeringDelete\x127.hashicorp.consul.internal.peering.PeeringDeleteRequest\x1a8.hashicorp.consul.internal.peering.PeeringDeleteResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x05\x12\x89\x01\n" +
-	"\fPeeringWrite\x126.hashicorp.consul.internal.peering.PeeringWriteRequest\x1a7.hashicorp.consul.internal.peering.PeeringWriteResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x05\x12\xad\x01\n" +
-	"\x18TrustBundleListByService\x12B.hashicorp.consul.internal.peering.TrustBundleListByServiceRequest\x1aC.hashicorp.consul.internal.peering.TrustBundleListByServiceResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05\x12\x92\x01\n" +
-	"\x0fTrustBundleRead\x129.hashicorp.consul.internal.peering.TrustBundleReadRequest\x1a:.hashicorp.consul.internal.peering.TrustBundleReadResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05B\x92\x02\n" +
-	"%com.hashicorp.consul.internal.peeringB\fPeeringProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbpeering\xa2\x02\x04HCIP\xaa\x02!Hashicorp.Consul.Internal.Peering\xca\x02!Hashicorp\\Consul\\Internal\\Peering\xe2\x02-Hashicorp\\Consul\\Internal\\Peering\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Peeringb\x06proto3"
+	"\rGenerateToken\x127.dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenRequest\x1a8.dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x05\x12\x80\x01\n" +
+	"\tEstablish\x123.dumb-hashicorp.dumb-consul.internal.peering.EstablishRequest\x1a4.dumb-hashicorp.dumb-consul.internal.peering.EstablishResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x05\x12\x86\x01\n" +
+	"\vPeeringRead\x125.dumb-hashicorp.dumb-consul.internal.peering.PeeringReadRequest\x1a6.dumb-hashicorp.dumb-consul.internal.peering.PeeringReadResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05\x12\x86\x01\n" +
+	"\vPeeringList\x125.dumb-hashicorp.dumb-consul.internal.peering.PeeringListRequest\x1a6.dumb-hashicorp.dumb-consul.internal.peering.PeeringListResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05\x12\x8c\x01\n" +
+	"\rPeeringDelete\x127.dumb-hashicorp.dumb-consul.internal.peering.PeeringDeleteRequest\x1a8.dumb-hashicorp.dumb-consul.internal.peering.PeeringDeleteResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x05\x12\x89\x01\n" +
+	"\fPeeringWrite\x126.dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteRequest\x1a7.dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x05\x12\xad\x01\n" +
+	"\x18TrustBundleListByService\x12B.dumb-hashicorp.dumb-consul.internal.peering.TrustBundleListByServiceRequest\x1aC.dumb-hashicorp.dumb-consul.internal.peering.TrustBundleListByServiceResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05\x12\x92\x01\n" +
+	"\x0fTrustBundleRead\x129.dumb-hashicorp.dumb-consul.internal.peering.TrustBundleReadRequest\x1a:.dumb-hashicorp.dumb-consul.internal.peering.TrustBundleReadResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05B\x92\x02\n" +
+	"%com.dumb-hashicorp.dumb-consul.internal.peeringB\fPeeringProtoP\x01Z3github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering\xa2\x02\x04HCIP\xaa\x02!Hashicorp.Dumb Consul.Internal.Peering\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Peering\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Peering\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Peeringb\x06proto3"
 
 var (
 	file_private_pbpeering_peering_proto_rawDescOnce sync.Once
@@ -2370,91 +2370,91 @@ func file_private_pbpeering_peering_proto_rawDescGZIP() []byte {
 var file_private_pbpeering_peering_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_private_pbpeering_peering_proto_msgTypes = make([]protoimpl.MessageInfo, 39)
 var file_private_pbpeering_peering_proto_goTypes = []any{
-	(PeeringState)(0),                                 // 0: hashicorp.consul.internal.peering.PeeringState
-	(*SecretsWriteRequest)(nil),                       // 1: hashicorp.consul.internal.peering.SecretsWriteRequest
-	(*PeeringSecrets)(nil),                            // 2: hashicorp.consul.internal.peering.PeeringSecrets
-	(*Peering)(nil),                                   // 3: hashicorp.consul.internal.peering.Peering
-	(*RemoteInfo)(nil),                                // 4: hashicorp.consul.internal.peering.RemoteInfo
-	(*StreamStatus)(nil),                              // 5: hashicorp.consul.internal.peering.StreamStatus
-	(*PeeringTrustBundle)(nil),                        // 6: hashicorp.consul.internal.peering.PeeringTrustBundle
-	(*PeeringServerAddresses)(nil),                    // 7: hashicorp.consul.internal.peering.PeeringServerAddresses
-	(*PeeringReadRequest)(nil),                        // 8: hashicorp.consul.internal.peering.PeeringReadRequest
-	(*PeeringReadResponse)(nil),                       // 9: hashicorp.consul.internal.peering.PeeringReadResponse
-	(*PeeringListRequest)(nil),                        // 10: hashicorp.consul.internal.peering.PeeringListRequest
-	(*PeeringListResponse)(nil),                       // 11: hashicorp.consul.internal.peering.PeeringListResponse
-	(*PeeringWriteRequest)(nil),                       // 12: hashicorp.consul.internal.peering.PeeringWriteRequest
-	(*PeeringWriteResponse)(nil),                      // 13: hashicorp.consul.internal.peering.PeeringWriteResponse
-	(*PeeringDeleteRequest)(nil),                      // 14: hashicorp.consul.internal.peering.PeeringDeleteRequest
-	(*PeeringDeleteResponse)(nil),                     // 15: hashicorp.consul.internal.peering.PeeringDeleteResponse
-	(*TrustBundleListByServiceRequest)(nil),           // 16: hashicorp.consul.internal.peering.TrustBundleListByServiceRequest
-	(*TrustBundleListByServiceResponse)(nil),          // 17: hashicorp.consul.internal.peering.TrustBundleListByServiceResponse
-	(*TrustBundleReadRequest)(nil),                    // 18: hashicorp.consul.internal.peering.TrustBundleReadRequest
-	(*TrustBundleReadResponse)(nil),                   // 19: hashicorp.consul.internal.peering.TrustBundleReadResponse
-	(*PeeringTerminateByIDRequest)(nil),               // 20: hashicorp.consul.internal.peering.PeeringTerminateByIDRequest
-	(*PeeringTerminateByIDResponse)(nil),              // 21: hashicorp.consul.internal.peering.PeeringTerminateByIDResponse
-	(*PeeringTrustBundleWriteRequest)(nil),            // 22: hashicorp.consul.internal.peering.PeeringTrustBundleWriteRequest
-	(*PeeringTrustBundleWriteResponse)(nil),           // 23: hashicorp.consul.internal.peering.PeeringTrustBundleWriteResponse
-	(*PeeringTrustBundleDeleteRequest)(nil),           // 24: hashicorp.consul.internal.peering.PeeringTrustBundleDeleteRequest
-	(*PeeringTrustBundleDeleteResponse)(nil),          // 25: hashicorp.consul.internal.peering.PeeringTrustBundleDeleteResponse
-	(*GenerateTokenRequest)(nil),                      // 26: hashicorp.consul.internal.peering.GenerateTokenRequest
-	(*GenerateTokenResponse)(nil),                     // 27: hashicorp.consul.internal.peering.GenerateTokenResponse
-	(*EstablishRequest)(nil),                          // 28: hashicorp.consul.internal.peering.EstablishRequest
-	(*EstablishResponse)(nil),                         // 29: hashicorp.consul.internal.peering.EstablishResponse
-	(*SecretsWriteRequest_GenerateTokenRequest)(nil),  // 30: hashicorp.consul.internal.peering.SecretsWriteRequest.GenerateTokenRequest
-	(*SecretsWriteRequest_ExchangeSecretRequest)(nil), // 31: hashicorp.consul.internal.peering.SecretsWriteRequest.ExchangeSecretRequest
-	(*SecretsWriteRequest_PromotePendingRequest)(nil), // 32: hashicorp.consul.internal.peering.SecretsWriteRequest.PromotePendingRequest
-	(*SecretsWriteRequest_EstablishRequest)(nil),      // 33: hashicorp.consul.internal.peering.SecretsWriteRequest.EstablishRequest
-	(*PeeringSecrets_Establishment)(nil),              // 34: hashicorp.consul.internal.peering.PeeringSecrets.Establishment
-	(*PeeringSecrets_Stream)(nil),                     // 35: hashicorp.consul.internal.peering.PeeringSecrets.Stream
-	nil,                                               // 36: hashicorp.consul.internal.peering.Peering.MetaEntry
-	nil,                                               // 37: hashicorp.consul.internal.peering.PeeringWriteRequest.MetaEntry
-	nil,                                               // 38: hashicorp.consul.internal.peering.GenerateTokenRequest.MetaEntry
-	nil,                                               // 39: hashicorp.consul.internal.peering.EstablishRequest.MetaEntry
+	(PeeringState)(0),                                 // 0: dumb-hashicorp.dumb-consul.internal.peering.PeeringState
+	(*SecretsWriteRequest)(nil),                       // 1: dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest
+	(*PeeringSecrets)(nil),                            // 2: dumb-hashicorp.dumb-consul.internal.peering.PeeringSecrets
+	(*Peering)(nil),                                   // 3: dumb-hashicorp.dumb-consul.internal.peering.Peering
+	(*RemoteInfo)(nil),                                // 4: dumb-hashicorp.dumb-consul.internal.peering.RemoteInfo
+	(*StreamStatus)(nil),                              // 5: dumb-hashicorp.dumb-consul.internal.peering.StreamStatus
+	(*PeeringTrustBundle)(nil),                        // 6: dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundle
+	(*PeeringServerAddresses)(nil),                    // 7: dumb-hashicorp.dumb-consul.internal.peering.PeeringServerAddresses
+	(*PeeringReadRequest)(nil),                        // 8: dumb-hashicorp.dumb-consul.internal.peering.PeeringReadRequest
+	(*PeeringReadResponse)(nil),                       // 9: dumb-hashicorp.dumb-consul.internal.peering.PeeringReadResponse
+	(*PeeringListRequest)(nil),                        // 10: dumb-hashicorp.dumb-consul.internal.peering.PeeringListRequest
+	(*PeeringListResponse)(nil),                       // 11: dumb-hashicorp.dumb-consul.internal.peering.PeeringListResponse
+	(*PeeringWriteRequest)(nil),                       // 12: dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteRequest
+	(*PeeringWriteResponse)(nil),                      // 13: dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteResponse
+	(*PeeringDeleteRequest)(nil),                      // 14: dumb-hashicorp.dumb-consul.internal.peering.PeeringDeleteRequest
+	(*PeeringDeleteResponse)(nil),                     // 15: dumb-hashicorp.dumb-consul.internal.peering.PeeringDeleteResponse
+	(*TrustBundleListByServiceRequest)(nil),           // 16: dumb-hashicorp.dumb-consul.internal.peering.TrustBundleListByServiceRequest
+	(*TrustBundleListByServiceResponse)(nil),          // 17: dumb-hashicorp.dumb-consul.internal.peering.TrustBundleListByServiceResponse
+	(*TrustBundleReadRequest)(nil),                    // 18: dumb-hashicorp.dumb-consul.internal.peering.TrustBundleReadRequest
+	(*TrustBundleReadResponse)(nil),                   // 19: dumb-hashicorp.dumb-consul.internal.peering.TrustBundleReadResponse
+	(*PeeringTerminateByIDRequest)(nil),               // 20: dumb-hashicorp.dumb-consul.internal.peering.PeeringTerminateByIDRequest
+	(*PeeringTerminateByIDResponse)(nil),              // 21: dumb-hashicorp.dumb-consul.internal.peering.PeeringTerminateByIDResponse
+	(*PeeringTrustBundleWriteRequest)(nil),            // 22: dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundleWriteRequest
+	(*PeeringTrustBundleWriteResponse)(nil),           // 23: dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundleWriteResponse
+	(*PeeringTrustBundleDeleteRequest)(nil),           // 24: dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundleDeleteRequest
+	(*PeeringTrustBundleDeleteResponse)(nil),          // 25: dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundleDeleteResponse
+	(*GenerateTokenRequest)(nil),                      // 26: dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenRequest
+	(*GenerateTokenResponse)(nil),                     // 27: dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenResponse
+	(*EstablishRequest)(nil),                          // 28: dumb-hashicorp.dumb-consul.internal.peering.EstablishRequest
+	(*EstablishResponse)(nil),                         // 29: dumb-hashicorp.dumb-consul.internal.peering.EstablishResponse
+	(*SecretsWriteRequest_GenerateTokenRequest)(nil),  // 30: dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.GenerateTokenRequest
+	(*SecretsWriteRequest_ExchangeSecretRequest)(nil), // 31: dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.ExchangeSecretRequest
+	(*SecretsWriteRequest_PromotePendingRequest)(nil), // 32: dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.PromotePendingRequest
+	(*SecretsWriteRequest_EstablishRequest)(nil),      // 33: dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.EstablishRequest
+	(*PeeringSecrets_Establishment)(nil),              // 34: dumb-hashicorp.dumb-consul.internal.peering.PeeringSecrets.Establishment
+	(*PeeringSecrets_Stream)(nil),                     // 35: dumb-hashicorp.dumb-consul.internal.peering.PeeringSecrets.Stream
+	nil,                                               // 36: dumb-hashicorp.dumb-consul.internal.peering.Peering.MetaEntry
+	nil,                                               // 37: dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteRequest.MetaEntry
+	nil,                                               // 38: dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenRequest.MetaEntry
+	nil,                                               // 39: dumb-hashicorp.dumb-consul.internal.peering.EstablishRequest.MetaEntry
 	(*timestamppb.Timestamp)(nil),                     // 40: google.protobuf.Timestamp
-	(*pbcommon.Locality)(nil),                         // 41: hashicorp.consul.internal.common.Locality
+	(*pbcommon.Locality)(nil),                         // 41: dumb-hashicorp.dumb-consul.internal.common.Locality
 }
 var file_private_pbpeering_peering_proto_depIdxs = []int32{
-	30, // 0: hashicorp.consul.internal.peering.SecretsWriteRequest.generate_token:type_name -> hashicorp.consul.internal.peering.SecretsWriteRequest.GenerateTokenRequest
-	31, // 1: hashicorp.consul.internal.peering.SecretsWriteRequest.exchange_secret:type_name -> hashicorp.consul.internal.peering.SecretsWriteRequest.ExchangeSecretRequest
-	32, // 2: hashicorp.consul.internal.peering.SecretsWriteRequest.promote_pending:type_name -> hashicorp.consul.internal.peering.SecretsWriteRequest.PromotePendingRequest
-	33, // 3: hashicorp.consul.internal.peering.SecretsWriteRequest.establish:type_name -> hashicorp.consul.internal.peering.SecretsWriteRequest.EstablishRequest
-	34, // 4: hashicorp.consul.internal.peering.PeeringSecrets.establishment:type_name -> hashicorp.consul.internal.peering.PeeringSecrets.Establishment
-	35, // 5: hashicorp.consul.internal.peering.PeeringSecrets.stream:type_name -> hashicorp.consul.internal.peering.PeeringSecrets.Stream
-	40, // 6: hashicorp.consul.internal.peering.Peering.DeletedAt:type_name -> google.protobuf.Timestamp
-	36, // 7: hashicorp.consul.internal.peering.Peering.Meta:type_name -> hashicorp.consul.internal.peering.Peering.MetaEntry
-	0,  // 8: hashicorp.consul.internal.peering.Peering.State:type_name -> hashicorp.consul.internal.peering.PeeringState
-	5,  // 9: hashicorp.consul.internal.peering.Peering.StreamStatus:type_name -> hashicorp.consul.internal.peering.StreamStatus
-	4,  // 10: hashicorp.consul.internal.peering.Peering.Remote:type_name -> hashicorp.consul.internal.peering.RemoteInfo
-	41, // 11: hashicorp.consul.internal.peering.RemoteInfo.Locality:type_name -> hashicorp.consul.internal.common.Locality
-	40, // 12: hashicorp.consul.internal.peering.StreamStatus.LastHeartbeat:type_name -> google.protobuf.Timestamp
-	40, // 13: hashicorp.consul.internal.peering.StreamStatus.LastReceive:type_name -> google.protobuf.Timestamp
-	40, // 14: hashicorp.consul.internal.peering.StreamStatus.LastSend:type_name -> google.protobuf.Timestamp
-	3,  // 15: hashicorp.consul.internal.peering.PeeringReadResponse.Peering:type_name -> hashicorp.consul.internal.peering.Peering
-	3,  // 16: hashicorp.consul.internal.peering.PeeringListResponse.Peerings:type_name -> hashicorp.consul.internal.peering.Peering
-	3,  // 17: hashicorp.consul.internal.peering.PeeringWriteRequest.Peering:type_name -> hashicorp.consul.internal.peering.Peering
-	1,  // 18: hashicorp.consul.internal.peering.PeeringWriteRequest.SecretsRequest:type_name -> hashicorp.consul.internal.peering.SecretsWriteRequest
-	37, // 19: hashicorp.consul.internal.peering.PeeringWriteRequest.Meta:type_name -> hashicorp.consul.internal.peering.PeeringWriteRequest.MetaEntry
-	6,  // 20: hashicorp.consul.internal.peering.TrustBundleListByServiceResponse.Bundles:type_name -> hashicorp.consul.internal.peering.PeeringTrustBundle
-	6,  // 21: hashicorp.consul.internal.peering.TrustBundleReadResponse.Bundle:type_name -> hashicorp.consul.internal.peering.PeeringTrustBundle
-	6,  // 22: hashicorp.consul.internal.peering.PeeringTrustBundleWriteRequest.PeeringTrustBundle:type_name -> hashicorp.consul.internal.peering.PeeringTrustBundle
-	38, // 23: hashicorp.consul.internal.peering.GenerateTokenRequest.Meta:type_name -> hashicorp.consul.internal.peering.GenerateTokenRequest.MetaEntry
-	39, // 24: hashicorp.consul.internal.peering.EstablishRequest.Meta:type_name -> hashicorp.consul.internal.peering.EstablishRequest.MetaEntry
-	26, // 25: hashicorp.consul.internal.peering.PeeringService.GenerateToken:input_type -> hashicorp.consul.internal.peering.GenerateTokenRequest
-	28, // 26: hashicorp.consul.internal.peering.PeeringService.Establish:input_type -> hashicorp.consul.internal.peering.EstablishRequest
-	8,  // 27: hashicorp.consul.internal.peering.PeeringService.PeeringRead:input_type -> hashicorp.consul.internal.peering.PeeringReadRequest
-	10, // 28: hashicorp.consul.internal.peering.PeeringService.PeeringList:input_type -> hashicorp.consul.internal.peering.PeeringListRequest
-	14, // 29: hashicorp.consul.internal.peering.PeeringService.PeeringDelete:input_type -> hashicorp.consul.internal.peering.PeeringDeleteRequest
-	12, // 30: hashicorp.consul.internal.peering.PeeringService.PeeringWrite:input_type -> hashicorp.consul.internal.peering.PeeringWriteRequest
-	16, // 31: hashicorp.consul.internal.peering.PeeringService.TrustBundleListByService:input_type -> hashicorp.consul.internal.peering.TrustBundleListByServiceRequest
-	18, // 32: hashicorp.consul.internal.peering.PeeringService.TrustBundleRead:input_type -> hashicorp.consul.internal.peering.TrustBundleReadRequest
-	27, // 33: hashicorp.consul.internal.peering.PeeringService.GenerateToken:output_type -> hashicorp.consul.internal.peering.GenerateTokenResponse
-	29, // 34: hashicorp.consul.internal.peering.PeeringService.Establish:output_type -> hashicorp.consul.internal.peering.EstablishResponse
-	9,  // 35: hashicorp.consul.internal.peering.PeeringService.PeeringRead:output_type -> hashicorp.consul.internal.peering.PeeringReadResponse
-	11, // 36: hashicorp.consul.internal.peering.PeeringService.PeeringList:output_type -> hashicorp.consul.internal.peering.PeeringListResponse
-	15, // 37: hashicorp.consul.internal.peering.PeeringService.PeeringDelete:output_type -> hashicorp.consul.internal.peering.PeeringDeleteResponse
-	13, // 38: hashicorp.consul.internal.peering.PeeringService.PeeringWrite:output_type -> hashicorp.consul.internal.peering.PeeringWriteResponse
-	17, // 39: hashicorp.consul.internal.peering.PeeringService.TrustBundleListByService:output_type -> hashicorp.consul.internal.peering.TrustBundleListByServiceResponse
-	19, // 40: hashicorp.consul.internal.peering.PeeringService.TrustBundleRead:output_type -> hashicorp.consul.internal.peering.TrustBundleReadResponse
+	30, // 0: dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.generate_token:type_name -> dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.GenerateTokenRequest
+	31, // 1: dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.exchange_secret:type_name -> dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.ExchangeSecretRequest
+	32, // 2: dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.promote_pending:type_name -> dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.PromotePendingRequest
+	33, // 3: dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.establish:type_name -> dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest.EstablishRequest
+	34, // 4: dumb-hashicorp.dumb-consul.internal.peering.PeeringSecrets.establishment:type_name -> dumb-hashicorp.dumb-consul.internal.peering.PeeringSecrets.Establishment
+	35, // 5: dumb-hashicorp.dumb-consul.internal.peering.PeeringSecrets.stream:type_name -> dumb-hashicorp.dumb-consul.internal.peering.PeeringSecrets.Stream
+	40, // 6: dumb-hashicorp.dumb-consul.internal.peering.Peering.DeletedAt:type_name -> google.protobuf.Timestamp
+	36, // 7: dumb-hashicorp.dumb-consul.internal.peering.Peering.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.peering.Peering.MetaEntry
+	0,  // 8: dumb-hashicorp.dumb-consul.internal.peering.Peering.State:type_name -> dumb-hashicorp.dumb-consul.internal.peering.PeeringState
+	5,  // 9: dumb-hashicorp.dumb-consul.internal.peering.Peering.StreamStatus:type_name -> dumb-hashicorp.dumb-consul.internal.peering.StreamStatus
+	4,  // 10: dumb-hashicorp.dumb-consul.internal.peering.Peering.Remote:type_name -> dumb-hashicorp.dumb-consul.internal.peering.RemoteInfo
+	41, // 11: dumb-hashicorp.dumb-consul.internal.peering.RemoteInfo.Locality:type_name -> dumb-hashicorp.dumb-consul.internal.common.Locality
+	40, // 12: dumb-hashicorp.dumb-consul.internal.peering.StreamStatus.LastHeartbeat:type_name -> google.protobuf.Timestamp
+	40, // 13: dumb-hashicorp.dumb-consul.internal.peering.StreamStatus.LastReceive:type_name -> google.protobuf.Timestamp
+	40, // 14: dumb-hashicorp.dumb-consul.internal.peering.StreamStatus.LastSend:type_name -> google.protobuf.Timestamp
+	3,  // 15: dumb-hashicorp.dumb-consul.internal.peering.PeeringReadResponse.Peering:type_name -> dumb-hashicorp.dumb-consul.internal.peering.Peering
+	3,  // 16: dumb-hashicorp.dumb-consul.internal.peering.PeeringListResponse.Peerings:type_name -> dumb-hashicorp.dumb-consul.internal.peering.Peering
+	3,  // 17: dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteRequest.Peering:type_name -> dumb-hashicorp.dumb-consul.internal.peering.Peering
+	1,  // 18: dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteRequest.SecretsRequest:type_name -> dumb-hashicorp.dumb-consul.internal.peering.SecretsWriteRequest
+	37, // 19: dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteRequest.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteRequest.MetaEntry
+	6,  // 20: dumb-hashicorp.dumb-consul.internal.peering.TrustBundleListByServiceResponse.Bundles:type_name -> dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundle
+	6,  // 21: dumb-hashicorp.dumb-consul.internal.peering.TrustBundleReadResponse.Bundle:type_name -> dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundle
+	6,  // 22: dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundleWriteRequest.PeeringTrustBundle:type_name -> dumb-hashicorp.dumb-consul.internal.peering.PeeringTrustBundle
+	38, // 23: dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenRequest.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenRequest.MetaEntry
+	39, // 24: dumb-hashicorp.dumb-consul.internal.peering.EstablishRequest.Meta:type_name -> dumb-hashicorp.dumb-consul.internal.peering.EstablishRequest.MetaEntry
+	26, // 25: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.GenerateToken:input_type -> dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenRequest
+	28, // 26: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.Establish:input_type -> dumb-hashicorp.dumb-consul.internal.peering.EstablishRequest
+	8,  // 27: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.PeeringRead:input_type -> dumb-hashicorp.dumb-consul.internal.peering.PeeringReadRequest
+	10, // 28: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.PeeringList:input_type -> dumb-hashicorp.dumb-consul.internal.peering.PeeringListRequest
+	14, // 29: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.PeeringDelete:input_type -> dumb-hashicorp.dumb-consul.internal.peering.PeeringDeleteRequest
+	12, // 30: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.PeeringWrite:input_type -> dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteRequest
+	16, // 31: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.TrustBundleListByService:input_type -> dumb-hashicorp.dumb-consul.internal.peering.TrustBundleListByServiceRequest
+	18, // 32: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.TrustBundleRead:input_type -> dumb-hashicorp.dumb-consul.internal.peering.TrustBundleReadRequest
+	27, // 33: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.GenerateToken:output_type -> dumb-hashicorp.dumb-consul.internal.peering.GenerateTokenResponse
+	29, // 34: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.Establish:output_type -> dumb-hashicorp.dumb-consul.internal.peering.EstablishResponse
+	9,  // 35: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.PeeringRead:output_type -> dumb-hashicorp.dumb-consul.internal.peering.PeeringReadResponse
+	11, // 36: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.PeeringList:output_type -> dumb-hashicorp.dumb-consul.internal.peering.PeeringListResponse
+	15, // 37: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.PeeringDelete:output_type -> dumb-hashicorp.dumb-consul.internal.peering.PeeringDeleteResponse
+	13, // 38: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.PeeringWrite:output_type -> dumb-hashicorp.dumb-consul.internal.peering.PeeringWriteResponse
+	17, // 39: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.TrustBundleListByService:output_type -> dumb-hashicorp.dumb-consul.internal.peering.TrustBundleListByServiceResponse
+	19, // 40: dumb-hashicorp.dumb-consul.internal.peering.PeeringService.TrustBundleRead:output_type -> dumb-hashicorp.dumb-consul.internal.peering.TrustBundleReadResponse
 	33, // [33:41] is the sub-list for method output_type
 	25, // [25:33] is the sub-list for method input_type
 	25, // [25:25] is the sub-list for extension type_name

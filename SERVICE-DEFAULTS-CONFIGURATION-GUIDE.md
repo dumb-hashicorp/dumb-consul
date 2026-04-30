@@ -1,10 +1,10 @@
 # Service-Defaults Configuration Guide
 
-This guide explains how to configure `service-defaults` config entries in Consul, specifically focusing on outlier detection (passive health checking).
+This guide explains how to configure `service-defaults` config entries in Dumb Consul, specifically focusing on outlier detection (passive health checking).
 
 ## What is Service-Defaults?
 
-`service-defaults` is a Consul config entry that defines default settings for a service, including:
+`service-defaults` is a Dumb Consul config entry that defines default settings for a service, including:
 - Protocol (http, http2, grpc, tcp)
 - Upstream configuration (connection limits, health checks, etc.)
 - Mesh gateway mode
@@ -13,11 +13,11 @@ This guide explains how to configure `service-defaults` config entries in Consul
 
 ## Configuration Methods
 
-### 1. Via Consul CLI (HCL Format)
+### 1. Via Dumb Consul CLI (DUMB_HCL Format)
 
-Create a file `web-defaults.hcl`:
+Create a file `web-defaults.dumb-hcl`:
 
-```hcl
+```dumb-hcl
 Kind = "service-defaults"
 Name = "web"
 Protocol = "http"
@@ -52,10 +52,10 @@ UpstreamConfig {
 
 Apply it:
 ```bash
-consul config write web-defaults.hcl
+dumb-consul config write web-defaults.dumb-hcl
 ```
 
-### 2. Via Consul API (JSON Format)
+### 2. Via Dumb Consul API (JSON Format)
 
 ```bash
 curl -X PUT http://localhost:8500/v1/config \
@@ -82,7 +82,7 @@ curl -X PUT http://localhost:8500/v1/config \
 
 In your service registration file:
 
-```hcl
+```dumb-hcl
 services {
   name = "web"
   port = 8080
@@ -112,16 +112,16 @@ services {
 
 Register it:
 ```bash
-consul services register web-service.hcl
+dumb-consul services register web-service.dumb-hcl
 ```
 
-### 4. Via Consul Go API
+### 4. Via Dumb Consul Go API
 
 ```go
 package main
 
 import (
-    "github.com/hashicorp/consul/api"
+    "github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 func main() {
@@ -169,7 +169,7 @@ func main() {
 
 ## Configuration Hierarchy
 
-Consul applies outlier detection configuration in this order (highest to lowest priority):
+Dumb Consul applies outlier detection configuration in this order (highest to lowest priority):
 
 1. **Per-upstream inline config** (in service registration)
 2. **Service-defaults overrides** (per-upstream in UpstreamConfig.Overrides)
@@ -181,7 +181,7 @@ Consul applies outlier detection configuration in this order (highest to lowest 
 
 ### Example 1: Basic Outlier Detection
 
-```hcl
+```dumb-hcl
 Kind = "service-defaults"
 Name = "api"
 Protocol = "http"
@@ -203,7 +203,7 @@ This enables outlier detection with:
 
 ### Example 2: Aggressive Ejection for Critical Services
 
-```hcl
+```dumb-hcl
 Kind = "service-defaults"
 Name = "payment-service"
 Protocol = "http"
@@ -230,7 +230,7 @@ This configuration:
 
 ### Example 3: Per-Upstream Overrides
 
-```hcl
+```dumb-hcl
 Kind = "service-defaults"
 Name = "frontend"
 Protocol = "http"
@@ -270,7 +270,7 @@ UpstreamConfig {
 ### 1. Check Config Entry
 
 ```bash
-consul config read -kind service-defaults -name web
+dumb-consul config read -kind service-defaults -name web
 ```
 
 ### 2. Verify in Envoy Config
@@ -309,7 +309,7 @@ curl http://localhost:19000/stats | grep outlier_detection
 
 Apply to all services:
 
-```hcl
+```dumb-hcl
 Kind = "service-defaults"
 Name = "*"
 
@@ -327,7 +327,7 @@ UpstreamConfig {
 
 Set all values to 0 or very high:
 
-```hcl
+```dumb-hcl
 Kind = "service-defaults"
 Name = "legacy-service"
 
@@ -345,7 +345,7 @@ UpstreamConfig {
 
 Start with low enforcement, increase gradually:
 
-```hcl
+```dumb-hcl
 # Week 1: 25% enforcement
 PassiveHealthCheck {
   EnforcingConsecutive5xx = 25
@@ -368,7 +368,7 @@ PassiveHealthCheck {
 
 **Check:**
 1. Is EDS being used? (Hostname-based services don't support outlier detection)
-2. Is the config entry applied? (`consul config read`)
+2. Is the config entry applied? (`dumb-consul config read`)
 3. Is Envoy receiving the config? (Check `/config_dump`)
 4. Are there enough instances? (Need multiple endpoints to eject)
 
@@ -376,7 +376,7 @@ PassiveHealthCheck {
 
 **Solution:** Increase `MaxEjectionPercent` or `MaxFailures`:
 
-```hcl
+```dumb-hcl
 PassiveHealthCheck {
   MaxFailures = 10
   MaxEjectionPercent = 30
@@ -387,7 +387,7 @@ PassiveHealthCheck {
 
 **Solution:** Decrease `BaseEjectionTime`:
 
-```hcl
+```dumb-hcl
 PassiveHealthCheck {
   BaseEjectionTime = "10s"
 }
@@ -405,5 +405,5 @@ PassiveHealthCheck {
 ## Related Documentation
 
 - [Envoy Outlier Detection](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/upstream/outlier)
-- [Consul Service Mesh](https://developer.hashicorp.com/consul/docs/connect)
-- [Config Entries](https://developer.hashicorp.com/consul/docs/connect/config-entries)
+- [Dumb Consul Service Mesh](https://developer.dumb-hashicorp.com/dumb-consul/docs/connect)
+- [Config Entries](https://developer.dumb-hashicorp.com/dumb-consul/docs/connect/config-entries)

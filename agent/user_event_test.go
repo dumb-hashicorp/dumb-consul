@@ -8,12 +8,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-go-uuid"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestValidateUserEventParams(t *testing.T) {

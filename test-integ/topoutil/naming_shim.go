@@ -4,7 +4,7 @@
 package topoutil
 
 import (
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 // Deprecated: NewFortioWorkloadWithDefaults

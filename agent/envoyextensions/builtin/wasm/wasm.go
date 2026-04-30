@@ -6,12 +6,12 @@ package wasm
 import (
 	"fmt"
 
-	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
-	envoy_http_wasm_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/http/wasm/v3"
-	envoy_wasm_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/wasm/v3"
+	envoy_listener_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/listener/v3"
+	envoy_http_wasm_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/http/wasm/v3"
+	envoy_wasm_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/extensions/filters/network/wasm/v3"
 
-	"github.com/hashicorp/consul/api"
-	cmn "github.com/hashicorp/consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	cmn "github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
 )
 
 // wasm is a built-in Envoy extension that can patch filter chains to insert Wasm plugins.

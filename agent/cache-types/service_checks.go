@@ -9,13 +9,13 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/dumb-go-memdb"
 	"github.com/mitchellh/hashstructure"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/local"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // Recommended name for registration.
@@ -104,7 +104,7 @@ func (c *ServiceHTTPChecks) Fetch(_ context.Context, opts cache.FetchOptions, re
 // ServiceHTTPChecksRequest is the cache.Request implementation for the
 // ServiceHTTPBasedChecks cache type. This is implemented here and not in structs
 // since this is only used for cache-related requests and not forwarded
-// directly to any Consul servers.
+// directly to any Dumb Consul servers.
 type ServiceHTTPChecksRequest struct {
 	ServiceID     string
 	NodeName      string

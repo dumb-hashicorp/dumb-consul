@@ -24,7 +24,7 @@ listeners = [
     tls {
       sds {
         cluster_name  = "sds-cluster"
-        cert_resource = "wildcard.ingress.consul"
+        cert_resource = "wildcard.ingress.dumb-consul"
       }
     }
   }

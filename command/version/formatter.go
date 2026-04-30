@@ -42,7 +42,7 @@ func newPrettyFormatter() Formatter {
 
 func (*prettyFormatter) Format(info *VersionInfo) (string, error) {
 	var buffer bytes.Buffer
-	fmt.Fprintf(&buffer, "Consul v%s\n", info.HumanVersion)
+	fmt.Fprintf(&buffer, "Dumb Consul v%s\n", info.HumanVersion)
 	if info.Revision != "" {
 		fmt.Fprintf(&buffer, "Revision %s\n", info.Revision)
 	}

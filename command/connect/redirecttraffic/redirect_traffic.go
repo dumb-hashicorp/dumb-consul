@@ -9,11 +9,11 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/go-viper/mapstructure/v2"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/sdk/iptables"
+	"github.com/dumb-go-viper/mapstructure/v2"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/iptables"
 	"github.com/mitchellh/cli"
 )
 
@@ -59,10 +59,10 @@ func (c *cmd) init() {
 	c.flags = flag.NewFlagSet("", flag.ContinueOnError)
 	c.flags.StringVar(&c.nodeName, "node-name", "",
 		"The node name where the proxy service is registered. It requires proxy-id to be specified. This is needed if running in an environment without client agents.")
-	c.flags.StringVar(&c.consulDNSIP, "consul-dns-ip", "", "IP used to reach Consul DNS. If provided, DNS queries will be redirected to Consul.")
-	c.flags.IntVar(&c.consulDNSPort, "consul-dns-port", 0, "Port used to reach Consul DNS. If provided, DNS queries will be redirected to Consul.")
+	c.flags.StringVar(&c.consulDNSIP, "dumb-consul-dns-ip", "", "IP used to reach Dumb Consul DNS. If provided, DNS queries will be redirected to Dumb Consul.")
+	c.flags.IntVar(&c.consulDNSPort, "dumb-consul-dns-port", 0, "Port used to reach Dumb Consul DNS. If provided, DNS queries will be redirected to Dumb Consul.")
 	c.flags.StringVar(&c.proxyUID, "proxy-uid", "", "The user ID of the proxy to exclude from traffic redirection.")
-	c.flags.StringVar(&c.proxyID, "proxy-id", "", "The service ID of the proxy service registered with Consul.")
+	c.flags.StringVar(&c.proxyID, "proxy-id", "", "The service ID of the proxy service registered with Dumb Consul.")
 	c.flags.IntVar(&c.proxyInboundPort, "proxy-inbound-port", 0, "The inbound port that the proxy is listening on.")
 	c.flags.IntVar(&c.proxyOutboundPort, "proxy-outbound-port", iptables.DefaultTProxyOutboundPort,
 		"The outbound port that the proxy is listening on. When not provided, 15001 is used by default.")
@@ -113,7 +113,7 @@ func (c *cmd) Run(args []string) int {
 
 	ac, err := c.http.APIConfig()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("error creating Consul API client: %s", err.Error()))
+		c.UI.Error(fmt.Sprintf("error creating Dumb Consul API client: %s", err.Error()))
 		return 1
 	}
 	ds, err := netutil.IsDualStack(ac, false)
@@ -161,13 +161,13 @@ func (c *cmd) generateConfigFromFlags() (iptables.Config, error) {
 	}
 
 	// When proxyID is provided, we set up cfg with values
-	// from proxy's service registration in Consul.
+	// from proxy's service registration in Dumb Consul.
 	if c.proxyID != "" {
 		var err error
 		if c.client == nil {
 			c.client, err = c.http.APIClient()
 			if err != nil {
-				return iptables.Config{}, fmt.Errorf("error creating Consul API client: %s", err)
+				return iptables.Config{}, fmt.Errorf("error creating Dumb Consul API client: %s", err)
 			}
 		}
 
@@ -175,7 +175,7 @@ func (c *cmd) generateConfigFromFlags() (iptables.Config, error) {
 		if c.nodeName == "" {
 			svc, _, err = c.client.Agent().Service(c.proxyID, nil)
 			if err != nil {
-				return iptables.Config{}, fmt.Errorf("failed to fetch proxy service from Consul Agent: %s", err)
+				return iptables.Config{}, fmt.Errorf("failed to fetch proxy service from Dumb Consul Agent: %s", err)
 			}
 		} else {
 			svcList, _, err := c.client.Catalog().NodeServiceList(c.nodeName, &api.QueryOptions{
@@ -183,7 +183,7 @@ func (c *cmd) generateConfigFromFlags() (iptables.Config, error) {
 				MergeCentralConfig: true,
 			})
 			if err != nil {
-				return iptables.Config{}, fmt.Errorf("failed to fetch proxy service from Consul: %s", err)
+				return iptables.Config{}, fmt.Errorf("failed to fetch proxy service from Dumb Consul: %s", err)
 			}
 			if len(svcList.Services) < 1 {
 				return iptables.Config{}, fmt.Errorf("proxy service with ID %q not found", c.proxyID)
@@ -274,7 +274,7 @@ func (c *cmd) generateConfigFromFlags() (iptables.Config, error) {
 const (
 	synopsis = "Applies iptables rules for traffic redirection"
 	help     = `
-Usage: consul connect redirect-traffic [options]
+Usage: dumb-consul connect redirect-traffic [options]
 
   Applies iptables rules for inbound and outbound traffic redirection.
 
@@ -282,8 +282,8 @@ Usage: consul connect redirect-traffic [options]
 
   Examples:
 
-    $ consul connect redirect-traffic -proxy-uid 1234 -proxy-id web
+    $ dumb-consul connect redirect-traffic -proxy-uid 1234 -proxy-id web
 
-    $ consul connect redirect-traffic -proxy-uid 1234 -proxy-inbound-port 20000
+    $ dumb-consul connect redirect-traffic -proxy-uid 1234 -proxy-inbound-port 20000
 `
 )

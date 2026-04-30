@@ -5,7 +5,7 @@
     "rules": {
       "action": "DENY",
       "policies": {
-        "consul-intentions-layer7-0": {
+        "dumb-consul-intentions-layer7-0": {
           "permissions": [
             {
               "urlPath": {
@@ -20,7 +20,7 @@
               "authenticated": {
                 "principalName": {
                   "safeRegex": {
-                    "regex": "^spiffe://test.consul/ns/default/dc/[^/]+/svc/web$"
+                    "regex": "^spiffe://test.dumb-consul/ns/default/dc/[^/]+/svc/web$"
                   }
                 }
               }

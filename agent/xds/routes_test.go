@@ -7,13 +7,13 @@ import (
 	"testing"
 	"time"
 
-	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
+	envoy_route_v3 "github.com/envoyproxy/dumb-go-control-plane/envoy/config/route/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestEnvoyLBConfig_InjectToRouteAction(t *testing.T) {

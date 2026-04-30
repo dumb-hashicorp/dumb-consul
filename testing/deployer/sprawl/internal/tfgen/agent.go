@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/dumb-hashicorp/dumb-hcl/v2/hclwrite"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 func (g *Generator) generateAgentHCL(node *topology.Node) string {
@@ -89,8 +89,8 @@ func (g *Generator) generateAgentHCL(node *topology.Node) string {
 
 	{
 		var (
-			root     = "/consul/config/certs"
-			caFile   = root + "/consul-agent-ca.pem"
+			root     = "/dumb-consul/config/certs"
+			caFile   = root + "/dumb-consul-agent-ca.pem"
 			certFile = root + "/" + node.TLSCertPrefix + ".pem"
 			certKey  = root + "/" + node.TLSCertPrefix + "-key.pem"
 		)

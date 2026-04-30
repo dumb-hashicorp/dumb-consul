@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-go-hclog"
 	"golang.org/x/sync/errgroup"
 )
 

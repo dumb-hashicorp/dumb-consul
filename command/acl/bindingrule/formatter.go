@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 const (

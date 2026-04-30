@@ -4,9 +4,9 @@
 package structs
 
 import (
-	"github.com/mitchellh/go-testing-interface"
+	"github.com/mitchellh/dumb-go-testing-interface"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 // TestConnectProxyConfig returns a ConnectProxyConfig representing a valid
