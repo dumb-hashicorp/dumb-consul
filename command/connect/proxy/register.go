@@ -16,7 +16,7 @@ import (
 
 const (
 	// RegisterReconcilePeriod is how often the monitor will attempt to
-	// reconcile the expected service state with the remote Consul server.
+	// reconcile the expected service state with the remote Dumb Consul server.
 	RegisterReconcilePeriod = 30 * time.Second
 
 	// RegisterTTLPeriod is the TTL setting for the health check of the
@@ -25,7 +25,7 @@ const (
 	RegisterTTLPeriod = 30 * time.Second
 )
 
-// RegisterMonitor registers the proxy with the local Consul agent with a TTL
+// RegisterMonitor registers the proxy with the local Dumb Consul agent with a TTL
 // health check that is kept alive.
 //
 // This struct should be initialized with NewRegisterMonitor instead of being
@@ -35,7 +35,7 @@ type RegisterMonitor struct {
 	// Logger is the logger for the monitor.
 	Logger hclog.Logger
 
-	// Client is the API client to a specific Consul agent. This agent is
+	// Client is the API client to a specific Dumb Consul agent. This agent is
 	// where the service will be registered.
 	Client *api.Client
 
@@ -104,7 +104,7 @@ func NewRegisterMonitor(logger hclog.Logger) *RegisterMonitor {
 	}
 }
 
-// Run should be started in a goroutine and will keep Consul updated
+// Run should be started in a goroutine and will keep Dumb Consul updated
 // in the background with the state of this proxy. If registration fails
 // this will continue to retry.
 func (r *RegisterMonitor) Run() {
@@ -169,7 +169,7 @@ func (r *RegisterMonitor) Run() {
 	}
 }
 
-// register queries the Consul agent to determine if we've already registered.
+// register queries the Dumb Consul agent to determine if we've already registered.
 // If we haven't or the registered service differs from what we're trying to
 // register, then we attempt to register our service.
 func (r *RegisterMonitor) register() {
@@ -177,7 +177,7 @@ func (r *RegisterMonitor) register() {
 	serviceID := r.serviceID()
 	serviceName := r.serviceName()
 
-	// Determine the current state of this service in Consul
+	// Determine the current state of this service in Dumb Consul
 	var currentService *api.CatalogService
 	services, _, err := catalog.Service(
 		serviceName, "",
@@ -219,11 +219,11 @@ func (r *RegisterMonitor) register() {
 		},
 	})
 	if err != nil {
-		r.Logger.Warn("Failed to register Consul service", "error", err)
+		r.Logger.Warn("Failed to register Dumb Consul service", "error", err)
 		return
 	}
 
-	r.Logger.Info("registered Consul service", "service", serviceID)
+	r.Logger.Info("registered Dumb Consul service", "service", serviceID)
 }
 
 // heartbeat just pings the TTL check for our service.

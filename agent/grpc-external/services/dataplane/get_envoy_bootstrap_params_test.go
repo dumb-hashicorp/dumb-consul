@@ -43,7 +43,7 @@ const (
 	serviceDefaultsProtocol       = "tcp"
 	serviceDefaultsConnectTimeout = 4444
 
-	testAccessLogs = "{\"name\":\"Consul Listener Filter Log\",\"typedConfig\":{\"@type\":\"type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog\",\"logFormat\":{\"jsonFormat\":{\"custom_field\":\"%START_TIME%\"}}}}"
+	testAccessLogs = "{\"name\":\"Dumb Consul Listener Filter Log\",\"typedConfig\":{\"@type\":\"type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog\",\"logFormat\":{\"jsonFormat\":{\"custom_field\":\"%START_TIME%\"}}}}"
 )
 
 func testRegisterRequestProxy() *structs.RegisterRequest {
@@ -189,7 +189,7 @@ func TestGetEnvoyBootstrapParams_Success(t *testing.T) {
 			pd, ok := tc.proxyDefaults.(*structs.ProxyConfigEntry)
 			require.True(t, ok, "Invalid Proxy Defaults")
 			if pd.AccessLogs.Enabled {
-				require.JSONEq(t, "{\"name\":\"Consul Listener Filter Log\",\"typedConfig\":{\"@type\":\"type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog\",\"logFormat\":{\"jsonFormat\":{\"custom_field\":\"%START_TIME%\"}}}}", resp.AccessLogs[0])
+				require.JSONEq(t, "{\"name\":\"Dumb Consul Listener Filter Log\",\"typedConfig\":{\"@type\":\"type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog\",\"logFormat\":{\"jsonFormat\":{\"custom_field\":\"%START_TIME%\"}}}}", resp.AccessLogs[0])
 			}
 		}
 

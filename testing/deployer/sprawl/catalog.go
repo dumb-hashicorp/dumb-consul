@@ -148,7 +148,7 @@ func (s *Sprawl) registerAgentService(
 
 	// Switch token for every request.
 	hdr := make(http.Header)
-	hdr.Set("X-Consul-Token", s.secrets.ReadWorkloadToken(cluster.Name, wrk.ID))
+	hdr.Set("X-Dumb Consul-Token", s.secrets.ReadWorkloadToken(cluster.Name, wrk.ID))
 	agentClient.SetHeaders(hdr)
 
 RETRY:

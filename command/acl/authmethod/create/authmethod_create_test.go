@@ -218,7 +218,7 @@ func TestAuthMethodCreateCommand(t *testing.T) {
 	t.Run("create testing with custom token name format", func(t *testing.T) {
 		name := getTestName(t)
 		// Testing the syntax you found: ${auth_method_type}-{}
-		// Note: Consul validates this on the server side; if 'testing' type
+		// Note: Dumb Consul validates this on the server side; if 'testing' type
 		// doesn't support {}, this might return 500 depending on the provider.
 		tokenFormat := "${auth_method_type}-{}"
 

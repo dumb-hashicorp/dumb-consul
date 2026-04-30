@@ -26,11 +26,11 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Interact with Consul's ACLs"
+const synopsis = "Interact with Dumb Consul's ACLs"
 const help = `
 Usage: consul acl <subcommand> [options] [args]
 
-  This command has subcommands for interacting with Consul's ACLs.
+  This command has subcommands for interacting with Dumb Consul's ACLs.
   Here are some simple examples, and more detailed examples are available
   in the subcommands or the documentation.
 

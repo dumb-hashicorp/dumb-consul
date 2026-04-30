@@ -26,7 +26,7 @@ type Topology struct {
 	// Networks is the list of networks to create for this set of clusters.
 	Networks map[string]*Network
 
-	// Clusters defines the list of Consul clusters that should be created, and
+	// Clusters defines the list of Dumb Consul clusters that should be created, and
 	// their associated workloads.
 	Clusters map[string]*Cluster
 
@@ -95,7 +95,7 @@ type Config struct {
 	// Networks is the list of networks to create for this set of clusters.
 	Networks []*Network
 
-	// Clusters defines the list of Consul clusters that should be created, and
+	// Clusters defines the list of Dumb Consul clusters that should be created, and
 	// their associated workloads.
 	Clusters []*Cluster
 
@@ -228,7 +228,7 @@ func (n *Network) SetSubnet(subnet string) (bool, error) {
 	return true, nil
 }
 
-// Cluster represents a single standalone install of Consul. This is the unit
+// Cluster represents a single standalone install of Dumb Consul. This is the unit
 // of what is peered when using cluster peering. Older consul installs would
 // call this a datacenter.
 type Cluster struct {
@@ -240,7 +240,7 @@ type Cluster struct {
 	// the enclosing Topology.
 	Images Images
 
-	// Enterprise marks this cluster as desiring to run Consul Enterprise
+	// Enterprise marks this cluster as desiring to run Dumb Consul Enterprise
 	// components.
 	Enterprise bool `json:",omitempty"`
 

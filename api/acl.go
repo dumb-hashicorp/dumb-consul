@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -58,19 +58,19 @@ type ACLToken struct {
 	Hash              []byte        `json:",omitempty"`
 
 	// DEPRECATED (ACL-Legacy-Compat)
-	// Rules are an artifact of legacy tokens deprecated in Consul 1.4
+	// Rules are an artifact of legacy tokens deprecated in Dumb Consul 1.4
 	Rules string `json:"-"`
 
 	// Namespace is the namespace the ACLToken is associated with.
-	// Namespaces are a Consul Enterprise feature.
+	// Namespaces are a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition the ACLToken is associated with.
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// AuthMethodNamespace is the namespace the token's AuthMethod is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	AuthMethodNamespace string `json:",omitempty"`
 }
 
@@ -108,15 +108,15 @@ type ACLTokenListEntry struct {
 	Legacy            bool `json:"-"` // DEPRECATED
 
 	// Namespace is the namespace the ACLTokenListEntry is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition the ACLTokenListEntry is associated with.
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// AuthMethodNamespace is the namespace the token's AuthMethod is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	AuthMethodNamespace string `json:",omitempty"`
 }
 
@@ -194,11 +194,11 @@ type ACLPolicy struct {
 	ModifyIndex uint64
 
 	// Namespace is the namespace the ACLPolicy is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition the ACLPolicy is associated with.
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 }
 
@@ -212,11 +212,11 @@ type ACLPolicyListEntry struct {
 	ModifyIndex uint64
 
 	// Namespace is the namespace the ACLPolicyListEntry is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition the ACLPolicyListEntry is associated with.
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 }
 
@@ -236,11 +236,11 @@ type ACLRole struct {
 	ModifyIndex       uint64
 
 	// Namespace is the namespace the ACLRole is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition the ACLRole is associated with.
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 }
 
@@ -277,11 +277,11 @@ type ACLBindingRule struct {
 	ModifyIndex uint64
 
 	// Namespace is the namespace the ACLBindingRule is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition the ACLBindingRule is associated with.
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 }
 
@@ -305,15 +305,15 @@ type ACLAuthMethod struct {
 	ModifyIndex uint64
 
 	// NamespaceRules apply only on auth methods defined in the default namespace.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	NamespaceRules []*ACLAuthMethodNamespaceRule `json:",omitempty"`
 
 	// Namespace is the namespace the ACLAuthMethod is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition the ACLAuthMethod is associated with.
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// TokenNameFormat defines the HIL template to use when building the token name
@@ -390,11 +390,11 @@ type ACLAuthMethodListEntry struct {
 	ModifyIndex   uint64
 
 	// Namespace is the namespace the ACLAuthMethodListEntry is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition the ACLAuthMethodListEntry is associated with.
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 }
 
@@ -459,7 +459,7 @@ func ParseKubernetesAuthMethodConfig(raw map[string]interface{}) (*KubernetesAut
 	return &config, nil
 }
 
-// KubernetesAuthMethodConfig is the config for the built-in Consul auth method
+// KubernetesAuthMethodConfig is the config for the built-in Dumb Consul auth method
 // for Kubernetes.
 type KubernetesAuthMethodConfig struct {
 	Host              string `json:",omitempty"`
@@ -477,7 +477,7 @@ func (c *KubernetesAuthMethodConfig) RenderToConfig() map[string]interface{} {
 	}
 }
 
-// OIDCAuthMethodConfig is the config for the built-in Consul auth method for
+// OIDCAuthMethodConfig is the config for the built-in Dumb Consul auth method for
 // OIDC and JWT.
 type OIDCAuthMethodConfig struct {
 	// common for type=oidc and type=jwt
@@ -767,7 +767,7 @@ func (a *ACL) Replication(q *QueryOptions) (*ACLReplicationStatus, *QueryMeta, e
 }
 
 // TokenCreate creates a new ACL token. If either the AccessorID or SecretID fields
-// of the ACLToken structure are empty they will be filled in by Consul.
+// of the ACLToken structure are empty they will be filled in by Dumb Consul.
 func (a *ACL) TokenCreate(token *ACLToken, q *WriteOptions) (*ACLToken, *WriteMeta, error) {
 	r := a.c.newRequest("PUT", "/v1/acl/token")
 	r.setWriteOptions(q)
@@ -791,7 +791,7 @@ func (a *ACL) TokenCreate(token *ACLToken, q *WriteOptions) (*ACLToken, *WriteMe
 
 // TokenUpdate updates a token in place without modifying its AccessorID or SecretID. A valid
 // AccessorID must be set in the ACLToken structure passed to this function but the SecretID may
-// be omitted and will be filled in by Consul with its existing value.
+// be omitted and will be filled in by Dumb Consul with its existing value.
 func (a *ACL) TokenUpdate(token *ACLToken, q *WriteOptions) (*ACLToken, *WriteMeta, error) {
 	if token.AccessorID == "" {
 		return nil, nil, fmt.Errorf("Must specify an AccessorID for Token Updating")
@@ -1003,7 +1003,7 @@ func (a *ACL) TokenListFiltered(t ACLTokenFilterOptions, q *QueryOptions) ([]*AC
 }
 
 // PolicyCreate will create a new policy. It is not allowed for the policy parameters
-// ID field to be set as this will be generated by Consul while processing the request.
+// ID field to be set as this will be generated by Dumb Consul while processing the request.
 func (a *ACL) PolicyCreate(policy *ACLPolicy, q *WriteOptions) (*ACLPolicy, *WriteMeta, error) {
 	if policy.ID != "" {
 		return nil, nil, fmt.Errorf("Cannot specify an ID in Policy Creation")
@@ -1155,7 +1155,7 @@ func (a *ACL) PolicyList(q *QueryOptions) ([]*ACLPolicyListEntry, *QueryMeta, er
 // Deprecated: Support for the legacy syntax translation has been removed.
 // This function always returns an error.
 func (a *ACL) RulesTranslate(rules io.Reader) (string, error) {
-	return "", fmt.Errorf("Legacy ACL rules were deprecated in Consul 1.4")
+	return "", fmt.Errorf("Legacy ACL rules were deprecated in Dumb Consul 1.4")
 }
 
 // RulesTranslateToken translates the rules associated with the legacy syntax
@@ -1164,11 +1164,11 @@ func (a *ACL) RulesTranslate(rules io.Reader) (string, error) {
 // Deprecated: Support for the legacy syntax translation has been removed.
 // This function always returns an error.
 func (a *ACL) RulesTranslateToken(tokenID string) (string, error) {
-	return "", fmt.Errorf("Legacy ACL tokens and rules were deprecated in Consul 1.4")
+	return "", fmt.Errorf("Legacy ACL tokens and rules were deprecated in Dumb Consul 1.4")
 }
 
 // RoleCreate will create a new role. It is not allowed for the role parameters
-// ID field to be set as this will be generated by Consul while processing the request.
+// ID field to be set as this will be generated by Dumb Consul while processing the request.
 func (a *ACL) RoleCreate(role *ACLRole, q *WriteOptions) (*ACLRole, *WriteMeta, error) {
 	if role.ID != "" {
 		return nil, nil, fmt.Errorf("Cannot specify an ID in Role Creation")
@@ -1457,7 +1457,7 @@ func (a *ACL) AuthMethodList(q *QueryOptions) ([]*ACLAuthMethodListEntry, *Query
 
 // BindingRuleCreate will create a new binding rule. It is not allowed for the
 // binding rule parameter's ID field to be set as this will be generated by
-// Consul while processing the request.
+// Dumb Consul while processing the request.
 func (a *ACL) BindingRuleCreate(rule *ACLBindingRule, q *WriteOptions) (*ACLBindingRule, *WriteMeta, error) {
 	if rule.ID != "" {
 		return nil, nil, fmt.Errorf("Cannot specify an ID in Binding Rule Creation")
@@ -1583,7 +1583,7 @@ func (a *ACL) BindingRuleList(methodName string, q *QueryOptions) ([]*ACLBinding
 	return entries, qm, nil
 }
 
-// Login is used to exchange auth method credentials for a newly-minted Consul Token.
+// Login is used to exchange auth method credentials for a newly-minted Dumb Consul Token.
 func (a *ACL) Login(auth *ACLLoginParams, q *WriteOptions) (*ACLToken, *WriteMeta, error) {
 	r := a.c.newRequest("POST", "/v1/acl/login")
 	r.setWriteOptions(q)
@@ -1605,7 +1605,7 @@ func (a *ACL) Login(auth *ACLLoginParams, q *WriteOptions) (*ACLToken, *WriteMet
 	return &out, wm, nil
 }
 
-// Logout is used to destroy a Consul Token created via Login().
+// Logout is used to destroy a Dumb Consul Token created via Login().
 func (a *ACL) Logout(q *WriteOptions) (*WriteMeta, error) {
 	r := a.c.newRequest("POST", "/v1/acl/logout")
 	r.setWriteOptions(q)

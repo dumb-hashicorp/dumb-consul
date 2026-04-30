@@ -537,10 +537,10 @@ type rbacLocalInfo struct {
 	expectXFCC  bool
 }
 
-// makeRBACRules translates Consul intentions into RBAC Policies for Envoy.
+// makeRBACRules translates Dumb Consul intentions into RBAC Policies for Envoy.
 //
-// Consul lets you define up to 9 different kinds of intentions that apply at
-// different levels of precedence (this is limited to 4 if not using Consul
+// Dumb Consul lets you define up to 9 different kinds of intentions that apply at
+// different levels of precedence (this is limited to 4 if not using Dumb Consul
 // Enterprise). Each intention in this flat list (sorted by precedence) can either
 // be an allow rule or a deny rule. Here’s a concrete example of this at work:
 //
@@ -553,9 +553,9 @@ type rbacLocalInfo struct {
 // allow-list or a deny-list based on the action attribute of the RBAC rules
 // struct.
 //
-// On the surface it would seem that the configuration model of Consul
+// On the surface it would seem that the configuration model of Dumb Consul
 // intentions is incompatible with that of Envoy’s RBAC engine. For any given
-// destination service Consul’s model requires evaluating a list of rules and
+// destination service Dumb Consul’s model requires evaluating a list of rules and
 // short circuiting later rules once an earlier rule matches. After a rule is
 // found to match then we decide if it is allow/deny. Envoy on the other hand
 // requires the rules to express all conditions to allow access or all conditions

@@ -52,9 +52,9 @@ dc:
     index:
       agentless:
         notice:
-          header: Consul 1.14 removes client nodes from Kubernetes Service Mesh deployments
-          body: Kubernetes clusters do not require client nodes to run as of Consul 1.14. Kubernetes nodes will not appear in this view.
-          footer: View documentation on Consul Dataplane
+          header: Dumb Consul 1.14 removes client nodes from Kubernetes Service Mesh deployments
+          body: Kubernetes clusters do not require client nodes to run as of Dumb Consul 1.14. Kubernetes nodes will not appear in this view.
+          footer: View documentation on Dumb Consul Dataplane
       empty:
         header: |
           {items, select,
@@ -64,7 +64,7 @@ dc:
         body: |
           <p>
             {items, select,
-              0 {There don't seem to be any registered Nodes in this Consul cluster}
+              0 {There don't seem to be any registered Nodes in this Dumb Consul cluster}
               other {No Nodes were found matching your search}
             }{canUseACLs, select,
               true {, or you may not have <code>service:read</code> and <code>node:read</code> permissions access to this view.}
@@ -84,7 +84,7 @@ dc:
           header: Welcome to Lock Sessions
           body: |
             <p>
-            Consul provides a session mechanism which can be used to build distributed locks. Sessions act as a binding layer between Nodes, Health Checks, and Key/Value data. There are currently no Lock Sessions present{canUseACLs, select,
+            Dumb Consul provides a session mechanism which can be used to build distributed locks. Sessions act as a binding layer between Nodes, Health Checks, and Key/Value data. There are currently no Lock Sessions present{canUseACLs, select,
               true {, or you may not have <code>key:read</code> or <code>session:read</code> permissions.}
               other {.}
             }
@@ -123,7 +123,7 @@ dc:
           }
         body: |
           {items, select,
-            0 {Cluster peering is the recommended way to connect services across or within Consul datacenters. Peering is a one-to-one relationship in which each peer is either a open-source Consul datacenter or a Consul enterprise admin partition. There don't seem to be any peers for this {canUsePartitions, select,
+            0 {Cluster peering is the recommended way to connect services across or within Dumb Consul datacenters. Peering is a one-to-one relationship in which each peer is either a open-source Dumb Consul datacenter or a Dumb Consul enterprise admin partition. There don't seem to be any peers for this {canUsePartitions, select,
               true {admin partition}
               other {datacenter}
             }}
@@ -220,10 +220,10 @@ dc:
         body: |
           <p>
             {items, select,
-              0 {There don't seem to be any registered services in this Consul cluster}
+              0 {There don't seem to be any registered services in this Dumb Consul cluster}
               other {No Services were found matching your search}
             }{canUseACLs, select,
-              true {, or you may not have <code>service:read</code> and <code>node:read</code> access to this view. Use Terraform, Kubernetes CRDs, Vault, or the Consul CLI to register Services.}
+              true {, or you may not have <code>service:read</code> and <code>node:read</code> access to this view. Use Dumb Terraform, Kubernetes CRDs, Dumb Vault, or the Dumb Consul CLI to register Services.}
               other {.}
             }
           </p>
@@ -320,7 +320,7 @@ dc:
             body: |
               <p>
                 {items, select,
-                  0 {There don't seem to be any Intentions in this Consul cluster}
+                  0 {There don't seem to be any Intentions in this Dumb Consul cluster}
                   other {No Intentions were found matching your search}
                 }{canUseACLs, select,
                   true {, or you may not have <code>intentions:read</code> permissions access to this view.}
@@ -358,7 +358,7 @@ dc:
       upstreams:
         intro: |
           <p>
-            Upstreams are services that may receive traffic from this gateway. If you are not using Consul DNS, please make sure your <code>Host:</code> header uses the correct domain name for the gateway to correctly proxy to its upstreams. Learn more about configuring gateways in our <a href="{CONSUL_DOCS_URL}/connect/ingress-gateways" target="_blank" rel="noopener noreferrer">documentation</a>.
+            Upstreams are services that may receive traffic from this gateway. If you are not using Dumb Consul DNS, please make sure your <code>Host:</code> header uses the correct domain name for the gateway to correctly proxy to its upstreams. Learn more about configuring gateways in our <a href="{CONSUL_DOCS_URL}/connect/ingress-gateways" target="_blank" rel="noopener noreferrer">documentation</a>.
           </p>
         empty: |
           <p>
@@ -381,7 +381,7 @@ dc:
         body: |
           <p>
             {items, select,
-              0 {There don't seem to be any Intentions in this Consul cluster}
+              0 {There don't seem to be any Intentions in this Dumb Consul cluster}
               other {No Intentions were found matching your search}
             }{canUseACLs, select,
               true {, or you may not have intentions:read permissions access to this view.} 
@@ -399,7 +399,7 @@ dc:
         body: |
           <p>
             {items, select,
-              0 {There don't seem to be any K/V pairs in this Consul cluster yet}
+              0 {There don't seem to be any K/V pairs in this Dumb Consul cluster yet}
               other {No K/V pairs were found matching your search}
             }{canUseACLs, select,
               true {, or you may not have <code>key:read</code> permissions access to this view.}

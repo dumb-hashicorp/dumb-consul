@@ -247,7 +247,7 @@ func (s *HTTPHandlers) IntentionCheck(resp http.ResponseWriter, req *http.Reques
 		args.Check.SourceName = parsed.name
 	}
 
-	// The destination is always in the Consul format
+	// The destination is always in the Dumb Consul format
 	parsed, err := parseIntentionStringComponent(destination[0], &entMeta, false)
 	if err != nil {
 		return nil, fmt.Errorf("destination %q is invalid: %s", destination[0], err)

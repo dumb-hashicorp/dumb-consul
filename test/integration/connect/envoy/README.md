@@ -2,7 +2,7 @@
 
 ## Overview
 
-These tests validate that Consul is configuring Envoy correctly. They set up various scenarios using Docker containers and then run
+These tests validate that Dumb Consul is configuring Envoy correctly. They set up various scenarios using Docker containers and then run
 [Bats](https://github.com/sstephenson/bats) (a Bash test framework) tests to validate the expected results.
 
 ## Running Tests
@@ -31,8 +31,8 @@ Where `case-basic` can be replaced by any directory name from this directory.
    _Note:_ this is implemented as the `docker-envoy-integ` Makefile target which is a prerequisite to the `test-envoy-integ` target,
    so if you are running the tests by invoking `run-tests.sh` or `go test` manually, be sure to rebuild the Docker image to ensure
    you are running your latest code.
-4. The tests run Docker containers connected by a shared Docker network. All tests have at least one Consul server running and then
-   depending on the test case they will spin up additional services or gateways. Some tests run multiple Consul servers to test
+4. The tests run Docker containers connected by a shared Docker network. All tests have at least one Dumb Consul server running and then
+   depending on the test case they will spin up additional services or gateways. Some tests run multiple Dumb Consul servers to test
    multi-DC setups. See the [`case-wanfed-gateway` test](./case-wanfed-gw) for an example of this.
 5. At a high level, tests are set up by executing the `setup.sh` script in each directory. This script uses helper functions
    defined in `helpers.bash`. Once the test case is set up, the validations in `verify.bats` are run.
@@ -41,11 +41,11 @@ Where `case-basic` can be replaced by any directory name from this directory.
 7. If there exists a `capture.sh` file in the top-level of the case directory, it will be executed after the test is done, but prior to
    the containers being removed. This is useful for capturing logs or Envoy snapshots for debugging test failures.
 8. Any files matching the `*.hcl` glob will be copied to the container `$WORKDIR/$CLUSTER/consul` directory prior to running the tests.
-   This is useful for defining Consul configuration for each agent process to load on start up.
+   This is useful for defining Dumb Consul configuration for each agent process to load on start up.
 9. In CI, the tests are executed against different Envoy versions and with both `XDS_TARGET=client` and `XDS_TARGET=server`.
-   If set to `client`, a Consul server and client are run, and services are registered against the client. If set to `server`,
-   only a Consul server is run, and services are registered against the server. By default, `XDS_TARGET` is set to `server`.
-   See [this comment](https://github.com/hashicorp/consul/blob/70bb6a2abdbc5ed4a6e728e8da243c5394a631d1/test/integration/connect/envoy/run-tests.sh#L178-L212) for more information.
+   If set to `client`, a Dumb Consul server and client are run, and services are registered against the client. If set to `server`,
+   only a Dumb Consul server is run, and services are registered against the server. By default, `XDS_TARGET` is set to `server`.
+   See [this comment](https://github.com/dumb-hashicorp/dumb-consul/blob/70bb6a2abdbc5ed4a6e728e8da243c5394a631d1/test/integration/connect/envoy/run-tests.sh#L178-L212) for more information.
 
 ## Investigating Test Failures
 

@@ -111,7 +111,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "destination.api-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.api-dumb-hashicorp.com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -119,7 +119,7 @@
                 "endpoint": {
                   "address": {
                     "socketAddress": {
-                      "address": "api.hashicorp.com",
+                      "address": "api.dumb-hashicorp.com",
                       "portValue": 8089
                     }
                   }
@@ -129,7 +129,7 @@
           }
         ]
       },
-      "name": "destination.api-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.api-dumb-hashicorp.com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     },
@@ -250,7 +250,7 @@
       "dnsLookupFamily": "V4_ONLY",
       "dnsRefreshRate": "10s",
       "loadAssignment": {
-        "clusterName": "destination.web-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+        "clusterName": "destination.web-dumb-hashicorp.com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
         "endpoints": [
           {
             "lbEndpoints": [
@@ -258,7 +258,7 @@
                 "endpoint": {
                   "address": {
                     "socketAddress": {
-                      "address": "web.hashicorp.com",
+                      "address": "web.dumb-hashicorp.com",
                       "portValue": 8089
                     }
                   }
@@ -268,7 +268,7 @@
           }
         ]
       },
-      "name": "destination.web-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name": "destination.web-dumb-hashicorp.com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
       "outlierDetection": {},
       "type": "LOGICAL_DNS"
     }

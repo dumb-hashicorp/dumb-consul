@@ -557,7 +557,7 @@ func (x *PeeringServiceMeta) GetProtocol() string {
 // name=Structs
 type ExposeConfig struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Checks defines whether paths associated with Consul checks will be exposed.
+	// Checks defines whether paths associated with Dumb Consul checks will be exposed.
 	// This flag triggers exposing all HTTP and GRPC check paths registered for the service.
 	Checks bool `protobuf:"varint,1,opt,name=Checks,proto3" json:"Checks,omitempty"`
 	// Paths is the list of paths exposed through the proxy.
@@ -1414,7 +1414,7 @@ const file_private_pbservice_service_proto_rawDesc = "" +
 	"\aWeights\x12\x18\n" +
 	"\aPassing\x18\x01 \x01(\x05R\aPassing\x12\x18\n" +
 	"\aWarning\x18\x02 \x01(\x05R\aWarningB\x92\x02\n" +
-	"%com.hashicorp.consul.internal.serviceB\fServiceProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Consul.Internal.Service\xca\x02!Hashicorp\\Consul\\Internal\\Service\xe2\x02-Hashicorp\\Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Serviceb\x06proto3"
+	"%com.hashicorp.consul.internal.serviceB\fServiceProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Dumb Consul.Internal.Service\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Service\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Serviceb\x06proto3"
 
 var (
 	file_private_pbservice_service_proto_rawDescOnce sync.Once

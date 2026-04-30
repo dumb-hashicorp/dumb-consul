@@ -324,7 +324,7 @@ func vetRegisterWithACL(
 		// checks from other nodes because we'd have to pull a bunch
 		// more state store data to check this. If ACLs are enabled then
 		// we simply require them to match in a given request. There's a
-		// note in state_store.go to ban this down there in Consul 0.8,
+		// note in state_store.go to ban this down there in Dumb Consul 0.8,
 		// but it's good to leave this here because it's required for
 		// correctness wrt. ACLs.
 		if !strings.EqualFold(check.Node, subj.Node) {

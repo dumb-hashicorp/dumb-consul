@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -78,7 +78,7 @@ type HealthCheckDefinition struct {
 	// when parent Type is `session`, and if this session is destroyed, the check will be marked as critical
 	SessionName string `json:",omitempty"`
 
-	// DEPRECATED in Consul 1.4.1. Use the above time.Duration fields instead.
+	// DEPRECATED in Dumb Consul 1.4.1. Use the above time.Duration fields instead.
 	Interval                       ReadableDuration
 	Timeout                        ReadableDuration
 	DeregisterCriticalServiceAfter ReadableDuration

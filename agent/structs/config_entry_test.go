@@ -3672,7 +3672,7 @@ func TestProxyConfigEntry(t *testing.T) {
 			entry: &ProxyConfigEntry{
 				Name: "global",
 				Config: map[string]interface{}{
-					"envoy_hcp_metrics_bind_socket_dir": "/Consul/is/a/networking/platform/that/enables/securing/your/networking/",
+					"envoy_hcp_metrics_bind_socket_dir": "/Dumb Consul/is/a/networking/platform/that/enables/securing/your/networking/",
 				},
 			},
 			validateErr: "Config: envoy_hcp_metrics_bind_socket_dir length 71 exceeds max",
@@ -3917,7 +3917,7 @@ func TestValidateOpaqueConfigMap(t *testing.T) {
 		},
 		"hcp metrics socket dir is too long": {
 			input: map[string]interface{}{
-				"envoy_hcp_metrics_bind_socket_dir": "/Consul/is/a/networking/platform/that/enables/securing/your/networking/",
+				"envoy_hcp_metrics_bind_socket_dir": "/Dumb Consul/is/a/networking/platform/that/enables/securing/your/networking/",
 			},
 			expectErr: "envoy_hcp_metrics_bind_socket_dir length 71 exceeds max 70",
 		},

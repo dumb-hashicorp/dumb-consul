@@ -16,7 +16,7 @@ func (s *HTTPHandlers) OperatorUtilizationEndpoint(resp http.ResponseWriter, req
 	if !version.IsEnterprise() {
 		return nil, HTTPError{
 			StatusCode: http.StatusNotFound,
-			Reason:     "operator utilization requires Consul Enterprise",
+			Reason:     "operator utilization requires Dumb Consul Enterprise",
 		}
 	}
 

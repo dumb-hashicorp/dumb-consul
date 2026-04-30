@@ -111,7 +111,7 @@ function package_binaries {
 
 function package_release_one {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Version to use in the names of the zip files (optional)
    #   $3 - Subdirectory under pkg/dist to use (optional)
    #
@@ -153,7 +153,7 @@ function package_release_one {
 
 function package_release {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Version to use in the names of the zip files (optional)
    #
    # Returns:
@@ -364,7 +364,7 @@ function build_consul_release {
 
 function build_release {
    # Arguments: (yeah there are lots)
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - boolean whether to tag the release yet
    #   $3 - boolean whether to build the binaries
    #   $4 - boolean whether to generate the sha256 sums
@@ -496,11 +496,11 @@ function build_release {
    
    if is_set "${do_build}"
    then
-      status_stage "==> Building Consul for version ${vers}"
+      status_stage "==> Building Dumb Consul for version ${vers}"
       build_consul_release "${sdir}" "${GO_BUILD_TAG}"
       if test $? -ne 0
       then
-         err "ERROR: Failed to build the Consul binaries" 
+         err "ERROR: Failed to build the Dumb Consul binaries" 
          return 1
       fi
       

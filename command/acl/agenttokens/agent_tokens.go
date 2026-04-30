@@ -49,7 +49,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul Agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul Agent: %s", err))
 		return 1
 	}
 
@@ -111,7 +111,7 @@ func (c *cmd) Help() string {
 	return flags.Usage(c.help, nil)
 }
 
-const synopsis = "Assign tokens for the Consul Agent's usage"
+const synopsis = "Assign tokens for the Dumb Consul Agent's usage"
 const help = `
 Usage: consul acl set-agent-token [options] TYPE TOKEN
 

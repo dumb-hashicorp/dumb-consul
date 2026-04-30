@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-// Package demo includes fake resource types for working on Consul's generic
+// Package demo includes fake resource types for working on Dumb Consul's generic
 // state storage without having to refer to specific features.
 package demo
 

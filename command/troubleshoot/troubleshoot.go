@@ -26,7 +26,7 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = `CLI tools for troubleshooting Consul service mesh`
+const synopsis = `CLI tools for troubleshooting Dumb Consul service mesh`
 const help = `
 Usage: consul troubleshoot <subcommand> [options]
 

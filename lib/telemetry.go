@@ -326,7 +326,7 @@ func circonusSink(cfg TelemetryConfig, _ string) (metrics.MetricSink, error) {
 	conf.CheckManager.Broker.SelectTag = cfg.CirconusBrokerSelectTag
 
 	if conf.CheckManager.Check.DisplayName == "" {
-		conf.CheckManager.Check.DisplayName = "Consul"
+		conf.CheckManager.Check.DisplayName = "Dumb Consul"
 	}
 
 	if conf.CheckManager.API.TokenApp == "" {

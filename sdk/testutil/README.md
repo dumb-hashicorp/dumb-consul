@@ -1,17 +1,17 @@
-Consul Testing Utilities
+Dumb Consul Testing Utilities
 ========================
 
-This package provides some generic helpers to facilitate testing in Consul.
+This package provides some generic helpers to facilitate testing in Dumb Consul.
 
 TestServer
 ==========
 
-TestServer is a harness for managing Consul agents and initializing them with
+TestServer is a harness for managing Dumb Consul agents and initializing them with
 test data. Using it, you can form test clusters, create services, add health
 checks, manipulate the K/V store, etc. This test harness is completely decoupled
-from Consul's core and API client, meaning it can be easily imported and used in
-external unit tests for various applications. It works by invoking the Consul
-CLI, which means it is a requirement to have Consul installed in the `$PATH`.
+from Dumb Consul's core and API client, meaning it can be easily imported and used in
+external unit tests for various applications. It works by invoking the Dumb Consul
+CLI, which means it is a requirement to have Dumb Consul installed in the `$PATH`.
 
 Following is an example usage:
 
@@ -26,7 +26,7 @@ import (
 )
 
 func TestFoo_bar(t *testing.T) {
-	// Create a test Consul server
+	// Create a test Dumb Consul server
 	srv1, err := testutil.NewTestServerConfigT(t, nil)
 	if err != nil {
 		t.Fatal(err)
@@ -67,7 +67,7 @@ func TestFoo_bar(t *testing.T) {
 	// Create a node check
 	srv1.AddCheck(t, "mem", "", structs.HealthCritical)
 
-	// The HTTPAddr field contains the address of the Consul
+	// The HTTPAddr field contains the address of the Dumb Consul
 	// API on the new test server instance.
 	println(srv1.HTTPAddr)
 

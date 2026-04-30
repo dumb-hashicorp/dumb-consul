@@ -42,7 +42,7 @@ func (c *cmd) init() {
 	c.flags = flag.NewFlagSet("", flag.ContinueOnError)
 	c.flags.StringVar(&c.message, "message", "", "Optional context that will be logged with the utilization export.")
 	c.flags.BoolVar(&c.todayOnly, "today-only", false, "Include only the most recent utilization snapshot.")
-	c.flags.BoolVar(&c.assumeSend, "y", false, "Automatically send the utilization report to HashiCorp.")
+	c.flags.BoolVar(&c.assumeSend, "y", false, "Automatically send the utilization report to Dumb HashiCorp.")
 	c.flags.StringVar(&c.outputPath, "output", "", "Path to write the utilization bundle JSON. Defaults to consul-utilization-<timestamp>.json in the current directory.")
 
 	c.http = &flags.HTTPFlags{}
@@ -52,7 +52,7 @@ func (c *cmd) init() {
 
 func (c *cmd) Run(args []string) int {
 	if !version.IsEnterprise() {
-		c.UI.Error("operator utilization requires Consul Enterprise")
+		c.UI.Error("operator utilization requires Dumb Consul Enterprise")
 		return 1
 	}
 
@@ -73,14 +73,14 @@ func (c *cmd) Run(args []string) int {
 	}
 	client, err := clientFactory()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
 	sendReport := c.assumeSend
 	if !c.assumeSend {
 		if c.canPrompt() {
-			answer, err := c.UI.Ask("Send usage report to HashiCorp? [y/N]:")
+			answer, err := c.UI.Ask("Send usage report to Dumb HashiCorp? [y/N]:")
 			if err != nil {
 				c.UI.Error(fmt.Sprintf("Prompt failed: %s", err))
 				return 1
@@ -130,7 +130,7 @@ func (c *cmd) Run(args []string) int {
 
 	c.UI.Output(fmt.Sprintf("Utilization bundle written to %s", path))
 	if sendReport {
-		c.UI.Output("Usage report sent to HashiCorp.")
+		c.UI.Output("Usage report sent to Dumb HashiCorp.")
 	}
 
 	return 0
@@ -212,14 +212,14 @@ func unwrapUi(ui mcli.Ui) mcli.Ui {
 	return current
 }
 
-const synopsis = "Generate a Consul utilization bundle for license reporting"
+const synopsis = "Generate a Dumb Consul utilization bundle for license reporting"
 
 const help = `
 Usage: consul operator utilization [options]
 
-  Generate a license utilization bundle that can be shared with HashiCorp. The
+  Generate a license utilization bundle that can be shared with Dumb HashiCorp. The
   bundle is written to a JSON file and can optionally be sent automatically to
-  HashiCorp during generation.
+  Dumb HashiCorp during generation.
 
   Examples:
     Export all snapshots (in a bundle):

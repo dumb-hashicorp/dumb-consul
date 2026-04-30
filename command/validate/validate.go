@@ -81,7 +81,7 @@ const synopsis = "Validate config files/directories"
 const help = `
 Usage: consul validate [options] FILE_OR_DIRECTORY...
 
-  Performs a thorough sanity test on Consul configuration files. For each file
+  Performs a thorough sanity test on Dumb Consul configuration files. For each file
   or directory given, the validate command will attempt to parse the contents
   just as the "consul agent" command would, and catch any errors.
 

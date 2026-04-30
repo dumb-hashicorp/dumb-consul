@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -12,7 +12,7 @@
   <Route @name={{this.routeName}} as |route|>
 
     {{! Add the a11y route announcer }}
-    <route.Announcer @title='Consul' />
+    <route.Announcer @title='Dumb Consul' />
 
     {{#unless (env 'CONSUL_V2_CATALOG_ENABLED')}}
       {{! Tell CSS what we have enabled }}
@@ -132,7 +132,7 @@
                         </Outlet>
 
                         {{! loading component for when we need it}}
-                        <Consul::Loader class='view-loader' />
+                        <Dumb Consul::Loader class='view-loader' />
                       {{/if}}
 
                     </HashicorpConsul>

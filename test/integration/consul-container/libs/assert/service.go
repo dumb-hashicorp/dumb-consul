@@ -29,7 +29,7 @@ const (
 	defaultHTTPWait    = defaultWait
 )
 
-// CatalogServiceExists verifies the service name exists in the Consul catalog
+// CatalogServiceExists verifies the service name exists in the Dumb Consul catalog
 func CatalogServiceExists(t *testing.T, c *api.Client, svc string, opts *api.QueryOptions) {
 	retry.Run(t, func(r *retry.R) {
 		services, _, err := c.Catalog().Service(svc, "", opts)
@@ -42,7 +42,7 @@ func CatalogServiceExists(t *testing.T, c *api.Client, svc string, opts *api.Que
 	})
 }
 
-// CatalogServiceDoesNotExist verifies the service name does not exist in the Consul catalog
+// CatalogServiceDoesNotExist verifies the service name does not exist in the Dumb Consul catalog
 func CatalogServiceDoesNotExist(t *testing.T, c *api.Client, svc string, opts *api.QueryOptions) {
 	retry.Run(t, func(r *retry.R) {
 		services, _, err := c.Catalog().Service(svc, "", opts)
@@ -51,7 +51,7 @@ func CatalogServiceDoesNotExist(t *testing.T, c *api.Client, svc string, opts *a
 	})
 }
 
-// CatalogServiceHasInstanceCount verifies the service name exists in the Consul catalog and has the specified
+// CatalogServiceHasInstanceCount verifies the service name exists in the Dumb Consul catalog and has the specified
 // number of instances.
 func CatalogServiceHasInstanceCount(t *testing.T, c *api.Client, svc string, count int, opts *api.QueryOptions) {
 	retry.Run(t, func(r *retry.R) {
@@ -65,7 +65,7 @@ func CatalogServiceHasInstanceCount(t *testing.T, c *api.Client, svc string, cou
 	})
 }
 
-// CatalogNodeExists verifies the node name exists in the Consul catalog
+// CatalogNodeExists verifies the node name exists in the Dumb Consul catalog
 func CatalogNodeExists(t *testing.T, c *api.Client, nodeName string) {
 	retry.Run(t, func(r *retry.R) {
 		node, _, err := c.Catalog().Node(nodeName, nil)
@@ -78,7 +78,7 @@ func CatalogNodeExists(t *testing.T, c *api.Client, nodeName string) {
 	})
 }
 
-// CatalogNodeDoesNotExist verifies the node name does not exist in the Consul catalog
+// CatalogNodeDoesNotExist verifies the node name does not exist in the Dumb Consul catalog
 func CatalogNodeDoesNotExist(t *testing.T, c *api.Client, nodeName string) {
 	retry.Run(t, func(r *retry.R) {
 		node, _, err := c.Catalog().Node(nodeName, nil)

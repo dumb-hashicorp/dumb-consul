@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -33,28 +33,28 @@
                   {{/if}}
                 {{else}}
                   {{#if (or (eq type 'use') (eq flash.model 'token'))}}
-                    <Consul::Token::Notifications
+                    <Dumb Consul::Token::Notifications
                       @type={{type}}
                       @status={{status}}
                       @item={{flash.item}}
                       @error={{flash.error}}
                     />
                   {{else if (eq flash.model 'intention')}}
-                    <Consul::Intention::Notifications
+                    <Dumb Consul::Intention::Notifications
                       @type={{type}}
                       @status={{status}}
                       @item={{flash.item}}
                       @error={{flash.error}}
                     />
                   {{else if (eq flash.model 'role')}}
-                    <Consul::Role::Notifications
+                    <Dumb Consul::Role::Notifications
                       @type={{type}}
                       @status={{status}}
                       @item={{flash.item}}
                       @error={{flash.error}}
                     />
                   {{else if (eq flash.model 'policy')}}
-                    <Consul::Policy::Notifications
+                    <Dumb Consul::Policy::Notifications
                       @type={{type}}
                       @status={{status}}
                       @item={{flash.item}}
@@ -79,7 +79,7 @@
           class='consul-side-nav__home-link'
           @href={{href-to 'index' params=(hash peer=undefined)}}
           @isHrefExternal={{false}}
-          aria-label='Consul'
+          aria-label='Dumb Consul'
         >
           <Hds::Icon @name='consul-color' @stretched={{true}} />
         </Hds::Interactive>
@@ -105,7 +105,7 @@
             />
           </Hds::Dropdown>
 
-          <Consul::Token::Selector
+          <Dumb Consul::Token::Selector
             @dc={{@dc}}
             @partition={{@partition}}
             @nspace={{@nspace}}
@@ -113,7 +113,7 @@
             as |selector|
           >
             <Ref @target={{this}} @name='tokenSelector' @value={{selector}} />
-          </Consul::Token::Selector>
+          </Dumb Consul::Token::Selector>
         </div>
       </div>
 
@@ -124,7 +124,7 @@
         as |SNL|
       >
         <HcpNavItem @list={{SNL}}/>
-        <Consul::Datacenter::Selector
+        <Dumb Consul::Datacenter::Selector
           @list={{SNL}}
           @dc={{@dc}}
           @partition={{@partition}}
@@ -133,7 +133,7 @@
         />
 
         {{#if (can 'use partitions')}}
-          <Consul::Partition::Selector
+          <Dumb Consul::Partition::Selector
             @dc={{@dc}}
             @partition={{@partition}}
             @nspace={{@nspace}}
@@ -142,7 +142,7 @@
             @onchange={{action (mut this.partitions) value='data'}}
           />
         {{/if}}
-        <Consul::Nspace::Selector
+        <Dumb Consul::Nspace::Selector
           @list={{SNL}}
           @dc={{@dc}}
           @partition={{@partition}}
@@ -200,13 +200,13 @@
             />
           {{/if}}
 
-          <Consul::Acl::Selector
+          <Dumb Consul::Acl::Selector
             @dc={{@dc}}
             @partition={{@partition}}
             @nspace={{@nspace}}
             @list={{SNL}}
           />
-          <Consul::Peer::Selector
+          <Dumb Consul::Peer::Selector
             @dc={{@dc}}
             @partition={{@partition}}
             @nspace={{@nspace}}

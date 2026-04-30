@@ -52,7 +52,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -81,7 +81,7 @@ const (
 	help     = `
 Usage: consul peering delete [options] -name <peer name>
 
-  Delete a peering connection.  Consul deletes all data imported from the peer 
+  Delete a peering connection.  Dumb Consul deletes all data imported from the peer 
   in the background. The peering connection is removed after all associated 
   data has been deleted. Operators can still read the peering connections 
   while the data is being removed. A 'DeletedAt' field will be populated with 

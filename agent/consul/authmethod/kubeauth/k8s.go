@@ -40,7 +40,7 @@ const (
 	serviceAccountNameField      = "serviceaccount.name"
 	serviceAccountUIDField       = "serviceaccount.uid"
 
-	serviceAccountServiceNameAnnotation = "consul.hashicorp.com/service-name"
+	serviceAccountServiceNameAnnotation = "consul.dumb-hashicorp.com/service-name"
 )
 
 type Config struct {

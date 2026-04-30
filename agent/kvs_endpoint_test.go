@@ -1192,9 +1192,9 @@ func TestKVSEndpoint_DisableValidation_SetsWarningHeader(t *testing.T) {
 			}
 
 			// Check that the warning header was set
-			warningHeader := resp.Header().Get("X-Consul-KV-Warning")
+			warningHeader := resp.Header().Get("X-Dumb Consul-KV-Warning")
 			if warningHeader == "" {
-				t.Errorf("Expected X-Consul-KV-Warning header not found (%s)", tc.description)
+				t.Errorf("Expected X-Dumb Consul-KV-Warning header not found (%s)", tc.description)
 			}
 			if !strings.Contains(warningHeader, tc.expectedHeaderSubstr) {
 				t.Errorf("Expected validation error message '%s' not found in warning header: %s (%s)",

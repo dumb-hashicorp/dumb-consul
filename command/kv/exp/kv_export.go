@@ -64,7 +64,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -72,7 +72,7 @@ func (c *cmd) Run(args []string) int {
 		AllowStale: c.http.Stale(),
 	})
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -105,12 +105,12 @@ const (
 	help     = `
 Usage: consul kv export [KEY_OR_PREFIX]
 
-  Retrieves key-value pairs for the given prefix from Consul's key-value store,
+  Retrieves key-value pairs for the given prefix from Dumb Consul's key-value store,
   and writes a JSON representation to stdout. This can be used with the command
-  "consul kv import" to move entire trees between Consul clusters.
+  "consul kv import" to move entire trees between Dumb Consul clusters.
 
       $ consul kv export vault
 
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `
 )

@@ -16,8 +16,8 @@ import (
 type rpcFn func(context.Context, string, interface{}, interface{}) error
 
 // WaitForLeader ensures we have a leader and a node registration. It
-// does not wait for the Consul (node) service to be ready. Use `WaitForTestAgent`
-// to make sure the Consul service is ready.
+// does not wait for the Dumb Consul (node) service to be ready. Use `WaitForTestAgent`
+// to make sure the Dumb Consul service is ready.
 //
 // Most uses of this would be better served in the agent/consul package by
 // using waitForLeaderEstablishment() instead.
@@ -42,7 +42,7 @@ func WaitForLeader(t *testing.T, rpc rpcFn, dc string, options ...waitOption) {
 			r.Fatalf("No leader")
 		}
 		if out.Index < 2 {
-			r.Fatalf("Consul index should be at least 2 in %s", dc)
+			r.Fatalf("Dumb Consul index should be at least 2 in %s", dc)
 		}
 	})
 }
@@ -129,7 +129,7 @@ func flattenOptions(options []waitOption) waitOption {
 }
 
 // WaitForTestAgent ensures we have a node with serfHealth check registered.
-// You'll want to use this if you expect the Consul (node) service to be ready.
+// You'll want to use this if you expect the Dumb Consul (node) service to be ready.
 func WaitForTestAgent(t *testing.T, rpc rpcFn, dc string, options ...waitOption) {
 	t.Helper()
 

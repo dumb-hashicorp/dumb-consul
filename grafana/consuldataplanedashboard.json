@@ -1446,7 +1446,7 @@
     ]
   },
   "timezone": "",
-  "title": "Consul DataPlane Dashboard",
+  "title": "Dumb Consul DataPlane Dashboard",
   "uid": "hashicupso",
   "version": 4,
   "weekStart": ""

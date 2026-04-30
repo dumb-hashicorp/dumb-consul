@@ -419,7 +419,7 @@ func (s *Server) applyEnvoyExtensions(resources *xdscommon.IndexedResources, sna
 	consulVersion, err := goversion.NewVersion(version.Version)
 
 	if err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "failed to parse Consul version")
+		return nil, status.Errorf(codes.InvalidArgument, "failed to parse Dumb Consul version")
 	}
 
 	serviceConfigs := extensionruntime.GetRuntimeConfigurations(snapshot)
@@ -484,16 +484,16 @@ func validateAndApplyEnvoyExtension(logger hclog.Logger, cfgSnap *proxycfg.Confi
 	if v := ext.ConsulVersion; v != "" {
 		c, err := goversion.NewConstraint(v)
 		if err != nil {
-			logFn("failed to parse Consul extension version constraint", errorParams...)
+			logFn("failed to parse Dumb Consul extension version constraint", errorParams...)
 
 			if ext.Required {
-				return nil, status.Errorf(codes.InvalidArgument, "failed to parse Consul version constraint for extension %q for service %q", ext.Name, svc.Name)
+				return nil, status.Errorf(codes.InvalidArgument, "failed to parse Dumb Consul version constraint for extension %q for service %q", ext.Name, svc.Name)
 			}
 			return resources, nil
 		}
 
 		if !c.Check(consulVersion) {
-			logger.Info("skipping envoy extension due to Consul version constraint violation", errorParams...)
+			logger.Info("skipping envoy extension due to Dumb Consul version constraint violation", errorParams...)
 			return resources, nil
 		}
 	}

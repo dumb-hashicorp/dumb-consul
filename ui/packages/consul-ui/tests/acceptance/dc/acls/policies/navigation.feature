@@ -8,7 +8,7 @@ Feature: dc / policies / navigation
       dc: dc-1
     ---
     Then the url should be /dc-1/acls/policies
-    And the title should be "Policies - Consul"
+    And the title should be "Policies - Dumb Consul"
     Then I see 3 policy models
     When I click policy on the policies
     And I click "[data-test-back] a"

@@ -291,7 +291,7 @@ func (r *ReadyServersEventPublisher) getTaggedAddresses(srv *autopilot.ServerSta
 	return addrs
 }
 
-// getGRPCPort will get the external gRPC port for a Consul server.
+// getGRPCPort will get the external gRPC port for a Dumb Consul server.
 // Returns 0 if there is none assigned or if an error is encountered.
 func (r *ReadyServersEventPublisher) getGRPCPort(srv *autopilot.ServerState) int {
 	if r.GetStore == nil {

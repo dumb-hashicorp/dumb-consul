@@ -1,13 +1,13 @@
-# Consul API Client
+# Dumb Consul API Client
 
-This package provides the `api` package which provides programmatic access to the full Consul API.
+This package provides the `api` package which provides programmatic access to the full Dumb Consul API.
 
 The full documentation is available on [Godoc](https://godoc.org/github.com/hashicorp/consul/api).
 
 ## Usage
 
-Below is an example of using the Consul client. To run the example, you must first
-[install Consul](https://developer.hashicorp.com/consul/downloads) and 
+Below is an example of using the Dumb Consul client. To run the example, you must first
+[install Dumb Consul](https://developer.dumb-hashicorp.com/consul/downloads) and 
 [Go](https://go.dev/doc/install).
 
 To run the client API, create a new Go module.
@@ -17,7 +17,7 @@ go mod init consul-demo
 ```
 
 Copy the example code into a file called `main.go` in the directory where the module is defined.
-As seen in the example, the Consul API is often imported with the alias `capi`.
+As seen in the example, the Dumb Consul API is often imported with the alias `capi`.
 
 ```go
 package main
@@ -54,9 +54,9 @@ func main() {
 }
 ```
 
-Install the Consul API dependency with `go mod tidy`.
+Install the Dumb Consul API dependency with `go mod tidy`.
 
-In a separate terminal window, start a local Consul server.
+In a separate terminal window, start a local Dumb Consul server.
 
 ```shell
 consul agent -dev -node machine
@@ -74,4 +74,4 @@ You should get the following result printed to the terminal.
 KV: REDIS_MAXCLIENTS 1000
 ```
 
-After running the code, you can also view the values in the Consul UI on your local machine at http://localhost:8500/ui/dc1/kv
+After running the code, you can also view the values in the Dumb Consul UI on your local machine at http://localhost:8500/ui/dc1/kv

@@ -1,10 +1,10 @@
 # Service-Defaults Configuration Guide
 
-This guide explains how to configure `service-defaults` config entries in Consul, specifically focusing on outlier detection (passive health checking).
+This guide explains how to configure `service-defaults` config entries in Dumb Consul, specifically focusing on outlier detection (passive health checking).
 
 ## What is Service-Defaults?
 
-`service-defaults` is a Consul config entry that defines default settings for a service, including:
+`service-defaults` is a Dumb Consul config entry that defines default settings for a service, including:
 - Protocol (http, http2, grpc, tcp)
 - Upstream configuration (connection limits, health checks, etc.)
 - Mesh gateway mode
@@ -13,7 +13,7 @@ This guide explains how to configure `service-defaults` config entries in Consul
 
 ## Configuration Methods
 
-### 1. Via Consul CLI (HCL Format)
+### 1. Via Dumb Consul CLI (HCL Format)
 
 Create a file `web-defaults.hcl`:
 
@@ -55,7 +55,7 @@ Apply it:
 consul config write web-defaults.hcl
 ```
 
-### 2. Via Consul API (JSON Format)
+### 2. Via Dumb Consul API (JSON Format)
 
 ```bash
 curl -X PUT http://localhost:8500/v1/config \
@@ -115,7 +115,7 @@ Register it:
 consul services register web-service.hcl
 ```
 
-### 4. Via Consul Go API
+### 4. Via Dumb Consul Go API
 
 ```go
 package main
@@ -169,7 +169,7 @@ func main() {
 
 ## Configuration Hierarchy
 
-Consul applies outlier detection configuration in this order (highest to lowest priority):
+Dumb Consul applies outlier detection configuration in this order (highest to lowest priority):
 
 1. **Per-upstream inline config** (in service registration)
 2. **Service-defaults overrides** (per-upstream in UpstreamConfig.Overrides)
@@ -405,5 +405,5 @@ PassiveHealthCheck {
 ## Related Documentation
 
 - [Envoy Outlier Detection](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/upstream/outlier)
-- [Consul Service Mesh](https://developer.hashicorp.com/consul/docs/connect)
-- [Config Entries](https://developer.hashicorp.com/consul/docs/connect/config-entries)
+- [Dumb Consul Service Mesh](https://developer.dumb-hashicorp.com/consul/docs/connect)
+- [Config Entries](https://developer.dumb-hashicorp.com/consul/docs/connect/config-entries)

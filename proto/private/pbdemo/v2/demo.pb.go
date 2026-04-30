@@ -8,7 +8,7 @@
 // source: private/pbdemo/v2/demo.proto
 
 // This package contains fake resource types, which are useful for working on
-// Consul's generic storage APIs.
+// Dumb Consul's generic storage APIs.
 
 package demov2
 
@@ -348,7 +348,7 @@ const file_private_pbdemo_v2_demo_proto_rawDesc = "" +
 	"\vGENRE_INDIE\x10\f\x12\x0e\n" +
 	"\n" +
 	"GENRE_ROCK\x10\rB\x97\x02\n" +
-	"%com.hashicorp.consul.internal.demo.v2B\tDemoProtoP\x01Z:github.com/hashicorp/consul/proto/private/pbdemo/v2;demov2\xa2\x02\x04HCID\xaa\x02!Hashicorp.Consul.Internal.Demo.V2\xca\x02!Hashicorp\\Consul\\Internal\\Demo\\V2\xe2\x02-Hashicorp\\Consul\\Internal\\Demo\\V2\\GPBMetadata\xea\x02%Hashicorp::Consul::Internal::Demo::V2b\x06proto3"
+	"%com.hashicorp.consul.internal.demo.v2B\tDemoProtoP\x01Z:github.com/hashicorp/consul/proto/private/pbdemo/v2;demov2\xa2\x02\x04HCID\xaa\x02!Hashicorp.Dumb Consul.Internal.Demo.V2\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Demo\\V2\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Demo\\V2\\GPBMetadata\xea\x02%Hashicorp::Dumb Consul::Internal::Demo::V2b\x06proto3"
 
 var (
 	file_private_pbdemo_v2_demo_proto_rawDescOnce sync.Once

@@ -23,7 +23,7 @@ func TestSegments(t *testing.T) {
 			},
 			json:        []string{`{ "server": true, "segment": "a" }`},
 			hcl:         []string{` server = true segment = "a" `},
-			expectedErr: `Network segments are not supported in this version of Consul`,
+			expectedErr: `Network segments are not supported in this version of Dumb Consul`,
 			expectedWarnings: []string{
 				enterpriseConfigKeyError{key: "segment"}.Error(),
 			},
@@ -47,7 +47,7 @@ func TestSegments(t *testing.T) {
 			},
 			json:        []string{`{ "segments":[{ "name":"x", "port": 123 }] }`},
 			hcl:         []string{`segments = [{ name = "x" port = 123 }]`},
-			expectedErr: `Network segments are not supported in this version of Consul`,
+			expectedErr: `Network segments are not supported in this version of Dumb Consul`,
 			expectedWarnings: []string{
 				enterpriseConfigKeyError{key: "segments"}.Error(),
 			},

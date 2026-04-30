@@ -97,7 +97,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -107,7 +107,7 @@ func (c *cmd) Run(args []string) int {
 			AllowStale: c.http.Stale(),
 		})
 		if err != nil {
-			c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+			c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 			return 1
 		}
 
@@ -133,7 +133,7 @@ func (c *cmd) Run(args []string) int {
 			AllowStale: c.http.Stale(),
 		})
 		if err != nil {
-			c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+			c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 			return 1
 		}
 
@@ -147,7 +147,7 @@ func (c *cmd) Run(args []string) int {
 			AllowStale: c.http.Stale(),
 		})
 		if err != nil {
-			c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+			c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 			return 1
 		}
 
@@ -179,7 +179,7 @@ func (c *cmd) Run(args []string) int {
 			AllowStale: c.http.Stale(),
 		})
 		if err != nil {
-			c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+			c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 			return 1
 		}
 
@@ -247,7 +247,7 @@ const (
 	help     = `
 Usage: consul kv get [options] [KEY_OR_PREFIX]
 
-  Retrieves the value from Consul's key-value store at the given key name. If no
+  Retrieves the value from Dumb Consul's key-value store at the given key name. If no
   key exists with that name, an error is returned. If a key exists with that
   name but has no data, nothing is returned. If the name or prefix is omitted,
   it defaults to "" which is the root of the key-value store.
@@ -256,7 +256,7 @@ Usage: consul kv get [options] [KEY_OR_PREFIX]
 
       $ consul kv get foo
 
-  This will return the original, raw value stored in Consul. To view detailed
+  This will return the original, raw value stored in Dumb Consul. To view detailed
   information about the key, specify the "-detailed" flag. This will output all
   known metadata about the key including ModifyIndex and any user-supplied
   flags:
@@ -273,6 +273,6 @@ Usage: consul kv get [options] [KEY_OR_PREFIX]
 
       $ consul kv get -keys foo
 
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `
 )

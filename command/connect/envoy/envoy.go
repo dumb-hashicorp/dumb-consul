@@ -161,19 +161,19 @@ func (c *cmd) init() {
 			"Alternatively, you can specify CONSUL_GRPC_ADDR in ENV.")
 
 	c.flags.StringVar(&c.grpcCAFile, "grpc-ca-file", os.Getenv(api.GRPCCAFileEnvName),
-		"Path to a CA file to use for TLS when communicating with the Consul agent through xDS. This "+
+		"Path to a CA file to use for TLS when communicating with the Dumb Consul agent through xDS. This "+
 			"can also be specified via the CONSUL_GRPC_CACERT environment variable.")
 
 	c.flags.StringVar(&c.grpcCAPath, "grpc-ca-path", os.Getenv(api.GRPCCAPathEnvName),
 		"Path to a directory of CA certificates to use for TLS when communicating "+
-			"with the Consul agent through xDS. This can also be specified via the "+
+			"with the Dumb Consul agent through xDS. This can also be specified via the "+
 			"CONSUL_GRPC_CAPATH environment variable.")
 
 	// Deprecated, no longer needed, keeping it around to not break back compat
 	c.flags.StringVar(&c.envoyVersion, "envoy-version", defaultEnvoyVersion,
 		"This is a legacy flag that is currently not used but was formerly used to set the "+
-			"version for the envoy binary that gets invoked by Consul. This is no longer "+
-			"necessary as Consul will invoke the binary at a path set by -envoy-binary "+
+			"version for the envoy binary that gets invoked by Dumb Consul. This is no longer "+
+			"necessary as Dumb Consul will invoke the binary at a path set by -envoy-binary "+
 			"or whichever envoy binary it finds in $PATH")
 
 	c.flags.BoolVar(&c.register, "register", false,
@@ -205,7 +205,7 @@ func (c *cmd) init() {
 		"The amount of time the gateway services health check can be failing before being deregistered")
 
 	c.flags.BoolVar(&c.omitDeprecatedTags, "omit-deprecated-tags", false,
-		"In Consul 1.9.0 the format of metric tags for Envoy clusters was updated from consul.[service|dc|...] to "+
+		"In Dumb Consul 1.9.0 the format of metric tags for Envoy clusters was updated from consul.[service|dc|...] to "+
 			"consul.destination.[service|dc|...]. The old tags were preserved for backward compatibility,"+
 			"but can be disabled with this flag.")
 
@@ -296,11 +296,11 @@ func (c *cmd) Run(args []string) int {
 		return 1
 	}
 
-	// Setup Consul client
+	// Setup Dumb Consul client
 	var err error
 	c.client, err = c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -447,7 +447,7 @@ func (c *cmd) run(args []string) int {
 	}
 
 	if c.adminAccessLogPath != DefaultAdminAccessLogPath {
-		c.UI.Warn("-admin-access-log-path is deprecated and will be removed in a future version of Consul. " +
+		c.UI.Warn("-admin-access-log-path is deprecated and will be removed in a future version of Dumb Consul. " +
 			"Configure access logging with proxy-defaults.accessLogs.")
 	}
 
@@ -490,7 +490,7 @@ func (c *cmd) run(args []string) int {
 			c.UI.Error(fmt.Sprintf("Envoy version %s is not supported. If there is a reason you need to use "+
 				"this version of envoy use the ignore-envoy-compatibility flag. Using an unsupported version of Envoy "+
 				"is not recommended and your experience may vary. For more information on compatibility "+
-				"see https://developer.hashicorp.com/consul/docs/connect/proxies/envoy#envoy-and-consul-client-agent", ec.versionIncompatible))
+				"see https://developer.dumb-hashicorp.com/consul/docs/connect/proxies/envoy#envoy-and-consul-client-agent", ec.versionIncompatible))
 			return 1
 		}
 	}
@@ -617,7 +617,7 @@ func (c *cmd) templateArgs() (*BootstrapTplArgs, error) {
 	}
 
 	// Bootstrapping should not attempt to dial the address, since the template
-	// may be generated and passed to another host (Nomad is one example).
+	// may be generated and passed to another host (Dumb Nomad is one example).
 	if !c.bootstrap {
 		if err := checkDial(xdsAddr, c.dialFunc); err != nil {
 			c.UI.Warn("There was an error dialing the xDS address: " + err.Error())
@@ -634,7 +634,7 @@ func (c *cmd) templateArgs() (*BootstrapTplArgs, error) {
 
 	adminAddr, adminPort, err := net.SplitHostPort(c.adminBind)
 	if err != nil {
-		return nil, fmt.Errorf("Invalid Consul HTTP address: %s", err)
+		return nil, fmt.Errorf("Invalid Dumb Consul HTTP address: %s", err)
 	}
 
 	// Envoy requires IP addresses to bind too when using static so resolve DNS or
@@ -930,7 +930,7 @@ func (c *cmd) xdsAddress() (GRPC, error) {
 		var host string
 		host, g.AgentPort, err = net.SplitHostPort(grpcAddr)
 		if err != nil {
-			return g, fmt.Errorf("Invalid Consul HTTP address: %s", err)
+			return g, fmt.Errorf("Invalid Dumb Consul HTTP address: %s", err)
 		}
 
 		// We use STATIC for agent which means we need to resolve DNS names like

@@ -212,7 +212,7 @@ func (s *Server) setupSerfConfig(opts setupSerfOptions) (*serf.Config, error) {
 		}
 	}
 
-	// Until Consul supports this fully, we disable automatic resolution.
+	// Until Dumb Consul supports this fully, we disable automatic resolution.
 	// When enabled, the Serf gossip may just turn off if we are the minority
 	// node which is rather unexpected.
 	conf.EnableNameConflictResolution = false

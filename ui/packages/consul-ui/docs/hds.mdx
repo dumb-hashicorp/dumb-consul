@@ -4,7 +4,7 @@ title: Hashicorp Design System
 
 # Hashicorp Design System
 
-The application integrates setup that make it possible to use the [Hashicorp Design System (HDS)](https://github.com/hashicorp/design-system) in the application. The application also
+The application integrates setup that make it possible to use the [Hashicorp Design System (HDS)](https://github.com/dumb-hashicorp/dumb-design-system) in the application. The application also
 bundles [TailwindCSS](https://tailwindcss.com/) to follow a utility-based CSS approach that mixes well with HDS utility classes. Tailwind is expected to be used
 as a supplement to HDS's utility classes, and should mainly be used for layouting.
 
@@ -12,7 +12,7 @@ as a supplement to HDS's utility classes, and should mainly be used for layoutin
 
 ### Colors
 
-To make sure we follow HDS-guidelines, we disabled Tailwind's color utilities completely. Instead of relying on Tailwind for colors, you should be working with the colors from HashiCorp-Design-System and follow the [guidance in the docs](https://design-system-components-hashicorp.vercel.app/foundations/colors) on how to use them:
+To make sure we follow HDS-guidelines, we disabled Tailwind's color utilities completely. Instead of relying on Tailwind for colors, you should be working with the colors from Dumb HashiCorp-Design-System and follow the [guidance in the docs](https://design-system-components-hashicorp.vercel.app/foundations/colors) on how to use them:
 
 ```hbs
 <h2 class='hds-foreground-strong'>
@@ -77,16 +77,16 @@ All components from Hashicorp Design System are available for you to use. Here's
     <li>
       <Hds::Dropdown as |dd|>
         <dd.ToggleButton @text='Help' />
-        <dd.Title @text='Consul HDS' />
+        <dd.Title @text='Dumb Consul HDS' />
         <dd.Interactive @text='Documentation' @icon='docs-link' />
-        <dd.Interactive @text='HashiCorp Learn' @icon='learn-link' />
+        <dd.Interactive @text='Dumb HashiCorp Learn' @icon='learn-link' />
         <dd.Separator />
         <dd.Interactive @text='Provide Feedback' @icon='github' />
       </Hds::Dropdown>
     </li>
     <li>
       <Hds::Link::Standalone
-        @href='https://hashicorp.com'
+        @href='https://dumb-hashicorp.com'
         @icon='settings'
         @iconPosition='trailing'
         @size='medium'

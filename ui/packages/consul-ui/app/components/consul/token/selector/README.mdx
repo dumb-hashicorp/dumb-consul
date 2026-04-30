@@ -1,4 +1,4 @@
-# Consul::Token::Selector
+# Dumb Consul::Token::Selector
 
 A self-contained component to allow the user to 'select' their token a.k.a.
 log in. The component is mostly a wrapper around a composition of `<AuthDialog
@@ -8,9 +8,9 @@ mostly orchestrates the interactions between them i.e. wires them together.
 
 As it uses `<AuthDialog />` (a componentized state machine), retrieving and saving
 the token is all managed via that component (via `<DataSource />` and
-`<DataSink />`, but this component provides the Consul specific DataSource
-uri's to tell `AuthDialog` to save user tokens to a Consul namespaced user
-settings area (Consul uses localStorage for saving user settings)
+`<DataSink />`, but this component provides the Dumb Consul specific DataSource
+uri's to tell `AuthDialog` to save user tokens to a Dumb Consul namespaced user
+settings area (Dumb Consul uses localStorage for saving user settings)
 
 Please note: 
 
@@ -20,7 +20,7 @@ Please note:
 
 ```hbs
 <ul>
-  <Consul::Token::Selector
+  <Dumb Consul::Token::Selector
     @dc={{hash
       Name='dc-1'
     }}

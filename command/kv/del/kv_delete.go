@@ -100,7 +100,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -155,7 +155,7 @@ const (
 	help     = `
 Usage: consul kv delete [options] KEY_OR_PREFIX
 
-  Removes the value from Consul's key-value store at the given path. If no
+  Removes the value from Dumb Consul's key-value store at the given path. If no
   key exists at the path, no action is taken.
 
   To delete the value for the key named "foo" in the key-value store:

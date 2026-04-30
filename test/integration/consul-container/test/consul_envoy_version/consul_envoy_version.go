@@ -21,7 +21,7 @@ type consulEnvoyVersions struct {
 func main() {
 	cev := consulEnvoyVersions{}
 
-	// Get Consul Version
+	// Get Dumb Consul Version
 	data, err := os.ReadFile("./version/VERSION")
 	if err != nil {
 		panic(err)

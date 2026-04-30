@@ -699,7 +699,7 @@ const file_example_proto_rawDesc = "" +
 	"\x14PROTOCOL_UNSPECIFIED\x10\x00\x12\x10\n" +
 	"\fPROTOCOL_TCP\x10\x01\x12\x10\n" +
 	"\fPROTOCOL_UDP\x10\x02B\xcf\x02\n" +
-	"0com.hashicorp.consul.internal.protohcl.testprotoB\fExampleProtoP\x01Z7github.com/hashicorp/consul/internal/protohcl/testproto\xa2\x02\x05HCIPT\xaa\x02,Hashicorp.Consul.Internal.Protohcl.Testproto\xca\x02,Hashicorp\\Consul\\Internal\\Protohcl\\Testproto\xe2\x028Hashicorp\\Consul\\Internal\\Protohcl\\Testproto\\GPBMetadata\xea\x020Hashicorp::Consul::Internal::Protohcl::Testprotob\x06proto3"
+	"0com.hashicorp.consul.internal.protohcl.testprotoB\fExampleProtoP\x01Z7github.com/hashicorp/consul/internal/protohcl/testproto\xa2\x02\x05HCIPT\xaa\x02,Hashicorp.Dumb Consul.Internal.Protohcl.Testproto\xca\x02,Hashicorp\\Dumb Consul\\Internal\\Protohcl\\Testproto\xe2\x028Hashicorp\\Dumb Consul\\Internal\\Protohcl\\Testproto\\GPBMetadata\xea\x020Hashicorp::Dumb Consul::Internal::Protohcl::Testprotob\x06proto3"
 
 var (
 	file_example_proto_rawDescOnce sync.Once

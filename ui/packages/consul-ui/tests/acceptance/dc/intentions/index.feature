@@ -8,7 +8,7 @@ Feature: dc / intentions / index
       dc: dc-1
     ---
     Then the url should be /dc-1/intentions
-    And the title should be "Intentions - Consul"
+    And the title should be "Intentions - Dumb Consul"
     Then I see 3 intention models on the intentionList component
   Scenario: Viewing intentions with no write access
     Given 1 datacenter model with the value "dc-1"
@@ -79,9 +79,9 @@ Feature: dc / intentions / index
       dc: dc-1
     ---
     Then the url should be /dc-1/intentions
-    And the title should be "Intentions - Consul"
+    And the title should be "Intentions - Dumb Consul"
     Then I see 0 intention models on the intentionList component
-    And I see the text "There don't seem to be any Intentions in this Consul cluster, or you may not have intentions:read permissions access to this view." in ".empty-state p"
+    And I see the text "There don't seem to be any Intentions in this Dumb Consul cluster, or you may not have intentions:read permissions access to this view." in ".empty-state p"
     And I see the "[data-test-empty-state-login]" element
   Scenario: Viewing an empty intentions page with acl disabled 
     Given ACLs are disabled
@@ -92,7 +92,7 @@ Feature: dc / intentions / index
       dc: dc-1
     ---
     Then the url should be /dc-1/intentions
-    And the title should be "Intentions - Consul"
+    And the title should be "Intentions - Dumb Consul"
     Then I see 0 intention models on the intentionList component
-    And I see the text "There don't seem to be any Intentions in this Consul cluster." in ".empty-state p"
+    And I see the text "There don't seem to be any Intentions in this Dumb Consul cluster." in ".empty-state p"
     And I don't see the "[data-test-empty-state-login]" element

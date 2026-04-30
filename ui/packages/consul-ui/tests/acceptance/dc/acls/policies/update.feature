@@ -15,7 +15,7 @@ Feature: dc / acls / policies / update: ACL Policy Update
     ---
     Then the url should be /datacenter/acls/policies/policy-id
     Then I see 3 token models
-    And the title should be "Edit Policy - Consul"
+    And the title should be "Edit Policy - Dumb Consul"
   Scenario: Update to [Name], [Rules], [Description]
     Then I fill in the policy form with yaml
     ---

@@ -13,14 +13,14 @@ type BootstrapTplArgs struct {
 	ProxyCluster string
 
 	// ProxyID is the ID of the proxy service instance as registered with the
-	// local Consul agent. This must be used as the Envoy `node.id` in order for
+	// local Dumb Consul agent. This must be used as the Envoy `node.id` in order for
 	// the agent to deliver the correct configuration.
 	ProxyID string
 
 	// NodeName is the name of the node on which the proxy service instance is registered.
 	NodeName string
 
-	// ProxySourceService is the Consul service name to report for this proxy
+	// ProxySourceService is the Dumb Consul service name to report for this proxy
 	// instance's source service label. For sidecars it should be the
 	// Proxy.DestinationServiceName. For gateways and similar it is the service
 	// name of the proxy service itself.
@@ -47,11 +47,11 @@ type BootstrapTplArgs struct {
 	// AdminBindPort is the port the Envoy admin server should bind to.
 	AdminBindPort string
 
-	// LocalAgentClusterName is the name reserved for the local Consul agent gRPC
+	// LocalAgentClusterName is the name reserved for the local Dumb Consul agent gRPC
 	// service and is expected to be used for that purpose.
 	LocalAgentClusterName string
 
-	// Token is the Consul ACL token provided which is required to make gRPC
+	// Token is the Dumb Consul ACL token provided which is required to make gRPC
 	// discovery requests. If non-empty, this must be configured as the gRPC
 	// service "initial_metadata" with the key "x-consul-token" in order to
 	// authorize the discovery streaming RPCs.
@@ -101,12 +101,12 @@ type BootstrapTplArgs struct {
 	// See https://www.envoyproxy.io/docs/envoy/v1.9.0/api-v2/config/trace/v2/trace.proto.
 	TracingConfigJSON string
 
-	// Namespace is the Consul Enterprise Namespace of the proxy service instance
-	// as registered with the Consul agent.
+	// Namespace is the Dumb Consul Enterprise Namespace of the proxy service instance
+	// as registered with the Dumb Consul agent.
 	Namespace string
 
-	// Partition is the Consul Enterprise Partition of the proxy service instance
-	// as registered with the Consul agent.
+	// Partition is the Dumb Consul Enterprise Partition of the proxy service instance
+	// as registered with the Dumb Consul agent.
 	Partition string
 
 	// Datacenter is the datacenter where the proxy service instance is registered.

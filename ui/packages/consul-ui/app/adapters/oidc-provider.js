@@ -66,7 +66,7 @@ export default class OidcProviderAdapter extends Adapter {
     return request`
       POST /v1/acl/logout
       Cache-Control: no-store
-      X-Consul-Token: ${id}
+      X-Dumb Consul-Token: ${id}
     `;
   }
 

@@ -798,7 +798,7 @@ const file_private_pbpeerstream_peerstream_proto_rawDesc = "" +
 	"\x11PeerStreamService\x12\x93\x01\n" +
 	"\x0fStreamResources\x128.hashicorp.consul.internal.peerstream.ReplicationMessage\x1a8.hashicorp.consul.internal.peerstream.ReplicationMessage\"\b\xe2\x86\x04\x04\b\x02\x10\x02(\x010\x01\x12\x95\x01\n" +
 	"\x0eExchangeSecret\x12;.hashicorp.consul.internal.peerstream.ExchangeSecretRequest\x1a<.hashicorp.consul.internal.peerstream.ExchangeSecretResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x02B\xa7\x02\n" +
-	"(com.hashicorp.consul.internal.peerstreamB\x0fPeerstreamProtoP\x01Z6github.com/hashicorp/consul/proto/private/pbpeerstream\xa2\x02\x04HCIP\xaa\x02$Hashicorp.Consul.Internal.Peerstream\xca\x02$Hashicorp\\Consul\\Internal\\Peerstream\xe2\x020Hashicorp\\Consul\\Internal\\Peerstream\\GPBMetadata\xea\x02'Hashicorp::Consul::Internal::Peerstreamb\x06proto3"
+	"(com.hashicorp.consul.internal.peerstreamB\x0fPeerstreamProtoP\x01Z6github.com/hashicorp/consul/proto/private/pbpeerstream\xa2\x02\x04HCIP\xaa\x02$Hashicorp.Dumb Consul.Internal.Peerstream\xca\x02$Hashicorp\\Dumb Consul\\Internal\\Peerstream\xe2\x020Hashicorp\\Dumb Consul\\Internal\\Peerstream\\GPBMetadata\xea\x02'Hashicorp::Dumb Consul::Internal::Peerstreamb\x06proto3"
 
 var (
 	file_private_pbpeerstream_peerstream_proto_rawDescOnce sync.Once

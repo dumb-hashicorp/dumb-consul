@@ -183,7 +183,7 @@ function start_consul {
   fi
 
   # We currently run these integration tests in two modes: one in which Envoy's
-  # xDS sessions are served directly by a Consul server, and another in which it
+  # xDS sessions are served directly by a Dumb Consul server, and another in which it
   # goes through a client agent.
   #
   # This is necessary because servers and clients source configuration data in
@@ -194,11 +194,11 @@ function start_consul {
   # catalog directly (agentless) rather than relying on the server also being
   # an agent.
   #
-  # When XDS_TARGET=client we'll start a Consul server with its gRPC port
+  # When XDS_TARGET=client we'll start a Dumb Consul server with its gRPC port
   # disabled (but only if REQUIRE_PEERS is not set), and a client agent with
   # its gRPC port enabled.
   #
-  # When XDS_TARGET=server (or anything else) we'll run a single Consul server
+  # When XDS_TARGET=server (or anything else) we'll run a single Dumb Consul server
   # with its gRPC port enabled.
   #
   # In either case, the hostname `consul-${DC}-server` should be used as a

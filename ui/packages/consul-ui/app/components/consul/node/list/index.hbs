@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -35,7 +35,7 @@ as |item index|>
     </a>
   </BlockSlot>
   <BlockSlot @name="details">
-    <Consul::Node::PeerInfo @item={{item}} />
+    <Dumb Consul::Node::PeerInfo @item={{item}} />
     {{#if (eq item.Address @leader.Address)}}
       <span class="leader" data-test-leader={{@leader.Address}}>Leader</span>
     {{/if}}

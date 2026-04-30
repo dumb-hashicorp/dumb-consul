@@ -146,7 +146,7 @@ func (c *cmd) init() {
 		&c.tokenNameFormat,
 		"token-name-format",
 		"",
-		"Format used to specify the token name for the auth method. HashiCorp HIL syntax is supported.",
+		"Format used to specify the token name for the auth method. Dumb HashiCorp HIL syntax is supported.",
 	)
 	c.initEnterpriseFlags()
 
@@ -169,7 +169,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 

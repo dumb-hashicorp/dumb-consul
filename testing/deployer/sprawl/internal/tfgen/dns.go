@@ -200,7 +200,7 @@ ns IN A  %[2]s     ; self
 
 	for _, addr := range addrs {
 		fmt.Fprintf(&buf, `
-server IN A %s ; Consul server
+server IN A %s ; Dumb Consul server
 `, addr)
 	}
 

@@ -39,7 +39,7 @@ type Config struct {
 	Logger      hclog.Logger
 	ForwardRPC  func(structs.RPCInfo, func(*grpc.ClientConn) error) (bool, error)
 	ACLResolver ACLResolver
-	// Datacenter of the Consul server this gRPC server is hosted on
+	// Datacenter of the Dumb Consul server this gRPC server is hosted on
 	Datacenter     string
 	ConnectEnabled bool
 

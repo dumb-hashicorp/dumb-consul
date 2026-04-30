@@ -757,7 +757,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 				require.Equal(t, "MISS", resp.Header().Get("X-Cache"))
 			}
 
-			require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+			require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 		}
 
 		{
@@ -778,7 +778,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 				require.Equal(t, "HIT", resp.Header().Get("X-Cache"))
 			}
 
-			require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+			require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 		}
 	}
 
@@ -810,7 +810,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 				nodes := obj.(structs.CheckServiceNodes)
 				require.Len(r, nodes, 2)
 
-				header := resp.Header().Get("X-Consul-Index")
+				header := resp.Header().Get("X-Dumb Consul-Index")
 				if header == "" || header == "0" {
 					r.Fatalf("Want non-zero header: %q", header)
 				}
@@ -825,7 +825,7 @@ func testHealthServiceNodes(t *testing.T, backendCfg *queryBackendConfiguration)
 						r.Fatalf("should be a cache hit")
 					}
 				}
-				require.Equal(r, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(r, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 			})
 		}
 	}
@@ -986,7 +986,7 @@ use_streaming_backend = true
 				require.True(t, idx < newIdx, "index should have increased."+
 					"idx=%d, newIdx=%d", idx, newIdx)
 
-				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 
 				idx = newIdx
 
@@ -1014,7 +1014,7 @@ use_streaming_backend = true
 
 				newIdx := getIndex(t, resp)
 				require.Equal(t, idx, newIdx)
-				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 			}
 
 			if tc.grpcMetrics {
@@ -1115,7 +1115,7 @@ use_streaming_backend = true
 				require.Equal(t, "web", node.Service.Service)
 				require.Equal(t, []string{"foo"}, node.Service.Tags)
 
-				require.Equal(t, "blocking-query", resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, "blocking-query", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 
 				idx := getIndex(t, resp)
 				require.True(t, idx > 0)
@@ -1160,7 +1160,7 @@ use_streaming_backend = true
 				}
 
 				require.Len(t, out, 0)
-				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, tc.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 			})
 		})
 	}
@@ -1273,7 +1273,7 @@ func TestHealthServiceNodes_NodeMetaFilter(t *testing.T) {
 				require.NotNil(t, nodes[0].Checks)
 				require.Empty(t, nodes[0].Checks)
 
-				require.Equal(t, tst.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+				require.Equal(t, tst.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 			})
 		})
 	}
@@ -1355,7 +1355,7 @@ func testHealthServiceNodes_Filter(t *testing.T, backendCfg *queryBackendConfigu
 	require.Len(t, nodes, 1)
 	require.Len(t, nodes[0].Checks, 1)
 
-	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 }
 
 func TestHealthServiceNodes_DistanceSort(t *testing.T) {
@@ -1497,7 +1497,7 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 		if len(nodes) != 0 {
 			t.Fatalf("bad: %v", nodes)
 		}
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_true", func(t *testing.T) {
@@ -1518,7 +1518,7 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 		if len(nodes) != 0 {
 			t.Fatalf("bad: %v", obj)
 		}
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_false", func(t *testing.T) {
@@ -1540,7 +1540,7 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 		if len(nodes) != 1 {
 			t.Fatalf("bad: %v", obj)
 		}
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_bad", func(t *testing.T) {
@@ -1554,7 +1554,7 @@ func testHealthServiceNodes_PassingFilter(t *testing.T, backendCfg *queryBackend
 		if !strings.Contains(err.Error(), "Invalid value for ?passing") {
 			t.Errorf("bad %s", err.Error())
 		}
-		require.Equal(t, "", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 }
 
@@ -1745,7 +1745,7 @@ func testHealthConnectServiceNodes(t *testing.T, backendCfg *queryBackendConfigu
 	assert.Len(t, nodes, 1)
 	assert.Len(t, nodes[0].Checks, 0)
 
-	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 }
 
 func TestHealthIngressServiceNodes(t *testing.T) {
@@ -1844,7 +1844,7 @@ func testHealthIngressServiceNodes(t *testing.T, agentHCL string) {
 		// Should be a cache miss
 		require.Equal(t, "MISS", resp.Header().Get("X-Cache"))
 		// always a blocking query, because the ingress endpoint does not yet support streaming.
-		require.Equal(t, "blocking-query", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "blocking-query", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	}))
 
 	require.True(t, t.Run("test caching hit", func(t *testing.T) {
@@ -1860,7 +1860,7 @@ func testHealthIngressServiceNodes(t *testing.T, agentHCL string) {
 		// Should be a cache HIT now!
 		require.Equal(t, "HIT", resp.Header().Get("X-Cache"))
 		// always a blocking query, because the ingress endpoint does not yet support streaming.
-		require.Equal(t, "blocking-query", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "blocking-query", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	}))
 }
 
@@ -1922,7 +1922,7 @@ func testHealthConnectServiceNodes_Filter(t *testing.T, backendCfg *queryBackend
 	require.Equal(t, args.Service.Address, nodes[0].Service.Address)
 	require.Equal(t, args.Service.Proxy, nodes[0].Service.Proxy)
 
-	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+	require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 }
 
 func TestHealthConnectServiceNodes_PassingFilter(t *testing.T) {
@@ -1969,7 +1969,7 @@ func testHealthConnectServiceNodes_PassingFilter(t *testing.T, backendCfg *query
 		nodes := obj.(structs.CheckServiceNodes)
 		assert.Len(t, nodes, 0)
 
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_true", func(t *testing.T) {
@@ -1987,7 +1987,7 @@ func testHealthConnectServiceNodes_PassingFilter(t *testing.T, backendCfg *query
 		nodes := obj.(structs.CheckServiceNodes)
 		assert.Len(t, nodes, 0)
 
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_false", func(t *testing.T) {
@@ -2004,7 +2004,7 @@ func testHealthConnectServiceNodes_PassingFilter(t *testing.T, backendCfg *query
 		// Should be 1
 		nodes := obj.(structs.CheckServiceNodes)
 		assert.Len(t, nodes, 1)
-		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, backendCfg.queryBackend, resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 
 	t.Run("passing_bad", func(t *testing.T) {
@@ -2019,7 +2019,7 @@ func testHealthConnectServiceNodes_PassingFilter(t *testing.T, backendCfg *query
 		assert.True(t, isHTTPBadRequest(err))
 
 		assert.True(t, strings.Contains(err.Error(), "Invalid value for ?passing"))
-		require.Equal(t, "", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 }
 

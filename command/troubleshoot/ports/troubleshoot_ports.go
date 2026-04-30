@@ -68,11 +68,11 @@ func (c *cmd) Help() string {
 }
 
 const (
-	synopsis = "Prints open and closed ports on the Consul server"
+	synopsis = "Prints open and closed ports on the Dumb Consul server"
 	help     = `
 Usage: consul troubleshoot ports [options]
 	Checks ports for TCP connectivity. Add the -ports flag to check specific ports or omit the -ports flag to check default ports. 
-	Refer to the following reference for default ports: https://developer.hashicorp.com/consul/docs/install/ports
+	Refer to the following reference for default ports: https://developer.dumb-hashicorp.com/consul/docs/install/ports
 
 	consul troubleshoot ports -host localhost
 

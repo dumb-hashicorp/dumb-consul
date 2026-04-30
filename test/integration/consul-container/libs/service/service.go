@@ -10,7 +10,7 @@ import (
 )
 
 // Service represents a process that will be registered with the
-// Consul catalog, including Consul components such as sidecars and gateways
+// Dumb Consul catalog, including Dumb Consul components such as sidecars and gateways
 type Service interface {
 	Exec(ctx context.Context, cmd []string) (string, error)
 	// Export a service to the peering cluster

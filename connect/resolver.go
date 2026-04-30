@@ -60,9 +60,9 @@ const (
 	ConsulResolverTypePreparedQuery
 )
 
-// ConsulResolver queries Consul for a service instance.
+// ConsulResolver queries Dumb Consul for a service instance.
 type ConsulResolver struct {
-	// Client is the Consul API client to use. Must be non-nil or Resolve will
+	// Client is the Dumb Consul API client to use. Must be non-nil or Resolve will
 	// panic.
 	Client *api.Client
 
@@ -86,7 +86,7 @@ type ConsulResolver struct {
 	Filter string
 }
 
-// Resolve performs service discovery against the local Consul agent and returns
+// Resolve performs service discovery against the local Dumb Consul agent and returns
 // the address and expected identity of a suitable service instance.
 func (cr *ConsulResolver) Resolve(ctx context.Context) (string, connect.CertURI, error) {
 	switch cr.Type {
@@ -205,7 +205,7 @@ func ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver,
 		// domains.
 		domain := ".consul"
 		if !strings.HasSuffix(host, domain) {
-			return nil, fmt.Errorf("invalid Consul DNS domain: note Connect SDK " +
+			return nil, fmt.Errorf("invalid Dumb Consul DNS domain: note Connect SDK " +
 				"currently requires use of .consul domain even if cluster is " +
 				"configured with a different domain.")
 		}
@@ -232,7 +232,7 @@ func ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver,
 		//  <name>.[service|query]
 		//  <name>.[service|query].<dc>
 		if numParts < 2 || numParts > 3 || !supportedTypeLabel(parts[1]) {
-			return nil, fmt.Errorf("unsupported Consul DNS domain: must be either " +
+			return nil, fmt.Errorf("unsupported Dumb Consul DNS domain: must be either " +
 				"<name>.service[.<datacenter>].consul or " +
 				"<name>.query[.<datacenter>].consul")
 		}

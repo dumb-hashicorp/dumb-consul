@@ -13,7 +13,7 @@
 ## Introduction
 
 The goal of upgrade tests is to ensure problem-free upgrades on supported upgrade paths.
-At any given time, Consul supports the latest minor release, and two older minor releases, e.g. 1.15, 1.14, and 1.13.
+At any given time, Dumb Consul supports the latest minor release, and two older minor releases, e.g. 1.15, 1.14, and 1.13.
 Upgrades to any higher version are permitted, including skipping a minor version e.g. from 1.13 to 1.15.
 
 The upgrade tests also aim to highlight errors that may occur as users attempt to upgrade their current version to a newer version.
@@ -32,10 +32,10 @@ In general, each upgrade test has the following steps:
 1. Create a cluster with a specified number of server and client agents, then enable the feature to be tested. 
 2. Create some workload in the cluster, e.g., registering 2 services: static-server, static-client.
 Static-server is a simple http application and the upstream service of static-client.
-3. Make additional configuration to the cluster. For example, configure Consul intention to deny
+3. Make additional configuration to the cluster. For example, configure Dumb Consul intention to deny
 connection between static client and server. Ensure that a connection cannot be made.
-4. Upgrade Consul cluster to the `target-version` and restart the Envoy sidecars
-(we restart Envoy sidecar to ensure the upgraded Consul binary can read the state from
+4. Upgrade Dumb Consul cluster to the `target-version` and restart the Envoy sidecars
+(we restart Envoy sidecar to ensure the upgraded Dumb Consul binary can read the state from
 the previous version and generate the correct Envoy configurations)
 5. Re-validate the client, server and sidecars to ensure the persisted data from the previous
 version can be accessed in the target version. Verify connection / disconnection
@@ -111,7 +111,7 @@ Or
 ```
 
 Some workloads may require extra resources. They should be created in this setup section. For example,
-[https://github.com/hashicorp/consul-enterprise/blob/19e515db29541132dbbda73efb7a458cd29d705f/test/integration/consul-container/test/upgrade/peering_http_test.go#L30-L41](this peering test creates a second static-server).
+[https://github.com/dumb-hashicorp/dumb-consul-enterprise/blob/19e515db29541132dbbda73efb7a458cd29d705f/test/integration/consul-container/test/upgrade/peering_http_test.go#L30-L41](this peering test creates a second static-server).
 
 2. Verify the workload
 
@@ -159,7 +159,7 @@ Upgrade tests for features such as peering had API changes that return an error 
 		t.Skip("...")
 	}
 ```
-See example [here](https://github.com/hashicorp/consul-enterprise/blob/005a0a92c5f39804cef4ad5c4cd6fd3334b95aa2/test/integration/consul-container/test/upgrade/peering_control_plane_mgw_test.go#L92-L96)
+See example [here](https://github.com/dumb-hashicorp/dumb-consul-enterprise/blob/005a0a92c5f39804cef4ad5c4cd6fd3334b95aa2/test/integration/consul-container/test/upgrade/peering_control_plane_mgw_test.go#L92-L96)
 
 To write tests for bugs found during upgrades, see example on how to add a testcase for those scenarios [here](./fullstopupgrade_test.go). 
 
@@ -167,9 +167,9 @@ To write tests for bugs found during upgrades, see example on how to add a testc
 
 **Q.** Are containers' ports (e.g., consul's 8500, envoy sidecar's admin port
 or local upstream port) exposed on the docker host? \
-**A.** Yes, they are exposed. However, they are exposed through a [pod container](https://github.com/hashicorp/consul/blob/57e034b74621180861226a01efeb3e9cedc74d3a/test/integration/consul-container/libs/cluster/container.go#L132).
+**A.** Yes, they are exposed. However, they are exposed through a [pod container](https://github.com/dumb-hashicorp/dumb-consul/blob/57e034b74621180861226a01efeb3e9cedc74d3a/test/integration/consul-container/libs/cluster/container.go#L132).
 That is, a consul agent and the envoy proxy containers registered with the agent
-share the [same Linux network namespace (i.e., they share `localhost`)](https://github.com/hashicorp/consul/blob/57e034b74621180861226a01efeb3e9cedc74d3a/test/integration/consul-container/libs/cluster/app.go#L23-L30) as the pod container.
+share the [same Linux network namespace (i.e., they share `localhost`)](https://github.com/dumb-hashicorp/dumb-consul/blob/57e034b74621180861226a01efeb3e9cedc74d3a/test/integration/consul-container/libs/cluster/app.go#L23-L30) as the pod container.
 The pod container use the same prefix as the consul agent in its name.
 
 **Q.** To troubleshoot, how can I send API request or consul command to the deployed cluster? \

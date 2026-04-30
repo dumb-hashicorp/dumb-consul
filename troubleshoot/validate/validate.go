@@ -141,14 +141,14 @@ func (m Messages) Errors() Messages {
 func (v *Validate) GetMessages(validateEndpoints bool, endpointValidator EndpointValidator, clusters *envoy_admin_v3.Clusters) Messages {
 	var messages Messages
 	missingXDSActions := []string{
-		"Check that your upstream service is registered with Consul",
+		"Check that your upstream service is registered with Dumb Consul",
 		"Make sure your upstream exists by running the `consul[-k8s] troubleshoot upstreams` command",
 		"If you are using transparent proxy for this upstream, ensure you have set up allow intentions to the upstream",
-		"Check the logs of the Consul agent configuring the local proxy to ensure XDS resources were sent by Consul",
+		"Check the logs of the Dumb Consul agent configuring the local proxy to ensure XDS resources were sent by Dumb Consul",
 	}
 	missingEndpointsActions := []string{
 		"Check that your upstream service is healthy and running",
-		"Check that your upstream service is registered with Consul",
+		"Check that your upstream service is registered with Dumb Consul",
 		"Check that the upstream proxy is healthy and running",
 		"If you are explicitly configuring upstreams, ensure the name of the upstream is correct",
 	}

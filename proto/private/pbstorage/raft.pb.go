@@ -692,7 +692,7 @@ const file_private_pbstorage_raft_proto_rawDesc = "" +
 	"\x06Delete\x125.hashicorp.consul.internal.storage.raft.DeleteRequest\x1a\x16.google.protobuf.Empty\"\b\xe2\x86\x04\x04\b\x01\x10\v\x12{\n" +
 	"\x04Read\x123.hashicorp.consul.internal.storage.raft.ReadRequest\x1a4.hashicorp.consul.internal.storage.raft.ReadResponse\"\b\xe2\x86\x04\x04\b\x01\x10\v\x12{\n" +
 	"\x04List\x123.hashicorp.consul.internal.storage.raft.ListRequest\x1a4.hashicorp.consul.internal.storage.raft.ListResponse\"\b\xe2\x86\x04\x04\b\x01\x10\vB\xaa\x02\n" +
-	"*com.hashicorp.consul.internal.storage.raftB\tRaftProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbstorage\xa2\x02\x05HCISR\xaa\x02&Hashicorp.Consul.Internal.Storage.Raft\xca\x02&Hashicorp\\Consul\\Internal\\Storage\\Raft\xe2\x022Hashicorp\\Consul\\Internal\\Storage\\Raft\\GPBMetadata\xea\x02*Hashicorp::Consul::Internal::Storage::Raftb\x06proto3"
+	"*com.hashicorp.consul.internal.storage.raftB\tRaftProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbstorage\xa2\x02\x05HCISR\xaa\x02&Hashicorp.Dumb Consul.Internal.Storage.Raft\xca\x02&Hashicorp\\Dumb Consul\\Internal\\Storage\\Raft\xe2\x022Hashicorp\\Dumb Consul\\Internal\\Storage\\Raft\\GPBMetadata\xea\x02*Hashicorp::Dumb Consul::Internal::Storage::Raftb\x06proto3"
 
 var (
 	file_private_pbstorage_raft_proto_rawDescOnce sync.Once

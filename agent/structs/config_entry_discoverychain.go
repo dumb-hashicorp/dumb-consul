@@ -1499,7 +1499,7 @@ func (e *ServiceResolverConfigEntry) ListRelatedServices() []ServiceID {
 	return out
 }
 
-// ServiceResolverSubset defines a way to select a portion of the Consul
+// ServiceResolverSubset defines a way to select a portion of the Dumb Consul
 // catalog during service discovery. Anything that affects the ultimate catalog
 // query performed OR post-processing on the results of that sort of query
 // should be defined here.

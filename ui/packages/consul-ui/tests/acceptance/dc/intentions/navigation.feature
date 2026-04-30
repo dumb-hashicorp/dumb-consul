@@ -21,7 +21,7 @@ Feature: dc / intentions / navigation
       dc: dc-1
     ---
     Then the url should be /dc-1/intentions
-    And the title should be "Intentions - Consul"
+    And the title should be "Intentions - Dumb Consul"
     Then I see 3 intention models on the intentionList component
     Given 1 intention model from yaml
     ---
@@ -37,7 +37,7 @@ Feature: dc / intentions / navigation
       dc: dc-1
     ---
     Then the url should be /dc-1/intentions
-    And the title should be "Intentions - Consul"
+    And the title should be "Intentions - Dumb Consul"
     Then I see 3 intention models on the intentionList component
     When I click create
     Then the url should be /dc-1/intentions/create

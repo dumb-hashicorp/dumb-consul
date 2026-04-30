@@ -323,37 +323,37 @@ func TestConsulResolverFromAddrFunc(t *testing.T) {
 		{
 			name:    "invalid host:port",
 			addr:    "%%%",
-			wantErr: "invalid Consul DNS domain",
+			wantErr: "invalid Dumb Consul DNS domain",
 		},
 		{
 			name:    "custom domain",
 			addr:    "foo.service.my-consul.com",
-			wantErr: "invalid Consul DNS domain",
+			wantErr: "invalid Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported query type",
 			addr:    "foo.connect.consul",
-			wantErr: "unsupported Consul DNS domain",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported query type and datacenter",
 			addr:    "foo.connect.dc1.consul",
-			wantErr: "unsupported Consul DNS domain",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported query type and datacenter",
 			addr:    "foo.connect.dc1.consul",
-			wantErr: "unsupported Consul DNS domain",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported tag filter",
 			addr:    "tag1.foo.service.consul",
-			wantErr: "unsupported Consul DNS domain",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported tag filter with DC",
 			addr:    "tag1.foo.service.dc1.consul",
-			wantErr: "unsupported Consul DNS domain",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 	}
 	for _, tt := range tests {

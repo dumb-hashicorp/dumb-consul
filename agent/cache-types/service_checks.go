@@ -104,7 +104,7 @@ func (c *ServiceHTTPChecks) Fetch(_ context.Context, opts cache.FetchOptions, re
 // ServiceHTTPChecksRequest is the cache.Request implementation for the
 // ServiceHTTPBasedChecks cache type. This is implemented here and not in structs
 // since this is only used for cache-related requests and not forwarded
-// directly to any Consul servers.
+// directly to any Dumb Consul servers.
 type ServiceHTTPChecksRequest struct {
 	ServiceID     string
 	NodeName      string

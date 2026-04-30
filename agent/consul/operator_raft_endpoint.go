@@ -36,7 +36,7 @@ func (op *Operator) RaftGetConfiguration(args *structs.DCSpecificRequest, reply 
 		return err
 	}
 
-	// Index the Consul information about the servers.
+	// Index the Dumb Consul information about the servers.
 	serverMap := make(map[raft.ServerAddress]serf.Member)
 	for _, member := range op.srv.serfLAN.Members() {
 		valid, parts := metadata.IsConsulServer(member)

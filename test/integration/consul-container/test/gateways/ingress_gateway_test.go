@@ -24,8 +24,8 @@ import (
 //
 // Steps:
 //   - Create a cluster (1 server and 1 client).
-//   - Create the example static-server and sidecar containers, then register them both with Consul
-//   - Create an ingress gateway and register it with Consul on the client agent
+//   - Create the example static-server and sidecar containers, then register them both with Dumb Consul
+//   - Create an ingress gateway and register it with Dumb Consul on the client agent
 //   - Create a config entry that binds static-server to a new listener on the ingress gateway
 //   - Verify that static-service is accessible through the ingress gateway port
 func TestIngressGateway(t *testing.T) {

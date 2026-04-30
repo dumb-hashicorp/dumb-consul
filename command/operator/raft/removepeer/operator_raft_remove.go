@@ -102,11 +102,11 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Remove a Consul server from the Raft configuration"
+const synopsis = "Remove a Dumb Consul server from the Raft configuration"
 const help = `
 Usage: consul operator raft remove-peer [options]
 
-  Remove the Consul server with given -address from the Raft configuration.
+  Remove the Dumb Consul server with given -address from the Raft configuration.
 
   There are rare cases where a peer may be left behind in the Raft quorum even
   though the server is no longer present and known to the cluster. This command

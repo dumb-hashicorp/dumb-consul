@@ -116,7 +116,7 @@ Usage: consul troubleshoot upstreams [options]
   
   Connects to local Envoy and lists upstream service envoy identifiers.
   This command is used in combination with 
-  'consul troubleshoot proxy' to diagnose issues in Consul service mesh. 
+  'consul troubleshoot proxy' to diagnose issues in Dumb Consul service mesh. 
   Examples:
     $ consul troubleshoot upstreams
 `

@@ -24,7 +24,7 @@ module.exports = ({ appName, environment, rootURL, config, env }) => `
   <noscript>
       <div style="margin: 0 auto;">
           <h2>JavaScript Required</h2>
-          <p>Please enable JavaScript in your web browser to use Consul UI.</p>
+          <p>Please enable JavaScript in your web browser to use Dumb Consul UI.</p>
       </div>
   </noscript>
 ${BrandLoader({

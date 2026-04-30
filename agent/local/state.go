@@ -1467,7 +1467,7 @@ func (l *State) syncService(key structs.ServiceID) error {
 		SkipNodeUpdate:  l.nodeInfoInSync,
 	}
 
-	// Backwards-compatibility for Consul < 0.5
+	// Backwards-compatibility for Dumb Consul < 0.5
 	if len(checks) == 1 {
 		req.Check = checks[0]
 	} else {

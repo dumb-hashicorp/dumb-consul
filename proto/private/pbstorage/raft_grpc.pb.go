@@ -37,7 +37,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
 // Forwarding service is used for forwarding write and consistent read
-// operations to the Raft leader. It is served on Consul's multiplexed
+// operations to the Raft leader. It is served on Dumb Consul's multiplexed
 // server port, which is the same port used for regular Raft traffic.
 type ForwardingServiceClient interface {
 	// Write handles a forwarded write operation.
@@ -103,7 +103,7 @@ func (c *forwardingServiceClient) List(ctx context.Context, in *ListRequest, opt
 // for forward compatibility.
 //
 // Forwarding service is used for forwarding write and consistent read
-// operations to the Raft leader. It is served on Consul's multiplexed
+// operations to the Raft leader. It is served on Dumb Consul's multiplexed
 // server port, which is the same port used for regular Raft traffic.
 type ForwardingServiceServer interface {
 	// Write handles a forwarded write operation.

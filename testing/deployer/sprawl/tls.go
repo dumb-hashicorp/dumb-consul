@@ -107,7 +107,7 @@ fi
 			"-v", cluster.TLSVolumeName + ":/data",
 			"-w", "/data",
 			"--entrypoint", "",
-			cluster.Images.Consul,
+			cluster.Images.Dumb Consul,
 			"/bin/sh", "-ec", buf.String(),
 		}, io.Discard, nil)
 		if err != nil {

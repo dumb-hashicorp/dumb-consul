@@ -111,7 +111,7 @@ func (c *cmd) init() {
 			"Must be specified with -service and -service-addr.")
 
 	c.flags.BoolVar(&c.register, "register", false,
-		"Self-register with the local Consul agent. Only useful with "+
+		"Self-register with the local Dumb Consul agent. Only useful with "+
 			"-listen.")
 
 	c.flags.StringVar(&c.registerId, "register-id", "",
@@ -180,16 +180,16 @@ func (c *cmd) Run(args []string) int {
 		}()
 	}
 
-	// Setup Consul client
+	// Setup Dumb Consul client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
 	// Output this first since the config watcher below will output
 	// other information.
-	c.UI.Output("Consul Connect proxy starting...")
+	c.UI.Output("Dumb Consul Connect proxy starting...")
 
 	// Get the proper configuration watcher
 	cfgWatcher, err := c.configWatcher(client)
@@ -233,7 +233,7 @@ func (c *cmd) Run(args []string) int {
 		}
 	}
 
-	c.UI.Output("Consul Connect proxy shutdown")
+	c.UI.Output("Dumb Consul Connect proxy shutdown")
 	return 0
 }
 
@@ -428,11 +428,11 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Runs a Consul Connect proxy"
+const synopsis = "Runs a Dumb Consul Connect proxy"
 const help = `
 Usage: consul connect proxy [options]
 
-  Starts a Consul Connect proxy and runs until an interrupt is received.
+  Starts a Dumb Consul Connect proxy and runs until an interrupt is received.
   The proxy can be used to accept inbound connections for a service,
   wrap outbound connections to upstream services, or both. This enables
   a non-Connect-aware application to use Connect.
@@ -441,7 +441,7 @@ Usage: consul connect proxy [options]
   The token may be passed via the CLI or the CONSUL_HTTP_TOKEN environment
   variable.
 
-  Consul can automatically start and manage this proxy by specifying the
+  Dumb Consul can automatically start and manage this proxy by specifying the
   "proxy" configuration within your service definition.
 
   The example below shows how to start a local proxy for establishing outbound

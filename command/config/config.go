@@ -27,11 +27,11 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Interact with Consul's Centralized Configurations"
+const synopsis = "Interact with Dumb Consul's Centralized Configurations"
 const help = `
 Usage: consul config <subcommand> [options] [args]
 
-  This command has subcommands for interacting with Consul's Centralized
+  This command has subcommands for interacting with Dumb Consul's Centralized
   Configuration system. Here are some simple examples, and more detailed
   examples are available in the subcommands or the documentation.
 
@@ -60,7 +60,7 @@ const (
 	WarningServiceDefaultsPermissiveMTLS = "MutualTLSMode=permissive is insecure. " +
 		"Set to `strict` when your service no longer needs to accept non-mTLS " +
 		"traffic. Check `tcp.permissive_public_listener` metrics in Envoy for " +
-		"non-mTLS traffic. Refer to Consul documentation for more information."
+		"non-mTLS traffic. Refer to Dumb Consul documentation for more information."
 
 	WarningProxyDefaultsPermissiveMTLS = "MutualTLSMode=permissive is insecure. " +
 		"To keep your services secure, set MutualTLSMode to `strict` whenever possible " +

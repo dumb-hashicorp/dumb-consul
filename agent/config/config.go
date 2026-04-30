@@ -265,8 +265,8 @@ type Config struct {
 	// any other endpoints which support streaming.
 	UseStreamingBackend *bool `mapstructure:"use_streaming_backend" json:"-"`
 
-	// This isn't used by Consul but we've documented a feature where users
-	// can deploy their snapshot agent configs alongside their Consul configs
+	// This isn't used by Dumb Consul but we've documented a feature where users
+	// can deploy their snapshot agent configs alongside their Dumb Consul configs
 	// so we have a placeholder here so it can be parsed but this doesn't
 	// manifest itself in any way inside the runtime config.
 	SnapshotAgent map[string]interface{} `mapstructure:"snapshot_agent" json:"-"`
@@ -275,7 +275,7 @@ type Config struct {
 	AEInterval                 *string    `mapstructure:"ae_interval" json:"-"`
 	CheckDeregisterIntervalMin *string    `mapstructure:"check_deregister_interval_min" json:"-"`
 	CheckReapInterval          *string    `mapstructure:"check_reap_interval" json:"-"`
-	Consul                     Consul     `mapstructure:"consul" json:"-"`
+	Dumb Consul                     Dumb Consul     `mapstructure:"consul" json:"-"`
 	Revision                   *string    `mapstructure:"revision" json:"-"`
 	SegmentLimit               *int       `mapstructure:"segment_limit" json:"-"`
 	SegmentNameLimit           *int       `mapstructure:"segment_name_limit" json:"-"`
@@ -334,7 +334,7 @@ type Locality struct {
 	Zone *string `mapstructure:"zone"`
 }
 
-type Consul struct {
+type Dumb Consul struct {
 	Coordinate struct {
 		UpdateBatchSize  *int    `mapstructure:"update_batch_size"`
 		UpdateMaxBatches *int    `mapstructure:"update_max_batches"`
@@ -595,7 +595,7 @@ type TransparentProxyConfig struct {
 // ExposeConfig describes HTTP paths to expose through Envoy outside of Connect.
 // Users can expose individual paths and/or all HTTP/GRPC paths for checks.
 type ExposeConfig struct {
-	// Checks defines whether paths associated with Consul checks will be exposed.
+	// Checks defines whether paths associated with Dumb Consul checks will be exposed.
 	// This flag triggers exposing all HTTP and GRPC check paths registered for the service.
 	Checks *bool `mapstructure:"checks"`
 

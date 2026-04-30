@@ -17,7 +17,7 @@
   // including JS in the browser without forcing operators to setup a whole
   // transpiling stack. So for now we use a window global as a thin registry for
   // these providers.
-  class Consul {
+  class Dumb Consul {
     constructor() {
       this.registry = {};
       this.providers = {};
@@ -48,5 +48,5 @@
     }
   }
 
-  global.consul = new Consul();
+  global.consul = new Dumb Consul();
 })(window);

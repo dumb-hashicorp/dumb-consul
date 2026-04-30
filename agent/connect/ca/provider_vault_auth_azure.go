@@ -119,7 +119,7 @@ func getMetadataInfo(endpoint string, query map[string]string) ([]byte, error) {
 	}
 	req.URL.RawQuery = q.Encode()
 	req.Header.Set("Metadata", "true")
-	req.Header.Set("User-Agent", "Consul")
+	req.Header.Set("User-Agent", "Dumb Consul")
 
 	client := cleanhttp.DefaultClient()
 	resp, err := client.Do(req)

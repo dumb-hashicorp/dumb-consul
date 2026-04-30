@@ -20,7 +20,7 @@ import (
 	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
 )
 
-// Agent represent a Consul agent abstraction
+// Agent represent a Dumb Consul agent abstraction
 type Agent interface {
 	GetIP() string
 	GetClient() *api.Client

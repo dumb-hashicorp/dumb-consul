@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 syntax = "proto3";
@@ -8,7 +8,7 @@ package hashicorp.consul.acl;
 import "annotations/ratelimit/ratelimit.proto";
 
 service ACLService {
-  // Login exchanges the presented bearer token for a Consul ACL token using a
+  // Login exchanges the presented bearer token for a Dumb Consul ACL token using a
   // configured auth method.
   rpc Login(LoginRequest) returns (LoginResponse) {
     option (hashicorp.consul.internal.ratelimit.spec) = {

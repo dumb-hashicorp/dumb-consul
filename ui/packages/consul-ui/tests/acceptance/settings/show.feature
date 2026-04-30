@@ -7,7 +7,7 @@ Feature: settings / show: Show Settings Page
     When I visit the settings page
     Then the url should be /settings
     # FIXME
-    # And the title should be "Settings - Consul"
+    # And the title should be "Settings - Dumb Consul"
     And I see blockingQueries
   Scenario: Setting CONSUL_UI_DISABLE_REALTIME hides Blocking Queries
     Given 1 datacenter model with the value "datacenter"
@@ -22,5 +22,5 @@ Feature: settings / show: Show Settings Page
     When I visit the settings page
     Then the url should be /settings
     # FIXME
-    # And the title should be "Settings - Consul"
+    # And the title should be "Settings - Dumb Consul"
     And I don't see blockingQueries

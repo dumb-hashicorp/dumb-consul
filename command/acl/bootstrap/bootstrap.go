@@ -71,7 +71,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -107,13 +107,13 @@ func (c *cmd) Help() string {
 	return flags.Usage(c.help, nil)
 }
 
-const synopsis = "Bootstrap Consul's ACL system"
+const synopsis = "Bootstrap Dumb Consul's ACL system"
 
 // TODO (ACL-V2) - maybe embed link to bootstrap reset docs
 const help = `
 Usage: consul acl bootstrap [options]
 
-  The bootstrap command will request Consul to generate a new token with unlimited privileges to use
+  The bootstrap command will request Dumb Consul to generate a new token with unlimited privileges to use
   for management purposes and output its details. This can only be done once and afterwards bootstrapping
   will be disabled. If all tokens are lost and you need to bootstrap again you can follow the bootstrap
   reset procedure

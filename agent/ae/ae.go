@@ -50,7 +50,7 @@ type SyncState interface {
 // StateSyncer manages background synchronization of the given state.
 //
 // The state is synchronized on a regular basis or on demand when either
-// the state has changed or a new Consul server has joined the cluster.
+// the state has changed or a new Dumb Consul server has joined the cluster.
 //
 // The regular state synchronization provides a self-healing mechanism
 // for the cluster which is also called anti-entropy.

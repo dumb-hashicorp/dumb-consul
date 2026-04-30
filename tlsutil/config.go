@@ -90,7 +90,7 @@ type ProtocolConfig struct {
 	// certificate authority. This is used to verify authenticity of server
 	// nodes.
 	//
-	// Note: this setting doesn't apply to the external gRPC configuration, as Consul
+	// Note: this setting doesn't apply to the external gRPC configuration, as Dumb Consul
 	// makes no outgoing connections using this protocol.
 	VerifyOutgoing bool
 
@@ -132,7 +132,7 @@ type Config struct {
 	// provide matches the certificate
 	ServerName string
 
-	// Domain is the Consul TLD being used. Defaults to "consul."
+	// Domain is the Dumb Consul TLD being used. Defaults to "consul."
 	Domain string
 
 	// EnableAgentTLSForChecks is used to apply the agent's TLS settings in
@@ -1097,7 +1097,7 @@ type TLSConn interface {
 }
 
 // AuthorizeServerConn is used to validate that the connection is being established
-// by a Consul server in the same datacenter.
+// by a Dumb Consul server in the same datacenter.
 //
 // The identity of the connection is checked by verifying that the certificate
 // presented is signed by the Agent TLS CA, and has a DNSName that matches the

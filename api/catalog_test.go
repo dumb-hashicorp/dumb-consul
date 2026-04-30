@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -907,7 +907,7 @@ func TestAPI_CatalogRegistration(t *testing.T) {
 		Address:    "192.168.10.10",
 		NodeMeta:   map[string]string{"somekey": "somevalue"},
 		Service:    service,
-		// Specifying both Check and Checks is accepted by Consul
+		// Specifying both Check and Checks is accepted by Dumb Consul
 		Check:  check,
 		Checks: checks,
 	}

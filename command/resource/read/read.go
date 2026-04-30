@@ -123,7 +123,7 @@ func (c *cmd) Run(args []string) int {
 	c.http.MergeOntoConfig(config)
 	resourceClient, err := client.NewClient(config)
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 

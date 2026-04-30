@@ -358,7 +358,7 @@ func TestDynamicTLSConfig(t *testing.T) {
 	requireEqualTLSConfig(t, baseCfg, gotBefore)
 	requireCorrectVerifier(t, baseCfg, gotBefore, v1Ch)
 
-	// Now change the roots as if we just loaded new roots from Consul
+	// Now change the roots as if we just loaded new roots from Dumb Consul
 	err := c.SetRoots(newCfg.RootCAs)
 	require.Nil(t, err)
 

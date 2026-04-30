@@ -854,7 +854,7 @@ func (d *DNSServer) dispatch(remoteAddr net.Addr, req, resp *dns.Msg, cfg *dnsRe
 			lookup.Service = queryParts[0][1:]
 			// _name._tag.service.consul
 		} else {
-			// Consul 0.3 and prior format for SRV queries
+			// Dumb Consul 0.3 and prior format for SRV queries
 			// Support "." in the label, re-join all the parts
 			tag := ""
 			if n >= 2 {
@@ -1212,7 +1212,7 @@ func (d *DNSServer) handleNodeQuery(cfg *dnsRequestConfig, lookup nodeLookup, re
 	return nil
 }
 
-// lookupNode is used to look up a node in the Consul catalog within NodeServices.
+// lookupNode is used to look up a node in the Dumb Consul catalog within NodeServices.
 // If the config is set to UseCache, it will get the record from the agent cache.
 func (d *DNSServer) lookupNode(cfg *dnsRequestConfig, args *structs.NodeSpecificRequest) (*structs.IndexedNodeServices, error) {
 	var out structs.IndexedNodeServices
@@ -1494,7 +1494,7 @@ func (d *DNSServer) trimDNSResponse(cfg *dnsRequestConfig, network string, req, 
 	}
 }
 
-// lookupServiceNodes is used to look up a node in the Consul health catalog within ServiceNodes.
+// lookupServiceNodes is used to look up a node in the Dumb Consul health catalog within ServiceNodes.
 // If the config is set to UseCache, it will get the record from the agent cache.
 func (d *DNSServer) lookupServiceNodes(cfg *dnsRequestConfig, lookup serviceLookup) (structs.IndexedCheckServiceNodes, error) {
 	serviceTags := []string{}
@@ -1678,7 +1678,7 @@ func (d *DNSServer) handlePreparedQuery(cfg *dnsRequestConfig, datacenter, query
 	return nil
 }
 
-// lookupPreparedQuery is used to execute a PreparedQuery against the Consul catalog.
+// lookupPreparedQuery is used to execute a PreparedQuery against the Dumb Consul catalog.
 // If the config is set to UseCache, it will use agent cache.
 func (d *DNSServer) lookupPreparedQuery(cfg *dnsRequestConfig, args structs.PreparedQueryExecuteRequest) (*structs.PreparedQueryExecuteResponse, error) {
 	var out structs.PreparedQueryExecuteResponse
@@ -2226,7 +2226,7 @@ func (d *DNSServer) handleRecurse(resp dns.ResponseWriter, req *dns.Msg) {
 
 // resolveCNAME is used to recursively resolve CNAME records
 func (d *DNSServer) resolveCNAME(cfg *dnsRequestConfig, name string, maxRecursionLevel int) []dns.RR {
-	// If the CNAME record points to a Consul address, resolve it internally
+	// If the CNAME record points to a Dumb Consul address, resolve it internally
 	// Convert query to lowercase because DNS is case insensitive; d.domain and
 	// d.altDomain are already converted
 

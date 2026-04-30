@@ -1419,7 +1419,7 @@ func (s *ResourceGenerator) makeInboundListener(cfgSnap *proxycfg.ConfigSnapshot
 
 		err := s.finalizePublicListenerFromConfig(l, cfgSnap, useHTTPFilter)
 		if err != nil {
-			return nil, fmt.Errorf("failed to attach Consul filters and TLS context to custom public listener: %v", err)
+			return nil, fmt.Errorf("failed to attach Dumb Consul filters and TLS context to custom public listener: %v", err)
 		}
 		return l, nil
 	}
@@ -1560,7 +1560,7 @@ func (s *ResourceGenerator) makeInboundListener(cfgSnap *proxycfg.ConfigSnapshot
 	}
 	err = s.finalizePublicListenerFromConfig(l, cfgSnap, useHTTPFilter)
 	if err != nil {
-		return nil, fmt.Errorf("failed to attach Consul filters and TLS context to custom public listener: %v", err)
+		return nil, fmt.Errorf("failed to attach Dumb Consul filters and TLS context to custom public listener: %v", err)
 	}
 
 	// When permissive mTLS mode is enabled, include an additional filter chain
@@ -1595,9 +1595,9 @@ func (s *ResourceGenerator) makeInboundListener(cfgSnap *proxycfg.ConfigSnapshot
 // This is only used for inbound listeners today (see MeshHTTPConfig).
 func setNormalizationOptions(rn *structs.RequestNormalizationMeshConfig, opts *listenerFilterOpts) {
 	// Note that these options are _always_ set, not just when rn is non-nil. This enables us to set
-	// Consul defaults (e.g. InsecureDisablePathNormalization = false) that override Envoy defaults
-	// (e.g. normalize_path = false). We override defaults here rather than in xDS code s.t. Consul
-	// defaults are only applied where Consul configuration dictates it should be.
+	// Dumb Consul defaults (e.g. InsecureDisablePathNormalization = false) that override Envoy defaults
+	// (e.g. normalize_path = false). We override defaults here rather than in xDS code s.t. Dumb Consul
+	// defaults are only applied where Dumb Consul configuration dictates it should be.
 
 	opts.normalizePath = !rn.GetInsecureDisablePathNormalization() // invert to enable path normalization by default
 	opts.mergeSlashes = rn.GetMergeSlashes()
@@ -1636,7 +1636,7 @@ func makePermissiveFilterChain(cfgSnap *proxycfg.ConfigSnapshot, opts listenerFi
 	return chain, nil
 }
 
-// finalizePublicListenerFromConfig is used for best-effort injection of Consul filter-chains onto listeners.
+// finalizePublicListenerFromConfig is used for best-effort injection of Dumb Consul filter-chains onto listeners.
 // This include L4 authorization filters and TLS context.
 func (s *ResourceGenerator) finalizePublicListenerFromConfig(l *envoy_listener_v3.Listener, cfgSnap *proxycfg.ConfigSnapshot, useHTTPFilter bool) error {
 	if !useHTTPFilter {
@@ -1713,7 +1713,7 @@ func (s *ResourceGenerator) makeExposedCheckListener(cfgSnap *proxycfg.ConfigSna
 		Filters: []*envoy_listener_v3.Filter{f},
 	}
 
-	// For registered checks restrict traffic sources to localhost and Consul's advertise addr
+	// For registered checks restrict traffic sources to localhost and Dumb Consul's advertise addr
 	if path.ParsedFromCheck {
 
 		// For the advertise addr we use a CidrRange that only matches one address

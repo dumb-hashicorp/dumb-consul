@@ -31,7 +31,7 @@ import (
 	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
 )
 
-const bootLogLine = "Consul agent running"
+const bootLogLine = "Dumb Consul agent running"
 
 const disableRYUKEnv = "TESTCONTAINERS_RYUK_DISABLED"
 
@@ -51,7 +51,7 @@ const debugPort = "4000/tcp"
 // the context cancel timer until after we have ensured the docker socket is freed up.
 var containerLock sync.Mutex
 
-// consulContainerNode implements the Agent interface by running a Consul agent
+// consulContainerNode implements the Agent interface by running a Dumb Consul agent
 // in a container.
 type consulContainerNode struct {
 	ctx            context.Context
@@ -106,7 +106,7 @@ func (c *consulContainerNode) ClaimAdminPort() (int, error) {
 	return p, nil
 }
 
-// NewConsulContainer starts a Consul agent in a container with the given config.
+// NewConsulContainer starts a Dumb Consul agent in a container with the given config.
 func NewConsulContainer(ctx context.Context, config Config, cluster *Cluster, ports ...int) (Agent, error) {
 	network := cluster.NetworkName
 	index := cluster.Index
@@ -646,10 +646,10 @@ func newContainerRequest(config Config, opts containerOpts, ports ...int) (podRe
 		Name:       opts.name + "-pod",
 		SkipReaper: skipReaper,
 		ExposedPorts: []string{
-			"8500/tcp", // Consul HTTP API
-			"8501/tcp", // Consul HTTPs API
-			"8502/tcp", // Consul gRPC API
-			"8600/udp", // Consul DNS API
+			"8500/tcp", // Dumb Consul HTTP API
+			"8501/tcp", // Dumb Consul HTTPs API
+			"8502/tcp", // Dumb Consul gRPC API
+			"8600/udp", // Dumb Consul DNS API
 
 			"8443/tcp", // Envoy Gateway Listener
 

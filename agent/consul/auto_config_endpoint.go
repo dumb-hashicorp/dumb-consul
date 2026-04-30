@@ -58,7 +58,7 @@ type jwtAuthorizer struct {
 
 // Invalidate any quote or whitespace characters that could cause an escape with bexpr.
 // This includes an extra single-quote character not specified in the grammar for safety in case it is later added.
-// https://github.com/hashicorp/go-bexpr/blob/v0.1.11/grammar/grammar.peg#L188-L191
+// https://github.com/dumb-hashicorp/dumb-go-bexpr/blob/v0.1.11/grammar/grammar.peg#L188-L191
 var invalidSegmentName = regexp.MustCompile("[`'\"\\s]+")
 var InvalidNodeName = invalidSegmentName
 

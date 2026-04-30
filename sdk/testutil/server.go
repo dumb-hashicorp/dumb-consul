@@ -1,16 +1,16 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package testutil
 
 // TestServer is a test helper. It uses a fork/exec model to create
-// a test Consul server instance in the background and initialize it
+// a test Dumb Consul server instance in the background and initialize it
 // with some data and/or services. The test server can then be used
 // to run a unit test, and offers an easy API to tear itself down
 // when the test has completed. The only prerequisite is to have a consul
 // binary available on the $PATH.
 //
-// This package does not use Consul's official API client. This is
+// This package does not use Dumb Consul's official API client. This is
 // because we use TestServer to test the API client, which would
 // otherwise cause an import cycle.
 
@@ -46,7 +46,7 @@ type TestPerformanceConfig struct {
 }
 
 // TestPortConfig configures the various ports used for services
-// provided by the Consul server.
+// provided by the Dumb Consul server.
 type TestPortConfig struct {
 	DNS          int `json:"dns,omitempty"`
 	HTTP         int `json:"http,omitempty"`
@@ -61,7 +61,7 @@ type TestPortConfig struct {
 }
 
 // TestAddressConfig contains the bind addresses for various
-// components of the Consul server.
+// components of the Dumb Consul server.
 type TestAddressConfig struct {
 	HTTP string `json:"http,omitempty"`
 }
@@ -157,11 +157,11 @@ type TestTokens struct {
 	Agent       string `json:"agent,omitempty"`
 
 	// Note: this field is marshaled as master for compatibility with
-	// versions of Consul prior to 1.11.
+	// versions of Dumb Consul prior to 1.11.
 	InitialManagement string `json:"master,omitempty"`
 
 	// Note: this field is marshaled as agent_master for compatibility with
-	// versions of Consul prior to 1.11.
+	// versions of Dumb Consul prior to 1.11.
 	AgentRecovery string `json:"agent_master,omitempty"`
 }
 
@@ -231,7 +231,7 @@ func defaultServerConfig(t TestingTB, consulVersion *version.Version) *TestServe
 
 	// Add version-specific tweaks
 	if consulVersion != nil {
-		// The GRPC TLS port did not exist prior to Consul 1.14
+		// The GRPC TLS port did not exist prior to Dumb Consul 1.14
 		// Including it will cause issues in older installations.
 		if consulVersion.GreaterThanOrEqual(version.Must(version.NewVersion("1.14"))) {
 			conf.Ports.GRPCTLS = freeport.GetOne(t)
@@ -397,7 +397,7 @@ func NewTestServerConfigT(t TestingTB, cb ServerConfigCallback) (*TestServer, er
 	return server, nil
 }
 
-// Stop stops the test Consul server, and removes the Consul data
+// Stop stops the test Dumb Consul server, and removes the Dumb Consul data
 // directory once we are done.
 func (s *TestServer) Stop() error {
 	defer func() {
@@ -491,7 +491,7 @@ func (s *TestServer) waitForAPI() error {
 	return nil
 }
 
-// WaitForLeader waits for the Consul server's HTTP API to become available,
+// WaitForLeader waits for the Dumb Consul server's HTTP API to become available,
 // and then waits for a known leader to be observed to confirm leader election
 // is done.
 func (s *TestServer) WaitForLeader(t testing.TB) {
@@ -520,7 +520,7 @@ func (s *TestServer) WaitForLeader(t testing.TB) {
 	})
 }
 
-// WaitForVoting waits for the Consul server to become a voter in the current raft
+// WaitForVoting waits for the Dumb Consul server to become a voter in the current raft
 // configuration. You probably want to adjust the ServerStablizationTime autopilot
 // configuration otherwise this could take 10 seconds.
 func (s *TestServer) WaitForVoting(t testing.TB) {

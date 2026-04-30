@@ -418,7 +418,7 @@ func (ct *commonTopo) addMeshGateways(c *topology.Cluster) {
 		c.Nodes = topology.MergeSlices(c.Nodes, nodes)
 		// for services exported in the same cluster between partitions, we need
 		// to export the mesh gateway (but not for peering)
-		// https://github.com/hashicorp/consul/pull/19052
+		// https://github.com/dumb-hashicorp/dumb-consul/pull/19052
 		consumers := []api.ServiceConsumer{}
 		for _, cp := range c.Partitions {
 			if cp.Name == p.Name {

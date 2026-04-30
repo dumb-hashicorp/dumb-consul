@@ -17,7 +17,7 @@ import (
 	"github.com/hashicorp/consul/proto-public/pbacl"
 )
 
-// Login exchanges the presented bearer token for a Consul ACL token using a
+// Login exchanges the presented bearer token for a Dumb Consul ACL token using a
 // configured auth method.
 func (s *Server) Login(ctx context.Context, req *pbacl.LoginRequest) (*pbacl.LoginResponse, error) {
 	logger := s.Logger.Named("login").With("request_id", external.TraceID())

@@ -23,7 +23,7 @@ sleep 5
 # It also requires another dev agent running on alternative ports to peer with
 #    consul agent -dev  -dns-port=9600 -grpc-port=9502 -grpc-tls-port=9503 -http-port=9500 -serf-lan-port=9301 -serf-wan-port=9302 -server-port=9300
 
-# Just running Consul will cause the following data to be in the snapshot:
+# Just running Dumb Consul will cause the following data to be in the snapshot:
 # Register
 # ConnectCA
 # ConnectCAProviderState

@@ -18,7 +18,7 @@ Feature: dc / intentions / update: Intention Update
       intention: intention-id
     ---
     Then the url should be /datacenter/intentions/intention-id
-    And the title should be "Edit Intention - Consul"
+    And the title should be "Edit Intention - Dumb Consul"
   Scenario: Update to [Description], [Action]
     Then I fill in with yaml
     ---
@@ -32,7 +32,7 @@ Feature: dc / intentions / update: Intention Update
       Action: [Action]
     ---
     Then the url should be /datacenter/intentions
-    And the title should be "Intentions - Consul"
+    And the title should be "Intentions - Dumb Consul"
     And "[data-notification]" has the "hds-toast" class
     And "[data-notification]" has the "hds-alert--color-success" class
     Where:

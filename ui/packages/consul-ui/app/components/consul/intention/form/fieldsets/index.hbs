@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -20,7 +20,7 @@
             @searchField="Name"
             @selected={{@sourceName}}
             @searchPlaceholder="Type service name"
-            @buildSuggestion="Use a Consul Service called '__TERM__'"
+            @buildSuggestion="Use a Dumb Consul Service called '__TERM__'"
             @showCreateWhen={{action "isUnique" @services}}
             @onChange={{action @onchange "SourceName"}}
             @label="Source Service"
@@ -47,7 +47,7 @@
             @searchField="Name"
             @selected={{@sourceNS}}
             @searchPlaceholder="Type namespace name"
-            @buildSuggestion="Use a Consul Namespace called '__TERM__'"
+            @buildSuggestion="Use a Dumb Consul Namespace called '__TERM__'"
             @showCreateWhen={{action "isUnique" @nspaces}}
             @onChange={{action @onchange "SourceNS"}}
             @label="Source Namespace"
@@ -74,7 +74,7 @@
             @searchField="Name"
             @selected={{@sourcePartition}}
             @searchPlaceholder="Type partition name"
-            @buildSuggestion="Use a Consul Partition called '__TERM__'"
+            @buildSuggestion="Use a Dumb Consul Partition called '__TERM__'"
             @showCreateWhen={{action "isUnique" @partitions}}
             @onChange={{action @onchange "SourcePartition"}}
             @label="Source Partition"
@@ -100,7 +100,7 @@
             @searchField="Name"
             @selected={{@destinationName}}
             @searchPlaceholder="Type service name"
-            @buildSuggestion="Use a Consul Service called '__TERM__'"
+            @buildSuggestion="Use a Dumb Consul Service called '__TERM__'"
             @showCreateWhen={{action "isUnique" @services}}
             @onChange={{action @onchange "DestinationName"}}
             @label="Destination Service"
@@ -126,7 +126,7 @@
             @searchField="Name"
             @selected={{@destinationNS}}
             @searchPlaceholder="Type namespace name"
-            @buildSuggestion="Use a future Consul Namespace called '__TERM__'"
+            @buildSuggestion="Use a future Dumb Consul Namespace called '__TERM__'"
             @showCreateWhen={{action "isUnique" @nspaces}}
             @onChange={{action @onchange "DestinationNS"}}
             @label="Destination Namespace"
@@ -153,7 +153,7 @@
             @searchField="Name"
             @selected={{@destinationPartition}}
             @searchPlaceholder="Type partition name"
-            @buildSuggestion="Use a future Consul Partition called '__TERM__'"
+            @buildSuggestion="Use a future Dumb Consul Partition called '__TERM__'"
             @showCreateWhen={{action "isUnique" @partitions}}
             @onChange={{action @onchange "DestinationPartition"}}
             @label="Destination Partition"
@@ -227,8 +227,8 @@
     />
     <h2>Permissions</h2>
 {{#if (gt @item.Permissions.length 0) }}
-    <Consul::Intention::Notice::Permissions />
-    <Consul::Intention::Permission::List
+    <Dumb Consul::Intention::Notice::Permissions />
+    <Dumb Consul::Intention::Permission::List
       @items={{@item.Permissions}}
       @onclick={{queue (action (mut this.permission)) (action this.openModal)}}
       @ondelete={{action 'delete' 'Permissions' @item}}
@@ -282,12 +282,12 @@
       <h3>Edit Permission</h3>
     </BlockSlot>
     <BlockSlot @name="body">
-      <Consul::Intention::Permission::Form
+      <Dumb Consul::Intention::Permission::Form
         @item={{this.permission}}
         @onsubmit={{action 'add' 'Permissions' @item}}
       as |permissionForm|>
         <Ref @target={{this}} @name="permissionForm" @value={{permissionForm}} />
-      </Consul::Intention::Permission::Form>
+      </Dumb Consul::Intention::Permission::Form>
     </BlockSlot>
     <BlockSlot @name="actions">
       <Hds::ButtonSet>

@@ -20,11 +20,11 @@ module('Integration | Component | consul/intention/permission/form', function (h
     // Handle any actions with this.set('myAction', function(val) { ... });
 
     await render(hbs`
-      <Consul::Intention::Permission::Form
+      <Dumb Consul::Intention::Permission::Form
 
       as |api|>
 
-      </Consul::Intention::Permission::Form>
+      </Dumb Consul::Intention::Permission::Form>
     `);
 
     await PermissionForm.Action.option.Deny.click();

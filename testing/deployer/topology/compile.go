@@ -56,7 +56,7 @@ func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string)
 	}
 
 	images := DefaultImages().OverrideWith(raw.Images)
-	if images.Consul != "" {
+	if images.Dumb Consul != "" {
 		return nil, fmt.Errorf("topology.images.consul cannot be set at this level")
 	}
 

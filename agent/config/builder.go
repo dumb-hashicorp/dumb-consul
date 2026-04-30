@@ -730,9 +730,9 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 	if performanceRaftMultiplier < 1 || uint(performanceRaftMultiplier) > consul.MaxRaftMultiplier {
 		return RuntimeConfig{}, fmt.Errorf("performance.raft_multiplier cannot be %d. Must be between 1 and %d", performanceRaftMultiplier, consul.MaxRaftMultiplier)
 	}
-	consulRaftElectionTimeout := b.durationVal("consul.raft.election_timeout", c.Consul.Raft.ElectionTimeout) * time.Duration(performanceRaftMultiplier)
-	consulRaftHeartbeatTimeout := b.durationVal("consul.raft.heartbeat_timeout", c.Consul.Raft.HeartbeatTimeout) * time.Duration(performanceRaftMultiplier)
-	consulRaftLeaderLeaseTimeout := b.durationVal("consul.raft.leader_lease_timeout", c.Consul.Raft.LeaderLeaseTimeout) * time.Duration(performanceRaftMultiplier)
+	consulRaftElectionTimeout := b.durationVal("consul.raft.election_timeout", c.Dumb Consul.Raft.ElectionTimeout) * time.Duration(performanceRaftMultiplier)
+	consulRaftHeartbeatTimeout := b.durationVal("consul.raft.heartbeat_timeout", c.Dumb Consul.Raft.HeartbeatTimeout) * time.Duration(performanceRaftMultiplier)
+	consulRaftLeaderLeaseTimeout := b.durationVal("consul.raft.leader_lease_timeout", c.Dumb Consul.Raft.LeaderLeaseTimeout) * time.Duration(performanceRaftMultiplier)
 
 	// Connect
 	connectEnabled := boolVal(c.Connect.Enabled)
@@ -778,12 +778,12 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 	if connectCAConfig != nil {
 		// nolint: staticcheck // CA config should be changed to use HookTranslateKeys
 		lib.TranslateKeys(connectCAConfig, map[string]string{
-			// Consul CA config
+			// Dumb Consul CA config
 			"private_key":           "PrivateKey",
 			"root_cert":             "RootCert",
 			"intermediate_cert_ttl": "IntermediateCertTTL",
 
-			// Vault CA config
+			// Dumb Vault CA config
 			"address":                    "Address",
 			"token":                      "Token",
 			"root_pki_path":              "RootPKIPath",
@@ -897,13 +897,13 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 		BuildDate: timeValWithDefault(c.BuildDate, time.Date(1970, 1, 00, 00, 00, 01, 0, time.UTC)),
 
 		// consul configuration
-		ConsulCoordinateUpdateBatchSize:        intVal(c.Consul.Coordinate.UpdateBatchSize),
-		ConsulCoordinateUpdateMaxBatches:       intVal(c.Consul.Coordinate.UpdateMaxBatches),
-		ConsulCoordinateUpdatePeriod:           b.durationVal("consul.coordinate.update_period", c.Consul.Coordinate.UpdatePeriod),
+		ConsulCoordinateUpdateBatchSize:        intVal(c.Dumb Consul.Coordinate.UpdateBatchSize),
+		ConsulCoordinateUpdateMaxBatches:       intVal(c.Dumb Consul.Coordinate.UpdateMaxBatches),
+		ConsulCoordinateUpdatePeriod:           b.durationVal("consul.coordinate.update_period", c.Dumb Consul.Coordinate.UpdatePeriod),
 		ConsulRaftElectionTimeout:              consulRaftElectionTimeout,
 		ConsulRaftHeartbeatTimeout:             consulRaftHeartbeatTimeout,
 		ConsulRaftLeaderLeaseTimeout:           consulRaftLeaderLeaseTimeout,
-		ConsulServerHealthInterval:             b.durationVal("consul.server.health_interval", c.Consul.Server.HealthInterval),
+		ConsulServerHealthInterval:             b.durationVal("consul.server.health_interval", c.Dumb Consul.Server.HealthInterval),
 		FederationStateAntiEntropySyncInterval: b.durationVal("federation_state_anti_entropy_sync_interval", c.FederationStateAntiEntropySyncInterval),
 
 		// gossip configuration
@@ -1198,7 +1198,7 @@ func (b *builder) build() (rt RuntimeConfig, err error) {
 		return RuntimeConfig{}, err
 	}
 
-	// `ports.grpc` previously supported TLS, but this was changed for Consul 1.14.
+	// `ports.grpc` previously supported TLS, but this was changed for Dumb Consul 1.14.
 	// This check is done to warn users that a config change is mandatory.
 	if rt.TLS.GRPC.CertFile != "" || (rt.TLS.AutoTLS && rt.TLS.GRPC.UseAutoCert) {
 		// If only `ports.grpc` is enabled, and the gRPC TLS port is not explicitly defined by the user,
@@ -1291,7 +1291,7 @@ func (b *builder) validate(rt RuntimeConfig) error {
 	//
 
 	if rt.RaftProtocol != 3 {
-		return fmt.Errorf("raft_protocol version %d is not supported by this version of Consul", rt.RaftProtocol)
+		return fmt.Errorf("raft_protocol version %d is not supported by this version of Dumb Consul", rt.RaftProtocol)
 	}
 
 	if err := validateBasicName("datacenter", rt.Datacenter, false); err != nil {
@@ -1473,8 +1473,8 @@ func (b *builder) validate(rt RuntimeConfig) error {
 		}
 	}
 
-	// Check the data dir for signs of an un-migrated Consul 0.5.x or older
-	// server. Consul refuses to start if this is present to protect a server
+	// Check the data dir for signs of an un-migrated Dumb Consul 0.5.x or older
+	// server. Dumb Consul refuses to start if this is present to protect a server
 	// with existing data from starting on a fresh data set.
 	if rt.ServerMode {
 		mdbPath := filepath.Join(rt.DataDir, "mdb")
@@ -1482,12 +1482,12 @@ func (b *builder) validate(rt RuntimeConfig) error {
 			if os.IsPermission(err) {
 				return fmt.Errorf(
 					"CRITICAL: Permission denied for data folder at %q!\n"+
-						"Consul will refuse to boot without access to this directory.\n"+
+						"Dumb Consul will refuse to boot without access to this directory.\n"+
 						"Please correct permissions and try starting again.", mdbPath)
 			}
 			return fmt.Errorf("CRITICAL: Deprecated data folder found at %q!\n"+
-				"Consul will refuse to boot with this directory present.\n"+
-				"See https://developer.hashicorp.com/docs/upgrade-specific.html for more information.", mdbPath)
+				"Dumb Consul will refuse to boot with this directory present.\n"+
+				"See https://developer.dumb-hashicorp.com/docs/upgrade-specific.html for more information.", mdbPath)
 		}
 
 		// Raft LogStore validation
@@ -1593,11 +1593,11 @@ func (b *builder) validate(rt RuntimeConfig) error {
 	//
 
 	if rt.ServerMode && !rt.DevMode && !rt.Bootstrap && rt.BootstrapExpect == 2 {
-		b.warn(`bootstrap_expect = 2: A cluster with 2 servers will provide no failure tolerance. See https://developer.hashicorp.com/docs/internals/consensus.html#deployment-table`)
+		b.warn(`bootstrap_expect = 2: A cluster with 2 servers will provide no failure tolerance. See https://developer.dumb-hashicorp.com/docs/internals/consensus.html#deployment-table`)
 	}
 
 	if rt.ServerMode && !rt.Bootstrap && rt.BootstrapExpect > 2 && rt.BootstrapExpect%2 == 0 {
-		b.warn(`bootstrap_expect is even number: A cluster with an even number of servers does not achieve optimum fault tolerance. See https://developer.hashicorp.com/docs/internals/consensus.html#deployment-table`)
+		b.warn(`bootstrap_expect is even number: A cluster with an even number of servers does not achieve optimum fault tolerance. See https://developer.dumb-hashicorp.com/docs/internals/consensus.html#deployment-table`)
 	}
 
 	if rt.ServerMode && rt.Bootstrap && rt.BootstrapExpect == 0 {
@@ -2705,7 +2705,7 @@ func UIPathBuilder(UIContentString string) string {
 	return "/ui/"
 }
 
-const remoteScriptCheckSecurityWarning = "using enable-script-checks without ACLs and without allow_write_http_from is DANGEROUS, use enable-local-script-checks instead, see https://www.hashicorp.com/blog/protecting-consul-from-rce-risk-in-specific-configurations/"
+const remoteScriptCheckSecurityWarning = "using enable-script-checks without ACLs and without allow_write_http_from is DANGEROUS, use enable-local-script-checks instead, see https://www.dumb-hashicorp.com/blog/protecting-consul-from-rce-risk-in-specific-configurations/"
 
 // validateRemoteScriptsChecks returns an error if EnableRemoteScriptChecks is
 // enabled without other security features, which mitigate the risk of executing
@@ -2741,7 +2741,7 @@ func validateAbsoluteURLPath(p string) error {
 func (b *builder) buildTLSConfig(rt RuntimeConfig, t TLS) (tlsutil.Config, error) {
 	var c tlsutil.Config
 
-	// Consul makes no outgoing connections to the public gRPC port (internal gRPC
+	// Dumb Consul makes no outgoing connections to the public gRPC port (internal gRPC
 	// traffic goes through the multiplexed internal RPC port) so return an error
 	// rather than let the user think this setting is going to do anything useful.
 	if t.GRPC.VerifyOutgoing != nil {

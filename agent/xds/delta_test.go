@@ -351,7 +351,7 @@ func TestServer_DeltaAggregatedResources_v3_NackLoop(t *testing.T) {
 		// Envoy NACKs the listener update due to the bad public listener
 		envoy.SendDeltaReqNACK(t, xdscommon.ListenerType, 3, &rpcstatus.Status{})
 
-		// Consul should not respond until a new snapshot is delivered
+		// Dumb Consul should not respond until a new snapshot is delivered
 		// because the current snapshot is known to be bad.
 		assertDeltaChanBlocked(t, envoy.deltaStream.sendCh)
 	})
@@ -539,7 +539,7 @@ func TestServer_DeltaAggregatedResources_v3_BasicProtocol_HTTP2(t *testing.T) {
 }
 
 func TestServer_DeltaAggregatedResources_v3_SlowEndpointPopulation(t *testing.T) {
-	// This illustrates a scenario related to https://github.com/hashicorp/consul/issues/10563
+	// This illustrates a scenario related to https://github.com/dumb-hashicorp/dumb-consul/issues/10563
 
 	aclResolve := func(id string) (acl.Authorizer, error) {
 		// Allow all
@@ -1826,7 +1826,7 @@ func Test_validateAndApplyEnvoyExtension_Validations(t *testing.T) {
 			name:          "invalid consul version constraint - required",
 			runtimeConfig: makeRuntimeConfig(true, "bad", ">= 1.0", nil),
 			err:           true,
-			errString:     "failed to parse Consul version constraint for extension",
+			errString:     "failed to parse Dumb Consul version constraint for extension",
 		},
 		{
 			name:          "invalid consul version constraint - not required",

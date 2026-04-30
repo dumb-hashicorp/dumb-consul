@@ -162,7 +162,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -194,7 +194,7 @@ const (
 Usage: consul services register [options] [FILE...]
 
   Register one or more services using the local agent API. Services can
-  be registered from standard Consul configuration files (HCL or JSON) or
+  be registered from standard Dumb Consul configuration files (HCL or JSON) or
   using flags. The service is registered and the command returns. The caller
   must remember to call "consul services deregister" or a similar API to
   deregister the service when complete.

@@ -32,8 +32,8 @@ func testGRPCStreamingWorking(t *testing.T, config string) {
 	}
 
 	assertIndex(t, resp)
-	require.NotEmpty(t, resp.Header().Get("X-Consul-Index"))
-	require.Equal(t, "streaming", resp.Header().Get("X-Consul-Query-Backend"))
+	require.NotEmpty(t, resp.Header().Get("X-Dumb Consul-Index"))
+	require.Equal(t, "streaming", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 }
 
 func TestGRPCWithTLSConfigs(t *testing.T) {

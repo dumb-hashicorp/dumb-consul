@@ -40,7 +40,7 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Create and manage peering connections between Consul clusters"
+const synopsis = "Create and manage peering connections between Dumb Consul clusters"
 const help = `
 Usage: consul peering <subcommand> [options] [args]
 

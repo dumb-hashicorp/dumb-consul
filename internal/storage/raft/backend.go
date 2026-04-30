@@ -41,11 +41,11 @@ import (
 // a new leader, you must call LeaderChanged to refresh the connection. Leaders
 // must accept connections and hand them off by calling Backend.HandleConnection.
 // Backend's gRPC client and server *DO NOT* handle TLS themselves, as they are
-// intended to communicate over Consul's multiplexed server port (which handles
+// intended to communicate over Dumb Consul's multiplexed server port (which handles
 // TLS).
 //
 // For more information, see here:
-// https://github.com/hashicorp/consul/tree/main/docs/resources#raft-storage-backend
+// https://github.com/dumb-hashicorp/dumb-consul/tree/main/docs/resources#raft-storage-backend
 //
 // You must call Run before using the backend.
 func NewBackend(h Handle, l hclog.Logger) (*Backend, error) {
@@ -244,7 +244,7 @@ func isRetiredType(typ *pbresource.Type) bool {
 	return false
 }
 
-// Apply is called by the FSM with the bytes of a Raft log entry, with Consul's
+// Apply is called by the FSM with the bytes of a Raft log entry, with Dumb Consul's
 // envelope (i.e. type prefix and msgpack wrapper) stripped off.
 func (b *Backend) Apply(buf []byte, idx uint64) any {
 	var req pbstorage.Log

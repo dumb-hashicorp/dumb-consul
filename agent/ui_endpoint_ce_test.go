@@ -157,7 +157,7 @@ func TestUIEndpoint_MetricsProxy_ACLDeny(t *testing.T) {
 					if tc.expect == http.StatusOK {
 						require.True(t, backendCalled.Load().(bool))
 						// Ensure we didn't accidentally ship our consul token to the proxy.
-						require.Empty(t, headersSent.Get("X-Consul-Token"))
+						require.Empty(t, headersSent.Get("X-Dumb Consul-Token"))
 						require.Empty(t, headersSent.Get("Authorization"))
 					} else {
 						require.False(t, backendCalled.Load().(bool))

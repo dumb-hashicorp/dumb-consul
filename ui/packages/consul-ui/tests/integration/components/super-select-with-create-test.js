@@ -50,7 +50,7 @@ module('Integration | Component | super-select-with-create', function (hooks) {
         @options={{this.services}}
         @onChange={{this.onChange}}
         @searchField="Name"
-        @buildSuggestion="Use a Consul Service called '__TERM__'"
+        @buildSuggestion="Use a Dumb Consul Service called '__TERM__'"
       as |service|>
         {{service.Name}}
       </SuperSelectWithCreate>
@@ -59,7 +59,7 @@ module('Integration | Component | super-select-with-create', function (hooks) {
     await click('.ember-power-select-trigger');
     await fillIn('.ember-power-select-search-input', 'new-microservice');
 
-    assert.dom('.create-option').hasText("Use a Consul Service called 'new-microservice'");
+    assert.dom('.create-option').hasText("Use a Dumb Consul Service called 'new-microservice'");
   });
 
   test('it positions create option correctly', async function (assert) {

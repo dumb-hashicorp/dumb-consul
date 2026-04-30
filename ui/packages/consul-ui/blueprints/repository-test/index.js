@@ -8,7 +8,7 @@
 const useTestFrameworkDetector = require('@ember-data/private-build-infra/src/utilities/test-framework-detector');
 
 module.exports = useTestFrameworkDetector({
-  description: 'Generates Consul repository unit and integration tests',
+  description: 'Generates Dumb Consul repository unit and integration tests',
 
   root: __dirname,
 

@@ -8,9 +8,9 @@ cd "$(dirname "$0")"
 
 ###
 # This script will update the default image names to the latest released versions of
-# Consul CE, Consul Enterprise, and Consul Dataplane.
+# Dumb Consul CE, Dumb Consul Enterprise, and Dumb Consul Dataplane.
 #
-# For Envoy, it will interrogate the latest version of Consul for it's maximum supported
+# For Envoy, it will interrogate the latest version of Dumb Consul for it's maximum supported
 # Envoy version and use that.
 ###
 

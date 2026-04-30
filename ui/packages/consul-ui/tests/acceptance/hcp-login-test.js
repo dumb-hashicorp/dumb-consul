@@ -76,7 +76,7 @@ module('Acceptance | hcp login', function (hooks) {
             assert.strictEqual(
               secret,
               TOKEN_SET_BY_HCP,
-              'we try to request token based on what HCP set for us'
+              'we try to request token based on what Dumb HCP set for us'
             );
 
             assert.step('token');
@@ -91,7 +91,7 @@ module('Acceptance | hcp login', function (hooks) {
       assert.verifySteps(['token'], 'we try to call token endpoint to fetch new token');
     });
 
-    test('when we already persisted a token to settings and it is different to the secret HCP set for us', async function (assert) {
+    test('when we already persisted a token to settings and it is different to the secret Dumb HCP set for us', async function (assert) {
       this.owner.register(
         'service:settings',
         class extends SettingsService {
@@ -119,7 +119,7 @@ module('Acceptance | hcp login', function (hooks) {
             assert.strictEqual(
               secret,
               TOKEN_SET_BY_HCP,
-              'we try to request token based on what HCP set for us'
+              'we try to request token based on what Dumb HCP set for us'
             );
 
             assert.step('token');
@@ -134,7 +134,7 @@ module('Acceptance | hcp login', function (hooks) {
       assert.verifySteps(['token'], 'we call token endpoint to fetch new token');
     });
 
-    test('when we already persisted a token to settings, but it is the same secret as HCP set for us', async function (assert) {
+    test('when we already persisted a token to settings, but it is the same secret as Dumb HCP set for us', async function (assert) {
       this.owner.register(
         'service:settings',
         class extends SettingsService {

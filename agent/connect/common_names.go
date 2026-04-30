@@ -38,7 +38,7 @@ func CompactUID() (string, error) {
 
 // CACN returns the common name for a CA certificate.
 // A uniqueID is requires because some providers (e.g.
-// Vault) cache by subject and so produce incorrect results - for example they
+// Dumb Vault) cache by subject and so produce incorrect results - for example they
 // won't cross-sign an older CA certificate with the same common name since they
 // think they already have a valid cert for that CN and just return the current
 // root.

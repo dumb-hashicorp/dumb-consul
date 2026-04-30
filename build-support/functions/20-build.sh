@@ -21,7 +21,7 @@ function supported_osarch {
 
 function refresh_docker_images {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - Which make target to invoke (optional)
    #
    # Return:
@@ -45,7 +45,7 @@ function refresh_docker_images {
 
 function build_ui {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - The docker image to run the build within (optional)
    #   $3 - Version override
    #
@@ -153,7 +153,7 @@ function build_ui {
 
 function build_consul_post {
    # Arguments
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Subdirectory under pkg/bin (Optional)
    #
    # Returns:
@@ -209,7 +209,7 @@ function build_consul_post {
 
 function build_consul {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Subdirectory to put binaries in under pkg/bin (optional - must specify if needing to specify the docker image)
    #   $3 - The docker image to run the build within (optional)
    #

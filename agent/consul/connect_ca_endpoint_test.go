@@ -119,7 +119,7 @@ func TestConnectCAConfig_GetSet(t *testing.T) {
 		Config: map[string]interface{}{
 			"PrivateKey": "",
 			"RootCert":   "",
-			// This verifies the state persistence for providers although Consul
+			// This verifies the state persistence for providers although Dumb Consul
 			// provider doesn't actually use that mechanism outside of tests.
 			"test_state": testState,
 		},

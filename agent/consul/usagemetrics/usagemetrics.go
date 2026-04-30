@@ -23,39 +23,39 @@ import (
 var Gauges = []prometheus.GaugeDefinition{
 	{
 		Name: []string{"state", "nodes"},
-		Help: "Measures the current number of nodes registered with Consul. It is only emitted by Consul servers. Added in v1.9.0.",
+		Help: "Measures the current number of nodes registered with Dumb Consul. It is only emitted by Dumb Consul servers. Added in v1.9.0.",
 	},
 	{
 		Name: []string{"state", "peerings"},
-		Help: "Measures the current number of peerings registered with Consul. It is only emitted by Consul servers. Added in v1.13.0.",
+		Help: "Measures the current number of peerings registered with Dumb Consul. It is only emitted by Dumb Consul servers. Added in v1.13.0.",
 	},
 	{
 		Name: []string{"state", "services"},
-		Help: "Measures the current number of unique services registered with Consul, based on service name. It is only emitted by Consul servers. Added in v1.9.0.",
+		Help: "Measures the current number of unique services registered with Dumb Consul, based on service name. It is only emitted by Dumb Consul servers. Added in v1.9.0.",
 	},
 	{
 		Name: []string{"state", "service_instances"},
-		Help: "Measures the current number of unique services registered with Consul, based on service name. It is only emitted by Consul servers. Added in v1.9.0.",
+		Help: "Measures the current number of unique services registered with Dumb Consul, based on service name. It is only emitted by Dumb Consul servers. Added in v1.9.0.",
 	},
 	{
 		Name: []string{"members", "clients"},
-		Help: "Measures the current number of client agents registered with Consul. It is only emitted by Consul servers. Added in v1.9.6.",
+		Help: "Measures the current number of client agents registered with Dumb Consul. It is only emitted by Dumb Consul servers. Added in v1.9.6.",
 	},
 	{
 		Name: []string{"members", "servers"},
-		Help: "Measures the current number of server agents registered with Consul. It is only emitted by Consul servers. Added in v1.9.6.",
+		Help: "Measures the current number of server agents registered with Dumb Consul. It is only emitted by Dumb Consul servers. Added in v1.9.6.",
 	},
 	{
 		Name: []string{"state", "kv_entries"},
-		Help: "Measures the current number of entries in the Consul KV store. It is only emitted by Consul servers. Added in v1.10.3.",
+		Help: "Measures the current number of entries in the Dumb Consul KV store. It is only emitted by Dumb Consul servers. Added in v1.10.3.",
 	},
 	{
 		Name: []string{"state", "connect_instances"},
-		Help: "Measures the current number of unique connect service instances registered with Consul, labeled by Kind. It is only emitted by Consul servers. Added in v1.10.4.",
+		Help: "Measures the current number of unique connect service instances registered with Dumb Consul, labeled by Kind. It is only emitted by Dumb Consul servers. Added in v1.10.4.",
 	},
 	{
 		Name: []string{"state", "config_entries"},
-		Help: "Measures the current number of unique configuration entries registered with Consul, labeled by Kind. It is only emitted by Consul servers. Added in v1.10.4.",
+		Help: "Measures the current number of unique configuration entries registered with Dumb Consul, labeled by Kind. It is only emitted by Dumb Consul servers. Added in v1.10.4.",
 	},
 	{
 		Name: []string{"state", "billable_service_instances"},
@@ -63,7 +63,7 @@ var Gauges = []prometheus.GaugeDefinition{
 	},
 	{
 		Name: []string{"version"},
-		Help: "Represents the Consul version.",
+		Help: "Represents the Dumb Consul version.",
 	},
 }
 

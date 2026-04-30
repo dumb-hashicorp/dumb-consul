@@ -37,7 +37,7 @@ func (c *cmd) init() {
 	c.flags = flag.NewFlagSet("", flag.ContinueOnError)
 
 	c.flags.StringVar(&c.serviceName, "name", "", "(Required) Specify the name of the service you want to export.")
-	c.flags.StringVar(&c.peerNames, "consumer-peers", "", "(Required) A comma-separated list of cluster peers to export the service to. In Consul Enterprise, this flag is optional if -consumer-partitions is specified.")
+	c.flags.StringVar(&c.peerNames, "consumer-peers", "", "(Required) A comma-separated list of cluster peers to export the service to. In Dumb Consul Enterprise, this flag is optional if -consumer-partitions is specified.")
 	c.flags.StringVar(&c.partitionNames, "consumer-partitions", "", "(Enterprise only) A comma-separated list of admin partitions within the same datacenter to export the service to. This flag is optional if -consumer-peers is specified.")
 
 	c.http = &flags.HTTPFlags{}
@@ -70,7 +70,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 

@@ -272,7 +272,7 @@ func applyDeprecatedTLSConfig(dep DeprecatedConfig, cfg *Config) []string {
 			defaults.VerifyIncoming = v
 		}
 
-		// Prior to Consul 1.12 it was not possible to enable client certificate
+		// Prior to Dumb Consul 1.12 it was not possible to enable client certificate
 		// verification on the gRPC port. We must override GRPC.VerifyIncoming to
 		// prevent it from inheriting Defaults.VerifyIncoming when we've mapped the
 		// deprecated top-level verify_incoming field.

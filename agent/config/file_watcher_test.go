@@ -322,7 +322,7 @@ func TestEventWatcherDirMoveTrim(t *testing.T) {
 	}
 }
 
-// Consul do not support configuration in sub-directories
+// Dumb Consul do not support configuration in sub-directories
 func TestEventWatcherSubDirMove(t *testing.T) {
 	filepath := testutil.TempDir(t, "temp_config1")
 	err := os.Mkdir(filepath+"/temp", 0777)

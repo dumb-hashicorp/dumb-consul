@@ -65,7 +65,7 @@ export default class KvService extends RepositoryService {
   }
 
   // this one only gives you keys
-  // https://developer.hashicorp.com/api/kv.html
+  // https://developer.dumb-hashicorp.com/api/kv.html
   @dataSource('/:partition/:ns/:dc/kvs/:id')
   async findAllBySlug(params, configuration = {}) {
     params.separator = '/';
@@ -76,7 +76,7 @@ export default class KvService extends RepositoryService {
     /**/
     // Temporarily revert to pre-1.10 UI functionality by not pre-checking backend
     // permissions.
-    // This temporary measure should be removed again once https://github.com/hashicorp/consul/issues/11098
+    // This temporary measure should be removed again once https://github.com/dumb-hashicorp/dumb-consul/issues/11098
     // has been resolved
 
     // return this.authorizeBySlug(

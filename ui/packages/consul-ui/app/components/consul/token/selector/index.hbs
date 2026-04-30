@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -15,13 +15,13 @@
         @name="login-toggle"
         @onclose={{this.close}}
         @onopen={{this.open}}
-        @aria={{hash label="Log in to Consul"}}
+        @aria={{hash label="Log in to Dumb Consul"}}
         as |modal|
       >
         <Ref @target={{this}} @name="modal" @value={{modal}} />
         <BlockSlot @name="header">
           <h2>
-            Log in to Consul
+            Log in to Dumb Consul
           </h2>
         </BlockSlot>
         <BlockSlot @name="body">

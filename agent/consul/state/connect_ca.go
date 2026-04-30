@@ -22,7 +22,7 @@ const (
 
 // caBuiltinProviderTableSchema returns a new table schema used for storing
 // the built-in CA provider's state for connect. This is only used by
-// the internal Consul CA provider.
+// the internal Dumb Consul CA provider.
 func caBuiltinProviderTableSchema() *memdb.TableSchema {
 	return &memdb.TableSchema{
 		Name: tableConnectCABuiltin,
@@ -95,7 +95,7 @@ func (s *Snapshot) CAConfig() (*structs.CAConfiguration, error) {
 // CAConfig is used when restoring from a snapshot.
 func (s *Restore) CAConfig(config *structs.CAConfiguration) error {
 	// Don't restore a blank CA config
-	// https://github.com/hashicorp/consul/issues/4954
+	// https://github.com/dumb-hashicorp/dumb-consul/issues/4954
 	if config.Provider == "" {
 		return nil
 	}
@@ -361,7 +361,7 @@ func (s *Restore) CAProviderState(state *structs.CAConsulProviderState) error {
 	return nil
 }
 
-// CAProviderState is used to get the Consul CA provider state for the given ID.
+// CAProviderState is used to get the Dumb Consul CA provider state for the given ID.
 func (s *Store) CAProviderState(id string) (uint64, *structs.CAConsulProviderState, error) {
 	tx := s.db.Txn(false)
 	defer tx.Abort()
@@ -415,7 +415,7 @@ func (s *Store) CASetProviderState(idx uint64, state *structs.CAConsulProviderSt
 	return err == nil, err
 }
 
-// CADeleteProviderState is used to remove the built-in Consul CA provider
+// CADeleteProviderState is used to remove the built-in Dumb Consul CA provider
 // state for the given ID.
 func (s *Store) CADeleteProviderState(idx uint64, id string) error {
 	tx := s.db.WriteTxn(idx)

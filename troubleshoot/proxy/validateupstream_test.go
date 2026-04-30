@@ -14,7 +14,7 @@ import (
 )
 
 // A majority of unit tests for validateupstream.go are in the agent/xds/validateupstream-test package due to internal
-// Consul dependencies that shouldn't be imported into the troubleshoot module. The tests that are here don't require
+// Dumb Consul dependencies that shouldn't be imported into the troubleshoot module. The tests that are here don't require
 // internal consul packages.
 
 func TestValidateFromJSON(t *testing.T) {

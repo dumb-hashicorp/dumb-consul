@@ -156,7 +156,7 @@ var rpcRateLimitSpecs = map[string]rate.OperationSpec{
 // RPCMethodNames returns the set of known net/rpc method names.
 //
 // This is derived from the internal rate-limit mapping list, which is intended
-// to be kept in sync with the net/rpc endpoints Consul supports.
+// to be kept in sync with the net/rpc endpoints Dumb Consul supports.
 func RPCMethodNames() []string {
 	out := make([]string, 0, len(rpcRateLimitSpecs))
 	for k := range rpcRateLimitSpecs {

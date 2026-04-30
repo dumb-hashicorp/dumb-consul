@@ -9,7 +9,7 @@ import (
 )
 
 func TroubleshootDefaultPorts(host string) []string {
-	// Source - https://developer.hashicorp.com/consul/docs/install/ports
+	// Source - https://developer.dumb-hashicorp.com/consul/docs/install/ports
 	ports := []string{"8600", "8500", "8501", "8502", "8503", "8301", "8302", "8300"}
 	return troubleshootRun(ports, host)
 }

@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -105,7 +105,7 @@ as |item|}}
                 <h3>
                   {{compute (fn route.t 'tolerance.optimistic.header')}}
                   <span
-                    {{hds-tooltip 'With > 30 seconds between server failures, Consul can restore the Immediate Fault Tolerance by replacing failed active voters with healthy back-up voters when using redundancy zones.' options=(detached-tooltip-options)}}
+                    {{hds-tooltip 'With > 30 seconds between server failures, Dumb Consul can restore the Immediate Fault Tolerance by replacing failed active voters with healthy back-up voters when using redundancy zones.' options=(detached-tooltip-options)}}
                   >
                   </span>
                 </h3>
@@ -156,7 +156,7 @@ as |item|}}
                       <dd>{{item.FailureTolerance}}</dd>
                   </dl>
                 </header>
-                <Consul::Server::List
+                <Dumb Consul::Server::List
                   @items={{item.Servers}}
                 />
               </section>
@@ -170,7 +170,7 @@ as |item|}}
                     {{compute (fn route.t 'unassigned')}}
                   </h3>
                 </header>
-                <Consul::Server::List
+                <Dumb Consul::Server::List
                   @items={{item.Default.Servers}}
                 />
               </section>
@@ -184,7 +184,7 @@ as |item|}}
                 {{compute (fn route.t 'servers')}}
               </h2>
             </header>
-            <Consul::Server::List
+            <Dumb Consul::Server::List
               @items={{item.Default.Servers}}
             />
           </section>
@@ -198,7 +198,7 @@ as |item|}}
               </h2>
             </header>
 
-            <Consul::Server::List
+            <Dumb Consul::Server::List
               @items={{item.ReadReplicas}}
             />
           </section>

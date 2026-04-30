@@ -162,7 +162,7 @@ func verifyServerCertMatchesURI(certs []*x509.Certificate, expected connect.Cert
 
 	// Override the hostname since we rely on x509 constraints to limit ability to
 	// spoof the trust domain if needed (i.e. because a root is shared with other
-	// PKI or Consul clusters). This allows for seamless migrations between trust
+	// PKI or Dumb Consul clusters). This allows for seamless migrations between trust
 	// domains.
 	expectURI := expected.URI()
 	expectURI.Host = gotURI.Host

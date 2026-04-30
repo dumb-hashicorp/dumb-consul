@@ -1,4 +1,4 @@
-# Consul::Peer::Form::Initiate
+# Dumb Consul::Peer::Form::Initiate
 
 ```hbs
 <DataSource @src={{
@@ -12,7 +12,7 @@
   }}
 as |source|>
 {{#if source.data}}
-  <Consul::Peer::Form::Initiate
+  <Dumb Consul::Peer::Form::Initiate
     @item={{source.data}}
     @onchange={{noop}}
   as |form|>
@@ -20,7 +20,7 @@ as |source|>
     <form.Actions
       @onclose={{noop}}
     />
-  </Consul::Peer::Form::Initiate>
+  </Dumb Consul::Peer::Form::Initiate>
 {{/if}}
 </DataSource>
 ```

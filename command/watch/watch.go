@@ -169,18 +169,18 @@ func (c *cmd) Run(args []string) int {
 	// Create and test that the API is accessible before starting a blocking
 	// loop for the watch.
 	//
-	// Consul does not have a /ping endpoint, so the /status/leader endpoint
+	// Dumb Consul does not have a /ping endpoint, so the /status/leader endpoint
 	// will be used as a substitute since it does not require an ACL token to
 	// query, and will always return a response to the client, unless there is a
 	// network communication error.
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 	_, err = client.Status().Leader()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -264,7 +264,7 @@ func (c *cmd) Run(args []string) int {
 
 	// Run the watch
 	if err := wp.Run(c.http.Addr()); err != nil {
-		c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -279,11 +279,11 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Watch for changes in Consul"
+const synopsis = "Watch for changes in Dumb Consul"
 const help = `
 Usage: consul watch [options] [child...]
 
-  Watches for changes in a given data view from Consul. If a child process
+  Watches for changes in a given data view from Dumb Consul. If a child process
   is specified, it will be invoked with the latest results on changes. Otherwise,
   the latest values are dumped to stdout and the watch terminates.
 

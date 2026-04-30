@@ -563,7 +563,7 @@ const file_private_pbservice_node_proto_rawDesc = "" +
 	"\tMetaEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\x8f\x02\n" +
-	"%com.hashicorp.consul.internal.serviceB\tNodeProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Consul.Internal.Service\xca\x02!Hashicorp\\Consul\\Internal\\Service\xe2\x02-Hashicorp\\Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Serviceb\x06proto3"
+	"%com.hashicorp.consul.internal.serviceB\tNodeProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Dumb Consul.Internal.Service\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Service\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Serviceb\x06proto3"
 
 var (
 	file_private_pbservice_node_proto_rawDescOnce sync.Once

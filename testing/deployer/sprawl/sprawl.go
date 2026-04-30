@@ -36,7 +36,7 @@ import (
 
 // TODO: manage workdir externally without chdir
 
-// Sprawl is the definition of a complete running Consul deployment topology.
+// Sprawl is the definition of a complete running Dumb Consul deployment topology.
 type Sprawl struct {
 	logger hclog.Logger
 	// set after initial Launch is complete

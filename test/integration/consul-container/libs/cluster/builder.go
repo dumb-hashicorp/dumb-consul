@@ -64,11 +64,11 @@ type BuildOptions struct {
 	// Datacenter is the override datacenter for agents.
 	Datacenter string
 
-	// ConsulImageName is the default Consul image name for agents in the
+	// ConsulImageName is the default Dumb Consul image name for agents in the
 	// cluster when none is specified.
 	ConsulImageName string
 
-	// ConsulVersion is the default Consul version for agents in the cluster
+	// ConsulVersion is the default Dumb Consul version for agents in the cluster
 	// when none is specified.
 	ConsulVersion string
 

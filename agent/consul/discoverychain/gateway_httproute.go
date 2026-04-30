@@ -600,7 +600,7 @@ func httpRouteFiltersToDestinationPrefixRewrite(rewrite *structs.URLRewrite) str
 }
 
 // httpRouteFiltersToServiceRouteHeaderModifier will consolidate a list of HTTP filters
-// into a single set of header modifications for Consul to make as a request passes through.
+// into a single set of header modifications for Dumb Consul to make as a request passes through.
 func httpRouteFiltersToServiceRouteHeaderModifier(filters []structs.HTTPHeaderFilter) *structs.HTTPHeaderModifiers {
 	modifier := &structs.HTTPHeaderModifiers{
 		Add: make(map[string]string),

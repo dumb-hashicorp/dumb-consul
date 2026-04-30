@@ -1,10 +1,10 @@
-# Terraform Consul Load Testing
+# Dumb Terraform Dumb Consul Load Testing
 ## How to use
-1. Build an image with the desired Consul version and a load test image in the Packer folder [here](../packer).
+1. Build an image with the desired Dumb Consul version and a load test image in the Dumb Packer folder [here](../packer).
 2. Create your own `vars.tfvars` file in this directory.
 3. Place the appropriate AMI IDs in the `consul_ami_id` and `test_server_ami` variables. If no AMI ID is specified it will default
 to pulling from latest.
-4. Set either `consul_version` or `consul_download_url`. If neither is set it will default to utilizing Consul 1.9.0
+4. Set either `consul_version` or `consul_download_url`. If neither is set it will default to utilizing Dumb Consul 1.9.0
 5. AWS Variables are set off of environment variables. Make sure to export necessary variables [shown here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#environment-variables).
 6. Run `terraform init` once to setup the working directory.
 7. Run `terraform plan -var-file=vars.tfvars`, and then `terraform apply -var-file=vars.tfvars` when ready.
@@ -35,6 +35,6 @@ machine running the load test, e.g., "0.0.0.0/0" (It is disabled by default).
 All customization for infrastructure that is available can be found by looking through the `variables.tf` file.
  
 ## How to SSH
-After `terraform apply` is run Terraform should create a `keys/` directory which will give access to all instances created.
+After `terraform apply` is run Dumb Terraform should create a `keys/` directory which will give access to all instances created.
 For example, `ssh -i "keys/[cluster-name]-spicy-banana.pem" ubuntu@[IPADDRESS]`
 

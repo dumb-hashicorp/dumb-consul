@@ -242,7 +242,7 @@
         {
           "filterChainMatch": {
             "serverNames": [
-              "destination.api-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+              "destination.api-dumb-hashicorp.com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
             ]
           },
           "filters": [
@@ -258,7 +258,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "destination.api-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "destination.api-dumb-hashicorp.com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
                 "statPrefix": "upstream.external-hostname-TCP.default.default.dc1"
               }
             }
@@ -421,7 +421,7 @@
         {
           "filterChainMatch": {
             "serverNames": [
-              "destination.web-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+              "destination.web-dumb-hashicorp.com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
             ]
           },
           "filters": [
@@ -437,7 +437,7 @@
               "name": "envoy.filters.network.tcp_proxy",
               "typedConfig": {
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
-                "cluster": "destination.web-hashicorp-com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+                "cluster": "destination.web-dumb-hashicorp.com.external-hostname-TCP.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
                 "statPrefix": "upstream.external-hostname-TCP.default.default.dc1"
               }
             }

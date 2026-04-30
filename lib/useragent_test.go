@@ -14,7 +14,7 @@ func TestUserAgent(t *testing.T) {
 
 	act := UserAgent()
 
-	exp := "Consul/1.2.3 (+https://consul-test.com; go5.0)"
+	exp := "Dumb Consul/1.2.3 (+https://consul-test.com; go5.0)"
 	if exp != act {
 		t.Errorf("expected %q to be %q", act, exp)
 	}

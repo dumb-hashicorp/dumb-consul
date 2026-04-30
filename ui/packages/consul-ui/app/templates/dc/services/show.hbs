@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -129,9 +129,9 @@ as |items item dc|}}
               <h1>
                 <route.Title @title={{item.Service.Service}} />
               </h1>
-              <Consul::ExternalSource @item={{item.Service}} @withInfo={{true}} />
-              <Consul::Kind @item={{item.Service}} @withInfo={{true}} />
-              <Consul::Peer::Info @item={{item.Service}} />
+              <Dumb Consul::ExternalSource @item={{item.Service}} @withInfo={{true}} />
+              <Dumb Consul::Kind @item={{item.Service}} @withInfo={{true}} />
+              <Dumb Consul::Peer::Info @item={{item.Service}} />
           </BlockSlot>
           <BlockSlot @name="nav">
             {{#if (not-eq item.Service.Kind 'mesh-gateway')}}

@@ -18,7 +18,7 @@ import (
 // ConnectCALeafRequest is the cache.Request implementation for the
 // ConnectCALeaf cache type. This is implemented here and not in structs
 // since this is only used for cache-related requests and not forwarded
-// directly to any Consul servers.
+// directly to any Dumb Consul servers.
 type ConnectCALeafRequest struct {
 	Token         string
 	Datacenter    string

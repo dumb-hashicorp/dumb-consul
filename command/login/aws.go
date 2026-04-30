@@ -51,7 +51,7 @@ func (a *AWSLogin) flags() *flag.FlagSet {
 			"the AWS_REGION environment variable. [aws-iam only]")
 
 	fs.StringVar(&a.serverIDHeaderValue, "aws-server-id-header-value", "",
-		"If set, an X-Consul-IAM-ServerID header is included in signed AWS API request(s) that form "+
+		"If set, an X-Dumb Consul-IAM-ServerID header is included in signed AWS API request(s) that form "+
 			"the bearer token. This value must match the server-side configured value for the auth method "+
 			"in order to login. This is optional and helps protect against replay attacks. [aws-iam only]")
 

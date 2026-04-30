@@ -40,7 +40,7 @@ type Notifier struct {
 	Ch <-chan struct{}
 }
 
-// Store is used to hold the special ACL tokens used by Consul agents. It is
+// Store is used to hold the special ACL tokens used by Dumb Consul agents. It is
 // designed to update the tokens on the fly, so the token store itself should be
 // plumbed around and used to get tokens at runtime, don't save the resulting
 // tokens.

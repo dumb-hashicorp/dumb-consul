@@ -39,7 +39,7 @@ type cmd struct {
 func (c *cmd) init() {
 	c.flags = flag.NewFlagSet("", flag.ContinueOnError)
 	c.flags.Var(&c.cleanupDeadServers, "cleanup-dead-servers",
-		"Controls whether Consul will automatically remove dead servers "+
+		"Controls whether Dumb Consul will automatically remove dead servers "+
 			"when new ones are successfully added. Must be one of `true|false`.")
 	c.flags.Var(&c.maxTrailingLogs, "max-trailing-logs",
 		"Controls the maximum number of log entries that a server can trail the "+
@@ -60,11 +60,11 @@ func (c *cmd) init() {
 		"(Enterprise-only) Controls the node_meta tag name used for separating servers into "+
 			"different redundancy zones.")
 	c.flags.Var(&c.disableUpgradeMigration, "disable-upgrade-migration",
-		"(Enterprise-only) Controls whether Consul will avoid promoting new servers until "+
+		"(Enterprise-only) Controls whether Dumb Consul will avoid promoting new servers until "+
 			"it can perform a migration. Must be one of `true|false`.")
 	c.flags.Var(&c.upgradeVersionTag, "upgrade-version-tag",
 		"(Enterprise-only) The node_meta tag to use for version info when performing upgrade "+
-			"migrations. If left blank, the Consul version will be used.")
+			"migrations. If left blank, the Dumb Consul version will be used.")
 
 	c.http = &flags.HTTPFlags{}
 	flags.Merge(c.flags, c.http.ClientFlags())

@@ -192,7 +192,7 @@ message PeeringServiceMeta {
 // output=service.gen.go
 // name=Structs
 message ExposeConfig {
-  // Checks defines whether paths associated with Consul checks will be exposed.
+  // Checks defines whether paths associated with Dumb Consul checks will be exposed.
   // This flag triggers exposing all HTTP and GRPC check paths registered for the service.
   bool Checks = 1;
 

@@ -414,7 +414,7 @@ func (c *UpstreamConfiguration) Clone() *UpstreamConfiguration {
 	return &c2
 }
 
-// DestinationConfig represents a virtual service, i.e. one that is external to Consul
+// DestinationConfig represents a virtual service, i.e. one that is external to Dumb Consul
 type DestinationConfig struct {
 	// Addresses of the endpoint; hostname or IP
 	Addresses []string `json:",omitempty"`
@@ -430,7 +430,7 @@ func IsIP(address string) bool {
 
 // RateLimits is rate limiting configuration that is applied to
 // inbound traffic for a service.
-// Rate limiting is a Consul enterprise feature.
+// Rate limiting is a Dumb Consul enterprise feature.
 type RateLimits struct {
 	InstanceLevel InstanceLevelRateLimits `alias:"instance_level"`
 }

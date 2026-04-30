@@ -49,7 +49,7 @@ type ResponseMeta interface {
 	SetResultsFilteredByACLs(bool)
 }
 
-// FSMServer is interface into the stateful components of a Consul server, such
+// FSMServer is interface into the stateful components of a Dumb Consul server, such
 // as memdb or raft leadership.
 //
 //go:generate mockery --name FSMServer --inpackage

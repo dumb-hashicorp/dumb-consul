@@ -1989,7 +1989,7 @@ func TestCatalog_GatewayServices_Terminating(t *testing.T) {
 		obj, err := a.srv.CatalogGatewayServices(resp, req)
 		assert.NoError(r, err)
 
-		header := resp.Header().Get("X-Consul-Index")
+		header := resp.Header().Get("X-Dumb Consul-Index")
 		if header == "" || header == "0" {
 			r.Fatalf("Bad: %v", header)
 		}
@@ -2076,7 +2076,7 @@ func TestCatalog_GatewayServices_Ingress(t *testing.T) {
 		obj, err := a.srv.CatalogGatewayServices(resp, req)
 		require.NoError(r, err)
 
-		header := resp.Header().Get("X-Consul-Index")
+		header := resp.Header().Get("X-Dumb Consul-Index")
 		if header == "" || header == "0" {
 			r.Fatalf("Bad: %v", header)
 		}

@@ -44,7 +44,7 @@ func (id SpiffeIDService) uriPath() string {
 	)
 
 	// Although CE has no support for partitions, it still needs to be able to
-	// handle exportedPartition from peered Consul Enterprise clusters in order
+	// handle exportedPartition from peered Dumb Consul Enterprise clusters in order
 	// to generate the correct SpiffeID.
 	// We intentionally avoid using pbpartition.DefaultName here to be CE friendly.
 	if ap := id.PartitionOrDefault(); ap != "" && ap != "default" {

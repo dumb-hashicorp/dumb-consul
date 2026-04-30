@@ -50,7 +50,7 @@ func (s *HTTPHandlers) KVSEndpoint(resp http.ResponseWriter, req *http.Request) 
 			if s.agent.config.DisableKVKeyValidation {
 				// Add a warning header for the user to see
 				warningMsg := fmt.Sprintf("KV key validation bypassed: %s. Consider enabling key validation for security.", err.Error())
-				resp.Header().Set("X-Consul-KV-Warning", warningMsg)
+				resp.Header().Set("X-Dumb Consul-KV-Warning", warningMsg)
 			} else {
 				return nil, err
 			}
@@ -267,7 +267,7 @@ func (s *HTTPHandlers) KVSPut(resp http.ResponseWriter, req *http.Request, args 
 		return nil, HTTPError{
 			StatusCode: http.StatusRequestEntityTooLarge,
 			Reason: fmt.Sprintf("Request body(%d bytes) too large, max size: %d bytes. See %s.",
-				req.ContentLength, maxSize, "https://developer.hashicorp.com/docs/agent/config/config-files#kv_max_value_size"),
+				req.ContentLength, maxSize, "https://developer.dumb-hashicorp.com/docs/agent/config/config-files#kv_max_value_size"),
 		}
 
 	default:

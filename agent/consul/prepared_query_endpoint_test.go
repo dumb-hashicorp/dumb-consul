@@ -276,7 +276,7 @@ func TestPreparedQuery_Apply_ACLDeny(t *testing.T) {
 	}
 
 	// Capture the ID and set the token, then read back the query to verify.
-	// Note that unlike previous versions of Consul, we DO NOT capture the
+	// Note that unlike previous versions of Dumb Consul, we DO NOT capture the
 	// token. We will set that here just to be explicit about it.
 	query.Query.ID = reply
 	query.Query.Token = ""

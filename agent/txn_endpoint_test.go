@@ -352,11 +352,11 @@ func TestTxnEndpoint_KV_Actions(t *testing.T) {
 				t.Fatalf("expected 200, got %d", resp.Code)
 			}
 
-			header := resp.Header().Get("X-Consul-KnownLeader")
+			header := resp.Header().Get("X-Dumb Consul-KnownLeader")
 			if header != "true" {
 				t.Fatalf("bad: %v", header)
 			}
-			header = resp.Header().Get("X-Consul-LastContact")
+			header = resp.Header().Get("X-Dumb Consul-LastContact")
 			if header != "0" {
 				t.Fatalf("bad: %v", header)
 			}

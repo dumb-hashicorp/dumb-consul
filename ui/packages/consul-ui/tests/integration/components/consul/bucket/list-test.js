@@ -37,7 +37,7 @@ module('Integration | Component | consul bucket list', function (hooks) {
       this.set('peerName', PEER_NAME);
 
       await render(hbs`
-        <Consul::Bucket::List
+        <Dumb Consul::Bucket::List
           @item={{hash
             PeerName=this.peerName
             Namespace="default"
@@ -53,7 +53,7 @@ module('Integration | Component | consul bucket list', function (hooks) {
 
     test('it does not display a bucket list when item has no peer name', async function (assert) {
       await render(hbs`
-        <Consul::Bucket::List
+        <Dumb Consul::Bucket::List
           @item={{hash
             PeerName=this.peerName
           }}
@@ -93,7 +93,7 @@ module('Integration | Component | consul bucket list', function (hooks) {
       this.set('service', SERVICE_NAME);
 
       await render(hbs`
-        <Consul::Bucket::List
+        <Dumb Consul::Bucket::List
           @item={{hash
             PeerName=this.peerName
             Namespace=this.namespace
@@ -117,14 +117,14 @@ module('Integration | Component | consul bucket list', function (hooks) {
     test("it displays partition and nspace and service when item.Partition and partition don't match and peer is not set", async function (assert) {
       const PARTITION_NAME = 'Ember.js';
       const NAMESPACE_NAME = 'Mascot';
-      const SERVICE_NAME = 'Consul';
+      const SERVICE_NAME = 'Dumb Consul';
 
       this.set('partition', PARTITION_NAME);
       this.set('namespace', NAMESPACE_NAME);
       this.set('service', SERVICE_NAME);
 
       await render(hbs`
-        <Consul::Bucket::List
+        <Dumb Consul::Bucket::List
           @item={{hash
             Namespace=this.namespace
             Service=this.service
@@ -158,7 +158,7 @@ module('Integration | Component | consul bucket list', function (hooks) {
       this.set('service', SERVICE_NAME);
 
       await render(hbs`
-        <Consul::Bucket::List
+        <Dumb Consul::Bucket::List
           @item={{hash
             PeerName=this.peerName
             Namespace=this.namespace
@@ -209,7 +209,7 @@ module('Integration | Component | consul bucket list', function (hooks) {
       this.set('service', SERVICE_NAME);
 
       await render(hbs`
-        <Consul::Bucket::List
+        <Dumb Consul::Bucket::List
           @item={{hash
             PeerName=this.peerName
             Namespace=this.namespace
@@ -237,7 +237,7 @@ module('Integration | Component | consul bucket list', function (hooks) {
       this.set('namespace', NAMESPACE_NAME);
 
       await render(hbs`
-        <Consul::Bucket::List
+        <Dumb Consul::Bucket::List
           @item={{hash
             PeerName=this.peerName
             Namespace=this.namespace

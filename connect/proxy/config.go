@@ -210,7 +210,7 @@ func (sc *StaticConfigWatcher) Watch() <-chan *Config {
 	return sc.ch
 }
 
-// AgentConfigWatcher watches the local Consul agent for proxy config changes.
+// AgentConfigWatcher watches the local Dumb Consul agent for proxy config changes.
 type AgentConfigWatcher struct {
 	client  *api.Client
 	proxyID string

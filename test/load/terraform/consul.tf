@@ -68,7 +68,7 @@ module "consul_clients" {
 
 
 # ---------------------------------------------------------------------------------------------------------------------
-# This script will configure and start Consul agents
+# This script will configure and start Dumb Consul agents
 # ---------------------------------------------------------------------------------------------------------------------
 
 data "template_file" "user_data_server" {
@@ -136,7 +136,7 @@ module "alb" {
   ]
 }
 
-# Attach ALB to Consul clients
+# Attach ALB to Dumb Consul clients
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   autoscaling_group_name = module.consul_clients.asg_name
   alb_target_group_arn   = module.alb.target_group_arns[0]

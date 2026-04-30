@@ -44,7 +44,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -65,9 +65,9 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Gracefully leaves the Consul cluster and shuts down"
+const synopsis = "Gracefully leaves the Dumb Consul cluster and shuts down"
 const help = `
 Usage: consul leave [options]
 
-  Causes the agent to gracefully leave the Consul cluster and shutdown.
+  Causes the agent to gracefully leave the Dumb Consul cluster and shutdown.
 `

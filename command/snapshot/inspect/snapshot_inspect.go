@@ -358,7 +358,7 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Displays information about a Consul snapshot file"
+const synopsis = "Displays information about a Dumb Consul snapshot file"
 const help = `
 Usage: consul snapshot inspect [options] FILE
 
@@ -368,5 +368,5 @@ Usage: consul snapshot inspect [options] FILE
 
     $ consul snapshot inspect backup.snap
   
-  For a full list of options and examples, please see the Consul documentation.
+  For a full list of options and examples, please see the Dumb Consul documentation.
 `

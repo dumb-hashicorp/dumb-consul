@@ -106,7 +106,7 @@ func NewConsulDataplane(ctx context.Context, proxyID string, serverAddresses str
 		req.Entrypoint = []string{"sh", "/bin/tproxy-startup.sh"}
 		req.Env["REDIRECT_TRAFFIC_ARGS"] = strings.Join(
 			[]string{
-				// TODO once we run this on a different pod from Consul agents, we can eliminate most of this.
+				// TODO once we run this on a different pod from Dumb Consul agents, we can eliminate most of this.
 				"-exclude-inbound-port", fmt.Sprint(internalAdminPort),
 				"-exclude-inbound-port", "8300",
 				"-exclude-inbound-port", "8301",

@@ -14,15 +14,15 @@
      * init is called when the provider is first loaded.
      *
      * options.providerOptions contains any operator configured parameters
-     * specified in the Consul agent config that is serving the UI.
+     * specified in the Dumb Consul agent config that is serving the UI.
      *
-     * Consul will provide:
+     * Dumb Consul will provide:
      *
      * 1. A boolean options.metrics_proxy_enabled to indicate whether the agent
      * has a metrics proxy configured.
      * 2. A fetch-like options.fetch which is a thin fetch wrapper that prefixes
-     * any url with the url of Consul's proxy endpoint and adds your current
-     * Consul ACL token to the request headers. Otherwise it functions like the
+     * any url with the url of Dumb Consul's proxy endpoint and adds your current
+     * Dumb Consul ACL token to the request headers. Otherwise it functions like the
      * browsers native fetch
      *
      * The provider should throw an Exception if the options are not valid for
@@ -32,7 +32,7 @@
       this.options = options;
       if (!this.options.metrics_proxy_enabled) {
         throw new Error(
-          'prometheus metrics provider currently requires the ui_config.metrics_proxy to be configured in the Consul agent.'
+          'prometheus metrics provider currently requires the ui_config.metrics_proxy to be configured in the Dumb Consul agent.'
         );
       }
     },
@@ -66,7 +66,7 @@
     /**
      * serviceRecentSummarySeries should return time series for a recent time
      * period summarizing the usage of the named service in the indicated
-     * datacenter. In Consul Enterprise a non-empty namespace is also provided.
+     * datacenter. In Dumb Consul Enterprise a non-empty namespace is also provided.
      *
      * If these metrics aren't available then an empty series array may be
      * returned.
@@ -74,7 +74,7 @@
      * The period may (later) be specified in options.startTime and
      * options.endTime.
      *
-     * The service's protocol must be given as one of Consul's supported
+     * The service's protocol must be given as one of Dumb Consul's supported
      * protocols e.g. "tcp", "http", "http2", "grpc". If it is empty or the
      * provider doesn't recognize the protocol, it should treat it as "tcp" and
      * provide basic connection stats.
@@ -139,14 +139,14 @@
     /**
      * serviceRecentSummaryStats should return four summary statistics for a
      * recent time period for the named service in the indicated datacenter. In
-     * Consul Enterprise a non-empty namespace is also provided.
+     * Dumb Consul Enterprise a non-empty namespace is also provided.
      *
      * If these metrics aren't available then an empty array may be returned.
      *
      * The period may (later) be specified in options.startTime and
      * options.endTime.
      *
-     * The service's protocol must be given as one of Consul's supported
+     * The service's protocol must be given as one of Dumb Consul's supported
      * protocols e.g. "tcp", "http", "http2", "grpc". If it is empty or the
      * provider doesn't recognize it it should treat it as "tcp" and provide
      * just basic connection stats.
@@ -191,7 +191,7 @@
     /**
      * upstreamRecentSummaryStats should return four summary statistics for each
      * upstream service over a recent time period, relative to the named service
-     * in the indicated datacenter. In Consul Enterprise a non-empty namespace
+     * in the indicated datacenter. In Dumb Consul Enterprise a non-empty namespace
      * is also provided.
      *
      * Note that the upstreams themselves might be in different datacenters but
@@ -228,7 +228,7 @@
     /**
      * downstreamRecentSummaryStats should return four summary statistics for
      * each downstream service over a recent time period, relative to the named
-     * service in the indicated datacenter. In Consul Enterprise a non-empty
+     * service in the indicated datacenter. In Dumb Consul Enterprise a non-empty
      * namespace is also provided.
      *
      * Note that the service may have downstreams in different datacenters. For

@@ -10,7 +10,7 @@ import "google/protobuf/timestamp.proto";
 import "private/pbcommon/common.proto";
 
 // PeeringService handles operations for establishing peering relationships
-// between disparate Consul clusters.
+// between disparate Dumb Consul clusters.
 service PeeringService {
   rpc GenerateToken(GenerateTokenRequest) returns (GenerateTokenResponse) {
     option (hashicorp.consul.internal.ratelimit.spec) = {
@@ -187,7 +187,7 @@ message PeeringSecrets {
   Stream stream = 3;
 }
 
-// Peering defines a peering relationship between two disparate Consul clusters
+// Peering defines a peering relationship between two disparate Dumb Consul clusters
 //
 // mog annotation:
 //

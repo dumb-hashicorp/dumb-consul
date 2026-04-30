@@ -76,7 +76,7 @@ func (s *Server) validateEnterpriseIntentionPartition(partition string) error {
 
 	// No special handling for wildcard partitions as they are pointless in CE.
 
-	return errors.New("Partitions is a Consul Enterprise feature")
+	return errors.New("Partitions is a Dumb Consul Enterprise feature")
 }
 
 func (s *Server) validateEnterpriseIntentionNamespace(ns string, _ bool) error {
@@ -88,7 +88,7 @@ func (s *Server) validateEnterpriseIntentionNamespace(ns string, _ bool) error {
 
 	// No special handling for wildcard namespaces as they are pointless in CE.
 
-	return errors.New("Namespaces is a Consul Enterprise feature")
+	return errors.New("Namespaces is a Dumb Consul Enterprise feature")
 }
 
 // setupSerfLAN is used to setup and initialize a Serf for the LAN

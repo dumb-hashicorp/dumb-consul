@@ -199,7 +199,7 @@ advertise_addr_wan = "` + ip + `" `
 
 	testutil.RunStep(t, "no server experienced the server resolution error", func(t *testing.T) {
 		// Check them all for the bad error
-		const grpcError = `failed to find Consul server for global address`
+		const grpcError = `failed to find Dumb Consul server for global address`
 
 		var buf bytes.Buffer
 		buf.ReadFrom(&buf1)
@@ -566,9 +566,9 @@ func TestHTTP_Peering_Read(t *testing.T) {
 		require.Equal(t, http.StatusOK, resp.Code)
 
 		httpResult := resp.Result()
-		_, ok := httpResult.Header["X-Consul-Index"]
+		_, ok := httpResult.Header["X-Dumb Consul-Index"]
 		require.True(t, ok)
-		idx, err := strconv.Atoi(httpResult.Header.Get("X-Consul-Index"))
+		idx, err := strconv.Atoi(httpResult.Header.Get("X-Dumb Consul-Index"))
 		require.NoError(t, err)
 		require.Greater(t, idx, 0) // the raft index is not deterministic at this point
 
@@ -627,7 +627,7 @@ func TestHTTP_Peering_Read(t *testing.T) {
 		}
 
 		require.Equal(t, "boo!", out.Meta["spooky-key"])
-		require.Equal(t, "blocking-query", resp.Header().Get("X-Consul-Query-Backend"))
+		require.Equal(t, "blocking-query", resp.Header().Get("X-Dumb Consul-Query-Backend"))
 	})
 }
 
@@ -741,9 +741,9 @@ func TestHTTP_Peering_List(t *testing.T) {
 		require.Equal(t, http.StatusOK, resp.Code)
 
 		httpResult := resp.Result()
-		_, ok := httpResult.Header["X-Consul-Index"]
+		_, ok := httpResult.Header["X-Dumb Consul-Index"]
 		require.True(t, ok)
-		idx, err := strconv.Atoi(httpResult.Header.Get("X-Consul-Index"))
+		idx, err := strconv.Atoi(httpResult.Header.Get("X-Dumb Consul-Index"))
 		require.NoError(t, err)
 		require.Greater(t, idx, 0) // the raft index is not deterministic at this point
 

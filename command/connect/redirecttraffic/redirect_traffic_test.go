@@ -131,7 +131,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 			},
 		},
 		{
-			name: "proxyID with Consul DNS IP and port provided",
+			name: "proxyID with Dumb Consul DNS IP and port provided",
 			command: func() cmd {
 				var c cmd
 				c.init()
@@ -162,7 +162,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 			},
 		},
 		{
-			name: "proxyID with Consul DNS IP and port provided ipv6 dns 1",
+			name: "proxyID with Dumb Consul DNS IP and port provided ipv6 dns 1",
 			command: func() cmd {
 				var c cmd
 				c.init()
@@ -193,7 +193,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 			},
 		},
 		{
-			name: "proxyID with Consul DNS IP and port provided ipv6 dns 2",
+			name: "proxyID with Dumb Consul DNS IP and port provided ipv6 dns 2",
 			command: func() cmd {
 				var c cmd
 				c.init()
@@ -224,7 +224,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 			},
 		},
 		{
-			name: "proxyID with Consul DNS IP and port provided ipv6 dns 3",
+			name: "proxyID with Dumb Consul DNS IP and port provided ipv6 dns 3",
 			command: func() cmd {
 				var c cmd
 				c.init()
@@ -341,7 +341,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 			},
 		},
 		{
-			name: "proxyID provided, but Consul is not reachable",
+			name: "proxyID provided, but Dumb Consul is not reachable",
 			command: func() cmd {
 				var c cmd
 				c.init()
@@ -349,7 +349,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			expError: "failed to fetch proxy service from Consul Agent: ",
+			expError: "failed to fetch proxy service from Dumb Consul Agent: ",
 		},
 		{
 			name: "proxyID of a non-proxy service",

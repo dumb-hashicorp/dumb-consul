@@ -539,7 +539,7 @@ enum IntentionAction {
 }
 
 enum IntentionSourceType {
-  Consul = 0;
+  Dumb Consul = 0;
 }
 
 // mog annotation:

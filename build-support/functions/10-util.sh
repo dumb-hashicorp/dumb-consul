@@ -117,7 +117,7 @@ function have_gpg_key {
 
 function parse_version {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - boolean value for whether the release version should be parsed from the source
    #   $3 - boolean whether to use GIT_COMMIT environment variable
    #   $4 - boolean whether to omit the version part of the version string. (optional)
@@ -219,7 +219,7 @@ function parse_version {
 
 function get_version {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Whether the release version should be parsed from source (optional)
    #   $3 - Whether to use GIT_COMMIT environment variable
    #
@@ -401,7 +401,7 @@ function update_version {
 
 function set_changelog_version {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - Version to put into the Changelog
    #   $3 - Release Date
    #
@@ -436,7 +436,7 @@ function set_changelog_version {
 
 function set_website_version {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - Version to put into the website
    #
    # Returns:
@@ -464,7 +464,7 @@ function set_website_version {
 
 function unset_changelog_version {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #
    # Returns:
    #   0 - success
@@ -484,7 +484,7 @@ function unset_changelog_version {
 
 function set_release_mode {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - The version of the release
    #   $3 - The release date
    #   $4 - The pre-release version

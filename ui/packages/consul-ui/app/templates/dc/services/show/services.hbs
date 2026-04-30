@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -52,7 +52,7 @@ as |route|>
   as |sort filters items|}}
   {{#if (gt items.length 0)}}
       <input type="checkbox" id="toolbar-toggle" />
-      <Consul::Upstream::SearchBar
+      <Dumb Consul::Upstream::SearchBar
         @search={{this.search}}
         @onsearch={{action (mut this.search) value="target.value"}}
 
@@ -72,12 +72,12 @@ as |route|>
           {{t "routes.dc.services.show.services.intro"
             htmlSafe=true
           }}
-          <Consul::Service::List
+          <Dumb Consul::Service::List
             @nspace={{or route.params.nspace route.model.user.token.Namespace 'default'}}
             @partition={{or route.params.partition route.model.user.token.Partition 'default'}}
             @items={{collection.items}}
           >
-          </Consul::Service::List>
+          </Dumb Consul::Service::List>
         </collection.Collection>
         <collection.Empty>
           <EmptyState>

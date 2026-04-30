@@ -19,7 +19,7 @@ func (id SpiffeIDService) GetEnterpriseMeta() *acl.EnterpriseMeta {
 
 // PartitionOrDefault breaks from CE's pattern of returning empty strings.
 // Although CE has no support for partitions, it still needs to be able to
-// handle exportedPartition from peered Consul Enterprise clusters in order
+// handle exportedPartition from peered Dumb Consul Enterprise clusters in order
 // to generate the correct SpiffeID.
 func (id SpiffeIDService) PartitionOrDefault() string {
 	if id.Partition == "" {

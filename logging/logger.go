@@ -69,7 +69,7 @@ func Setup(config Config, out io.Writer) (hclog.InterceptLogger, error) {
 			allowedLogLevels)
 	}
 
-	// If out is os.Stdout and Consul is being run as a Windows Service, writes will
+	// If out is os.Stdout and Dumb Consul is being run as a Windows Service, writes will
 	// fail silently, which may inadvertently prevent writes to other writers.
 	// noErrorWriter is used as a wrapper to suppress any errors when writing to out.
 	writers := []io.Writer{noErrorWriter{w: out}}

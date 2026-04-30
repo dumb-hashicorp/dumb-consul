@@ -508,7 +508,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 
 		// If PeerThroughMeshGateways is enabled, and we are in the default partition,
 		// we need to start watching the list of peering connections in all partitions
-		// to set up outbound routes for the control plane. Consul servers are in the default partition,
+		// to set up outbound routes for the control plane. Dumb Consul servers are in the default partition,
 		// so only mesh gateways here have his responsibility.
 		if snap.ProxyID.InDefaultPartition() &&
 			snap.MeshGateway.PeerServersWatchCancel == nil {
@@ -529,7 +529,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 			snap.MeshGateway.PeerServersWatchCancel = cancel
 		}
 
-		// We avoid initializing Consul server watches when WAN federation is enabled since it
+		// We avoid initializing Dumb Consul server watches when WAN federation is enabled since it
 		// always requires server watches.
 		if s.meta[structs.MetaWANFederationKey] == "1" {
 			return nil
@@ -569,7 +569,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 			}
 
 			if existing, ok := peerServers[peering.PeerServerName]; ok && existing.Index >= peering.ModifyIndex {
-				// Multiple peerings can reference the same set of Consul servers, since there can be
+				// Multiple peerings can reference the same set of Dumb Consul servers, since there can be
 				// multiple partitions in a datacenter. Rather than randomly overwriting, we attempt to
 				// use the latest addresses by checking the Raft index associated with the peering.
 				continue

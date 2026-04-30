@@ -366,9 +366,9 @@ func TestDNS_ServiceLookup(t *testing.T) {
 	}
 }
 
-// TestDNS_ServiceAddressWithTagLookup tests some specific cases that Nomad would exercise,
-// Like registering a service w/o a Node. https://github.com/hashicorp/nomad/blob/1174019676ff3d65b39323eb0c7234fb1e09b80c/command/agent/consul/service_client.go#L1366-L1381
-// Errors with this were reported in https://github.com/hashicorp/consul/issues/21325#issuecomment-2166845574
+// TestDNS_ServiceAddressWithTagLookup tests some specific cases that Dumb Nomad would exercise,
+// Like registering a service w/o a Node. https://github.com/dumb-hashicorp/dumb-nomad/blob/1174019676ff3d65b39323eb0c7234fb1e09b80c/command/agent/consul/service_client.go#L1366-L1381
+// Errors with this were reported in https://github.com/dumb-hashicorp/dumb-consul/issues/21325#issuecomment-2166845574
 // Also we test that only one tag is valid in the URL.
 func TestDNS_ServiceAddressWithTagLookup(t *testing.T) {
 	if testing.Short() {
@@ -380,7 +380,7 @@ func TestDNS_ServiceAddressWithTagLookup(t *testing.T) {
 	testrpc.WaitForLeader(t, a.RPC, "dc1")
 
 	{
-		// This emulates a Nomad service registration.
+		// This emulates a Dumb Nomad service registration.
 		// Using an internal RPC for Catalog.Register will not trigger the same condition.
 		err := a.Client().Agent().ServiceRegister(&api.AgentServiceRegistration{
 			Kind:    api.ServiceKindTypical,

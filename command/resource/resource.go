@@ -27,11 +27,11 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Interact with Consul's resources"
+const synopsis = "Interact with Dumb Consul's resources"
 const help = `
 Usage: consul resource <subcommand> [options]
 
-This command has subcommands for interacting with Consul's resources.
+This command has subcommands for interacting with Dumb Consul's resources.
 Here are some simple examples, and more detailed examples are available
 in the subcommands or the documentation.
 

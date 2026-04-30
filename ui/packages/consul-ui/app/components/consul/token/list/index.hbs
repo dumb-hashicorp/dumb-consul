@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -30,7 +30,7 @@
         {{if item.Local 'local' 'global'}}
       </dd>
     </dl>
-    <Consul::Token::Ruleset::List @item={{item}} />
+    <Dumb Consul::Token::Ruleset::List @item={{item}} />
     <dl>
       <dt>Description</dt>
       <dd data-test-description>

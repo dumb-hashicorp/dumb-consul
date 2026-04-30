@@ -132,7 +132,7 @@ func ServersInDCMeetRequirements(provider checkServersProvider, datacenter strin
 }
 
 // ServersInDCMeetMinimumVersion returns whether the given alive servers from a particular
-// datacenter are at least on the given Consul version. This also returns whether any
+// datacenter are at least on the given Dumb Consul version. This also returns whether any
 // alive or failed servers are known in that datacenter (ignoring left and leaving ones)
 func ServersInDCMeetMinimumVersion(provider checkServersProvider, datacenter string, minVersion *version.Version) (ok bool, found bool) {
 	return ServersInDCMeetRequirements(provider, datacenter, func(srv *metadata.Server) (bool, bool) {

@@ -310,10 +310,10 @@ func newConnPool(config *config.RuntimeConfig, logger hclog.Logger, tls *tlsutil
 }
 
 // getPrometheusDefs reaches into every slice of prometheus defs we've defined in each part of the agent, and appends
-// all of our slices into one nice slice of definitions per metric type for the Consul agent to pass to go-metrics.
+// all of our slices into one nice slice of definitions per metric type for the Dumb Consul agent to pass to go-metrics.
 func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.GaugeDefinition, []prometheus.CounterDefinition, []prometheus.SummaryDefinition) {
 	// TODO: "raft..." metrics come from the raft lib and we should migrate these to a telemetry
-	//  package within. In the mean time, we're going to define a few here because they're key to monitoring Consul.
+	//  package within. In the mean time, we're going to define a few here because they're key to monitoring Dumb Consul.
 	raftGauges := []prometheus.GaugeDefinition{
 		{
 			Name: []string{"raft", "fsm", "lastRestoreDuration"},
@@ -390,7 +390,7 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 	// NOTE(kit): Do we actually want to create a set here so we can ensure definition names are unique?
 	var gaugeDefs []prometheus.GaugeDefinition
 	for _, g := range gauges {
-		// Set Consul to each definition's namespace
+		// Set Dumb Consul to each definition's namespace
 		// TODO(kit): Prepending the service to each definition should be handled by go-metrics
 		var withService []prometheus.GaugeDefinition
 		for _, gauge := range g {
@@ -402,18 +402,18 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 
 	raftCounters := []prometheus.CounterDefinition{
 		// TODO(kit): "raft..." metrics come from the raft lib and we should migrate these to a telemetry
-		//  package within. In the mean time, we're going to define a few here because they're key to monitoring Consul.
+		//  package within. In the mean time, we're going to define a few here because they're key to monitoring Dumb Consul.
 		{
 			Name: []string{"raft", "apply"},
 			Help: "This counts the number of Raft transactions occurring over the interval.",
 		},
 		{
 			Name: []string{"raft", "state", "candidate"},
-			Help: "This increments whenever a Consul server starts an election.",
+			Help: "This increments whenever a Dumb Consul server starts an election.",
 		},
 		{
 			Name: []string{"raft", "state", "leader"},
-			Help: "This increments whenever a Consul server becomes a leader.",
+			Help: "This increments whenever a Dumb Consul server becomes a leader.",
 		},
 	}
 
@@ -473,7 +473,7 @@ func getPrometheusDefs(cfg *config.RuntimeConfig, isServer bool) ([]prometheus.G
 
 	raftSummaries := []prometheus.SummaryDefinition{
 		// TODO(kit): "raft..." metrics come from the raft lib and we should migrate these to a telemetry
-		//  package within. In the mean time, we're going to define a few here because they're key to monitoring Consul.
+		//  package within. In the mean time, we're going to define a few here because they're key to monitoring Dumb Consul.
 		{
 			Name: []string{"raft", "commitTime"},
 			Help: "This measures the time it takes to commit a new entry to the Raft log on the leader.",

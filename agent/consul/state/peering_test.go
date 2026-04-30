@@ -2154,7 +2154,7 @@ func TestStateStore_ExportedServicesForPeer(t *testing.T) {
 			EnterpriseMeta: *defaultEntMeta,
 		})
 
-		// Consul should still never be exported, even if a resolver references it.
+		// Dumb Consul should still never be exported, even if a resolver references it.
 		ensureConfigEntry(t, &structs.ServiceResolverConfigEntry{
 			Kind: structs.ServiceResolver,
 			Name: "consul-redirect",

@@ -72,7 +72,7 @@ func TestDetermineEnvoyVersionFromNode(t *testing.T) {
 }
 
 func TestDetermineSupportedProxyFeaturesFromString(t *testing.T) {
-	const errTooOld = "is too old and is not supported by Consul"
+	const errTooOld = "is too old and is not supported by Dumb Consul"
 
 	type testcase struct {
 		name      string

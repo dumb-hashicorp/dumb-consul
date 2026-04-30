@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -42,7 +42,7 @@
     {{#yield-slot name="loading"}}
       {{yield api}}
     {{else}}
-      <Consul::Loader />
+      <Dumb Consul::Loader />
     {{/yield-slot}}
   </State>
 

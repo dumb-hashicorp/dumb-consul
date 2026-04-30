@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -73,7 +73,7 @@ as |sort filters items partition nspace|}}
     <BlockSlot @name="toolbar">
 {{#if (gt items.length 0) }}
   {{#let (collection items) as |items|}}
-        <Consul::Service::SearchBar
+        <Dumb Consul::Service::SearchBar
           @sources={{get items 'ExternalSources'}}
           @partitions={{get items 'Partitions'}}
           @partition={{partition}}
@@ -98,12 +98,12 @@ as |sort filters items partition nspace|}}
         @items={{items}}
       as |collection|>
         <collection.Collection>
-          <Consul::Service::List
+          <Dumb Consul::Service::List
             @items={{collection.items}}
             @partition={{partition}}
             @nspace={{nspace}}
           >
-          </Consul::Service::List>
+          </Dumb Consul::Service::List>
         </collection.Collection>
         <collection.Empty>
             <EmptyState

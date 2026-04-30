@@ -335,7 +335,7 @@ func TestCheckHTTP(t *testing.T) {
 					"Accept":          []string{"text/plain, text/*, */*"},
 					"Accept-Encoding": []string{"gzip"},
 					"Connection":      []string{"close"},
-					"User-Agent":      []string{"Consul Health Check"},
+					"User-Agent":      []string{"Dumb Consul Health Check"},
 				}
 				for k, v := range tt.header {
 					expectedHeader[k] = v

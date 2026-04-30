@@ -1,4 +1,4 @@
-# Consul::Nspace::Form
+# Dumb Consul::Nspace::Form
 
 ```hbs
 <DataLoader @src={{
@@ -12,7 +12,7 @@
   }}
 as |loader|>
   <BlockSlot @name="loaded">
-    <Consul::Nspace::Form
+    <Dumb Consul::Nspace::Form
       @item={{loader.data}}
       @dc={{'dc-1'}}
       @nspace={{'nspace'}}

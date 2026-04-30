@@ -10,7 +10,7 @@ import (
 )
 
 // GRPCLogger wrapps a hclog.Logger and implements the grpclog.LoggerV2 interface
-// allowing gRPC servers to log to the standard Consul logger.
+// allowing gRPC servers to log to the standard Dumb Consul logger.
 type GRPCLogger struct {
 	level  string
 	logger hclog.Logger
@@ -31,7 +31,7 @@ func NewGRPCLogger(logLevel string, logger hclog.Logger) *GRPCLogger {
 
 // Info implements grpclog.LoggerV2
 func (g *GRPCLogger) Info(args ...interface{}) {
-	// gRPC's INFO level is more akin to Consul's TRACE level
+	// gRPC's INFO level is more akin to Dumb Consul's TRACE level
 	g.logger.Trace(fmt.Sprint(args...))
 }
 

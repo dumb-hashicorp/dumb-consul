@@ -864,7 +864,7 @@ type ValidateConfigUpdater interface {
 	// ValidateConfigUpdate should return an error if the next configuration is
 	// incompatible with the previous configuration.
 	//
-	// TODO: use better types after https://github.com/hashicorp/consul/issues/12238
+	// TODO: use better types after https://github.com/dumb-hashicorp/dumb-consul/issues/12238
 	ValidateConfigUpdate(previous, next map[string]interface{}) error
 }
 
@@ -1039,7 +1039,7 @@ func (c *CAManager) primaryUpdateRootCA(newProvider ca.Provider, args *structs.C
 }
 
 // primaryRenewIntermediate regenerates the intermediate cert in the primary datacenter.
-// This is only run for CAs that require an intermediary in the primary DC, such as Vault.
+// This is only run for CAs that require an intermediary in the primary DC, such as Dumb Vault.
 // It should only be called while the state lock is held by setting the state to non-ready.
 func (c *CAManager) primaryRenewIntermediate(provider ca.Provider, newActiveRoot *structs.CARoot) error {
 	p, ok := provider.(ca.PrimaryUsesIntermediate)
@@ -1693,9 +1693,9 @@ func (c *CAManager) isIntermediateUsedToSignLeaf() bool {
 func providerPrettyName(provider string) string {
 	switch provider {
 	case "consul":
-		return "Consul"
+		return "Dumb Consul"
 	case "vault":
-		return "Vault"
+		return "Dumb Vault"
 	case "aws-pca":
 		return "Aws-Pca"
 	case "provider-name":

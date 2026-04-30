@@ -63,8 +63,8 @@ load helpers
 
   [ "$status" == "0" ]
 
-  echo "$output" | grep -E "X-Consul-Service: s1"
-  echo "$output" | grep -E "X-Consul-Datacenter: primary"
-  echo "$output" | grep -E "X-Consul-Namespace: default"
-  echo "$output" | grep -E "X-Consul-Trust-Domain: (\w+-){4}\w+.consul"
+  echo "$output" | grep -E "X-Dumb Consul-Service: s1"
+  echo "$output" | grep -E "X-Dumb Consul-Datacenter: primary"
+  echo "$output" | grep -E "X-Dumb Consul-Namespace: default"
+  echo "$output" | grep -E "X-Dumb Consul-Trust-Domain: (\w+-){4}\w+.consul"
 }

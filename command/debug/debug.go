@@ -112,7 +112,7 @@ type cmd struct {
 type debugIndex struct {
 	// Version of the debug package
 	Version int
-	// Version of the target Consul agent
+	// Version of the target Dumb Consul agent
 	AgentVersion string
 
 	Interval string
@@ -184,7 +184,7 @@ func (c *cmd) Run(args []string) int {
 	// Connect to the agent
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 	c.client = client
@@ -932,7 +932,7 @@ func (c *cmd) Help() string {
 const help = `
 Usage: consul debug [options]
 
-  Monitors a Consul agent for the specified period of time, recording
+  Monitors a Dumb Consul agent for the specified period of time, recording
   information about the agent, cluster, and environment to an archive
   written to the specified path.
 
@@ -978,6 +978,6 @@ Usage: consul debug [options]
       
       $ consul debug -since 1h
 
-  For a full list of options and examples, please see the Consul
+  For a full list of options and examples, please see the Dumb Consul
   documentation.
 `

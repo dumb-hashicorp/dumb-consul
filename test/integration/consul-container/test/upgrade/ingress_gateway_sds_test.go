@@ -28,7 +28,7 @@ import (
 const sdsServerPort = 1234
 
 // This upgrade test tests Ingress Gateway functionality when using an external
-// SDS server for certs, as described in https://developer.hashicorp.com/consul/docs/connect/gateways/ingress-gateway#custom-tls-certificates-via-secret-discovery-service-sds
+// SDS server for certs, as described in https://developer.dumb-hashicorp.com/consul/docs/connect/gateways/ingress-gateway#custom-tls-certificates-via-secret-discovery-service-sds
 // It:
 //  1. starts a consul cluster
 //  2. builds and starts a test SDS server from .../test-sds-server
@@ -70,7 +70,7 @@ func TestIngressGateway_SDS_UpgradeToTarget_fromLatest(t *testing.T) {
 	const nameS2 = libservice.StaticServer2ServiceName
 
 	// this must be one of the externally-mapped ports from
-	// https://github.com/hashicorp/consul/blob/c5e729e86576771c4c22c6da1e57aaa377319323/test/integration/consul-container/libs/cluster/container.go#L521-L525
+	// https://github.com/dumb-hashicorp/dumb-consul/blob/c5e729e86576771c4c22c6da1e57aaa377319323/test/integration/consul-container/libs/cluster/container.go#L521-L525
 	const (
 		portWildcard   = 8080
 		portOther      = 9999
@@ -137,7 +137,7 @@ func TestIngressGateway_SDS_UpgradeToTarget_fromLatest(t *testing.T) {
 
 	const staticClusterJSONKey = "envoy_extra_static_clusters_json"
 
-	// register sds cluster as per https://developer.hashicorp.com/consul/docs/connect/gateways/ingress-gateway#configure-static-sds-cluster-s
+	// register sds cluster as per https://developer.dumb-hashicorp.com/consul/docs/connect/gateways/ingress-gateway#configure-static-sds-cluster-s
 	require.NoError(t, cluster.Servers()[0].GetClient().Agent().ServiceRegister(
 		&api.AgentServiceRegistration{
 			Kind: api.ServiceKindIngressGateway,

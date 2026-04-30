@@ -42,7 +42,7 @@ func TestHTTP_Peering_GenerateToken_CE_Failure(t *testing.T) {
 		a.srv.h.ServeHTTP(resp, req)
 		require.Equal(t, http.StatusBadRequest, resp.Code)
 		body, _ := io.ReadAll(resp.Body)
-		require.Contains(t, string(body), "Partitions are a Consul Enterprise feature")
+		require.Contains(t, string(body), "Partitions are a Dumb Consul Enterprise feature")
 	})
 }
 
@@ -64,7 +64,7 @@ func TestHTTP_PeeringEndpoint_CE_Failure(t *testing.T) {
 
 		require.Equal(t, http.StatusBadRequest, resp.Code)
 		body, _ := io.ReadAll(resp.Body)
-		require.Contains(t, string(body), "Partitions are a Consul Enterprise feature")
+		require.Contains(t, string(body), "Partitions are a Dumb Consul Enterprise feature")
 
 		req2, err2 := http.NewRequest("DELETE", "/v1/peering/foo?partition=foo", nil)
 		require.NoError(t, err2)
@@ -73,6 +73,6 @@ func TestHTTP_PeeringEndpoint_CE_Failure(t *testing.T) {
 
 		require.Equal(t, http.StatusBadRequest, resp2.Code)
 		body2, _ := io.ReadAll(resp2.Body)
-		require.Contains(t, string(body2), "Partitions are a Consul Enterprise feature")
+		require.Contains(t, string(body2), "Partitions are a Dumb Consul Enterprise feature")
 	})
 }

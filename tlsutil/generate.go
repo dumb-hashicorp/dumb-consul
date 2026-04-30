@@ -87,7 +87,7 @@ func GenerateCA(opts CAOpts) (string, string, error) {
 	}
 	name := opts.Name
 	if name == "" {
-		name = fmt.Sprintf("Consul Agent CA %d", sn)
+		name = fmt.Sprintf("Dumb Consul Agent CA %d", sn)
 	}
 
 	days := opts.Days
@@ -111,7 +111,7 @@ func GenerateCA(opts CAOpts) (string, string, error) {
 			Province:      []string{"CA"},
 			Locality:      []string{"San Francisco"},
 			StreetAddress: []string{"101 Second Street"},
-			Organization:  []string{"HashiCorp Inc."},
+			Organization:  []string{"Dumb HashiCorp Inc."},
 			CommonName:    name,
 		},
 		BasicConstraintsValid: true,

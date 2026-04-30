@@ -963,7 +963,7 @@ const file_private_pbservice_healthcheck_proto_rawDesc = "" +
 	"\vHeaderEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12D\n" +
 	"\x05value\x18\x02 \x01(\v2..hashicorp.consul.internal.service.HeaderValueR\x05value:\x028\x01B\x96\x02\n" +
-	"%com.hashicorp.consul.internal.serviceB\x10HealthcheckProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Consul.Internal.Service\xca\x02!Hashicorp\\Consul\\Internal\\Service\xe2\x02-Hashicorp\\Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Serviceb\x06proto3"
+	"%com.hashicorp.consul.internal.serviceB\x10HealthcheckProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbservice\xa2\x02\x04HCIS\xaa\x02!Hashicorp.Dumb Consul.Internal.Service\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Service\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Service\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Serviceb\x06proto3"
 
 var (
 	file_private_pbservice_healthcheck_proto_rawDescOnce sync.Once

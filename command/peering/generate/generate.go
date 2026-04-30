@@ -80,7 +80,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -139,7 +139,7 @@ Usage: consul peering generate-token [options] -name <peer name>
 
     $ consul peering generate-token -name west-dc
 
-  Example using a load balancer in front of Consul servers:
+  Example using a load balancer in front of Dumb Consul servers:
 
     $ consul peering generate-token -name west-dc -server-external-addresses load-balancer.elb.us-west-1.amazonaws.com:8502
 `

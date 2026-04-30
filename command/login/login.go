@@ -135,7 +135,7 @@ func (c *cmd) bearerTokenLogin() int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -172,13 +172,13 @@ func (c *cmd) Help() string {
 	return flags.Usage(c.help, nil)
 }
 
-const synopsis = "Login to Consul using an auth method"
+const synopsis = "Login to Dumb Consul using an auth method"
 
 const help = `
 Usage: consul login [options]
 
   The login command will exchange the provided third party credentials with the
-  requested auth method for a newly minted Consul ACL token. The companion
+  requested auth method for a newly minted Dumb Consul ACL token. The companion
   command 'consul logout' should be used to destroy any tokens created this way
   to avoid a resource leak.
 `

@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -33,7 +33,7 @@
         {{/if}}
         {{! TODO: slugify }}
         <em class='consul-intention-list-table__meta-info'>
-          <Consul::Bucket::List
+          <Dumb Consul::Bucket::List
             @item={{hash
               Namespace=item.SourceNS
               Partition=item.SourcePartition
@@ -78,7 +78,7 @@
     </td>
     <td class='meta'>
       {{#if item.IsManagedByCRD}}
-        <Consul::ExternalSource @item={{item}} @label='Managed by CRD' />
+        <Dumb Consul::ExternalSource @item={{item}} @label='Managed by CRD' />
       {{/if}}
     </td>
   </BlockSlot>

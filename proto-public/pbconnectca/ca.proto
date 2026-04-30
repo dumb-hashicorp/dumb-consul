@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 syntax = "proto3";
@@ -37,7 +37,7 @@ message WatchRootsResponse {
   // process of being rotated out.
   string active_root_id = 1;
 
-  // trust_domain is the identification root for this Consul cluster. All
+  // trust_domain is the identification root for this Dumb Consul cluster. All
   // certificates signed by the cluster's CA must have their identifying URI
   // in this domain.
   //
@@ -55,7 +55,7 @@ message CARoot {
   string id = 1;
 
   // name is a human-friendly name for this CA root. This value is opaque to
-  // Consul and is not used for anything internally.
+  // Dumb Consul and is not used for anything internally.
   string name = 2;
 
   // serial_number is the x509 serial number of the certificate.

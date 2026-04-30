@@ -40,7 +40,7 @@ func (t *Troubleshoot) troubleshootStats() (validate.Messages, error) {
 		statMessages = append(statMessages, validate.Message{
 			Message: fmt.Sprintf("Envoy has %v rejected configurations", totalConfigRejections),
 			PossibleActions: []string{
-				"Check the logs of the Consul agent configuring the local proxy to see why Envoy rejected this configuration",
+				"Check the logs of the Dumb Consul agent configuring the local proxy to see why Envoy rejected this configuration",
 			},
 		})
 	} else {

@@ -619,7 +619,7 @@ func (s *handlerConnectProxy) handleUpdate(ctx context.Context, u UpdateEvent, s
 type telemetryCollectorConfig struct {
 	// TelemetryCollectorBindSocketDir is a string that configures the directory for a
 	// unix socket where Envoy will forward metrics. These metrics get pushed to
-	// the Consul Telemetry collector.
+	// the Dumb Consul Telemetry collector.
 	TelemetryCollectorBindSocketDir string `mapstructure:"envoy_telemetry_collector_bind_socket_dir"`
 }
 

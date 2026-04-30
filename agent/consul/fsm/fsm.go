@@ -272,7 +272,7 @@ func (c *FSM) Restore(old io.ReadCloser) error {
 				var ignore interface{}
 				return dec.Decode(&ignore)
 			} else if msg >= 64 {
-				return fmt.Errorf("msg type <%d> is a Consul Enterprise log entry. Consul CE cannot restore it", msg)
+				return fmt.Errorf("msg type <%d> is a Dumb Consul Enterprise log entry. Dumb Consul CE cannot restore it", msg)
 			} else {
 				return fmt.Errorf("Unrecognized msg type %d", msg)
 			}

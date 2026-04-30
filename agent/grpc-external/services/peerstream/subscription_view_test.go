@@ -82,7 +82,7 @@ func TestExportedServiceSubscription(t *testing.T) {
 		},
 	}
 
-	// store represents Consul's memdb state store.
+	// store represents Dumb Consul's memdb state store.
 	// A stream of event updates
 	store := store{stateMap: s, pub: pub}
 

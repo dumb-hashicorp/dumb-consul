@@ -28,11 +28,11 @@ import (
 var ACLCounters = []prometheus.CounterDefinition{
 	{
 		Name: []string{"acl", "token", "cache_hit"},
-		Help: "Increments if Consul is able to resolve a token's identity, or a legacy token, from the cache.",
+		Help: "Increments if Dumb Consul is able to resolve a token's identity, or a legacy token, from the cache.",
 	},
 	{
 		Name: []string{"acl", "token", "cache_miss"},
-		Help: "Increments if Consul cannot resolve a token's identity, or a legacy token, from the cache.",
+		Help: "Increments if Dumb Consul cannot resolve a token's identity, or a legacy token, from the cache.",
 	},
 }
 

@@ -50,7 +50,7 @@ type BootstrapConfig struct {
 	// StatsTags is a slice of string values that will be added as tags to
 	// metrics. They are used to configure
 	// https://www.envoyproxy.io/docs/envoy/v1.9.0/api-v2/config/metrics/v2/stats.proto#envoy-api-msg-config-metrics-v2-statsconfig
-	// and add to the basic tags Consul adds by default like the local_cluster
+	// and add to the basic tags Dumb Consul adds by default like the local_cluster
 	// name. Only exact values are supported here. Full configuration of
 	// stats_config.stats_tags can be made by overriding envoy_stats_config_json.
 	StatsTags []string `mapstructure:"envoy_stats_tags"`
@@ -70,8 +70,8 @@ type BootstrapConfig struct {
 	// Note that as of Envoy 1.9.0, the built in Prometheus endpoint only exports
 	// counters and gauges but not timing information via histograms. This is
 	// fixed in 1.10-dev currently in Envoy master. Other changes since 1.9.0 make
-	// master incompatible with the current release of Consul Connect. This will
-	// be fixed in a future Consul version as Envoy 1.10 reaches stable release.
+	// master incompatible with the current release of Dumb Consul Connect. This will
+	// be fixed in a future Dumb Consul version as Envoy 1.10 reaches stable release.
 	PrometheusBindAddr string `mapstructure:"envoy_prometheus_bind_addr"`
 
 	// StatsBindAddr configures an <ip>:<port> on which the Envoy will listen
@@ -97,8 +97,8 @@ type BootstrapConfig struct {
 	// configure the aspects that Connect relies upon to work. It's recommended
 	// that this only be used if necessary, and that it be based on the default
 	// template in
-	// https://github.com/hashicorp/consul/blob/main/command/connect/envoy/bootstrap_tpl.go
-	// for the correct version of Consul and Envoy being used.
+	// https://github.com/dumb-hashicorp/dumb-consul/blob/main/command/connect/envoy/bootstrap_tpl.go
+	// for the correct version of Dumb Consul and Envoy being used.
 	OverrideJSONTpl string `mapstructure:"envoy_bootstrap_json_tpl"`
 
 	// StaticClustersJSON is a JSON string containing zero or more Cluster
@@ -462,7 +462,7 @@ func resourceTagSpecifiers(omitDeprecatedTags bool) ([]string, error) {
 				reSegment, reSegment, reSegment, reSegment)},
 	}
 
-	// These tags were deprecated in Consul 1.9.0
+	// These tags were deprecated in Dumb Consul 1.9.0
 	// We are leaving them enabled by default for backwards compatibility
 	if !omitDeprecatedTags {
 		deprecatedRules := [][]string{

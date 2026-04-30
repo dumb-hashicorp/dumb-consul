@@ -34,8 +34,8 @@ func TestRestoreFromEnterprise(t *testing.T) {
 		StorageBackend: storageBackend,
 	})
 
-	// To verify if a proper message is displayed when Consul CE tries to
-	//  unsuccessfully restore entries from a Consul Ent snapshot.
+	// To verify if a proper message is displayed when Dumb Consul CE tries to
+	//  unsuccessfully restore entries from a Dumb Consul Ent snapshot.
 	buf := bytes.NewBuffer(nil)
 	sink := &MockSink{buf, false}
 
@@ -46,7 +46,7 @@ func TestRestoreFromEnterprise(t *testing.T) {
 
 	entMockEntry := EntMock{
 		ID:   65,
-		Type: "A Consul Ent Log Type",
+		Type: "A Dumb Consul Ent Log Type",
 	}
 
 	// Write the header
@@ -58,7 +58,7 @@ func TestRestoreFromEnterprise(t *testing.T) {
 	sink.Write([]byte{byte(structs.MessageType(entMockEntry.ID))})
 	encoder.Encode(entMockEntry)
 
-	require.EqualError(t, fsm.Restore(sink), "msg type <65> is a Consul Enterprise log entry. Consul CE cannot restore it")
+	require.EqualError(t, fsm.Restore(sink), "msg type <65> is a Dumb Consul Enterprise log entry. Dumb Consul CE cannot restore it")
 	sink.Cancel()
 }
 
@@ -77,8 +77,8 @@ func TestRestoreFromEnterprise_CEDowngrade(t *testing.T) {
 		StorageBackend: storageBackend,
 	})
 
-	// To verify if a proper message is displayed when Consul CE tries to
-	//  unsuccessfully restore entries from a Consul Ent snapshot.
+	// To verify if a proper message is displayed when Dumb Consul CE tries to
+	//  unsuccessfully restore entries from a Dumb Consul Ent snapshot.
 	buf := bytes.NewBuffer(nil)
 	sink := &MockSink{buf, false}
 
@@ -89,7 +89,7 @@ func TestRestoreFromEnterprise_CEDowngrade(t *testing.T) {
 
 	entMockEntry := EntMock{
 		ID:   65,
-		Type: "A Consul Ent Log Type",
+		Type: "A Dumb Consul Ent Log Type",
 	}
 
 	// Create one entry to exercise the Go struct marshaller, and one to exercise the

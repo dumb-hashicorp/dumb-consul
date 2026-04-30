@@ -17,7 +17,7 @@ Feature: dc / services / show: Show Service
       service: service-0
     ---
     Then I see externalSource like "consul"
-    And the title should be "service-0 - Consul"
+    And the title should be "service-0 - Dumb Consul"
 
   Scenario: Given a service with an 'unsupported' external source, there is no logo
     Given 1 datacenter model with the value "dc1"

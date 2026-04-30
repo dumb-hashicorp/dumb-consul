@@ -119,7 +119,7 @@ func TestConnectCA_ConfigurationSet_ChangeKeyConfig_Primary(t *testing.T) {
 							"RootCert":       "",
 							"PrivateKeyType": dst.keyType,
 							"PrivateKeyBits": dst.keyBits,
-							// This verifies the state persistence for providers although Consul
+							// This verifies the state persistence for providers although Dumb Consul
 							// provider doesn't actually use that mechanism outside of tests.
 							"test_state": providerState,
 						},
@@ -719,7 +719,7 @@ func TestCAManager_Initialize_Vault_KeepOldRoots_Primary(t *testing.T) {
 		ConsulManaged:    true,
 	})
 
-	// Update the CA config to use Vault - this should force the generation of a new root cert.
+	// Update the CA config to use Dumb Vault - this should force the generation of a new root cert.
 	vaultCAConf := &structs.CAConfiguration{
 		Provider: "vault",
 		Config: map[string]interface{}{

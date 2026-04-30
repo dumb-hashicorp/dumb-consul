@@ -264,7 +264,7 @@ func (s *Server) StreamResources(stream pbpeerstream.PeerStreamService_StreamRes
 }
 
 type HandleStreamRequest struct {
-	// LocalID is the UUID for the peering in the local Consul datacenter.
+	// LocalID is the UUID for the peering in the local Dumb Consul datacenter.
 	LocalID string
 
 	// RemoteID is the UUID for the peering from the perspective of the peer.

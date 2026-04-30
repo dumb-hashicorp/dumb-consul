@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// testClusterID is the Consul cluster ID for testing.
+// testClusterID is the Dumb Consul cluster ID for testing.
 //
 // NOTE: this is explicitly duplicated from agent/connect:TestClusterID
 const testClusterID = "11111111-2222-3333-4444-555555555555"

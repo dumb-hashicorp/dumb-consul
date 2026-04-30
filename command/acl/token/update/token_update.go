@@ -152,7 +152,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -238,7 +238,7 @@ func (c *cmd) Run(args []string) int {
 	}
 
 	if c.mergePolicies {
-		c.UI.Warn("merge-policies is deprecated and will be removed in a future Consul version. " +
+		c.UI.Warn("merge-policies is deprecated and will be removed in a future Dumb Consul version. " +
 			"Use `append-policy-name` or `append-policy-id` instead.")
 
 		for _, policyName := range c.policyNames {
@@ -314,7 +314,7 @@ func (c *cmd) Run(args []string) int {
 	}
 
 	if c.mergeRoles {
-		c.UI.Warn("merge-roles is deprecated and will be removed in a future Consul version. " +
+		c.UI.Warn("merge-roles is deprecated and will be removed in a future Dumb Consul version. " +
 			"Use `append-role-name` or `append-role-id` instead.")
 
 		for _, roleName := range c.roleNames {

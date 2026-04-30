@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -1680,19 +1680,19 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 	t.Run("deprecated", func(t *testing.T) {
 		agent := c.Agent()
 		if _, err := agent.UpdateACLToken("root", nil); err != nil {
-			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Consul 1.4")
+			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 		}
 
 		if _, err := agent.UpdateACLAgentToken("root", nil); err != nil {
-			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Consul 1.4")
+			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 		}
 
 		if _, err := agent.UpdateACLAgentMasterToken("root", nil); err != nil {
-			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Consul 1.4")
+			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 		}
 
 		if _, err := agent.UpdateACLReplicationToken("root", nil); err != nil {
-			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Consul 1.4")
+			require.Contains(t, err.Error(), "Legacy ACL Tokens were deprecated in Dumb Consul 1.4")
 		}
 	})
 
@@ -1739,7 +1739,7 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 		raw := c // real consul client
 
 		// Set up a reverse proxy that will send some requests to the
-		// 404 server and pass everything else through to the real Consul
+		// 404 server and pass everything else through to the real Dumb Consul
 		// server.
 		director := func(req *http.Request) {
 			req.URL.Scheme = "http"
@@ -1758,7 +1758,7 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 		defer proxy.Close()
 
 		// Make another client that points at the proxy instead of the real
-		// Consul server.
+		// Dumb Consul server.
 		config := raw.config
 		config.Address = proxy.URL[7:] // Strip off "http://".
 		c, err := NewClient(&config)
@@ -1792,7 +1792,7 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 		raw := c // real consul client
 
 		// Make another client that points at the proxy instead of the real
-		// Consul server.
+		// Dumb Consul server.
 		config := raw.config
 		config.Address = authdeny.URL[7:] // Strip off "http://".
 		c, err := NewClient(&config)

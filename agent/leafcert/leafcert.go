@@ -250,7 +250,7 @@ func (m *Manager) Stop() {
 // Get, and does not correspond to the timeout of any background data
 // fetching. If the timeout is reached before data satisfying the minimum
 // index is retrieved, the last known value (maybe nil) is returned. No
-// error is returned on timeout. This matches the behavior of Consul blocking
+// error is returned on timeout. This matches the behavior of Dumb Consul blocking
 // queries.
 func (m *Manager) Get(ctx context.Context, req *ConnectCALeafRequest) (*structs.IssuedCert, cacheshim.ResultMeta, error) {
 	// Lightweight copy this object so that manipulating req doesn't race.
@@ -360,7 +360,7 @@ func (m *Manager) internalGet(ctx context.Context, req *ConnectCALeafRequest) (*
 		// error, we return. Note that the invariant is that if both entry.Value AND
 		// entry.Error are non-nil, the error _must_ be more recent than the Value. In
 		// other words valid fetches should reset the error. See
-		// https://github.com/hashicorp/consul/issues/4480.
+		// https://github.com/dumb-hashicorp/dumb-consul/issues/4480.
 		if !first && lastFetchErr != nil {
 			return existing, cacheshim.ResultMeta{Index: existingIndex}, lastFetchErr
 		}

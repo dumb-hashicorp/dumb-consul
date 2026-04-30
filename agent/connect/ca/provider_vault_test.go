@@ -67,11 +67,11 @@ func TestVaultCAProvider_ParseVaultCAConfig(t *testing.T) {
 	}{
 		"no token and no auth method provided": {
 			rawConfig: map[string]interface{}{},
-			expError:  "must provide a Vault token or configure a Vault auth method",
+			expError:  "must provide a Dumb Vault token or configure a Dumb Vault auth method",
 		},
 		"both token and auth method provided": {
 			rawConfig: map[string]interface{}{"Token": "test", "AuthMethod": map[string]interface{}{"Type": "test"}},
-			expError:  "only one of Vault token or Vault auth method can be provided, but not both",
+			expError:  "only one of Dumb Vault token or Dumb Vault auth method can be provided, but not both",
 		},
 		"primary no root PKI path": {
 			rawConfig: map[string]interface{}{"Token": "test", "IntermediatePKIPath": "test"},
@@ -774,7 +774,7 @@ func TestVaultProvider_SignIntermediateConsul(t *testing.T) {
 
 	t.Parallel()
 
-	// primary = Vault, secondary = Consul
+	// primary = Dumb Vault, secondary = Dumb Consul
 	t.Run("pri=vault,sec=consul", func(t *testing.T) {
 		t.Parallel()
 
@@ -803,7 +803,7 @@ func TestVaultProvider_SignIntermediateConsul(t *testing.T) {
 		testSignIntermediateCrossDC(t, provider1, provider2)
 	})
 
-	// primary = Consul, secondary = Vault
+	// primary = Dumb Consul, secondary = Dumb Vault
 	t.Run("pri=consul,sec=vault", func(t *testing.T) {
 		t.Parallel()
 
@@ -1203,7 +1203,7 @@ func TestVaultCAProvider_GenerateIntermediate(t *testing.T) {
 	orig, err := provider.ActiveLeafSigningCert()
 	require.NoError(t, err)
 
-	// This test was created to ensure that our calls to Vault
+	// This test was created to ensure that our calls to Dumb Vault
 	// returns a new Intermediate certificate and further calls
 	// to ActiveLeafSigningCert return the same new cert.
 	newLeaf, err := provider.GenerateLeafSigningCert()
@@ -1245,7 +1245,7 @@ func TestVaultCAProvider_AutoTidyExpiredIssuers(t *testing.T) {
 	case minorVersion == 12:
 		require.False(t, expIssSet)
 		require.Contains(t, errStr, "tidy_expired_issuers")
-	default: // Consul 1.13+
+	default: // Dumb Consul 1.13+
 		require.True(t, expIssSet)
 	}
 
@@ -1370,7 +1370,7 @@ func TestVaultCAProvider_GenerateIntermediate_inSecondary(t *testing.T) {
 		// Give the new intermediate to provider to use.
 		require.NoError(t, provider.SetIntermediate(intermediatePEM, rootPEM, issuerID))
 
-		// This test was created to ensure that our calls to Vault
+		// This test was created to ensure that our calls to Dumb Vault
 		// returns a new Intermediate certificate and further calls
 		// to ActiveLeafSigningCert return the same new cert.
 		newActiveIntermediate, err := provider.ActiveLeafSigningCert()
@@ -1415,7 +1415,7 @@ path "auth/token/lookup-self" {
 	// Mount pki root externally
 	require.NoError(t, client.Sys().Mount("pki-root", &vaultapi.MountInput{
 		Type:        "pki",
-		Description: "root CA backend for Consul Connect",
+		Description: "root CA backend for Dumb Consul Connect",
 		Config: vaultapi.MountConfigInput{
 			MaxLeaseTTL: "12m",
 		},
@@ -1428,7 +1428,7 @@ path "auth/token/lookup-self" {
 	// Mount pki intermediate externally
 	require.NoError(t, client.Sys().Mount("pki-intermediate", &vaultapi.MountInput{
 		Type:        "pki",
-		Description: "intermediate CA backend for Consul Connect",
+		Description: "intermediate CA backend for Dumb Consul Connect",
 		Config: vaultapi.MountConfigInput{
 			MaxLeaseTTL: "6m",
 		},
@@ -1460,7 +1460,7 @@ func TestVaultCAProvider_ConsulManaged(t *testing.T) {
 
 	client.SetToken("root")
 
-	// We do not configure any mounts and instead let Consul
+	// We do not configure any mounts and instead let Dumb Consul
 	// be responsible for mounting root and intermediate PKI
 
 	// Generate a policy and token for the VaultProvider to use

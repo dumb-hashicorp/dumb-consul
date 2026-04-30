@@ -46,7 +46,7 @@ var (
 const (
 	// meshGatewayWait is the initial wait on calls to exchange a secret with a peer when dialing through a gateway.
 	// This wait provides some time for the first gateway address to configure a route to the peer servers.
-	// This study shows latency distribution https://www.hashicorp.com/cgsb.
+	// This study shows latency distribution https://www.dumb-hashicorp.com/cgsb.
 	// With 1s we cover ~p96, then we initiate the 3-second retry loop.
 	meshGatewayWait      = 1 * time.Second
 	establishmentTimeout = 3 * time.Second
@@ -126,7 +126,7 @@ func (s *Server) Register(registrar grpc.ServiceRegistrar) {
 }
 
 // Backend defines the core integrations the Peering endpoint depends on. A
-// functional implementation will integrate with various subcomponents of Consul
+// functional implementation will integrate with various subcomponents of Dumb Consul
 // such as the State store for reading and writing data, the CA machinery for
 // providing access to CA data and the RPC system for forwarding requests to
 // other servers.
@@ -200,7 +200,7 @@ var peeringNotEnabledErr = grpcstatus.Error(codes.FailedPrecondition, "peering m
 
 // GenerateToken implements the PeeringService RPC method to generate a
 // peering token which is the initial step in establishing a peering relationship
-// with other Consul clusters.
+// with other Dumb Consul clusters.
 func (s *Server) GenerateToken(
 	ctx context.Context,
 	req *pbpeering.GenerateTokenRequest,

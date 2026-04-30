@@ -12,7 +12,7 @@ import (
 const (
 	// OriginalDestinationClusterName is the name we give to the passthrough
 	// cluster which redirects transparently-proxied requests to their original
-	// destination outside the mesh. This cluster prevents Consul from blocking
+	// destination outside the mesh. This cluster prevents Dumb Consul from blocking
 	// connections to destinations outside of the catalog when in transparent
 	// proxy mode.
 	OriginalDestinationClusterName = "original-destination"

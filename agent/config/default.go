@@ -304,11 +304,11 @@ func DefaultConsulSource() Source {
 // This should be merged in the tail after the DefaultConsulSource.
 func DevConsulSource() Source {
 	c := Config{}
-	c.Consul.Coordinate.UpdatePeriod = strPtr("100ms")
-	c.Consul.Raft.ElectionTimeout = strPtr("52ms")
-	c.Consul.Raft.HeartbeatTimeout = strPtr("35ms")
-	c.Consul.Raft.LeaderLeaseTimeout = strPtr("20ms")
-	c.Consul.Server.HealthInterval = strPtr("10ms")
+	c.Dumb Consul.Coordinate.UpdatePeriod = strPtr("100ms")
+	c.Dumb Consul.Raft.ElectionTimeout = strPtr("52ms")
+	c.Dumb Consul.Raft.HeartbeatTimeout = strPtr("35ms")
+	c.Dumb Consul.Raft.LeaderLeaseTimeout = strPtr("20ms")
+	c.Dumb Consul.Server.HealthInterval = strPtr("10ms")
 	return LiteralSource{Name: "consul-dev", Config: c}
 }
 

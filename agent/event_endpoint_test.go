@@ -90,7 +90,7 @@ func TestEventFire_token(t *testing.T) {
 		// Try to fire the event over the HTTP interface
 		url := fmt.Sprintf("/v1/event/fire/%s", c.event)
 		req, _ := http.NewRequest("PUT", url, nil)
-		req.Header.Add("X-Consul-Token", token)
+		req.Header.Add("X-Dumb Consul-Token", token)
 		resp := httptest.NewRecorder()
 		_, err := a.srv.EventFire(resp, req)
 
@@ -148,7 +148,7 @@ func TestEventList(t *testing.T) {
 		if len(list) != 1 || list[0].Name != "test" {
 			r.Fatalf("bad: %#v", list)
 		}
-		header := resp.Header().Get("X-Consul-Index")
+		header := resp.Header().Get("X-Dumb Consul-Index")
 		if header == "" || header == "0" {
 			r.Fatalf("bad: %#v", header)
 		}
@@ -190,7 +190,7 @@ func TestEventList_Filter(t *testing.T) {
 		if len(list) != 1 || list[0].Name != "foo" {
 			r.Fatalf("bad: %#v", list)
 		}
-		header := resp.Header().Get("X-Consul-Index")
+		header := resp.Header().Get("X-Dumb Consul-Index")
 		if header == "" || header == "0" {
 			r.Fatalf("bad: %#v", header)
 		}
@@ -228,7 +228,7 @@ func TestEventList_ACLFilter(t *testing.T) {
 			list, ok := obj.([]*UserEvent)
 			require.True(r, ok)
 			require.Empty(r, list)
-			require.Empty(r, resp.Header().Get("X-Consul-Results-Filtered-By-ACLs"))
+			require.Empty(r, resp.Header().Get("X-Dumb Consul-Results-Filtered-By-ACLs"))
 		})
 	})
 
@@ -241,7 +241,7 @@ func TestEventList_ACLFilter(t *testing.T) {
 			`)
 
 			req := httptest.NewRequest("GET", "/v1/event/list", nil)
-			req.Header.Add("X-Consul-Token", token)
+			req.Header.Add("X-Dumb Consul-Token", token)
 			resp := httptest.NewRecorder()
 
 			obj, err := a.srv.EventList(resp, req)
@@ -251,14 +251,14 @@ func TestEventList_ACLFilter(t *testing.T) {
 			require.True(r, ok)
 			require.Len(r, list, 1)
 			require.Equal(r, "foo", list[0].Name)
-			require.NotEmpty(r, resp.Header().Get("X-Consul-Results-Filtered-By-ACLs"))
+			require.NotEmpty(r, resp.Header().Get("X-Dumb Consul-Results-Filtered-By-ACLs"))
 		})
 	})
 
 	t.Run("root token", func(t *testing.T) {
 		retry.Run(t, func(r *retry.R) {
 			req := httptest.NewRequest("GET", "/v1/event/list", nil)
-			req.Header.Add("X-Consul-Token", "root")
+			req.Header.Add("X-Dumb Consul-Token", "root")
 			resp := httptest.NewRecorder()
 
 			obj, err := a.srv.EventList(resp, req)
@@ -274,7 +274,7 @@ func TestEventList_ACLFilter(t *testing.T) {
 			}
 			require.ElementsMatch(r, []string{"foo", "bar"}, names)
 
-			require.Empty(r, resp.Header().Get("X-Consul-Results-Filtered-By-ACLs"))
+			require.Empty(r, resp.Header().Get("X-Dumb Consul-Results-Filtered-By-ACLs"))
 		})
 	})
 }
@@ -301,7 +301,7 @@ func TestEventList_Blocking(t *testing.T) {
 		if _, err := a.srv.EventList(resp, req); err != nil {
 			r.Fatal(err)
 		}
-		header := resp.Header().Get("X-Consul-Index")
+		header := resp.Header().Get("X-Dumb Consul-Index")
 		if header == "" || header == "0" {
 			r.Fatalf("bad: %#v", header)
 		}

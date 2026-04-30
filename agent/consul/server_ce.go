@@ -38,7 +38,7 @@ func (s *Server) enterpriseValidateJoinWAN() error {
 	return nil // no-op
 }
 
-// JoinLAN is used to have Consul join the inner-DC pool The target address
+// JoinLAN is used to have Dumb Consul join the inner-DC pool The target address
 // should be another node inside the DC listening on the Serf LAN address
 func (s *Server) JoinLAN(addrs []string, entMeta *acl.EnterpriseMeta) (int, error) {
 	return s.serfLAN.Join(addrs, true)

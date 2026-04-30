@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 
 // Package servers provides a Manager interface for Manager managed
-// metadata.Server objects.  The servers package manages servers from a Consul
+// metadata.Server objects.  The servers package manages servers from a Dumb Consul
 // client's perspective (i.e. a list of servers that a client talks with for
 // RPCs).  The servers package does not provide any API guarantees and should
 // be called only by `hashicorp/consul`.
@@ -34,7 +34,7 @@ type Pinger interface {
 }
 
 // serverList is a local copy of the struct used to maintain the list of
-// Consul servers used by Manager.
+// Dumb Consul servers used by Manager.
 //
 // NOTE(sean@): We are explicitly relying on the fact that serverList will
 // be copied onto the stack.  Please keep this structure light.
@@ -321,7 +321,7 @@ func (m *Manager) healthyServer(server *metadata.Server) bool {
 // method reshuffles the list periodically in order to redistribute work
 // across all known consul servers (i.e. guarantee that the order of servers
 // in the server list is not positively correlated with the age of a server
-// in the Consul cluster).  Periodically shuffling the server list prevents
+// in the Dumb Consul cluster).  Periodically shuffling the server list prevents
 // long-lived clients from fixating on long-lived servers.
 //
 // Unhealthy servers are removed when serf notices the server has been

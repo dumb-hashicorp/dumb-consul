@@ -131,7 +131,7 @@ const file_private_pboperator_operator_proto_rawDesc = "" +
 	"\x0fOperatorService\x12\x91\x01\n" +
 	"\x0eTransferLeader\x129.hashicorp.consul.internal.operator.TransferLeaderRequest\x1a:.hashicorp.consul.internal.operator.TransferLeaderResponse\"\b\xe2\x86\x04\x04\b\x01\x10\n" +
 	"B\x99\x02\n" +
-	"&com.hashicorp.consul.internal.operatorB\rOperatorProtoP\x01Z4github.com/hashicorp/consul/proto/private/pboperator\xa2\x02\x04HCIO\xaa\x02\"Hashicorp.Consul.Internal.Operator\xca\x02\"Hashicorp\\Consul\\Internal\\Operator\xe2\x02.Hashicorp\\Consul\\Internal\\Operator\\GPBMetadata\xea\x02%Hashicorp::Consul::Internal::Operatorb\x06proto3"
+	"&com.hashicorp.consul.internal.operatorB\rOperatorProtoP\x01Z4github.com/hashicorp/consul/proto/private/pboperator\xa2\x02\x04HCIO\xaa\x02\"Hashicorp.Dumb Consul.Internal.Operator\xca\x02\"Hashicorp\\Dumb Consul\\Internal\\Operator\xe2\x02.Hashicorp\\Dumb Consul\\Internal\\Operator\\GPBMetadata\xea\x02%Hashicorp::Dumb Consul::Internal::Operatorb\x06proto3"
 
 var (
 	file_private_pboperator_operator_proto_rawDescOnce sync.Once

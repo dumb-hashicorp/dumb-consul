@@ -16,10 +16,10 @@ import (
 // flood-joining. This will return false if it doesn't have one.
 type FloodAddrFn func(*metadata.Server) (string, error)
 
-// FloodJoins attempts to make sure all Consul servers in the src Serf
+// FloodJoins attempts to make sure all Dumb Consul servers in the src Serf
 // instance are joined in the dst Serf instance. It assumes names in the
 // src area are of the form <node> and those in the dst area are of the
-// form <node>.<dc> as is done for WAN and general network areas in Consul
+// form <node>.<dc> as is done for WAN and general network areas in Dumb Consul
 // Enterprise.
 func FloodJoins(logger hclog.Logger, addrFn FloodAddrFn,
 	localDatacenter string, srcSerf *serf.Serf, dstSerf *serf.Serf) {

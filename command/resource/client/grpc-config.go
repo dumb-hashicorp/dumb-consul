@@ -24,19 +24,19 @@ const (
 	GRPCTLSVerifyEnvName = "CONSUL_GRPC_TLS_VERIFY"
 
 	// GRPCClientCertEnvName defines an environment variable name which sets the
-	// client cert file to use for talking to Consul over TLS.
+	// client cert file to use for talking to Dumb Consul over TLS.
 	GRPCClientCertEnvName = "CONSUL_GRPC_CLIENT_CERT"
 
 	// GRPCClientKeyEnvName defines an environment variable name which sets the
-	// client key file to use for talking to Consul over TLS.
+	// client key file to use for talking to Dumb Consul over TLS.
 	GRPCClientKeyEnvName = "CONSUL_GRPC_CLIENT_KEY"
 
 	// GRPCCAFileEnvName defines an environment variable name which sets the
-	// CA file to use for talking to Consul gRPC over TLS.
+	// CA file to use for talking to Dumb Consul gRPC over TLS.
 	GRPCCAFileEnvName = "CONSUL_GRPC_CACERT"
 
 	// GRPCCAPathEnvName defines an environment variable name which sets the
-	// path to a directory of CA certs to use for talking to Consul gRPC over TLS.
+	// path to a directory of CA certs to use for talking to Dumb Consul gRPC over TLS.
 	GRPCCAPathEnvName = "CONSUL_GRPC_CAPATH"
 
 	// GRPCTokenEnvName defines an environment variable name which sets
@@ -49,7 +49,7 @@ const (
 )
 
 type GRPCConfig struct {
-	// Address is the optional address of the Consul server in format of host:port.
+	// Address is the optional address of the Dumb Consul server in format of host:port.
 	// It doesn't include schema
 	Address string
 
@@ -60,20 +60,20 @@ type GRPCConfig struct {
 	// Set to false only if you want to skip server verification
 	GRPCTLSVerify bool
 
-	// CertFile is the optional path to the certificate for Consul
+	// CertFile is the optional path to the certificate for Dumb Consul
 	// communication. If this is set then you need to also set KeyFile.
 	CertFile string
 
-	// KeyFile is the optional path to the private key for Consul communication.
+	// KeyFile is the optional path to the private key for Dumb Consul communication.
 	// If this is set then you need to also set CertFile.
 	KeyFile string
 
-	// CAFile is the optional path to the CA certificate used for Consul
+	// CAFile is the optional path to the CA certificate used for Dumb Consul
 	// communication, defaults to the system bundle if not specified.
 	CAFile string
 
 	// CAPath is the optional path to a directory of CA certificates to use for
-	// Consul communication, defaults to the system bundle if not specified.
+	// Dumb Consul communication, defaults to the system bundle if not specified.
 	CAPath string
 
 	// Token is used to provide a per-request ACL token

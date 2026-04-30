@@ -32,11 +32,11 @@ var (
 	// queries when backing off.
 	maxRetryBackoff = 256
 
-	// minVirtualIPVersion is the minimum version for all Consul servers for virtual IP
+	// minVirtualIPVersion is the minimum version for all Dumb Consul servers for virtual IP
 	// assignment to be enabled.
 	minVirtualIPVersion = version.Must(version.NewVersion("1.11.0"))
 
-	// minVirtualIPVersion is the minimum version for all Consul servers for virtual IP
+	// minVirtualIPVersion is the minimum version for all Dumb Consul servers for virtual IP
 	// assignment to be enabled for terminating gateways.
 	minVirtualIPTerminatingGatewayVersion = version.Must(version.NewVersion("1.11.2"))
 

@@ -21,7 +21,7 @@ import (
 )
 
 // cmd is a Command implementation that queries a running
-// Consul agent what members are part of the cluster currently.
+// Dumb Consul agent what members are part of the cluster currently.
 type cmd struct {
 	UI    cli.Ui
 	help  string
@@ -77,7 +77,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -288,9 +288,9 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Lists the members of a Consul cluster"
+const synopsis = "Lists the members of a Dumb Consul cluster"
 const help = `
 Usage: consul members [options]
 
-  Outputs the members of a running Consul agent.
+  Outputs the members of a running Dumb Consul agent.
 `

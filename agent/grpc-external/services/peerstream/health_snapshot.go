@@ -12,7 +12,7 @@ import (
 // meant for easy comparison to aid in differential synchronization
 type healthSnapshot struct {
 	// Nodes is a map of a node name to a nodeSnapshot. Ideally we would be able to use
-	// the types.NodeID and assume they are UUIDs for the map key but Consul doesn't
+	// the types.NodeID and assume they are UUIDs for the map key but Dumb Consul doesn't
 	// require a NodeID. Therefore we must key off of the only bit of ID material
 	// that is required which is the node name.
 	Nodes map[string]*nodeSnapshot

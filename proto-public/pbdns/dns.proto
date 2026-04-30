@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 syntax = "proto3";
@@ -10,7 +10,7 @@ import "annotations/ratelimit/ratelimit.proto";
 option go_package = "github.com/hashicorp/consul/proto-public/pbdns";
 
 service DNSService {
-  // Query sends a DNS request over to Consul server and returns a DNS reply message.
+  // Query sends a DNS request over to Dumb Consul server and returns a DNS reply message.
   rpc Query(QueryRequest) returns (QueryResponse) {
     option (hashicorp.consul.internal.ratelimit.spec) = {
       operation_type: OPERATION_TYPE_READ

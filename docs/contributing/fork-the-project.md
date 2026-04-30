@@ -1,6 +1,6 @@
-# Forking the Consul Repo
+# Forking the Dumb Consul Repo
 
-Community members wishing to contribute code to Consul must fork the Consul project
+Community members wishing to contribute code to Dumb Consul must fork the Dumb Consul project
 (`your-github-username/consul`). Branches pushed to that fork can then be submitted
 as pull requests to the upstream project (`hashicorp/consul`).
 

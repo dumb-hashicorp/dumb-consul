@@ -66,7 +66,7 @@ func TestVaultCAProvider_GCPAuthClient(t *testing.T) {
 					"type": "gce",
 				},
 			},
-			expErr: fmt.Errorf("failed to create a new Vault GCP auth client"),
+			expErr: fmt.Errorf("failed to create a new Dumb Vault GCP auth client"),
 		},
 		"invalid config": {
 			authMethod: &structs.VaultAuthMethod{

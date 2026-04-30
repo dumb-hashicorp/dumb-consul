@@ -37,7 +37,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
 // PeeringService handles operations for establishing peering relationships
-// between disparate Consul clusters.
+// between disparate Dumb Consul clusters.
 type PeeringServiceClient interface {
 	GenerateToken(ctx context.Context, in *GenerateTokenRequest, opts ...grpc.CallOption) (*GenerateTokenResponse, error)
 	Establish(ctx context.Context, in *EstablishRequest, opts ...grpc.CallOption) (*EstablishResponse, error)
@@ -145,7 +145,7 @@ func (c *peeringServiceClient) TrustBundleRead(ctx context.Context, in *TrustBun
 // for forward compatibility.
 //
 // PeeringService handles operations for establishing peering relationships
-// between disparate Consul clusters.
+// between disparate Dumb Consul clusters.
 type PeeringServiceServer interface {
 	GenerateToken(context.Context, *GenerateTokenRequest) (*GenerateTokenResponse, error)
 	Establish(context.Context, *EstablishRequest) (*EstablishResponse, error)

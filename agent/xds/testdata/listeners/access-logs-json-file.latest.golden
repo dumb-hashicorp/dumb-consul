@@ -12,7 +12,7 @@
               ]
             }
           },
-          "name": "Consul Listener Log",
+          "name": "Dumb Consul Listener Log",
           "typedConfig": {
             "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
             "logFormat": {
@@ -39,7 +39,7 @@
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "accessLog": [
                   {
-                    "name": "Consul Listener Filter Log",
+                    "name": "Dumb Consul Listener Filter Log",
                     "typedConfig": {
                       "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
                       "logFormat": {
@@ -72,7 +72,7 @@
               ]
             }
           },
-          "name": "Consul Listener Log",
+          "name": "Dumb Consul Listener Log",
           "typedConfig": {
             "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
             "logFormat": {
@@ -99,7 +99,7 @@
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "accessLog": [
                   {
-                    "name": "Consul Listener Filter Log",
+                    "name": "Dumb Consul Listener Filter Log",
                     "typedConfig": {
                       "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
                       "logFormat": {
@@ -132,7 +132,7 @@
               ]
             }
           },
-          "name": "Consul Listener Log",
+          "name": "Dumb Consul Listener Log",
           "typedConfig": {
             "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
             "logFormat": {
@@ -167,7 +167,7 @@
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "accessLog": [
                   {
-                    "name": "Consul Listener Filter Log",
+                    "name": "Dumb Consul Listener Filter Log",
                     "typedConfig": {
                       "@type": "type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog",
                       "logFormat": {

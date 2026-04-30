@@ -105,7 +105,7 @@
                     "refId": "A"
                 }
             ],
-            "title": "Number of Consul Servers",
+            "title": "Number of Dumb Consul Servers",
             "type": "stat"
         },
         {
@@ -172,7 +172,7 @@
                     "refId": "A"
                 }
             ],
-            "title": "Number of Connected Consul-dataplanes",
+            "title": "Number of Connected Dumb Consul-dataplanes",
             "type": "stat"
         },
         {
@@ -331,7 +331,7 @@
                     "refId": "A"
                 }
             ],
-            "title": "Consul Server Version",
+            "title": "Dumb Consul Server Version",
             "transformations": [
                 {
                     "id": "organize",
@@ -413,7 +413,7 @@
                     "refId": "A"
                 }
             ],
-            "title": "Number of Consul Clients (No data in agentless mode)",
+            "title": "Number of Dumb Consul Clients (No data in agentless mode)",
             "type": "stat"
         },
         {
@@ -535,7 +535,7 @@
                         "type": "prometheus",
                         "uid": "PBFA97CFB590B2093"
                     },
-                    "description": "Use consul.raft.rpc.appendEntries to understand how long it takes a follower node to process newly received Raft logs from the leader. Like consul.raft.commitTime, increases in this metric can indicate higher load on your Consul servers, and come with a risk of stale data. Since this metric is exposed within each follower, you should aggregate it as both an average (to track overall load on your Raft servers) and a percentile (to watch for outlier nodes).",
+                    "description": "Use consul.raft.rpc.appendEntries to understand how long it takes a follower node to process newly received Raft logs from the leader. Like consul.raft.commitTime, increases in this metric can indicate higher load on your Dumb Consul servers, and come with a risk of stale data. Since this metric is exposed within each follower, you should aggregate it as both an average (to track overall load on your Raft servers) and a percentile (to watch for outlier nodes).",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -1215,7 +1215,7 @@
                         "type": "prometheus",
                         "uid": "PBFA97CFB590B2093"
                     },
-                    "description": "Increments whenever a Consul server becomes a leader.",
+                    "description": "Increments whenever a Dumb Consul server becomes a leader.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -1419,7 +1419,7 @@
                             "refId": "B"
                         }
                     ],
-                    "title": "CPU Usage in Seconds (Consul servers)",
+                    "title": "CPU Usage in Seconds (Dumb Consul servers)",
                     "type": "timeseries"
                 },
                 {
@@ -1485,7 +1485,7 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "CPU Limit in Seconds (Consul Servers)",
+                    "title": "CPU Limit in Seconds (Dumb Consul Servers)",
                     "type": "gauge"
                 },
                 {
@@ -1580,7 +1580,7 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "Memory Usage (Consul servers)",
+                    "title": "Memory Usage (Dumb Consul servers)",
                     "type": "timeseries"
                 },
                 {
@@ -1647,7 +1647,7 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "Memory Limit (Consul Servers)",
+                    "title": "Memory Limit (Dumb Consul Servers)",
                     "type": "gauge"
                 },
                 {
@@ -1714,7 +1714,7 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "Disk usage (Consul servers)",
+                    "title": "Disk usage (Dumb Consul servers)",
                     "type": "gauge"
                 },
                 {
@@ -1821,7 +1821,7 @@
                             "refId": "B"
                         }
                     ],
-                    "title": "Disk Read/Write total per 5 minutes (Consul servers)",
+                    "title": "Disk Read/Write total per 5 minutes (Dumb Consul servers)",
                     "type": "timeseries"
                 },
                 {
@@ -1916,11 +1916,11 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "Received bytes total per 5 minutes (Consul servers)",
+                    "title": "Received bytes total per 5 minutes (Dumb Consul servers)",
                     "type": "timeseries"
                 }
             ],
-            "title": "Resource Utilization (Consul Servers)",
+            "title": "Resource Utilization (Dumb Consul Servers)",
             "type": "row"
         },
         {
@@ -2034,7 +2034,7 @@
                             "refId": "B"
                         }
                     ],
-                    "title": "CPU Usage in Seconds (Consul Clients)",
+                    "title": "CPU Usage in Seconds (Dumb Consul Clients)",
                     "type": "timeseries"
                 },
                 {
@@ -2099,7 +2099,7 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "CPU Limit in Seconds (Consul Clients)",
+                    "title": "CPU Limit in Seconds (Dumb Consul Clients)",
                     "type": "gauge"
                 },
                 {
@@ -2193,7 +2193,7 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "Memory Usage (Consul clients)",
+                    "title": "Memory Usage (Dumb Consul clients)",
                     "type": "timeseries"
                 },
                 {
@@ -2259,11 +2259,11 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "Memory Limit (Consul Clients)",
+                    "title": "Memory Limit (Dumb Consul Clients)",
                     "type": "gauge"
                 }
             ],
-            "title": "Resource Utilization (Consul Clients) - N/A in agentless mode",
+            "title": "Resource Utilization (Dumb Consul Clients) - N/A in agentless mode",
             "type": "row"
         },
         {
@@ -3200,7 +3200,7 @@
                         "type": "prometheus",
                         "uid": "PBFA97CFB590B2093"
                     },
-                    "description": "Increments whenever a Consul agent in client mode makes an RPC request to a Consul server",
+                    "description": "Increments whenever a Dumb Consul agent in client mode makes an RPC request to a Dumb Consul server",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -3384,7 +3384,7 @@
                         "type": "prometheus",
                         "uid": "PBFA97CFB590B2093"
                     },
-                    "description": "Increments whenever a Consul agent in client mode makes an RPC request to a Consul server and fails.",
+                    "description": "Increments whenever a Dumb Consul agent in client mode makes an RPC request to a Dumb Consul server and fails.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -3476,7 +3476,7 @@
                         "type": "prometheus",
                         "uid": "PBFA97CFB590B2093"
                     },
-                    "description": "Increments when a server receives a Consul-related RPC request.",
+                    "description": "Increments when a server receives a Dumb Consul-related RPC request.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -3568,7 +3568,7 @@
                         "type": "prometheus",
                         "uid": "PBFA97CFB590B2093"
                     },
-                    "description": "Increments whenever a Consul agent in client mode makes an RPC request to a Consul server gets rate limited by that agent's limits configuration.",
+                    "description": "Increments whenever a Dumb Consul agent in client mode makes an RPC request to a Dumb Consul server gets rate limited by that agent's limits configuration.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -3766,7 +3766,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Consul K8s monitoring (control plane)",
+    "title": "Dumb Consul K8s monitoring (control plane)",
     "version": 8,
     "weekStart": ""
 }

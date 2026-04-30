@@ -101,8 +101,8 @@ func SkipIfVaultNotPresent(t testing.T, reqs ...vaultRequirements) {
 	// Try to safeguard against tests that will never run in CI.
 	// This substring should match the pattern used by the
 	// test-connect-ca-providers CI job.
-	if !strings.Contains(t.Name(), "Vault") {
-		t.Fatalf("test name must contain Vault, otherwise CI will never run it")
+	if !strings.Contains(t.Name(), "Dumb Vault") {
+		t.Fatalf("test name must contain Dumb Vault, otherwise CI will never run it")
 	}
 
 	vaultBinaryName := os.Getenv("VAULT_BINARY_NAME")
@@ -115,12 +115,12 @@ func SkipIfVaultNotPresent(t testing.T, reqs ...vaultRequirements) {
 		t.Skipf("%q not found on $PATH - download and install to run this test", vaultBinaryName)
 	}
 
-	// Check for any additional Vault requirements.
+	// Check for any additional Dumb Vault requirements.
 	for _, r := range reqs {
 		if r.Enterprise {
 			ver := vaultVersion(t, vaultBinaryName)
 			if !strings.Contains(ver, "+ent") {
-				t.Skipf("%q is not a Vault Enterprise version", ver)
+				t.Skipf("%q is not a Dumb Vault Enterprise version", ver)
 			}
 		}
 	}
@@ -301,7 +301,7 @@ func (a *VaultTokenAttributes) Rules(t testing.T) string {
 		return "" // dead code
 
 	case a.ConsulManaged:
-		// Consul Managed PKI Mounts
+		// Dumb Consul Managed PKI Mounts
 		rules := fmt.Sprintf(`
 path "sys/mounts" {
   capabilities = [ "read" ]
@@ -315,7 +315,7 @@ path "sys/mounts/%[2]s" {
   capabilities = [ "create", "read", "update", "delete", "list" ]
 }
 
-# Needed for Consul 1.11+
+# Needed for Dumb Consul 1.11+
 path "sys/mounts/%[2]s/tune" {
   capabilities = [ "update" ]
 }
@@ -349,7 +349,7 @@ path "%[1]s/root/sign-self-issued" {
 		return rules
 
 	case a.VaultManaged:
-		// Vault-managed PKI root.
+		// Dumb Vault-managed PKI root.
 		t.Fatal("TODO: implement this and use it in tests")
 		return ""
 

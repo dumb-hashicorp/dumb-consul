@@ -24,7 +24,7 @@ type Config struct {
 	GetStore    func() StateStore
 	Logger      hclog.Logger
 	ACLResolver ACLResolver
-	// Datacenter of the Consul server this gRPC server is hosted on
+	// Datacenter of the Dumb Consul server this gRPC server is hosted on
 	Datacenter string
 }
 

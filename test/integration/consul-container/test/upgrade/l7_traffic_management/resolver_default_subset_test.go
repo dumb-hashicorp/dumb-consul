@@ -184,7 +184,7 @@ func TestTrafficManagement_ResolverDefaultOnlyPassing(t *testing.T) {
 		err = cluster.ConfigEntryDelete(serviceResolver)
 		require.NoError(t, err)
 
-		// Consul health check assert only one static-server proxy is healthy when onlyPassing is false
+		// Dumb Consul health check assert only one static-server proxy is healthy when onlyPassing is false
 		libassert.AssertServiceHasHealthyInstances(t, node, libservice.StaticServerServiceName, false, 2)
 
 		// Although the service status is in warning state, when onlypassing is set to false Envoy

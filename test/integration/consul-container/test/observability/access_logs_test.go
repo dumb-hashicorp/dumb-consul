@@ -28,8 +28,8 @@ import (
 // Steps:
 //   - Create a single agent cluster.
 //   - Enable default access logs. We do this so Envoy's admin interface inherits the configuration on startup
-//   - Create the example static-server and sidecar containers, then register them both with Consul
-//   - Create an example static-client sidecar, then register both the service and sidecar with Consul
+//   - Create the example static-server and sidecar containers, then register them both with Dumb Consul
+//   - Create an example static-client sidecar, then register both the service and sidecar with Dumb Consul
 //   - Make sure a call to the client sidecar emits an access log at the client-sidecar (outbound) and
 //     server-sidecar (inbound).
 //   - Make sure hitting the Envoy admin interface generates an access log

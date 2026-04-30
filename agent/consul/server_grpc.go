@@ -311,7 +311,7 @@ func (s *Server) setupGRPCServices(config *Config, deps Deps) error {
 
 	// register the data plane service on the external gRPC server only. This
 	// service is only access by dataplanes and at this time there is no need
-	// for anything internal in Consul to use the service. If that changes
+	// for anything internal in Dumb Consul to use the service. If that changes
 	// we could register it on the in-process interfaces as well.
 	err = s.registerDataplaneServer(
 		s.externalGRPCServer,

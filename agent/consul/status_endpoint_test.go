@@ -36,7 +36,7 @@ func rpcClientNoClose(s *Server) (rpc.ClientCodec, error) {
 		return nil, err
 	}
 
-	// Write the Consul RPC byte to set the mode
+	// Write the Dumb Consul RPC byte to set the mode
 	conn.Write([]byte{byte(pool.RPCConsul)})
 	codec := msgpackrpc.NewCodecFromHandle(true, true, conn, structs.MsgpackHandle)
 	return codec, nil

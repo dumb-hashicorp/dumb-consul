@@ -50,7 +50,7 @@ func TestLoad_IntegrationWithFlags_CE(t *testing.T) {
 			json: []string{`{ "partition": "foo" }`},
 			hcl:  []string{`partition = "foo"`},
 			expectedWarnings: []string{
-				`"partition" is a Consul Enterprise configuration and will have no effect`,
+				`"partition" is a Dumb Consul Enterprise configuration and will have no effect`,
 			},
 			expected: func(rt *RuntimeConfig) {
 				rt.DataDir = dataDir
@@ -66,7 +66,7 @@ func TestLoad_IntegrationWithFlags_CE(t *testing.T) {
 			json: []string{`{ "partition": "foo" }`},
 			hcl:  []string{`partition = "foo"`},
 			expectedWarnings: []string{
-				`"partition" is a Consul Enterprise configuration and will have no effect`,
+				`"partition" is a Dumb Consul Enterprise configuration and will have no effect`,
 			},
 			expected: func(rt *RuntimeConfig) {
 				rt.DataDir = dataDir
@@ -163,7 +163,7 @@ func TestLoad_ReportingConfig(t *testing.T) {
 		result, err := Load(opts)
 		require.NoError(t, err)
 		require.Len(t, result.Warnings, 1)
-		require.Contains(t, result.Warnings[0], "\"reporting.license.enabled\" is a Consul Enterprise configuration and will have no effect")
+		require.Contains(t, result.Warnings[0], "\"reporting.license.enabled\" is a Dumb Consul Enterprise configuration and will have no effect")
 		require.Equal(t, false, result.RuntimeConfig.Reporting.License.Enabled)
 	})
 }

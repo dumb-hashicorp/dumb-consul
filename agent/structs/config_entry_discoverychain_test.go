@@ -1829,7 +1829,7 @@ func TestServiceResolverConfigEntry_LoadBalancer(t *testing.T) {
 					HashPolicies: []HashPolicy{
 						{
 							Field:      "header",
-							FieldValue: "X-Consul-Token",
+							FieldValue: "X-Dumb Consul-Token",
 						},
 					},
 				},
@@ -1877,7 +1877,7 @@ func TestServiceResolverConfigEntry_LoadBalancer(t *testing.T) {
 					Policy: LBPolicyMaglev,
 					HashPolicies: []HashPolicy{
 						{
-							FieldValue: "X-Consul-Token",
+							FieldValue: "X-Dumb Consul-Token",
 							SourceIP:   true,
 						},
 					},

@@ -52,7 +52,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -83,10 +83,10 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Tell Consul agent to join cluster"
+const synopsis = "Tell Dumb Consul agent to join cluster"
 const help = `
 Usage: consul join [options] address ...
 
-  Tells a running Consul agent (with "consul agent") to join the cluster
+  Tells a running Dumb Consul agent (with "consul agent") to join the cluster
   by specifying at least one existing member.
 `

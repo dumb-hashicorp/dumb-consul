@@ -38,10 +38,10 @@ export default class OidcProviderService extends RepositoryService {
   @dataSource('/:partition/:ns/:dc/oidc/provider/:id')
   async findBySlug(params) {
     // This addition is mainly due to ember-data book-keeping This is one of
-    // the only places where Consul w/namespaces enabled doesn't return a
+    // the only places where Dumb Consul w/namespaces enabled doesn't return a
     // response with a Namespace property, but in order to keep ember-data
     // id's happy we need to fake one. Usually when we make a request to consul
-    // with an empty `ns=` Consul will use the namespace that is assigned to
+    // with an empty `ns=` Dumb Consul will use the namespace that is assigned to
     // the token, and when we get the response we can pick that back off the
     // responses `Namespace` property. As we don't receive a `Namespace`
     // property here, we have to figure this out ourselves. But we also want

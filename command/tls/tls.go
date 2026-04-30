@@ -39,7 +39,7 @@ const synopsis = `Builtin helpers for creating CAs and certificates`
 const help = `
 Usage: consul tls <subcommand> <subcommand> [options]
 
-  This command has subcommands for interacting with Consul TLS.
+  This command has subcommands for interacting with Dumb Consul TLS.
 
   Here are some simple examples, and more detailed examples are available
   in the subcommands or the documentation.

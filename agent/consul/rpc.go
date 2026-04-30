@@ -56,7 +56,7 @@ var RPCCounters = []prometheus.CounterDefinition{
 	},
 	{
 		Name: []string{"rpc", "request"},
-		Help: "Increments when a server receives a Consul-related RPC request.",
+		Help: "Increments when a server receives a Dumb Consul-related RPC request.",
 	},
 	{
 		Name: []string{"rpc", "cross-dc"},
@@ -153,7 +153,7 @@ func logConn(conn net.Conn) string {
 }
 
 // handleConn is used to determine if this is a Raft or
-// Consul type RPC connection and invoke the correct handler
+// Dumb Consul type RPC connection and invoke the correct handler
 func (s *Server) handleConn(conn net.Conn, isTLS bool) {
 	// Limit how long the client can hold the connection open before they send the
 	// magic byte (and authenticate when mTLS is enabled). If `isTLS == true` then
@@ -422,7 +422,7 @@ func (s *Server) handleMultiplexV2(conn net.Conn) {
 	}
 }
 
-// handleConsulConn is used to service a single Consul RPC connection
+// handleConsulConn is used to service a single Dumb Consul RPC connection
 func (s *Server) handleConsulConn(conn net.Conn) {
 	defer conn.Close()
 	rpcCodec := msgpackrpc.NewCodecFromHandle(true, true, conn, structs.MsgpackHandle)
@@ -455,7 +455,7 @@ func (s *Server) handleConsulConn(conn net.Conn) {
 	}
 }
 
-// handleInsecureConsulConn is used to service a single Consul INSECURERPC connection
+// handleInsecureConsulConn is used to service a single Dumb Consul INSECURERPC connection
 func (s *Server) handleInsecureConn(conn net.Conn) {
 	defer conn.Close()
 	rpcCodec := msgpackrpc.NewCodecFromHandle(true, true, conn, structs.MsgpackHandle)

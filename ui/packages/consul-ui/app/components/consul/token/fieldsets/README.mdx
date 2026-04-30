@@ -1,11 +1,11 @@
-# Consul::Token::Form
+# Dumb Consul::Token::Form
 
 Presentational component that renders the token create/edit form: it delegates field rendering to Fieldsets or FieldsetsLegacy and exposes Save / Cancel / Delete actions as closure args.
 
 ## Usage
 
 ```hbs
-<Consul::Token::Form
+<Dumb Consul::Token::Form
   @form={{form}}
   @item={{item}}
   @token={{token}}
@@ -40,7 +40,7 @@ Presentational component that renders the token create/edit form: it delegates f
 
 ## Behavior / Notes
 
-- Renders Consul::Token::Fieldsets for new-style tokens, or Consul::Token::FieldsetsLegacy for legacy tokens.
+- Renders Dumb Consul::Token::Fieldsets for new-style tokens, or Dumb Consul::Token::FieldsetsLegacy for legacy tokens.
 - Save button invokes `@onCreate` when creating, otherwise `@onUpdate`.
 - Cancel invokes `@onCancel`. Prefer passing `route-action` so route-level hooks (e.g. WithBlockingActions) run.
 - Delete opens a confirmation dialog; confirmed deletes invoke `@onDelete`.

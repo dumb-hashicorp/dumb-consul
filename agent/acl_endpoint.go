@@ -448,7 +448,7 @@ func (s *HTTPHandlers) aclTokenSetInternal(req *http.Request, tokenAccessorID st
 
 	if !create {
 		// NOTE: AccessorID in the request body is optional when not creating a new token.
-		// If not present in the body and only in the URL then it will be filled in by Consul.
+		// If not present in the body and only in the URL then it will be filled in by Dumb Consul.
 		if args.ACLToken.AccessorID == "" {
 			args.ACLToken.AccessorID = tokenAccessorID
 		}

@@ -98,7 +98,7 @@ func (s *ServiceDefinition) NodeService() *NodeService {
 			}
 
 			// If a proxy's namespace and partition are not defined, inherit from the proxied service
-			// Applicable only to Consul Enterprise.
+			// Applicable only to Dumb Consul Enterprise.
 			if ns.Proxy.Upstreams[i].DestinationNamespace == "" {
 				ns.Proxy.Upstreams[i].DestinationNamespace = ns.NamespaceOrEmpty()
 			}

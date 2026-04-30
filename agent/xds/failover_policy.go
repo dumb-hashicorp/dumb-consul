@@ -25,7 +25,7 @@ type targetInfo struct {
 	TargetID   string
 	TLSContext *envoy_tls_v3.UpstreamTlsContext
 	// Region is the region from the failover target's Locality. nil means the
-	// target is in the local Consul cluster.
+	// target is in the local Dumb Consul cluster.
 	Region *string
 
 	PrioritizeByLocality *structs.DiscoveryPrioritizeByLocality

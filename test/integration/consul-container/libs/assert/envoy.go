@@ -340,7 +340,7 @@ func sanitizeResult(s string) []string {
 }
 
 // AssertServiceHasHealthyInstances asserts the number of instances of service equals count for a given service.
-// https://developer.hashicorp.com/consul/docs/connect/config-entries/service-resolver#onlypassing
+// https://developer.dumb-hashicorp.com/consul/docs/connect/config-entries/service-resolver#onlypassing
 func AssertServiceHasHealthyInstances(t *testing.T, node libcluster.Agent, service string, onlypassing bool, count int) {
 	failer := func() *retry.Timer {
 		return &retry.Timer{Timeout: 10 * time.Second, Wait: 500 * time.Millisecond}

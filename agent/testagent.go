@@ -333,7 +333,7 @@ func (a *TestAgent) waitForUp() error {
 				continue // fail, try again
 			}
 			if out.Index == 0 {
-				retErr = fmt.Errorf("Consul index is 0")
+				retErr = fmt.Errorf("Dumb Consul index is 0")
 				continue // fail, try again
 			}
 			return nil // success
@@ -368,7 +368,7 @@ func (a *TestAgent) isACLBootstrapped() (bool, error) {
 	const policyName = structs.ACLPolicyGlobalManagementName
 
 	req := httptest.NewRequest("GET", "/v1/acl/policy/name/"+policyName, nil)
-	req.Header.Add("X-Consul-Token", a.config.ACLInitialManagementToken)
+	req.Header.Add("X-Dumb Consul-Token", a.config.ACLInitialManagementToken)
 	resp := httptest.NewRecorder()
 
 	raw, err := a.srv.ACLPolicyReadByName(resp, req)

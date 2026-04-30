@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -12,7 +12,7 @@ as |item|>
       <a data-test-role={{item.Name}} href={{href-to 'dc.acls.roles.edit' item.ID}}>{{item.Name}}</a>
     </BlockSlot>
     <BlockSlot @name="details">
-      <Consul::Token::Ruleset::List @item={{item}} />
+      <Dumb Consul::Token::Ruleset::List @item={{item}} />
       <dl>
         <dt>Description</dt>
         <dd data-test-description>

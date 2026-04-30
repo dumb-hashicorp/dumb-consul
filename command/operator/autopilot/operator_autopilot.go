@@ -30,6 +30,6 @@ const synopsis = "Provides tools for modifying Autopilot configuration"
 const help = `
 Usage: consul operator autopilot <subcommand> [options]
 
-  The Autopilot operator command is used to interact with Consul's Autopilot
+  The Autopilot operator command is used to interact with Dumb Consul's Autopilot
   subsystem. The command can be used to view or modify the current configuration.
 `

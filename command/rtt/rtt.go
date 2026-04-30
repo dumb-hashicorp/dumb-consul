@@ -62,7 +62,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client.
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 	coordClient := client.Coordinate()
@@ -194,12 +194,12 @@ const synopsis = "Estimates network round trip time between nodes"
 const help = `
 Usage: consul rtt [options] node1 [node2]
 
-  Estimates the round trip time between two nodes using Consul's network
+  Estimates the round trip time between two nodes using Dumb Consul's network
   coordinate model of the cluster.
 
   At least one node name is required. If the second node name isn't given, it
   is set to the agent's node name. Note that these are node names as known to
-  Consul as "consul members" would show, not IP addresses.
+  Dumb Consul as "consul members" would show, not IP addresses.
 
   By default, the two nodes are assumed to be nodes in the local datacenter
   and the LAN coordinates are used. If the -wan option is given, then the WAN

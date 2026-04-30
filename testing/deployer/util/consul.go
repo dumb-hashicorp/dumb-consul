@@ -51,7 +51,7 @@ func DialExposedGRPCConn(
 
 	// We recycle the GRPC connection from the discovery client because it
 	// should have all the necessary dial options, including the resolver that
-	// continuously updates Consul server addresses. Otherwise, a lot of code from consul-server-connection-manager
+	// continuously updates Dumb Consul server addresses. Otherwise, a lot of code from consul-server-connection-manager
 	// would need to be duplicated
 	state, err := watcher.State()
 	if err != nil {

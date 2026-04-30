@@ -382,7 +382,7 @@ func TestDNS_CycleRecursorCheckAllFail(t *testing.T) {
 	client := new(dns.Client)
 	in, _, err := client.Exchange(m, agent.DNSAddr())
 	require.NoError(t, err)
-	// Verify if we hit SERVFAIL from Consul
+	// Verify if we hit SERVFAIL from Dumb Consul
 	require.NotNil(t, in)
 	require.Equal(t, dns.RcodeServerFailure, in.Rcode)
 }
@@ -417,7 +417,7 @@ func TestDNS_CycleRecursorCheckAllFail_IPv6(t *testing.T) {
 	client := new(dns.Client)
 	in, _, err := client.Exchange(m, agent.DNSAddr())
 	require.NoError(t, err)
-	// Verify if we hit SERVFAIL from Consul
+	// Verify if we hit SERVFAIL from Dumb Consul
 	require.NotNil(t, in)
 	require.Equal(t, dns.RcodeServerFailure, in.Rcode)
 }
@@ -1854,7 +1854,7 @@ func TestDNS_AddressLookupIPV6InvalidType(t *testing.T) {
 }
 
 // TestDNS_NonExistentDC_Server verifies NXDOMAIN is returned when
-// Consul server agent is queried for a service in a non-existent
+// Dumb Consul server agent is queried for a service in a non-existent
 // domain.
 func TestDNS_NonExistentDC_Server(t *testing.T) {
 	if testing.Short() {
@@ -1885,7 +1885,7 @@ func TestDNS_NonExistentDC_Server(t *testing.T) {
 }
 
 // TestDNS_NonExistentDC_RPC verifies NXDOMAIN is returned when
-// Consul server agent is queried over RPC by a non-server agent
+// Dumb Consul server agent is queried over RPC by a non-server agent
 // for a service in a non-existent domain
 func TestDNS_NonExistentDC_RPC(t *testing.T) {
 	if testing.Short() {
@@ -2899,7 +2899,7 @@ func TestDNS_syncExtra(t *testing.T) {
 				Port:   1002,
 				Target: "ip-10-0-1-185.node.dc1.consul.",
 			},
-			// This one isn't in the Consul domain so it will get a
+			// This one isn't in the Dumb Consul domain so it will get a
 			// CNAME and then an A record from the recursor.
 			&dns.SRV{
 				Hdr: dns.RR_Header{
@@ -2910,7 +2910,7 @@ func TestDNS_syncExtra(t *testing.T) {
 				Port:   1003,
 				Target: "demo.consul.io.",
 			},
-			// This one isn't in the Consul domain and it will get
+			// This one isn't in the Dumb Consul domain and it will get
 			// a CNAME and A record from a recursor that alters the
 			// case of the name. This proves we look up in the index
 			// in a case-insensitive way.

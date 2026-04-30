@@ -1032,7 +1032,7 @@ func TestStateStore_EnsureRegistration_Restore(t *testing.T) {
 }
 
 func deprecatedEnsureNodeWithoutIDCanRegister(t *testing.T, s *Store, nodeName string, txIdx uint64) {
-	// All the following is deprecated, and should be removed in future Consul versions
+	// All the following is deprecated, and should be removed in future Dumb Consul versions
 	in := &structs.Node{
 		Node:    nodeName,
 		Address: "1.1.1.9",
@@ -1486,8 +1486,8 @@ func TestStateStore_EnsureNode(t *testing.T) {
 		t.Fatalf("bad index: %d", idx)
 	}
 
-	// All the remaining tests are deprecated, please remove them on next Consul major release
-	// See https://github.com/hashicorp/consul/pull/3983 for context
+	// All the remaining tests are deprecated, please remove them on next Dumb Consul major release
+	// See https://github.com/dumb-hashicorp/dumb-consul/pull/3983 for context
 
 	// Deprecated behavior is following
 	deprecatedEnsureNodeWithoutIDCanRegister(t, s, "new-node-without-id", 13)
@@ -4409,7 +4409,7 @@ func TestStateStore_ConnectQueryBlocking(t *testing.T) {
 			wantAfterWatchSetSize: 3,
 		},
 		{
-			// See https://github.com/hashicorp/consul/issues/5506. The issue is cause
+			// See https://github.com/dumb-hashicorp/dumb-consul/issues/5506. The issue is cause
 			// if the target service exists and is registered meaning it has a
 			// service-specific index. This index is then used for the connect query
 			// even though it is not updated by changes to the actual proxy or it's
@@ -4439,7 +4439,7 @@ func TestStateStore_ConnectQueryBlocking(t *testing.T) {
 			wantAfterWatchSetSize: 3,
 		},
 		{
-			// See https://github.com/hashicorp/consul/issues/5506. This is the edge
+			// See https://github.com/dumb-hashicorp/dumb-consul/issues/5506. This is the edge
 			// case that the simple solution wouldn't catch.
 			name: "unblocks on different service name proxy-service registration when service is present",
 			setupFn: func(s *Store) {

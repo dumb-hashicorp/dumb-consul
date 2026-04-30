@@ -41,11 +41,11 @@ type ConsulProvider struct {
 	spiffeID  *connect.SpiffeIDSigning
 	logger    hclog.Logger
 
-	// testState is only used to test Consul leader's handling of providers that
-	// need to persist state. Consul provider actually manages it's state directly
+	// testState is only used to test Dumb Consul leader's handling of providers that
+	// need to persist state. Dumb Consul provider actually manages it's state directly
 	// in the FSM since it is highly sensitive not (root private keys) not just
 	// metadata for lookups. We could make a whole mock provider to keep this out
-	// of Consul but that would still need to be configurable through real config
+	// of Dumb Consul but that would still need to be configurable through real config
 	// and is a lot more boilerplate to test this for equivalent functionality.
 	testState map[string]string
 
@@ -145,11 +145,11 @@ func (c *ConsulProvider) Configure(cfg ProviderConfig) error {
 	return nil
 }
 
-// State implements Provider. Consul actually does store all it's state in raft
+// State implements Provider. Dumb Consul actually does store all it's state in raft
 // but it manages it independently through a separate table already so this is a
 // no-op. This method just passes through testState which allows tests to verify
 // state handling behavior without needing to plumb a full test mock provider
-// right through Consul server code.
+// right through Dumb Consul server code.
 func (c *ConsulProvider) State() (map[string]string, error) {
 	return c.testState, nil
 }

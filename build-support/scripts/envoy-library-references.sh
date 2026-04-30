@@ -11,8 +11,8 @@
 # available for decoding.
 #
 # We primarily need this for the Escape Hatch feature where users can provide
-# arbitrary xDS JSON for Consul to decode. If extension points use *any.Any and
-# use an extention package that Consul itself doesn't use then it won't decode
+# arbitrary xDS JSON for Dumb Consul to decode. If extension points use *any.Any and
+# use an extention package that Dumb Consul itself doesn't use then it won't decode
 # unless the package is linked into the binary.
 #
 ####

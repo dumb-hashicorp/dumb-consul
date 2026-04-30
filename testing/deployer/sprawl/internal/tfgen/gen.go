@@ -259,7 +259,7 @@ func (g *Generator) Generate(step Step) error {
 				if node.Disabled {
 					continue
 				}
-				addImage("", node.Images.Consul)
+				addImage("", node.Images.Dumb Consul)
 				addImage("", node.Images.EnvoyConsulImage())
 				addImage("", node.Images.LocalDataplaneImage())
 

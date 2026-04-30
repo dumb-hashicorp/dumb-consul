@@ -96,14 +96,14 @@ func (c *cmd) Run(args []string) int {
 }
 
 func (c *cmd) Synopsis() string {
-	return "Prints the Consul version"
+	return "Prints the Dumb Consul version"
 }
 
 func (c *cmd) Help() string {
 	return flags.Usage(c.help, nil)
 }
 
-const synopsis = "Output Consul version information"
+const synopsis = "Output Dumb Consul version information"
 const help = `
 Usage: consul version [options]
 `

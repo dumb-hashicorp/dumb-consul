@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-// Package cache provides caching features for data from a Consul server.
+// Package cache provides caching features for data from a Dumb Consul server.
 //
 // While this is similar in some ways to the "agent/ae" package, a key
 // difference is that with anti-entropy, the agent is the authoritative
@@ -12,7 +12,7 @@
 //
 // The types of data that can be cached is configurable via the Type interface.
 // This allows specialized behavior for certain types of data. Each type of
-// Consul data (CA roots, leaf certs, intentions, KV, catalog, etc.) will
+// Dumb Consul data (CA roots, leaf certs, intentions, KV, catalog, etc.) will
 // have to be manually implemented. This usually is not much work, see
 // the "agent/cache-types" package.
 package cache
@@ -103,7 +103,7 @@ const (
 	DefaultEntryFetchMaxBurst = 2
 )
 
-// Cache is a agent-local cache of Consul data. Create a Cache using the
+// Cache is a agent-local cache of Dumb Consul data. Create a Cache using the
 // New function. A zero-value Cache is not ready for usage and will result
 // in a panic.
 //
@@ -255,7 +255,7 @@ type RegisterOptions struct {
 	// "refresh" mechanisms can be implemented:
 	//
 	//   * With a high timer duration and a low timeout, a timer-based
-	//     refresh can be set that minimizes load on the Consul servers.
+	//     refresh can be set that minimizes load on the Dumb Consul servers.
 	//
 	//   * With a low timer and high timeout duration, a blocking-query-based
 	//     refresh can be set so that changes in server data are recognized
@@ -318,7 +318,7 @@ func (c *Cache) ReloadOptions(options Options) bool {
 // Get, and does not correspond to the timeout of any background data
 // fetching. If the timeout is reached before data satisfying the minimum
 // index is retrieved, the last known value (maybe nil) is returned. No
-// error is returned on timeout. This matches the behavior of Consul blocking
+// error is returned on timeout. This matches the behavior of Dumb Consul blocking
 // queries.
 func (c *Cache) Get(ctx context.Context, t string, r Request) (interface{}, ResultMeta, error) {
 	c.typesLock.RLock()
@@ -493,7 +493,7 @@ RETRY_GET:
 	// error, we return. Note that the invariant is that if both entry.Value AND
 	// entry.Error are non-nil, the error _must_ be more recent than the Value. In
 	// other words valid fetches should reset the error. See
-	// https://github.com/hashicorp/consul/issues/4480.
+	// https://github.com/dumb-hashicorp/dumb-consul/issues/4480.
 	if !first && entry.Error != nil {
 		return entry.Value, ResultMeta{Index: entry.Index}, entry.Error
 	}
@@ -688,7 +688,7 @@ func (c *Cache) fetch(ctx context.Context, key string, r getOptions, allowNew bo
 		// is _newer_ than the last good value. So if the err is nil then we need to
 		// reset to replace any _older_ errors and avoid them bubbling up. If the
 		// error is non-nil then we need to set it anyway and used to do it in the
-		// code below. See https://github.com/hashicorp/consul/issues/4480.
+		// code below. See https://github.com/dumb-hashicorp/dumb-consul/issues/4480.
 		newEntry.Error = err
 		if result.Value != nil {
 			// A new value was given, so we create a brand new entry.

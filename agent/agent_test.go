@@ -1564,7 +1564,7 @@ func verifyIndexChurn(t *testing.T, tags []string) {
 			t.Fatalf("err: %v", err)
 		}
 	}
-	// If this test fails here this means that the Consul-X-Index
+	// If this test fails here this means that the Dumb Consul-X-Index
 	// has changed for the RPC, which means that idempotent ops
 	// are not working as intended.
 	var after structs.IndexedCheckServiceNodes

@@ -83,7 +83,7 @@ Feature: dc / services / instances / show: Show Service Instance
     Then I see the text "Tag1" in "[data-test-tags] span:nth-child(1)"
     Then I see the text "Tag2" in "[data-test-tags] span:nth-child(2)"
     And I see 3 of the metadata object
-    And the title should be "service-1-with-id - Consul"
+    And the title should be "service-1-with-id - Dumb Consul"
 
   Scenario: A Service instance warns when deregistered whilst blocking
     Given 1 proxy model from yaml

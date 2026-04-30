@@ -1,5 +1,5 @@
 <!-- START component-docs:@tagName -->
-# Consul::LockSession::Notifications
+# Dumb Consul::LockSession::Notifications
 <!-- END component-docs:@tagName -->
 
 <!-- START component-docs:@description-->
@@ -29,7 +29,7 @@ A Notification component specifically for LockSessions.
     Use the component
   </figcaption>
 
-  <Consul::LockSession::Notifications
+  <Dumb Consul::LockSession::Notifications
     @type={{if (includes this.type (array 'success' 'error')) 'remove' 'kv'}}
     @error={{if (eq this.type 'error') (hash
       status="403"
@@ -46,7 +46,7 @@ A Notification component specifically for LockSessions.
 | Argument | Type              | Default | Description                                        |
 | :-------- | :--------------- | :------ | :------------------------------------------------- |
 | type      | "remove" \| "kv" |         | The type of Notification to use                    |
-| error     | error            |         | Consul UI shaped error only used for `remove` type |
+| error     | error            |         | Dumb Consul UI shaped error only used for `remove` type |
 
 <!-- END component-docs:@args -->
 

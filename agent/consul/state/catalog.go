@@ -360,7 +360,7 @@ func ensureNoNodeWithSimilarNameTxn(tx ReadTxn, node *structs.Node, allowClashWi
 			}
 
 			// Get the node health. If there's no Serf health check, we consider it safe to rename
-			// the node as it's likely an external node registration not managed by Consul.
+			// the node as it's likely an external node registration not managed by Dumb Consul.
 			var nodeHealthy bool
 			if enodeCheck != nil {
 				enodeSerfCheck, ok := enodeCheck.(*structs.HealthCheck)
@@ -442,8 +442,8 @@ func (s *Store) ensureNodeTxn(tx WriteTxn, idx uint64, preserveIndexes bool, nod
 			}
 		}
 	}
-	// TODO: else Node.ID == "" should be forbidden in future Consul releases
-	// See https://github.com/hashicorp/consul/pull/3983 for context
+	// TODO: else Node.ID == "" should be forbidden in future Dumb Consul releases
+	// See https://github.com/dumb-hashicorp/dumb-consul/pull/3983 for context
 
 	// Check for an existing node by name to support nodes with no IDs.
 	if n == nil {
@@ -461,7 +461,7 @@ func (s *Store) ensureNodeTxn(tx WriteTxn, idx uint64, preserveIndexes bool, nod
 		}
 		// WARNING, for compatibility reasons with tests, we do not check
 		// for case insensitive matches, which may lead to DB corruption
-		// See https://github.com/hashicorp/consul/pull/3983 for context
+		// See https://github.com/dumb-hashicorp/dumb-consul/pull/3983 for context
 	}
 
 	// Get the indexes.
@@ -3003,7 +3003,7 @@ func checkServiceNodesTxn(tx ReadTxn, ws memdb.WatchSet, serviceName string, con
 	// thousands of watch chans for large services which may need many goroutines.
 	// It also avoids the performance cliff that is hit when watchLimit is hit
 	// (~682 service instances). See
-	// https://github.com/hashicorp/consul/issues/4984
+	// https://github.com/dumb-hashicorp/dumb-consul/issues/4984
 	watchOptimized := false
 	if len(serviceNames) > 0 {
 		// Assume optimization will work since it really should at this point. For
@@ -3551,7 +3551,7 @@ func parseNodes(tx ReadTxn, ws memdb.WatchSet, idx uint64,
 		ws.AddWithLimit(watchLimit, services.WatchCh(), allServicesCh)
 		for service := services.Next(); service != nil; service = services.Next() {
 			ns := service.(*structs.ServiceNode).ToNodeService()
-			// If version isn't defined in node meta, set it from the Consul service meta
+			// If version isn't defined in node meta, set it from the Dumb Consul service meta
 			if _, ok := dump.Meta[structs.MetaConsulVersion]; !ok && ns.ID == "consul" && ns.Meta["version"] != "" {
 				if dump.Meta == nil {
 					dump.Meta = make(map[string]string)

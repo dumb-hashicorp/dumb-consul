@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -57,7 +57,7 @@ as |route|>
         </Portal>
   {{/if}}
   {{#if (gt items.length 0) }}
-        <Consul::Intention::SearchBar
+        <Dumb Consul::Intention::SearchBar
           @search={{this.search}}
           @onsearch={{action (mut this.search) value="target.value"}}
 
@@ -88,7 +88,7 @@ as |route|>
               @items={{items}}
             as |collection|>
               <collection.Collection>
-                <Consul::Intention::List
+                <Dumb Consul::Intention::List
                   @items={{collection.items}}
                   @check={{this.search}}
                   @delete={{writer.delete}}
@@ -96,7 +96,7 @@ as |route|>
                   <list.CustomResourceNotice />
                   <list.CheckNotice />
                   <list.Table @routeName="dc.services.show.intentions.edit" />
-                </Consul::Intention::List>
+                </Dumb Consul::Intention::List>
               </collection.Collection>
               <collection.Empty>
                 <EmptyState

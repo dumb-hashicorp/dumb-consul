@@ -83,7 +83,7 @@ func TestAgent_local_proxycfg(t *testing.T) {
 				t.Logf("re-creating watch")
 			}
 
-			// Prior to fixes in https://github.com/hashicorp/consul/pull/16497
+			// Prior to fixes in https://github.com/dumb-hashicorp/dumb-consul/pull/16497
 			// this call to Watch() would deadlock.
 			var err error
 			ch, stc, _, cancel, err = cfg.Watch(sid, a.config.NodeName, token)
@@ -130,7 +130,7 @@ func TestAgent_local_proxycfg(t *testing.T) {
 
 func testWriteToken(t *testing.T, a *TestAgent, tok *api.ACLToken) string {
 	req, _ := http.NewRequest("PUT", "/v1/acl/token", jsonReader(tok))
-	req.Header.Add("X-Consul-Token", "root")
+	req.Header.Add("X-Dumb Consul-Token", "root")
 	resp := httptest.NewRecorder()
 	a.srv.h.ServeHTTP(resp, req)
 	require.Equal(t, http.StatusOK, resp.Code)

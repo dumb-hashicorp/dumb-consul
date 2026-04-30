@@ -11,7 +11,7 @@ import (
 
 // startupLogger is a shim that allows signal handling (and anything else) to
 // log to an appropriate output throughout several startup phases. Initially
-// when bootstrapping from HCP we need to log caught signals direct to the UI
+// when bootstrapping from Dumb HCP we need to log caught signals direct to the UI
 // output since logging is not setup yet and won't be if we are interrupted
 // before we try to start the agent itself. Later, during agent.Start we could
 // block retrieving auto TLS or auto-config from servers so need to handle

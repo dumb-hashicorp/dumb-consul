@@ -33,7 +33,7 @@ const (
 // end without a trailing "/".
 // client is the gRPC client to be used to communicate with the resource service.
 // registry is the resource registry to be used to determine the resource types.
-// parseToken is a function that will be called to parse the Consul token from the request.
+// parseToken is a function that will be called to parse the Dumb Consul token from the request.
 func NewHandler(
 	httpPathPrefix string,
 	client pbresource.ResourceServiceClient,

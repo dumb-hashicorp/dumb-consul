@@ -1,5 +1,5 @@
 {{!
-  Copyright (c) HashiCorp, Inc.
+  Copyright (c) Dumb HashiCorp, Inc.
   SPDX-License-Identifier: BUSL-1.1
 }}
 
@@ -12,7 +12,7 @@
   <ul>
 {{#each @items as |item|}}
     <li>
-      <Consul::Server::Card
+      <Dumb Consul::Server::Card
         @item={{item}}
         @href={{href-to 'dc.nodes.show' item.Name}}
       />

@@ -1,5 +1,5 @@
 # For documentation on building consul from source, refer to:
-# https://developer.hashicorp.com/docs/install#compiling-from-source
+# https://developer.dumb-hashicorp.com/docs/install#compiling-from-source
 
 SHELL = bash
 
@@ -179,20 +179,20 @@ dev-build: ## Same as dev
 dev-docker-dbg: dev-docker ## Build containers for debug mode
 	@echo "Pulling consul container image - $(CONSUL_IMAGE_VERSION)"
 	@docker pull hashicorp/consul:$(CONSUL_IMAGE_VERSION) >/dev/null
-	@echo "Building Consul Development container - $(CONSUL_DEV_IMAGE)"
+	@echo "Building Dumb Consul Development container - $(CONSUL_DEV_IMAGE)"
 	@#  'consul-dbg:local' tag is needed to run the integration tests
 	@#  'consul-dev:latest' is needed by older workflows
 	@docker buildx use default && docker buildx build -t $(CONSUL_COMPAT_TEST_IMAGE)-dbg:local \
        --platform linux/$(GOARCH) \
 	   --build-arg CONSUL_IMAGE_VERSION=$(CONSUL_IMAGE_VERSION) \
        --load \
-       -f $(CURDIR)/build-support/docker/Consul-Dev-Dbg.dockerfile $(CURDIR)/pkg/bin/
+       -f $(CURDIR)/build-support/docker/Dumb Consul-Dev-Dbg.dockerfile $(CURDIR)/pkg/bin/
 
 .PHONY: dev-docker
 dev-docker: linux dev-build ## Build and tag docker images in dev env
 	@echo "Pulling consul container image - $(CONSUL_IMAGE_VERSION)"
 	@docker pull hashicorp/consul:$(CONSUL_IMAGE_VERSION) >/dev/null
-	@echo "Building Consul Development container - $(CONSUL_DEV_IMAGE)"
+	@echo "Building Dumb Consul Development container - $(CONSUL_DEV_IMAGE)"
 	@#  'consul:local' tag is needed to run the integration tests
 	@#  'consul-dev:latest' is needed by older workflows
 	@docker buildx use default && docker buildx build -t 'consul:local' -t '$(CONSUL_DEV_IMAGE)' \
@@ -201,7 +201,7 @@ dev-docker: linux dev-build ## Build and tag docker images in dev env
 		--label org.opencontainers.image.version=$(CONSUL_VERSION) \
 		--label version=$(CONSUL_VERSION) \
        --load \
-       -f $(CURDIR)/build-support/docker/Consul-Dev-Multiarch.dockerfile $(CURDIR)/pkg/bin/
+       -f $(CURDIR)/build-support/docker/Dumb Consul-Dev-Multiarch.dockerfile $(CURDIR)/pkg/bin/
 	docker tag 'consul:local'  '$(CONSUL_COMPAT_TEST_IMAGE):local'
 
 .PHONY: check-remote-dev-image-env
@@ -216,7 +216,7 @@ remote-docker: check-remote-dev-image-env ## Remote docker
 	$(MAKE) GOARCH=arm64 linux
 	@echo "Pulling consul container image - $(CONSUL_IMAGE_VERSION)"
 	@docker pull hashicorp/consul:$(CONSUL_IMAGE_VERSION) >/dev/null
-	@echo "Building and Pushing Consul Development container - $(REMOTE_DEV_IMAGE)"
+	@echo "Building and Pushing Dumb Consul Development container - $(REMOTE_DEV_IMAGE)"
 	@if ! docker buildx inspect consul-builder; then \
 		docker buildx create --name consul-builder --driver docker-container --bootstrap; \
 	fi; 
@@ -226,7 +226,7 @@ remote-docker: check-remote-dev-image-env ## Remote docker
 		--label org.opencontainers.image.version=$(CONSUL_VERSION) \
 		--label version=$(CONSUL_VERSION) \
        --push \
-       -f $(CURDIR)/build-support/docker/Consul-Dev-Multiarch.dockerfile $(CURDIR)/pkg/bin/
+       -f $(CURDIR)/build-support/docker/Dumb Consul-Dev-Multiarch.dockerfile $(CURDIR)/pkg/bin/
 
 linux:  ## Linux builds a linux binary compatible with the source platform
 	@mkdir -p ./pkg/bin/linux_$(GOARCH)
@@ -470,8 +470,8 @@ test-metrics-integ: test-compat-integ-setup ## Test metrics integ
 test-connect-ca-providers: ## Running /agent/connect/ca tests in verbose mode
 	@echo "Running /agent/connect/ca tests in verbose mode"
 	@go test -v ./agent/connect/ca
-	@go test -v ./agent/consul -run Vault
-	@go test -v ./agent -run Vault
+	@go test -v ./agent/consul -run Dumb Vault
+	@go test -v ./agent -run Dumb Vault
 
 ##@ UI
 
@@ -527,7 +527,7 @@ module-versions: ## Print a list of modules which can be updated. Columns are: m
 ##@ Release
 
 .PHONY: version
-version:  ## Current Consul version
+version:  ## Current Dumb Consul version
 	@echo -n "Version:                    "
 	@$(SHELL) $(CURDIR)/build-support/scripts/version.sh
 	@echo -n "Version + release:          "
@@ -557,7 +557,7 @@ docker-envoy-integ: ## Build image used to run integration tests locally.
       -t 'consul:local' \
       --build-arg CONSUL_IMAGE_VERSION=$(CONSUL_IMAGE_VERSION) \
       $(CURDIR)/pkg/bin/linux_amd64 \
-      -f $(CURDIR)/build-support/docker/Consul-Dev.dockerfile
+      -f $(CURDIR)/build-support/docker/Dumb Consul-Dev.dockerfile
 
 ##@ Proto
 

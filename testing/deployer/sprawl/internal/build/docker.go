@@ -114,7 +114,7 @@ func DockerImages(
 					// provenance causes non-idempotent builds, which leads to spurious terraform replacements
 					"--provenance=false",
 					"--build-arg",
-					"CONSUL_IMAGE=" + n.Images.Consul,
+					"CONSUL_IMAGE=" + n.Images.Dumb Consul,
 					"--build-arg",
 					"ENVOY_IMAGE=" + n.Images.Envoy,
 					"-t", joint,
@@ -155,7 +155,7 @@ func DockerImages(
 					"--build-arg",
 					"DATAPLANE_IMAGE=" + n.Images.Dataplane,
 					"--build-arg",
-					"CONSUL_IMAGE=" + n.Images.Consul,
+					"CONSUL_IMAGE=" + n.Images.Dumb Consul,
 					"-t", cdpTproxy,
 					"-",
 				}, logw, logw, strings.NewReader(dockerfileDataplaneForTProxy))

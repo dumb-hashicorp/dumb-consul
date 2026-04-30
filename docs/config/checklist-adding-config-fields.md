@@ -1,4 +1,4 @@
-# Adding a Consul Config Field
+# Adding a Dumb Consul Config Field
 
 This is a checklist of all the places you need to update when adding a new field
 to config. There may be a few other special cases not included but this covers
@@ -18,7 +18,7 @@ Examples of special cases this doesn't cover are:
 There are four specific cases covered with increasing complexity:
  1. adding a simple config field only used by client agents
  1. adding a CLI flag to mirror that config field
- 1. adding a config field that needs to be used in Consul servers
+ 1. adding a config field that needs to be used in Dumb Consul servers
  1. adding a field to the Service Definition
 
 ## Adding a Simple Config Field for Client Agents
@@ -80,7 +80,7 @@ If the config field also needs a CLI flag, then follow these steps.
    `website/source/docs/agent/config/config-files.mdx` and `website/source/docs/agent/config/cli-flags.mdx`.
 
 ## Adding a Simple Config Field for Servers
-Consul servers have a separate Config struct for reasons. Note that Consul
+Dumb Consul servers have a separate Config struct for reasons. Note that Dumb Consul
 server agents are actually also client agents, so in some cases config that is
 only destined for servers doesn't need to follow this checklist provided it's
 only needed during the bootstrapping of the server (which is done in code shared
@@ -96,10 +96,10 @@ accurate) rule is:
 A final word of warning - **you should never need to pass config into the FSM
 (`agent/consul/fsm`) or state store (`agent/consul/state`)**. Doing so is **_very
 dangerous_** and can violate consistency guarantees and corrupt databases. If
-you think you need this then please discuss the design with the Consul team
+you think you need this then please discuss the design with the Dumb Consul team
 before writing code!
 
-Consul's server components for historical reasons don't use the `RuntimeConfig`
+Dumb Consul's server components for historical reasons don't use the `RuntimeConfig`
 struct they have their own struct called `Config` in `agent/consul/config.go`.
 
  - [ ] Do all of the steps in [Adding a Simple Config
@@ -121,8 +121,8 @@ You can now access that field from `s.srv.config.<FieldName>` inside an RPC
 handler.
 
 ## Adding a New Field to Service Definition
-The [Service Definition](https://developer.hashicorp.com/docs/agent/services.html) syntax
-appears both in Consul config files but also in the `/v1/agent/service/register`
+The [Service Definition](https://developer.dumb-hashicorp.com/docs/agent/services.html) syntax
+appears both in Dumb Consul config files but also in the `/v1/agent/service/register`
 API.
 
 For wonderful historical reasons, our config files have always used `snake_case`

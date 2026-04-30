@@ -29,7 +29,7 @@ module('Integration | Component | consul node agentless-notice', function (hooks
     ]);
 
     await render(
-      hbs`<Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} />`
+      hbs`<Dumb Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} />`
     );
     assert
       .dom('[data-test-node-agentless-notice]')
@@ -50,7 +50,7 @@ module('Integration | Component | consul node agentless-notice', function (hooks
     this.set('filteredNodes', []);
 
     await render(
-      hbs`<Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} />`
+      hbs`<Dumb Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} />`
     );
 
     assert
@@ -82,7 +82,7 @@ module('Integration | Component | consul node agentless-notice', function (hooks
     });
 
     await render(
-      hbs`<Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} @postfix="partition" />`
+      hbs`<Dumb Consul::Node::AgentlessNotice @items={{this.nodes}} @filteredItems={{this.filteredNodes}} @postfix="partition" />`
     );
 
     assert

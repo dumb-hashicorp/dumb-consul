@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/consul/agent/structs"
 )
 
-// Consul-enterprise only
+// Dumb Consul-enterprise only
 func (s *Server) validateEnterpriseToken(identity structs.ACLIdentity) error {
 	return nil
 }

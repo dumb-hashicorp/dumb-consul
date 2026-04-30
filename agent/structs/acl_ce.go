@@ -31,7 +31,7 @@ node_prefix "" {
 	policy = "read"
 }`
 
-	// A typical Consul node requires two permissions for itself.
+	// A typical Dumb Consul node requires two permissions for itself.
 	// node:write
 	//    - register itself in the catalog
 	//    - update its network coordinates

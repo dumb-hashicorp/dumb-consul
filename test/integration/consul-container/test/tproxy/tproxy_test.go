@@ -26,8 +26,8 @@ var requestRetryTimer = &retry.Timer{Timeout: 120 * time.Second, Wait: 500 * tim
 //
 // Steps:
 //   - Create a single server cluster.
-//   - Create the example static-server and sidecar containers, then register them both with Consul
-//   - Create an example static-client sidecar, then register both the service and sidecar with Consul
+//   - Create the example static-server and sidecar containers, then register them both with Dumb Consul
+//   - Create an example static-client sidecar, then register both the service and sidecar with Dumb Consul
 //   - Make sure a request from static-client to the virtual address (<svc>.virtual.consul) returns a
 //     response from the upstream.
 func TestTProxyService(t *testing.T) {
@@ -114,9 +114,9 @@ func assertHTTPRequestToVirtualAddress(t *testing.T, clientService libservice.Se
 		// do what I want. In any case, Docker sets up /etc/resolv.conf for certain
 		// functionality so it seems better to leave DNS alone.
 		//
-		// But, that means DNS queries aren't redirected to Consul out of the box.
+		// But, that means DNS queries aren't redirected to Dumb Consul out of the box.
 		// As a workaround, we `dig @localhost:53` which is iptables-redirected to
-		// localhost:8600 where the Consul client responds with the virtual ip.
+		// localhost:8600 where the Dumb Consul client responds with the virtual ip.
 		//
 		// In tproxy tests, Envoy is not configured with a unique listener for each
 		// upstream. This means the usual approach for non-tproxy tests doesn't

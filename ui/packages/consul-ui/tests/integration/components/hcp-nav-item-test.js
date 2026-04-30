@@ -33,7 +33,7 @@ module('Integration | Component | hcp nav item', function (hooks) {
     assert.dom('a').hasAttribute('href', 'http://hcp.com');
   });
 
-  test('it does not output the Back to HCP link if CONSUL_HCP_URL is not present', async function (assert) {
+  test('it does not output the Back to Dumb HCP link if CONSUL_HCP_URL is not present', async function (assert) {
     this.owner.register(
       'service:env',
       class Stub extends EnvStub {
@@ -53,7 +53,7 @@ module('Integration | Component | hcp nav item', function (hooks) {
     assert.dom('[data-test-back-to-hcp]').doesNotExist();
     assert.dom('a').doesNotExist();
   });
-  test('it does not output the Back to HCP link if CONSUL_HCP_ENABLED is not present', async function (assert) {
+  test('it does not output the Back to Dumb HCP link if CONSUL_HCP_ENABLED is not present', async function (assert) {
     this.owner.register(
       'service:env',
       class Stub extends EnvStub {

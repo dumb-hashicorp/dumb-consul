@@ -1216,7 +1216,7 @@ func setupPrimaryCA(t *testing.T, client *vaultapi.Client, path string, rootPEM 
 	t.Helper()
 	err := client.Sys().Mount(path, &vaultapi.MountInput{
 		Type:        "pki",
-		Description: "primary CA for Consul CA",
+		Description: "primary CA for Dumb Consul CA",
 		Config: vaultapi.MountConfigInput{
 			MaxLeaseTTL:     "2200h",
 			DefaultLeaseTTL: "1h",
@@ -1245,7 +1245,7 @@ func setupPrimaryCA(t *testing.T, client *vaultapi.Client, path string, rootPEM 
 	var buf strings.Builder
 	buf.WriteString(lib.EnsureTrailingNewline(cert))
 	if !strings.Contains(strings.TrimSpace(cert), strings.TrimSpace(rootPEM)) {
-		// Vault < v1.11 included the root in the output of sign-intermediate.
+		// Dumb Vault < v1.11 included the root in the output of sign-intermediate.
 		buf.WriteString(lib.EnsureTrailingNewline(rootPEM))
 	}
 

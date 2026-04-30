@@ -18,7 +18,7 @@
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "accessLog": [
                   {
-                    "name": "Consul Listener Filter Log",
+                    "name": "Dumb Consul Listener Filter Log",
                     "typedConfig": {
                       "@type": "type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StderrAccessLog",
                       "logFormat": {
@@ -56,7 +56,7 @@
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "accessLog": [
                   {
-                    "name": "Consul Listener Filter Log",
+                    "name": "Dumb Consul Listener Filter Log",
                     "typedConfig": {
                       "@type": "type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StderrAccessLog",
                       "logFormat": {
@@ -102,7 +102,7 @@
                 "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
                 "accessLog": [
                   {
-                    "name": "Consul Listener Filter Log",
+                    "name": "Dumb Consul Listener Filter Log",
                     "typedConfig": {
                       "@type": "type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StderrAccessLog",
                       "logFormat": {

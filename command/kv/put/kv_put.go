@@ -48,7 +48,7 @@ func (c *cmd) init() {
 			"is false.")
 	c.flags.Uint64Var(&c.kvflags, "flags", 0,
 		"Unsigned integer value to assign to this key-value pair. This "+
-			"value is not read by Consul, so clients can use this value however "+
+			"value is not read by Dumb Consul, so clients can use this value however "+
 			"makes sense for their use case. The default value is 0 (no flags).")
 	c.flags.BoolVar(&c.base64encoded, "base64", false,
 		"Treat the data as base 64 encoded. The default value is false.")
@@ -105,7 +105,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 

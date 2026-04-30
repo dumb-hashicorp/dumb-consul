@@ -20,7 +20,7 @@ export const schema = {
 export default class HealthCheck extends Fragment {
   @attr('string') Name;
   @attr('string') CheckID;
-  // an empty Type means its the Consul serf Check
+  // an empty Type means its the Dumb Consul serf Check
   @replace('', 'serf') @attr('string') Type;
   @attr('string') Status;
   @attr('string') Notes;

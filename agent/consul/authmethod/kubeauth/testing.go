@@ -480,8 +480,8 @@ func createReadServiceAccountFound(namespace, name, uid, overrideAnnotation stri
 	       "resourceVersion": "2101",
 	       "creationTimestamp": "2019-04-02T19:36:34Z",
 	       "annotations": {
-	         "consul.hashicorp.com/service-name": "actual",
-	         "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{\"consul.hashicorp.com/service-name\":\"actual\"},\"name\":\"demo\",\"namespace\":\"default\"}}\n"
+	         "consul.dumb-hashicorp.com/service-name": "actual",
+	         "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{\"consul.dumb-hashicorp.com/service-name\":\"actual\"},\"name\":\"demo\",\"namespace\":\"default\"}}\n"
 	       }
 	     },
 	     "secrets": [
@@ -512,7 +512,7 @@ func createReadServiceAccountFound(namespace, name, uid, overrideAnnotation stri
 	}
 	if overrideAnnotation != "" {
 		sa.Annotations = map[string]string{
-			"consul.hashicorp.com/service-name": overrideAnnotation,
+			"consul.dumb-hashicorp.com/service-name": overrideAnnotation,
 		}
 	}
 

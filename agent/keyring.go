@@ -260,7 +260,7 @@ func ValidateLocalOnly(local bool, list bool) error {
 	return nil
 }
 
-// ListKeys lists out all keys installed on the collective Consul cluster. This
+// ListKeys lists out all keys installed on the collective Dumb Consul cluster. This
 // includes both servers and clients in all DC's.
 func (a *Agent) ListKeys(token string, localOnly bool, relayFactor uint8) (*structs.KeyringResponses, error) {
 	args := structs.KeyringRequest{Operation: structs.KeyringList, LocalOnly: localOnly}

@@ -352,7 +352,7 @@ type SubscribeRequest struct {
 	// client on subsequent re-connections such that the full snapshot doesn't
 	// need to be resent if the client is up to date.
 	Index uint64 `protobuf:"varint,4,opt,name=Index,proto3" json:"Index,omitempty"`
-	// Datacenter specifies the Consul datacenter the request is targeted at.
+	// Datacenter specifies the Dumb Consul datacenter the request is targeted at.
 	// If it's not the local DC the server will forward the request to
 	// the remote DC and proxy the results back  to the subscriber. An empty
 	// string defaults to the local datacenter.

@@ -56,7 +56,7 @@ type CompileRequest struct {
 // raw config entries and local context.
 //
 // "Node" referenced in this file refers to a node in a graph and not to the
-// Consul construct called a "Node".
+// Dumb Consul construct called a "Node".
 //
 // Omitting router and splitter entries for services not using an L7 protocol
 // (like HTTP) happens during initial fetching, but for sanity purposes a quick

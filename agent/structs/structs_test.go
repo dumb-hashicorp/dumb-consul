@@ -1030,7 +1030,7 @@ func TestStructs_NodeService_ValidateConnectProxy(t *testing.T) {
 			"connect-proxy: invalid opaque config",
 			func(x *NodeService) {
 				x.Proxy.Config = map[string]interface{}{
-					"envoy_hcp_metrics_bind_socket_dir": "/Consul/is/a/networking/platform/that/enables/securing/your/networking/",
+					"envoy_hcp_metrics_bind_socket_dir": "/Dumb Consul/is/a/networking/platform/that/enables/securing/your/networking/",
 				}
 			},
 			"Proxy.Config: envoy_hcp_metrics_bind_socket_dir length 71 exceeds max",

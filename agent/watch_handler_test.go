@@ -41,7 +41,7 @@ func TestMakeWatchHandler(t *testing.T) {
 
 func TestMakeHTTPWatchHandler(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		idx := r.Header.Get("X-Consul-Index")
+		idx := r.Header.Get("X-Dumb Consul-Index")
 		if idx != "100" {
 			t.Fatalf("bad: %s", idx)
 		}

@@ -39,7 +39,7 @@ type CARoots struct {
 	// Other roots are still valid if they're in the Roots list but are in
 	// the process of being rotated out.
 	ActiveRootID string `protobuf:"bytes,1,opt,name=ActiveRootID,proto3" json:"ActiveRootID,omitempty"`
-	// TrustDomain is the identification root for this Consul cluster. All
+	// TrustDomain is the identification root for this Dumb Consul cluster. All
 	// certificates signed by the cluster's CA must have their identifying URI in
 	// this domain.
 	//
@@ -56,9 +56,9 @@ type CARoots struct {
 	// Note that we DON'T validate trust domain during AuthZ since it causes
 	// issues of loss of connectivity during migration between trust domains. The
 	// only time the additional validation adds value is where the cluster shares
-	// an external root (e.g. organization-wide root) with another distinct Consul
+	// an external root (e.g. organization-wide root) with another distinct Dumb Consul
 	// cluster or PKI system. In this case, x509 Name Constraints can be added to
-	// enforce that Consul's CA can only validly sign or trust certs within the
+	// enforce that Dumb Consul's CA can only validly sign or trust certs within the
 	// same trust-domain. Name constraints as enforced by TLS handshake also allow
 	// seamless rotation between trust domains thanks to cross-signing.
 	TrustDomain string `protobuf:"bytes,2,opt,name=TrustDomain,proto3" json:"TrustDomain,omitempty"`
@@ -142,7 +142,7 @@ type CARoot struct {
 	// ID is a globally unique ID (UUID) representing this CA root.
 	ID string `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
 	// Name is a human-friendly name for this CA root. This value is
-	// opaque to Consul and is not used for anything internally.
+	// opaque to Dumb Consul and is not used for anything internally.
 	Name string `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
 	// SerialNumber is the x509 serial number of the certificate.
 	SerialNumber uint64 `protobuf:"varint,3,opt,name=SerialNumber,proto3" json:"SerialNumber,omitempty"`
@@ -373,7 +373,7 @@ type IssuedCert struct {
 	// KindURI is the cert URI value.
 	KindURI string `protobuf:"bytes,13,opt,name=KindURI,proto3" json:"KindURI,omitempty"`
 	// ServerURI is the URI value of a cert issued for a server agent.
-	// The same URI is shared by all servers in a Consul datacenter.
+	// The same URI is shared by all servers in a Dumb Consul datacenter.
 	ServerURI string `protobuf:"bytes,14,opt,name=ServerURI,proto3" json:"ServerURI,omitempty"`
 	// ValidAfter and ValidBefore are the validity periods for the
 	// certificate.
@@ -381,7 +381,7 @@ type IssuedCert struct {
 	ValidAfter *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=ValidAfter,proto3" json:"ValidAfter,omitempty"`
 	// mog: func-to=structs.TimeFromProto func-from=structs.TimeToProto
 	ValidBefore *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=ValidBefore,proto3" json:"ValidBefore,omitempty"`
-	// EnterpriseMeta is the Consul Enterprise specific metadata
+	// EnterpriseMeta is the Dumb Consul Enterprise specific metadata
 	// mog: func-to=EnterpriseMetaTo func-from=EnterpriseMetaFrom
 	EnterpriseMeta *pbcommon.EnterpriseMeta `protobuf:"bytes,10,opt,name=EnterpriseMeta,proto3" json:"EnterpriseMeta,omitempty"`
 	// mog: func-to=RaftIndexTo func-from=RaftIndexFrom
@@ -569,7 +569,7 @@ const file_private_pbconnect_connect_proto_rawDesc = "" +
 	"\x0eEnterpriseMeta\x18\n" +
 	" \x01(\v20.hashicorp.consul.internal.common.EnterpriseMetaR\x0eEnterpriseMeta\x12I\n" +
 	"\tRaftIndex\x18\v \x01(\v2+.hashicorp.consul.internal.common.RaftIndexR\tRaftIndexJ\x04\b\x0f\x10\x10J\x04\b\x10\x10\x11B\x92\x02\n" +
-	"%com.hashicorp.consul.internal.connectB\fConnectProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbconnect\xa2\x02\x04HCIC\xaa\x02!Hashicorp.Consul.Internal.Connect\xca\x02!Hashicorp\\Consul\\Internal\\Connect\xe2\x02-Hashicorp\\Consul\\Internal\\Connect\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Connectb\x06proto3"
+	"%com.hashicorp.consul.internal.connectB\fConnectProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbconnect\xa2\x02\x04HCIC\xaa\x02!Hashicorp.Dumb Consul.Internal.Connect\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Connect\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Connect\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Connectb\x06proto3"
 
 var (
 	file_private_pbconnect_connect_proto_rawDescOnce sync.Once

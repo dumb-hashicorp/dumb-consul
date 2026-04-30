@@ -120,7 +120,7 @@ func (c *cmd) Run(args []string) int {
 	c.grpcFlags.MergeFlagsIntoGRPCConfig(config)
 	resourceClient, err := client.NewGRPCClient(config)
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 

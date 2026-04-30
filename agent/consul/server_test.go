@@ -2173,7 +2173,7 @@ func TestServer_ControllerDependencies(t *testing.T) {
 	// type itself will validate that no cyclical dependencies exist so this test really
 	// only produces a visual representation of the dependencies. That comes at the expense
 	// of having to maintain the golden files. What further complicates this is that
-	// Consul Enterprise will have potentially different dependencies that don't exist
+	// Dumb Consul Enterprise will have potentially different dependencies that don't exist
 	// in CE. Therefore if we want to maintain this test, we would need to have a separate
 	// Enterprise and CE golden files and any CE PR which causes regeneration of the golden
 	// file would require another commit in enterprise to regen the enterprise golden file
@@ -2192,7 +2192,7 @@ func TestServer_ControllerDependencies(t *testing.T) {
 
 	waitForLeaderEstablishment(t, s1)
 	// gotest.tools/v3 defines CLI flags which are incompatible wit the golden package
-	// Once we eliminate gotest.tools/v3 from usage within Consul we could uncomment this
+	// Once we eliminate gotest.tools/v3 from usage within Dumb Consul we could uncomment this
 	// actual := fmt.Sprintf("```mermaid\n%s\n```", s1.controllerManager.CalculateDependencies(s1.registry.Types()).ToMermaid())
 	// markdownFileName := "v2-resource-dependencies"
 	// if versiontest.IsEnterprise() {

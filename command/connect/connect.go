@@ -26,11 +26,11 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Interact with Consul Connect"
+const synopsis = "Interact with Dumb Consul Connect"
 const help = `
 Usage: consul connect <subcommand> [options] [args]
 
-  This command has subcommands for interacting with Consul Connect.
+  This command has subcommands for interacting with Dumb Consul Connect.
 
   Here are some simple examples, and more detailed examples are available
   in the subcommands or the documentation.

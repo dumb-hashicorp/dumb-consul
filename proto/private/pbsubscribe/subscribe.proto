@@ -160,7 +160,7 @@ message SubscribeRequest {
   // need to be resent if the client is up to date.
   uint64 Index = 4;
 
-  // Datacenter specifies the Consul datacenter the request is targeted at.
+  // Datacenter specifies the Dumb Consul datacenter the request is targeted at.
   // If it's not the local DC the server will forward the request to
   // the remote DC and proxy the results back  to the subscriber. An empty
   // string defaults to the local datacenter.

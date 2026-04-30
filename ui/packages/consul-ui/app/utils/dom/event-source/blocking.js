@@ -8,7 +8,7 @@ import { get } from '@ember/object';
 const pause = 2000;
 // native EventSource retry is ~3s wait
 // any specified errors here will mean that the blocking query will attempt
-// a reconnection every 3s until it reconnects to Consul
+// a reconnection every 3s until it reconnects to Dumb Consul
 export const createErrorBackoff = function (ms = 3000, P = Promise, wait = setTimeout) {
   // This expects an ember-data like error
   return function (err) {

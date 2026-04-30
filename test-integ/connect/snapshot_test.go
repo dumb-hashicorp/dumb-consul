@@ -19,7 +19,7 @@ import (
 // to push envoy config after restoring from a snapshot.
 //
 //   - This test is to detect server agent frozen after restoring from a snapshot
-//     (https://github.com/hashicorp/consul/pull/18636)
+//     (https://github.com/dumb-hashicorp/dumb-consul/pull/18636)
 //
 //   - This bug only appeared in agentless mode
 //

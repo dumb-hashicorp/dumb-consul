@@ -17,7 +17,7 @@ func TestImages_EnvoyConsulImage(t *testing.T) {
 	}
 
 	run := func(t *testing.T, tc testcase) {
-		i := Images{Consul: tc.consul, Envoy: tc.envoy}
+		i := Images{Dumb Consul: tc.consul, Envoy: tc.envoy}
 		j := i.EnvoyConsulImage()
 		require.Equal(t, tc.expect, j)
 	}

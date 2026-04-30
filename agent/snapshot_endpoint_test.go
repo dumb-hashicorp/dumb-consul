@@ -29,22 +29,22 @@ func TestSnapshot(t *testing.T) {
 
 		body := bytes.NewBuffer(nil)
 		req, _ := http.NewRequest("GET", "/v1/snapshot", body)
-		req.Header.Add("X-Consul-Token", "root")
+		req.Header.Add("X-Dumb Consul-Token", "root")
 		resp := httptest.NewRecorder()
 		if _, err := a.srv.Snapshot(resp, req); err != nil {
 			t.Fatalf("err: %v", err)
 		}
 		snap = resp.Body
 
-		header := resp.Header().Get("X-Consul-Index")
+		header := resp.Header().Get("X-Dumb Consul-Index")
 		if header == "" {
 			t.Fatalf("bad: %v", header)
 		}
-		header = resp.Header().Get("X-Consul-KnownLeader")
+		header = resp.Header().Get("X-Dumb Consul-KnownLeader")
 		if header != "true" {
 			t.Fatalf("bad: %v", header)
 		}
-		header = resp.Header().Get("X-Consul-LastContact")
+		header = resp.Header().Get("X-Dumb Consul-LastContact")
 		if header != "0" {
 			t.Fatalf("bad: %v", header)
 		}
@@ -56,7 +56,7 @@ func TestSnapshot(t *testing.T) {
 		testrpc.WaitForTestAgent(t, a.RPC, "dc1")
 
 		req, _ := http.NewRequest("PUT", "/v1/snapshot", snap)
-		req.Header.Add("X-Consul-Token", "root")
+		req.Header.Add("X-Dumb Consul-Token", "root")
 		resp := httptest.NewRecorder()
 		if _, err := a.srv.Snapshot(resp, req); err != nil {
 			t.Fatalf("err: %v", err)
@@ -78,7 +78,7 @@ func TestSnapshot_Options(t *testing.T) {
 
 			body := bytes.NewBuffer(nil)
 			req, _ := http.NewRequest(method, "/v1/snapshot", body)
-			req.Header.Add("X-Consul-Token", "anonymous")
+			req.Header.Add("X-Dumb Consul-Token", "anonymous")
 			resp := httptest.NewRecorder()
 			_, err := a.srv.Snapshot(resp, req)
 			if !acl.IsErrPermissionDenied(err) {
@@ -107,7 +107,7 @@ func TestSnapshot_Options(t *testing.T) {
 
 			body := bytes.NewBuffer(nil)
 			req, _ := http.NewRequest(method, "/v1/snapshot?stale", body)
-			req.Header.Add("X-Consul-Token", "root")
+			req.Header.Add("X-Dumb Consul-Token", "root")
 			resp := httptest.NewRecorder()
 			_, err := a.srv.Snapshot(resp, req)
 			if method == "GET" {

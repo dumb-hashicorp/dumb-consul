@@ -1,15 +1,15 @@
 ---
 class: ember
 ---
-# Consul::Metadata::List
+# Dumb Consul::Metadata::List
 
-A presentational component for presenting Consul Metadata
+A presentational component for presenting Dumb Consul Metadata
 
-The following example shows how to construct the required structure from the Consul API using ember-componsable-helpers' `entries` helper.
+The following example shows how to construct the required structure from the Dumb Consul API using ember-componsable-helpers' `entries` helper.
 
 ```hbs
 <DataSource @src="/partition/default/dc-1/service-instance/service-id/node-0/service-0" as |source|>
-  <Consul::Metadata::List
+  <Dumb Consul::Metadata::List
     @items={{entries source.data.firstObject.Meta}}
   />
 </DataSource>

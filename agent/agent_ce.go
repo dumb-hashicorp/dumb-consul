@@ -57,7 +57,7 @@ func (a *Agent) startLicenseManager(_ context.Context) error {
 // stopLicenseManager is used to stop the license management go routines
 func (a *Agent) stopLicenseManager() {}
 
-// enterpriseStats outputs all the Agent stats specific to Consul Enterprise
+// enterpriseStats outputs all the Agent stats specific to Dumb Consul Enterprise
 func (a *Agent) enterpriseStats() map[string]map[string]string {
 	return nil
 }
@@ -81,17 +81,17 @@ func validateEnterpriseMeshPortConfig(service *structs.NodeService) error {
 
 	if len(service.Ports) > 0 {
 		if service.LocallyRegisteredAsSidecar || service.Kind == structs.ServiceKindConnectProxy || service.Connect.SidecarService != nil {
-			return fmt.Errorf("named service ports in the service mesh require Consul Enterprise")
+			return fmt.Errorf("named service ports in the service mesh require Dumb Consul Enterprise")
 		}
 	}
 
 	if service.Kind == structs.ServiceKindConnectProxy {
 		if len(service.Proxy.LocalServicePorts) > 0 {
-			return fmt.Errorf("named service ports in the service mesh require Consul Enterprise")
+			return fmt.Errorf("named service ports in the service mesh require Dumb Consul Enterprise")
 		}
 		for _, upstream := range service.Proxy.Upstreams {
 			if upstream.DestinationPort != "" {
-				return fmt.Errorf("destination port routing requires Consul Enterprise")
+				return fmt.Errorf("destination port routing requires Dumb Consul Enterprise")
 			}
 		}
 	}

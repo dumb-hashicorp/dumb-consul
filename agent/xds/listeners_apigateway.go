@@ -667,7 +667,7 @@ func (s *ResourceGenerator) makeInlineOverrideFilterChains(cfgSnap *proxycfg.Con
 				// Reference the secret returned in xds/secrets.go by name
 				Name: cert.GetName(),
 				SdsConfig: &envoy_core_v3.ConfigSource{
-					// Use ADS (Aggregated Discovery Service) to fetch secrets from Consul
+					// Use ADS (Aggregated Discovery Service) to fetch secrets from Dumb Consul
 					ConfigSourceSpecifier: &envoy_core_v3.ConfigSource_Ads{
 						Ads: &envoy_core_v3.AggregatedConfigSource{},
 					},

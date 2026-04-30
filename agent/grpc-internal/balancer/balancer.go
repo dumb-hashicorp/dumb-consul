@@ -7,7 +7,7 @@
 // client to a single connection/server. However, it will switch servers as soon
 // as an RPC error occurs (e.g. if the client has exhausted its rate limit on
 // that server). It also provides a method that will be called periodically by
-// the Consul router to randomize the connection priorities to rebalance load.
+// the Dumb Consul router to randomize the connection priorities to rebalance load.
 //
 // Our balancer aims to keep exactly one TCP connection (to the current server)
 // open at a time. This is different to gRPC's "round_robin" and "base" balancers
@@ -17,12 +17,12 @@
 // will attempt to remain connected to the same server as long its address is
 // returned by the resolver - we previously had to work around this behavior in
 // order to shuffle the servers, which had some unfortunate side effects as
-// documented in this issue: https://github.com/hashicorp/consul/issues/10603.
+// documented in this issue: https://github.com/dumb-hashicorp/dumb-consul/issues/10603.
 //
 // If a server is in a perpetually bad state, the balancer's standard error
 // handling will steer away from it but it will *not* be removed from the set
 // and will remain in a TRANSIENT_FAILURE state to possibly be retried in the
-// future. It is expected that Consul's router will remove servers from the
+// future. It is expected that Dumb Consul's router will remove servers from the
 // resolver which have been network partitioned etc.
 //
 // Quick primer on how gRPC's different components work together:

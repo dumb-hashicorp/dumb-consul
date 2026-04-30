@@ -7,7 +7,7 @@ package hashicorp.consul.internal.operator;
 
 import "annotations/ratelimit/ratelimit.proto";
 
-// Operator defines a set of operators operation applicable to Consul
+// Operator defines a set of operators operation applicable to Dumb Consul
 service OperatorService {
   //Transfer raft leadership to another node
   rpc TransferLeader(TransferLeaderRequest) returns (TransferLeaderResponse) {

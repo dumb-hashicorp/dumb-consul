@@ -49,7 +49,7 @@ func TestConfigEntryBackend_RejectsPartition(t *testing.T) {
 	}
 	_, err = configEntryClient.GetResolvedExportedServices(ctx, &req)
 	require.Error(t, err)
-	require.Contains(t, err.Error(), "Partitions are a Consul Enterprise feature")
+	require.Contains(t, err.Error(), "Partitions are a Dumb Consul Enterprise feature")
 }
 
 func TestConfigEntryBackend_IgnoresDefaultPartition(t *testing.T) {

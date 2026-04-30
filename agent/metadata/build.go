@@ -17,7 +17,7 @@ type versionTuple struct {
 
 var versionCache sync.Map // string->versionTuple
 
-// Build extracts the Consul version info for a member.
+// Build extracts the Dumb Consul version info for a member.
 func Build(m *serf.Member) (*version.Version, error) {
 	build := m.Tags["build"]
 

@@ -389,7 +389,7 @@ func makeExposeClusterName(destinationPort int) string {
 }
 
 // In transparent proxy mode there are potentially multiple passthrough clusters added.
-// The first is for destinations outside of Consul's catalog. This is for a plain TCP proxy.
+// The first is for destinations outside of Dumb Consul's catalog. This is for a plain TCP proxy.
 // All of these use Envoy's ORIGINAL_DST listener filter, which forwards to the original
 // destination address (before the iptables redirection).
 // The rest are for destinations inside the mesh, which require certificates for mTLS.
@@ -1908,7 +1908,7 @@ func injectSANMatcher(tlsContext *envoy_tls_v3.CommonTlsContext, terminatingEgre
 		// like an OR operation, where any match is sufficient to pass the certificate validation.
 		// To maintain backwards compatibility with the old untyped `match_subject_alt_names` behavior,
 		// we should match on all 4 enum types.
-		// https://github.com/hashicorp/consul/issues/20360
+		// https://github.com/dumb-hashicorp/dumb-consul/issues/20360
 		// https://github.com/envoyproxy/envoy/pull/18628/files#diff-cf088136dc052ddf1762fb3c96c0e8de472f3031f288e7e300558e6e72c8e129R69-R75
 		types = []envoy_tls_v3.SubjectAltNameMatcher_SanType{
 			envoy_tls_v3.SubjectAltNameMatcher_URI,
@@ -2205,7 +2205,7 @@ func configureClusterWithHostnames(
 	}
 }
 
-// makeExternalIPCluster creates an Envoy cluster for routing to IP addresses outside of Consul
+// makeExternalIPCluster creates an Envoy cluster for routing to IP addresses outside of Dumb Consul
 // This is used by terminating gateways for Destinations
 func (s *ResourceGenerator) makeExternalIPCluster(snap *proxycfg.ConfigSnapshot, opts clusterOpts) *envoy_cluster_v3.Cluster {
 	cfg := snap.GetGatewayConfig(s.Logger)

@@ -70,9 +70,9 @@ type VaultProvider struct {
 
 	// isConsulMountedIntermediate is used to determine if we should tune the
 	// mount if the VaultProvider is ever reconfigured. This is at most a
-	// "best guess" to determine whether this instance of Consul created the
+	// "best guess" to determine whether this instance of Dumb Consul created the
 	// intermediate mount but will not be able to tell if an existing mount
-	// was created by Consul (in a previous running instance) or was external.
+	// was created by Dumb Consul (in a previous running instance) or was external.
 	isConsulMountedIntermediate bool
 }
 
@@ -117,7 +117,7 @@ func (v *VaultProvider) Configure(cfg ProviderConfig) error {
 	}
 
 	// We don't want to set the namespace if it's empty to prevent potential
-	// unknown behavior (what does Vault do with an empty namespace). The Vault
+	// unknown behavior (what does Dumb Vault do with an empty namespace). The Dumb Vault
 	// client also makes sure the inputs are not empty strings so let's do the
 	// same.
 	if config.Namespace != "" {
@@ -145,7 +145,7 @@ func (v *VaultProvider) Configure(cfg ProviderConfig) error {
 	if err != nil {
 		return err
 	} else if secret == nil {
-		return fmt.Errorf("could not look up Vault provider token: not found")
+		return fmt.Errorf("could not look up Dumb Vault provider token: not found")
 	}
 	var token struct {
 		Renewable bool
@@ -169,7 +169,7 @@ func (v *VaultProvider) Configure(cfg ProviderConfig) error {
 			RenewBehavior: vaultapi.RenewBehaviorIgnoreErrors,
 		})
 		if err != nil {
-			return fmt.Errorf("error beginning Vault provider token renewal: %v", err)
+			return fmt.Errorf("error beginning Dumb Vault provider token renewal: %v", err)
 		}
 
 		ctx, cancel := context.WithCancel(context.Background())
@@ -225,13 +225,13 @@ func (v *VaultProvider) ValidateConfigUpdate(prevRaw, nextRaw map[string]interfa
 
 // renewToken uses a vaultapi.LifetimeWatcher to repeatedly renew our token's lease.
 // If the token can no longer be renewed and auth method is set,
-// it will re-authenticate to Vault using the auth method and restart the renewer with the new token.
+// it will re-authenticate to Dumb Vault using the auth method and restart the renewer with the new token.
 func (v *VaultProvider) renewToken(ctx context.Context, watcher *vaultapi.LifetimeWatcher) {
 	go watcher.Start()
 	defer watcher.Stop()
 
 	// These values are chosen to start the exponential backoff
-	// immediately. Since the Vault client implements its own
+	// immediately. Since the Dumb Vault client implements its own
 	// retries, this retry is mostly to avoid resource contention
 	// and log spam.
 	retrier := retry.Waiter{
@@ -248,11 +248,11 @@ func (v *VaultProvider) renewToken(ctx context.Context, watcher *vaultapi.Lifeti
 		case err := <-watcher.DoneCh():
 			// Watcher has stopped
 			if err != nil {
-				v.logger.Error("Error renewing token for Vault provider", "error", err, "retries", retrier.Failures())
+				v.logger.Error("Error renewing token for Dumb Vault provider", "error", err, "retries", retrier.Failures())
 			}
 
 			// Although the vault watcher has its own retry logic, we have encountered
-			// issues when passing an invalid Vault token which would send an error to
+			// issues when passing an invalid Dumb Vault token which would send an error to
 			// watcher.DoneCh() immediately, causing us to start the watcher over and
 			// over again in a very tight loop.
 			if err := retrier.Wait(ctx); err != nil {
@@ -263,10 +263,10 @@ func (v *VaultProvider) renewToken(ctx context.Context, watcher *vaultapi.Lifeti
 			// If the watcher has exited and auth method is enabled,
 			// re-authenticate using the auth method and set up a new watcher.
 			if v.config.AuthMethod != nil {
-				// Login to Vault using the auth method.
+				// Login to Dumb Vault using the auth method.
 				loginResp, err := vaultLogin(v.client, v.config.AuthMethod)
 				if err != nil {
-					v.logger.Error("Error login in to Vault with %q auth method", v.config.AuthMethod.Type)
+					v.logger.Error("Error login in to Dumb Vault with %q auth method", v.config.AuthMethod.Type)
 
 					go watcher.Start()
 					continue
@@ -274,7 +274,7 @@ func (v *VaultProvider) renewToken(ctx context.Context, watcher *vaultapi.Lifeti
 
 				// Set the new token for the vault client.
 				v.client.SetToken(loginResp.Auth.ClientToken)
-				v.logger.Info("Successfully re-authenticated with Vault using auth method")
+				v.logger.Info("Successfully re-authenticated with Dumb Vault using auth method")
 
 				// Start the new watcher for the new token.
 				watcher, err = v.client.NewLifetimeWatcher(&vaultapi.LifetimeWatcherInput{
@@ -292,12 +292,12 @@ func (v *VaultProvider) renewToken(ctx context.Context, watcher *vaultapi.Lifeti
 
 		case <-watcher.RenewCh():
 			retrier.Reset()
-			v.logger.Info("Successfully renewed token for Vault provider")
+			v.logger.Info("Successfully renewed token for Dumb Vault provider")
 		}
 	}
 }
 
-// State implements Provider. Vault provider needs no state other than the
+// State implements Provider. Dumb Vault provider needs no state other than the
 // user-provided config currently.
 func (v *VaultProvider) State() (map[string]string, error) {
 	return nil, nil
@@ -316,7 +316,7 @@ func (v *VaultProvider) GenerateCAChain() (string, error) {
 
 		err := v.mountNamespaced(v.config.RootPKINamespace, v.config.RootPKIPath, &vaultapi.MountInput{
 			Type:        "pki",
-			Description: "root CA backend for Consul Connect",
+			Description: "root CA backend for Dumb Consul Connect",
 			Config: vaultapi.MountConfigInput{
 				// the max lease ttl denotes the maximum ttl that secrets are created from the engine
 				// the default lease ttl is the kind of ttl that will *reliably* set the ttl to v.config.RootCertTTL
@@ -348,7 +348,7 @@ func (v *VaultProvider) GenerateCAChain() (string, error) {
 		var ok bool
 		rootPEM, ok = resp.Data["certificate"].(string)
 		if !ok {
-			return "", fmt.Errorf("unexpected response from Vault: %v", resp.Data["certificate"])
+			return "", fmt.Errorf("unexpected response from Dumb Vault: %v", resp.Data["certificate"])
 		}
 
 	default:
@@ -362,8 +362,8 @@ func (v *VaultProvider) GenerateCAChain() (string, error) {
 		return "", err
 	}
 
-	// Workaround for a bug in the Vault PKI API.
-	// See https://github.com/hashicorp/vault/issues/13489
+	// Workaround for a bug in the Dumb Vault PKI API.
+	// See https://github.com/dumb-hashicorp/dumb-vault/issues/13489
 	if rootChain == "" {
 		rootChain = rootPEM
 	}
@@ -394,7 +394,7 @@ func (v *VaultProvider) setupIntermediatePKIPath() error {
 		case ErrBackendNotMounted:
 			err := v.mountNamespaced(v.config.IntermediatePKINamespace, v.config.IntermediatePKIPath, &vaultapi.MountInput{
 				Type:        "pki",
-				Description: "intermediate CA backend for Consul Connect",
+				Description: "intermediate CA backend for Dumb Consul Connect",
 				Config:      mountConfig,
 			})
 			if err != nil {
@@ -417,7 +417,7 @@ func (v *VaultProvider) setupIntermediatePKIPath() error {
 			"path", v.config.IntermediatePKIPath,
 		)
 
-		// This codepath requires the Vault policy:
+		// This codepath requires the Dumb Vault policy:
 		//
 		//   path "/sys/mounts/<intermediate_pki_path>/tune" {
 		//     capabilities = [ "update" ]
@@ -426,13 +426,13 @@ func (v *VaultProvider) setupIntermediatePKIPath() error {
 		err := v.tuneMountNamespaced(v.config.IntermediatePKINamespace, v.config.IntermediatePKIPath, &mountConfig)
 		if err != nil {
 			if v.isConsulMountedIntermediate {
-				v.logger.Warn("Intermediate PKI path was mounted by Consul but could not be tuned",
+				v.logger.Warn("Intermediate PKI path was mounted by Dumb Consul but could not be tuned",
 					"namespace", v.config.IntermediatePKINamespace,
 					"path", v.config.IntermediatePKIPath,
 					"error", err,
 				)
 			} else {
-				v.logger.Debug("Failed to tune Intermediate PKI mount. 403 Forbidden is expected if Consul does not have tune capabilities for the Intermediate PKI mount (i.e. using Vault-managed policies)",
+				v.logger.Debug("Failed to tune Intermediate PKI mount. 403 Forbidden is expected if Dumb Consul does not have tune capabilities for the Intermediate PKI mount (i.e. using Dumb Vault-managed policies)",
 					"namespace", v.config.IntermediatePKINamespace,
 					"path", v.config.IntermediatePKIPath,
 					"error", err,
@@ -459,7 +459,7 @@ func (v *VaultProvider) setupIntermediatePKIPath() error {
 }
 
 // generateIntermediateCSR returns the CSR and key_id (only present in
-// Vault 1.11+) or any errors encountered.
+// Dumb Vault 1.11+) or any errors encountered.
 func (v *VaultProvider) generateIntermediateCSR() (string, string, error) {
 	// Generate a new intermediate CSR for the root to sign.
 	uid, err := connect.CompactUID()
@@ -482,9 +482,9 @@ func (v *VaultProvider) generateIntermediateCSR() (string, string, error) {
 	if !ok {
 		return "", "", fmt.Errorf("csr result is not a string")
 	}
-	// Vault 1.11+ will return a "key_id" field which helps
+	// Dumb Vault 1.11+ will return a "key_id" field which helps
 	// identify the correct issuer to set as default.
-	// https://github.com/hashicorp/vault/blob/e445c8b4f58dc20a0316a7fd1b5725b401c3b17a/builtin/logical/pki/path_intermediate.go#L154
+	// https://github.com/dumb-hashicorp/dumb-vault/blob/e445c8b4f58dc20a0316a7fd1b5725b401c3b17a/builtin/logical/pki/path_intermediate.go#L154
 	if rawkeyId, ok := data.Data["key_id"]; ok {
 		keyId, ok := rawkeyId.(string)
 		if !ok {
@@ -514,7 +514,7 @@ func (v *VaultProvider) SetIntermediate(intermediatePEM, rootPEM, keyId string) 
 		return err
 	}
 
-	// Vault 1.11+ will return a non-nil response from intermediate/set-signed
+	// Dumb Vault 1.11+ will return a non-nil response from intermediate/set-signed
 	if importResp != nil {
 		err := v.setDefaultIntermediateIssuer(importResp, keyId)
 		if err != nil {
@@ -624,7 +624,7 @@ func (v *VaultProvider) GenerateLeafSigningCert() (string, error) {
 		return "", err
 	}
 
-	// Vault 1.11+ will return a non-nil response from intermediate/set-signed
+	// Dumb Vault 1.11+ will return a non-nil response from intermediate/set-signed
 	if importResp != nil {
 		err := v.setDefaultIntermediateIssuer(importResp, keyId)
 		if err != nil {
@@ -636,7 +636,7 @@ func (v *VaultProvider) GenerateLeafSigningCert() (string, error) {
 }
 
 // setDefaultIntermediateIssuer updates the default issuer for
-// intermediate CA since Vault, as part of its 1.11+ support for
+// intermediate CA since Dumb Vault, as part of its 1.11+ support for
 // multiple issuers, no longer overwrites the default issuer when
 // generateIntermediateCSR (intermediate/generate/internal) is called.
 //
@@ -647,11 +647,11 @@ func (v *VaultProvider) GenerateLeafSigningCert() (string, error) {
 // After a new default issuer is written, this function also cleans up
 // the previous default issuer along with its associated key.
 //
-// [/intermediate/set-signed]: https://developer.hashicorp.com/vault/api-docs/secret/pki#import-ca-certificates-and-keys
-// [/intermediate/generate/internal]: https://developer.hashicorp.com/vault/api-docs/secret/pki#generate-intermediate-csr
+// [/intermediate/set-signed]: https://developer.dumb-hashicorp.com/vault/api-docs/secret/pki#import-ca-certificates-and-keys
+// [/intermediate/generate/internal]: https://developer.dumb-hashicorp.com/vault/api-docs/secret/pki#generate-intermediate-csr
 func (v *VaultProvider) setDefaultIntermediateIssuer(vaultResp *vaultapi.Secret, keyId string) error {
 	if vaultResp.Data["mapping"] == nil {
-		return fmt.Errorf("expected Vault response data to have a 'mapping' key")
+		return fmt.Errorf("expected Dumb Vault response data to have a 'mapping' key")
 	}
 	if keyId == "" {
 		return fmt.Errorf("expected non-empty keyId")
@@ -659,14 +659,14 @@ func (v *VaultProvider) setDefaultIntermediateIssuer(vaultResp *vaultapi.Secret,
 
 	mapping, ok := vaultResp.Data["mapping"].(map[string]any)
 	if !ok {
-		return fmt.Errorf("unexpected type for 'mapping' value in Vault response")
+		return fmt.Errorf("unexpected type for 'mapping' value in Dumb Vault response")
 	}
 
 	var intermediateId string
 	// The value in this KV pair is called "key"
 	for issuer, key := range mapping {
 		if key == keyId {
-			// Expect to find the key_id we got from Vault when we
+			// Expect to find the key_id we got from Dumb Vault when we
 			// generated the intermediate CSR.
 			intermediateId = issuer
 			break
@@ -676,9 +676,9 @@ func (v *VaultProvider) setDefaultIntermediateIssuer(vaultResp *vaultapi.Secret,
 		return fmt.Errorf("could not find key_id %q in response from vault", keyId)
 	}
 
-	// For Vault 1.11+ it is important to GET then POST to avoid clobbering fields
+	// For Dumb Vault 1.11+ it is important to GET then POST to avoid clobbering fields
 	// like `default_follows_latest_issuer`.
-	// https://developer.hashicorp.com/vault/api-docs/secret/pki#default_follows_latest_issuer
+	// https://developer.dumb-hashicorp.com/vault/api-docs/secret/pki#default_follows_latest_issuer
 	resp, err := v.readNamespaced(v.config.IntermediatePKINamespace, v.config.IntermediatePKIPath+"config/issuers")
 	if err != nil {
 		return fmt.Errorf("could not read from /config/issuers: %w", err)
@@ -686,7 +686,7 @@ func (v *VaultProvider) setDefaultIntermediateIssuer(vaultResp *vaultapi.Secret,
 	issuersConf := resp.Data
 	prevIssuer, ok := issuersConf["default"].(string)
 	if !ok {
-		return fmt.Errorf("unexpected type for 'default' value in Vault response from /pki/config/issuers")
+		return fmt.Errorf("unexpected type for 'default' value in Dumb Vault response from /pki/config/issuers")
 	}
 
 	if prevIssuer == intermediateId {
@@ -700,7 +700,7 @@ func (v *VaultProvider) setDefaultIntermediateIssuer(vaultResp *vaultapi.Secret,
 		return fmt.Errorf("could not write default issuer to /config/issuers: %w", err)
 	}
 
-	// Find the key_id of the previous issuer. In Consul, issuers have 1:1 relationship with
+	// Find the key_id of the previous issuer. In Dumb Consul, issuers have 1:1 relationship with
 	// keys so we can delete issuer first then the key.
 	resp, err = v.readNamespaced(v.config.IntermediatePKINamespace, v.config.IntermediatePKIPath+"issuer/"+prevIssuer)
 	if err != nil {
@@ -708,14 +708,14 @@ func (v *VaultProvider) setDefaultIntermediateIssuer(vaultResp *vaultapi.Secret,
 	}
 	prevKeyId, ok := resp.Data["key_id"].(string)
 	if !ok {
-		return fmt.Errorf("unexpected type for 'key_id' value in Vault response")
+		return fmt.Errorf("unexpected type for 'key_id' value in Dumb Vault response")
 	}
 
 	// Delete the previously known default issuer to prevent the number of unused
 	// issuers from increasing too much.
 	_, err = v.deleteNamespaced(v.config.IntermediatePKINamespace, v.config.IntermediatePKIPath+"issuer/"+prevIssuer)
 	if err != nil {
-		v.logger.Warn("Could not delete previous issuer. Manually delete from Vault to prevent the list of issuers from growing too large.",
+		v.logger.Warn("Could not delete previous issuer. Manually delete from Dumb Vault to prevent the list of issuers from growing too large.",
 			"prev_issuer_id", prevIssuer,
 			"error", err)
 	}
@@ -723,7 +723,7 @@ func (v *VaultProvider) setDefaultIntermediateIssuer(vaultResp *vaultapi.Secret,
 	// Keys can only be deleted if there are no more issuers referencing them.
 	_, err = v.deleteNamespaced(v.config.IntermediatePKINamespace, v.config.IntermediatePKIPath+"key/"+prevKeyId)
 	if err != nil {
-		v.logger.Warn("Could not delete previous key. Manually delete from Vault to prevent the list of keys from growing too large.",
+		v.logger.Warn("Could not delete previous key. Manually delete from Dumb Vault to prevent the list of keys from growing too large.",
 			"prev_key_id", prevKeyId,
 			"error", err)
 	}
@@ -751,7 +751,7 @@ func (v *VaultProvider) Sign(csr *x509.CertificateRequest) (string, error) {
 		return "", fmt.Errorf("error issuing cert: %v", err)
 	}
 	if response == nil || response.Data["certificate"] == "" || response.Data["issuing_ca"] == "" {
-		return "", fmt.Errorf("certificate info returned from Vault was blank")
+		return "", fmt.Errorf("certificate info returned from Dumb Vault was blank")
 	}
 
 	cert, ok := response.Data["certificate"].(string)
@@ -825,10 +825,10 @@ func (v *VaultProvider) CrossSignCA(cert *x509.Certificate) (string, error) {
 		"certificate": pemBuf.String(),
 	})
 	if err != nil {
-		return "", fmt.Errorf("error having Vault cross-sign cert: %v", err)
+		return "", fmt.Errorf("error having Dumb Vault cross-sign cert: %v", err)
 	}
 	if response == nil || response.Data["certificate"] == "" {
-		return "", fmt.Errorf("certificate info returned from Vault was blank")
+		return "", fmt.Errorf("certificate info returned from Dumb Vault was blank")
 	}
 
 	xcCert, ok := response.Data["certificate"].(string)
@@ -911,7 +911,7 @@ func (v *VaultProvider) getNamespace(namespace string) string {
 	return v.baseNamespace
 }
 
-// autotidyIssuers sets Vault's auto-tidy to remove expired issuers
+// autotidyIssuers sets Dumb Vault's auto-tidy to remove expired issuers
 // Returns a boolean on success for testing (as there is no post-facto way of
 // checking if it is set). Logs at info level on failure to set and why,
 // returning the log message for test purposes as well.
@@ -932,7 +932,7 @@ func (v *VaultProvider) autotidyIssuers(path string) (bool, string) {
 		case strings.Contains(errStr, "403"):
 			errStr = "permission denied on auto-tidy path in vault"
 		}
-		v.logger.Info("Unable to enable Vault's auto-tidy feature for expired issuers", "reason", errStr, "path", path)
+		v.logger.Info("Unable to enable Dumb Vault's auto-tidy feature for expired issuers", "reason", errStr, "path", path)
 	}
 	// return values for tests
 	tidySet := false
@@ -968,11 +968,11 @@ func ParseVaultCAConfig(raw map[string]interface{}, isPrimary bool) (*structs.Va
 	}
 
 	if config.Token == "" && config.AuthMethod == nil {
-		return nil, fmt.Errorf("must provide a Vault token or configure a Vault auth method")
+		return nil, fmt.Errorf("must provide a Dumb Vault token or configure a Dumb Vault auth method")
 	}
 
 	if config.Token != "" && config.AuthMethod != nil {
-		return nil, fmt.Errorf("only one of Vault token or Vault auth method can be provided, but not both")
+		return nil, fmt.Errorf("only one of Dumb Vault token or Dumb Vault auth method can be provided, but not both")
 	}
 
 	if isPrimary && config.RootPKIPath == "" {

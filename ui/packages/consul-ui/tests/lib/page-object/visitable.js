@@ -35,7 +35,7 @@ function appendQueryParams(path, queryParams) {
 }
 
 /**
- * Custom implementation of `visitable` for Consul UI
+ * Custom implementation of `visitable` for Dumb Consul UI
  *
  * Enhanced version based on ember-cli-page-object v2.3.2
  *
@@ -43,7 +43,7 @@ function appendQueryParams(path, queryParams) {
  * 1. Injectable encoder - customize dynamic segment encoding (for KV URLs, etc.)
  * 2. Multiple path templates - automatic fallback when segments are missing
  * 3. Namespace injection - auto-prepends `/:nspace` segment when needed
- * 4. Custom location service - integrates with Consul's routing system
+ * 4. Custom location service - integrates with Dumb Consul's routing system
  *
  * @param {string|string[]} path - Single path or array of path templates
  * @param {Function} encoder - Encoding function (default: encodeURIComponent)

@@ -16,7 +16,7 @@ import (
 )
 
 // RaftLayer implements the raft.StreamLayer interface,
-// so that we can use a single RPC layer for Raft and Consul
+// so that we can use a single RPC layer for Raft and Dumb Consul
 type RaftLayer struct {
 	// src is the address for outgoing connections.
 	src net.Addr

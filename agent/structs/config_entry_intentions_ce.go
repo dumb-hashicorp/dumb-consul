@@ -17,7 +17,7 @@ func validateSourceIntentionEnterpriseMeta(_, _ *acl.EnterpriseMeta) error {
 
 func (s *SourceIntention) validateSamenessGroup() error {
 	if s.SamenessGroup != "" {
-		return fmt.Errorf("Sameness groups are a Consul Enterprise feature.")
+		return fmt.Errorf("Sameness groups are a Dumb Consul Enterprise feature.")
 	}
 
 	return nil

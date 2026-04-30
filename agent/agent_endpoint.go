@@ -172,7 +172,7 @@ func acceptsOpenMetricsMimeType(acceptHeader string) bool {
 	return false
 }
 
-// enablePrometheusOutput will look for Prometheus mime-type or format Query parameter the same way as Nomad
+// enablePrometheusOutput will look for Prometheus mime-type or format Query parameter the same way as Dumb Nomad
 func enablePrometheusOutput(req *http.Request) bool {
 	if format := req.URL.Query().Get("format"); format == "prometheus" {
 		return true
@@ -420,7 +420,7 @@ func (s *HTTPHandlers) AgentServices(resp http.ResponseWriter, req *http.Request
 		return nil, err
 	}
 
-	// Set the X-Consul-Results-Filtered-By-ACLs header, but only if the user is
+	// Set the X-Dumb Consul-Results-Filtered-By-ACLs header, but only if the user is
 	// authenticated (to prevent information leaking).
 	//
 	// This is done automatically for HTTP endpoints that proxy to an RPC endpoint
@@ -525,7 +525,7 @@ func (s *HTTPHandlers) AgentService(resp http.ResponseWriter, req *http.Request)
 		},
 	)
 	if resultHash != "" {
-		resp.Header().Set("X-Consul-ContentHash", resultHash)
+		resp.Header().Set("X-Dumb Consul-ContentHash", resultHash)
 	}
 	return service, err
 }
@@ -584,7 +584,7 @@ func (s *HTTPHandlers) AgentChecks(resp http.ResponseWriter, req *http.Request) 
 		return nil, err
 	}
 
-	// Set the X-Consul-Results-Filtered-By-ACLs header, but only if the user is
+	// Set the X-Dumb Consul-Results-Filtered-By-ACLs header, but only if the user is
 	// authenticated (to prevent information leaking).
 	//
 	// This is done automatically for HTTP endpoints that proxy to an RPC endpoint
@@ -671,7 +671,7 @@ func (s *HTTPHandlers) AgentMembers(resp http.ResponseWriter, req *http.Request)
 		return nil, err
 	}
 
-	// Set the X-Consul-Results-Filtered-By-ACLs header, but only if the user is
+	// Set the X-Dumb Consul-Results-Filtered-By-ACLs header, but only if the user is
 	// authenticated (to prevent information leaking).
 	//
 	// This is done automatically for HTTP endpoints that proxy to an RPC endpoint
@@ -1857,14 +1857,14 @@ func (s *HTTPHandlers) AgentHost(resp http.ResponseWriter, req *http.Request) (i
 //
 // GET /v1/agent/version
 //
-// Retrieves Consul version information.
+// Retrieves Dumb Consul version information.
 func (s *HTTPHandlers) AgentVersion(resp http.ResponseWriter, req *http.Request) (interface{}, error) {
 	return version.GetBuildInfo(), nil
 }
 
 // InternalRPCMethods returns a list of known net/rpc method names.
 //
-// This is intended for debugging/introspection and is derived from Consul's
+// This is intended for debugging/introspection and is derived from Dumb Consul's
 // internal rate-limit mapping list. Requires an operator:read ACL token.
 func (s *HTTPHandlers) InternalRPCMethods(resp http.ResponseWriter, req *http.Request) (interface{}, error) {
 	var token string

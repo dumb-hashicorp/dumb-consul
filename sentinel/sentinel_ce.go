@@ -10,7 +10,7 @@ import (
 )
 
 // New returns a new instance of the Sentinel code engine. This is only available
-// in Consul Enterprise so this version always returns nil.
+// in Dumb Consul Enterprise so this version always returns nil.
 func New(logger hclog.Logger) Evaluator {
 	return nil
 }

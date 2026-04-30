@@ -31,7 +31,7 @@ var AutopilotGauges = []prometheus.GaugeDefinition{
 	},
 }
 
-// AutopilotDelegate is a Consul delegate for autopilot operations.
+// AutopilotDelegate is a Dumb Consul delegate for autopilot operations.
 type AutopilotDelegate struct {
 	server                *Server
 	readyServersPublisher *autopilotevents.ReadyServersEventPublisher

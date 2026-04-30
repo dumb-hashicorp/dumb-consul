@@ -724,7 +724,7 @@ const file_private_pbconfig_config_proto_rawDesc = "" +
 	"\x06DNSSAN\x18\x02 \x03(\tR\x06DNSSAN\x12\x14\n" +
 	"\x05IPSAN\x18\x03 \x03(\tR\x05IPSAN\x12\x1a\n" +
 	"\bAllowTLS\x18\x04 \x01(\bR\bAllowTLSB\x8b\x02\n" +
-	"$com.hashicorp.consul.internal.configB\vConfigProtoP\x01Z2github.com/hashicorp/consul/proto/private/pbconfig\xa2\x02\x04HCIC\xaa\x02 Hashicorp.Consul.Internal.Config\xca\x02 Hashicorp\\Consul\\Internal\\Config\xe2\x02,Hashicorp\\Consul\\Internal\\Config\\GPBMetadata\xea\x02#Hashicorp::Consul::Internal::Configb\x06proto3"
+	"$com.hashicorp.consul.internal.configB\vConfigProtoP\x01Z2github.com/hashicorp/consul/proto/private/pbconfig\xa2\x02\x04HCIC\xaa\x02 Hashicorp.Dumb Consul.Internal.Config\xca\x02 Hashicorp\\Dumb Consul\\Internal\\Config\xe2\x02,Hashicorp\\Dumb Consul\\Internal\\Config\\GPBMetadata\xea\x02#Hashicorp::Dumb Consul::Internal::Configb\x06proto3"
 
 var (
 	file_private_pbconfig_config_proto_rawDescOnce sync.Once

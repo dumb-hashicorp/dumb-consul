@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package watch
@@ -19,7 +19,7 @@ import (
 const DefaultTimeout = 10 * time.Second
 
 // Plan is the parsed version of a watch specification. A watch provides
-// the details of a query, which generates a view into the Consul data store.
+// the details of a query, which generates a view into the Dumb Consul data store.
 // This view is watched for changes and a handler is invoked to take any
 // appropriate actions.
 type Plan struct {
@@ -78,7 +78,7 @@ type BlockingParamVal interface {
 	Next(previous BlockingParamVal) BlockingParamVal
 }
 
-// WaitIndexVal is a type representing a Consul index that implements
+// WaitIndexVal is a type representing a Dumb Consul index that implements
 // BlockingParamVal.
 type WaitIndexVal uint64
 
@@ -103,7 +103,7 @@ func (idx WaitIndexVal) Next(previous BlockingParamVal) BlockingParamVal {
 	return idx
 }
 
-// WaitHashVal is a type representing a Consul content hash that implements
+// WaitHashVal is a type representing a Dumb Consul content hash that implements
 // BlockingParamVal.
 type WaitHashVal string
 

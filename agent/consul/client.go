@@ -35,15 +35,15 @@ import (
 var ClientCounters = []prometheus.CounterDefinition{
 	{
 		Name: []string{"client", "rpc"},
-		Help: "Increments whenever a Consul agent makes an RPC request to a Consul server.",
+		Help: "Increments whenever a Dumb Consul agent makes an RPC request to a Dumb Consul server.",
 	},
 	{
 		Name: []string{"client", "rpc", "exceeded"},
-		Help: "Increments whenever a Consul agent makes an RPC request to a Consul server gets rate limited by that agent's limits configuration.",
+		Help: "Increments whenever a Dumb Consul agent makes an RPC request to a Dumb Consul server gets rate limited by that agent's limits configuration.",
 	},
 	{
 		Name: []string{"client", "rpc", "failed"},
-		Help: "Increments whenever a Consul agent makes an RPC request to a Consul server and fails.",
+		Help: "Increments whenever a Dumb Consul agent makes an RPC request to a Dumb Consul server and fails.",
 	},
 }
 
@@ -59,7 +59,7 @@ const (
 	serfEventBacklogWarning = 200
 )
 
-// Client is Consul client which uses RPC to communicate with the
+// Client is Dumb Consul client which uses RPC to communicate with the
 // services for service discovery, health checking, and DC forwarding.
 type Client struct {
 	config *Config
@@ -71,7 +71,7 @@ type Client struct {
 	connPool *pool.ConnPool
 
 	// router is responsible for the selection and maintenance of
-	// Consul servers this agent uses for RPC requests
+	// Dumb Consul servers this agent uses for RPC requests
 	router *router.Router
 
 	// rpcLimiter is used to rate limit the total number of RPCs initiated
@@ -209,7 +209,7 @@ func (c *Client) Leave() error {
 	return nil
 }
 
-// JoinLAN is used to have Consul join the inner-DC pool The target address
+// JoinLAN is used to have Dumb Consul join the inner-DC pool The target address
 // should be another node inside the DC listening on the Serf LAN address
 func (c *Client) JoinLAN(addrs []string, entMeta *acl.EnterpriseMeta) (int, error) {
 	// Partitions definitely have to match.

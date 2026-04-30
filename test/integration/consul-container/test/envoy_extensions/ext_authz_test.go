@@ -33,9 +33,9 @@ import (
 //
 // Steps:
 // - Create a single agent cluster.
-// - Create the example static-server and sidecar containers, then register them both with Consul
-// - Create an example static-client sidecar, then register both the service and sidecar with Consul
-// - Create an OPA external authorization container on the local network, this doesn't need to be registered with Consul.
+// - Create the example static-server and sidecar containers, then register them both with Dumb Consul
+// - Create an example static-client sidecar, then register both the service and sidecar with Dumb Consul
+// - Create an OPA external authorization container on the local network, this doesn't need to be registered with Dumb Consul.
 // - Configure the static-server service with a `builtin/ext-authz` EnvoyExtension targeting the OPA ext-authz service.
 // - Make sure a call to the client sidecar local bind port returns the expected response from the upstream static-server:
 //   - A call to `/allow` returns 200 OK.

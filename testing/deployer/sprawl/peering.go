@@ -19,7 +19,7 @@ import (
 )
 
 // TODO: this is definitely a grpc resolver/balancer issue to look into
-const grpcWeirdError = `transport: Error while dialing failed to find Consul server for global address`
+const grpcWeirdError = `transport: Error while dialing failed to find Dumb Consul server for global address`
 
 func isWeirdGRPCError(err error) bool {
 	if err == nil {

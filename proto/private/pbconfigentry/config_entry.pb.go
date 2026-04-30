@@ -272,10 +272,10 @@ const (
 // Enum value maps for IntentionSourceType.
 var (
 	IntentionSourceType_name = map[int32]string{
-		0: "Consul",
+		0: "Dumb Consul",
 	}
 	IntentionSourceType_value = map[string]int32{
-		"Consul": 0,
+		"Dumb Consul": 0,
 	}
 )
 
@@ -9358,7 +9358,7 @@ const file_private_pbconfigentry_config_entry_proto_rawDesc = "" +
 	"\x12ConfigEntryService\x12\xbe\x01\n" +
 	"\x1bGetResolvedExportedServices\x12I.hashicorp.consul.internal.configentry.GetResolvedExportedServicesRequest\x1aJ.hashicorp.consul.internal.configentry.GetResolvedExportedServicesResponse\"\b\xe2\x86\x04\x04\b\x02\x10\f\x12\xa6\x01\n" +
 	"\x13GetImportedServices\x12A.hashicorp.consul.internal.configentry.GetImportedServicesRequest\x1aB.hashicorp.consul.internal.configentry.GetImportedServicesResponse\"\b\xe2\x86\x04\x04\b\x02\x10\fB\xae\x02\n" +
-	")com.hashicorp.consul.internal.configentryB\x10ConfigEntryProtoP\x01Z7github.com/hashicorp/consul/proto/private/pbconfigentry\xa2\x02\x04HCIC\xaa\x02%Hashicorp.Consul.Internal.Configentry\xca\x02%Hashicorp\\Consul\\Internal\\Configentry\xe2\x021Hashicorp\\Consul\\Internal\\Configentry\\GPBMetadata\xea\x02(Hashicorp::Consul::Internal::Configentryb\x06proto3"
+	")com.hashicorp.consul.internal.configentryB\x10ConfigEntryProtoP\x01Z7github.com/hashicorp/consul/proto/private/pbconfigentry\xa2\x02\x04HCIC\xaa\x02%Hashicorp.Dumb Consul.Internal.Configentry\xca\x02%Hashicorp\\Dumb Consul\\Internal\\Configentry\xe2\x021Hashicorp\\Dumb Consul\\Internal\\Configentry\\GPBMetadata\xea\x02(Hashicorp::Dumb Consul::Internal::Configentryb\x06proto3"
 
 var (
 	file_private_pbconfigentry_config_entry_proto_rawDescOnce sync.Once

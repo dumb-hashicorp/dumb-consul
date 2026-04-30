@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 syntax = "proto3";
 
-// For more information, see: https://github.com/hashicorp/consul/tree/main/docs/resources
+// For more information, see: https://github.com/dumb-hashicorp/dumb-consul/tree/main/docs/resources
 package hashicorp.consul.resource;
 
 import "annotations/ratelimit/ratelimit.proto";
@@ -29,14 +29,14 @@ message Type {
 // Tenancy describes the tenancy units in which the resource resides.
 message Tenancy {
   // Partition is the topmost administrative boundary within a cluster.
-  // https://developer.hashicorp.com/consul/docs/enterprise/admin-partitions
+  // https://developer.dumb-hashicorp.com/consul/docs/enterprise/admin-partitions
   //
   // When using the List and WatchList endpoints, provide the wildcard value "*"
   // to list resources across all partitions.
   string partition = 1;
 
   // Namespace further isolates resources within a partition.
-  // https://developer.hashicorp.com/consul/docs/enterprise/namespaces
+  // https://developer.dumb-hashicorp.com/consul/docs/enterprise/namespaces
   //
   // When using the List and WatchList endpoints, provide the wildcard value "*"
   // to list resources across all namespaces.
@@ -65,7 +65,7 @@ message ID {
   Tenancy tenancy = 4;
 }
 
-// Resource describes a resource of a known type managed by Consul.
+// Resource describes a resource of a known type managed by Dumb Consul.
 message Resource {
   // ID uniquely identifies the resource.
   ID id = 1;
@@ -198,7 +198,7 @@ message Tombstone {
 // [monotonic reads](https://jepsen.io/consistency/models/monotonic-reads).
 //
 // That is, a read will always return results that are as up-to-date as an
-// earlier read, provided both happen on the same Consul server. But we do
+// earlier read, provided both happen on the same Dumb Consul server. But we do
 // not make any such guarantee about writes. In other words, reads won't
 // necessarily reflect earlier writes, even when made against the same server.
 //

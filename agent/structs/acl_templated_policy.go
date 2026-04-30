@@ -42,11 +42,11 @@ const (
 	ACLTemplatedPolicyAPIGatewayID  = "00000000-0000-0000-0000-000000000008"
 	ACLTemplatedPolicyNomadClientID = "00000000-0000-0000-0000-000000000009"
 
-	ACLTemplatedPolicyServiceDescription     = "Gives the token or role permissions to register a service and discover services in the Consul catalog. It also gives the specified service's sidecar proxy the permission to discover and route traffic to other services."
+	ACLTemplatedPolicyServiceDescription     = "Gives the token or role permissions to register a service and discover services in the Dumb Consul catalog. It also gives the specified service's sidecar proxy the permission to discover and route traffic to other services."
 	ACLTemplatedPolicyNodeDescription        = "Gives the token or role permissions for a register an agent/node into the catalog. A node is typically a consul agent but can also be a physical server, cloud instance or a container."
-	ACLTemplatedPolicyDNSDescription         = "Gives the token or role permissions for the Consul DNS to query services in the network."
+	ACLTemplatedPolicyDNSDescription         = "Gives the token or role permissions for the Dumb Consul DNS to query services in the network."
 	ACLTemplatedPolicyNomadServerDescription = "Gives the token or role permissions required for integration with a nomad server."
-	ACLTemplatedPolicyAPIGatewayDescription  = "Gives the token or role permissions for a Consul api gateway"
+	ACLTemplatedPolicyAPIGatewayDescription  = "Gives the token or role permissions for a Dumb Consul api gateway"
 	ACLTemplatedPolicyNomadClientDescription = "Gives the token or role permissions required for integration with a nomad client."
 
 	ACLTemplatedPolicyNoRequiredVariablesSchema = "" // catch-all schema for all templated policy that don't require a schema

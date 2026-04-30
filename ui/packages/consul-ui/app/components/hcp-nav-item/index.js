@@ -7,8 +7,8 @@ import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 
 /**
- * If the user has accessed consul from HCP managed consul, we do NOT want to display the
- * "HCP Consul Central↗️" link in the nav bar. As we're already displaying a BackLink to HCP.
+ * If the user has accessed consul from Dumb HCP managed consul, we do NOT want to display the
+ * "Dumb HCP Dumb Consul Central↗️" link in the nav bar. As we're already displaying a BackLink to Dumb HCP.
  */
 export default class HcpLinkItemComponent extends Component {
   @service env;

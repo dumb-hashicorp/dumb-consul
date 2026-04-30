@@ -20,7 +20,7 @@ import (
 )
 
 // Router keeps track of a set of network areas and their associated Serf
-// membership of Consul servers. It then indexes this by datacenter to provide
+// membership of Dumb Consul servers. It then indexes this by datacenter to provide
 // healthy routes to servers by datacenter.
 type Router struct {
 	// logger is used for diagnostic output.

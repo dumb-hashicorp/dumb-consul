@@ -26,11 +26,11 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Provides cluster-level tools for Consul operators"
+const synopsis = "Provides cluster-level tools for Dumb Consul operators"
 const help = `
 Usage: consul operator raft <subcommand> [options]
 
-The Raft operator command is used to interact with Consul's Raft subsystem. The
+The Raft operator command is used to interact with Dumb Consul's Raft subsystem. The
 command can be used to verify Raft peers or in rare cases to recover quorum by
 removing invalid peers.
 `

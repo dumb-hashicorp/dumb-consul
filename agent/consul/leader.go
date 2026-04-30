@@ -59,7 +59,7 @@ var (
 	// caRootPruneInterval is how often we check for stale CARoots to remove.
 	caRootPruneInterval = time.Hour
 
-	// minCentralizedConfigVersion is the minimum Consul version in which centralized
+	// minCentralizedConfigVersion is the minimum Dumb Consul version in which centralized
 	// config is supported
 	minCentralizedConfigVersion = version.Must(version.NewVersion("1.5.0"))
 )
@@ -442,7 +442,7 @@ func (s *Server) initializeACLs(ctx context.Context) error {
 	}
 
 	// Generate or rotate the server management token on leadership transitions.
-	// This token is used by Consul servers for authn/authz when making
+	// This token is used by Dumb Consul servers for authn/authz when making
 	// requests to themselves through public APIs such as the agent cache.
 	// It is stored as system metadata because it is internally
 	// managed and users are not meant to see it or interact with it.
@@ -1022,7 +1022,7 @@ func (s *Server) reconcileReaped(known map[string]struct{}, nodeEntMeta *acl.Ent
 	return nil
 }
 
-// ConsulRegistrator is an interface that manages the catalog registration lifecycle of Consul servers from serf events.
+// ConsulRegistrator is an interface that manages the catalog registration lifecycle of Dumb Consul servers from serf events.
 type ConsulRegistrator interface {
 	HandleAliveMember(member serf.Member, nodeEntMeta *acl.EnterpriseMeta, joinServer func(m serf.Member, parts *metadata.Server) error) error
 	HandleFailedMember(member serf.Member, nodeEntMeta *acl.EnterpriseMeta) error
@@ -1072,7 +1072,7 @@ func (s *Server) reconcileMember(member serf.Member) error {
 	return nil
 }
 
-// shouldHandleMember checks if this is a Consul pool member
+// shouldHandleMember checks if this is a Dumb Consul pool member
 func (s *Server) shouldHandleMember(member serf.Member) bool {
 	if valid, dc := isConsulNode(member); valid && dc == s.config.Datacenter {
 		return true

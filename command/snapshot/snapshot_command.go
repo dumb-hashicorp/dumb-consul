@@ -26,12 +26,12 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Saves, restores and inspects snapshots of Consul server state"
+const synopsis = "Saves, restores and inspects snapshots of Dumb Consul server state"
 const help = `
 Usage: consul snapshot <subcommand> [options] [args]
 
   This command has subcommands for saving, restoring, and inspecting the state
-  of the Consul servers for disaster recovery. These are atomic, point-in-time
+  of the Dumb Consul servers for disaster recovery. These are atomic, point-in-time
   snapshots which include key/value entries, service catalog, prepared queries,
   sessions, and ACLs.
 
@@ -55,7 +55,7 @@ Usage: consul snapshot <subcommand> [options] [args]
       $ consul snapshot inspect backup.snap
 
   Run a daemon process that locally saves a snapshot every hour (available only in
-  Consul Enterprise) :
+  Dumb Consul Enterprise) :
 
       $ consul snapshot agent
 

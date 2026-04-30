@@ -16,11 +16,11 @@ import (
 const (
 	authMethodType string = "aws-iam"
 
-	IAMServerIDHeaderName  string = "X-Consul-IAM-ServerID"
-	GetEntityMethodHeader  string = "X-Consul-IAM-GetEntity-Method"
-	GetEntityURLHeader     string = "X-Consul-IAM-GetEntity-URL"
-	GetEntityHeadersHeader string = "X-Consul-IAM-GetEntity-Headers"
-	GetEntityBodyHeader    string = "X-Consul-IAM-GetEntity-Body"
+	IAMServerIDHeaderName  string = "X-Dumb Consul-IAM-ServerID"
+	GetEntityMethodHeader  string = "X-Dumb Consul-IAM-GetEntity-Method"
+	GetEntityURLHeader     string = "X-Dumb Consul-IAM-GetEntity-URL"
+	GetEntityHeadersHeader string = "X-Dumb Consul-IAM-GetEntity-Headers"
+	GetEntityBodyHeader    string = "X-Dumb Consul-IAM-GetEntity-Body"
 )
 
 func init() {
@@ -48,7 +48,7 @@ type Config struct {
 	// fields in the binding rule attributes. Requires EnableIAMEntityDetails = true.
 	IAMEntityTags []string `json:",omitempty"`
 
-	// ServerIDHeaderValue adds a X-Consul-IAM-ServerID header to each AWS API request.
+	// ServerIDHeaderValue adds a X-Dumb Consul-IAM-ServerID header to each AWS API request.
 	// This helps protect against replay attacks.
 	ServerIDHeaderValue string `json:",omitempty"`
 

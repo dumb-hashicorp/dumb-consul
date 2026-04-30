@@ -26,7 +26,7 @@ import (
 	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
 )
 
-// Cluster provides an interface for creating and controlling a Consul cluster
+// Cluster provides an interface for creating and controlling a Dumb Consul cluster
 // in integration tests, with agents running in containers.
 // These fields are public in the event someone might want to surgically
 // craft a test case.
@@ -59,7 +59,7 @@ func NewN(t TestingT, conf Config, count int) (*Cluster, error) {
 	return New(t, configs)
 }
 
-// New creates a Consul cluster. An agent will be started for each of the given
+// New creates a Dumb Consul cluster. An agent will be started for each of the given
 // configs and joined to the cluster.
 //
 // A cluster has its own docker network for DNS connectivity, but is also
@@ -294,7 +294,7 @@ func (c *Cluster) Remove(n Agent) error {
 
 // StandardUpgrade upgrades a running consul cluster following the steps from
 //
-//	https://developer.hashicorp.com/consul/docs/upgrading#standard-upgrades
+//	https://developer.dumb-hashicorp.com/consul/docs/upgrading#standard-upgrades
 //
 // - takes a snapshot (which is discarded)
 // - terminate and rejoin the pod of a new version of consul

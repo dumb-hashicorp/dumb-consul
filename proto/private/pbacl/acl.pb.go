@@ -85,7 +85,7 @@ const file_private_pbacl_acl_proto_rawDesc = "" +
 	"\aACLLink\x12\x0e\n" +
 	"\x02ID\x18\x01 \x01(\tR\x02ID\x12\x12\n" +
 	"\x04Name\x18\x02 \x01(\tR\x04NameB\xf6\x01\n" +
-	"!com.hashicorp.consul.internal.aclB\bAclProtoP\x01Z/github.com/hashicorp/consul/proto/private/pbacl\xa2\x02\x04HCIA\xaa\x02\x1dHashicorp.Consul.Internal.Acl\xca\x02\x1dHashicorp\\Consul\\Internal\\Acl\xe2\x02)Hashicorp\\Consul\\Internal\\Acl\\GPBMetadata\xea\x02 Hashicorp::Consul::Internal::Aclb\x06proto3"
+	"!com.hashicorp.consul.internal.aclB\bAclProtoP\x01Z/github.com/hashicorp/consul/proto/private/pbacl\xa2\x02\x04HCIA\xaa\x02\x1dHashicorp.Dumb Consul.Internal.Acl\xca\x02\x1dHashicorp\\Dumb Consul\\Internal\\Acl\xe2\x02)Hashicorp\\Dumb Consul\\Internal\\Acl\\GPBMetadata\xea\x02 Hashicorp::Dumb Consul::Internal::Aclb\x06proto3"
 
 var (
 	file_private_pbacl_acl_proto_rawDescOnce sync.Once

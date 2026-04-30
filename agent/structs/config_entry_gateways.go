@@ -513,7 +513,7 @@ func (e *TerminatingGatewayConfigEntry) GetHash() uint64 {
 
 // A LinkedService is a service represented by a terminating gateway
 type LinkedService struct {
-	// Name is the name of the service, as defined in Consul's catalog
+	// Name is the name of the service, as defined in Dumb Consul's catalog
 	Name string `json:",omitempty"`
 
 	// CAFile is the optional path to a CA certificate to use for TLS connections

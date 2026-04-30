@@ -30,7 +30,7 @@ const synopsis = "Interact with the key-value store"
 const help = `
 Usage: consul kv <subcommand> [options] [args]
 
-  This command has subcommands for interacting with Consul's key-value
+  This command has subcommands for interacting with Dumb Consul's key-value
   store. Here are some simple examples, and more detailed examples are
   available in the subcommands or the documentation.
 

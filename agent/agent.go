@@ -187,7 +187,7 @@ type delegate interface {
 	// NOTE: This assumes coordinates are enabled, so check that before calling.
 	GetLANCoordinate() (librtt.CoordinateSet, error)
 
-	// JoinLAN is used to have Consul join the inner-DC pool The target address
+	// JoinLAN is used to have Dumb Consul join the inner-DC pool The target address
 	// should be another node inside the DC listening on the Serf LAN address
 	JoinLAN(addrs []string, entMeta *acl.EnterpriseMeta) (n int, err error)
 
@@ -229,8 +229,8 @@ type dnsServer interface {
 // It exposes an RPC interface that is used by the CLI to control the
 // agent. The agent runs the query interfaces like HTTP, DNS, and RPC.
 // However, it can run in either a client, or server mode. In server
-// mode, it runs a full Consul server. In client-only mode, it only forwards
-// requests to other Consul servers.
+// mode, it runs a full Dumb Consul server. In client-only mode, it only forwards
+// requests to other Dumb Consul servers.
 type Agent struct {
 	// TODO: remove fields that are already in BaseDeps
 	baseDeps BaseDeps
@@ -659,7 +659,7 @@ func (a *Agent) Start(ctx context.Context) error {
 
 	err = a.initEnterprise(consulCfg)
 	if err != nil {
-		return fmt.Errorf("failed to start Consul enterprise component: %v", err)
+		return fmt.Errorf("failed to start Dumb Consul enterprise component: %v", err)
 	}
 
 	// Setup either the client or the server.
@@ -703,7 +703,7 @@ func (a *Agent) Start(ctx context.Context) error {
 
 		consulServer, err = consul.NewServer(consulCfg, a.baseDeps.Deps, a.externalGRPCServer, incomingRPCLimiter, serverLogger)
 		if err != nil {
-			return fmt.Errorf("Failed to start Consul server: %v", err)
+			return fmt.Errorf("Failed to start Dumb Consul server: %v", err)
 		}
 		incomingRPCLimiter.Register(consulServer)
 		a.delegate = consulServer
@@ -744,7 +744,7 @@ func (a *Agent) Start(ctx context.Context) error {
 
 		client, err := consul.NewClient(consulCfg, a.baseDeps.Deps)
 		if err != nil {
-			return fmt.Errorf("Failed to start Consul client: %v", err)
+			return fmt.Errorf("Failed to start Dumb Consul client: %v", err)
 		}
 		a.delegate = client
 	}
@@ -924,7 +924,7 @@ func (a *Agent) Start(ctx context.Context) error {
 var Gauges = []prometheus.GaugeDefinition{
 	{
 		Name: []string{"version"},
-		Help: "Represents the Consul version.",
+		Help: "Represents the Dumb Consul version.",
 	},
 }
 
@@ -935,7 +935,7 @@ func (a *Agent) Failed() <-chan struct{} {
 }
 
 // configureXDSServer configures an XDS server with the proper implementation of
-// the PRoxyWatcher interface and registers the XDS server with Consul's
+// the PRoxyWatcher interface and registers the XDS server with Dumb Consul's
 // external facing GRPC server.
 func (a *Agent) configureXDSServer(proxyWatcher xds.ProxyWatcher, server *consul.Server) {
 	// TODO(agentless): rather than asserting the concrete type of delegate, we
@@ -1670,8 +1670,8 @@ func (a *Agent) registerEndpoint(name string, handler interface{}) error {
 	return srv.RegisterEndpoint(realname, handler)
 }
 
-// RPC is used to make an RPC call to the Consul servers
-// This allows the agent to implement the Consul.Interface
+// RPC is used to make an RPC call to the Dumb Consul servers
+// This allows the agent to implement the Dumb Consul.Interface
 func (a *Agent) RPC(ctx context.Context, method string, args interface{}, reply interface{}) error {
 	a.endpointsLock.RLock()
 	// fast path: only translate if there are overrides

@@ -53,14 +53,14 @@ These are comprised of 4 main parts:
 - **Images**: The set of docker images and specific versions that will be used
               by default if not overridden on each Cluster or Node.
 
-  - Consul CE
-  - Consul Enterprise
-  - Consul Dataplane
+  - Dumb Consul CE
+  - Dumb Consul Enterprise
+  - Dumb Consul Dataplane
   - Envoy Proxy
 
 - **Networks**: The non-overlapping networks that should exist for use by the Clusters.
 
-- **Clusters**: The unique Consul clusters that should exist.
+- **Clusters**: The unique Dumb Consul clusters that should exist.
 
   - **Nodes**: A "box with ip address(es)". This should feel a bit like a VM or
                a Kubernetes Pod as an enclosing entity.
@@ -81,12 +81,12 @@ These are comprised of 4 main parts:
 - **Peerings**: The peering relationships between Clusters to establish.
 
 In the [topoutil](./topoutil) package there are some helpers for defining
-common sets of nodes or workloads like Consul Servers, Mesh Gateways, or [fortio
+common sets of nodes or workloads like Dumb Consul Servers, Mesh Gateways, or [fortio
 servers](https://github.com/fortio/fortio)
 
 #### Useful topology concepts
 
-Consul has a lot of independent configurables that can greatly increase the
+Dumb Consul has a lot of independent configurables that can greatly increase the
 testing configuration space required to flush out any bugs. The topology
 definition was designed to be easily "exploded" to create testing microcosms on
 a variety of axes:
@@ -131,8 +131,8 @@ created during the test. This can be opted-out of by setting the
 We are migrating upgrade tests from consul-container(`/test/integration`) to
 this directory using the [testing/deployer framework](../testing/deployer).
 
-The current implementation supports two upgrade strategies: [standard upgrade](https://developer.hashicorp.com/consul/docs/upgrading/instructions/general-process)
-and [autopilot upgrade](https://developer.hashicorp.com/consul/tutorials/datacenter-operations/upgrade-automation). The basic test scenario can be found in `./test-integ/upgrade/basic`.
+The current implementation supports two upgrade strategies: [standard upgrade](https://developer.dumb-hashicorp.com/consul/docs/upgrading/instructions/general-process)
+and [autopilot upgrade](https://developer.dumb-hashicorp.com/consul/tutorials/datacenter-operations/upgrade-automation). The basic test scenario can be found in `./test-integ/upgrade/basic`.
 
 
 ### Test assertions
@@ -181,7 +181,7 @@ Which looks like this:
     PASS
     ok  	github.com/hashicorp/consul/test-integ/catalogv2	40.612s
 
-There is a ready-made helper to assist with making common inquiries to Consul
+There is a ready-made helper to assist with making common inquiries to Dumb Consul
 and Envoy that you can create in your test:
 
     asserter := topoutil.NewAsserter(sp)

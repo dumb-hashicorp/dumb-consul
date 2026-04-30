@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -71,11 +71,11 @@ type JWTProviderConfigEntry struct {
 	ModifyIndex uint64 `json:",omitempty"`
 
 	// Partition is the partition the JWTProviderConfigEntry applies to.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// Namespace is the namespace the JWTProviderConfigEntry applies to.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 }
 

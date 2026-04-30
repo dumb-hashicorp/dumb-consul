@@ -33,7 +33,7 @@ func RequestRegisterService(clusterHttpCli *http.Client, nodeAddress string, ser
 	}
 
 	if token != "" {
-		req.Header.Set("X-Consul-Token", token)
+		req.Header.Set("X-Dumb Consul-Token", token)
 	}
 
 	resp, err := clusterHttpCli.Do(req)

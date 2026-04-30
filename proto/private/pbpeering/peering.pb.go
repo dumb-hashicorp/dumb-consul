@@ -290,7 +290,7 @@ func (x *PeeringSecrets) GetStream() *PeeringSecrets_Stream {
 	return nil
 }
 
-// Peering defines a peering relationship between two disparate Consul clusters
+// Peering defines a peering relationship between two disparate Dumb Consul clusters
 //
 // mog annotation:
 //
@@ -2353,7 +2353,7 @@ const file_private_pbpeering_peering_proto_rawDesc = "" +
 	"\fPeeringWrite\x126.hashicorp.consul.internal.peering.PeeringWriteRequest\x1a7.hashicorp.consul.internal.peering.PeeringWriteResponse\"\b\xe2\x86\x04\x04\b\x03\x10\x05\x12\xad\x01\n" +
 	"\x18TrustBundleListByService\x12B.hashicorp.consul.internal.peering.TrustBundleListByServiceRequest\x1aC.hashicorp.consul.internal.peering.TrustBundleListByServiceResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05\x12\x92\x01\n" +
 	"\x0fTrustBundleRead\x129.hashicorp.consul.internal.peering.TrustBundleReadRequest\x1a:.hashicorp.consul.internal.peering.TrustBundleReadResponse\"\b\xe2\x86\x04\x04\b\x02\x10\x05B\x92\x02\n" +
-	"%com.hashicorp.consul.internal.peeringB\fPeeringProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbpeering\xa2\x02\x04HCIP\xaa\x02!Hashicorp.Consul.Internal.Peering\xca\x02!Hashicorp\\Consul\\Internal\\Peering\xe2\x02-Hashicorp\\Consul\\Internal\\Peering\\GPBMetadata\xea\x02$Hashicorp::Consul::Internal::Peeringb\x06proto3"
+	"%com.hashicorp.consul.internal.peeringB\fPeeringProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbpeering\xa2\x02\x04HCIP\xaa\x02!Hashicorp.Dumb Consul.Internal.Peering\xca\x02!Hashicorp\\Dumb Consul\\Internal\\Peering\xe2\x02-Hashicorp\\Dumb Consul\\Internal\\Peering\\GPBMetadata\xea\x02$Hashicorp::Dumb Consul::Internal::Peeringb\x06proto3"
 
 var (
 	file_private_pbpeering_peering_proto_rawDescOnce sync.Once

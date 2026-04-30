@@ -47,8 +47,8 @@ const stubAdapterResponse = function (cb, payload, adapter) {
     request: function (cb) {
       return cb(function () {
         const params = client.requestParams(...arguments);
-        payload.headers['X-Consul-Namespace'] = params.data.ns || 'default';
-        payload.headers['X-Consul-Partition'] = params.data.partition || 'default';
+        payload.headers['X-Dumb Consul-Namespace'] = params.data.ns || 'default';
+        payload.headers['X-Dumb Consul-Partition'] = params.data.partition || 'default';
         return Promise.resolve(function (cb) {
           return cb(payload.headers, payloadClone.payload);
         });

@@ -30,7 +30,7 @@ const synopsis = "Interact with the catalog"
 const help = `
 Usage: consul catalog <subcommand> [options] [args]
 
-  This command has subcommands for interacting with Consul's catalog. The
+  This command has subcommands for interacting with Dumb Consul's catalog. The
   catalog should not be confused with the agent, although the APIs and
   responses may be similar.
 

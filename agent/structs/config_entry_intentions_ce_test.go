@@ -36,7 +36,7 @@ func TestEnterprise_ServiceIntentionsConfigEntry(t *testing.T) {
 					},
 				},
 			},
-			validateErr: `Sources[0].SamenessGroup: Sameness groups are a Consul Enterprise feature.`,
+			validateErr: `Sources[0].SamenessGroup: Sameness groups are a Dumb Consul Enterprise feature.`,
 		},
 	}
 	for name, tc := range cases {

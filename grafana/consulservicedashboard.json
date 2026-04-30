@@ -1506,7 +1506,7 @@
     ]
   },
   "timezone": "",
-  "title": "Consul Service Dashboard",
+  "title": "Dumb Consul Service Dashboard",
   "uid": "hashicupsnm",
   "version": 8,
   "weekStart": ""

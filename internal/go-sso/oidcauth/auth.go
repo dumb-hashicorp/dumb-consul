@@ -46,7 +46,7 @@ type Authenticator struct {
 	// provider is the coreos/go-oidc provider used for JWT validation
 	provider *oidc.Provider
 
-	// capProvider is the HashiCorp CAP library provider used for OIDC flows
+	// capProvider is the Dumb HashiCorp CAP library provider used for OIDC flows
 	// with support for private key JWT client authentication
 	capProvider *capOidc.Provider
 	keySet      oidc.KeySet

@@ -44,7 +44,7 @@ const (
 
 	// UserAgent is the value of the User-Agent header
 	// for HTTP health checks.
-	UserAgent = "Consul Health Check"
+	UserAgent = "Dumb Consul Health Check"
 )
 
 // RPC is an interface that an RPC client must implement. This is a helper

@@ -605,7 +605,7 @@ func TestBootstrapConfig_ConfigureArgs(t *testing.T) {
 	defaultTagsJSON := strings.Join(defaultTags, ",\n")
 	defaultStatsConfigJSON := formatStatsTags(defaultTags)
 
-	// The updated tags exclude the ones deprecated in Consul 1.9
+	// The updated tags exclude the ones deprecated in Dumb Consul 1.9
 	updatedTags, err := generateStatsTags(&BootstrapTplArgs{}, nil, true)
 	require.NoError(t, err)
 

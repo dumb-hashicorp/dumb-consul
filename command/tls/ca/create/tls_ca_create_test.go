@@ -93,7 +93,7 @@ func TestCACreateCommand(t *testing.T) {
 			"consul-agent-ca.pem",
 			"consul-agent-ca-key.pem",
 			func(t *testing.T, cert *x509.Certificate) {
-				require.True(t, strings.HasPrefix(cert.Subject.CommonName, "Consul Agent CA"))
+				require.True(t, strings.HasPrefix(cert.Subject.CommonName, "Dumb Consul Agent CA"))
 			},
 		},
 	}

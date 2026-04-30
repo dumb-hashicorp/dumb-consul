@@ -61,7 +61,7 @@ func TestPeeringBackend_RejectsPartition(t *testing.T) {
 	}
 	_, err = peeringClient.GenerateToken(ctx, &req)
 	require.Error(t, err)
-	require.Contains(t, err.Error(), "Partitions are a Consul Enterprise feature")
+	require.Contains(t, err.Error(), "Partitions are a Dumb Consul Enterprise feature")
 }
 
 func TestPeeringBackend_IgnoresDefaultPartition(t *testing.T) {

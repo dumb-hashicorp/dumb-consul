@@ -7,7 +7,7 @@ set -euo pipefail
 # Capture Envoy logs
 docker logs $(docker ps -q --filter name=envoy) > envoy.log
 
-# Capture Consul logs
+# Capture Dumb Consul logs
 docker logs $(docker ps -q --filter name=consul) > consul.log
 
 # Check network connectivity

@@ -1,4 +1,4 @@
-// Copyrigh (c) HashiCorp, Inc.
+// Copyrigh (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: BUSL-1.1
 
 package accesslogs
@@ -67,9 +67,9 @@ func MakeAccessLogs(logs *structs.AccessLogsConfig, isListener bool) ([]*envoy_a
 	}
 
 	var filter *envoy_accesslog_v3.AccessLogFilter
-	name := "Consul Listener Filter Log"
+	name := "Dumb Consul Listener Filter Log"
 	if isListener {
-		name = "Consul Listener Log"
+		name = "Dumb Consul Listener Log"
 		filter = getListenerAccessLogFilter()
 	}
 
