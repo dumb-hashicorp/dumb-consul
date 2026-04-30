@@ -16,10 +16,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/net/html"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestUIServerIndex(t *testing.T) {
@@ -237,7 +237,7 @@ func extractApplicationJSON(t *testing.T, attrName, content string) string {
 
 func extractUIConfig(t *testing.T, content string) string {
 	t.Helper()
-	return extractApplicationJSON(t, "data-consul-ui-config", content)
+	return extractApplicationJSON(t, "data-dumb-consul-ui-config", content)
 }
 
 type cfgFunc func(cfg *config.RuntimeConfig)
@@ -342,7 +342,7 @@ func TestReload(t *testing.T) {
 }
 
 func TestCustomDir(t *testing.T) {
-	uiDir := testutil.TempDir(t, "consul-uiserver")
+	uiDir := testutil.TempDir(t, "dumb-consul-uiserver")
 	defer os.RemoveAll(uiDir)
 
 	path := filepath.Join(uiDir, "test-file")
@@ -460,7 +460,7 @@ func TestHandler_ServeHTTP_TransformIsEvaluatedOnEachRequest(t *testing.T) {
 
 func TestServeTransformedJS(t *testing.T) {
 	// Prepare a temp dir and JS file with a template variable
-	uiDir := testutil.TempDir(t, "consul-uiserver-js")
+	uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js")
 	defer os.RemoveAll(uiDir)
 
 	jsFile := "assets/chunk-test.js"
@@ -490,7 +490,7 @@ func TestServeTransformedJS(t *testing.T) {
 func TestServeTransformedJS_ErrorCases(t *testing.T) {
 	t.Run("JS file not found", func(t *testing.T) {
 		// Prepare a temp dir without the JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		cfg := basicUIEnabledConfig()
@@ -523,7 +523,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("unreadable JS file", func(t *testing.T) {
 		// Create a directory with the same name as the JS file to cause read error
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"
@@ -545,7 +545,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("transform function error", func(t *testing.T) {
 		// Prepare a temp dir and JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"
@@ -574,7 +574,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("ContentPath not found in template data", func(t *testing.T) {
 		// Prepare a temp dir and JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"
@@ -604,7 +604,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("ContentPath wrong type in template data", func(t *testing.T) {
 		// Prepare a temp dir and JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"
@@ -634,7 +634,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("response writer error", func(t *testing.T) {
 		// Prepare a temp dir and JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"

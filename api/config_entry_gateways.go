@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -14,11 +14,11 @@ type IngressGatewayConfigEntry struct {
 	Name string
 
 	// Partition is the partition the IngressGateway is associated with.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// Namespace is the namespace the IngressGateway is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// TLS holds the TLS configuration for this gateway.
@@ -127,11 +127,11 @@ type IngressService struct {
 	Hosts []string
 
 	// Namespace is the namespace where the service is located.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 
 	// Partition is the partition where the service is located.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// TLS allows specifying some TLS configuration per listener.
@@ -183,11 +183,11 @@ type TerminatingGatewayConfigEntry struct {
 	ModifyIndex uint64
 
 	// Partition is the partition the config entry is associated with.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// Namespace is the namespace the config entry is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 }
 
@@ -201,7 +201,7 @@ type LinkedService struct {
 	// Namespace is where the service is registered.
 	Namespace string `json:",omitempty"`
 
-	// Name is the name of the service, as defined in Consul's catalog.
+	// Name is the name of the service, as defined in Dumb Consul's catalog.
 	Name string `json:",omitempty"`
 
 	// CAFile is the optional path to a CA certificate to use for TLS connections
@@ -263,11 +263,11 @@ type APIGatewayConfigEntry struct {
 	ModifyIndex uint64
 
 	// Partition is the partition the config entry is associated with.
-	// Partitioning is a Consul Enterprise feature.
+	// Partitioning is a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 
 	// Namespace is the namespace the config entry is associated with.
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
 }
 

@@ -3,15 +3,15 @@
   "resources":  [
     {
       "@type":  "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "name":  "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-      "altStatName":  "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name":  "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+      "altStatName":  "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "clusterType":  {
         "name":  "envoy.clusters.aggregate",
         "typedConfig":  {
           "@type":  "type.googleapis.com/envoy.extensions.clusters.aggregate.v3.ClusterConfig",
           "clusters":  [
-            "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-            "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+            "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+            "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
           ]
         }
       },
@@ -20,8 +20,8 @@
     },
     {
       "@type":  "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "name":  "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-      "altStatName":  "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name":  "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+      "altStatName":  "failover-target~0~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "type":  "EDS",
       "edsClusterConfig":  {
         "edsConfig":  {
@@ -59,20 +59,20 @@
                 {
                   "sanType": "URI",
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/db"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/db"
                   }
                 }
               ]
             }
           },
-          "sni":  "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni":  "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       }
     },
     {
       "@type":  "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "name":  "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
-      "altStatName":  "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "name":  "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
+      "altStatName":  "failover-target~1~db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "type":  "EDS",
       "edsClusterConfig":  {
         "edsConfig":  {
@@ -110,19 +110,19 @@
                 {
                   "sanType": "URI",
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/fail"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/fail"
                   }
                 }
               ]
             }
           },
-          "sni":  "fail.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul"
+          "sni":  "fail.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       }
     },
     {
       "@type":  "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "name":  "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+      "name":  "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
       "type":  "EDS",
       "edsClusterConfig":  {
         "edsConfig":  {
@@ -157,19 +157,19 @@
                 {
                   "sanType": "URI",
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc1/svc/geo-cache-target"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc1/svc/geo-cache-target"
                   }
                 },
                 {
                   "sanType": "URI",
                   "matcher": {
-                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.consul/ns/default/dc/dc2/svc/geo-cache-target"
+                    "exact": "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/ns/default/dc/dc2/svc/geo-cache-target"
                   }
                 }
               ]
             }
           },
-          "sni":  "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul"
+          "sni":  "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul"
         }
       }
     },

@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -95,9 +95,9 @@ type CatalogDeregistration struct {
 type CompoundServiceName struct {
 	Name string
 
-	// Namespacing is a Consul Enterprise feature.
+	// Namespacing is a Dumb Consul Enterprise feature.
 	Namespace string `json:",omitempty"`
-	// Partitions are a Consul Enterprise feature.
+	// Partitions are a Dumb Consul Enterprise feature.
 	Partition string `json:",omitempty"`
 }
 

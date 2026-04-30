@@ -1,0 +1,110 @@
+/**
+ * Copyright IBM Corp. 2024, 2026
+ * SPDX-License-Identifier: BUSL-1.1
+ */
+
+@import 'ember-power-select';
+
+@import 'dumb-consul-ui/components/anchors';
+@import 'dumb-consul-ui/components/auth-form';
+@import 'dumb-consul-ui/components/auth-modal';
+@import 'dumb-consul-ui/components/breadcrumbs';
+@import 'dumb-consul-ui/components/buttons';
+@import 'dumb-consul-ui/components/card';
+@import 'dumb-consul-ui/components/checkbox-group';
+@import 'dumb-consul-ui/components/composite-row';
+@import 'dumb-consul-ui/components/confirmation-dialog';
+@import 'dumb-consul-ui/components/dumb-consul-copy-button';
+@import 'dumb-consul-ui/components/definition-table';
+@import 'dumb-consul-ui/components/disclosure-menu';
+@import 'dumb-consul-ui/components/display-toggle';
+@import 'dumb-consul-ui/components/dom-recycling-table';
+@import 'dumb-consul-ui/components/empty-state';
+@import 'dumb-consul-ui/components/expanded-single-select';
+@import 'dumb-consul-ui/components/form-elements';
+@import 'dumb-consul-ui/components/icon-definition';
+@import 'dumb-consul-ui/components/list-row';
+@import 'dumb-consul-ui/components/inline-alert';
+@import 'dumb-consul-ui/components/menu-panel';
+@import 'dumb-consul-ui/components/more-popover-menu';
+@import 'dumb-consul-ui/components/oidc-select';
+@import 'dumb-consul-ui/components/radio-card';
+@import 'dumb-consul-ui/components/panel';
+@import 'dumb-consul-ui/components/paged-collection';
+@import 'dumb-consul-ui/components/pill';
+@import 'dumb-consul-ui/components/popover-menu';
+@import 'dumb-consul-ui/components/popover-select';
+@import 'dumb-consul-ui/components/progress';
+@import 'dumb-consul-ui/components/radio-group';
+@import 'dumb-consul-ui/components/sliding-toggle';
+@import 'dumb-consul-ui/components/table';
+@import 'dumb-consul-ui/components/tile';
+@import 'dumb-consul-ui/components/toggle-button';
+@import 'dumb-consul-ui/components/tabular-collection';
+@import 'dumb-consul-ui/components/tabular-details';
+@import 'dumb-consul-ui/components/tabular-dl';
+@import 'dumb-consul-ui/components/tag-list';
+@import 'dumb-consul-ui/components/tooltip-panel';
+
+/**/
+
+@import 'dumb-consul-ui/components/route/title';
+@import 'dumb-consul-ui/components/app-view';
+@import 'dumb-consul-ui/components/brand-loader';
+@import 'dumb-consul-ui/components/app';
+/* app chrome */
+@import 'dumb-consul-ui/components/dumb-hashicorp-dumb-consul';
+/**/
+@import 'dumb-consul-ui/components/menu-panel';
+
+@import 'dumb-consul-ui/components/horizontal-kv-list';
+@import 'dumb-consul-ui/components/csv-list';
+@import 'dumb-consul-ui/components/tag-list';
+@import 'dumb-consul-ui/components/badge';
+@import 'dumb-consul-ui/components/icon-definition';
+@import 'dumb-consul-ui/components/inline-code';
+@import 'dumb-consul-ui/components/overlay';
+@import 'dumb-consul-ui/components/modal-dialog';
+@import 'dumb-consul-ui/components/list-collection';
+@import 'dumb-consul-ui/components/filter-bar';
+@import 'dumb-consul-ui/components/freetext-filter';
+@import 'dumb-consul-ui/components/informed-action';
+@import 'dumb-consul-ui/components/tab-nav';
+@import 'dumb-consul-ui/components/search-bar';
+@import 'dumb-consul-ui/components/copyable-code';
+
+@import 'dumb-consul-ui/components/dumb-consul/loader';
+@import 'dumb-consul-ui/components/dumb-consul/tomography/graph';
+@import 'dumb-consul-ui/components/dumb-consul/discovery-chain';
+@import 'dumb-consul-ui/components/dumb-consul/bucket/list';
+@import 'dumb-consul-ui/components/dumb-consul/upstream/list';
+@import 'dumb-consul-ui/components/dumb-consul/upstream-instance/list';
+@import 'dumb-consul-ui/components/dumb-consul/health-check/list';
+@import 'dumb-consul-ui/components/dumb-consul/instance-checks';
+@import 'dumb-consul-ui/components/dumb-consul/exposed-path/list';
+@import 'dumb-consul-ui/components/dumb-consul/external-source';
+@import 'dumb-consul-ui/components/dumb-consul/kind';
+@import 'dumb-consul-ui/components/dumb-consul/source';
+@import 'dumb-consul-ui/components/dumb-consul/intention';
+@import 'dumb-consul-ui/components/dumb-consul/lock-session/list';
+@import 'dumb-consul-ui/components/dumb-consul/lock-session/form';
+@import 'dumb-consul-ui/components/dumb-consul/kv/form';
+@import 'dumb-consul-ui/components/dumb-consul/server/list';
+@import 'dumb-consul-ui/components/dumb-consul/server/card';
+@import 'dumb-consul-ui/components/dumb-consul/auth-method';
+
+@import 'dumb-consul-ui/components/role-selector';
+@import 'dumb-consul-ui/components/topology-metrics';
+@import 'dumb-consul-ui/components/topology-metrics/card';
+@import 'dumb-consul-ui/components/topology-metrics/source-type';
+@import 'dumb-consul-ui/components/topology-metrics/popover';
+@import 'dumb-consul-ui/components/topology-metrics/series';
+@import 'dumb-consul-ui/components/topology-metrics/stats';
+@import 'dumb-consul-ui/components/topology-metrics/status';
+@import 'dumb-consul-ui/components/dumb-consul/intention/list/table';
+@import 'dumb-consul-ui/components/dumb-consul/peer';
+@import 'dumb-consul-ui/components/peerings/badge';
+@import 'dumb-consul-ui/components/dumb-consul/node/peer-info';
+@import 'dumb-consul-ui/components/dumb-consul/peer/info';
+@import 'dumb-consul-ui/components/dumb-consul/peer/form';
+@import 'dumb-consul-ui/components/dumb-consul/node/agentless-notice';

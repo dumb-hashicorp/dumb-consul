@@ -9,10 +9,10 @@ import (
 
 	gresolver "google.golang.org/grpc/resolver"
 
-	"github.com/hashicorp/consul/agent/grpc-internal/balancer"
-	"github.com/hashicorp/consul/agent/grpc-internal/resolver"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/balancer"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // NewTracker returns an implementation of the router.ServerTracker interface
@@ -40,7 +40,7 @@ func (t *Tracker) NewRebalancer(dc string) func() {
 	return func() {
 		t.bb.Rebalance(gresolver.Target{
 			URL: url.URL{
-				Scheme: "consul",
+				Scheme: "dumb-consul",
 				Host:   t.rb.Authority(),
 				Path:   fmt.Sprintf("server.%s", dc),
 			},

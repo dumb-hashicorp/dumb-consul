@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/cap/oidc"
-	cass "github.com/hashicorp/cap/oidc/clientassertion"
+	"github.com/dumb-hashicorp/cap/oidc"
+	cass "github.com/dumb-hashicorp/cap/oidc/clientassertion"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 )
 
 var (
@@ -41,7 +41,7 @@ func (a *Authenticator) GetAuthCodeURL(ctx context.Context, redirectURI string, 
 		return "", fmt.Errorf("unauthorized redirect_uri: %s", redirectURI)
 	}
 
-	// Use HashiCorp CAP provider which supports advanced OIDC features
+	// Use Dumb HashiCorp CAP provider which supports advanced OIDC features
 	// including private key JWT client authentication configured during initialization
 	provider := a.capProvider
 	payload := statePayload
@@ -97,7 +97,7 @@ func (a *Authenticator) ClaimsFromAuthCode(ctx context.Context, stateParam, code
 		}
 	}
 
-	// Use HashiCorp CAP provider for token exchange
+	// Use Dumb HashiCorp CAP provider for token exchange
 	// This provider supports private key JWT client authentication if configured
 	provider := a.capProvider
 
@@ -259,7 +259,7 @@ type oidcState struct {
 	request     *oidc.Req // Store the request object for later use in exchange
 }
 
-// oidcRequest builds the request to send to the HashiCorp CAP library.
+// oidcRequest builds the request to send to the Dumb HashiCorp CAP library.
 // This method configures all necessary OIDC parameters including scopes,
 // audiences, and security parameters like state and nonce.
 func (a *Authenticator) oidcRequest(nonce, redirect string, stateID string) (*oidc.Req, error) {

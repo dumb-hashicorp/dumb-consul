@@ -15,18 +15,18 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/hashicorp/go-checkpoint"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-checkpoint"
+	"github.com/dumb-hashicorp/go-hclog"
 	mcli "github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/command/cli"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/service_os"
-	consulversion "github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/command/cli"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/service_os"
+	consulversion "github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -50,7 +50,7 @@ func New(ui cli.Ui) *cmd {
 	return c
 }
 
-// AgentCommand is a Command implementation that runs a Consul agent.
+// AgentCommand is a Command implementation that runs a Dumb Consul agent.
 // The command will not end unless a shutdown message is sent on the
 // ShutdownCh. If two messages are sent on the ShutdownCh it will forcibly
 // exit.
@@ -83,7 +83,7 @@ func (c *cmd) checkpointResults(results *checkpoint.CheckResponse, err error) {
 		return
 	}
 	if results.Outdated {
-		c.logger.Info("Newer Consul version available", "new_version", results.CurrentVersion, "current_version", c.version)
+		c.logger.Info("Newer Dumb Consul version available", "new_version", results.CurrentVersion, "current_version", c.version)
 	}
 	for _, alert := range results.Alerts {
 		switch alert.Level {
@@ -101,7 +101,7 @@ func (c *cmd) startupUpdateCheck(config *config.RuntimeConfig) {
 		version += fmt.Sprintf("-%s", config.VersionPrerelease)
 	}
 	updateParams := &checkpoint.CheckParams{
-		Product: "consul",
+		Product: "dumb-consul",
 		Version: version,
 	}
 	if !config.DisableAnonymousSignature {
@@ -180,7 +180,7 @@ func (c *cmd) run(args []string) int {
 		}
 	}
 
-	ui.Output("Starting Consul agent...")
+	ui.Output("Starting Dumb Consul agent...")
 
 	segment := config.SegmentName
 	if config.ServerMode {
@@ -239,7 +239,7 @@ func (c *cmd) run(args []string) int {
 	// Let the agent know we've finished registration
 	agent.StartSync()
 
-	c.logger.Info("Consul agent running!")
+	c.logger.Info("Dumb Consul agent running!")
 
 	// wait for signal
 	signalCh = make(chan os.Signal, 10)
@@ -344,10 +344,10 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Runs a Consul agent"
+const synopsis = "Runs a Dumb Consul agent"
 const help = `
-Usage: consul agent [options]
+Usage: dumb-consul agent [options]
 
-  Starts the Consul agent and runs until an interrupt is received. The
+  Starts the Dumb Consul agent and runs until an interrupt is received. The
   agent represents a single node in a cluster.
 `

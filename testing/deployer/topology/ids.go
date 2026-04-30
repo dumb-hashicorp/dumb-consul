@@ -6,7 +6,7 @@ package topology
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 type NodeID struct {

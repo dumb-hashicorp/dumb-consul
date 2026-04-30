@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -16,7 +16,7 @@ type ServiceUsage struct {
 	ConnectServiceInstances map[string]int
 
 	// Billable services are of "typical" service kind (i.e. non-connect or connect-native),
-	// excluding the "consul" service.
+	// excluding the "dumb-consul" service.
 	BillableServiceInstances int
 
 	// A map of partition+namespace to number of unique services registered in that namespace

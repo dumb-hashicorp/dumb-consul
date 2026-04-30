@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -13,7 +13,7 @@ import (
 
 const (
 	// DefaultSemaphoreSessionName is the Session Name we assign if none is provided
-	DefaultSemaphoreSessionName = "Consul API Semaphore"
+	DefaultSemaphoreSessionName = "Dumb Consul API Semaphore"
 
 	// DefaultSemaphoreSessionTTL is the default session TTL if no Session is provided
 	// when creating a new Semaphore. This is used because we do not have another
@@ -53,7 +53,7 @@ var (
 )
 
 // Semaphore is used to implement a distributed semaphore
-// using the Consul KV primitives.
+// using the Dumb Consul KV primitives.
 type Semaphore struct {
 	c    *Client
 	opts *SemaphoreOptions
@@ -143,7 +143,7 @@ func (c *Client) SemaphoreOpts(opts *SemaphoreOptions) (*Semaphore, error) {
 // This channel could be closed at any time due to session invalidation,
 // communication errors, operator intervention, etc. It is NOT safe to
 // assume that the slot is held until Release() unless the Session is specifically
-// created without any associated health checks. By default Consul sessions
+// created without any associated health checks. By default Dumb Consul sessions
 // prefer liveness over safety and an application must be able to handle
 // the session being lost.
 func (s *Semaphore) Acquire(stopCh <-chan struct{}) (<-chan struct{}, error) {
@@ -443,7 +443,7 @@ func (s *Semaphore) findLock(pairs KVPairs) *KVPair {
 }
 
 // decodeLock is used to decode a semaphoreLock from an
-// entry in Consul
+// entry in Dumb Consul
 func (s *Semaphore) decodeLock(pair *KVPair) (*semaphoreLock, error) {
 	// Handle if there is no lock
 	if pair == nil || pair.Value == nil {
@@ -508,7 +508,7 @@ WAIT:
 RETRY:
 	pairs, meta, err := kv.List(s.opts.Prefix, &opts)
 	if err != nil {
-		// If configured we can try to ride out a brief Consul unavailability
+		// If configured we can try to ride out a brief Dumb Consul unavailability
 		// by doing retries. Note that we have to attempt the retry in a non-
 		// blocking fashion so that we have a clean place to reset the retry
 		// counter if service is restored.

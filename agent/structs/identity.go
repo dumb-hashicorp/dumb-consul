@@ -3,7 +3,7 @@
 
 package structs
 
-import "github.com/hashicorp/consul/acl"
+import "github.com/dumb-hashicorp/dumb-consul/acl"
 
 // Identity of some entity (ex: service, node, check).
 //

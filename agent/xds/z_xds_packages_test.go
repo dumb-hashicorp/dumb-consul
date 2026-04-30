@@ -13,7 +13,7 @@ import (
 
 func TestUnusedExtensions(t *testing.T) {
 	// This test asserts that some key protobuf structs are usable by escape
-	// hatches despite not being directly used by Consul itself.
+	// hatches despite not being directly used by Dumb Consul itself.
 
 	type testcase struct {
 		name  string

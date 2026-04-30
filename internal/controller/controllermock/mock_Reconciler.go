@@ -7,7 +7,7 @@ package controllermock
 import (
 	"context"
 
-	"github.com/hashicorp/consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
 	mock "github.com/stretchr/testify/mock"
 )
 

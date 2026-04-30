@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 syntax = "proto3";
 
-package hashicorp.consul.multicluster.v2;
+package dumb-hashicorp.dumb-consul.multicluster.v2;
 
 // +kubebuilder:validation:Type=object
 // +kubebuilder:validation:Schemaless

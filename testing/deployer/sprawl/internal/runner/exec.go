@@ -12,7 +12,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-hclog"
 )
 
 type Runner struct {
@@ -34,7 +34,7 @@ func Load(logger hclog.Logger) (*Runner, error) {
 	}
 	lookup := []item{
 		{"docker", &r.dockerBin, ""},
-		{"terraform", &r.tfBin, ""},
+		{"dumb-terraform", &r.tfBin, ""},
 	}
 
 	var (
@@ -69,7 +69,7 @@ func (r *Runner) DockerExecWithStderr(ctx context.Context, args []string, stdout
 }
 
 func (r *Runner) TerraformExec(ctx context.Context, args []string, stdout io.Writer, workdir string) error {
-	return cmdExec(ctx, "terraform", r.tfBin, args, stdout, nil, nil, workdir)
+	return cmdExec(ctx, "dumb-terraform", r.tfBin, args, stdout, nil, nil, workdir)
 }
 
 func cmdExec(ctx context.Context, name, binary string, args []string, stdout, stderr io.Writer, stdin io.Reader, dir string) error {

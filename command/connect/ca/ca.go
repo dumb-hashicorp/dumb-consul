@@ -4,7 +4,7 @@
 package ca
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -26,11 +26,11 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = "Interact with the Consul Connect Certificate Authority (CA)"
+const synopsis = "Interact with the Dumb Consul Connect Certificate Authority (CA)"
 const help = `
-Usage: consul connect ca <subcommand> [options] [args]
+Usage: dumb-consul connect ca <subcommand> [options] [args]
 
-  This command has subcommands for interacting with Consul Connect's 
+  This command has subcommands for interacting with Dumb Consul Connect's 
   Certificate Authority (CA).
 
   Here are some simple examples, and more detailed examples are available
@@ -38,11 +38,11 @@ Usage: consul connect ca <subcommand> [options] [args]
 
   Get the configuration:
 
-      $ consul connect ca get-config
+      $ dumb-consul connect ca get-config
 
   Update the configuration:
 
-      $ consul connect ca set-config -config-file ca.json
+      $ dumb-consul connect ca set-config -config-file ca.json
 
   For more examples, ask for subcommand help or view the documentation.
 `

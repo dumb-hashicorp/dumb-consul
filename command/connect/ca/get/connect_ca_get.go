@@ -8,8 +8,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -78,7 +78,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Display the current Connect Certificate Authority (CA) configuration"
 const help = `
-Usage: consul connect ca get-config [options]
+Usage: dumb-consul connect ca get-config [options]
 
   Displays the current Connect Certificate Authority (CA) configuration.
 `

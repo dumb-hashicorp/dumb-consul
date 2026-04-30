@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 const (
@@ -143,10 +143,10 @@ func ClusterNameWithPort(portName, sni string) string {
 
 // ALPNProtocolForPort generates ALPN protocol strings for multi-port routing.
 // Returns empty string for single-port services (backward compatibility).
-// Format: "consul~<portName>" to avoid conflicts with standard ALPN protocols.
+// Format: "dumb-consul~<portName>" to avoid conflicts with standard ALPN protocols.
 func ALPNProtocolForPort(portName string) string {
 	if portName == "" {
 		return ""
 	}
-	return fmt.Sprintf("consul~%s", portName)
+	return fmt.Sprintf("dumb-consul~%s", portName)
 }

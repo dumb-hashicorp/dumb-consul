@@ -3,7 +3,7 @@
   "resources": [
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "geo-cache.default.dc1.query.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -37,7 +37,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "v1.db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "v1.db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [
@@ -74,7 +74,7 @@
     },
     {
       "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
-      "clusterName": "v2.db.default.dc2.internal.11111111-2222-3333-4444-555555555555.consul",
+      "clusterName": "v2.db.default.dc2.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
       "endpoints": [
         {
           "lbEndpoints": [

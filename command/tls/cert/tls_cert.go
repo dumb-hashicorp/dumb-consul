@@ -6,7 +6,7 @@ package cert
 import (
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New() *cmd {
@@ -29,7 +29,7 @@ func (c *cmd) Help() string {
 
 const synopsis = `Helpers for certificates`
 const help = `
-Usage: consul tls cert <subcommand> [options]
+Usage: dumb-consul tls cert <subcommand> [options]
 
   This command has subcommands for interacting with certificates
 
@@ -38,15 +38,15 @@ Usage: consul tls cert <subcommand> [options]
 
   Create a certificate
 
-    $ consul tls cert create -server
-    ==> saved dc1-server-consul.pem
-    ==> saved dc1-server-consul-key.pem
+    $ dumb-consul tls cert create -server
+    ==> saved dc1-server-dumb-consul.pem
+    ==> saved dc1-server-dumb-consul-key.pem
 
   Create a certificate with your own CA:
 
-    $ consul tls cert create -server -ca my-ca.pem -key my-ca-key.pem
-    ==> saved dc1-server-consul.pem
-    ==> saved dc1-server-consul-key.pem
+    $ dumb-consul tls cert create -server -ca my-ca.pem -key my-ca-key.pem
+    ==> saved dc1-server-dumb-consul.pem
+    ==> saved dc1-server-dumb-consul-key.pem
 
   For more examples, ask for subcommand help or view the documentation.
 `

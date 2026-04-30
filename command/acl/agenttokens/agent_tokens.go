@@ -10,8 +10,8 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -49,7 +49,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul Agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul Agent: %s", err))
 		return 1
 	}
 
@@ -111,9 +111,9 @@ func (c *cmd) Help() string {
 	return flags.Usage(c.help, nil)
 }
 
-const synopsis = "Assign tokens for the Consul Agent's usage"
+const synopsis = "Assign tokens for the Dumb Consul Agent's usage"
 const help = `
-Usage: consul acl set-agent-token [options] TYPE TOKEN
+Usage: dumb-consul acl set-agent-token [options] TYPE TOKEN
 
   This command will set the corresponding token for the agent to use. If token
   persistence is not enabled, then tokens uploaded this way are not persisted
@@ -150,5 +150,5 @@ Usage: consul acl set-agent-token [options] TYPE TOKEN
 
   Example:
 
-    $ consul acl set-agent-token default c4d0f8df-3aba-4ab6-a7a0-35b760dc29a1
+    $ dumb-consul acl set-agent-token default c4d0f8df-3aba-4ab6-a7a0-35b760dc29a1
 `

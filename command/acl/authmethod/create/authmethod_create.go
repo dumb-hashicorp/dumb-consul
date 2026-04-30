@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl/authmethod"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/helpers"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/helpers"
 	"github.com/mitchellh/cli"
 )
 
@@ -143,7 +143,7 @@ func (c *cmd) init() {
 		&c.tokenNameFormat,
 		"token-name-format",
 		structs.DefaultACLAuthMethodTokenNameFormat,
-		"Format used to specify the token name for the auth method. HashiCorp HIL syntax is supported.",
+		"Format used to specify the token name for the auth method. Dumb HashiCorp HIL syntax is supported.",
 	)
 
 	c.initEnterpriseFlags()
@@ -172,7 +172,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -274,11 +274,11 @@ func (c *cmd) Help() string {
 const synopsis = "Create an ACL auth method"
 
 const help = `
-Usage: consul acl auth-method create -name NAME -type TYPE [options]
+Usage: dumb-consul acl auth-method create -name NAME -type TYPE [options]
 
   Create a new auth method:
 
-    $ consul acl auth-method create -type "kubernetes" \
+    $ dumb-consul acl auth-method create -type "kubernetes" \
                             -name "my-k8s" \
                             -description "This is an example kube method" \
                             -kubernetes-host "https://apiserver.example.com:8443" \

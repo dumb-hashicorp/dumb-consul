@@ -4,9 +4,9 @@
 package structs
 
 import (
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // These are used to manage the built-in "serfHealth" check that's attached
@@ -19,10 +19,10 @@ const (
 )
 
 const (
-	// These are used to manage the "consul" service that's attached to every
-	// Consul server node in the catalog.
-	ConsulServiceID   = "consul"
-	ConsulServiceName = "consul"
+	// These are used to manage the "dumb-consul" service that's attached to every
+	// Dumb Consul server node in the catalog.
+	ConsulServiceID   = "dumb-consul"
+	ConsulServiceName = "dumb-consul"
 )
 
 type CatalogContents struct {

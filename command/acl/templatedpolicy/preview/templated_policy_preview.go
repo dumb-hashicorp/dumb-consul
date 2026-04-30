@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/policy"
-	"github.com/hashicorp/consul/command/acl/templatedpolicy"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/policy"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/templatedpolicy"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -68,7 +68,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -117,18 +117,18 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Preview the policy rendered by the ACL templated policy"
 	help     = `
-Usage: consul acl templated-policy preview [options]
+Usage: dumb-consul acl templated-policy preview [options]
 
     Preview the policy rendered by the ACL templated policy.
 
     Example:
 
-        $ consul acl templated-policy preview -name "builtin/service" -var "name:api"
+        $ dumb-consul acl templated-policy preview -name "builtin/service" -var "name:api"
 
     Preview a templated policy using a file.
 
     Example:
 
-        $ consul acl templated-policy preview -file templated-policy-file.hcl
+        $ dumb-consul acl templated-policy preview -file templated-policy-file.hcl
 `
 )

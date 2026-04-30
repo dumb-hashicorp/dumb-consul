@@ -25,19 +25,19 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/checks"
-	"github.com/hashicorp/consul/agent/consul"
-	consulrate "github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/checks"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	consulrate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // testCase used to test different config loading and flag parsing scenarios.
@@ -723,7 +723,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 			`-raft-protocol=2`,
 			`-data-dir=` + dataDir,
 		},
-		expectedErr: "raft_protocol version 2 is not supported by this version of Consul",
+		expectedErr: "raft_protocol version 2 is not supported by this version of Dumb Consul",
 	})
 	run(t, testCase{
 		desc: "-recursor",
@@ -1965,7 +1965,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 			rt.GRPCTLSAddrs = []net.Addr{defaultGrpcTlsAddr}
 		},
 		expectedWarnings: []string{
-			`bootstrap_expect = 2: A cluster with 2 servers will provide no failure tolerance. See https://developer.hashicorp.com/docs/internals/consensus.html#deployment-table`,
+			`bootstrap_expect = 2: A cluster with 2 servers will provide no failure tolerance. See https://developer.dumb-hashicorp.com/docs/internals/consensus.html#deployment-table`,
 			`bootstrap_expect > 0: expecting 2 servers`,
 		},
 	})
@@ -1988,7 +1988,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 			rt.GRPCTLSAddrs = []net.Addr{defaultGrpcTlsAddr}
 		},
 		expectedWarnings: []string{
-			`bootstrap_expect is even number: A cluster with an even number of servers does not achieve optimum fault tolerance. See https://developer.hashicorp.com/docs/internals/consensus.html#deployment-table`,
+			`bootstrap_expect is even number: A cluster with an even number of servers does not achieve optimum fault tolerance. See https://developer.dumb-hashicorp.com/docs/internals/consensus.html#deployment-table`,
 			`bootstrap_expect > 0: expecting 4 servers`,
 		},
 	})
@@ -2414,7 +2414,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
 			rt.Telemetry.AllowedPrefixes = []string{"foo"}
-			rt.Telemetry.BlockedPrefixes = []string{"bar", "consul.rpc.server.call"}
+			rt.Telemetry.BlockedPrefixes = []string{"bar", "dumb-consul.rpc.server.call"}
 		},
 		expectedWarnings: []string{`Filter rule must begin with either '+' or '-': "nix"`},
 	})
@@ -3443,14 +3443,14 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		expectedErr: "auto_encrypt.tls can only be used on a client.",
 	})
 	run(t, testCase{
-		desc: "test connect vault provider configuration",
+		desc: "test connect dumb-vault provider configuration",
 		args: []string{
 			`-data-dir=` + dataDir,
 		},
 		json: []string{`{
 				"connect": {
 					"enabled": true,
-					"ca_provider": "vault",
+					"ca_provider": "dumb-vault",
 					"ca_config": {
 						"ca_file": "/capath/ca.pem",
 						"ca_path": "/capath/",
@@ -3459,7 +3459,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 						"tls_server_name": "server.name",
 						"tls_skip_verify": true,
 						"token": "abc",
-						"root_pki_path": "consul-vault",
+						"root_pki_path": "dumb-consul-dumb-vault",
 						"intermediate_pki_path": "connect-intermediate"
 					}
 				}
@@ -3467,7 +3467,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		hcl: []string{`
 			  connect {
 					enabled = true
-					ca_provider = "vault"
+					ca_provider = "dumb-vault"
 					ca_config {
 						ca_file = "/capath/ca.pem"
 						ca_path = "/capath/"
@@ -3476,7 +3476,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 						tls_server_name = "server.name"
 						tls_skip_verify = true
 						token = "abc"
-						root_pki_path = "consul-vault"
+						root_pki_path = "dumb-consul-dumb-vault"
 						intermediate_pki_path = "connect-intermediate"
 					}
 				}
@@ -3484,7 +3484,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
 			rt.ConnectEnabled = true
-			rt.ConnectCAProvider = "vault"
+			rt.ConnectCAProvider = "dumb-vault"
 			rt.ConnectCAConfig = map[string]interface{}{
 				"CAFile":              "/capath/ca.pem",
 				"CAPath":              "/capath/",
@@ -3493,20 +3493,20 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 				"TLSServerName":       "server.name",
 				"TLSSkipVerify":       true,
 				"Token":               "abc",
-				"RootPKIPath":         "consul-vault",
+				"RootPKIPath":         "dumb-consul-dumb-vault",
 				"IntermediatePKIPath": "connect-intermediate",
 			}
 		},
 	})
 	run(t, testCase{
-		desc: "test connect vault provider configuration with root cert ttl",
+		desc: "test connect dumb-vault provider configuration with root cert ttl",
 		args: []string{
 			`-data-dir=` + dataDir,
 		},
 		json: []string{`{
 				"connect": {
 					"enabled": true,
-					"ca_provider": "vault",
+					"ca_provider": "dumb-vault",
 					"ca_config": {
 						"ca_file": "/capath/ca.pem",
 						"ca_path": "/capath/",
@@ -3515,7 +3515,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 						"tls_server_name": "server.name",
 						"tls_skip_verify": true,
 						"token": "abc",
-						"root_pki_path": "consul-vault",
+						"root_pki_path": "dumb-consul-dumb-vault",
 						"root_cert_ttl": "96360h",
 						"intermediate_pki_path": "connect-intermediate"
 					}
@@ -3524,7 +3524,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		hcl: []string{`
 			  connect {
 					enabled = true
-					ca_provider = "vault"
+					ca_provider = "dumb-vault"
 					ca_config {
 						ca_file = "/capath/ca.pem"
 						ca_path = "/capath/"
@@ -3532,7 +3532,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 						key_file = "/certpath/key.pem"
 						tls_server_name = "server.name"
 						tls_skip_verify = true
-						root_pki_path = "consul-vault"
+						root_pki_path = "dumb-consul-dumb-vault"
 						token = "abc"
 						intermediate_pki_path = "connect-intermediate"
 						root_cert_ttl = "96360h"
@@ -3542,7 +3542,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
 			rt.ConnectEnabled = true
-			rt.ConnectCAProvider = "vault"
+			rt.ConnectCAProvider = "dumb-vault"
 			rt.ConnectCAConfig = map[string]interface{}{
 				"CAFile":              "/capath/ca.pem",
 				"CAPath":              "/capath/",
@@ -3551,7 +3551,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 				"TLSServerName":       "server.name",
 				"TLSSkipVerify":       true,
 				"Token":               "abc",
-				"RootPKIPath":         "consul-vault",
+				"RootPKIPath":         "dumb-consul-dumb-vault",
 				"RootCertTTL":         "96360h",
 				"IntermediatePKIPath": "connect-intermediate",
 			}
@@ -4491,7 +4491,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 								{
 									"name": "foo",
 									"action": "deny",
-									"type": "consul",
+									"type": "dumb-consul",
 									"description": "foo desc"
 								},
 								{
@@ -4523,7 +4523,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 					  {
 						name        = "foo"
 						action      = "deny"
-						type        = "consul"
+						type        = "dumb-consul"
 						description = "foo desc"
 					  },
 					  {
@@ -4556,7 +4556,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 						{
 							Name:           "foo",
 							Action:         "deny",
-							Type:           "consul",
+							Type:           "dumb-consul",
 							Description:    "foo desc",
 							Precedence:     9,
 							EnterpriseMeta: *defaultEntMeta,
@@ -4564,7 +4564,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 						{
 							Name:           "bar",
 							Action:         "allow",
-							Type:           "consul",
+							Type:           "dumb-consul",
 							Description:    "bar desc",
 							Precedence:     9,
 							EnterpriseMeta: *defaultEntMeta,
@@ -4572,7 +4572,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 						{
 							Name:           "*",
 							Action:         "deny",
-							Type:           "consul",
+							Type:           "dumb-consul",
 							Description:    "wild desc",
 							Precedence:     8,
 							EnterpriseMeta: *defaultEntMeta,
@@ -4629,7 +4629,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 						{
 							Name:           "foo",
 							Action:         "deny",
-							Type:           "consul",
+							Type:           "dumb-consul",
 							Precedence:     6,
 							EnterpriseMeta: *defaultEntMeta,
 						},
@@ -5702,7 +5702,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 			rt.HTTPSPort = 4321
 			rt.HTTPSAddrs = []net.Addr{tcpAddr("127.0.0.1:4321")}
 
-			rt.TLS.Domain = "consul."
+			rt.TLS.Domain = "dumb-consul."
 			rt.TLS.NodeName = "thehostname"
 
 			rt.TLS.InternalRPC.CAFile = "internal_rpc_ca_file"
@@ -5750,7 +5750,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
 
-			rt.TLS.Domain = "consul."
+			rt.TLS.Domain = "dumb-consul."
 			rt.TLS.NodeName = "thehostname"
 
 			rt.TLS.InternalRPC.VerifyServerHostname = true
@@ -5781,7 +5781,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
 
-			rt.TLS.Domain = "consul."
+			rt.TLS.Domain = "dumb-consul."
 			rt.TLS.NodeName = "thehostname"
 
 			rt.TLS.InternalRPC.VerifyServerHostname = true
@@ -5818,7 +5818,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
 
-			rt.TLS.Domain = "consul."
+			rt.TLS.Domain = "dumb-consul."
 			rt.TLS.NodeName = "thehostname"
 
 			rt.TLS.InternalRPC.VerifyServerHostname = true
@@ -5844,7 +5844,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		`},
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
-			rt.TLS.Domain = "consul."
+			rt.TLS.Domain = "dumb-consul."
 			rt.TLS.NodeName = "thehostname"
 			rt.TLS.GRPC.UseAutoCert = false
 		},
@@ -5865,7 +5865,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		`},
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
-			rt.TLS.Domain = "consul."
+			rt.TLS.Domain = "dumb-consul."
 			rt.TLS.NodeName = "thehostname"
 			rt.TLS.GRPC.UseAutoCert = false
 		},
@@ -5883,7 +5883,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		`},
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
-			rt.TLS.Domain = "consul."
+			rt.TLS.Domain = "dumb-consul."
 			rt.TLS.NodeName = "thehostname"
 			rt.TLS.GRPC.UseAutoCert = false
 		},
@@ -5911,7 +5911,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		`},
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
-			rt.TLS.Domain = "consul."
+			rt.TLS.Domain = "dumb-consul."
 			rt.TLS.NodeName = "thehostname"
 			rt.TLS.GRPC.UseAutoCert = true
 		},
@@ -5939,7 +5939,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		`},
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
-			rt.TLS.Domain = "consul."
+			rt.TLS.Domain = "dumb-consul."
 			rt.TLS.NodeName = "thehostname"
 			rt.TLS.GRPC.UseAutoCert = false
 		},
@@ -5953,7 +5953,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		hcl:  []string{``},
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
-			rt.RaftLogStoreConfig.Backend = consul.LogStoreBackendDefault
+			rt.RaftLogStoreConfig.Backend = dumb-consul.LogStoreBackendDefault
 			rt.RaftLogStoreConfig.WAL.SegmentSize = 64 * 1024 * 1024
 		},
 	})
@@ -5976,7 +5976,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 		`},
 		expected: func(rt *RuntimeConfig) {
 			rt.DataDir = dataDir
-			rt.RaftLogStoreConfig.Backend = consul.LogStoreBackendBoltDB
+			rt.RaftLogStoreConfig.Backend = dumb-consul.LogStoreBackendBoltDB
 			rt.RaftLogStoreConfig.WAL.SegmentSize = 64 * 1024 * 1024
 		},
 	})
@@ -6077,7 +6077,7 @@ func TestLoad_IntegrationWithFlags(t *testing.T) {
 			rt.DataDir = dataDir
 			// The logstore settings from first file should not be overridden by a
 			// later file with nothing to say about logstores!
-			rt.RaftLogStoreConfig.Backend = consul.LogStoreBackendWAL
+			rt.RaftLogStoreConfig.Backend = dumb-consul.LogStoreBackendWAL
 			rt.EnableDebug = true
 		},
 	})
@@ -6355,7 +6355,7 @@ func TestLoad_InvalidConfigFormat(t *testing.T) {
 // HCL config file to a RuntimeConfig structure. All fields must be set
 // to a unique non-zero value.
 func TestLoad_FullConfig(t *testing.T) {
-	dataDir := testutil.TempDir(t, "consul")
+	dataDir := testutil.TempDir(t, "dumb-consul")
 
 	cidr := func(s string) *net.IPNet {
 		_, n, _ := net.ParseCIDR(s)
@@ -6380,7 +6380,7 @@ func TestLoad_FullConfig(t *testing.T) {
 		VersionMetadata:   "GtTCa13",
 		BuildDate:         time.Date(2019, 11, 20, 5, 0, 0, 0, time.UTC),
 
-		// consul configuration
+		// dumb-consul configuration
 		ConsulCoordinateUpdateBatchSize:  128,
 		ConsulCoordinateUpdateMaxBatches: 5,
 		ConsulCoordinateUpdatePeriod:     5 * time.Second,
@@ -6414,7 +6414,7 @@ func TestLoad_FullConfig(t *testing.T) {
 
 		ACLsEnabled:       true,
 		PrimaryDatacenter: "ejtmd43d",
-		ACLResolverSettings: consul.ACLResolverSettings{
+		ACLResolverSettings: dumb-consul.ACLResolverSettings{
 			ACLsEnabled:      true,
 			Datacenter:       "rzo029wg",
 			NodeName:         "otlLxGaI",
@@ -6576,8 +6576,8 @@ func TestLoad_FullConfig(t *testing.T) {
 						"ClaimMappings": map[string]string{
 							"node": "node",
 						},
-						"BoundIssuer":    "consul",
-						"BoundAudiences": []string{"consul-cluster-1"},
+						"BoundIssuer":    "dumb-consul",
+						"BoundAudiences": []string{"dumb-consul-cluster-1"},
 						"ListClaimMappings": map[string]string{
 							"foo": "bar",
 						},
@@ -6598,7 +6598,7 @@ func TestLoad_FullConfig(t *testing.T) {
 		ConnectSidecarMaxPort: 9999,
 		ExposeMinPort:         1111,
 		ExposeMaxPort:         2222,
-		ConnectCAProvider:     "consul",
+		ConnectCAProvider:     "dumb-consul",
 		ConnectCAConfig: map[string]interface{}{
 			"IntermediateCertTTL": "8760h",
 			"LeafCertTTL":         "1h",
@@ -6723,7 +6723,7 @@ func TestLoad_FullConfig(t *testing.T) {
 		RetryJoinMaxAttemptsLAN: 913,
 		RetryJoinMaxAttemptsWAN: 23160,
 		RetryJoinWAN:            []string{"PFsR02Ye", "rJdQIhER", "EbFSc3nA", "kwXTh623"},
-		RPCConfig:               consul.RPCConfig{EnableStreaming: true},
+		RPCConfig:               dumb-consul.RPCConfig{EnableStreaming: true},
 		SegmentLimit:            123,
 		SerfPortLAN:             8301,
 		SerfPortWAN:             8302,
@@ -7189,15 +7189,15 @@ func TestLoad_FullConfig(t *testing.T) {
 			},
 		},
 		XDSUpdateRateLimit: 9526.2,
-		RaftLogStoreConfig: consul.RaftLogStoreConfig{
-			Backend:         consul.LogStoreBackendWAL,
+		RaftLogStoreConfig: dumb-consul.RaftLogStoreConfig{
+			Backend:         dumb-consul.LogStoreBackendWAL,
 			DisableLogCache: true,
-			Verification: consul.RaftLogStoreVerificationConfig{
+			Verification: dumb-consul.RaftLogStoreVerificationConfig{
 				Enabled:  true,
 				Interval: 12345 * time.Second,
 			},
-			BoltDB: consul.RaftBoltDBConfig{NoFreelistSync: true},
-			WAL:    consul.WALConfig{SegmentSize: 15 * 1024 * 1024},
+			BoltDB: dumb-consul.RaftBoltDBConfig{NoFreelistSync: true},
+			WAL:    dumb-consul.WALConfig{SegmentSize: 15 * 1024 * 1024},
 		},
 		AutoReloadConfigCoalesceInterval: 1 * time.Second,
 		EnableXDSLoadBalancing:           false,
@@ -7560,10 +7560,10 @@ func TestRuntime_APIConfigHTTPS(t *testing.T) {
 		Datacenter: "dc-test",
 		TLS: tlsutil.Config{
 			HTTPS: tlsutil.ProtocolConfig{
-				CAFile:         "/etc/consul/ca.crt",
-				CAPath:         "/etc/consul/ca.dir",
-				CertFile:       "/etc/consul/server.crt",
-				KeyFile:        "/etc/consul/ssl/server.key",
+				CAFile:         "/etc/dumb-consul/ca.crt",
+				CAPath:         "/etc/dumb-consul/ca.dir",
+				CertFile:       "/etc/dumb-consul/server.crt",
+				KeyFile:        "/etc/dumb-consul/ssl/server.key",
 				VerifyOutgoing: false,
 			},
 		},
@@ -7847,7 +7847,7 @@ func TestConnectCAConfiguration(t *testing.T) {
 				ConnectEnabled: true,
 			},
 			expected: &structs.CAConfiguration{
-				Provider: "consul",
+				Provider: "dumb-consul",
 				Config: map[string]interface{}{
 					"LeafCertTTL":         "72h",
 					"IntermediateCertTTL": "8760h",  // 365 * 24h
@@ -7863,7 +7863,7 @@ func TestConnectCAConfiguration(t *testing.T) {
 				},
 			},
 			expected: &structs.CAConfiguration{
-				Provider:  "consul",
+				Provider:  "dumb-consul",
 				ClusterID: "adfe7697-09b4-413a-ac0a-fa81ed3a3001",
 				Config: map[string]interface{}{
 					"LeafCertTTL":         "72h",
@@ -7885,10 +7885,10 @@ func TestConnectCAConfiguration(t *testing.T) {
 		"provider-override": {
 			config: RuntimeConfig{
 				ConnectEnabled:    true,
-				ConnectCAProvider: "vault",
+				ConnectCAProvider: "dumb-vault",
 			},
 			expected: &structs.CAConfiguration{
-				Provider: "vault",
+				Provider: "dumb-vault",
 				Config: map[string]interface{}{
 					"LeafCertTTL":         "72h",
 					"IntermediateCertTTL": "8760h",  // 365 * 24h
@@ -7905,7 +7905,7 @@ func TestConnectCAConfiguration(t *testing.T) {
 				},
 			},
 			expected: &structs.CAConfiguration{
-				Provider: "consul",
+				Provider: "dumb-consul",
 				Config: map[string]interface{}{
 					"LeafCertTTL":         "72h",
 					"IntermediateCertTTL": "8760h", // 365 * 24h

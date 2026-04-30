@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/agent/mock"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/mock"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"golang.org/x/sys/windows"
 	"golang.org/x/sys/windows/svc"
 )

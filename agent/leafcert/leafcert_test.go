@@ -15,12 +15,12 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cacheshim"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cacheshim"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 // Test that after an initial signing, new CA roots (new ID) will
@@ -854,7 +854,7 @@ func TestManager_workflow_goodNotLocal(t *testing.T) {
 		require.Equal(t, issued, issued2)
 	})
 
-	// Test Blocking - see https://github.com/hashicorp/consul/issues/4462
+	// Test Blocking - see https://github.com/dumb-hashicorp/dumb-consul/issues/4462
 	testutil.RunStep(t, "test blocking issue 4462", func(t *testing.T) {
 		// Fetch it again
 		req := &ConnectCALeafRequest{
@@ -922,7 +922,7 @@ func TestManager_workflow_goodNotLocal(t *testing.T) {
 }
 
 func TestManager_workflow_nonBlockingQuery_after_blockingQuery_shouldNotBlock(t *testing.T) {
-	// see: https://github.com/hashicorp/consul/issues/12048
+	// see: https://github.com/dumb-hashicorp/dumb-consul/issues/12048
 
 	if testing.Short() {
 		t.Skip("too slow for testing.Short")

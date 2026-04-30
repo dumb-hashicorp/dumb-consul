@@ -6,8 +6,8 @@ package extauthz
 import (
 	"testing"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
 	"github.com/stretchr/testify/require"
 )
 

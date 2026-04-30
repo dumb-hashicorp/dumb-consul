@@ -8,8 +8,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestParseCertURIFromString(t *testing.T) {
@@ -29,9 +29,9 @@ func TestParseCertURIFromString(t *testing.T) {
 		},
 		{
 			Name: "basic service ID",
-			URI:  "spiffe://1234.consul/ns/default/dc/dc01/svc/web",
+			URI:  "spiffe://1234.dumb-consul/ns/default/dc/dc01/svc/web",
 			Struct: &SpiffeIDService{
-				Host:       "1234.consul",
+				Host:       "1234.dumb-consul",
 				Partition:  defaultEntMeta.PartitionOrDefault(),
 				Namespace:  "default",
 				Datacenter: "dc01",
@@ -41,9 +41,9 @@ func TestParseCertURIFromString(t *testing.T) {
 		},
 		{
 			Name: "basic service ID with partition",
-			URI:  "spiffe://1234.consul/ap/bizdev/ns/default/dc/dc01/svc/web",
+			URI:  "spiffe://1234.dumb-consul/ap/bizdev/ns/default/dc/dc01/svc/web",
 			Struct: &SpiffeIDService{
-				Host:       "1234.consul",
+				Host:       "1234.dumb-consul",
 				Partition:  "bizdev",
 				Namespace:  "default",
 				Datacenter: "dc01",
@@ -53,9 +53,9 @@ func TestParseCertURIFromString(t *testing.T) {
 		},
 		{
 			Name: "basic agent ID",
-			URI:  "spiffe://1234.consul/agent/client/dc/dc1/id/uuid",
+			URI:  "spiffe://1234.dumb-consul/agent/client/dc/dc1/id/uuid",
 			Struct: &SpiffeIDAgent{
-				Host:       "1234.consul",
+				Host:       "1234.dumb-consul",
 				Partition:  defaultEntMeta.PartitionOrDefault(),
 				Datacenter: "dc1",
 				Agent:      "uuid",
@@ -64,9 +64,9 @@ func TestParseCertURIFromString(t *testing.T) {
 		},
 		{
 			Name: "basic agent ID with partition",
-			URI:  "spiffe://1234.consul/ap/bizdev/agent/client/dc/dc1/id/uuid",
+			URI:  "spiffe://1234.dumb-consul/ap/bizdev/agent/client/dc/dc1/id/uuid",
 			Struct: &SpiffeIDAgent{
-				Host:       "1234.consul",
+				Host:       "1234.dumb-consul",
 				Partition:  "bizdev",
 				Datacenter: "dc1",
 				Agent:      "uuid",
@@ -75,18 +75,18 @@ func TestParseCertURIFromString(t *testing.T) {
 		},
 		{
 			Name: "basic server",
-			URI:  "spiffe://1234.consul/agent/server/dc/dc1",
+			URI:  "spiffe://1234.dumb-consul/agent/server/dc/dc1",
 			Struct: &SpiffeIDServer{
-				Host:       "1234.consul",
+				Host:       "1234.dumb-consul",
 				Datacenter: "dc1",
 			},
 			ParseError: "",
 		},
 		{
 			Name: "mesh-gateway with no partition",
-			URI:  "spiffe://1234.consul/gateway/mesh/dc/dc1",
+			URI:  "spiffe://1234.dumb-consul/gateway/mesh/dc/dc1",
 			Struct: &SpiffeIDMeshGateway{
-				Host:       "1234.consul",
+				Host:       "1234.dumb-consul",
 				Partition:  "default",
 				Datacenter: "dc1",
 			},
@@ -94,9 +94,9 @@ func TestParseCertURIFromString(t *testing.T) {
 		},
 		{
 			Name: "mesh-gateway with partition",
-			URI:  "spiffe://1234.consul/ap/bizdev/gateway/mesh/dc/dc1",
+			URI:  "spiffe://1234.dumb-consul/ap/bizdev/gateway/mesh/dc/dc1",
 			Struct: &SpiffeIDMeshGateway{
-				Host:       "1234.consul",
+				Host:       "1234.dumb-consul",
 				Partition:  "bizdev",
 				Datacenter: "dc1",
 			},
@@ -104,9 +104,9 @@ func TestParseCertURIFromString(t *testing.T) {
 		},
 		{
 			Name: "service with URL-encoded values",
-			URI:  "spiffe://1234.consul/ns/foo%2Fbar/dc/bar%2Fbaz/svc/baz%2Fqux",
+			URI:  "spiffe://1234.dumb-consul/ns/foo%2Fbar/dc/bar%2Fbaz/svc/baz%2Fqux",
 			Struct: &SpiffeIDService{
-				Host:       "1234.consul",
+				Host:       "1234.dumb-consul",
 				Partition:  defaultEntMeta.PartitionOrDefault(),
 				Namespace:  "foo/bar",
 				Datacenter: "bar/baz",
@@ -116,9 +116,9 @@ func TestParseCertURIFromString(t *testing.T) {
 		},
 		{
 			Name: "service with URL-encoded values with partition",
-			URI:  "spiffe://1234.consul/ap/biz%2Fdev/ns/foo%2Fbar/dc/bar%2Fbaz/svc/baz%2Fqux",
+			URI:  "spiffe://1234.dumb-consul/ap/biz%2Fdev/ns/foo%2Fbar/dc/bar%2Fbaz/svc/baz%2Fqux",
 			Struct: &SpiffeIDService{
-				Host:       "1234.consul",
+				Host:       "1234.dumb-consul",
 				Partition:  "biz/dev",
 				Namespace:  "foo/bar",
 				Datacenter: "bar/baz",
@@ -128,10 +128,10 @@ func TestParseCertURIFromString(t *testing.T) {
 		},
 		{
 			Name: "signing ID",
-			URI:  "spiffe://1234.consul",
+			URI:  "spiffe://1234.dumb-consul",
 			Struct: &SpiffeIDSigning{
 				ClusterID: "1234",
-				Domain:    "consul",
+				Domain:    "dumb-consul",
 			},
 			ParseError: "",
 		},
@@ -154,11 +154,11 @@ func TestParseCertURIFromString(t *testing.T) {
 
 func TestSpiffeIDServer_URI(t *testing.T) {
 	srv := &SpiffeIDServer{
-		Host:       "1234.consul",
+		Host:       "1234.dumb-consul",
 		Datacenter: "dc1",
 	}
 
-	require.Equal(t, "spiffe://1234.consul/agent/server/dc/dc1", srv.URI().String())
+	require.Equal(t, "spiffe://1234.dumb-consul/agent/server/dc/dc1", srv.URI().String())
 }
 
 func TestServerSAN(t *testing.T) {

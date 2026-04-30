@@ -7,7 +7,7 @@ package mockpbdataplane
 import (
 	"context"
 
-	"github.com/hashicorp/consul/proto-public/pbdataplane"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbdataplane"
 	mock "github.com/stretchr/testify/mock"
 )
 

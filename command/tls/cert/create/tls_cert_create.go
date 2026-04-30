@@ -11,10 +11,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/tls"
-	"github.com/hashicorp/consul/lib/file"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/tls"
+	"github.com/dumb-hashicorp/dumb-consul/lib/file"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 	"github.com/mitchellh/cli"
 )
 
@@ -61,7 +61,7 @@ func (c *cmd) init() {
 	c.flags.BoolVar(&c.cli, "cli", false, "Generate cli certificate.")
 	c.flags.IntVar(&c.days, "days", 365, "Provide number of days the certificate is valid for from now on. Defaults to 1 year.")
 	c.flags.StringVar(&c.dc, "dc", "dc1", "Provide the datacenter. Matters only for -server certificates. Defaults to dc1.")
-	c.flags.StringVar(&c.domain, "domain", "consul", "Provide the domain. Matters only for -server certificates.")
+	c.flags.StringVar(&c.domain, "domain", "dumb-consul", "Provide the domain. Matters only for -server certificates.")
 	c.flags.Var(&c.dnsnames, "additional-dnsname", "Provide an additional dnsname for Subject Alternative Names. "+
 		"localhost is always included. This flag may be provided multiple times.")
 	c.flags.Var(&c.ipaddresses, "additional-ipaddress", "Provide an additional ipaddress for Subject Alternative Names. "+
@@ -227,20 +227,20 @@ func (c *cmd) Help() string {
 
 const synopsis = "Create a new certificate"
 const help = `
-Usage: consul tls cert create [options]
+Usage: dumb-consul tls cert create [options]
 
   Create a new certificate
 
-  $ consul tls cert create -server
+  $ dumb-consul tls cert create -server
   ==> WARNING: Server Certificates grants authority to become a
       server and access all state in the cluster including root keys
       and all ACL tokens. Do not distribute them to production hosts
       that are not server nodes. Store them as securely as CA keys.
-  ==> Using consul-agent-ca.pem and consul-agent-ca-key.pem
-  ==> Saved dc1-server-consul-0.pem
-  ==> Saved dc1-server-consul-0-key.pem
-  $ consul tls cert create -client
-  ==> Using consul-agent-ca.pem and consul-agent-ca-key.pem
-  ==> Saved dc1-client-consul-0.pem
-  ==> Saved dc1-client-consul-0-key.pem
+  ==> Using dumb-consul-agent-ca.pem and dumb-consul-agent-ca-key.pem
+  ==> Saved dc1-server-dumb-consul-0.pem
+  ==> Saved dc1-server-dumb-consul-0-key.pem
+  $ dumb-consul tls cert create -client
+  ==> Using dumb-consul-agent-ca.pem and dumb-consul-agent-ca-key.pem
+  ==> Saved dc1-client-dumb-consul-0.pem
+  ==> Saved dc1-client-dumb-consul-0-key.pem
 `

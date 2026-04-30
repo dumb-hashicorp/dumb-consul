@@ -40,31 +40,31 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/serf/coordinate"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/cache"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/checks"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/proto/private/pbautoconf"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/checks"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbautoconf"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func getService(a *TestAgent, id string) *structs.NodeService {
@@ -316,7 +316,7 @@ func TestAgent_HTTPMaxHeaderBytes(t *testing.T) {
 			require.NoError(t, err)
 
 			bd := BaseDeps{
-				Deps: consul.Deps{
+				Deps: dumb-consul.Deps{
 					Logger:          hclog.NewInterceptLogger(nil),
 					Tokens:          new(token.Store),
 					TLSConfigurator: tlsConf,
@@ -1028,7 +1028,7 @@ func TestAgent_AddServiceWithTCPTLSCheck(t *testing.T) {
 	chkType := &structs.CheckType{
 		TCP:           addr,
 		TCPUseTLS:     true,
-		TLSServerName: "server.dc1.consul",
+		TLSServerName: "server.dc1.dumb-consul",
 		Interval:      5 * time.Second,
 	}
 	err := a.AddCheck(check, chkType, false, "", ConfigSourceLocal)
@@ -1564,7 +1564,7 @@ func verifyIndexChurn(t *testing.T, tags []string) {
 			t.Fatalf("err: %v", err)
 		}
 	}
-	// If this test fails here this means that the Consul-X-Index
+	// If this test fails here this means that the Dumb Consul-X-Index
 	// has changed for the RPC, which means that idempotent ops
 	// are not working as intended.
 	var after structs.IndexedCheckServiceNodes
@@ -2257,7 +2257,7 @@ func TestAgent_HTTPCheck_EnableAgentTLSForChecks(t *testing.T) {
 				enable_agent_tls_for_checks = true
 
 				verify_incoming = true
-				server_name = "consul.test"
+				server_name = "dumb-consul.test"
 				key_file = "../test/client_certs/server.key"
 				cert_file = "../test/client_certs/server.crt"
 			` + ca,
@@ -5063,7 +5063,7 @@ LOOP:
 	}
 }
 
-// This is a mirror of a similar test in agent/consul/server_test.go
+// This is a mirror of a similar test in agent/dumb-consul/server_test.go
 //
 // TODO(rb): implement something similar to this as a full containerized test suite with proper
 // isolation so requests can't "cheat" and bypass the mesh gateways
@@ -5084,7 +5084,7 @@ func TestAgent_JoinWAN_viaMeshGateway(t *testing.T) {
 	secondaryRPCPorts := freeport.GetN(t, 2)
 
 	a1 := StartTestAgent(t, TestAgent{Name: "bob", HCL: `
-		domain = "consul"
+		domain = "dumb-consul"
 		node_name = "bob"
 		datacenter = "dc1"
 		primary_datacenter = "dc1"
@@ -5111,12 +5111,12 @@ func TestAgent_JoinWAN_viaMeshGateway(t *testing.T) {
 		rpcAddr3 = ipaddr.FormatAddressPort("127.0.0.1", secondaryRPCPorts[1])
 	)
 	var p tcpproxy.Proxy
-	p.AddSNIRoute(gwAddr, "bob.server.dc1.consul", tcpproxy.To(rpcAddr1))
-	p.AddSNIRoute(gwAddr, "server.dc1.consul", tcpproxy.To(rpcAddr1))
-	p.AddSNIRoute(gwAddr, "betty.server.dc2.consul", tcpproxy.To(rpcAddr2))
-	p.AddSNIRoute(gwAddr, "server.dc2.consul", tcpproxy.To(rpcAddr2))
-	p.AddSNIRoute(gwAddr, "bonnie.server.dc3.consul", tcpproxy.To(rpcAddr3))
-	p.AddSNIRoute(gwAddr, "server.dc3.consul", tcpproxy.To(rpcAddr3))
+	p.AddSNIRoute(gwAddr, "bob.server.dc1.dumb-consul", tcpproxy.To(rpcAddr1))
+	p.AddSNIRoute(gwAddr, "server.dc1.dumb-consul", tcpproxy.To(rpcAddr1))
+	p.AddSNIRoute(gwAddr, "betty.server.dc2.dumb-consul", tcpproxy.To(rpcAddr2))
+	p.AddSNIRoute(gwAddr, "server.dc2.dumb-consul", tcpproxy.To(rpcAddr2))
+	p.AddSNIRoute(gwAddr, "bonnie.server.dc3.dumb-consul", tcpproxy.To(rpcAddr3))
+	p.AddSNIRoute(gwAddr, "server.dc3.dumb-consul", tcpproxy.To(rpcAddr3))
 	p.AddStopACMESearch(gwAddr)
 	require.NoError(t, p.Start())
 	defer func() {
@@ -5124,9 +5124,9 @@ func TestAgent_JoinWAN_viaMeshGateway(t *testing.T) {
 		p.Wait()
 	}()
 
-	t.Logf("routing %s => %s", "{bob.,}server.dc1.consul", rpcAddr1)
-	t.Logf("routing %s => %s", "{betty.,}server.dc2.consul", rpcAddr2)
-	t.Logf("routing %s => %s", "{bonnie.,}server.dc3.consul", rpcAddr3)
+	t.Logf("routing %s => %s", "{bob.,}server.dc1.dumb-consul", rpcAddr1)
+	t.Logf("routing %s => %s", "{betty.,}server.dc2.dumb-consul", rpcAddr2)
+	t.Logf("routing %s => %s", "{bonnie.,}server.dc3.dumb-consul", rpcAddr3)
 
 	// Register this into the agent in dc1.
 	{
@@ -5169,7 +5169,7 @@ func TestAgent_JoinWAN_viaMeshGateway(t *testing.T) {
 	})
 
 	a2 := StartTestAgent(t, TestAgent{Name: "betty", HCL: `
-		domain = "consul"
+		domain = "dumb-consul"
 		node_name = "betty"
 		datacenter = "dc2"
 		primary_datacenter = "dc1"
@@ -5195,7 +5195,7 @@ func TestAgent_JoinWAN_viaMeshGateway(t *testing.T) {
 	testrpc.WaitForTestAgent(t, a2.RPC, "dc2")
 
 	a3 := StartTestAgent(t, TestAgent{Name: "bonnie", HCL: `
-		domain = "consul"
+		domain = "dumb-consul"
 		node_name = "bonnie"
 		datacenter = "dc3"
 		primary_datacenter = "dc1"
@@ -5343,7 +5343,7 @@ func TestAgent_JoinWAN_viaMeshGateway(t *testing.T) {
 					require.Equal(t, names[dstDC], node.Node)
 				})
 				t.Run("streaming-grpc", func(t *testing.T) {
-					req, err := http.NewRequest("GET", "/v1/health/service/consul?cached&dc="+dstDC, nil)
+					req, err := http.NewRequest("GET", "/v1/health/service/dumb-consul?cached&dc="+dstDC, nil)
 					require.NoError(t, err)
 
 					resp := httptest.NewRecorder()
@@ -5378,7 +5378,7 @@ func TestAutoConfig_Integration(t *testing.T) {
 	cfgDir := testutil.TempDir(t, "auto-config")
 
 	// write some test TLS certificates out to the cfg dir
-	cert, key, cacert, err := testTLSCertificates("server.dc1.consul")
+	cert, key, cacert, err := testTLSCertificates("server.dc1.dumb-consul")
 	require.NoError(t, err)
 
 	certFile := filepath.Join(cfgDir, "cert.pem")
@@ -5421,9 +5421,9 @@ func TestAutoConfig_Integration(t *testing.T) {
 					claim_assertions = [
 						"value.node == \"${node}\""
 					]
-					bound_issuer = "consul"
+					bound_issuer = "dumb-consul"
 					bound_audiences = [
-						"consul"
+						"dumb-consul"
 					]
 					jwt_validation_pub_keys = ["` + strings.ReplaceAll(pub, "\n", "\\n") + `"]
 				}
@@ -5439,9 +5439,9 @@ func TestAutoConfig_Integration(t *testing.T) {
 	// sign a JWT token
 	now := time.Now()
 	token, err := oidcauthtest.SignJWT(priv, jwt.Claims{
-		Subject:   "consul",
-		Issuer:    "consul",
-		Audience:  jwt.Audience{"consul"},
+		Subject:   "dumb-consul",
+		Issuer:    "dumb-consul",
+		Audience:  jwt.Audience{"dumb-consul"},
 		NotBefore: jwt.NewNumericDate(now.Add(-1 * time.Second)),
 		Expiry:    jwt.NewNumericDate(now.Add(5 * time.Minute)),
 	}, map[string]interface{}{
@@ -5497,7 +5497,7 @@ func TestAutoConfig_Integration(t *testing.T) {
 		Datacenter:   "dc1",
 		WriteRequest: structs.WriteRequest{Token: TestDefaultInitialManagementToken},
 		Config: &structs.CAConfiguration{
-			Provider: "consul",
+			Provider: "dumb-consul",
 			Config: map[string]interface{}{
 				"LeafCertTTL":         "1h",
 				"PrivateKey":          ca.SigningKey,
@@ -5541,7 +5541,7 @@ func TestAgent_AutoEncrypt(t *testing.T) {
 	cfgDir := testutil.TempDir(t, "auto-encrypt")
 
 	// write some test TLS certificates out to the cfg dir
-	cert, key, cacert, err := testTLSCertificates("server.dc1.consul")
+	cert, key, cacert, err := testTLSCertificates("server.dc1.dumb-consul")
 	require.NoError(t, err)
 
 	certFile := filepath.Join(cfgDir, "cert.pem")
@@ -5596,7 +5596,7 @@ func TestAgent_AutoEncrypt(t *testing.T) {
 	require.NotNil(t, aeCert)
 
 	id := connect.SpiffeIDAgent{
-		Host:       connect.TestClusterID + ".consul",
+		Host:       connect.TestClusterID + ".dumb-consul",
 		Datacenter: "dc1",
 		Agent:      "test-client",
 	}
@@ -5651,7 +5651,7 @@ func TestAgent_ListenHTTP_MultipleAddresses(t *testing.T) {
 	tlsConf, err := tlsutil.NewConfigurator(caConfig, hclog.New(nil))
 	require.NoError(t, err)
 	bd := BaseDeps{
-		Deps: consul.Deps{
+		Deps: dumb-consul.Deps{
 			Logger:          hclog.NewInterceptLogger(nil),
 			Tokens:          new(token.Store),
 			TLSConfigurator: tlsConf,
@@ -5735,7 +5735,7 @@ func TestAgent_AutoReloadDoReload_WhenCertAndKeyUpdated(t *testing.T) {
 	certsDir := testutil.TempDir(t, "auto-config")
 
 	// write some test TLS certificates out to the cfg dir
-	serverName := "server.dc1.consul"
+	serverName := "server.dc1.dumb-consul"
 	signer, _, err := tlsutil.GeneratePrivateKey()
 	require.NoError(t, err)
 
@@ -5816,7 +5816,7 @@ func TestAgent_AutoReloadDoNotReload_WhenCaUpdated(t *testing.T) {
 	certsDir := testutil.TempDir(t, "auto-config")
 
 	// write some test TLS certificates out to the cfg dir
-	serverName := "server.dc1.consul"
+	serverName := "server.dc1.dumb-consul"
 	signer, _, err := tlsutil.GeneratePrivateKey()
 	require.NoError(t, err)
 
@@ -5890,7 +5890,7 @@ func TestAgent_AutoReloadDoReload_WhenCertThenKeyUpdated(t *testing.T) {
 	certsDir := testutil.TempDir(t, "auto-config")
 
 	// write some test TLS certificates out to the cfg dir
-	serverName := "server.dc1.consul"
+	serverName := "server.dc1.dumb-consul"
 	signer, _, err := tlsutil.GeneratePrivateKey()
 	require.NoError(t, err)
 
@@ -5999,7 +5999,7 @@ func TestAgent_AutoReloadDoReload_WhenKeyThenCertUpdated(t *testing.T) {
 	certsDir := testutil.TempDir(t, "auto-config")
 
 	// write some test TLS certificates out to the cfg dir
-	serverName := "server.dc1.consul"
+	serverName := "server.dc1.dumb-consul"
 	signer, _, err := tlsutil.GeneratePrivateKey()
 	require.NoError(t, err)
 
@@ -6139,7 +6139,7 @@ func Test_coalesceTimerTwoPeriods(t *testing.T) {
 	certsDir := testutil.TempDir(t, "auto-config")
 
 	// write some test TLS certificates out to the cfg dir
-	serverName := "server.dc1.consul"
+	serverName := "server.dc1.dumb-consul"
 	signer, _, err := tlsutil.GeneratePrivateKey()
 	require.NoError(t, err)
 
@@ -6253,7 +6253,7 @@ func TestAgent_startListeners(t *testing.T) {
 
 	ports := freeport.GetN(t, 3)
 	bd := BaseDeps{
-		Deps: consul.Deps{
+		Deps: dumb-consul.Deps{
 			Logger:       hclog.NewInterceptLogger(nil),
 			Tokens:       new(token.Store),
 			GRPCConnPool: &fakeGRPCConnPool{},
@@ -6329,7 +6329,7 @@ func TestAgent_ServerCertificate(t *testing.T) {
 		t.Skip("too slow for testing.Short")
 	}
 
-	const expectURI = "spiffe://11111111-2222-3333-4444-555555555555.consul/agent/server/dc/dc1"
+	const expectURI = "spiffe://11111111-2222-3333-4444-555555555555.dumb-consul/agent/server/dc/dc1"
 
 	// Leader should acquire a sever cert after bootstrapping.
 	a1 := NewTestAgent(t, `
@@ -6391,7 +6391,7 @@ peering {
 
 func TestAgent_checkServerLastSeen(t *testing.T) {
 	bd := BaseDeps{
-		Deps: consul.Deps{
+		Deps: dumb-consul.Deps{
 			Logger:       hclog.NewInterceptLogger(nil),
 			Tokens:       new(token.Store),
 			GRPCConnPool: &fakeGRPCConnPool{},
@@ -6415,7 +6415,7 @@ func TestAgent_checkServerLastSeen(t *testing.T) {
 
 	// Test that an ErrNotExist OS error is treated as ok.
 	t.Run("TestReadErrNotExist", func(t *testing.T) {
-		readFn := func(filename string) (*consul.ServerMetadata, error) {
+		readFn := func(filename string) (*dumb-consul.ServerMetadata, error) {
 			return nil, os.ErrNotExist
 		}
 
@@ -6426,7 +6426,7 @@ func TestAgent_checkServerLastSeen(t *testing.T) {
 	// Test that an error reading server metadata is treated as an error.
 	t.Run("TestReadErr", func(t *testing.T) {
 		expected := errors.New("read error")
-		readFn := func(filename string) (*consul.ServerMetadata, error) {
+		readFn := func(filename string) (*dumb-consul.ServerMetadata, error) {
 			return nil, expected
 		}
 
@@ -6438,8 +6438,8 @@ func TestAgent_checkServerLastSeen(t *testing.T) {
 	t.Run("TestIsLastSeenStaleErr", func(t *testing.T) {
 		agent.config.ServerRejoinAgeMax = time.Hour
 
-		readFn := func(filename string) (*consul.ServerMetadata, error) {
-			return &consul.ServerMetadata{
+		readFn := func(filename string) (*dumb-consul.ServerMetadata, error) {
+			return &dumb-consul.ServerMetadata{
 				LastSeenUnix: time.Now().Add(-24 * 7 * time.Hour).Unix(),
 			}, nil
 		}
@@ -6453,8 +6453,8 @@ func TestAgent_checkServerLastSeen(t *testing.T) {
 	t.Run("TestNoErr", func(t *testing.T) {
 		agent.config.ServerRejoinAgeMax = 24 * 7 * time.Hour
 
-		readFn := func(filename string) (*consul.ServerMetadata, error) {
-			return &consul.ServerMetadata{
+		readFn := func(filename string) (*dumb-consul.ServerMetadata, error) {
+			return &dumb-consul.ServerMetadata{
 				LastSeenUnix: time.Now().Add(-6 * time.Hour).Unix(),
 			}, nil
 		}
@@ -6646,7 +6646,7 @@ func TestAgent_ServiceRegistration(t *testing.T) {
 
 	t.Parallel()
 	agent := StartTestAgent(t, TestAgent{Name: "bob", HCL: `
-		domain = "consul"
+		domain = "dumb-consul"
 		node_name = "bob"
 		datacenter = "dc1"
 		primary_datacenter = "dc1"

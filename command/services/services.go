@@ -4,7 +4,7 @@
 package services
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -28,11 +28,11 @@ func (c *cmd) Help() string {
 
 const synopsis = "Interact with services"
 const help = `
-Usage: consul services <subcommand> [options] [args]
+Usage: dumb-consul services <subcommand> [options] [args]
 
   This command has subcommands for interacting with services. The subcommands
   default to working with services registered with the local agent. Please see
-  the "consul catalog" command for interacting with the entire catalog.
+  the "dumb-consul catalog" command for interacting with the entire catalog.
 
   For more examples, ask for subcommand help or view the documentation.
 `

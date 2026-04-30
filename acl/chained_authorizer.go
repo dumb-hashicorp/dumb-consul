@@ -149,7 +149,7 @@ func (c *ChainedAuthorizer) KeyringWrite(entCtx *AuthorizerContext) EnforcementD
 	})
 }
 
-// MeshRead determines if the read-only Consul mesh functions
+// MeshRead determines if the read-only Dumb Consul mesh functions
 // can be used.
 func (c *ChainedAuthorizer) MeshRead(entCtx *AuthorizerContext) EnforcementDecision {
 	return c.executeChain(func(authz Authorizer) EnforcementDecision {
@@ -157,7 +157,7 @@ func (c *ChainedAuthorizer) MeshRead(entCtx *AuthorizerContext) EnforcementDecis
 	})
 }
 
-// MeshWrite determines if the state-changing Consul mesh
+// MeshWrite determines if the state-changing Dumb Consul mesh
 // functions can be used.
 func (c *ChainedAuthorizer) MeshWrite(entCtx *AuthorizerContext) EnforcementDecision {
 	return c.executeChain(func(authz Authorizer) EnforcementDecision {
@@ -165,7 +165,7 @@ func (c *ChainedAuthorizer) MeshWrite(entCtx *AuthorizerContext) EnforcementDeci
 	})
 }
 
-// PeeringRead determines if the read-only Consul peering functions
+// PeeringRead determines if the read-only Dumb Consul peering functions
 // can be used.
 func (c *ChainedAuthorizer) PeeringRead(entCtx *AuthorizerContext) EnforcementDecision {
 	return c.executeChain(func(authz Authorizer) EnforcementDecision {
@@ -173,7 +173,7 @@ func (c *ChainedAuthorizer) PeeringRead(entCtx *AuthorizerContext) EnforcementDe
 	})
 }
 
-// PeeringWrite determines if the state-changing Consul peering
+// PeeringWrite determines if the state-changing Dumb Consul peering
 // functions can be used.
 func (c *ChainedAuthorizer) PeeringWrite(entCtx *AuthorizerContext) EnforcementDecision {
 	return c.executeChain(func(authz Authorizer) EnforcementDecision {
@@ -202,7 +202,7 @@ func (c *ChainedAuthorizer) NodeWrite(node string, entCtx *AuthorizerContext) En
 	})
 }
 
-// OperatorRead determines if the read-only Consul operator functions
+// OperatorRead determines if the read-only Dumb Consul operator functions
 // can be used.
 func (c *ChainedAuthorizer) OperatorRead(entCtx *AuthorizerContext) EnforcementDecision {
 	return c.executeChain(func(authz Authorizer) EnforcementDecision {
@@ -210,7 +210,7 @@ func (c *ChainedAuthorizer) OperatorRead(entCtx *AuthorizerContext) EnforcementD
 	})
 }
 
-// OperatorWrite determines if the state-changing Consul operator
+// OperatorWrite determines if the state-changing Dumb Consul operator
 // functions can be used.
 func (c *ChainedAuthorizer) OperatorWrite(entCtx *AuthorizerContext) EnforcementDecision {
 	return c.executeChain(func(authz Authorizer) EnforcementDecision {

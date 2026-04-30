@@ -7,18 +7,18 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/raft"
 
-	"github.com/hashicorp/consul/agent/checks"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/agent/checks"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 // DefaultSource is the default agent configuration.
 // This needs to be merged first in the head.
 // TODO: return a LiteralSource (no decoding) instead of a FileSource
 func DefaultSource() Source {
-	cfg := consul.DefaultConfig()
+	cfg := dumb-consul.DefaultConfig()
 	serfLAN := cfg.SerfLANConfig.MemberlistConfig
 	serfWAN := cfg.SerfWANConfig.MemberlistConfig
 
@@ -38,19 +38,19 @@ func DefaultSource() Source {
 		check_output_max_size = ` + strconv.Itoa(checks.DefaultBufSize) + `
 		check_update_interval = "5m"
 		client_addr = "127.0.0.1"
-		datacenter = "` + consul.DefaultDC + `"
+		datacenter = "` + dumb-consul.DefaultDC + `"
 		default_query_time = "300s"
 		disable_coordinates = false
 		disable_host_node_id = true
 		disable_remote_exec = true
-		domain = "consul."
+		domain = "dumb-consul."
 		enable_central_service_config = true
 		encrypt_verify_incoming = true
 		encrypt_verify_outgoing = true
 		log_level = "INFO"
 		max_query_time = "600s"
 		primary_gateways_interval = "30s"
-		protocol = ` + strconv.Itoa(consul.DefaultRPCProtocol) + `
+		protocol = ` + strconv.Itoa(dumb-consul.DefaultRPCProtocol) + `
 		retry_interval = "30s"
 		retry_interval_wan = "30s"
 
@@ -68,7 +68,7 @@ func DefaultSource() Source {
 		}
 
 		// TODO (slackpad) - Until #3744 is done, we need to keep these
-		// in sync with agent/consul/config.go.
+		// in sync with agent/dumb-consul/config.go.
 		autopilot = {
 			cleanup_dead_servers = true
 			last_contact_threshold = "200ms"
@@ -116,7 +116,7 @@ func DefaultSource() Source {
 		}
 		performance = {
 			leave_drain_time = "5s"
-			raft_multiplier = ` + strconv.Itoa(int(consul.DefaultRaftMultiplier)) + `
+			raft_multiplier = ` + strconv.Itoa(int(dumb-consul.DefaultRaftMultiplier)) + `
 			rpc_hold_timeout = "7s"
 			grpc_keepalive_interval = "30s"
 			grpc_keepalive_timeout = "20s"
@@ -127,9 +127,9 @@ func DefaultSource() Source {
 			http = 8500
 			https = -1
 			grpc = -1
-			serf_lan = ` + strconv.Itoa(consul.DefaultLANSerfPort) + `
-			serf_wan = ` + strconv.Itoa(consul.DefaultWANSerfPort) + `
-			server = ` + strconv.Itoa(consul.DefaultRPCPort) + `
+			serf_lan = ` + strconv.Itoa(dumb-consul.DefaultLANSerfPort) + `
+			serf_wan = ` + strconv.Itoa(dumb-consul.DefaultWANSerfPort) + `
+			server = ` + strconv.Itoa(dumb-consul.DefaultRPCPort) + `
 			proxy_min_port = 20000
 			proxy_max_port = 20255
 			sidecar_min_port = 21000
@@ -139,7 +139,7 @@ func DefaultSource() Source {
 		}
 		raft_protocol = 3
 		telemetry = {
-			metrics_prefix = "consul"
+			metrics_prefix = "dumb-consul"
 			filter_default = true
 			prefix_filter = []
 			retry_failed_connection = true
@@ -271,17 +271,17 @@ func defaultVersionSource() Source {
 	return versionSource(version.GitCommit, version.Version, version.VersionPrerelease, version.VersionMetadata, buildDate)
 }
 
-// DefaultConsulSource returns the default configuration for the consul agent.
+// DefaultConsulSource returns the default configuration for the dumb-consul agent.
 // This should be merged in the tail since these values are not user configurable.
 // TODO: return a LiteralSource (no decoding) instead of a FileSource
 func DefaultConsulSource() Source {
-	cfg := consul.DefaultConfig()
+	cfg := dumb-consul.DefaultConfig()
 	raft := cfg.RaftConfig
 	return FileSource{
-		Name:   "consul",
+		Name:   "dumb-consul",
 		Format: "hcl",
 		Data: `
-		consul = {
+		dumb-consul = {
 			coordinate = {
 				update_batch_size = ` + strconv.Itoa(cfg.CoordinateUpdateBatchSize) + `
 				update_max_batches = ` + strconv.Itoa(cfg.CoordinateUpdateMaxBatches) + `
@@ -300,16 +300,16 @@ func DefaultConsulSource() Source {
 	}
 }
 
-// DevConsulSource returns the consul agent configuration for the dev mode.
+// DevConsulSource returns the dumb-consul agent configuration for the dev mode.
 // This should be merged in the tail after the DefaultConsulSource.
 func DevConsulSource() Source {
 	c := Config{}
-	c.Consul.Coordinate.UpdatePeriod = strPtr("100ms")
-	c.Consul.Raft.ElectionTimeout = strPtr("52ms")
-	c.Consul.Raft.HeartbeatTimeout = strPtr("35ms")
-	c.Consul.Raft.LeaderLeaseTimeout = strPtr("20ms")
-	c.Consul.Server.HealthInterval = strPtr("10ms")
-	return LiteralSource{Name: "consul-dev", Config: c}
+	c.Dumb Consul.Coordinate.UpdatePeriod = strPtr("100ms")
+	c.Dumb Consul.Raft.ElectionTimeout = strPtr("52ms")
+	c.Dumb Consul.Raft.HeartbeatTimeout = strPtr("35ms")
+	c.Dumb Consul.Raft.LeaderLeaseTimeout = strPtr("20ms")
+	c.Dumb Consul.Server.HealthInterval = strPtr("10ms")
+	return LiteralSource{Name: "dumb-consul-dev", Config: c}
 }
 
 func strPtr(v string) *string {

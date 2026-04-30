@@ -27,9 +27,9 @@ import (
 	"gotest.tools/v3/assert/cmp"
 	"gotest.tools/v3/fs"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestDebugCommand_Help_TextContainsNoTabs(t *testing.T) {
@@ -83,7 +83,7 @@ func TestDebugCommand(t *testing.T) {
 			fs.WithFile("ports.json", "", fs.MatchFileContent(validJSON)),
 			fs.WithFile("metrics.json", "", fs.MatchAnyFileContent),
 			fs.WithFile("listpeers.json", "", fs.MatchAnyFileContent),
-			fs.WithFile("consul.log", "", fs.MatchFileContent(validLogFile)),
+			fs.WithFile("dumb-consul.log", "", fs.MatchFileContent(validLogFile)),
 			fs.WithFile("profile.prof", "", fs.MatchFileContent(validProfileData)),
 			fs.WithFile("trace.out", "", fs.MatchAnyFileContent),
 			fs.WithDir("2021-07-08T09-10-12Z",
@@ -386,7 +386,7 @@ func TestDebugCommand_CaptureTargets(t *testing.T) {
 				"agent.json",
 				"members.json",
 				"metrics.json",
-				"consul.log",
+				"dumb-consul.log",
 			},
 			[]string{},
 		},

@@ -4,7 +4,7 @@
 package autopilot
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -28,8 +28,8 @@ func (c *cmd) Help() string {
 
 const synopsis = "Provides tools for modifying Autopilot configuration"
 const help = `
-Usage: consul operator autopilot <subcommand> [options]
+Usage: dumb-consul operator autopilot <subcommand> [options]
 
-  The Autopilot operator command is used to interact with Consul's Autopilot
+  The Autopilot operator command is used to interact with Dumb Consul's Autopilot
   subsystem. The command can be used to view or modify the current configuration.
 `

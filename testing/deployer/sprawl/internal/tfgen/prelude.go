@@ -7,7 +7,7 @@ const terraformPrelude = `provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
 
-terraform {
+dumb-terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"

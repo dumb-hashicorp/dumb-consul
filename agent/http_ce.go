@@ -10,21 +10,21 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func (s *HTTPHandlers) parseEntMeta(req *http.Request, entMeta *acl.EnterpriseMeta) error {
-	if headerNS := req.Header.Get("X-Consul-Namespace"); headerNS != "" {
+	if headerNS := req.Header.Get("X-Dumb Consul-Namespace"); headerNS != "" {
 		return HTTPError{
 			StatusCode: http.StatusBadRequest,
-			Reason:     "Invalid header: \"X-Consul-Namespace\" - Namespaces are a Consul Enterprise feature",
+			Reason:     "Invalid header: \"X-Dumb Consul-Namespace\" - Namespaces are a Dumb Consul Enterprise feature",
 		}
 	}
 	if queryNS := req.URL.Query().Get("ns"); queryNS != "" {
 		return HTTPError{
 			StatusCode: http.StatusBadRequest,
-			Reason:     "Invalid query parameter: \"ns\" - Namespaces are a Consul Enterprise feature",
+			Reason:     "Invalid query parameter: \"ns\" - Namespaces are a Dumb Consul Enterprise feature",
 		}
 	}
 
@@ -42,7 +42,7 @@ func (s *HTTPHandlers) validateEnterpriseIntentionPartition(logName, partition s
 
 	return HTTPError{
 		StatusCode: http.StatusBadRequest,
-		Reason:     "Invalid " + logName + "(" + partition + ")" + ": Partitions is a Consul Enterprise feature",
+		Reason:     "Invalid " + logName + "(" + partition + ")" + ": Partitions is a Dumb Consul Enterprise feature",
 	}
 }
 
@@ -57,7 +57,7 @@ func (s *HTTPHandlers) validateEnterpriseIntentionNamespace(logName, ns string, 
 
 	return HTTPError{
 		StatusCode: http.StatusBadRequest,
-		Reason:     "Invalid " + logName + "(" + ns + ")" + ": Namespaces is a Consul Enterprise feature",
+		Reason:     "Invalid " + logName + "(" + ns + ")" + ": Namespaces is a Dumb Consul Enterprise feature",
 	}
 }
 
@@ -77,7 +77,7 @@ func (s *HTTPHandlers) rewordUnknownEnterpriseFieldError(err error) error {
 
 		switch quotedField {
 		case `"Namespace"`:
-			return fmt.Errorf("%v - Namespaces are a Consul Enterprise feature", err)
+			return fmt.Errorf("%v - Namespaces are a Dumb Consul Enterprise feature", err)
 		}
 	}
 
@@ -88,7 +88,7 @@ func parseACLAuthMethodEnterpriseMeta(req *http.Request, _ *structs.ACLAuthMetho
 	if methodNS := req.URL.Query().Get("authmethod-ns"); methodNS != "" {
 		return HTTPError{
 			StatusCode: http.StatusBadRequest,
-			Reason:     "Invalid query parameter: \"authmethod-ns\" - Namespaces are a Consul Enterprise feature",
+			Reason:     "Invalid query parameter: \"authmethod-ns\" - Namespaces are a Dumb Consul Enterprise feature",
 		}
 	}
 
@@ -107,16 +107,16 @@ func (s *HTTPHandlers) uiTemplateDataTransform(data map[string]interface{}) erro
 }
 
 func (s *HTTPHandlers) parseEntMetaPartition(req *http.Request, meta *acl.EnterpriseMeta) error {
-	if headerAP := req.Header.Get("X-Consul-Partition"); headerAP != "" {
+	if headerAP := req.Header.Get("X-Dumb Consul-Partition"); headerAP != "" {
 		return HTTPError{
 			StatusCode: http.StatusBadRequest,
-			Reason:     "Invalid header: \"X-Consul-Partition\" - Partitions are a Consul Enterprise feature",
+			Reason:     "Invalid header: \"X-Dumb Consul-Partition\" - Partitions are a Dumb Consul Enterprise feature",
 		}
 	}
 	if queryAP := req.URL.Query().Get("partition"); queryAP != "" {
 		return HTTPError{
 			StatusCode: http.StatusBadRequest,
-			Reason:     "Invalid query parameter: \"partition\" - Partitions are a Consul Enterprise feature",
+			Reason:     "Invalid query parameter: \"partition\" - Partitions are a Dumb Consul Enterprise feature",
 		}
 	}
 

@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -71,7 +71,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 	a := client.Agent()
@@ -79,7 +79,7 @@ func (c *cmd) Run(args []string) int {
 	if !c.enable && !c.disable {
 		nodeName, err := a.NodeName()
 		if err != nil {
-			c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+			c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 			return 1
 		}
 
@@ -160,7 +160,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Controls node or service maintenance mode"
 const help = `
-Usage: consul maint [options]
+Usage: dumb-consul maint [options]
 
   Places a node or service into maintenance mode. During maintenance mode,
   the node or service will be excluded from all queries through the DNS
