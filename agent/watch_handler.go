@@ -15,10 +15,10 @@ import (
 	"strconv"
 
 	"github.com/armon/circbuf"
-	"github.com/hashicorp/consul/agent/exec"
-	"github.com/hashicorp/consul/api/watch"
-	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/exec"
+	"github.com/dumb-hashicorp/dumb-consul/api/watch"
+	"github.com/dumb-hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"golang.org/x/net/context"
 )
 
@@ -30,7 +30,7 @@ const (
 )
 
 // makeWatchHandler returns a handler for the given watch
-func makeWatchHandler(logger hclog.Logger, handler interface{}) watch.HandlerFunc {
+func makeWatchHandler(logger dumb-hclog.Logger, handler interface{}) watch.HandlerFunc {
 	var args []string
 	var script string
 
@@ -60,7 +60,7 @@ func makeWatchHandler(logger hclog.Logger, handler interface{}) watch.HandlerFun
 		}
 
 		cmd.Env = append(os.Environ(),
-			"CONSUL_INDEX="+strconv.FormatUint(idx, 10),
+			"DUMB_CONSUL_INDEX="+strconv.FormatUint(idx, 10),
 		)
 
 		// Collect the output
@@ -104,7 +104,7 @@ func makeWatchHandler(logger hclog.Logger, handler interface{}) watch.HandlerFun
 	return fn
 }
 
-func makeHTTPWatchHandler(logger hclog.Logger, config *watch.HttpHandlerConfig) watch.HandlerFunc {
+func makeHTTPWatchHandler(logger dumb-hclog.Logger, config *watch.HttpHandlerConfig) watch.HandlerFunc {
 	fn := func(idx uint64, data interface{}) {
 		trans := cleanhttp.DefaultTransport()
 
@@ -144,7 +144,7 @@ func makeHTTPWatchHandler(logger hclog.Logger, config *watch.HttpHandlerConfig) 
 		}
 		req = req.WithContext(ctx)
 		req.Header.Add("Content-Type", "application/json")
-		req.Header.Add("X-Consul-Index", strconv.FormatUint(idx, 10))
+		req.Header.Add("X-Dumb Consul-Index", strconv.FormatUint(idx, 10))
 		for key, values := range config.Header {
 			for _, val := range values {
 				req.Header.Add(key, val)
@@ -190,7 +190,7 @@ func makeHTTPWatchHandler(logger hclog.Logger, config *watch.HttpHandlerConfig) 
 
 // TODO: return a fully constructed watch.Plan with a Plan.Handler, so that Exempt
 // can be ignored by the caller.
-func makeWatchPlan(logger hclog.Logger, params map[string]interface{}) (*watch.Plan, error) {
+func makeWatchPlan(logger dumb-hclog.Logger, params map[string]interface{}) (*watch.Plan, error) {
 	wp, err := watch.ParseExempt(params, []string{"handler", "args"})
 	if err != nil {
 		return nil, fmt.Errorf("Failed to parse watch (%#v): %v", params, err)
@@ -199,7 +199,7 @@ func makeWatchPlan(logger hclog.Logger, params map[string]interface{}) (*watch.P
 	handler, hasHandler := wp.Exempt["handler"]
 	if hasHandler {
 		logger.Warn("The 'handler' field in watches has been deprecated " +
-			"and replaced with the 'args' field. See https://developer.hashicorp.com/docs/agent/watches")
+			"and replaced with the 'args' field. See https://developer.dumb-hashicorp.com/docs/agent/watches")
 	}
 	if _, ok := handler.(string); hasHandler && !ok {
 		return nil, fmt.Errorf("Watch handler must be a string")

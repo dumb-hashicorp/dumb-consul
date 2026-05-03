@@ -31,7 +31,7 @@ const (
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.RaftIndex
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.RaftIndex
 // output=common.gen.go
 // name=Structs
 // ignore-fields=state,sizeCache,unknownFields
@@ -90,7 +90,7 @@ func (x *RaftIndex) GetModifyIndex() uint64 {
 }
 
 // TargetDatacenter is intended to be used within other messages used for RPC routing
-// amongst the various Consul datacenters
+// amongst the various Dumb Consul datacenters
 type TargetDatacenter struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Datacenter    string                 `protobuf:"bytes,1,opt,name=Datacenter,proto3" json:"Datacenter,omitempty"`
@@ -137,7 +137,7 @@ func (x *TargetDatacenter) GetDatacenter() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.WriteRequest
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.WriteRequest
 // output=common.gen.go
 // name=Structs
 // ignore-fields=state,sizeCache,unknownFields
@@ -252,7 +252,7 @@ func (x *ReadRequest) GetRequireConsistent() bool {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.QueryOptions
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.QueryOptions
 // output=common.gen.go
 // name=Structs
 // ignore-fields=StaleIfError,AllowNotModifiedResponse,state,sizeCache,unknownFields
@@ -292,7 +292,7 @@ type QueryOptions struct {
 	// returned. Clients that wish to allow for stale results on error can set
 	// StaleIfError to a longer duration to change this behavior. It is ignored
 	// if the endpoint supports background refresh caching. See
-	// https://developer.hashicorp.com/api/index.html#agent-caching for more details.
+	// https://developer.dumb-hashicorp.com/api/index.html#agent-caching for more details.
 	// mog: func-to=structs.DurationFromProto func-from=structs.DurationToProto
 	MaxAge *durationpb.Duration `protobuf:"bytes,8,opt,name=MaxAge,proto3" json:"MaxAge,omitempty"`
 	// MustRevalidate forces the agent to fetch a fresh version of a cached
@@ -305,7 +305,7 @@ type QueryOptions struct {
 	// if the servers are unavailable to fetch a fresh one. Only makes sense when
 	// UseCache is true and MaxAge is set to a lower, non-zero value. It is
 	// ignored if the endpoint supports background refresh caching. See
-	// https://developer.hashicorp.com/api/index.html#agent-caching for more details.
+	// https://developer.dumb-hashicorp.com/api/index.html#agent-caching for more details.
 	StaleIfError *durationpb.Duration `protobuf:"bytes,10,opt,name=StaleIfError,proto3" json:"StaleIfError,omitempty"`
 	// Filter specifies the go-bexpr filter expression to be used for
 	// filtering the data prior to returning a response
@@ -426,7 +426,7 @@ func (x *QueryOptions) GetFilter() string {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.QueryMeta
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.QueryMeta
 // output=common.gen.go
 // name=Structs
 // ignore-fields=NotModified,Backend,state,sizeCache,unknownFields
@@ -519,7 +519,7 @@ func (x *QueryMeta) GetResultsFilteredByACLs() bool {
 }
 
 // EnterpriseMeta contains metadata that is only used by the Enterprise version
-// of Consul.
+// of Dumb Consul.
 type EnterpriseMeta struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Namespace in which the entity exists.
@@ -576,7 +576,7 @@ func (x *EnterpriseMeta) GetPartition() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.EnvoyExtension
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.EnvoyExtension
 // output=common.gen.go
 // name=Structs
 type EnvoyExtension struct {
@@ -585,7 +585,7 @@ type EnvoyExtension struct {
 	Required bool                   `protobuf:"varint,2,opt,name=Required,proto3" json:"Required,omitempty"`
 	// mog: func-to=ProtobufTypesStructToMapStringInterface func-from=MapStringInterfaceToProtobufTypesStruct
 	Arguments     *structpb.Struct `protobuf:"bytes,3,opt,name=Arguments,proto3" json:"Arguments,omitempty"`
-	ConsulVersion string           `protobuf:"bytes,4,opt,name=ConsulVersion,proto3" json:"ConsulVersion,omitempty"`
+	Dumb ConsulVersion string           `protobuf:"bytes,4,opt,name=Dumb ConsulVersion,proto3" json:"Dumb ConsulVersion,omitempty"`
 	EnvoyVersion  string           `protobuf:"bytes,5,opt,name=EnvoyVersion,proto3" json:"EnvoyVersion,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -642,9 +642,9 @@ func (x *EnvoyExtension) GetArguments() *structpb.Struct {
 	return nil
 }
 
-func (x *EnvoyExtension) GetConsulVersion() string {
+func (x *EnvoyExtension) GetDumb ConsulVersion() string {
 	if x != nil {
-		return x.ConsulVersion
+		return x.Dumb ConsulVersion
 	}
 	return ""
 }
@@ -658,7 +658,7 @@ func (x *EnvoyExtension) GetEnvoyVersion() string {
 
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Locality
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Locality
 // output=common.gen.go
 // name=Structs
 type Locality struct {
@@ -719,7 +719,7 @@ var File_private_pbcommon_common_proto protoreflect.FileDescriptor
 
 const file_private_pbcommon_common_proto_rawDesc = "" +
 	"\n" +
-	"\x1dprivate/pbcommon/common.proto\x12 hashicorp.consul.internal.common\x1a\x1egoogle/protobuf/duration.proto\x1a\x1cgoogle/protobuf/struct.proto\"O\n" +
+	"\x1dprivate/pbcommon/common.proto\x12 dumb-hashicorp.dumb-consul.internal.common\x1a\x1egoogle/protobuf/duration.proto\x1a\x1cgoogle/protobuf/struct.proto\"O\n" +
 	"\tRaftIndex\x12 \n" +
 	"\vCreateIndex\x18\x01 \x01(\x04R\vCreateIndex\x12 \n" +
 	"\vModifyIndex\x18\x02 \x01(\x04R\vModifyIndex\"2\n" +
@@ -760,12 +760,12 @@ const file_private_pbcommon_common_proto_rawDesc = "" +
 	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x1a\n" +
 	"\bRequired\x18\x02 \x01(\bR\bRequired\x125\n" +
 	"\tArguments\x18\x03 \x01(\v2\x17.google.protobuf.StructR\tArguments\x12$\n" +
-	"\rConsulVersion\x18\x04 \x01(\tR\rConsulVersion\x12\"\n" +
+	"\rDumb ConsulVersion\x18\x04 \x01(\tR\rDumb ConsulVersion\x12\"\n" +
 	"\fEnvoyVersion\x18\x05 \x01(\tR\fEnvoyVersion\"6\n" +
 	"\bLocality\x12\x16\n" +
 	"\x06Region\x18\x01 \x01(\tR\x06Region\x12\x12\n" +
 	"\x04Zone\x18\x02 \x01(\tR\x04ZoneB\x8b\x02\n" +
-	"$com.hashicorp.consul.internal.commonB\vCommonProtoP\x01Z2github.com/hashicorp/consul/proto/private/pbcommon\xa2\x02\x04HCIC\xaa\x02 Hashicorp.Consul.Internal.Common\xca\x02 Hashicorp\\Consul\\Internal\\Common\xe2\x02,Hashicorp\\Consul\\Internal\\Common\\GPBMetadata\xea\x02#Hashicorp::Consul::Internal::Commonb\x06proto3"
+	"$com.dumb-hashicorp.dumb-consul.internal.commonB\vCommonProtoP\x01Z2github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon\xa2\x02\x04HCIC\xaa\x02 Hashicorp.Dumb Consul.Internal.Common\xca\x02 Hashicorp\\Dumb Consul\\Internal\\Common\xe2\x02,Hashicorp\\Dumb Consul\\Internal\\Common\\GPBMetadata\xea\x02#Hashicorp::Dumb Consul::Internal::Commonb\x06proto3"
 
 var (
 	file_private_pbcommon_common_proto_rawDescOnce sync.Once
@@ -781,25 +781,25 @@ func file_private_pbcommon_common_proto_rawDescGZIP() []byte {
 
 var file_private_pbcommon_common_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_private_pbcommon_common_proto_goTypes = []any{
-	(*RaftIndex)(nil),           // 0: hashicorp.consul.internal.common.RaftIndex
-	(*TargetDatacenter)(nil),    // 1: hashicorp.consul.internal.common.TargetDatacenter
-	(*WriteRequest)(nil),        // 2: hashicorp.consul.internal.common.WriteRequest
-	(*ReadRequest)(nil),         // 3: hashicorp.consul.internal.common.ReadRequest
-	(*QueryOptions)(nil),        // 4: hashicorp.consul.internal.common.QueryOptions
-	(*QueryMeta)(nil),           // 5: hashicorp.consul.internal.common.QueryMeta
-	(*EnterpriseMeta)(nil),      // 6: hashicorp.consul.internal.common.EnterpriseMeta
-	(*EnvoyExtension)(nil),      // 7: hashicorp.consul.internal.common.EnvoyExtension
-	(*Locality)(nil),            // 8: hashicorp.consul.internal.common.Locality
+	(*RaftIndex)(nil),           // 0: dumb-hashicorp.dumb-consul.internal.common.RaftIndex
+	(*TargetDatacenter)(nil),    // 1: dumb-hashicorp.dumb-consul.internal.common.TargetDatacenter
+	(*WriteRequest)(nil),        // 2: dumb-hashicorp.dumb-consul.internal.common.WriteRequest
+	(*ReadRequest)(nil),         // 3: dumb-hashicorp.dumb-consul.internal.common.ReadRequest
+	(*QueryOptions)(nil),        // 4: dumb-hashicorp.dumb-consul.internal.common.QueryOptions
+	(*QueryMeta)(nil),           // 5: dumb-hashicorp.dumb-consul.internal.common.QueryMeta
+	(*EnterpriseMeta)(nil),      // 6: dumb-hashicorp.dumb-consul.internal.common.EnterpriseMeta
+	(*EnvoyExtension)(nil),      // 7: dumb-hashicorp.dumb-consul.internal.common.EnvoyExtension
+	(*Locality)(nil),            // 8: dumb-hashicorp.dumb-consul.internal.common.Locality
 	(*durationpb.Duration)(nil), // 9: google.protobuf.Duration
 	(*structpb.Struct)(nil),     // 10: google.protobuf.Struct
 }
 var file_private_pbcommon_common_proto_depIdxs = []int32{
-	9,  // 0: hashicorp.consul.internal.common.QueryOptions.MaxQueryTime:type_name -> google.protobuf.Duration
-	9,  // 1: hashicorp.consul.internal.common.QueryOptions.MaxStaleDuration:type_name -> google.protobuf.Duration
-	9,  // 2: hashicorp.consul.internal.common.QueryOptions.MaxAge:type_name -> google.protobuf.Duration
-	9,  // 3: hashicorp.consul.internal.common.QueryOptions.StaleIfError:type_name -> google.protobuf.Duration
-	9,  // 4: hashicorp.consul.internal.common.QueryMeta.LastContact:type_name -> google.protobuf.Duration
-	10, // 5: hashicorp.consul.internal.common.EnvoyExtension.Arguments:type_name -> google.protobuf.Struct
+	9,  // 0: dumb-hashicorp.dumb-consul.internal.common.QueryOptions.MaxQueryTime:type_name -> google.protobuf.Duration
+	9,  // 1: dumb-hashicorp.dumb-consul.internal.common.QueryOptions.MaxStaleDuration:type_name -> google.protobuf.Duration
+	9,  // 2: dumb-hashicorp.dumb-consul.internal.common.QueryOptions.MaxAge:type_name -> google.protobuf.Duration
+	9,  // 3: dumb-hashicorp.dumb-consul.internal.common.QueryOptions.StaleIfError:type_name -> google.protobuf.Duration
+	9,  // 4: dumb-hashicorp.dumb-consul.internal.common.QueryMeta.LastContact:type_name -> google.protobuf.Duration
+	10, // 5: dumb-hashicorp.dumb-consul.internal.common.EnvoyExtension.Arguments:type_name -> google.protobuf.Struct
 	6,  // [6:6] is the sub-list for method output_type
 	6,  // [6:6] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name

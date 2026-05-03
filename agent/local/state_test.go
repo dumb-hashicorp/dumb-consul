@@ -13,25 +13,25 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/mitchellh/copystructure"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/local"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func unNilMap(in map[string]string) map[string]string {
@@ -191,12 +191,12 @@ func TestAgentAntiEntropy_Services(t *testing.T) {
 	addrs := services.NodeServices.Node.TaggedAddresses
 	meta := services.NodeServices.Node.Meta
 	delete(meta, structs.MetaSegmentKey)    // Added later, not in config.
-	delete(meta, structs.MetaConsulVersion) // Added later, not in config.
+	delete(meta, structs.MetaDumb ConsulVersion) // Added later, not in config.
 	assert.Equal(t, a.Config.NodeID, id)
 	assert.Equal(t, a.Config.TaggedAddresses, addrs)
 	assert.Equal(t, unNilMap(a.Config.NodeMeta), meta)
 
-	// We should have 6 services (consul included)
+	// We should have 6 services (dumb-consul included)
 	if len(services.NodeServices.Services) != 6 {
 		t.Fatalf("bad: %v", services.NodeServices.Services)
 	}
@@ -215,7 +215,7 @@ func TestAgentAntiEntropy_Services(t *testing.T) {
 			require.Equal(t, srv5, serv)
 		case "cache":
 			require.Equal(t, srv6, serv)
-		case structs.ConsulServiceID:
+		case structs.Dumb ConsulServiceID:
 			// ignore
 		default:
 			t.Fatalf("unexpected service: %v", id)
@@ -237,7 +237,7 @@ func TestAgentAntiEntropy_Services(t *testing.T) {
 		t.Fatalf("err: %v", err)
 	}
 
-	// We should have 5 services (consul included)
+	// We should have 5 services (dumb-consul included)
 	if len(services.NodeServices.Services) != 5 {
 		t.Fatalf("bad: %v", services.NodeServices.Services)
 	}
@@ -254,7 +254,7 @@ func TestAgentAntiEntropy_Services(t *testing.T) {
 			require.Equal(t, srv3, serv)
 		case "cache":
 			require.Equal(t, srv6, serv)
-		case structs.ConsulServiceID:
+		case structs.Dumb ConsulServiceID:
 			// ignore
 		default:
 			t.Fatalf("unexpected service: %v", id)
@@ -394,7 +394,7 @@ func TestAgentAntiEntropy_Services_ConnectProxy(t *testing.T) {
 	}
 	require.NoError(t, a.RPC(context.Background(), "Catalog.NodeServices", &req, &services))
 
-	// We should have 5 services (consul included)
+	// We should have 5 services (dumb-consul included)
 	require.Len(t, services.NodeServices.Services, 5)
 
 	// check that virtual ips have been set
@@ -451,7 +451,7 @@ func TestAgentAntiEntropy_Services_ConnectProxy(t *testing.T) {
 				require.Equal(r, srv3, serv)
 			case "cache-proxy":
 				require.Equal(r, srv5, serv)
-			case structs.ConsulServiceID:
+			case structs.Dumb ConsulServiceID:
 				// ignore
 			default:
 				r.Fatalf("unexpected service: %v", id)
@@ -466,7 +466,7 @@ func TestAgentAntiEntropy_Services_ConnectProxy(t *testing.T) {
 	require.NoError(t, a.State.SyncFull())
 	require.NoError(t, a.RPC(context.Background(), "Catalog.NodeServices", &req, &services))
 
-	// We should have 4 services (consul included)
+	// We should have 4 services (dumb-consul included)
 	require.Len(t, services.NodeServices.Services, 4)
 
 	// All the services should match
@@ -479,7 +479,7 @@ func TestAgentAntiEntropy_Services_ConnectProxy(t *testing.T) {
 			require.Equal(t, srv2, serv)
 		case "web-proxy":
 			require.Equal(t, srv3, serv)
-		case structs.ConsulServiceID:
+		case structs.Dumb ConsulServiceID:
 			// ignore
 		default:
 			t.Fatalf("unexpected service: %v", id)
@@ -701,7 +701,7 @@ func TestAgentAntiEntropy_EnableTagOverride(t *testing.T) {
 			case "svc_id2":
 				got, want := serv, srv2
 				assert.Equal(r, want, got)
-			case structs.ConsulServiceID:
+			case structs.Dumb ConsulServiceID:
 				// ignore
 			default:
 				r.Fatalf("unexpected service: %v", id)
@@ -747,7 +747,7 @@ func TestAgentAntiEntropy_Services_WithChecks(t *testing.T) {
 			t.Fatal("sync failed: ", err)
 		}
 
-		// We should have 2 services (consul included)
+		// We should have 2 services (dumb-consul included)
 		svcReq := structs.NodeSpecificRequest{
 			Datacenter: "dc1",
 			Node:       a.Config.NodeName,
@@ -806,7 +806,7 @@ func TestAgentAntiEntropy_Services_WithChecks(t *testing.T) {
 			t.Fatal("sync failed: ", err)
 		}
 
-		// We should have 3 services (consul included)
+		// We should have 3 services (dumb-consul included)
 		svcReq := structs.NodeSpecificRequest{
 			Datacenter: "dc1",
 			Node:       a.Config.NodeName,
@@ -839,7 +839,7 @@ var testRegisterRules = `
  	policy = "write"
  }
 
- service "consul" {
+ service "dumb-consul" {
  	policy = "write"
  }
  `
@@ -916,7 +916,7 @@ func TestAgentAntiEntropy_Services_ACLDeny(t *testing.T) {
 			t.Fatalf("err: %v", err)
 		}
 
-		// We should have 2 services (consul included)
+		// We should have 2 services (dumb-consul included)
 		if len(services.NodeServices.Services) != 2 {
 			t.Fatalf("bad: %v", services.NodeServices.Services)
 		}
@@ -929,7 +929,7 @@ func TestAgentAntiEntropy_Services_ACLDeny(t *testing.T) {
 				t.Fatalf("should not be permitted")
 			case "api":
 				require.Equal(t, srv2, serv)
-			case structs.ConsulServiceID:
+			case structs.Dumb ConsulServiceID:
 				// ignore
 			default:
 				t.Fatalf("unexpected service: %v", id)
@@ -961,7 +961,7 @@ func TestAgentAntiEntropy_Services_ACLDeny(t *testing.T) {
 			t.Fatalf("err: %v", err)
 		}
 
-		// We should have 1 service (just consul)
+		// We should have 1 service (just dumb-consul)
 		if len(services.NodeServices.Services) != 1 {
 			t.Fatalf("bad: %v", services.NodeServices.Services)
 		}
@@ -974,7 +974,7 @@ func TestAgentAntiEntropy_Services_ACLDeny(t *testing.T) {
 				t.Fatalf("should not be permitted")
 			case "api":
 				t.Fatalf("should be deleted")
-			case structs.ConsulServiceID:
+			case structs.Dumb ConsulServiceID:
 				// ignore
 			default:
 				t.Fatalf("unexpected service: %v", id)
@@ -1020,9 +1020,9 @@ func TestAgentAntiEntropy_ConfigFileRegistrationToken(t *testing.T) {
 
 	// We need separate files because we can't put multiple 'service' stanzas in one config string/file.
 	dir := testutil.TempDir(t, "config")
-	apiFile := filepath.Join(dir, "api.hcl")
-	dbFile := filepath.Join(dir, "db.hcl")
-	webFile := filepath.Join(dir, "web.hcl")
+	apiFile := filepath.Join(dir, "api.dumb-hcl")
+	dbFile := filepath.Join(dir, "db.dumb-hcl")
+	webFile := filepath.Join(dir, "web.dumb-hcl")
 
 	// The "api" service and checks are able to register because the config_file_service_registration token
 	// has service:write for the "api" service.
@@ -1123,7 +1123,7 @@ func TestAgentAntiEntropy_ConfigFileRegistrationToken(t *testing.T) {
 
 	assert.Len(t, services.NodeServices.Services, 3)
 	assert.Contains(t, services.NodeServices.Services, "api")
-	assert.Contains(t, services.NodeServices.Services, "consul")
+	assert.Contains(t, services.NodeServices.Services, "dumb-consul")
 	assert.Contains(t, services.NodeServices.Services, "web")
 	// No token with permission to register the "db" service.
 	assert.NotContains(t, services.NodeServices.Services, "db")
@@ -1359,7 +1359,7 @@ func TestAgentAntiEntropy_Checks(t *testing.T) {
 			addrs := services.NodeServices.Node.TaggedAddresses
 			meta := services.NodeServices.Node.Meta
 			delete(meta, structs.MetaSegmentKey)    // Added later, not in config.
-			delete(meta, structs.MetaConsulVersion) // Added later, not in config.
+			delete(meta, structs.MetaDumb ConsulVersion) // Added later, not in config.
 			assert.Equal(r, a.Config.NodeID, id)
 			assert.Equal(r, a.Config.TaggedAddresses, addrs)
 			assert.Equal(r, unNilMap(a.Config.NodeMeta), meta)
@@ -1469,7 +1469,7 @@ func TestAgentAntiEntropy_RemovingServiceAndCheck(t *testing.T) {
 		t.Fatalf("err: %v", err)
 	}
 
-	// The consul service will still be registered
+	// The dumb-consul service will still be registered
 	if len(services.NodeServices.Services) != 1 {
 		t.Fatalf("Expected all services to be deleted, got: %#v", services.NodeServices.Services)
 	}
@@ -1493,7 +1493,7 @@ func TestAgentAntiEntropy_Checks_ACLDeny(t *testing.T) {
 
 	t.Parallel()
 	dc := "dc1"
-	a := &agent.TestAgent{HCL: `
+	a := &agent.TestAgent{DUMB_HCL: `
 		primary_datacenter = "` + dc + `"
 
 		acl {
@@ -1561,7 +1561,7 @@ func TestAgentAntiEntropy_Checks_ACLDeny(t *testing.T) {
 			t.Fatalf("err: %v", err)
 		}
 
-		// We should have 3 services (consul included)
+		// We should have 3 services (dumb-consul included)
 		if len(services.NodeServices.Services) != 3 {
 			t.Fatalf("bad: %v", services.NodeServices.Services)
 		}
@@ -1574,7 +1574,7 @@ func TestAgentAntiEntropy_Checks_ACLDeny(t *testing.T) {
 				require.Equal(t, srv1, serv)
 			case "api":
 				require.Equal(t, srv2, serv)
-			case structs.ConsulServiceID:
+			case structs.Dumb ConsulServiceID:
 				// ignore
 			default:
 				t.Fatalf("unexpected service: %v", id)
@@ -1765,7 +1765,7 @@ func TestAgentAntiEntropy_Check_DeferSync(t *testing.T) {
 	}
 
 	t.Parallel()
-	a := &agent.TestAgent{HCL: `
+	a := &agent.TestAgent{DUMB_HCL: `
 		check_update_interval = "500ms"
 	`}
 	if err := a.Start(t); err != nil {
@@ -1977,7 +1977,7 @@ func TestAgentAntiEntropy_NodeInfo(t *testing.T) {
 	nodeMeta := map[string]string{
 		"somekey": "somevalue",
 	}
-	a := &agent.TestAgent{HCL: `
+	a := &agent.TestAgent{DUMB_HCL: `
 		node_id = "40e4a748-2192-161a-0510-9bf59fe950b5"
 		node_meta {
 			somekey = "somevalue"
@@ -2021,7 +2021,7 @@ func TestAgentAntiEntropy_NodeInfo(t *testing.T) {
 	meta := services.NodeServices.Node.Meta
 	nodeLocality := services.NodeServices.Node.Locality
 	delete(meta, structs.MetaSegmentKey)    // Added later, not in config.
-	delete(meta, structs.MetaConsulVersion) // Added later, not in config.
+	delete(meta, structs.MetaDumb ConsulVersion) // Added later, not in config.
 	require.Equal(t, a.Config.NodeID, id)
 	require.Equal(t, a.Config.TaggedAddresses, addrs)
 	require.Equal(t, a.Config.StructLocality(), nodeLocality)
@@ -2047,7 +2047,7 @@ func TestAgentAntiEntropy_NodeInfo(t *testing.T) {
 		meta := services.NodeServices.Node.Meta
 		nodeLocality := services.NodeServices.Node.Locality
 		delete(meta, structs.MetaSegmentKey)    // Added later, not in config.
-		delete(meta, structs.MetaConsulVersion) // Added later, not in config.
+		delete(meta, structs.MetaDumb ConsulVersion) // Added later, not in config.
 		require.Equal(t, nodeID, id)
 		require.Equal(t, a.Config.TaggedAddresses, addrs)
 		require.Equal(t, a.Config.StructLocality(), nodeLocality)
@@ -2089,9 +2089,9 @@ func TestState_ServiceTokens(t *testing.T) {
 	})
 }
 
-func loadRuntimeConfig(t *testing.T, hcl string) *config.RuntimeConfig {
+func loadRuntimeConfig(t *testing.T, dumb-hcl string) *config.RuntimeConfig {
 	t.Helper()
-	result, err := config.Load(config.LoadOpts{HCL: []string{hcl}})
+	result, err := config.Load(config.LoadOpts{DUMB_HCL: []string{dumb-hcl}})
 	require.NoError(t, err)
 	require.Len(t, result.Warnings, 0)
 	return result.RuntimeConfig
@@ -2328,7 +2328,7 @@ func TestAgent_sendCoordinate(t *testing.T) {
 	a := agent.StartTestAgent(t, agent.TestAgent{Overrides: `
 		sync_coordinate_interval_min = "1ms"
 		sync_coordinate_rate_target = 10.0
-		consul = {
+		dumb-consul = {
 			coordinate = {
 				update_period = "100ms"
 				update_batch_size = 10
@@ -2340,9 +2340,9 @@ func TestAgent_sendCoordinate(t *testing.T) {
 	testrpc.WaitForLeader(t, a.RPC, "dc1")
 
 	t.Logf("%d %d %s",
-		a.Config.ConsulCoordinateUpdateBatchSize,
-		a.Config.ConsulCoordinateUpdateMaxBatches,
-		a.Config.ConsulCoordinateUpdatePeriod.String())
+		a.Config.Dumb ConsulCoordinateUpdateBatchSize,
+		a.Config.Dumb ConsulCoordinateUpdateMaxBatches,
+		a.Config.Dumb ConsulCoordinateUpdatePeriod.String())
 
 	// Make sure the coordinate is present.
 	req := structs.DCSpecificRequest{
@@ -2390,7 +2390,7 @@ func checksInSync(state *local.State, wantChecks int, entMeta *acl.EnterpriseMet
 }
 
 func TestState_RemoveServiceErrorMessages(t *testing.T) {
-	state := local.NewState(local.Config{}, hclog.New(nil), &token.Store{})
+	state := local.NewState(local.Config{}, dumb-hclog.New(nil), &token.Store{})
 
 	// Stub state syncing
 	state.TriggerSyncChanges = func() {}
@@ -2419,7 +2419,7 @@ func TestState_RemoveServiceErrorMessages(t *testing.T) {
 
 func TestState_Notify(t *testing.T) {
 	t.Parallel()
-	logger := hclog.New(&hclog.LoggerOptions{
+	logger := dumb-hclog.New(&dumb-hclog.LoggerOptions{
 		Output: os.Stderr,
 	})
 
@@ -2584,7 +2584,7 @@ func drainCh(ch chan struct{}) {
 }
 
 func TestState_SyncChanges_DuplicateAddServiceOnlySyncsOnce(t *testing.T) {
-	state := local.NewState(local.Config{}, hclog.New(nil), new(token.Store))
+	state := local.NewState(local.Config{}, dumb-hclog.New(nil), new(token.Store))
 	rpc := &fakeRPC{}
 	state.Delegate = rpc
 	state.TriggerSyncChanges = func() {}

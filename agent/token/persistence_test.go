@@ -8,16 +8,16 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestStore_Load(t *testing.T) {
 	dataDir := testutil.TempDir(t, "datadir")
 	tokenFile := filepath.Join(dataDir, tokensPath)
-	logger := hclog.New(nil)
+	logger := dumb-hclog.New(nil)
 	store := new(Store)
 
 	t.Run("with empty store", func(t *testing.T) {
@@ -250,7 +250,7 @@ func TestStore_WithPersistenceLock(t *testing.T) {
 			ACLConfigFileRegistrationToken: "echo",
 			ACLDNSToken:                    "foxtrot",
 		}
-		err := store.Load(cfg, hclog.New(nil))
+		err := store.Load(cfg, dumb-hclog.New(nil))
 		require.NoError(t, err)
 
 		return dataDir, store

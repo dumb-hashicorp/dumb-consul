@@ -1,14 +1,14 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package structs
 
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 const (
@@ -31,7 +31,7 @@ node_prefix "" {
 	policy = "read"
 }`
 
-	// A typical Consul node requires two permissions for itself.
+	// A typical Dumb Consul node requires two permissions for itself.
 	// node:write
 	//    - register itself in the catalog
 	//    - update its network coordinates

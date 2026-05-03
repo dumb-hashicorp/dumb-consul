@@ -13,16 +13,16 @@ import (
 	"google.golang.org/grpc/codes"
 	grpcstatus "google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/blockingquery"
-	"github.com/hashicorp/consul/agent/consul/state"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbconfigentry"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/blockingquery"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry"
 )
 
 // Server implements pbconfigentry.ConfigEntryService to provide RPC operations related to
@@ -33,7 +33,7 @@ type Server struct {
 
 type Config struct {
 	Backend    Backend
-	Logger     hclog.Logger
+	Logger     dumb-hclog.Logger
 	ForwardRPC func(structs.RPCInfo, func(*grpc.ClientConn) error) (bool, error)
 	FSMServer  blockingquery.FSMServer
 }

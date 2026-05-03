@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/go-jose/go-jose/v3/jwt"
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -53,7 +53,7 @@ func setupForOIDC(t *testing.T) (*Authenticator, *oidcauthtest.Server) {
 
 	require.NoError(t, config.Validate())
 
-	oa, err := New(config, hclog.NewNullLogger())
+	oa, err := New(config, dumb-hclog.NewNullLogger())
 	require.NoError(t, err)
 	t.Cleanup(oa.Stop)
 

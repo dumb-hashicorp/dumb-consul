@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package xds
 
@@ -14,14 +14,14 @@ func TestDestinationPortClusterName(t *testing.T) {
 		expected        string
 	}{
 		"empty destination port": {
-			clusterName:     "api-app.default.dc1.consul",
+			clusterName:     "api-app.default.dc1.dumb-consul",
 			destinationPort: "",
-			expected:        "api-app.default.dc1.consul",
+			expected:        "api-app.default.dc1.dumb-consul",
 		},
 		"destination port present": {
-			clusterName:     "api-app.default.dc1.consul",
+			clusterName:     "api-app.default.dc1.dumb-consul",
 			destinationPort: "admin-port",
-			expected:        "api-app.default.dc1.consul",
+			expected:        "api-app.default.dc1.dumb-consul",
 		},
 	}
 

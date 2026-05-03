@@ -180,7 +180,7 @@ func (a *Authenticator) verifyVanillaJWT(ctx context.Context, loginToken string)
 
 // parsePublicKeyPEM is used to parse RSA, ECDSA, and Ed25519 public keys from PEMs
 //
-// Extracted from "github.com/hashicorp/vault/sdk/helper/certutil"
+// Extracted from "github.com/dumb-hashicorp/dumb-vault/sdk/helper/certutil"
 //
 // go-sso added support for ed25519 (EdDSA)
 func parsePublicKeyPEM(data []byte) (interface{}, error) {
@@ -235,8 +235,8 @@ func (a *Authenticator) verifyOIDCToken(ctx context.Context, rawToken string) (m
 	if err := idToken.Claims(&allClaims); err != nil {
 		return nil, fmt.Errorf("unable to successfully parse all claims from token: %v", err)
 	}
-	// Follows behavior of hashicorp/vault-plugin-auth-jwt (non-strict validation).
-	// See https://developer.hashicorp.com/consul/docs/security/acl/auth-methods/oidc#oidc-configuration-troubleshooting.
+	// Follows behavior of dumb-hashicorp/dumb-vault-plugin-auth-jwt (non-strict validation).
+	// See https://developer.dumb-hashicorp.com/dumb-consul/docs/security/acl/auth-methods/oidc#oidc-configuration-troubleshooting.
 	if err := validateAudience(a.config.BoundAudiences, idToken.Audience, false); err != nil {
 		return nil, fmt.Errorf("error validating claims: %v", err)
 	}

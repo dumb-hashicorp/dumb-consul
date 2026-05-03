@@ -9,14 +9,14 @@ import (
 	"net"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/miekg/dns"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/proto-public/pbdns"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbdns"
 )
 
 var txtRR = []string{"Hello world"}
@@ -60,7 +60,7 @@ func (s *DNSTestSuite) TestProxy_Success() {
 	mux := dns.NewServeMux()
 	mux.Handle(".", dns.HandlerFunc(helloServer))
 	server := NewServer(Config{
-		Logger:      hclog.Default(),
+		Logger:      dumb-hclog.Default(),
 		DNSServeMux: mux,
 		LocalAddr: LocalAddr{
 			net.IPv4(127, 0, 0, 1),

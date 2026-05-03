@@ -7,12 +7,12 @@ import (
 	"context"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/local"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/agent/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
 )
 
 const resyncFrequency = 30 * time.Second
@@ -38,7 +38,7 @@ type SyncConfig struct {
 	NodeLocality *structs.Locality
 
 	// Logger will be used to write log messages.
-	Logger hclog.Logger
+	Logger dumb-hclog.Logger
 
 	// ResyncFrequency is how often to do a resync and recreate any terminated
 	// watches.

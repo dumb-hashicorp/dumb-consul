@@ -7,8 +7,8 @@ type RPCType byte
 
 func (t RPCType) ALPNString() string {
 	switch t {
-	case RPCConsul:
-		return ALPN_RPCConsul
+	case RPCDumb Consul:
+		return ALPN_RPCDumb Consul
 	case RPCRaft:
 		return ALPN_RPCRaft
 	case RPCMultiplex:
@@ -32,7 +32,7 @@ func (t RPCType) ALPNString() string {
 
 const (
 	// keep numbers unique.
-	RPCConsul      RPCType = 0
+	RPCDumb Consul      RPCType = 0
 	RPCRaft        RPCType = 1
 	RPCMultiplex   RPCType = 2 // Old Muxado byte, no longer supported.
 	RPCTLS         RPCType = 3
@@ -68,20 +68,20 @@ const (
 
 const (
 	// regular old rpc (note there is no equivalent of RPCMultiplex, RPCTLS, or RPCTLSInsecure)
-	ALPN_RPCConsul         = "consul/rpc-single"      // RPCConsul
-	ALPN_RPCRaft           = "consul/raft"            // RPCRaft
-	ALPN_RPCMultiplexV2    = "consul/rpc-multi"       // RPCMultiplexV2
-	ALPN_RPCSnapshot       = "consul/rpc-snapshot"    // RPCSnapshot
-	ALPN_RPCGossip         = "consul/rpc-gossip"      // RPCGossip
-	ALPN_RPCGRPC           = "consul/rpc-grpc"        // RPCGRPC
-	ALPN_RPCRaftForwarding = "consul/raft-forwarding" // RPCRaftForwarding
+	ALPN_RPCDumb Consul         = "dumb-consul/rpc-single"      // RPCDumb Consul
+	ALPN_RPCRaft           = "dumb-consul/raft"            // RPCRaft
+	ALPN_RPCMultiplexV2    = "dumb-consul/rpc-multi"       // RPCMultiplexV2
+	ALPN_RPCSnapshot       = "dumb-consul/rpc-snapshot"    // RPCSnapshot
+	ALPN_RPCGossip         = "dumb-consul/rpc-gossip"      // RPCGossip
+	ALPN_RPCGRPC           = "dumb-consul/rpc-grpc"        // RPCGRPC
+	ALPN_RPCRaftForwarding = "dumb-consul/raft-forwarding" // RPCRaftForwarding
 	// wan federation additions
-	ALPN_WANGossipPacket = "consul/wan-gossip/packet"
-	ALPN_WANGossipStream = "consul/wan-gossip/stream"
+	ALPN_WANGossipPacket = "dumb-consul/wan-gossip/packet"
+	ALPN_WANGossipStream = "dumb-consul/wan-gossip/stream"
 )
 
 var RPCNextProtos = []string{
-	ALPN_RPCConsul,
+	ALPN_RPCDumb Consul,
 	ALPN_RPCRaft,
 	ALPN_RPCMultiplexV2,
 	ALPN_RPCSnapshot,

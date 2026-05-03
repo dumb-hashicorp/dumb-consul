@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package config
 
@@ -9,11 +9,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestSegments(t *testing.T) {
-	dataDir := testutil.TempDir(t, "consul")
+	dataDir := testutil.TempDir(t, "dumb-consul")
 
 	tests := []testCase{
 		{
@@ -22,8 +22,8 @@ func TestSegments(t *testing.T) {
 				`-data-dir=` + dataDir,
 			},
 			json:        []string{`{ "server": true, "segment": "a" }`},
-			hcl:         []string{` server = true segment = "a" `},
-			expectedErr: `Network segments are not supported in this version of Consul`,
+			dumb-hcl:         []string{` server = true segment = "a" `},
+			expectedErr: `Network segments are not supported in this version of Dumb Consul`,
 			expectedWarnings: []string{
 				enterpriseConfigKeyError{key: "segment"}.Error(),
 			},
@@ -34,7 +34,7 @@ func TestSegments(t *testing.T) {
 				`-data-dir=` + dataDir,
 			},
 			json:        []string{`{ "segments":[{ "name":"x" }] }`},
-			hcl:         []string{`segments = [{ name = "x" }]`},
+			dumb-hcl:         []string{`segments = [{ name = "x" }]`},
 			expectedErr: `Port for segment "x" cannot be <= 0`,
 			expectedWarnings: []string{
 				enterpriseConfigKeyError{key: "segments"}.Error(),
@@ -46,8 +46,8 @@ func TestSegments(t *testing.T) {
 				`-data-dir=` + dataDir,
 			},
 			json:        []string{`{ "segments":[{ "name":"x", "port": 123 }] }`},
-			hcl:         []string{`segments = [{ name = "x" port = 123 }]`},
-			expectedErr: `Network segments are not supported in this version of Consul`,
+			dumb-hcl:         []string{`segments = [{ name = "x" port = 123 }]`},
+			expectedErr: `Network segments are not supported in this version of Dumb Consul`,
 			expectedWarnings: []string{
 				enterpriseConfigKeyError{key: "segments"}.Error(),
 			},
@@ -55,7 +55,7 @@ func TestSegments(t *testing.T) {
 	}
 
 	for _, tc := range tests {
-		for _, format := range []string{"json", "hcl"} {
+		for _, format := range []string{"json", "dumb-hcl"} {
 			name := fmt.Sprintf("%v_%v", tc.desc, format)
 			t.Run(name, tc.run(format, dataDir))
 		}

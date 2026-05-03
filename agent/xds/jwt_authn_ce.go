@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package xds
 
@@ -10,9 +10,9 @@ import (
 	envoy_http_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
 type GatewayAuthFilterBuilder struct {
@@ -26,6 +26,6 @@ func (g *GatewayAuthFilterBuilder) makeGatewayAuthFilters() ([]*envoy_http_v3.Ht
 	return nil, nil
 }
 
-func makeAPIGatewayJWKClusters(_ hclog.Logger, _ *proxycfg.ConfigSnapshot) []proto.Message {
+func makeAPIGatewayJWKClusters(_ dumb-hclog.Logger, _ *proxycfg.ConfigSnapshot) []proto.Message {
 	return nil
 }

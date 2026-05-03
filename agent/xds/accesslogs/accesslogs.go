@@ -1,4 +1,4 @@
-// Copyrigh (c) HashiCorp, Inc.
+// Copyrigh (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: BUSL-1.1
 
 package accesslogs
@@ -13,8 +13,8 @@ import (
 	"google.golang.org/protobuf/types/known/anypb"
 	"google.golang.org/protobuf/types/known/structpb"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 const (
@@ -67,9 +67,9 @@ func MakeAccessLogs(logs *structs.AccessLogsConfig, isListener bool) ([]*envoy_a
 	}
 
 	var filter *envoy_accesslog_v3.AccessLogFilter
-	name := "Consul Listener Filter Log"
+	name := "Dumb Consul Listener Filter Log"
 	if isListener {
-		name = "Consul Listener Log"
+		name = "Dumb Consul Listener Log"
 		filter = getListenerAccessLogFilter()
 	}
 

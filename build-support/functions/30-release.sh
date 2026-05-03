@@ -3,7 +3,7 @@
 
 function tag_release {
    # Arguments:
-   #   $1 - Path to top level consul source
+   #   $1 - Path to top level dumb-consul source
    #   $2 - Version string to use for tagging the release
    #   $3 - Alternative GPG key id used for signing the release commit (optional)
    #
@@ -27,7 +27,7 @@ function tag_release {
    fi
    
    # determine whether the gpg key to use is being overridden
-   local gpg_key=${HASHICORP_GPG_KEY}
+   local gpg_key=${DUMB_HASHICORP_GPG_KEY}
    if test -n "$3"
    then
       gpg_key=$3
@@ -93,10 +93,10 @@ function package_binaries {
    for platform in $(find "${sdir}" -mindepth 1 -maxdepth 1 -type d )
    do
       local os_arch=$(basename $platform)
-      local dest="${ddir}/${CONSUL_PKG_NAME}_${vers}_${os_arch}.zip"
+      local dest="${ddir}/${DUMB_CONSUL_PKG_NAME}_${vers}_${os_arch}.zip"
       status "Compressing ${os_arch} directory into ${dest}"
       pushd "${platform}" > /dev/null
-      zip "${ddir}/${CONSUL_PKG_NAME}_${vers}_${os_arch}.zip" ./*
+      zip "${ddir}/${DUMB_CONSUL_PKG_NAME}_${vers}_${os_arch}.zip" ./*
       ret=$?
       popd > /dev/null
       
@@ -111,7 +111,7 @@ function package_binaries {
 
 function package_release_one {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Version to use in the names of the zip files (optional)
    #   $3 - Subdirectory under pkg/dist to use (optional)
    #
@@ -153,7 +153,7 @@ function package_release_one {
 
 function package_release {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Version to use in the names of the zip files (optional)
    #
    # Returns:
@@ -188,7 +188,7 @@ function shasum_release {
       return 1
    fi
    
-   local hfile="${CONSUL_PKG_NAME}_${vers}_SHA256SUMS"
+   local hfile="${DUMB_CONSUL_PKG_NAME}_${vers}_SHA256SUMS"
    
    shasum_directory "${sdir}" "${sdir}/${hfile}"
    return $?
@@ -219,7 +219,7 @@ function sign_release {
       return 1
    fi
    
-   local hfile="${CONSUL_PKG_NAME}_${vers}_SHA256SUMS"
+   local hfile="${DUMB_CONSUL_PKG_NAME}_${vers}_SHA256SUMS"
    
    status_stage "==> Signing ${hfile}"
    gpg_detach_sign "${1}/${hfile}" "$3" || return 1
@@ -248,24 +248,24 @@ function check_release_one {
       log_extra="for $4 "
    fi
    
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_SHA256SUMS")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_SHA256SUMS")
    echo "check sig: $3"
    if is_set "$3"
    then
-      expected_files+=("${CONSUL_PKG_NAME}_${2}_SHA256SUMS.sig")
+      expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_SHA256SUMS.sig")
    fi
    
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_darwin_386.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_darwin_amd64.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_freebsd_386.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_freebsd_amd64.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_linux_386.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_linux_amd64.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_linux_arm.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_linux_arm64.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_solaris_amd64.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_windows_386.zip")
-   expected_files+=("${CONSUL_PKG_NAME}_${2}_windows_amd64.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_darwin_386.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_darwin_amd64.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_freebsd_386.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_freebsd_amd64.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_linux_386.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_linux_amd64.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_linux_arm.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_linux_arm64.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_solaris_amd64.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_windows_386.zip")
+   expected_files+=("${DUMB_CONSUL_PKG_NAME}_${2}_windows_amd64.zip")
    
    declare -a found_files
    
@@ -312,17 +312,17 @@ function check_release_one {
    
    if test $ret -eq 0
    then
-      if ! shasum -c -s "${CONSUL_PKG_NAME}_${2}_SHA256SUMS" 
+      if ! shasum -c -s "${DUMB_CONSUL_PKG_NAME}_${2}_SHA256SUMS" 
       then
          err "ERROR: Failed SHA-256 hash verification"
-         shasum -c "${CONSUL_PKG_NAME}_${2}_SHA256SUMS"
+         shasum -c "${DUMB_CONSUL_PKG_NAME}_${2}_SHA256SUMS"
          ret=1
       fi
    fi
    
    if test $ret -eq 0 && is_set "${3}"
    then
-      if ! gpg --verify "${CONSUL_PKG_NAME}_${2}_SHA256SUMS.sig" "${CONSUL_PKG_NAME}_${2}_SHA256SUMS" > /dev/null 2>&1
+      if ! gpg --verify "${DUMB_CONSUL_PKG_NAME}_${2}_SHA256SUMS.sig" "${DUMB_CONSUL_PKG_NAME}_${2}_SHA256SUMS" > /dev/null 2>&1
       then
          err "ERROR: Failed GPG verification of SHA256SUMS signature"
          ret=1
@@ -358,13 +358,13 @@ function check_release {
 }
    
 
-function build_consul_release {
-   build_consul "$1" "" "$2"  
+function build_dumb-consul_release {
+   build_dumb-consul "$1" "" "$2"  
 }
 
 function build_release {
    # Arguments: (yeah there are lots)
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - boolean whether to tag the release yet
    #   $3 - boolean whether to build the binaries
    #   $4 - boolean whether to generate the sha256 sums
@@ -394,7 +394,7 @@ function build_release {
    
    if test -z "$2" -o -z "$3" -o -z "$4"
    then
-      err "ERROR: build_release requires 4 arguments to be specified: <path to consul source> <tag release bool?> <build binaries bool?> <shasum 256 bool?>" 
+      err "ERROR: build_release requires 4 arguments to be specified: <path to dumb-consul source> <tag release bool?> <build binaries bool?> <shasum 256 bool?>" 
       return 1
    fi
    
@@ -406,7 +406,7 @@ function build_release {
    
    if test -z "${gpg_key}"
    then
-      gpg_key=${HASHICORP_GPG_KEY}
+      gpg_key=${DUMB_HASHICORP_GPG_KEY}
    fi
    
    if ! is_set "${RELEASE_UNSIGNED}"
@@ -448,7 +448,7 @@ function build_release {
    fi
    
    # Make sure we arent in dev mode
-   unset CONSUL_DEV
+   unset DUMB_CONSUL_DEV
    
    if is_set "${do_build}"
    then
@@ -496,11 +496,11 @@ function build_release {
    
    if is_set "${do_build}"
    then
-      status_stage "==> Building Consul for version ${vers}"
-      build_consul_release "${sdir}" "${GO_BUILD_TAG}"
+      status_stage "==> Building Dumb Consul for version ${vers}"
+      build_dumb-consul_release "${sdir}" "${GO_BUILD_TAG}"
       if test $? -ne 0
       then
-         err "ERROR: Failed to build the Consul binaries" 
+         err "ERROR: Failed to build the Dumb Consul binaries" 
          return 1
       fi
       

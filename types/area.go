@@ -4,13 +4,13 @@
 package types
 
 // AreaID is a strongly-typed string used to uniquely represent a network area,
-// which is a relationship between Consul servers.
+// which is a relationship between Dumb Consul servers.
 type AreaID string
 
-// This represents the existing WAN area that's built in to Consul. Consul
+// This represents the existing WAN area that's built in to Dumb Consul. Dumb Consul
 // Enterprise generalizes areas, which are represented with UUIDs.
 const AreaWAN AreaID = "wan"
 
-// This represents the existing LAN area that's built in to Consul. Consul
+// This represents the existing LAN area that's built in to Dumb Consul. Dumb Consul
 // Enterprise generalizes areas, which are represented with UUIDs.
 const AreaLAN AreaID = "lan"

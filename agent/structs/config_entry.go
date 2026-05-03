@@ -15,14 +15,14 @@ import (
 	"github.com/miekg/dns"
 	"github.com/mitchellh/hashstructure"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/envoyextensions"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/decode"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/decode"
 )
 
 const (
@@ -183,7 +183,7 @@ type ServiceConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 	// MaxRequestHeadersKB configures the maximum size in kilobytes for request headers
 	// sent from downstream clients to upstream services. If not set, uses Envoy's default.
@@ -414,7 +414,7 @@ func (c *UpstreamConfiguration) Clone() *UpstreamConfiguration {
 	return &c2
 }
 
-// DestinationConfig represents a virtual service, i.e. one that is external to Consul
+// DestinationConfig represents a virtual service, i.e. one that is external to Dumb Consul
 type DestinationConfig struct {
 	// Addresses of the endpoint; hostname or IP
 	Addresses []string `json:",omitempty"`
@@ -430,7 +430,7 @@ func IsIP(address string) bool {
 
 // RateLimits is rate limiting configuration that is applied to
 // inbound traffic for a service.
-// Rate limiting is a Consul enterprise feature.
+// Rate limiting is a Dumb Consul enterprise feature.
 type RateLimits struct {
 	InstanceLevel InstanceLevelRateLimits `alias:"instance_level"`
 }
@@ -488,7 +488,7 @@ type ProxyConfigEntry struct {
 
 	Meta               map[string]string `json:",omitempty"`
 	Hash               uint64            `json:",omitempty" hash:"ignore"`
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	RaftIndex          `hash:"ignore"`
 }
 
@@ -865,7 +865,7 @@ type ConfigEntryQuery struct {
 	Name       string
 	Datacenter string
 
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	QueryOptions
 }
 
@@ -911,7 +911,7 @@ type ConfigEntryListAllRequest struct {
 	Kinds      []string
 	Datacenter string
 
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	QueryOptions
 }
 
@@ -934,7 +934,7 @@ type ServiceConfigRequest struct {
 	// UpstreamServiceNames is a list of upstream service names to use for resolving the service config.
 	UpstreamServiceNames []PeeredServiceName
 
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	QueryOptions
 }
 
@@ -986,7 +986,7 @@ type UpstreamConfig struct {
 	// Name is only accepted within service-defaults.upstreamConfig.overrides .
 	Name string `json:",omitempty"`
 	// EnterpriseMeta is only accepted within service-defaults.upstreamConfig.overrides .
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 	// Peer is only accepted within service-defaults.upstreamConfig.overrides .
 	Peer string
 
@@ -1442,8 +1442,8 @@ func validateOpaqueProxyConfig(config map[string]interface{}) error {
 	// It assumes the socket's filename is fixed at 32 characters.
 	const maxSocketDirLen = 70
 
-	if path, _ := config["envoy_hcp_metrics_bind_socket_dir"].(string); len(path) > maxSocketDirLen {
-		return fmt.Errorf("envoy_hcp_metrics_bind_socket_dir length %d exceeds max %d", len(path), maxSocketDirLen)
+	if path, _ := config["envoy_dumb-hcp_metrics_bind_socket_dir"].(string); len(path) > maxSocketDirLen {
+		return fmt.Errorf("envoy_dumb-hcp_metrics_bind_socket_dir length %d exceeds max %d", len(path), maxSocketDirLen)
 	}
 	return nil
 }

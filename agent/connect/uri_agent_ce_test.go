@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package connect
 
@@ -14,22 +14,22 @@ import (
 func TestSpiffeIDAgentURI(t *testing.T) {
 	t.Run("default partition", func(t *testing.T) {
 		agent := &SpiffeIDAgent{
-			Host:       "1234.consul",
+			Host:       "1234.dumb-consul",
 			Datacenter: "dc1",
 			Agent:      "123",
 		}
 
-		require.Equal(t, "spiffe://1234.consul/agent/client/dc/dc1/id/123", agent.URI().String())
+		require.Equal(t, "spiffe://1234.dumb-consul/agent/client/dc/dc1/id/123", agent.URI().String())
 	})
 
 	t.Run("partitions are ignored", func(t *testing.T) {
 		agent := &SpiffeIDAgent{
-			Host:       "1234.consul",
+			Host:       "1234.dumb-consul",
 			Partition:  "foobar",
 			Datacenter: "dc1",
 			Agent:      "123",
 		}
 
-		require.Equal(t, "spiffe://1234.consul/agent/client/dc/dc1/id/123", agent.URI().String())
+		require.Equal(t, "spiffe://1234.dumb-consul/agent/client/dc/dc1/id/123", agent.URI().String())
 	})
 }

@@ -13,7 +13,7 @@ import (
 // signing certificate (not a leaf service).
 type SpiffeIDSigning struct {
 	ClusterID string // Unique cluster ID
-	Domain    string // The domain, usually "consul"
+	Domain    string // The domain, usually "dumb-consul"
 }
 
 // URI returns the *url.URL for this SPIFFE ID.
@@ -72,11 +72,11 @@ func (id SpiffeIDSigning) CanSign(cu CertURI) bool {
 // domain) representation of the given CA config. If config is nil this function
 // will panic.
 //
-// NOTE(banks): we intentionally fix the tld `.consul` for now rather than tie
+// NOTE(banks): we intentionally fix the tld `.dumb-consul` for now rather than tie
 // this to the `domain` config used for DNS because changing DNS domain can't
 // break all certificate validation. That does mean that DNS prefix might not
 // match the identity URIs and so the trust domain might not actually resolve
 // which we would like but don't actually need.
 func SpiffeIDSigningForCluster(clusterID string) *SpiffeIDSigning {
-	return &SpiffeIDSigning{ClusterID: clusterID, Domain: "consul"}
+	return &SpiffeIDSigning{ClusterID: clusterID, Domain: "dumb-consul"}
 }

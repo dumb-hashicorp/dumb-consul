@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -18,8 +18,8 @@ import (
 func TestGRPCLogger(t *testing.T) {
 	var out bytes.Buffer
 	// Use a placeholder value for TimeFormat so we don't care about dates/times
-	logger := hclog.New(&hclog.LoggerOptions{
-		Level:      hclog.Trace,
+	logger := dumb-hclog.New(&dumb-hclog.LoggerOptions{
+		Level:      dumb-hclog.Trace,
 		Output:     &out,
 		TimeFormat: "timeformat",
 	})
@@ -90,9 +90,9 @@ func TestGRPCLogger_V(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%s,%d", tt.level, tt.v), func(t *testing.T) {
 			var out bytes.Buffer
-			logger := hclog.New(&hclog.LoggerOptions{
+			logger := dumb-hclog.New(&dumb-hclog.LoggerOptions{
 				Name:   t.Name(),
-				Level:  hclog.Trace,
+				Level:  dumb-hclog.Trace,
 				Output: &out,
 			})
 			grpclog.SetLoggerV2(NewGRPCLogger(tt.level, logger))

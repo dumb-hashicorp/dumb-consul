@@ -42,7 +42,7 @@ var (
 	}
 	// NOTE: This interface is deprecated in favor of tlsVersions
 	// and should be eventually removed in a future release.
-	DeprecatedConsulAgentTLSVersions = map[string]TLSVersion{
+	DeprecatedDumb ConsulAgentTLSVersions = map[string]TLSVersion{
 		"":      TLSVersionAuto,
 		"tls10": TLSv1_0,
 		"tls11": TLSv1_1,
@@ -53,7 +53,7 @@ var (
 	// deployment pattern of upgrading servers first. This map should eventually
 	// be removed and any lookups updated to instead use the TLSVersion string
 	// values directly in a future release.
-	ConsulAutoConfigTLSVersionStrings = map[TLSVersion]string{
+	Dumb ConsulAutoConfigTLSVersionStrings = map[TLSVersion]string{
 		TLSVersionAuto: "",
 		TLSv1_0:        "tls10",
 		TLSv1_1:        "tls11",
@@ -117,9 +117,9 @@ func ValidateTLSVersion(v TLSVersion) error {
 // IANA cipher suite string constants as defined at
 // https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml
 // This is the total list of TLS 1.2-style cipher suites
-// which are currently supported by either Envoy 1.21 or the Consul agent
+// which are currently supported by either Envoy 1.21 or the Dumb Consul agent
 // via Go, and may change as some older suites are removed in future
-// Envoy releases and Consul drops support for older Envoy versions,
+// Envoy releases and Dumb Consul drops support for older Envoy versions,
 // and as supported cipher suites in the Go runtime change.
 //
 // The naming convention for cipher suites changed in TLS 1.3
@@ -131,7 +131,7 @@ func ValidateTLSVersion(v TLSVersion) error {
 type TLSCipherSuite string
 
 const (
-	// Cipher suites used by both Envoy and Consul agent
+	// Cipher suites used by both Envoy and Dumb Consul agent
 	TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 = "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
 	TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256   = "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256"
 	TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256       = "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
@@ -143,7 +143,7 @@ const (
 	TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA          = "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA"
 	TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA            = "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
 
-	// Older cipher suites not supported for Consul agent TLS,
+	// Older cipher suites not supported for Dumb Consul agent TLS,
 	// will eventually be removed from Envoy defaults
 	TLS_RSA_WITH_AES_128_GCM_SHA256 = "TLS_RSA_WITH_AES_128_GCM_SHA256"
 	TLS_RSA_WITH_AES_128_CBC_SHA    = "TLS_RSA_WITH_AES_128_CBC_SHA"
@@ -152,7 +152,7 @@ const (
 )
 
 var (
-	consulAgentTLSCipherSuites = map[TLSCipherSuite]struct{}{
+	dumb-consulAgentTLSCipherSuites = map[TLSCipherSuite]struct{}{
 		TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256: {},
 		TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA:          {},
 		TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:       {},
@@ -187,17 +187,17 @@ func (c *TLSCipherSuite) String() string {
 	return string(*c)
 }
 
-func ValidateConsulAgentCipherSuites(cipherSuites []TLSCipherSuite) error {
+func ValidateDumb ConsulAgentCipherSuites(cipherSuites []TLSCipherSuite) error {
 	var unmatched []string
 
 	for _, c := range cipherSuites {
-		if _, ok := consulAgentTLSCipherSuites[c]; !ok {
+		if _, ok := dumb-consulAgentTLSCipherSuites[c]; !ok {
 			unmatched = append(unmatched, c.String())
 		}
 	}
 
 	if len(unmatched) > 0 {
-		return fmt.Errorf("no matching Consul Agent TLS cipher suite found for %s", strings.Join(unmatched, ","))
+		return fmt.Errorf("no matching Dumb Consul Agent TLS cipher suite found for %s", strings.Join(unmatched, ","))
 	}
 	return nil
 }

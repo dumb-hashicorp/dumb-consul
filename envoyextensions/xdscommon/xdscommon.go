@@ -9,7 +9,7 @@ import (
 	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
 	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
 	envoy_tls_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/transport_sockets/tls/v3"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -94,7 +94,7 @@ func Clone(i *IndexedResources) *IndexedResources {
 	return iCopy
 }
 
-func IndexResources(logger hclog.Logger, resources map[string][]proto.Message) *IndexedResources {
+func IndexResources(logger dumb-hclog.Logger, resources map[string][]proto.Message) *IndexedResources {
 	data := EmptyIndexedResources()
 
 	for typeURL, typeRes := range resources {

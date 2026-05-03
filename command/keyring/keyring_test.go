@@ -10,8 +10,8 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	consulapi "github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	dumb-consulapi "github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 func TestKeyringCommand_noTabs(t *testing.T) {
@@ -218,11 +218,11 @@ func TestKeyringCommand_formatMessages(t *testing.T) {
 }
 
 func TestKeyringCommand_formatResponse(t *testing.T) {
-	response := &consulapi.KeyringResponse{Datacenter: "dc1", NumNodes: 1}
+	response := &dumb-consulapi.KeyringResponse{Datacenter: "dc1", NumNodes: 1}
 	keys := map[string]int{"key1": 1}
 	require.Equal(t, "\ndc1 (LAN):\n  key1 [1/1]", formatResponse(response, keys))
 
-	response = &consulapi.KeyringResponse{WAN: true, Datacenter: "dc1", NumNodes: 1}
+	response = &dumb-consulapi.KeyringResponse{WAN: true, Datacenter: "dc1", NumNodes: 1}
 	keys = map[string]int{"key1": 1}
 	require.Equal(t, "\nWAN:\n  key1 [1/1]", formatResponse(response, keys))
 }

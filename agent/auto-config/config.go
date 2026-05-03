@@ -9,15 +9,15 @@ import (
 	"net"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
 )
 
 // DirectRPC is the interface that needs to be satisifed for AutoConfig to be able to perform
@@ -75,7 +75,7 @@ type TokenStore interface {
 type Config struct {
 	// Logger is any logger that should be utilized. If not provided,
 	// then no logs will be emitted.
-	Logger hclog.Logger
+	Logger dumb-hclog.Logger
 
 	// DirectRPC is the interface to be used by AutoConfig to make the
 	// AutoConfig.InitialConfiguration RPCs for generating the bootstrap

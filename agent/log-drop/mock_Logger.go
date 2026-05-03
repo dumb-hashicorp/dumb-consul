@@ -3,7 +3,7 @@
 package logdrop
 
 import (
-	hclog "github.com/hashicorp/go-hclog"
+	dumb-hclog "github.com/dumb-hashicorp/go-dumb-hclog"
 	mock "github.com/stretchr/testify/mock"
 
 	testing "testing"
@@ -15,7 +15,7 @@ type MockLogger struct {
 }
 
 // Log provides a mock function with given fields: level, msg, args
-func (_m *MockLogger) Log(level hclog.Level, msg string, args ...interface{}) {
+func (_m *MockLogger) Log(level dumb-hclog.Level, msg string, args ...interface{}) {
 	var _ca []interface{}
 	_ca = append(_ca, level, msg)
 	_ca = append(_ca, args...)

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package xds
 
@@ -15,29 +15,29 @@ import (
 	envoy_endpoint_v3 "github.com/envoyproxy/go-control-plane/envoy/config/endpoint/v3"
 	envoy_listener_v3 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
 	envoy_route_v3 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
-	"github.com/hashicorp/go-hclog"
-	goversion "github.com/hashicorp/go-version"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	goversion "github.com/dumb-hashicorp/go-version"
 	testinf "github.com/mitchellh/go-testing-interface"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
 
-	propertyoverride "github.com/hashicorp/consul/agent/envoyextensions/builtin/property-override"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/extensionruntime"
-	"github.com/hashicorp/consul/agent/xds/response"
-	"github.com/hashicorp/consul/agent/xds/testcommon"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/version"
+	propertyoverride "github.com/dumb-hashicorp/dumb-consul/agent/envoyextensions/builtin/property-override"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/extensionruntime"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/response"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/testcommon"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 func TestEnvoyExtenderWithSnapshot(t *testing.T) {
 	netutil.GetAgentBindAddrFunc = netutil.GetMockGetAgentBindAddrFunc("0.0.0.0")
-	consulVersion, _ := goversion.NewVersion(version.Version)
+	dumb-consulVersion, _ := goversion.NewVersion(version.Version)
 
 	// If opposite is true, the returned service defaults config entry will have
 	// payload-passthrough=true and invocation-mode=asynchronous.
@@ -69,7 +69,7 @@ func TestEnvoyExtenderWithSnapshot(t *testing.T) {
 	}
 
 	// Apply Lua extension to the local service and ensure http is used so the extension can be applied.
-	makeLuaNsFunc := func(inbound bool, envoyVersion, consulVersion string) func(ns *structs.NodeService) {
+	makeLuaNsFunc := func(inbound bool, envoyVersion, dumb-consulVersion string) func(ns *structs.NodeService) {
 		listener := "inbound"
 		if !inbound {
 			listener = "outbound"
@@ -81,7 +81,7 @@ func TestEnvoyExtenderWithSnapshot(t *testing.T) {
 				{
 					Name:          api.BuiltinLuaExtension,
 					EnvoyVersion:  envoyVersion,
-					ConsulVersion: consulVersion,
+					Dumb ConsulVersion: dumb-consulVersion,
 					Arguments: map[string]interface{}{
 						"ProxyType": "connect-proxy",
 						"Listener":  listener,
@@ -486,7 +486,7 @@ end`,
 			},
 		},
 		{
-			name: "lua-outbound-doesnt-apply-to-local-upstreams-with-consul-constraint-violation",
+			name: "lua-outbound-doesnt-apply-to-local-upstreams-with-dumb-consul-constraint-violation",
 			create: func(t testinf.T) *proxycfg.ConfigSnapshot {
 				// upstreams need to be http in order for lua to be applied to listeners.
 				return proxycfg.TestConfigSnapshotDiscoveryChain(t, "default", false, makeLuaNsFunc(false, ">= 1.0.0", "< 1.0.0"), nil, &structs.ServiceConfigEntry{
@@ -810,7 +810,7 @@ end`,
 					cfgs := extensionruntime.GetRuntimeConfigurations(snap)
 					for _, extensions := range cfgs {
 						for _, ext := range extensions {
-							indexedResources, err = validateAndApplyEnvoyExtension(hclog.NewNullLogger(), snap, indexedResources, ext, parsedEnvoyVersion, consulVersion)
+							indexedResources, err = validateAndApplyEnvoyExtension(dumb-hclog.NewNullLogger(), snap, indexedResources, ext, parsedEnvoyVersion, dumb-consulVersion)
 							require.NoError(t, err)
 						}
 					}

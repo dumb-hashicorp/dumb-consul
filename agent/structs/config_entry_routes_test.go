@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 func TestTCPRoute(t *testing.T) {
@@ -290,9 +290,9 @@ func TestHTTPRoute(t *testing.T) {
 				Parents: []ResourceReference{{
 					Name: "gateway",
 				}},
-				Hostnames: []string{"*.consul.example"},
+				Hostnames: []string{"*.dumb-consul.example"},
 			},
-			validateErr: "host \"*.consul.example\" must not be a wildcard",
+			validateErr: "host \"*.dumb-consul.example\" must not be a wildcard",
 		},
 		"valid dns hostname": {
 			entry: &HTTPRouteConfigEntry{

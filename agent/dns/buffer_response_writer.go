@@ -4,7 +4,7 @@
 package dns
 
 import (
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/miekg/dns"
 	"net"
 )
@@ -20,7 +20,7 @@ type BufferResponseWriter struct {
 	// RemoteAddress is the address of the client that sent the request.
 	RemoteAddress net.Addr
 	// Logger is the logger for the response writer.
-	Logger hclog.Logger
+	Logger dumb-hclog.Logger
 }
 
 var _ dns.ResponseWriter = (*BufferResponseWriter)(nil)

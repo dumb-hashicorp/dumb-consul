@@ -10,12 +10,12 @@ import (
 	"github.com/mitchellh/go-testing-interface"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // TestConfigSnapshot returns a fully populated snapshot
@@ -23,7 +23,7 @@ func TestConfigSnapshot(t testing.T, nsFn func(ns *structs.NodeService), extraUp
 	roots, leaf := TestCerts(t)
 
 	// no entries implies we'll get a default chain
-	dbChain := discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", connect.TestClusterID+".consul", nil, nil)
+	dbChain := discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", connect.TestClusterID+".dumb-consul", nil, nil)
 	assert.True(t, dbChain.Default)
 
 	var (
@@ -349,12 +349,12 @@ func TestConfigSnapshotTelemetryCollector(t testing.T) *ConfigSnapshot {
 	var (
 		collector      = structs.NewServiceName(api.TelemetryCollectorName, nil)
 		collectorUID   = NewUpstreamIDFromServiceName(collector)
-		collectorChain = discoverychain.TestCompileConfigEntries(t, api.TelemetryCollectorName, "default", "default", "dc1", connect.TestClusterID+".consul", nil, nil)
+		collectorChain = discoverychain.TestCompileConfigEntries(t, api.TelemetryCollectorName, "default", "default", "dc1", connect.TestClusterID+".dumb-consul", nil, nil)
 	)
 
 	return TestConfigSnapshot(t, func(ns *structs.NodeService) {
 		ns.Proxy.Config = map[string]interface{}{
-			"envoy_telemetry_collector_bind_socket_dir": "/tmp/consul/telemetry-collector",
+			"envoy_telemetry_collector_bind_socket_dir": "/tmp/dumb-consul/telemetry-collector",
 		}
 	}, []UpdateEvent{
 		{

@@ -9,11 +9,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/go-discover"
-	discoverk8s "github.com/hashicorp/go-discover/provider/k8s"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/go-discover"
+	discoverk8s "github.com/dumb-hashicorp/go-discover/provider/k8s"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
 func (ac *AutoConfig) discoverServers(servers []string) ([]string, error) {
@@ -36,7 +36,7 @@ func (ac *AutoConfig) discoverServers(servers []string) ([]string, error) {
 	for _, addr := range servers {
 		switch {
 		case strings.Contains(addr, "provider="):
-			resolved, err := disco.Addrs(addr, ac.logger.StandardLogger(&hclog.StandardLoggerOptions{InferLevels: true}))
+			resolved, err := disco.Addrs(addr, ac.logger.StandardLogger(&dumb-hclog.StandardLoggerOptions{InferLevels: true}))
 			if err != nil {
 				ac.logger.Error("failed to resolve go-discover auto-config servers", "configuration", addr, "err", err)
 				continue

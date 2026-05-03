@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package register
 
@@ -12,7 +12,7 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
 )
 
 func TestValidateMultiPortWithConnectSidecarInCE(t *testing.T) {

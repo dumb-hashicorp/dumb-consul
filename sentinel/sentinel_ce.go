@@ -1,16 +1,16 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package sentinel
 
 import (
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
 // New returns a new instance of the Sentinel code engine. This is only available
-// in Consul Enterprise so this version always returns nil.
-func New(logger hclog.Logger) Evaluator {
+// in Dumb Consul Enterprise so this version always returns nil.
+func New(logger dumb-hclog.Logger) Evaluator {
 	return nil
 }

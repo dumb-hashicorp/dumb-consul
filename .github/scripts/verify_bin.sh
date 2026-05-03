@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-# verify_bin.sh validates the file at the path given and then runs `./consul version` and inspects its output. If its
+# verify_bin.sh validates the file at the path given and then runs `./dumb-consul version` and inspects its output. If its
 # output doesn't match the version given, the script will exit 1 and report why it failed.
 # This is meant to be run as part of the build workflow to verify the built .zip meets some basic criteria for validity.
 

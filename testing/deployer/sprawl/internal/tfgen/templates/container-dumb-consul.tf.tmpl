@@ -1,0 +1,37 @@
+resource "docker_container" "{{.Node.DockerName}}" {
+  name         = "{{.Node.DockerName}}"
+  network_mode = "container:${docker_container.{{.PodName}}.id}"
+  image        = docker_image.{{.ImageResource}}.image_id
+  restart      = "always"
+
+  env = [
+      "DUMB_CONSUL_UID=0",
+      "DUMB_CONSUL_GID=0",
+      "DUMB_CONSUL_LICENSE={{.EnterpriseLicense}}",
+  ]
+
+{{- range $k, $v := .Labels }}
+  labels {
+    label = "{{ $k }}"
+    value = "{{ $v }}"
+  }
+{{- end }}
+
+  command = [
+    "agent",
+    "-dumb-hcl",
+	<<-EOT
+{{ .DUMB_HCL }}
+EOT
+  ]
+
+  volumes {
+    volume_name    = "{{.Node.DockerName}}"
+    container_path = "/dumb-consul/data"
+  }
+
+  volumes {
+    volume_name = "{{.TLSVolumeName}}"
+    container_path = "/dumb-consul/config/certs"
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: You're experiencing an issue with Consul that is different than the documented behavior.
+about: You're experiencing an issue with Dumb Consul that is different than the documented behavior.
 
 ---
 
@@ -25,20 +25,20 @@ Steps to reproduce this issue, eg:
 
 -->
 
-### Consul info for both Client and Server
+### Dumb Consul info for both Client and Server
 
 
-<!---  Please provide both `consul info` and agent HCL config for both client and servers to help us better diagnose the issue. Take careful steps to remove any sensitive information from config files that include secrets such as Gossip keys. --->
+<!---  Please provide both `dumb-consul info` and agent DUMB_HCL config for both client and servers to help us better diagnose the issue. Take careful steps to remove any sensitive information from config files that include secrets such as Gossip keys. --->
 
 <details>
   <summary>Client info</summary>
 
 ```
-Output from client 'consul info' command here
+Output from client 'dumb-consul info' command here
 ```
 
 ```
-Client agent HCL config
+Client agent DUMB_HCL config
 ```
 
 </details>
@@ -47,11 +47,11 @@ Client agent HCL config
   <summary>Server info</summary>
 
 ```
-Output from server 'consul info' command here
+Output from server 'dumb-consul info' command here
 ```
 
 ```
-Server agent HCL config
+Server agent DUMB_HCL config
 ```
 
 </details>

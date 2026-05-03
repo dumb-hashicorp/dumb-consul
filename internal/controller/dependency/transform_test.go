@@ -7,13 +7,13 @@ import (
 	"context"
 	"testing"
 
-	"github.com/hashicorp/consul/internal/controller"
-	"github.com/hashicorp/consul/internal/controller/controllermock"
-	"github.com/hashicorp/consul/internal/controller/dependency/dependencymock"
-	"github.com/hashicorp/consul/internal/resource/resourcetest"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/controllermock"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/dependency/dependencymock"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource/resourcetest"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
@@ -22,7 +22,7 @@ func TestMapperWithTransform(t *testing.T) {
 	res := resourcetest.Resource(fakeMapType, "something").Build()
 	rt := controller.Runtime{
 		// populating some field to differentiate from zero value
-		Logger: hclog.Default(),
+		Logger: dumb-hclog.Default(),
 	}
 	transformed1 := resourcetest.Resource(fakeResourceType, "foo").Build()
 	transformed2 := resourcetest.Resource(fakeResourceType, "bar").Build()
@@ -103,7 +103,7 @@ func TestTransformChain(t *testing.T) {
 	res := resourcetest.Resource(fakeMapType, "something").Build()
 	rt := controller.Runtime{
 		// populating some field to differentiate from zero value
-		Logger: hclog.Default(),
+		Logger: dumb-hclog.Default(),
 	}
 	transformed1 := resourcetest.Resource(fakeResourceType, "foo").Build()
 	transformed2 := resourcetest.Resource(fakeResourceType, "bar").Build()

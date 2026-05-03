@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/patrickmn/go-cache"
 	"github.com/stretchr/testify/assert"
 )
@@ -46,7 +46,7 @@ func TestAuthenticator_JWTGroup(t *testing.T) {
 		cfg.JWTValidationPubKeys = []string{testPublicKeyPEM}
 		cfg.JWKSURL = ""
 		cfg.JWKSCACert = ""
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		auth, err := New(cfg, logger)
 		assert.NoError(t, err)
 		assert.NotNil(t, auth)
@@ -56,7 +56,7 @@ func TestAuthenticator_JWTGroup(t *testing.T) {
 
 	t.Run("JWTType JWKS", func(t *testing.T) {
 		cfg := mockConfig(TypeJWT, t)
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		auth, err := New(cfg, logger)
 		assert.NoError(t, err)
 		assert.NotNil(t, auth)
@@ -66,7 +66,7 @@ func TestAuthenticator_JWTGroup(t *testing.T) {
 	t.Run("JWTType failure", func(t *testing.T) {
 		cfg := mockConfig(TypeJWT, t)
 		cfg.OIDCClientID = "abc"
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		_, err := New(cfg, logger)
 		assert.Error(t, err)
 		requireErrorContains(t, err, "'OIDCClientID' must not be set for type")
@@ -74,7 +74,7 @@ func TestAuthenticator_JWTGroup(t *testing.T) {
 
 	t.Run("Stop", func(t *testing.T) {
 		cfg := mockConfig(TypeJWT, t)
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		auth, err := New(cfg, logger)
 		assert.NoError(t, err)
 		assert.NotNil(t, auth.backgroundCtxCancel)
@@ -84,7 +84,7 @@ func TestAuthenticator_JWTGroup(t *testing.T) {
 
 	t.Run("BackgroundContextCancel", func(t *testing.T) {
 		cfg := mockConfig(TypeJWT, t)
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		auth, err := New(cfg, logger)
 		assert.NoError(t, err)
 		done := make(chan struct{})
@@ -104,7 +104,7 @@ func TestAuthenticator_JWTGroup(t *testing.T) {
 func TestAuthenticator_OIDCGroup(t *testing.T) {
 	t.Run("OIDCType", func(t *testing.T) {
 		cfg := mockConfig(TypeOIDC, t)
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		auth, err := New(cfg, logger)
 		assert.NoError(t, err)
 		assert.NotNil(t, auth.capProvider)
@@ -120,7 +120,7 @@ func TestAuthenticator_OIDCGroup(t *testing.T) {
 		cfg.OIDCDiscoveryURL = srv.Addr()
 		cfg.OIDCDiscoveryCACert = srv.CACert()
 
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		auth, err := New(cfg, logger)
 		assert.NoError(t, err)
 		assert.NotNil(t, auth)
@@ -130,7 +130,7 @@ func TestAuthenticator_OIDCGroup(t *testing.T) {
 
 	t.Run("OIDCStatesCache", func(t *testing.T) {
 		cfg := mockConfig(TypeOIDC, t)
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		auth, err := New(cfg, logger)
 		assert.NoError(t, err)
 		assert.NotNil(t, auth.oidcStates)
@@ -146,7 +146,7 @@ func TestAuthenticator_OIDCFlow_Failure(t *testing.T) {
 		cfg := mockConfig(TypeOIDC, t)
 		cfg.OIDCDiscoveryCACert = "invalid cert data"
 
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		_, err := New(cfg, logger)
 
 		assert.Error(t, err)
@@ -157,7 +157,7 @@ func TestAuthenticator_OIDCFlow_Failure(t *testing.T) {
 		cfg := mockConfig(TypeOIDC, t)
 		cfg.OIDCDiscoveryURL = "::invalid-url::"
 
-		logger := hclog.NewNullLogger()
+		logger := dumb-hclog.NewNullLogger()
 		_, err := New(cfg, logger)
 
 		assert.Error(t, err)

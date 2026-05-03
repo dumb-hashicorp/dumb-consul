@@ -13,12 +13,12 @@ resource "docker_container" "{{.Node.DockerName}}-{{.Workload.ID.TFString}}" {
 
   volumes {
     volume_name    = "{{.TLSVolumeName}}"
-    container_path = "/consul/config/certs"
+    container_path = "/dumb-consul/config/certs"
     read_only      = true
   }
 
   command = [
-    "consul", "connect", "envoy",
+    "dumb-consul", "connect", "envoy",
     "-register",
     "-mesh-gateway",
     "-address={{`{{ GetInterfaceIP \"eth0\" }}`}}:{{.Workload.Port}}",

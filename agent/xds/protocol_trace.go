@@ -5,22 +5,22 @@ package xds
 
 import (
 	envoy_discovery_v3 "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
 	"github.com/mitchellh/copystructure"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
 
-func logTraceRequest(logger hclog.Logger, msg string, pb proto.Message) {
+func logTraceRequest(logger dumb-hclog.Logger, msg string, pb proto.Message) {
 	logTraceProto(logger, msg, pb, false)
 }
 
-func logTraceResponse(logger hclog.Logger, msg string, pb proto.Message) {
+func logTraceResponse(logger dumb-hclog.Logger, msg string, pb proto.Message) {
 	logTraceProto(logger, msg, pb, true)
 }
 
-func logTraceProto(logger hclog.Logger, msg string, pb proto.Message, response bool) {
+func logTraceProto(logger dumb-hclog.Logger, msg string, pb proto.Message, response bool) {
 	if !logger.IsTrace() {
 		return
 	}

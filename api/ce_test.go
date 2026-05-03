@@ -1,7 +1,7 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package api
 

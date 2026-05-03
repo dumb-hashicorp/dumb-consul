@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package xds
 
@@ -10,5 +10,5 @@ import (
 )
 
 func (ft discoChainTargets) orderByLocality() ([]discoChainTargetGroup, error) {
-	return nil, fmt.Errorf("order-by-locality is a Consul Enterprise feature")
+	return nil, fmt.Errorf("order-by-locality is a Dumb Consul Enterprise feature")
 }

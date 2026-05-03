@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package extensionruntime
 
@@ -10,10 +10,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
 )
 
 func TestGetRuntimeConfigurations_TerminatingGateway(t *testing.T) {
@@ -57,35 +57,35 @@ func TestGetRuntimeConfigurations_TerminatingGateway(t *testing.T) {
 				IsSourcedFromUpstream: true,
 				Upstreams: map[api.CompoundServiceName]*extensioncommon.UpstreamData{
 					apiService: {
-						PrimarySNI: "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+						PrimarySNI: "api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 						SNIs: map[string]struct{}{
-							"api.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul": {},
+							"api.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul": {},
 						},
 						EnvoyID:           "api",
 						OutgoingProxyKind: "terminating-gateway",
 					},
 					cacheService: {
-						PrimarySNI: "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+						PrimarySNI: "cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 						SNIs: map[string]struct{}{
-							"cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul": {},
+							"cache.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul": {},
 						},
 						EnvoyID:           "cache",
 						OutgoingProxyKind: "terminating-gateway",
 					},
 					dbService: {
-						PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+						PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 						SNIs: map[string]struct{}{
-							"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul": {},
+							"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul": {},
 						},
 						EnvoyID:           "db",
 						OutgoingProxyKind: "terminating-gateway",
 					},
 					webService: {
-						PrimarySNI: "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+						PrimarySNI: "web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 						SNIs: map[string]struct{}{
-							"canary1.web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul": {},
-							"canary2.web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul": {},
-							"web.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul":         {},
+							"canary1.web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul": {},
+							"canary2.web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul": {},
+							"web.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul":         {},
 						},
 						EnvoyID:           "web",
 						OutgoingProxyKind: "terminating-gateway",
@@ -182,10 +182,10 @@ func TestGetRuntimeConfigurations_ConnectProxy(t *testing.T) {
 						IsSourcedFromUpstream: true,
 						Upstreams: map[api.CompoundServiceName]*extensioncommon.UpstreamData{
 							dbService: {
-								PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+								PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 								SNIs: map[string]struct{}{
-									"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul":    {},
-									"db-v2.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul": {},
+									"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul":    {},
+									"db-v2.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul": {},
 								},
 								EnvoyID:           "db",
 								OutgoingProxyKind: "connect-proxy",
@@ -213,10 +213,10 @@ func TestGetRuntimeConfigurations_ConnectProxy(t *testing.T) {
 						IsSourcedFromUpstream: true,
 						Upstreams: map[api.CompoundServiceName]*extensioncommon.UpstreamData{
 							dbService: {
-								PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+								PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 								SNIs: map[string]struct{}{
-									"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul":    {},
-									"db-v2.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul": {},
+									"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul":    {},
+									"db-v2.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul": {},
 								},
 								EnvoyID:           "db",
 								OutgoingProxyKind: "terminating-gateway",
@@ -246,9 +246,9 @@ func TestGetRuntimeConfigurations_ConnectProxy(t *testing.T) {
 						IsSourcedFromUpstream: false,
 						Upstreams: map[api.CompoundServiceName]*extensioncommon.UpstreamData{
 							dbService: {
-								PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+								PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 								SNIs: map[string]struct{}{
-									"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul": {},
+									"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul": {},
 								},
 								EnvoyID:           "db",
 								OutgoingProxyKind: "connect-proxy",
@@ -268,9 +268,9 @@ func TestGetRuntimeConfigurations_ConnectProxy(t *testing.T) {
 						IsSourcedFromUpstream: false,
 						Upstreams: map[api.CompoundServiceName]*extensioncommon.UpstreamData{
 							dbService: {
-								PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul",
+								PrimarySNI: "db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul",
 								SNIs: map[string]struct{}{
-									"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.consul": {},
+									"db.default.dc1.internal.11111111-2222-3333-4444-555555555555.dumb-consul": {},
 								},
 								EnvoyID:           "db",
 								OutgoingProxyKind: "connect-proxy",

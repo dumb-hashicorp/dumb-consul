@@ -7,19 +7,19 @@ import (
 	"context"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	mock "github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/acl"
-	resolver "github.com/hashicorp/consul/acl/resolver"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	structs "github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbdataplane"
-	"github.com/hashicorp/consul/version"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	resolver "github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	structs "github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbdataplane"
+	"github.com/dumb-hashicorp/dumb-consul/version"
 )
 
 const testACLToken = "acl-token"
@@ -35,7 +35,7 @@ func TestSupportedDataplaneFeatures_Success(t *testing.T) {
 	require.NoError(t, err)
 
 	server := NewServer(Config{
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		ACLResolver: aclResolver,
 	})
 	client := testClient(t, server)
@@ -69,7 +69,7 @@ func TestSupportedDataplaneFeatures_ACLsDisabled(t *testing.T) {
 	require.NoError(t, err)
 
 	server := NewServer(Config{
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		ACLResolver: aclResolver,
 	})
 	client := testClient(t, server)
@@ -89,7 +89,7 @@ func TestSupportedDataplaneFeatures_InvalidACLToken(t *testing.T) {
 	require.NoError(t, err)
 
 	server := NewServer(Config{
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		ACLResolver: aclResolver,
 	})
 	client := testClient(t, server)
@@ -110,7 +110,7 @@ func TestSupportedDataplaneFeatures_AnonymousACLToken(t *testing.T) {
 	require.NoError(t, err)
 
 	server := NewServer(Config{
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		ACLResolver: aclResolver,
 	})
 	client := testClient(t, server)
@@ -131,7 +131,7 @@ func TestSupportedDataplaneFeatures_NoPermissions(t *testing.T) {
 	require.NoError(t, err)
 
 	server := NewServer(Config{
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		ACLResolver: aclResolver,
 	})
 	client := testClient(t, server)

@@ -9,10 +9,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/lib/stringslice"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 type ServiceIntentionsConfigEntry struct {
@@ -25,7 +25,7 @@ type ServiceIntentionsConfigEntry struct {
 
 	Meta map[string]string `json:",omitempty"` // formerly Intention.Meta
 
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"` // formerly DestinationNS
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"` // formerly DestinationNS
 	Hash               uint64                                 `json:",omitempty" hash:"ignore"`
 	RaftIndex          `hash:"ignore"`
 }
@@ -208,7 +208,7 @@ type SourceIntention struct {
 	// only the full value can be a wildcard. Partial wildcards are not
 	// allowed.
 	//
-	// The source may also be a non-Consul service, as specified by SourceType.
+	// The source may also be a non-Dumb Consul service, as specified by SourceType.
 	//
 	// formerly Intention.SourceName
 	Name string
@@ -260,14 +260,14 @@ type SourceIntention struct {
 	Type IntentionSourceType
 
 	// Description is a human-friendly description of this intention.
-	// It is opaque to Consul and is only stored and transferred in API
+	// It is opaque to Dumb Consul and is only stored and transferred in API
 	// requests.
 	//
 	// formerly Intention.Description
 	Description string `json:",omitempty"`
 
 	// LegacyMeta is arbitrary metadata associated with the intention. This is
-	// opaque to Consul but is served in API responses.
+	// opaque to Dumb Consul but is served in API responses.
 	//
 	// formerly Intention.Meta
 	LegacyMeta map[string]string `json:",omitempty" alias:"legacy_meta"`
@@ -280,7 +280,7 @@ type SourceIntention struct {
 	// Things like L7 rules or Sentinel rules could go here later.
 
 	// formerly Intention.SourceNS
-	acl.EnterpriseMeta `hcl:",squash" mapstructure:",squash"`
+	acl.EnterpriseMeta `dumb-hcl:",squash" mapstructure:",squash"`
 
 	// Peer is the name of the remote peer of the source service, if applicable.
 	Peer string `json:",omitempty"`
@@ -535,7 +535,7 @@ func (e *ServiceIntentionsConfigEntry) normalize(legacyWrite bool) error {
 	for _, src := range e.Sources {
 		// Default source type
 		if src.Type == "" {
-			src.Type = IntentionSourceConsul
+			src.Type = IntentionSourceDumb Consul
 		}
 
 		// Normalize the source's namespace and partition.
@@ -812,9 +812,9 @@ func (e *ServiceIntentionsConfigEntry) validate(legacyWrite bool) error {
 		}
 
 		switch src.Type {
-		case IntentionSourceConsul:
+		case IntentionSourceDumb Consul:
 		default:
-			return fmt.Errorf("Sources[%d].Type must be set to 'consul'", i)
+			return fmt.Errorf("Sources[%d].Type must be set to 'dumb-consul'", i)
 		}
 
 		for j, perm := range src.Permissions {

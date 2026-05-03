@@ -12,16 +12,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/stretchr/testify/require"
 )
 
 const defaultTimeout = 500 * time.Millisecond
 
 func TestNewWatcher(t *testing.T) {
-	w, err := NewFileWatcher([]string{}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	require.NotNil(t, w)
 }
@@ -30,7 +30,7 @@ func TestWatcherRenameEvent(t *testing.T) {
 
 	fileTmp := createTempConfigFile(t, "temp_config3")
 	filepaths := []string{createTempConfigFile(t, "temp_config1"), createTempConfigFile(t, "temp_config2")}
-	wi, err := NewFileWatcher(filepaths, hclog.New(&hclog.LoggerOptions{}))
+	wi, err := NewFileWatcher(filepaths, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	w := wi.(*fileWatcher)
 
 	require.NoError(t, err)
@@ -50,7 +50,7 @@ func TestWatcherRenameEvent(t *testing.T) {
 
 func TestWatcherAddRemove(t *testing.T) {
 	var filepaths []string
-	wi, err := NewFileWatcher(filepaths, hclog.New(&hclog.LoggerOptions{}))
+	wi, err := NewFileWatcher(filepaths, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	w := wi.(*fileWatcher)
 	require.NoError(t, err)
 	file1 := createTempConfigFile(t, "temp_config1")
@@ -69,7 +69,7 @@ func TestWatcherAddRemove(t *testing.T) {
 
 func TestWatcherReplace(t *testing.T) {
 	var filepaths []string
-	wi, err := NewFileWatcher(filepaths, hclog.New(&hclog.LoggerOptions{}))
+	wi, err := NewFileWatcher(filepaths, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	w := wi.(*fileWatcher)
 	require.NoError(t, err)
 	file1 := createTempConfigFile(t, "temp_config1")
@@ -86,7 +86,7 @@ func TestWatcherReplace(t *testing.T) {
 
 func TestWatcherAddWhileRunning(t *testing.T) {
 	var filepaths []string
-	wi, err := NewFileWatcher(filepaths, hclog.New(&hclog.LoggerOptions{}))
+	wi, err := NewFileWatcher(filepaths, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	w := wi.(*fileWatcher)
 	require.NoError(t, err)
 	w.Start(context.Background())
@@ -109,7 +109,7 @@ func TestWatcherAddWhileRunning(t *testing.T) {
 
 func TestWatcherRemoveNotFound(t *testing.T) {
 	var filepaths []string
-	w, err := NewFileWatcher(filepaths, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher(filepaths, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -124,7 +124,7 @@ func TestWatcherAddNotExist(t *testing.T) {
 
 	file := testutil.TempFile(t, "temp_config")
 	filename := file.Name() + randomStr(16)
-	w, err := NewFileWatcher([]string{filename}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{filename}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.Error(t, err, "no such file or directory")
 	require.Nil(t, w)
 }
@@ -136,7 +136,7 @@ func TestEventWatcherWrite(t *testing.T) {
 	require.NoError(t, err)
 	err = file.Sync()
 	require.NoError(t, err)
-	w, err := NewFileWatcher([]string{file.Name()}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{file.Name()}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -153,7 +153,7 @@ func TestEventWatcherWrite(t *testing.T) {
 func TestEventWatcherRead(t *testing.T) {
 
 	filepath := createTempConfigFile(t, "temp_config1")
-	w, err := NewFileWatcher([]string{filepath}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{filepath}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -176,7 +176,7 @@ func TestEventWatcherChmod(t *testing.T) {
 	err = file.Sync()
 	require.NoError(t, err)
 
-	w, err := NewFileWatcher([]string{file.Name()}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{file.Name()}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -191,7 +191,7 @@ func TestEventWatcherChmod(t *testing.T) {
 func TestEventWatcherRemoveCreate(t *testing.T) {
 
 	filepath := createTempConfigFile(t, "temp_config1")
-	w, err := NewFileWatcher([]string{filepath}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{filepath}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -215,7 +215,7 @@ func TestEventWatcherMove(t *testing.T) {
 
 	filepath := createTempConfigFile(t, "temp_config1")
 
-	w, err := NewFileWatcher([]string{filepath}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{filepath}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -236,7 +236,7 @@ func TestEventReconcileMove(t *testing.T) {
 	filepath2 := createTempConfigFile(t, "temp_config2")
 	err := os.Chtimes(filepath, time.Now(), time.Now().Add(-1*time.Second))
 	require.NoError(t, err)
-	wi, err := NewFileWatcher([]string{filepath}, hclog.New(&hclog.LoggerOptions{}))
+	wi, err := NewFileWatcher([]string{filepath}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	w := wi.(*fileWatcher)
 	require.NoError(t, err)
 	w.Start(context.Background())
@@ -256,7 +256,7 @@ func TestEventReconcileMove(t *testing.T) {
 
 func TestEventWatcherDirCreateRemove(t *testing.T) {
 	filepath := testutil.TempDir(t, "temp_config1")
-	w, err := NewFileWatcher([]string{filepath}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{filepath}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -284,7 +284,7 @@ func TestEventWatcherDirMove(t *testing.T) {
 	require.NoError(t, err)
 	err = file.Close()
 	require.NoError(t, err)
-	w, err := NewFileWatcher([]string{filepath}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{filepath}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -307,7 +307,7 @@ func TestEventWatcherDirMoveTrim(t *testing.T) {
 	require.NoError(t, err)
 	err = file.Close()
 	require.NoError(t, err)
-	w, err := NewFileWatcher([]string{filepath + "/"}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{filepath + "/"}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -322,7 +322,7 @@ func TestEventWatcherDirMoveTrim(t *testing.T) {
 	}
 }
 
-// Consul do not support configuration in sub-directories
+// Dumb Consul do not support configuration in sub-directories
 func TestEventWatcherSubDirMove(t *testing.T) {
 	filepath := testutil.TempDir(t, "temp_config1")
 	err := os.Mkdir(filepath+"/temp", 0777)
@@ -332,7 +332,7 @@ func TestEventWatcherSubDirMove(t *testing.T) {
 	require.NoError(t, err)
 	err = file.Close()
 	require.NoError(t, err)
-	w, err := NewFileWatcher([]string{filepath}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{filepath}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -355,7 +355,7 @@ func TestEventWatcherDirRead(t *testing.T) {
 	require.NoError(t, err)
 	err = file.Close()
 	require.NoError(t, err)
-	w, err := NewFileWatcher([]string{filepath}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{filepath}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	w.Start(context.Background())
 	t.Cleanup(func() {
@@ -375,7 +375,7 @@ func TestEventWatcherMoveSoftLink(t *testing.T) {
 	err := os.Symlink(filepath, name)
 	require.NoError(t, err)
 
-	w, err := NewFileWatcher([]string{name}, hclog.New(&hclog.LoggerOptions{}))
+	w, err := NewFileWatcher([]string{name}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}))
 	require.NoError(t, err)
 	require.NotNil(t, w)
 

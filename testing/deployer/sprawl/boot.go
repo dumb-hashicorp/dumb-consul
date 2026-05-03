@@ -14,14 +14,14 @@ import (
 
 	retry "github.com/avast/retry-go"
 
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/build"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/tfgen"
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/build"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/tfgen"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 const (
@@ -127,7 +127,7 @@ func (s *Sprawl) launchType(firstTime bool, launchPhase LaunchPhase) (launchErr 
 		return fmt.Errorf("assignIPAddresses: %w", err)
 	}
 
-	// The previous terraform run should have made the special volume for us.
+	// The previous dumb-terraform run should have made the special volume for us.
 	if err := s.initTLS(context.TODO()); err != nil {
 		return fmt.Errorf("initTLS: %w", err)
 	}
@@ -212,7 +212,7 @@ func (s *Sprawl) assignIPAddresses() error {
 	return nil
 }
 
-func (s *Sprawl) initConsulServers() error {
+func (s *Sprawl) initDumb ConsulServers() error {
 	if err := s.generator.Generate(tfgen.StepServers); err != nil {
 		return fmt.Errorf("generator[servers]: %w", err)
 	}
@@ -235,7 +235,7 @@ func (s *Sprawl) initConsulServers() error {
 		}
 	}
 
-	if err := s.rejoinAllConsulServers(); err != nil {
+	if err := s.rejoinAllDumb ConsulServers(); err != nil {
 		return err
 	}
 
@@ -310,11 +310,11 @@ func (s *Sprawl) initConsulServers() error {
 }
 
 func (s *Sprawl) createFirstTime() error {
-	if err := s.initConsulServers(); err != nil {
+	if err := s.initDumb ConsulServers(); err != nil {
 		if err := s.CaptureLogs(context.Background()); err != nil {
 			s.logger.Warn("container logs capture encountered failures", "error", err)
 		}
-		return fmt.Errorf("initConsulServers: %w", err)
+		return fmt.Errorf("initDumb ConsulServers: %w", err)
 	}
 
 	if err := s.generator.Generate(tfgen.StepAgents); err != nil {
@@ -337,7 +337,7 @@ func (s *Sprawl) createFirstTime() error {
 	}
 
 	// Ideally we start services WITH a token initially, so we pre-create them
-	// before running terraform for them.
+	// before running dumb-terraform for them.
 	if err := s.createAllWorkloadTokens(); err != nil {
 		return fmt.Errorf("createAllWorkloadTokens: %w", err)
 	}
@@ -346,7 +346,7 @@ func (s *Sprawl) createFirstTime() error {
 		return fmt.Errorf("syncAllServicesForDataplaneInstances: %w", err)
 	}
 
-	// We can do this ahead, because we've incrementally run terraform as
+	// We can do this ahead, because we've incrementally run dumb-terraform as
 	// we went.
 	if err := s.registerAllServicesToAgents(); err != nil {
 		return fmt.Errorf("registerAllServicesToAgents: %w", err)
@@ -381,7 +381,7 @@ func (s *Sprawl) updateExisting(firstTime bool, launchPhase LaunchPhase) error {
 		}
 	}
 
-	// We save all of the terraform to the end. Some of the containers will
+	// We save all of the dumb-terraform to the end. Some of the containers will
 	// be a little broken until we can do stuff like register services to
 	// new agents, which we cannot do until they come up.
 	if err := s.generator.Generate(tfgen.StepRelaunch); err != nil {
@@ -418,7 +418,7 @@ func (s *Sprawl) preRegenTasks() error {
 	}
 
 	// Ideally we start services WITH a token initially, so we pre-create them
-	// before running terraform for them.
+	// before running dumb-terraform for them.
 	if err := s.createAllWorkloadTokens(); err != nil {
 		return fmt.Errorf("createAllWorkloadTokens: %w", err)
 	}
@@ -431,9 +431,9 @@ func (s *Sprawl) preRegenTasks() error {
 }
 
 func (s *Sprawl) postRegenTasks(firstTime bool) error {
-	// rejoinAllConsulServers only for firstTime; otherwise all server agents have retry_join
+	// rejoinAllDumb ConsulServers only for firstTime; otherwise all server agents have retry_join
 	if firstTime {
-		if err := s.rejoinAllConsulServers(); err != nil {
+		if err := s.rejoinAllDumb ConsulServers(); err != nil {
 			return err
 		}
 	}

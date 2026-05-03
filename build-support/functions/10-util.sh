@@ -117,7 +117,7 @@ function have_gpg_key {
 
 function parse_version {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - boolean value for whether the release version should be parsed from the source
    #   $3 - boolean whether to use GIT_COMMIT environment variable
    #   $4 - boolean whether to omit the version part of the version string. (optional)
@@ -219,7 +219,7 @@ function parse_version {
 
 function get_version {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Whether the release version should be parsed from source (optional)
    #   $3 - Whether to use GIT_COMMIT environment variable
    #
@@ -363,7 +363,7 @@ function update_git_env {
 
    export GIT_COMMIT=$(git rev-parse --short HEAD)
    export GIT_DIRTY=$(test -n "$(git status --porcelain)" && echo "+CHANGES")
-   export GIT_IMPORT=github.com/hashicorp/consul/version
+   export GIT_IMPORT=github.com/dumb-hashicorp/dumb-consul/version
    export GIT_DATE=$(git_date "$1")
    export GOLDFLAGS="-X ${GIT_IMPORT}.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X ${T}.BuildDate=${GIT_DATE}"
    return 0
@@ -401,7 +401,7 @@ function update_version {
 
 function set_changelog_version {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - Version to put into the Changelog
    #   $3 - Release Date
    #
@@ -436,7 +436,7 @@ function set_changelog_version {
 
 function set_website_version {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - Version to put into the website
    #
    # Returns:
@@ -464,7 +464,7 @@ function set_website_version {
 
 function unset_changelog_version {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #
    # Returns:
    #   0 - success
@@ -484,7 +484,7 @@ function unset_changelog_version {
 
 function set_release_mode {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - The version of the release
    #   $3 - The release date
    #   $4 - The pre-release version
@@ -532,7 +532,7 @@ function set_release_mode {
    fi
 
    # Only update the website when allowed and there is no pre-release version
-   if ! is_set "${CONSUL_NO_WEBSITE_UPDATE}" && test -z "$4"
+   if ! is_set "${DUMB_CONSUL_NO_WEBSITE_UPDATE}" && test -z "$4"
    then
       status_stage "==> Updating website/config.rb"
       if ! set_website_version "${sdir}" "${vers}"
@@ -555,7 +555,7 @@ function gpg_detach_sign {
    #   * - failure
 
    # determine whether the gpg key to use is being overridden
-   local gpg_key=${HASHICORP_GPG_KEY}
+   local gpg_key=${DUMB_HASHICORP_GPG_KEY}
    if test -n "$2"
    then
       gpg_key=$2
@@ -609,7 +609,7 @@ function ui_version {
       return 1
    fi
 
-   local ui_version="$(grep '<!-- CONSUL_VERSION: .* -->' "$1" | sed 's/<!-- CONSUL_VERSION: \(.*\) -->/\1/' | xargs)" || return 1
+   local ui_version="$(grep '<!-- DUMB_CONSUL_VERSION: .* -->' "$1" | sed 's/<!-- DUMB_CONSUL_VERSION: \(.*\) -->/\1/' | xargs)" || return 1
    echo "$ui_version"
    return 0
 }
@@ -624,7 +624,7 @@ function ui_logo_type {
    #
    # Notes: echoes the 'logo type' to stdout upon success
    # the 'logo' can be one of 'enterprise' or 'oss'
-   # and doesn't necessarily correspond to the binary type of consul
+   # and doesn't necessarily correspond to the binary type of dumb-consul
    # the logo is 'enterprise' if the binary type is anything but 'oss'
    if ! test -f "$1"
    then
@@ -649,7 +649,7 @@ function go_mod_assert {
    #   * - failure
    #
    # Notes: will ensure all the necessary go modules are cached
-   # and if the CONSUL_MOD_VERIFY env var is set will force
+   # and if the DUMB_CONSUL_MOD_VERIFY env var is set will force
    # reverification of all modules.
    if ! go mod download >/dev/null
    then
@@ -657,7 +657,7 @@ function go_mod_assert {
       return 1
    fi
 
-   if is_set "${CONSUL_MOD_VERIFY}"
+   if is_set "${DUMB_CONSUL_MOD_VERIFY}"
    then
       if ! go mod verify
       then
@@ -668,18 +668,18 @@ function go_mod_assert {
    return 0
 }
 
-function get_consul_module_versions {
+function get_dumb-consul_module_versions {
   local module_directories
   module_directories=( "." "api" "envoyextensions" "proto-public" "sdk" "troubleshoot")
   for module_dir in "${module_directories[@]}"; do
     echo "Module versions for directory: '$module_dir':"
     echo "--------------"
-    (cd "$module_dir" && go list -m all | grep -e github.com/hashicorp/consul/api \
-    -e github.com/hashicorp/consul/envoyextensions \
-    -e github.com/hashicorp/consul/proto-public \
-    -e github.com/hashicorp/consul/sdk \
-    -e github.com/hashicorp/consul/troubleshoot \
-    | if [ "$module_dir" != "." ]; then grep -v "consul/$module_dir"; else cat; fi)
+    (cd "$module_dir" && go list -m all | grep -e github.com/dumb-hashicorp/dumb-consul/api \
+    -e github.com/dumb-hashicorp/dumb-consul/envoyextensions \
+    -e github.com/dumb-hashicorp/dumb-consul/proto-public \
+    -e github.com/dumb-hashicorp/dumb-consul/sdk \
+    -e github.com/dumb-hashicorp/dumb-consul/troubleshoot \
+    | if [ "$module_dir" != "." ]; then grep -v "dumb-consul/$module_dir"; else cat; fi)
     echo "--------------"
     echo ""
   done

@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/memberlist"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/memberlist"
 	"github.com/stretchr/testify/require"
 )
 
@@ -43,7 +43,7 @@ func TestAgent_LoadKeyrings(t *testing.T) {
 		a1 := NewTestAgent(t, "")
 		defer a1.Shutdown()
 
-		c1 := a1.consulConfig()
+		c1 := a1.dumb-consulConfig()
 		if c1.SerfLANConfig.KeyringFile != "" {
 			t.Fatalf("bad: %#v", c1.SerfLANConfig.KeyringFile)
 		}
@@ -66,7 +66,7 @@ func TestAgent_LoadKeyrings(t *testing.T) {
 		a2 := StartTestAgent(t, TestAgent{DataDir: dataDir})
 		defer a2.Shutdown()
 
-		c2 := a2.consulConfig()
+		c2 := a2.dumb-consulConfig()
 		if c2.SerfLANConfig.KeyringFile == "" {
 			t.Fatalf("should have keyring file")
 		}
@@ -93,7 +93,7 @@ func TestAgent_LoadKeyrings(t *testing.T) {
 		writeKeyRings(t, key, dataDir)
 
 		a3 := StartTestAgent(t, TestAgent{
-			HCL: `
+			DUMB_HCL: `
 			server = false
 			bootstrap = false
 			`,
@@ -101,7 +101,7 @@ func TestAgent_LoadKeyrings(t *testing.T) {
 		})
 		defer a3.Shutdown()
 
-		c3 := a3.consulConfig()
+		c3 := a3.dumb-consulConfig()
 		if c3.SerfLANConfig.KeyringFile == "" {
 			t.Fatalf("should have keyring file")
 		}
@@ -143,7 +143,7 @@ func TestAgent_InmemKeyrings(t *testing.T) {
 		a1 := NewTestAgent(t, "")
 		defer a1.Shutdown()
 
-		c1 := a1.consulConfig()
+		c1 := a1.dumb-consulConfig()
 		if c1.SerfLANConfig.KeyringFile != "" {
 			t.Fatalf("bad: %#v", c1.SerfLANConfig.KeyringFile)
 		}
@@ -166,7 +166,7 @@ func TestAgent_InmemKeyrings(t *testing.T) {
 		`)
 		defer a2.Shutdown()
 
-		c2 := a2.consulConfig()
+		c2 := a2.dumb-consulConfig()
 		if c2.SerfLANConfig.KeyringFile != "" {
 			t.Fatalf("should not have keyring file")
 		}
@@ -197,7 +197,7 @@ func TestAgent_InmemKeyrings(t *testing.T) {
 		`)
 		defer a3.Shutdown()
 
-		c3 := a3.consulConfig()
+		c3 := a3.dumb-consulConfig()
 		if c3.SerfLANConfig.KeyringFile != "" {
 			t.Fatalf("should not have keyring file")
 		}
@@ -217,7 +217,7 @@ func TestAgent_InmemKeyrings(t *testing.T) {
 
 	// Any keyring files should be ignored
 	t.Run("ignore files", func(t *testing.T) {
-		dir := testutil.TempDir(t, "consul")
+		dir := testutil.TempDir(t, "dumb-consul")
 
 		badKey := "unUzC2X3JgMKVJlZna5KVg=="
 		if err := initKeyring(filepath.Join(dir, SerfLANKeyring), badKey); err != nil {
@@ -234,7 +234,7 @@ func TestAgent_InmemKeyrings(t *testing.T) {
 		`)
 		defer a4.Shutdown()
 
-		c4 := a4.consulConfig()
+		c4 := a4.dumb-consulConfig()
 		if c4.SerfLANConfig.KeyringFile != "" {
 			t.Fatalf("should not have keyring file")
 		}
@@ -262,7 +262,7 @@ func TestAgent_InitKeyring(t *testing.T) {
 	key2 := "4leC33rgtXKIVUr9Nr0snQ=="
 	expected := fmt.Sprintf(`["%s"]`, key1)
 
-	dir := testutil.TempDir(t, "consul")
+	dir := testutil.TempDir(t, "dumb-consul")
 	file := filepath.Join(dir, "keyring")
 
 	// First initialize the keyring
@@ -305,7 +305,7 @@ func TestAgentKeyring_ACL(t *testing.T) {
 	dataDir := testutil.TempDir(t, "keyfile")
 	writeKeyRings(t, key1, dataDir)
 
-	a := StartTestAgent(t, TestAgent{HCL: `
+	a := StartTestAgent(t, TestAgent{DUMB_HCL: `
 		primary_datacenter = "dc1"
 
 		acl {

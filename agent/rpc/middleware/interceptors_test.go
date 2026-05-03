@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"github.com/armon/go-metrics"
-	"github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
@@ -255,7 +255,7 @@ func TestRequestRecorder(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 
 			r := RequestRecorder{
-				Logger:         hclog.NewInterceptLogger(&hclog.LoggerOptions{}),
+				Logger:         dumb-hclog.NewInterceptLogger(&dumb-hclog.LoggerOptions{}),
 				RecorderFunc:   simpleRecorderFunc,
 				serverIsLeader: tc.isLeader,
 				localDC:        tc.dc,
@@ -278,7 +278,7 @@ func TestRequestRecorder(t *testing.T) {
 func TestGetNetRPCRateLimitingInterceptor(t *testing.T) {
 	limiter := rate.NewMockRequestLimitsHandler(t)
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 	rateLimitInterceptor := GetNetRPCRateLimitingInterceptor(limiter, NewPanicHandler(logger))
 
 	addr := net.TCPAddrFromAddrPort(netip.MustParseAddrPort("1.2.3.4:5678"))

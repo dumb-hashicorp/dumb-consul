@@ -13,15 +13,15 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/grpc-external/limiter"
-	"github.com/hashicorp/consul/agent/local"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
 )
 
 func TestConfigSource_Success(t *testing.T) {
@@ -72,7 +72,7 @@ func TestConfigSource_Success(t *testing.T) {
 	mgr := NewConfigSource(Config{
 		Manager:        cfgMgr,
 		LocalState:     testLocalState(t),
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		GetStore:       func() Store { return store },
 		SessionLimiter: lim,
 	})
@@ -184,7 +184,7 @@ func TestConfigSource_LocallyManagedService(t *testing.T) {
 		NodeName:          nodeName,
 		LocalState:        localState,
 		LocalConfigSource: localWatcher,
-		Logger:            hclog.NewNullLogger(),
+		Logger:            dumb-hclog.NewNullLogger(),
 		GetStore:          func() Store { panic("state store shouldn't have been used") },
 		SessionLimiter:    nullSessionLimiter{},
 	})
@@ -231,7 +231,7 @@ func TestConfigSource_ErrorRegisteringService(t *testing.T) {
 	mgr := NewConfigSource(Config{
 		Manager:        cfgMgr,
 		LocalState:     testLocalState(t),
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		GetStore:       func() Store { return store },
 		SessionLimiter: lim,
 	})
@@ -322,7 +322,7 @@ func TestConfigSource_ErrorInSyncLoop(t *testing.T) {
 	mgr := NewConfigSource(Config{
 		Manager:        cfgMgr,
 		LocalState:     testLocalState(t),
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		GetStore:       func() Store { return store },
 		SessionLimiter: lim,
 	})
@@ -432,7 +432,7 @@ func TestConfigSource_NotProxyService(t *testing.T) {
 	mgr := NewConfigSource(Config{
 		Manager:        cfgMgr,
 		LocalState:     testLocalState(t),
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		GetStore:       func() Store { return store },
 		SessionLimiter: nullSessionLimiter{},
 	})
@@ -508,7 +508,7 @@ func testStateStore(t *testing.T) *state.Store {
 func testLocalState(t *testing.T) *local.State {
 	t.Helper()
 
-	l := local.NewState(local.Config{}, hclog.NewNullLogger(), &token.Store{})
+	l := local.NewState(local.Config{}, dumb-hclog.NewNullLogger(), &token.Store{})
 	l.TriggerSyncChanges = func() {}
 	return l
 }

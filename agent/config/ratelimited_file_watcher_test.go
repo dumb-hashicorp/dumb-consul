@@ -9,14 +9,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 	"github.com/stretchr/testify/require"
 )
 
 func TestNewRateLimitedWatcher(t *testing.T) {
-	w, err := NewRateLimitedFileWatcher([]string{}, hclog.New(&hclog.LoggerOptions{}), 1*time.Nanosecond)
+	w, err := NewRateLimitedFileWatcher([]string{}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}), 1*time.Nanosecond)
 	require.NoError(t, err)
 	require.NotNil(t, w)
 }
@@ -25,7 +25,7 @@ func TestRateLimitedWatcherRenameEvent(t *testing.T) {
 
 	fileTmp := createTempConfigFile(t, "temp_config3")
 	filepaths := []string{createTempConfigFile(t, "temp_config1"), createTempConfigFile(t, "temp_config2")}
-	w, err := NewRateLimitedFileWatcher(filepaths, hclog.New(&hclog.LoggerOptions{}), 1*time.Nanosecond)
+	w, err := NewRateLimitedFileWatcher(filepaths, dumb-hclog.New(&dumb-hclog.LoggerOptions{}), 1*time.Nanosecond)
 
 	require.NoError(t, err)
 	w.Start(context.Background())
@@ -46,7 +46,7 @@ func TestRateLimitedWatcherAddNotExist(t *testing.T) {
 
 	file := testutil.TempFile(t, "temp_config")
 	filename := file.Name() + randomStr(16)
-	w, err := NewRateLimitedFileWatcher([]string{filename}, hclog.New(&hclog.LoggerOptions{}), 1*time.Nanosecond)
+	w, err := NewRateLimitedFileWatcher([]string{filename}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}), 1*time.Nanosecond)
 	require.Error(t, err, "no such file or directory")
 	require.Nil(t, w)
 }
@@ -58,7 +58,7 @@ func TestEventRateLimitedWatcherWrite(t *testing.T) {
 	require.NoError(t, err)
 	err = file.Sync()
 	require.NoError(t, err)
-	w, err := NewRateLimitedFileWatcher([]string{file.Name()}, hclog.New(&hclog.LoggerOptions{}), 1*time.Nanosecond)
+	w, err := NewRateLimitedFileWatcher([]string{file.Name()}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}), 1*time.Nanosecond)
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {
@@ -76,7 +76,7 @@ func TestEventRateLimitedWatcherMove(t *testing.T) {
 
 	filepath := createTempConfigFile(t, "temp_config1")
 
-	w, err := NewRateLimitedFileWatcher([]string{filepath}, hclog.New(&hclog.LoggerOptions{}), 1*time.Second)
+	w, err := NewRateLimitedFileWatcher([]string{filepath}, dumb-hclog.New(&dumb-hclog.LoggerOptions{}), 1*time.Second)
 	require.NoError(t, err)
 	w.Start(context.Background())
 	defer func() {

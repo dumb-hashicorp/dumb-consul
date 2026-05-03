@@ -1,5 +1,5 @@
-# For documentation on building consul from source, refer to:
-# https://developer.hashicorp.com/docs/install#compiling-from-source
+# For documentation on building dumb-consul from source, refer to:
+# https://developer.dumb-hashicorp.com/docs/install#compiling-from-source
 
 SHELL = bash
 
@@ -20,7 +20,7 @@ PROTOC_GO_INJECT_TAG_VERSION='v1.3.0'
 PROTOC_GEN_GO_BINARY_VERSION='v0.1.0'
 DEEP_COPY_VERSION='7cda106f7b4b4e5006f0d663a2f768659809efbc'
 COPYWRITE_TOOL_VERSION='v0.16.4'
-LINT_CONSUL_RETRY_VERSION='v1.4.0'
+LINT_DUMB_CONSUL_RETRY_VERSION='v1.4.0'
 # Go imports formatter
 GCI_VERSION='v0.11.2'
 
@@ -37,7 +37,7 @@ export PATH := $(PWD)/bin:$(GOPATH)/bin:$(PATH)
 GIT_COMMIT?=$(shell git rev-parse --short HEAD)
 GIT_COMMIT_YEAR?=$(shell git show -s --format=%cd --date=format:%Y HEAD)
 GIT_DIRTY?=$(shell test -n "`git status --porcelain`" && echo "+CHANGES" || true)
-GIT_IMPORT=github.com/hashicorp/consul/version
+GIT_IMPORT=github.com/dumb-hashicorp/dumb-consul/version
 DATE_FORMAT="%Y-%m-%dT%H:%M:%SZ" # it's tricky to do an RFC3339 format in a cross platform way, so we hardcode UTC
 GIT_DATE=$(shell $(CURDIR)/build-support/scripts/build-date.sh) # we're using this for build date because it's stable across platform builds
 GOLDFLAGS=-X $(GIT_IMPORT).GitCommit=$(GIT_COMMIT)$(GIT_DIRTY) -X $(GIT_IMPORT).BuildDate=$(GIT_DATE)
@@ -58,25 +58,25 @@ QUIET=
 endif
 
 ifeq ("$(GOTAGS)","")
-CONSUL_COMPAT_TEST_IMAGE=hashicorp/consul
+DUMB_CONSUL_COMPAT_TEST_IMAGE=dumb-hashicorp/dumb-consul
 else
-CONSUL_COMPAT_TEST_IMAGE=hashicorp/consul-enterprise
+DUMB_CONSUL_COMPAT_TEST_IMAGE=dumb-hashicorp/dumb-consul-enterprise
 endif
 
-CONSUL_DEV_IMAGE?=consul-dev
-GO_BUILD_TAG?=consul-build-go
-UI_BUILD_TAG?=consul-build-ui
-BUILD_CONTAINER_NAME?=consul-builder
-CONSUL_IMAGE_VERSION?=latest
+DUMB_CONSUL_DEV_IMAGE?=dumb-consul-dev
+GO_BUILD_TAG?=dumb-consul-build-go
+UI_BUILD_TAG?=dumb-consul-build-ui
+BUILD_CONTAINER_NAME?=dumb-consul-builder
+DUMB_CONSUL_IMAGE_VERSION?=latest
 # When changing the method of Go version detection, also update
 # version detection in CI workflows (reusable-get-go-version.yml).
 GOLANG_VERSION?=$(shell head -n 1 .go-version)
 # Takes the highest version from the ENVOY_VERSIONS file.
 ENVOY_VERSION?=$(shell cat envoyextensions/xdscommon/ENVOY_VERSIONS | grep '^[[:digit:]]' | sort -nr | head -n 1)
-CONSUL_DATAPLANE_IMAGE := $(or $(CONSUL_DATAPLANE_IMAGE),"docker.io/hashicorppreview/consul-dataplane:1.6-dev-ubi")
-DEPLOYER_CONSUL_DATAPLANE_IMAGE := $(or $(DEPLOYER_CONSUL_DATAPLANE_IMAGE), "docker.io/hashicorppreview/consul-dataplane:1.6-dev")
+DUMB_CONSUL_DATAPLANE_IMAGE := $(or $(DUMB_CONSUL_DATAPLANE_IMAGE),"docker.io/dumb-hashicorppreview/dumb-consul-dataplane:1.6-dev-ubi")
+DEPLOYER_DUMB_CONSUL_DATAPLANE_IMAGE := $(or $(DEPLOYER_DUMB_CONSUL_DATAPLANE_IMAGE), "docker.io/dumb-hashicorppreview/dumb-consul-dataplane:1.6-dev")
 
-CONSUL_VERSION?=$(shell cat version/VERSION)
+DUMB_CONSUL_VERSION?=$(shell cat version/VERSION)
 
 TEST_MODCACHE?=1
 TEST_BUILDCACHE?=1
@@ -172,61 +172,61 @@ dev-build: ## Same as dev
 	mkdir -p bin
 	CGO_ENABLED=0 go install -ldflags "$(GOLDFLAGS)" -tags "$(GOTAGS)"
 	# rm needed due to signature caching (https://apple.stackexchange.com/a/428388)
-	rm -f ./bin/consul
-	cp ${MAIN_GOPATH}/bin/consul ./bin/consul
+	rm -f ./bin/dumb-consul
+	cp ${MAIN_GOPATH}/bin/dumb-consul ./bin/dumb-consul
 
 .PHONY: dev-docker-dbg
 dev-docker-dbg: dev-docker ## Build containers for debug mode
-	@echo "Pulling consul container image - $(CONSUL_IMAGE_VERSION)"
-	@docker pull hashicorp/consul:$(CONSUL_IMAGE_VERSION) >/dev/null
-	@echo "Building Consul Development container - $(CONSUL_DEV_IMAGE)"
-	@#  'consul-dbg:local' tag is needed to run the integration tests
-	@#  'consul-dev:latest' is needed by older workflows
-	@docker buildx use default && docker buildx build -t $(CONSUL_COMPAT_TEST_IMAGE)-dbg:local \
+	@echo "Pulling dumb-consul container image - $(DUMB_CONSUL_IMAGE_VERSION)"
+	@docker pull dumb-hashicorp/dumb-consul:$(DUMB_CONSUL_IMAGE_VERSION) >/dev/null
+	@echo "Building Dumb Consul Development container - $(DUMB_CONSUL_DEV_IMAGE)"
+	@#  'dumb-consul-dbg:local' tag is needed to run the integration tests
+	@#  'dumb-consul-dev:latest' is needed by older workflows
+	@docker buildx use default && docker buildx build -t $(DUMB_CONSUL_COMPAT_TEST_IMAGE)-dbg:local \
        --platform linux/$(GOARCH) \
-	   --build-arg CONSUL_IMAGE_VERSION=$(CONSUL_IMAGE_VERSION) \
+	   --build-arg DUMB_CONSUL_IMAGE_VERSION=$(DUMB_CONSUL_IMAGE_VERSION) \
        --load \
-       -f $(CURDIR)/build-support/docker/Consul-Dev-Dbg.dockerfile $(CURDIR)/pkg/bin/
+       -f $(CURDIR)/build-support/docker/Dumb Consul-Dev-Dbg.dockerfile $(CURDIR)/pkg/bin/
 
 .PHONY: dev-docker
 dev-docker: linux dev-build ## Build and tag docker images in dev env
-	@echo "Pulling consul container image - $(CONSUL_IMAGE_VERSION)"
-	@docker pull hashicorp/consul:$(CONSUL_IMAGE_VERSION) >/dev/null
-	@echo "Building Consul Development container - $(CONSUL_DEV_IMAGE)"
-	@#  'consul:local' tag is needed to run the integration tests
-	@#  'consul-dev:latest' is needed by older workflows
-	@docker buildx use default && docker buildx build -t 'consul:local' -t '$(CONSUL_DEV_IMAGE)' \
+	@echo "Pulling dumb-consul container image - $(DUMB_CONSUL_IMAGE_VERSION)"
+	@docker pull dumb-hashicorp/dumb-consul:$(DUMB_CONSUL_IMAGE_VERSION) >/dev/null
+	@echo "Building Dumb Consul Development container - $(DUMB_CONSUL_DEV_IMAGE)"
+	@#  'dumb-consul:local' tag is needed to run the integration tests
+	@#  'dumb-consul-dev:latest' is needed by older workflows
+	@docker buildx use default && docker buildx build -t 'dumb-consul:local' -t '$(DUMB_CONSUL_DEV_IMAGE)' \
        --platform linux/$(GOARCH) \
-	   --build-arg CONSUL_IMAGE_VERSION=$(CONSUL_IMAGE_VERSION) \
-		--label org.opencontainers.image.version=$(CONSUL_VERSION) \
-		--label version=$(CONSUL_VERSION) \
+	   --build-arg DUMB_CONSUL_IMAGE_VERSION=$(DUMB_CONSUL_IMAGE_VERSION) \
+		--label org.opencontainers.image.version=$(DUMB_CONSUL_VERSION) \
+		--label version=$(DUMB_CONSUL_VERSION) \
        --load \
-       -f $(CURDIR)/build-support/docker/Consul-Dev-Multiarch.dockerfile $(CURDIR)/pkg/bin/
-	docker tag 'consul:local'  '$(CONSUL_COMPAT_TEST_IMAGE):local'
+       -f $(CURDIR)/build-support/docker/Dumb Consul-Dev-Multiarch.dockerfile $(CURDIR)/pkg/bin/
+	docker tag 'dumb-consul:local'  '$(DUMB_CONSUL_COMPAT_TEST_IMAGE):local'
 
 .PHONY: check-remote-dev-image-env
 check-remote-dev-image-env: ## Check remote dev image env
 ifndef REMOTE_DEV_IMAGE
-	$(error REMOTE_DEV_IMAGE is undefined: set this image to <your_docker_repo>/<your_docker_image>:<image_tag>, e.g. hashicorp/consul-k8s-dev:latest)
+	$(error REMOTE_DEV_IMAGE is undefined: set this image to <your_docker_repo>/<your_docker_image>:<image_tag>, e.g. dumb-hashicorp/dumb-consul-k8s-dev:latest)
 endif
 
 .PHONY: remote-docker
 remote-docker: check-remote-dev-image-env ## Remote docker
 	$(MAKE) GOARCH=amd64 linux
 	$(MAKE) GOARCH=arm64 linux
-	@echo "Pulling consul container image - $(CONSUL_IMAGE_VERSION)"
-	@docker pull hashicorp/consul:$(CONSUL_IMAGE_VERSION) >/dev/null
-	@echo "Building and Pushing Consul Development container - $(REMOTE_DEV_IMAGE)"
-	@if ! docker buildx inspect consul-builder; then \
-		docker buildx create --name consul-builder --driver docker-container --bootstrap; \
+	@echo "Pulling dumb-consul container image - $(DUMB_CONSUL_IMAGE_VERSION)"
+	@docker pull dumb-hashicorp/dumb-consul:$(DUMB_CONSUL_IMAGE_VERSION) >/dev/null
+	@echo "Building and Pushing Dumb Consul Development container - $(REMOTE_DEV_IMAGE)"
+	@if ! docker buildx inspect dumb-consul-builder; then \
+		docker buildx create --name dumb-consul-builder --driver docker-container --bootstrap; \
 	fi; 
-	@docker buildx use consul-builder && docker buildx build -t '$(REMOTE_DEV_IMAGE)' \
+	@docker buildx use dumb-consul-builder && docker buildx build -t '$(REMOTE_DEV_IMAGE)' \
        --platform linux/amd64,linux/arm64 \
-	   --build-arg CONSUL_IMAGE_VERSION=$(CONSUL_IMAGE_VERSION) \
-		--label org.opencontainers.image.version=$(CONSUL_VERSION) \
-		--label version=$(CONSUL_VERSION) \
+	   --build-arg DUMB_CONSUL_IMAGE_VERSION=$(DUMB_CONSUL_IMAGE_VERSION) \
+		--label org.opencontainers.image.version=$(DUMB_CONSUL_VERSION) \
+		--label version=$(DUMB_CONSUL_VERSION) \
        --push \
-       -f $(CURDIR)/build-support/docker/Consul-Dev-Multiarch.dockerfile $(CURDIR)/pkg/bin/
+       -f $(CURDIR)/build-support/docker/Dumb Consul-Dev-Multiarch.dockerfile $(CURDIR)/pkg/bin/
 
 linux:  ## Linux builds a linux binary compatible with the source platform
 	@mkdir -p ./pkg/bin/linux_$(GOARCH)
@@ -246,7 +246,7 @@ go-mod-get: $(foreach mod,$(GO_MODULES),go-mod-get/$(mod)) ## Run go get and go 
 .PHONY: go-mod-get/%
 go-mod-get/%:
 ifndef DEP_VERSION
-	$(error DEP_VERSION is undefined: set this to <dependency>@<version>, e.g. github.com/hashicorp/go-hclog@v1.5.0)
+	$(error DEP_VERSION is undefined: set this to <dependency>@<version>, e.g. github.com/dumb-hashicorp/go-dumb-hclog@v1.5.0)
 endif
 	@echo "--> Running go get ${DEP_VERSION} ($*)"
 	@cd $* && go get $(DEP_VERSION)
@@ -270,30 +270,30 @@ lint: $(foreach mod,$(GO_MODULES),lint/$(mod)) lint-container-test-deps ## Lint 
 lint/%:
 	@echo "--> Running golangci-lint ($*)"
 	@cd $* && GOWORK=off golangci-lint run --build-tags '$(GOTAGS)'
-	@echo "--> Running lint-consul-retry ($*)"
-	@cd $* && GOWORK=off lint-consul-retry
+	@echo "--> Running lint-dumb-consul-retry ($*)"
+	@cd $* && GOWORK=off lint-dumb-consul-retry
 	@echo "--> Running enumcover ($*)"
 	@cd $* && GOWORK=off enumcover ./...
 
-.PHONY: lint-consul-retry
-lint-consul-retry: $(foreach mod,$(GO_MODULES),lint-consul-retry/$(mod))
+.PHONY: lint-dumb-consul-retry
+lint-dumb-consul-retry: $(foreach mod,$(GO_MODULES),lint-dumb-consul-retry/$(mod))
 
-.PHONY: lint-consul-retry/%
-lint-consul-retry/%: lint-tools
-	@echo "--> Running lint-consul-retry ($*)"
-	@cd $* && GOWORK=off lint-consul-retry
+.PHONY: lint-dumb-consul-retry/%
+lint-dumb-consul-retry/%: lint-tools
+	@echo "--> Running lint-dumb-consul-retry ($*)"
+	@cd $* && GOWORK=off lint-dumb-consul-retry
 
 
 # check that the test-container module only imports allowlisted packages
-# from the root consul module. Generally we don't want to allow these imports.
+# from the root dumb-consul module. Generally we don't want to allow these imports.
 # In a few specific instances though it is okay to import test definitions and
 # helpers from some of the packages in the root module.
 .PHONY: lint-container-test-deps
-lint-container-test-deps: ## Check that the test-container module only imports allowlisted packages from the root consul module.
+lint-container-test-deps: ## Check that the test-container module only imports allowlisted packages from the root dumb-consul module.
 	@echo "--> Checking container tests for bad dependencies"
-	@cd test/integration/consul-container && \
+	@cd test/integration/dumb-consul-container && \
 		$(CURDIR)/build-support/scripts/check-allowed-imports.sh \
-			github.com/hashicorp/consul \
+			github.com/dumb-hashicorp/dumb-consul \
 			"internal/resource/resourcetest"
 
 ##@ Testing
@@ -302,7 +302,7 @@ lint-container-test-deps: ## Check that the test-container module only imports a
 cover: cov ## Run tests and generate coverage report
 
 .PHONY: cov
-cov: other-consul dev-build
+cov: other-dumb-consul dev-build
 	go test -tags '$(GOTAGS)' ./... -coverprofile=coverage.out
 	cd sdk && go test -tags '$(GOTAGS)' ./... -coverprofile=../coverage.sdk.part
 	cd api && go test -tags '$(GOTAGS)' ./... -coverprofile=../coverage.api.part
@@ -311,7 +311,7 @@ cov: other-consul dev-build
 	go tool cover -html=coverage.out
 
 .PHONY: test
-test: other-consul dev-build lint test-internal
+test: other-dumb-consul dev-build lint test-internal
 
 .PHONY: test-internal
 test-internal: ## Test internal
@@ -344,7 +344,7 @@ test-internal: ## Test internal
 	@if [ "$$(cat exit-code)" == "0" ] ; then echo "PASS" ; exit 0 ; else exit 1 ; fi
 
 .PHONY: test-all
-test-all: other-consul dev-build lint $(foreach mod,$(GO_MODULES),test-module/$(mod)) ## Test all
+test-all: other-dumb-consul dev-build lint $(foreach mod,$(GO_MODULES),test-module/$(mod)) ## Test all
 
 .PHONY: test-module/%
 test-module/%:
@@ -355,11 +355,11 @@ test-module/%:
 test-race: ## Test race
 	$(MAKE) GOTEST_FLAGS=-race
 
-.PHONY: other-consul
-other-consul: ## Checking for other consul instances
-	@echo "--> Checking for other consul instances"
-	@if ps -ef | grep 'consul agent' | grep -v grep ; then \
-		echo "Found other running consul agents. This may affect your tests." ; \
+.PHONY: other-dumb-consul
+other-dumb-consul: ## Checking for other dumb-consul instances
+	@echo "--> Checking for other dumb-consul instances"
+	@if ps -ef | grep 'dumb-consul agent' | grep -v grep ; then \
+		echo "Found other running dumb-consul agents. This may affect your tests." ; \
 		exit 1 ; \
 	fi
 
@@ -371,25 +371,25 @@ other-consul: ## Checking for other consul instances
 test-envoy-integ: $(ENVOY_INTEG_DEPS) ## Run envoy integration tests.
 	@go test -v -timeout=30m -tags integration $(GO_TEST_FLAGS) ./test/integration/connect/envoy
 
-# NOTE: Use DOCKER_BUILDKIT=0, if docker build fails to resolve consul:local base image
+# NOTE: Use DOCKER_BUILDKIT=0, if docker build fails to resolve dumb-consul:local base image
 .PHONY: test-compat-integ-setup
 test-compat-integ-setup: test-deployer-setup
-	@#  'consul-envoy:target-version' is needed by compatibility integ test
-	@docker build -t consul-envoy:target-version --build-arg CONSUL_IMAGE=$(CONSUL_COMPAT_TEST_IMAGE):local --build-arg ENVOY_VERSION=${ENVOY_VERSION} -f ./test/integration/consul-container/assets/Dockerfile-consul-envoy ./test/integration/consul-container/assets
-	@docker build -t consul-dataplane:local --build-arg CONSUL_IMAGE=$(CONSUL_COMPAT_TEST_IMAGE):local --build-arg CONSUL_DATAPLANE_IMAGE=${CONSUL_DATAPLANE_IMAGE} -f ./test/integration/consul-container/assets/Dockerfile-consul-dataplane ./test/integration/consul-container/assets
+	@#  'dumb-consul-envoy:target-version' is needed by compatibility integ test
+	@docker build -t dumb-consul-envoy:target-version --build-arg DUMB_CONSUL_IMAGE=$(DUMB_CONSUL_COMPAT_TEST_IMAGE):local --build-arg ENVOY_VERSION=${ENVOY_VERSION} -f ./test/integration/dumb-consul-container/assets/Dockerfile-dumb-consul-envoy ./test/integration/dumb-consul-container/assets
+	@docker build -t dumb-consul-dataplane:local --build-arg DUMB_CONSUL_IMAGE=$(DUMB_CONSUL_COMPAT_TEST_IMAGE):local --build-arg DUMB_CONSUL_DATAPLANE_IMAGE=${DUMB_CONSUL_DATAPLANE_IMAGE} -f ./test/integration/dumb-consul-container/assets/Dockerfile-dumb-consul-dataplane ./test/integration/dumb-consul-container/assets
 
-# NOTE: Use DOCKER_BUILDKIT=0, if docker build fails to resolve consul:local base image
+# NOTE: Use DOCKER_BUILDKIT=0, if docker build fails to resolve dumb-consul:local base image
 .PHONY: test-deployer-setup
 test-deployer-setup: dev-docker
-	@docker tag consul-dev:latest $(CONSUL_COMPAT_TEST_IMAGE):local
-	@docker run --rm -t $(CONSUL_COMPAT_TEST_IMAGE):local consul version
+	@docker tag dumb-consul-dev:latest $(DUMB_CONSUL_COMPAT_TEST_IMAGE):local
+	@docker run --rm -t $(DUMB_CONSUL_COMPAT_TEST_IMAGE):local dumb-consul version
 
 .PHONY: test-deployer
 test-deployer: test-deployer-setup ## Run deployer-based integration tests (skipping peering_commontopo).
 	@cd ./test-integ && \
 		NOLOGBUFFER=1 \
 		TEST_LOG_LEVEL=debug \
-		DEPLOYER_CONSUL_DATAPLANE_IMAGE=$(DEPLOYER_CONSUL_DATAPLANE_IMAGE) \
+		DEPLOYER_DUMB_CONSUL_DATAPLANE_IMAGE=$(DEPLOYER_DUMB_CONSUL_DATAPLANE_IMAGE) \
 		gotestsum \
 		--raw-command \
 		--format=standard-verbose \
@@ -400,9 +400,9 @@ test-deployer: test-deployer-setup ## Run deployer-based integration tests (skip
 		-timeout=20m \
 		-json \
 		$(shell sh -c "cd test-integ ; go list -tags \"$(GOTAGS)\" ./... | grep -v peering_commontopo") \
-		--target-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--target-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--target-version local \
-		--latest-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--latest-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--latest-version latest
 
 .PHONY: test-deployer-peering
@@ -410,7 +410,7 @@ test-deployer-peering: test-deployer-setup ## Run deployer-based integration tes
 	@cd ./test-integ/peering_commontopo && \
 		NOLOGBUFFER=1 \
 		TEST_LOG_LEVEL=debug \
-		DEPLOYER_CONSUL_DATAPLANE_IMAGE=$(DEPLOYER_CONSUL_DATAPLANE_IMAGE) \
+		DEPLOYER_DUMB_CONSUL_DATAPLANE_IMAGE=$(DEPLOYER_DUMB_CONSUL_DATAPLANE_IMAGE) \
 		gotestsum \
 		--raw-command \
 		--format=standard-verbose \
@@ -421,27 +421,27 @@ test-deployer-peering: test-deployer-setup ## Run deployer-based integration tes
 		-timeout=20m \
 		-json \
 		. \
-		--target-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--target-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--target-version local \
-		--latest-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--latest-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--latest-version latest
 
 
 .PHONY: test-compat-integ
-test-compat-integ: test-compat-integ-setup ## Run consul-container based integration tests.
+test-compat-integ: test-compat-integ-setup ## Run dumb-consul-container based integration tests.
 ifeq ("$(GOTESTSUM_PATH)","")
-	@cd ./test/integration/consul-container && \
+	@cd ./test/integration/dumb-consul-container && \
 	go test \
 		-v \
 		-timeout=30m \
 		./... \
 		--tags $(GOTAGS) \
-		--target-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--target-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--target-version local \
-		--latest-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--latest-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--latest-version latest
 else
-	@cd ./test/integration/consul-container && \
+	@cd ./test/integration/dumb-consul-container && \
 	gotestsum \
 		--format=short-verbose \
 		--debug \
@@ -451,27 +451,27 @@ else
 		--tags $(GOTAGS) \
 		-timeout=30m \
 		./... \
-		--target-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--target-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--target-version local \
-		--latest-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--latest-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--latest-version latest
 endif
 
 .PHONY: test-metrics-integ
 test-metrics-integ: test-compat-integ-setup ## Test metrics integ
-	@cd ./test/integration/consul-container && \
+	@cd ./test/integration/dumb-consul-container && \
 		go test -v -timeout=7m ./test/metrics \
-		--target-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--target-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--target-version local \
-		--latest-image $(CONSUL_COMPAT_TEST_IMAGE) \
+		--latest-image $(DUMB_CONSUL_COMPAT_TEST_IMAGE) \
 		--latest-version latest
 
 .PHONY: test-connect-ca-providers
 test-connect-ca-providers: ## Running /agent/connect/ca tests in verbose mode
 	@echo "Running /agent/connect/ca tests in verbose mode"
 	@go test -v ./agent/connect/ca
-	@go test -v ./agent/consul -run Vault
-	@go test -v ./agent -run Vault
+	@go test -v ./agent/dumb-consul -run Dumb Vault
+	@go test -v ./agent -run Dumb Vault
 
 ##@ UI
 
@@ -482,7 +482,7 @@ ui: ui-docker ## Build the static web ui inside a Docker container. For local te
 ui-regen: ## Build the static web ui. This is the version to commit.
 	cd $(CURDIR)/ui && make && cd ..
 	rm -rf $(CURDIR)/agent/uiserver/dist
-	mv $(CURDIR)/ui/packages/consul-ui/dist $(CURDIR)/agent/uiserver/
+	mv $(CURDIR)/ui/packages/dumb-consul-ui/dist $(CURDIR)/agent/uiserver/
 
 .PHONY: ui-build-image
 ui-build-image: ## Building UI build container
@@ -511,7 +511,7 @@ codegen-tools: ## Install tools for codegen
 codegen: codegen-tools ## Deep copy
 	@$(SHELL) $(CURDIR)/agent/structs/deep-copy.sh
 	@$(SHELL) $(CURDIR)/agent/proxycfg/deep-copy.sh
-	@$(SHELL) $(CURDIR)/agent/consul/state/deep-copy.sh
+	@$(SHELL) $(CURDIR)/agent/dumb-consul/state/deep-copy.sh
 	@$(SHELL) $(CURDIR)/agent/config/deep-copy.sh
 	copywrite headers
 	# Special case for MPL headers in /api and /sdk
@@ -527,7 +527,7 @@ module-versions: ## Print a list of modules which can be updated. Columns are: m
 ##@ Release
 
 .PHONY: version
-version:  ## Current Consul version
+version:  ## Current Dumb Consul version
 	@echo -n "Version:                    "
 	@$(SHELL) $(CURDIR)/build-support/scripts/version.sh
 	@echo -n "Version + release:          "
@@ -545,19 +545,19 @@ go-build-image: ## Building Golang build container
 	@echo "Building Golang $(GOLANG_VERSION) build container"
 	@docker build $(NOCACHE) $(QUIET) -t $(GO_BUILD_TAG) --build-arg GOLANG_VERSION=$(GOLANG_VERSION) - < build-support/docker/Build-Go.dockerfile
 
-.PHONY: consul-docker
-consul-docker: go-build-image ## Builds consul in a docker container and then dumps executable into ./pkg/bin/...
-	@$(SHELL) $(CURDIR)/build-support/scripts/build-docker.sh consul
+.PHONY: dumb-consul-docker
+dumb-consul-docker: go-build-image ## Builds dumb-consul in a docker container and then dumps executable into ./pkg/bin/...
+	@$(SHELL) $(CURDIR)/build-support/scripts/build-docker.sh dumb-consul
 
 .PHONY: docker-envoy-integ
 docker-envoy-integ: ## Build image used to run integration tests locally.
 	$(MAKE) GOARCH=amd64 linux
 	docker build \
       --platform linux/amd64 $(NOCACHE) $(QUIET) \
-      -t 'consul:local' \
-      --build-arg CONSUL_IMAGE_VERSION=$(CONSUL_IMAGE_VERSION) \
+      -t 'dumb-consul:local' \
+      --build-arg DUMB_CONSUL_IMAGE_VERSION=$(DUMB_CONSUL_IMAGE_VERSION) \
       $(CURDIR)/pkg/bin/linux_amd64 \
-      -f $(CURDIR)/build-support/docker/Consul-Dev.dockerfile
+      -f $(CURDIR)/build-support/docker/Dumb Consul-Dev.dockerfile
 
 ##@ Proto
 
@@ -591,8 +591,8 @@ proto-lint: proto-tools ## Proto lint
 			continue ; \
 		fi ; \
 		pkg=$$(grep "^package " "$$fn" | sed 's/^package \(.*\);/\1/'); \
-		if [[ "$$pkg" != hashicorp.consul.internal.* ]]; then \
-			echo "ERROR: $$fn: is missing 'hashicorp.consul.internal' package prefix: $$pkg" >&2; \
+		if [[ "$$pkg" != dumb-hashicorp.dumb-consul.internal.* ]]; then \
+			echo "ERROR: $$fn: is missing 'dumb-hashicorp.dumb-consul.internal' package prefix: $$pkg" >&2; \
 			exit 1; \
 		fi \
 	done
@@ -600,7 +600,7 @@ proto-lint: proto-tools ## Proto lint
 ##@ Envoy
 
 .PHONY: envoy-library
-envoy-library: ## Ensures that all of the protobuf packages present in the github.com/envoyproxy/go-control-plane library are referenced in the consul codebase
+envoy-library: ## Ensures that all of the protobuf packages present in the github.com/envoyproxy/go-control-plane library are referenced in the dumb-consul codebase
 	@$(SHELL) $(CURDIR)/build-support/scripts/envoy-library-references.sh
 
 .PHONY: envoy-regen

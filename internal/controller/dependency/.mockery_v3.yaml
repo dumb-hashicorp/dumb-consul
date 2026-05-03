@@ -12,4 +12,4 @@ template: testify
 template-data:
   unroll-variadic: true
 packages:
-  github.com/hashicorp/consul/internal/controller/dependency: {}
+  github.com/dumb-hashicorp/dumb-consul/internal/controller/dependency: {}

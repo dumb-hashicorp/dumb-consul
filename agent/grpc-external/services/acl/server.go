@@ -6,20 +6,20 @@ package acl
 import (
 	"context"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/authmethod"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbacl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbacl"
 )
 
 type Config struct {
 	ACLsEnabled               bool
-	Logger                    hclog.Logger
+	Logger                    dumb-hclog.Logger
 	LoadAuthMethod            func(authMethod string, entMeta *acl.EnterpriseMeta) (*structs.ACLAuthMethod, Validator, error)
 	NewLogin                  func() Login
 	ForwardRPC                func(structs.RPCInfo, func(*grpc.ClientConn) error) (bool, error)
@@ -57,7 +57,7 @@ func (s *Server) Register(registrar grpc.ServiceRegistrar) {
 	pbacl.RegisterACLServiceServer(registrar, s)
 }
 
-func (s *Server) requireACLsEnabled(logger hclog.Logger) error {
+func (s *Server) requireACLsEnabled(logger dumb-hclog.Logger) error {
 	if s.ACLsEnabled {
 		return nil
 	}
@@ -65,7 +65,7 @@ func (s *Server) requireACLsEnabled(logger hclog.Logger) error {
 	return status.Error(codes.FailedPrecondition, acl.ErrDisabled.Error())
 }
 
-func (s *Server) requireLocalTokens(logger hclog.Logger) error {
+func (s *Server) requireLocalTokens(logger dumb-hclog.Logger) error {
 	if s.LocalTokensEnabled() {
 		return nil
 	}
@@ -73,7 +73,7 @@ func (s *Server) requireLocalTokens(logger hclog.Logger) error {
 	return status.Error(codes.FailedPrecondition, "token replication is required for auth methods to function")
 }
 
-func (s *Server) forwardWriteDC(dc string, fn func(*grpc.ClientConn) error, logger hclog.Logger) (bool, error) {
+func (s *Server) forwardWriteDC(dc string, fn func(*grpc.ClientConn) error, logger dumb-hclog.Logger) (bool, error) {
 	// For private/internal gRPC handlers, protoc-gen-rpc-glue generates the
 	// requisite methods to satisfy the structs.RPCInfo interface using fields
 	// from the pbcommon package. This service is public, so we can't use those

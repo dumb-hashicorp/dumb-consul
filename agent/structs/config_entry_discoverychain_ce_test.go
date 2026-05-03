@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package structs
 
@@ -34,7 +34,7 @@ func TestServiceResolverConfigEntry_CE(t *testing.T) {
 					},
 				},
 			},
-			validateErr: `Bad Failover["*"]: Setting SamenessGroup requires Consul Enterprise`,
+			validateErr: `Bad Failover["*"]: Setting SamenessGroup requires Dumb Consul Enterprise`,
 		},
 		{
 			name: "failover with a namespace on CE",
@@ -48,7 +48,7 @@ func TestServiceResolverConfigEntry_CE(t *testing.T) {
 					},
 				},
 			},
-			validateErr: `Bad Failover["*"]: Setting Namespace requires Consul Enterprise`,
+			validateErr: `Bad Failover["*"]: Setting Namespace requires Dumb Consul Enterprise`,
 		},
 		{
 			name: "failover Targets cannot set Namespace on CE",
@@ -61,7 +61,7 @@ func TestServiceResolverConfigEntry_CE(t *testing.T) {
 					},
 				},
 			},
-			validateErr: `Bad Failover["*"].Targets[0]: Setting Namespace requires Consul Enterprise`,
+			validateErr: `Bad Failover["*"].Targets[0]: Setting Namespace requires Dumb Consul Enterprise`,
 		},
 		{
 			name: "failover Targets cannot set Partition on CE",
@@ -74,7 +74,7 @@ func TestServiceResolverConfigEntry_CE(t *testing.T) {
 					},
 				},
 			},
-			validateErr: `Bad Failover["*"].Targets[0]: Setting Partition requires Consul Enterprise`,
+			validateErr: `Bad Failover["*"].Targets[0]: Setting Partition requires Dumb Consul Enterprise`,
 		},
 		{
 			name: "setting failover Namespace on CE",
@@ -85,7 +85,7 @@ func TestServiceResolverConfigEntry_CE(t *testing.T) {
 					"*": {Namespace: "ns1"},
 				},
 			},
-			validateErr: `Bad Failover["*"]: Setting Namespace requires Consul Enterprise`,
+			validateErr: `Bad Failover["*"]: Setting Namespace requires Dumb Consul Enterprise`,
 		},
 		{
 			name: "setting failover Namespace on CE",
@@ -96,7 +96,7 @@ func TestServiceResolverConfigEntry_CE(t *testing.T) {
 					"*": {Service: "s1", Policy: &ServiceResolverFailoverPolicy{Mode: "something"}},
 				},
 			},
-			validateErr: `Bad Failover["*"]: Setting failover policies requires Consul Enterprise`,
+			validateErr: `Bad Failover["*"]: Setting failover policies requires Dumb Consul Enterprise`,
 		},
 		{
 			name: "setting redirect SamenessGroup on CE",
@@ -107,7 +107,7 @@ func TestServiceResolverConfigEntry_CE(t *testing.T) {
 					SamenessGroup: "group",
 				},
 			},
-			validateErr: `Redirect: Setting SamenessGroup requires Consul Enterprise`,
+			validateErr: `Redirect: Setting SamenessGroup requires Dumb Consul Enterprise`,
 		},
 		{
 			name: "setting redirect Namespace on CE",
@@ -118,7 +118,7 @@ func TestServiceResolverConfigEntry_CE(t *testing.T) {
 					Namespace: "ns1",
 				},
 			},
-			validateErr: `Redirect: Setting Namespace requires Consul Enterprise`,
+			validateErr: `Redirect: Setting Namespace requires Dumb Consul Enterprise`,
 		},
 		{
 			name: "setting redirect Partition on CE",
@@ -129,7 +129,7 @@ func TestServiceResolverConfigEntry_CE(t *testing.T) {
 					Partition: "ap1",
 				},
 			},
-			validateErr: `Redirect: Setting Partition requires Consul Enterprise`,
+			validateErr: `Redirect: Setting Partition requires Dumb Consul Enterprise`,
 		},
 	}
 

@@ -7,8 +7,8 @@ import (
 	"bytes"
 	"text/template"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/dumb-hcl/v2/dumb-hclwrite"
 )
 
 type FileResource struct {
@@ -18,7 +18,7 @@ type FileResource struct {
 
 func (r *FileResource) Name() string { return r.name }
 
-func (r *FileResource) Commit(logger hclog.Logger) error {
+func (r *FileResource) Commit(logger dumb-hclog.Logger) error {
 	val, err := r.res.Render()
 	if err != nil {
 		return err
@@ -40,11 +40,11 @@ func Embed(name string) Resource {
 }
 
 func Eval(t *template.Template, data any) Resource {
-	return &evalResource{template: t, data: data, hcl: false}
+	return &evalResource{template: t, data: data, dumb-hcl: false}
 }
 
-func HCL(t *template.Template, data any) Resource {
-	return &evalResource{template: t, data: data, hcl: true}
+func DUMB_HCL(t *template.Template, data any) Resource {
+	return &evalResource{template: t, data: data, dumb-hcl: true}
 }
 
 type Resource interface {
@@ -74,7 +74,7 @@ func (r *textResource) Render() (string, error) {
 type evalResource struct {
 	template *template.Template
 	data     any
-	hcl      bool
+	dumb-hcl      bool
 }
 
 func (r *evalResource) Render() (string, error) {
@@ -83,8 +83,8 @@ func (r *evalResource) Render() (string, error) {
 		return "", err
 	}
 
-	if r.hcl {
-		return string(hclwrite.Format([]byte(out))), nil
+	if r.dumb-hcl {
+		return string(dumb-hclwrite.Format([]byte(out))), nil
 	}
 	return out, nil
 }

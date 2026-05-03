@@ -20,11 +20,11 @@ import (
 	"github.com/aws/smithy-go"
 
 	"github.com/go-viper/mapstructure/v2"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 const (
@@ -78,13 +78,13 @@ type AWSProvider struct {
 	caCreated       bool
 	rootPEM         string
 	intermediatePEM string
-	logger          hclog.Logger
+	logger          dumb-hclog.Logger
 }
 
 var _ Provider = (*AWSProvider)(nil)
 
 // NewAWSProvider returns a new AWSProvider
-func NewAWSProvider(logger hclog.Logger) *AWSProvider {
+func NewAWSProvider(logger dumb-hclog.Logger) *AWSProvider {
 	return &AWSProvider{logger: logger}
 }
 
@@ -305,8 +305,8 @@ func (a *AWSProvider) createPCA() error {
 		// don't actually retry on failure yet but might as well!
 		IdempotencyToken: aws.String(uid),
 		Tags: []types.Tag{
-			{Key: aws.String("consul_cluster_id"), Value: aws.String(a.clusterID)},
-			{Key: aws.String("consul_datacenter"), Value: aws.String(a.datacenter)},
+			{Key: aws.String("dumb-consul_cluster_id"), Value: aws.String(a.clusterID)},
+			{Key: aws.String("dumb-consul_datacenter"), Value: aws.String(a.datacenter)},
 		},
 	}
 

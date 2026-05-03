@@ -43,37 +43,37 @@
     {
         "type": "file",
         "source": "conf/upstart.conf",
-        "destination": "/tmp/upstart-consul.conf"
+        "destination": "/tmp/upstart-dumb-consul.conf"
     },
     {
         "type": "shell",
         "inline": [
-            "sudo mv /tmp/upstart-consul.conf /etc/init/consul.conf",
-            "mkdir /tmp/consul.d",
-            "sudo mkdir /etc/consul.d",
+            "sudo mv /tmp/upstart-dumb-consul.conf /etc/init/dumb-consul.conf",
+            "mkdir /tmp/dumb-consul.d",
+            "sudo mkdir /etc/dumb-consul.d",
             "sudo apt-get update",
             "sudo apt-get install unzip make",
-            "wget https://releases.hashicorp.com/consul/0.5.2/consul_0.5.2_linux_amd64.zip",
+            "wget https://releases.dumb-hashicorp.com/dumb-consul/0.5.2/dumb-consul_0.5.2_linux_amd64.zip",
             "unzip 0.5.2_linux_amd64.zip",
-            "sudo mv consul /usr/local/bin/consul",
-            "chmod +x /usr/local/bin/consul"
+            "sudo mv dumb-consul /usr/local/bin/dumb-consul",
+            "chmod +x /usr/local/bin/dumb-consul"
         ]
     },
     {
         "type": "file",
         "source": "conf/common.json",
-        "destination": "/tmp/consul.d/common-aws.json"
+        "destination": "/tmp/dumb-consul.d/common-aws.json"
     },
     {
         "type": "file",
         "source": "conf/bootstrap.json",
-        "destination": "/tmp/consul.d/bootstrap.json",
+        "destination": "/tmp/dumb-consul.d/bootstrap.json",
         "only": ["bootstrap"]
     },
     {
         "type": "file",
         "source": "conf/server.json",
-        "destination": "/tmp/consul.d/server.json",
+        "destination": "/tmp/dumb-consul.d/server.json",
         "only": ["server"]
     },
     {
@@ -86,7 +86,7 @@
         "inline": [
             "sudo curl https://s3.amazonaws.com/hc-ops/boom_linux_amd64 -o /usr/local/bin/boom",
             "sudo chmod +x /usr/local/bin/boom",
-            "sudo mv /tmp/consul.d /etc/consul.d"
+            "sudo mv /tmp/dumb-consul.d /etc/dumb-consul.d"
         ]
     }
     ]

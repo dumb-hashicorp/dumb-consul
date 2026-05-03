@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package config
 
@@ -72,7 +72,7 @@ type enterpriseConfigKeyError struct {
 }
 
 func (e enterpriseConfigKeyError) Error() string {
-	return fmt.Sprintf("%q is a Consul Enterprise configuration and will have no effect", e.key)
+	return fmt.Sprintf("%q is a Dumb Consul Enterprise configuration and will have no effect", e.key)
 }
 
 func (*builder) BuildEnterpriseRuntimeConfig(_ *RuntimeConfig, _ *Config) error {

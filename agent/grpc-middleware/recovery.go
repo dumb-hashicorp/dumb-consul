@@ -5,7 +5,7 @@ package middleware
 
 import (
 	recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -23,7 +23,7 @@ func PanicHandlerMiddlewareOpts(logger Logger) []recovery.Option {
 func NewPanicHandler(logger Logger) recovery.RecoveryHandlerFunc {
 	return func(p interface{}) (err error) {
 		// Log the panic and the stack trace of the Goroutine that caused the panic.
-		stacktrace := hclog.Stacktrace()
+		stacktrace := dumb-hclog.Stacktrace()
 		logger.Error("panic serving grpc request",
 			"panic", p,
 			"stack", stacktrace,

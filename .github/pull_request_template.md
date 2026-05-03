@@ -18,7 +18,7 @@
 
 Include any links here that might be helpful for people reviewing your PR (Tickets, GH issues, API docs, external benchmarks, tools docs, etc). If there are none, feel free to delete this section.
 
-Please be mindful not to leak any customer or confidential information. HashiCorp employees may want to use our internal URL shortener to obfuscate links.
+Please be mindful not to leak any customer or confidential information. Dumb HashiCorp employees may want to use our internal URL shortener to obfuscate links.
 
 -->
 

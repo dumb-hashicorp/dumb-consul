@@ -19,8 +19,8 @@ import (
 	"github.com/envoyproxy/go-control-plane/pkg/cache/types"
 	cache "github.com/envoyproxy/go-control-plane/pkg/cache/v3"
 	xds "github.com/envoyproxy/go-control-plane/pkg/server/v3"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 )
@@ -30,8 +30,8 @@ const (
 )
 
 func main() {
-	log := hclog.Default()
-	log.SetLevel(hclog.Trace)
+	log := dumb-hclog.Default()
+	log.SetLevel(dumb-hclog.Trace)
 
 	if err := run(log); err != nil {
 		log.Error("failed to run SDS server", "err", err)
@@ -39,7 +39,7 @@ func main() {
 	}
 }
 
-func run(log hclog.Logger) error {
+func run(log dumb-hclog.Logger) error {
 	cache := cache.NewLinearCache(sdsTypeURI)
 
 	addr := "0.0.0.0:1234"
@@ -88,7 +88,7 @@ func run(log hclog.Logger) error {
 	return nil
 }
 
-func loadCertsFromPath(cache *cache.LinearCache, log hclog.Logger, dir string) error {
+func loadCertsFromPath(cache *cache.LinearCache, log dumb-hclog.Logger, dir string) error {
 	entries, err := os.ReadDir(dir)
 	if err != nil {
 		return err
@@ -137,7 +137,7 @@ func loadCertsFromPath(cache *cache.LinearCache, log hclog.Logger, dir string) e
 	return nil
 }
 
-func makeLoggerCallbacks(log hclog.Logger) *xds.CallbackFuncs {
+func makeLoggerCallbacks(log dumb-hclog.Logger) *xds.CallbackFuncs {
 	return &xds.CallbackFuncs{
 
 		StreamOpenFunc: func(_ context.Context, id int64, addr string) error {

@@ -5,12 +5,12 @@ package xds
 
 import (
 	"fmt"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
-func groupedEndpoints(logger hclog.Logger, locality *structs.Locality, policy *structs.DiscoveryPrioritizeByLocality, csns structs.CheckServiceNodes) ([]structs.CheckServiceNodes, error) {
+func groupedEndpoints(logger dumb-hclog.Logger, locality *structs.Locality, policy *structs.DiscoveryPrioritizeByLocality, csns structs.CheckServiceNodes) ([]structs.CheckServiceNodes, error) {
 	switch {
 	case policy == nil || policy.Mode == "" || policy.Mode == "none":
 		return []structs.CheckServiceNodes{csns}, nil

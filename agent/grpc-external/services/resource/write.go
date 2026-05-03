@@ -13,9 +13,9 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // errUseWriteStatus is returned when the user attempts to modify the resource
@@ -91,7 +91,7 @@ func (s *Server) Write(ctx context.Context, req *pbresource.WriteRequest) (*pbre
 
 			// Generally, we expect resources with owners to be created by controllers,
 			// and they should provide the Uid. In cases where no Uid is given (e.g. the
-			// owner is specified in the resource HCL) we'll look up whatever the current
+			// owner is specified in the resource DUMB_HCL) we'll look up whatever the current
 			// Uid is and use that.
 			//
 			// An important note on consistency:

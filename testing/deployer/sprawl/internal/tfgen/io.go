@@ -8,13 +8,13 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/dumb-hcl/v2/dumb-hclwrite"
 	"github.com/rboyer/safeio"
 )
 
-func WriteHCLResourceFile(
-	logger hclog.Logger,
+func WriteDUMB_HCLResourceFile(
+	logger dumb-hclog.Logger,
 	res []Resource,
 	path string,
 	perm os.FileMode,
@@ -31,7 +31,7 @@ func WriteHCLResourceFile(
 	body := strings.Join(text, "\n\n")
 
 	// Ensure it looks tidy
-	out := hclwrite.Format(bytes.TrimSpace([]byte(body)))
+	out := dumb-hclwrite.Format(bytes.TrimSpace([]byte(body)))
 
 	return UpdateFileIfDifferent(logger, out, path, perm)
 }
@@ -45,7 +45,7 @@ const (
 )
 
 func UpdateFileIfDifferent(
-	logger hclog.Logger,
+	logger dumb-hclog.Logger,
 	body []byte,
 	path string,
 	perm os.FileMode,

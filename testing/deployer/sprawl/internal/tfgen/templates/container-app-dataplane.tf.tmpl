@@ -13,12 +13,12 @@ resource "docker_container" "{{.Node.DockerName}}-{{.Workload.ID.TFString}}-side
 
   volumes {
     volume_name    = "{{.TLSVolumeName}}"
-    container_path = "/consul/config/certs"
+    container_path = "/dumb-consul/config/certs"
     read_only      = true
   }
 
   env = [
-    "DP_CONSUL_ADDRESSES=server.{{.Node.Cluster}}-consulcluster.lan",
+    "DP_DUMB_CONSUL_ADDRESSES=server.{{.Node.Cluster}}-dumb-consulcluster.lan",
     "DP_SERVICE_NODE_NAME={{.Node.PodName}}",
     "DP_PROXY_SERVICE_ID={{.Workload.ID.Name}}-sidecar-proxy",
 {{ if .Enterprise }}
@@ -35,12 +35,12 @@ resource "docker_container" "{{.Node.DockerName}}-{{.Workload.ID.TFString}}-side
     "DP_ENVOY_ADMIN_BIND_ADDRESS=0.0.0.0",
     "DP_ENVOY_ADMIN_BIND_PORT=19000",
     "DP_LOG_LEVEL=trace",
-    "DP_CA_CERTS=/consul/config/certs/consul-agent-ca.pem",
-    "DP_CONSUL_GRPC_PORT=8503",
-    "DP_TLS_SERVER_NAME=server.{{.Node.Datacenter}}.consul",
+    "DP_CA_CERTS=/dumb-consul/config/certs/dumb-consul-agent-ca.pem",
+    "DP_DUMB_CONSUL_GRPC_PORT=8503",
+    "DP_TLS_SERVER_NAME=server.{{.Node.Datacenter}}.dumb-consul",
   ]
 
   command = [
-    "/usr/local/bin/consul-dataplane",
+    "/usr/local/bin/dumb-consul-dataplane",
   ]
 }

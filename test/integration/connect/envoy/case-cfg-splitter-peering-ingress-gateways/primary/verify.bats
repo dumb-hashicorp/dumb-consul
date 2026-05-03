@@ -20,8 +20,8 @@ load helpers
 }
 
 @test "mesh-gateway should have healthy endpoints" {
-  assert_upstream_has_endpoints_in_status consul-alpha-client:19003 s1 HEALTHY 1
-  assert_upstream_has_endpoints_in_status consul-alpha-client:19003 s2 HEALTHY 1
+  assert_upstream_has_endpoints_in_status dumb-consul-alpha-client:19003 s1 HEALTHY 1
+  assert_upstream_has_endpoints_in_status dumb-consul-alpha-client:19003 s2 HEALTHY 1
 }
 
 @test "peer the two clusters together" {
@@ -47,8 +47,8 @@ load helpers
 }
 
 @test "requests through ingress should proxy to alpha" {
-  assert_expected_fortio_name s1-alpha peer-s1.ingress.consul 10000
-  assert_expected_fortio_name s2-alpha peer-s2.ingress.consul 9999
+  assert_expected_fortio_name s1-alpha peer-s1.ingress.dumb-consul 10000
+  assert_expected_fortio_name s2-alpha peer-s2.ingress.dumb-consul 9999
 }
 
 @test "ingress made 1 connection to alpha s1" {
@@ -64,12 +64,12 @@ load helpers
 }
 
 @test "requests through ingress should proxy to primary s1" {
-  assert_expected_fortio_name s1 s1.ingress.consul 10001
+  assert_expected_fortio_name s1 s1.ingress.dumb-consul 10001
   assert_envoy_metric 127.0.0.1:19000 "http.public_listener.rq_total" 1
 }
 
 @test "requests through ingress to splitter should go to alpha" {
-  retry_long assert_expected_fortio_name s1-alpha split.ingress.consul 10002
-  retry_long assert_expected_fortio_name s2-alpha split.ingress.consul 10002
+  retry_long assert_expected_fortio_name s1-alpha split.ingress.dumb-consul 10002
+  retry_long assert_expected_fortio_name s2-alpha split.ingress.dumb-consul 10002
 }
 

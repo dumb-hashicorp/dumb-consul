@@ -11,12 +11,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 func TestConfigSnapshotMeshGateway(t testing.T, variant string, nsFn func(ns *structs.NodeService), extraUpdates []UpdateEvent) *ConfigSnapshot {
@@ -464,7 +464,7 @@ func TestConfigSnapshotMeshGateway(t testing.T, variant string, nsFn func(ns *st
 				},
 			},
 			{
-				CorrelationID: consulServerListWatchID,
+				CorrelationID: dumb-consulServerListWatchID,
 				Result: &structs.IndexedCheckServiceNodes{
 					Nodes: nil, // TODO
 				},
@@ -478,7 +478,7 @@ func TestConfigSnapshotMeshGateway(t testing.T, variant string, nsFn func(ns *st
 		// reproduced from tlsutil/config.go
 		serverSNIFn = func(dc, nodeName string) string {
 			// Strip the trailing '.' from the domain if any
-			domain := "consul"
+			domain := "dumb-consul"
 
 			if nodeName == "" || nodeName == "*" {
 				return "server." + dc + "." + domain
@@ -489,7 +489,7 @@ func TestConfigSnapshotMeshGateway(t testing.T, variant string, nsFn func(ns *st
 
 		baseEvents = testSpliceEvents(baseEvents, []UpdateEvent{
 			{
-				CorrelationID: consulServerListWatchID,
+				CorrelationID: dumb-consulServerListWatchID,
 				Result: &structs.IndexedCheckServiceNodes{
 					Nodes: structs.CheckServiceNodes{
 						{
@@ -499,8 +499,8 @@ func TestConfigSnapshotMeshGateway(t testing.T, variant string, nsFn func(ns *st
 								Address:    "127.0.0.1",
 							},
 							Service: &structs.NodeService{
-								ID:      structs.ConsulServiceID,
-								Service: structs.ConsulServiceName,
+								ID:      structs.Dumb ConsulServiceID,
+								Service: structs.Dumb ConsulServiceName,
 								Meta: map[string]string{
 									"grpc_port":     "8502",
 									"grpc_tls_port": "8503",
@@ -514,8 +514,8 @@ func TestConfigSnapshotMeshGateway(t testing.T, variant string, nsFn func(ns *st
 								Address:    "127.0.0.2",
 							},
 							Service: &structs.NodeService{
-								ID:      structs.ConsulServiceID,
-								Service: structs.ConsulServiceName,
+								ID:      structs.Dumb ConsulServiceID,
+								Service: structs.Dumb ConsulServiceName,
 								Meta: map[string]string{
 									"grpc_port":     "8502",
 									"grpc_tls_port": "8503",
@@ -579,7 +579,7 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 				},
 			},
 			UpdateEvent{
-				CorrelationID: consulServerListWatchID,
+				CorrelationID: dumb-consulServerListWatchID,
 				Result: &structs.IndexedCheckServiceNodes{
 					Nodes: structs.CheckServiceNodes{
 						{
@@ -589,8 +589,8 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 								Address:    "127.0.0.10",
 							},
 							Service: &structs.NodeService{
-								ID:      structs.ConsulServiceID,
-								Service: structs.ConsulServiceName,
+								ID:      structs.Dumb ConsulServiceID,
+								Service: structs.Dumb ConsulServiceName,
 								// Read replicas cannot handle peering requests.
 								Meta: map[string]string{"read_replica": "true"},
 							},
@@ -602,8 +602,8 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 								Address:    "127.0.0.1",
 							},
 							Service: &structs.NodeService{
-								ID:      structs.ConsulServiceID,
-								Service: structs.ConsulServiceName,
+								ID:      structs.Dumb ConsulServiceID,
+								Service: structs.Dumb ConsulServiceName,
 								Meta: map[string]string{
 									"grpc_port":     "8502",
 									"grpc_tls_port": "8503",
@@ -617,8 +617,8 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 								Address:    "127.0.0.2",
 							},
 							Service: &structs.NodeService{
-								ID:      structs.ConsulServiceID,
-								Service: structs.ConsulServiceName,
+								ID:      structs.Dumb ConsulServiceID,
+								Service: structs.Dumb ConsulServiceName,
 								Meta: map[string]string{
 									"grpc_port":     "8502",
 									"grpc_tls_port": "8503",
@@ -626,7 +626,7 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 								TaggedAddresses: map[string]structs.ServiceAddress{
 									// WAN address is not considered for traffic from local gateway to local servers.
 									structs.TaggedAddressWAN: {
-										Address: "consul.server.dc1.my-domain",
+										Address: "dumb-consul.server.dc1.my-domain",
 										Port:    10101,
 									},
 								},
@@ -639,8 +639,8 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 								Address:    "127.0.0.3",
 							},
 							Service: &structs.NodeService{
-								ID:      structs.ConsulServiceID,
-								Service: structs.ConsulServiceName,
+								ID:      structs.Dumb ConsulServiceID,
+								Service: structs.Dumb ConsulServiceName,
 								Meta: map[string]string{
 									// Peering is not allowed over deprecated non-TLS gRPC port.
 									"grpc_port": "8502",
@@ -654,8 +654,8 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 								Address:    "127.0.0.4",
 							},
 							Service: &structs.NodeService{
-								ID:      structs.ConsulServiceID,
-								Service: structs.ConsulServiceName,
+								ID:      structs.Dumb ConsulServiceID,
+								Service: structs.Dumb ConsulServiceName,
 								Meta: map[string]string{
 									// Must have valid gRPC port.
 									"grpc_tls_port": "bad",
@@ -685,9 +685,9 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 			barSN = structs.NewServiceName("bar", nil)
 			girSN = structs.NewServiceName("gir", nil)
 
-			fooChain = discoverychain.TestCompileConfigEntries(t, "foo", "default", "default", "dc1", connect.TestClusterID+".consul", nil, set)
-			barChain = discoverychain.TestCompileConfigEntries(t, "bar", "default", "default", "dc1", connect.TestClusterID+".consul", nil, set)
-			girChain = discoverychain.TestCompileConfigEntries(t, "gir", "default", "default", "dc1", connect.TestClusterID+".consul", nil, set)
+			fooChain = discoverychain.TestCompileConfigEntries(t, "foo", "default", "default", "dc1", connect.TestClusterID+".dumb-consul", nil, set)
+			barChain = discoverychain.TestCompileConfigEntries(t, "bar", "default", "default", "dc1", connect.TestClusterID+".dumb-consul", nil, set)
+			girChain = discoverychain.TestCompileConfigEntries(t, "gir", "default", "default", "dc1", connect.TestClusterID+".dumb-consul", nil, set)
 		)
 
 		assert.True(t, fooChain.Default)
@@ -801,7 +801,7 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 			dbSN  = structs.NewServiceName("db", nil)
 			altSN = structs.NewServiceName("alt", nil)
 
-			dbChain = discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", connect.TestClusterID+".consul", nil, set)
+			dbChain = discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", connect.TestClusterID+".dumb-consul", nil, set)
 		)
 
 		needPeerA = true
@@ -911,7 +911,7 @@ func TestConfigSnapshotPeeredMeshGateway(t testing.T, variant string, nsFn func(
 			altSN = structs.NewServiceName("alt", nil)
 			apiSN = structs.NewServiceName("api", nil)
 
-			dbChain = discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", connect.TestClusterID+".consul", nil, set)
+			dbChain = discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", connect.TestClusterID+".dumb-consul", nil, set)
 		)
 
 		needPeerA = true

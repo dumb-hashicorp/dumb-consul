@@ -4,7 +4,7 @@
 package catalog
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -28,9 +28,9 @@ func (c *cmd) Help() string {
 
 const synopsis = "Interact with the catalog"
 const help = `
-Usage: consul catalog <subcommand> [options] [args]
+Usage: dumb-consul catalog <subcommand> [options] [args]
 
-  This command has subcommands for interacting with Consul's catalog. The
+  This command has subcommands for interacting with Dumb Consul's catalog. The
   catalog should not be confused with the agent, although the APIs and
   responses may be similar.
 
@@ -39,15 +39,15 @@ Usage: consul catalog <subcommand> [options] [args]
 
   List all datacenters:
 
-      $ consul catalog datacenters
+      $ dumb-consul catalog datacenters
 
   List all nodes:
 
-      $ consul catalog nodes
+      $ dumb-consul catalog nodes
 
   List all services:
 
-      $ consul catalog services
+      $ dumb-consul catalog services
 
   For more examples, ask for subcommand help or view the documentation.
 `

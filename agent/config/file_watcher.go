@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
 const timeoutDuration = 200 * time.Millisecond
@@ -30,7 +30,7 @@ type fileWatcher struct {
 	watcher          *fsnotify.Watcher
 	configFiles      map[string]*watchedFile
 	configFilesLock  sync.RWMutex
-	logger           hclog.Logger
+	logger           dumb-hclog.Logger
 	reconcileTimeout time.Duration
 	cancel           context.CancelFunc
 	done             chan interface{}
@@ -53,7 +53,7 @@ type FileWatcherEvent struct {
 // NewFileWatcher create a file watcher that will watch all the files/folders from configFiles
 // if success a fileWatcher will be returned and a nil error
 // otherwise an error and a nil fileWatcher are returned
-func NewFileWatcher(configFiles []string, logger hclog.Logger) (Watcher, error) {
+func NewFileWatcher(configFiles []string, logger dumb-hclog.Logger) (Watcher, error) {
 	ws, err := fsnotify.NewWatcher()
 	if err != nil {
 		return nil, err

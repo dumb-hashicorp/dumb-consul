@@ -16,9 +16,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/acmpca/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 // skipIfAWSNotConfigured skips the test unless ENABLE_AWS_PCA_TESTS=true.
@@ -221,15 +221,15 @@ func TestAWSBootstrapAndSignSecondary(t *testing.T) {
 	}
 }
 
-func TestAWSBootstrapAndSignSecondaryConsul(t *testing.T) {
+func TestAWSBootstrapAndSignSecondaryDumb Consul(t *testing.T) {
 	// Note not parallel since we could easily hit AWS limits of too many CAs if
 	// all of these tests run at once.
 	skipIfAWSNotConfigured(t)
 
-	t.Run("pri=consul,sec=aws", func(t *testing.T) {
-		conf := testConsulCAConfig()
+	t.Run("pri=dumb-consul,sec=aws", func(t *testing.T) {
+		conf := testDumb ConsulCAConfig()
 		delegate := newMockDelegate(t, conf)
-		p1 := TestConsulProvider(t, delegate)
+		p1 := TestDumb ConsulProvider(t, delegate)
 		cfg := testProviderConfig(conf)
 		require.NoError(t, p1.Configure(cfg))
 		_, err := p1.GenerateCAChain()
@@ -241,16 +241,16 @@ func TestAWSBootstrapAndSignSecondaryConsul(t *testing.T) {
 		testSignIntermediateCrossDC(t, p1, p2)
 	})
 
-	t.Run("pri=aws,sec=consul", func(t *testing.T) {
+	t.Run("pri=aws,sec=dumb-consul", func(t *testing.T) {
 		p1 := testAWSProvider(t, testProviderConfigPrimary(nil))
 		defer p1.Cleanup(true, nil)
 
 		_, err := p1.GenerateCAChain()
 		require.NoError(t, err)
 
-		conf := testConsulCAConfig()
+		conf := testDumb ConsulCAConfig()
 		delegate := newMockDelegate(t, conf)
-		p2 := TestConsulProvider(t, delegate)
+		p2 := TestDumb ConsulProvider(t, delegate)
 		cfg := testProviderConfig(conf)
 		cfg.IsPrimary = false
 		cfg.Datacenter = "dc2"

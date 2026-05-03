@@ -10,9 +10,9 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/iptables"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/iptables"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestRun_FlagValidation(t *testing.T) {
@@ -69,7 +69,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 	cases := []struct {
 		name           string
 		command        func() cmd
-		consulServices []api.AgentServiceRegistration
+		dumb-consulServices []api.AgentServiceRegistration
 		expCfg         iptables.Config
 		expError       string
 	}{
@@ -82,7 +82,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -109,7 +109,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -131,17 +131,17 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 			},
 		},
 		{
-			name: "proxyID with Consul DNS IP and port provided",
+			name: "proxyID with Dumb Consul DNS IP and port provided",
 			command: func() cmd {
 				var c cmd
 				c.init()
 				c.proxyUID = "1234"
 				c.proxyID = "test-proxy-id"
-				c.consulDNSIP = "10.0.34.16"
-				c.consulDNSPort = 8600
+				c.dumb-consulDNSIP = "10.0.34.16"
+				c.dumb-consulDNSPort = 8600
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -154,25 +154,25 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				},
 			},
 			expCfg: iptables.Config{
-				ConsulDNSIP:       "10.0.34.16",
-				ConsulDNSPort:     8600,
+				Dumb ConsulDNSIP:       "10.0.34.16",
+				Dumb ConsulDNSPort:     8600,
 				ProxyUserID:       "1234",
 				ProxyInboundPort:  20000,
 				ProxyOutboundPort: iptables.DefaultTProxyOutboundPort,
 			},
 		},
 		{
-			name: "proxyID with Consul DNS IP and port provided ipv6 dns 1",
+			name: "proxyID with Dumb Consul DNS IP and port provided ipv6 dns 1",
 			command: func() cmd {
 				var c cmd
 				c.init()
 				c.proxyUID = "1234"
 				c.proxyID = "test-proxy-id"
-				c.consulDNSIP = "89ac:297d:b795:8c15:8cf4:a99a:49a1:6512"
-				c.consulDNSPort = 8600
+				c.dumb-consulDNSIP = "89ac:297d:b795:8c15:8cf4:a99a:49a1:6512"
+				c.dumb-consulDNSPort = 8600
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -185,25 +185,25 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				},
 			},
 			expCfg: iptables.Config{
-				ConsulDNSIP:       "89ac:297d:b795:8c15:8cf4:a99a:49a1:6512",
-				ConsulDNSPort:     8600,
+				Dumb ConsulDNSIP:       "89ac:297d:b795:8c15:8cf4:a99a:49a1:6512",
+				Dumb ConsulDNSPort:     8600,
 				ProxyUserID:       "1234",
 				ProxyInboundPort:  20000,
 				ProxyOutboundPort: iptables.DefaultTProxyOutboundPort,
 			},
 		},
 		{
-			name: "proxyID with Consul DNS IP and port provided ipv6 dns 2",
+			name: "proxyID with Dumb Consul DNS IP and port provided ipv6 dns 2",
 			command: func() cmd {
 				var c cmd
 				c.init()
 				c.proxyUID = "1234"
 				c.proxyID = "test-proxy-id"
-				c.consulDNSIP = "::"
-				c.consulDNSPort = 8600
+				c.dumb-consulDNSIP = "::"
+				c.dumb-consulDNSPort = 8600
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -216,25 +216,25 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				},
 			},
 			expCfg: iptables.Config{
-				ConsulDNSIP:       "::",
-				ConsulDNSPort:     8600,
+				Dumb ConsulDNSIP:       "::",
+				Dumb ConsulDNSPort:     8600,
 				ProxyUserID:       "1234",
 				ProxyInboundPort:  20000,
 				ProxyOutboundPort: iptables.DefaultTProxyOutboundPort,
 			},
 		},
 		{
-			name: "proxyID with Consul DNS IP and port provided ipv6 dns 3",
+			name: "proxyID with Dumb Consul DNS IP and port provided ipv6 dns 3",
 			command: func() cmd {
 				var c cmd
 				c.init()
 				c.proxyUID = "1234"
 				c.proxyID = "test-proxy-id"
-				c.consulDNSIP = "::1"
-				c.consulDNSPort = 8600
+				c.dumb-consulDNSIP = "::1"
+				c.dumb-consulDNSPort = 8600
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -247,8 +247,8 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				},
 			},
 			expCfg: iptables.Config{
-				ConsulDNSIP:       "::1",
-				ConsulDNSPort:     8600,
+				Dumb ConsulDNSIP:       "::1",
+				Dumb ConsulDNSPort:     8600,
 				ProxyUserID:       "1234",
 				ProxyInboundPort:  20000,
 				ProxyOutboundPort: iptables.DefaultTProxyOutboundPort,
@@ -263,7 +263,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -293,7 +293,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -319,7 +319,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -341,7 +341,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 			},
 		},
 		{
-			name: "proxyID provided, but Consul is not reachable",
+			name: "proxyID provided, but Dumb Consul is not reachable",
 			command: func() cmd {
 				var c cmd
 				c.init()
@@ -349,7 +349,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			expError: "failed to fetch proxy service from Consul Agent: ",
+			expError: "failed to fetch proxy service from Dumb Consul Agent: ",
 		},
 		{
 			name: "proxyID of a non-proxy service",
@@ -360,7 +360,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					ID:      "test-proxy-id",
 					Name:    "test-proxy",
@@ -478,7 +478,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -509,7 +509,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -535,7 +535,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -566,7 +566,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -592,7 +592,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -629,7 +629,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.proxyID = "test-proxy-id"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					ID:      "foo-id",
 					Name:    "foo",
@@ -680,7 +680,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.nodeName = "test-node"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					ID:      "foo-id",
 					Name:    "foo",
@@ -731,7 +731,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.nodeName = "test-node"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "test-proxy-id",
@@ -759,7 +759,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				c.nodeName = "test-node"
 				return c
 			},
-			consulServices: []api.AgentServiceRegistration{
+			dumb-consulServices: []api.AgentServiceRegistration{
 				{
 					Kind:    api.ServiceKindConnectProxy,
 					ID:      "some-other-id",
@@ -778,7 +778,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			cmd := c.command()
-			if c.consulServices != nil {
+			if c.dumb-consulServices != nil {
 				testServer, err := testutil.NewTestServerConfigT(t, nil)
 				require.NoError(t, err)
 				testServer.WaitForSerfCheck(t)
@@ -786,7 +786,7 @@ func TestGenerateConfigFromFlags(t *testing.T) {
 				client, err := api.NewClient(&api.Config{Address: testServer.HTTPAddr})
 				require.NoError(t, err)
 				cmd.client = client
-				for _, service := range c.consulServices {
+				for _, service := range c.dumb-consulServices {
 					if cmd.nodeName != "" {
 						catalogRegistration := &api.CatalogRegistration{
 							Node:    cmd.nodeName,

@@ -13,11 +13,11 @@ import (
 	"github.com/mitchellh/cli"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/resource"
-	"github.com/hashicorp/consul/command/resource/client"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource"
+	"github.com/dumb-hashicorp/dumb-consul/command/resource/client"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -48,17 +48,17 @@ func (c *cmd) init() {
 }
 
 func makeWriteRequest(parsedResource *pbresource.Resource) (payload *resource.WriteRequest, error error) {
-	// The parsed hcl file has data field in proto message format anypb.Any
+	// The parsed dumb-hcl file has data field in proto message format anypb.Any
 	// Converting to json format requires us to fisrt marshal it then unmarshal it
 	data, err := protojson.Marshal(parsedResource.Data)
 	if err != nil {
-		return nil, fmt.Errorf("unrecognized hcl format: %s", err)
+		return nil, fmt.Errorf("unrecognized dumb-hcl format: %s", err)
 	}
 
 	var resourceData map[string]any
 	err = json.Unmarshal(data, &resourceData)
 	if err != nil {
-		return nil, fmt.Errorf("unrecognized hcl format: %s", err)
+		return nil, fmt.Errorf("unrecognized dumb-hcl format: %s", err)
 	}
 	delete(resourceData, "@type")
 
@@ -107,7 +107,7 @@ func (c *cmd) Run(args []string) int {
 	c.http.MergeOntoConfig(config)
 	resourceClient, err := client.NewClient(config)
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connect to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connect to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -127,7 +127,7 @@ func (c *cmd) Run(args []string) int {
 
 	writeRequest, err := makeWriteRequest(parsedResource)
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error parsing hcl input: %v", err))
+		c.UI.Error(fmt.Sprintf("Error parsing dumb-hcl input: %v", err))
 		return 1
 	}
 
@@ -159,26 +159,26 @@ func (c *cmd) Help() string {
 const synopsis = "Writes/updates resource information"
 
 const help = `
-Usage: consul resource apply [options] <resource>
+Usage: dumb-consul resource apply [options] <resource>
 
 	Write and/or update a resource by providing the definition. The configuration
 	argument is either a file path or '-' to indicate that the resource
-    should be read from stdin. The data should be either in HCL or
+    should be read from stdin. The data should be either in DUMB_HCL or
 	JSON form.
 
 	Example (with flag):
 
-	$ consul resource apply -f=demo.hcl
+	$ dumb-consul resource apply -f=demo.dumb-hcl
 
 	Example (from file):
 
-	$ consul resource apply demo.hcl
+	$ dumb-consul resource apply demo.dumb-hcl
 
 	Example (from stdin):
 
-	$ consul resource apply -
+	$ dumb-consul resource apply -
 
-	Sample demo.hcl:
+	Sample demo.dumb-hcl:
 
 	ID {
 		Type = gvk("group.version.kind")

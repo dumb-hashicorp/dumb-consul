@@ -1,14 +1,14 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package command
 
 import (
 	mcli "github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/command/cli"
+	"github.com/dumb-hashicorp/dumb-consul/command/cli"
 )
 
 func registerEnterpriseCommands(_ cli.Ui, _ map[string]mcli.CommandFactory) {}

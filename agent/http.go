@@ -19,7 +19,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
 	"github.com/NYTimes/gziphandler"
 	"github.com/armon/go-metrics"
@@ -29,20 +29,20 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/go-cleanhttp"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/uiserver"
-	"github.com/hashicorp/consul/api"
-	resourcehttp "github.com/hashicorp/consul/internal/resource/http"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/uiserver"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	resourcehttp "github.com/dumb-hashicorp/dumb-consul/internal/resource/http"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
 )
 
 const (
@@ -103,9 +103,9 @@ type HTTPHandlers struct {
 	proxyTransport http.RoundTripper
 }
 
-// endpoint is a Consul-specific HTTP handler that takes the usual arguments in
+// endpoint is a Dumb Consul-specific HTTP handler that takes the usual arguments in
 // but returns a response object and error, both of which are handled in a
-// common manner by Consul's HTTP server.
+// common manner by Dumb Consul's HTTP server.
 type endpoint func(resp http.ResponseWriter, req *http.Request) (interface{}, error)
 
 // unboundEndpoint is an endpoint method on a server.
@@ -197,7 +197,7 @@ func (s *HTTPHandlers) handler() http.Handler {
 		wrapper := func(resp http.ResponseWriter, req *http.Request) {
 			start := time.Now()
 
-			// this method is implemented by different flavours of consul e.g. oss, ce. ent.
+			// this method is implemented by different flavours of dumb-consul e.g. oss, ce. ent.
 			s.enterpriseRequest(resp, req, handler)
 
 			labels := []metrics.Label{{Name: "method", Value: req.Method}, {Name: "path", Value: path_label}}
@@ -342,7 +342,7 @@ func withRemoteAddrHandler(next http.Handler) http.Handler {
 		addrPort, err := netip.ParseAddrPort(req.RemoteAddr)
 		if err == nil {
 			remoteAddr := net.TCPAddrFromAddrPort(addrPort)
-			ctx := consul.ContextWithRemoteAddr(req.Context(), remoteAddr)
+			ctx := dumb-consul.ContextWithRemoteAddr(req.Context(), remoteAddr)
 			req = req.WithContext(ctx)
 		}
 		next.ServeHTTP(resp, req)
@@ -350,7 +350,7 @@ func withRemoteAddrHandler(next http.Handler) http.Handler {
 }
 
 // ensureContentTypeHeader injects content-type explicitly if not already set into response to prevent XSS
-func ensureContentTypeHeader(next http.Handler, logger hclog.Logger) http.Handler {
+func ensureContentTypeHeader(next http.Handler, logger dumb-hclog.Logger) http.Handler {
 	return http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
 		next.ServeHTTP(resp, req)
 
@@ -429,7 +429,7 @@ func (s *HTTPHandlers) wrap(handler endpoint, methods []string) http.HandlerFunc
 				logURL = strings.ReplaceAll(logURL, token, "<hidden>")
 			}
 			httpLogger.Warn("This request used the token query parameter "+
-				"which is deprecated and will be removed in a future Consul version",
+				"which is deprecated and will be removed in a future Dumb Consul version",
 				"logUrl", logURL)
 		}
 		logURL = aclEndpointRE.ReplaceAllString(logURL, "$1<hidden>$4")
@@ -470,7 +470,7 @@ func (s *HTTPHandlers) wrap(handler endpoint, methods []string) http.HandlerFunc
 			}
 
 			// Connect CA rate limiter.
-			if err.Error() == consul.ErrRateLimited.Error() {
+			if err.Error() == dumb-consul.ErrRateLimited.Error() {
 				return true
 			}
 
@@ -620,7 +620,7 @@ func (s *HTTPHandlers) wrap(handler endpoint, methods []string) http.HandlerFunc
 					contentType = errPayload.ContentType
 				}
 				if errPayload.Reason != "" {
-					resp.Header().Add("X-Consul-Reason", errPayload.Reason)
+					resp.Header().Add("X-Dumb Consul-Reason", errPayload.Reason)
 				}
 			} else {
 				//set response type to plain to prevent XSS
@@ -703,7 +703,7 @@ func (s *HTTPHandlers) Index(resp http.ResponseWriter, req *http.Request) {
 	// Give them something helpful if there's no UI so they at least know
 	// what this server is.
 	if !s.IsUIEnabled() {
-		fmt.Fprint(resp, "Consul Agent: UI disabled. To enable, set ui_config.enabled=true in the agent configuration and restart.")
+		fmt.Fprint(resp, "Dumb Consul Agent: UI disabled. To enable, set ui_config.enabled=true in the agent configuration and restart.")
 		return
 	}
 
@@ -790,21 +790,21 @@ func stringToReadableDurationFunc() mapstructure.DecodeHookFunc {
 // present if the feature is active.
 func setTranslateAddr(resp http.ResponseWriter, active bool) {
 	if active {
-		resp.Header().Set("X-Consul-Translate-Addresses", "true")
+		resp.Header().Set("X-Dumb Consul-Translate-Addresses", "true")
 	}
 }
 
 // setIndex is used to set the index response header
 func setIndex(resp http.ResponseWriter, index uint64) {
-	// If we ever return X-Consul-Index of 0 blocking clients will go into a busy
+	// If we ever return X-Dumb Consul-Index of 0 blocking clients will go into a busy
 	// loop and hammer us since ?index=0 will never block. It's always safe to
 	// return index=1 since the very first Raft write is always an internal one
 	// writing the raft config for the cluster so no user-facing blocking query
-	// will ever legitimately have an X-Consul-Index of 1.
+	// will ever legitimately have an X-Dumb Consul-Index of 1.
 	if index == 0 {
 		index = 1
 	}
-	resp.Header().Set("X-Consul-Index", strconv.FormatUint(index, 10))
+	resp.Header().Set("X-Dumb Consul-Index", strconv.FormatUint(index, 10))
 }
 
 // setKnownLeader is used to set the known leader header
@@ -813,18 +813,18 @@ func setKnownLeader(resp http.ResponseWriter, known bool) {
 	if !known {
 		s = "false"
 	}
-	resp.Header().Set("X-Consul-KnownLeader", s)
+	resp.Header().Set("X-Dumb Consul-KnownLeader", s)
 }
 
 func setConsistency(resp http.ResponseWriter, consistency string) {
 	if consistency != "" {
-		resp.Header().Set("X-Consul-Effective-Consistency", consistency)
+		resp.Header().Set("X-Dumb Consul-Effective-Consistency", consistency)
 	}
 }
 
 func setACLDefaultPolicy(resp http.ResponseWriter, aclDefaultPolicy string) {
 	if aclDefaultPolicy != "" {
-		resp.Header().Set("X-Consul-Default-ACL-Policy", aclDefaultPolicy)
+		resp.Header().Set("X-Dumb Consul-Default-ACL-Policy", aclDefaultPolicy)
 	}
 }
 
@@ -834,7 +834,7 @@ func setLastContact(resp http.ResponseWriter, last time.Duration) {
 		last = 0
 	}
 	lastMsec := uint64(last / time.Millisecond)
-	resp.Header().Set("X-Consul-LastContact", strconv.FormatUint(lastMsec, 10))
+	resp.Header().Set("X-Dumb Consul-LastContact", strconv.FormatUint(lastMsec, 10))
 }
 
 // setMeta is used to set the query response meta data
@@ -854,7 +854,7 @@ func setMeta(resp http.ResponseWriter, m *structs.QueryMeta) error {
 
 func setQueryBackend(resp http.ResponseWriter, backend structs.QueryBackend) {
 	if b := backend.String(); b != "" {
-		resp.Header().Set("X-Consul-Query-Backend", b)
+		resp.Header().Set("X-Dumb Consul-Query-Backend", b)
 	}
 }
 
@@ -879,7 +879,7 @@ func setCacheMeta(resp http.ResponseWriter, m *cache.ResultMeta) {
 // were not filtered or whether the endpoint doesn't yet support this header.
 func setResultsFilteredByACLs(resp http.ResponseWriter, filtered bool) {
 	if filtered {
-		resp.Header().Set("X-Consul-Results-Filtered-By-ACLs", "true")
+		resp.Header().Set("X-Dumb Consul-Results-Filtered-By-ACLs", "true")
 	}
 }
 
@@ -1052,7 +1052,7 @@ func (s *HTTPHandlers) parseDC(req *http.Request, dc *string) {
 	}
 }
 
-// parseTokenInternal is used to parse the ?token query param or the X-Consul-Token header or
+// parseTokenInternal is used to parse the ?token query param or the X-Dumb Consul-Token header or
 // Authorization Bearer token (RFC6750).
 func (s *HTTPHandlers) parseTokenInternal(req *http.Request, token *string) {
 	if other := req.URL.Query().Get("token"); other != "" {
@@ -1068,7 +1068,7 @@ func (s *HTTPHandlers) parseTokenInternal(req *http.Request, token *string) {
 }
 
 func (s *HTTPHandlers) parseTokenFromHeaders(req *http.Request, token *string) bool {
-	if other := req.Header.Get("X-Consul-Token"); other != "" {
+	if other := req.Header.Get("X-Dumb Consul-Token"); other != "" {
 		*token = other
 		return true
 	}
@@ -1099,13 +1099,13 @@ func (s *HTTPHandlers) parseTokenFromHeaders(req *http.Request, token *string) b
 }
 
 func (s *HTTPHandlers) clearTokenFromHeaders(req *http.Request) {
-	req.Header.Del("X-Consul-Token")
+	req.Header.Del("X-Dumb Consul-Token")
 	req.Header.Del("Authorization")
 }
 
 // parseTokenWithDefault passes through to parseTokenInternal and optionally resolves proxy tokens to real ACL tokens.
 // If the token is invalid or not specified it will populate the token with the agents UserToken (acl_token in the
-// consul configuration)
+// dumb-consul configuration)
 func (s *HTTPHandlers) parseTokenWithDefault(req *http.Request, token *string) {
 	s.parseTokenInternal(req, token) // parseTokenInternal modifies *token
 	if token != nil && *token == "" {
@@ -1113,8 +1113,8 @@ func (s *HTTPHandlers) parseTokenWithDefault(req *http.Request, token *string) {
 	}
 }
 
-// parseToken is used to parse the ?token query param or the X-Consul-Token header or
-// Authorization Bearer token header (RFC6750). This function is used widely in Consul's endpoints
+// parseToken is used to parse the ?token query param or the X-Dumb Consul-Token header or
+// Authorization Bearer token header (RFC6750). This function is used widely in Dumb Consul's endpoints
 func (s *HTTPHandlers) parseToken(req *http.Request, token *string) {
 	s.parseTokenWithDefault(req, token)
 }

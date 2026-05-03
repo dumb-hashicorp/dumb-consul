@@ -16,17 +16,17 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/status"
 
-	pbacl "github.com/hashicorp/consul/proto-public/pbacl"
+	pbacl "github.com/dumb-hashicorp/dumb-consul/proto-public/pbacl"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
 )
 
 func TestServerRateLimiterMiddleware_Integration(t *testing.T) {
 	limiter := rate.NewMockRequestLimitsHandler(t)
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 	server := grpc.NewServer(
 		grpc.InTapHandle(ServerRateLimiterMiddleware(limiter, NewPanicHandler(logger), logger)),
 	)
@@ -61,7 +61,7 @@ func TestServerRateLimiterMiddleware_Integration(t *testing.T) {
 		limiter.On("Allow", mock.Anything).
 			Run(func(args mock.Arguments) {
 				op := args.Get(0).(rate.Operation)
-				require.Equal(t, "/hashicorp.consul.acl.ACLService/Login", op.Name)
+				require.Equal(t, "/dumb-hashicorp.dumb-consul.acl.ACLService/Login", op.Name)
 
 				addr := op.SourceAddr.(*net.TCPAddr)
 				require.True(t, addr.IP.IsLoopback())

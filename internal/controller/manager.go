@@ -9,15 +9,15 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // Manager is responsible for scheduling the execution of controllers.
 type Manager struct {
 	client pbresource.ResourceServiceClient
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 
 	raftLeader atomic.Bool
 
@@ -29,7 +29,7 @@ type Manager struct {
 
 // NewManager creates a Manager. logger will be used by the Manager, and as the
 // base logger for controllers when one is not specified using WithLogger.
-func NewManager(client pbresource.ResourceServiceClient, logger hclog.Logger) *Manager {
+func NewManager(client pbresource.ResourceServiceClient, logger dumb-hclog.Logger) *Manager {
 	return &Manager{
 		client: client,
 		logger: logger,

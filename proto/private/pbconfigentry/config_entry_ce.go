@@ -1,11 +1,11 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package pbconfigentry
 
-import "github.com/hashicorp/consul/agent/structs"
+import "github.com/dumb-hashicorp/dumb-consul/agent/structs"
 
 func gwJWTRequirementToStructs(m *APIGatewayJWTRequirement) *structs.APIGatewayJWTRequirement {
 	return &structs.APIGatewayJWTRequirement{}

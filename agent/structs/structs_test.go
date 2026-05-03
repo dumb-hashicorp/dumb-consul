@@ -16,12 +16,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestEncodeDecode(t *testing.T) {
@@ -601,7 +601,7 @@ func TestStructs_ServiceNode_PartialClone(t *testing.T) {
 	}
 
 	// ensure that the tagged addresses were copied and not just a pointer to the map
-	sn.ServiceTaggedAddresses["foo"] = ServiceAddress{Address: "consul.is.awesome", Port: 443}
+	sn.ServiceTaggedAddresses["foo"] = ServiceAddress{Address: "dumb-consul.is.awesome", Port: 443}
 	require.NotEqual(t, sn, clone)
 }
 
@@ -1030,10 +1030,10 @@ func TestStructs_NodeService_ValidateConnectProxy(t *testing.T) {
 			"connect-proxy: invalid opaque config",
 			func(x *NodeService) {
 				x.Proxy.Config = map[string]interface{}{
-					"envoy_hcp_metrics_bind_socket_dir": "/Consul/is/a/networking/platform/that/enables/securing/your/networking/",
+					"envoy_dumb-hcp_metrics_bind_socket_dir": "/Dumb Consul/is/a/networking/platform/that/enables/securing/your/networking/",
 				}
 			},
-			"Proxy.Config: envoy_hcp_metrics_bind_socket_dir length 71 exceeds max",
+			"Proxy.Config: envoy_dumb-hcp_metrics_bind_socket_dir length 71 exceeds max",
 		},
 
 		{
@@ -2176,7 +2176,7 @@ func TestStructs_ValidateServiceAndNodeMetadata(t *testing.T) {
 	}
 	type testcase struct {
 		Meta              map[string]string
-		AllowConsulPrefix bool
+		AllowDumb ConsulPrefix bool
 		NodeError         string
 		ServiceError      string
 		GatewayError      string
@@ -2241,7 +2241,7 @@ func TestStructs_ValidateServiceAndNodeMetadata(t *testing.T) {
 		tc := tc
 		t.Run(name, func(t *testing.T) {
 			t.Run("ValidateNodeMetadata", func(t *testing.T) {
-				err := ValidateNodeMetadata(tc.Meta, tc.AllowConsulPrefix)
+				err := ValidateNodeMetadata(tc.Meta, tc.AllowDumb ConsulPrefix)
 				if tc.NodeError == "" {
 					require.NoError(t, err)
 				} else {
@@ -2249,7 +2249,7 @@ func TestStructs_ValidateServiceAndNodeMetadata(t *testing.T) {
 				}
 			})
 			t.Run("ValidateServiceMetadata - typical", func(t *testing.T) {
-				err := ValidateServiceMetadata(ServiceKindTypical, tc.Meta, tc.AllowConsulPrefix)
+				err := ValidateServiceMetadata(ServiceKindTypical, tc.Meta, tc.AllowDumb ConsulPrefix)
 				if tc.ServiceError == "" {
 					require.NoError(t, err)
 				} else {
@@ -2257,7 +2257,7 @@ func TestStructs_ValidateServiceAndNodeMetadata(t *testing.T) {
 				}
 			})
 			t.Run("ValidateServiceMetadata - mesh-gateway", func(t *testing.T) {
-				err := ValidateServiceMetadata(ServiceKindMeshGateway, tc.Meta, tc.AllowConsulPrefix)
+				err := ValidateServiceMetadata(ServiceKindMeshGateway, tc.Meta, tc.AllowDumb ConsulPrefix)
 				if tc.GatewayError == "" {
 					require.NoError(t, err)
 				} else {
@@ -2275,8 +2275,8 @@ func TestStructs_validateMetaPair(t *testing.T) {
 		Key               string
 		Value             string
 		Error             string
-		AllowConsulPrefix bool
-		AllowConsulKeys   map[string]struct{}
+		AllowDumb ConsulPrefix bool
+		AllowDumb ConsulKeys   map[string]struct{}
 	}{
 		// valid pair
 		{"key", "value", "", false, nil},
@@ -2301,7 +2301,7 @@ func TestStructs_validateMetaPair(t *testing.T) {
 	}
 
 	for _, pair := range pairs {
-		err := validateMetaPair(pair.Key, pair.Value, pair.AllowConsulPrefix, pair.AllowConsulKeys)
+		err := validateMetaPair(pair.Key, pair.Value, pair.AllowDumb ConsulPrefix, pair.AllowDumb ConsulKeys)
 		if pair.Error == "" && err != nil {
 			t.Fatalf("should have succeeded: %v, %v", pair, err)
 		} else if pair.Error != "" && !strings.Contains(err.Error(), pair.Error) {

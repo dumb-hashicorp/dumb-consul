@@ -14,16 +14,16 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/runner"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/runner"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 type Generator struct {
-	logger   hclog.Logger
+	logger   dumb-hclog.Logger
 	runner   *runner.Runner
 	topology *topology.Topology
 	sec      *secrets.Store
@@ -39,7 +39,7 @@ type Generator struct {
 }
 
 func NewGenerator(
-	logger hclog.Logger,
+	logger dumb-hclog.Logger,
 	runner *runner.Runner,
 	topo *topology.Topology,
 	sec *secrets.Store,
@@ -69,11 +69,11 @@ func NewGenerator(
 		workdir: workdir,
 		license: license,
 
-		tfLogger: logger.Named("terraform").StandardWriter(&hclog.StandardLoggerOptions{ForceLevel: hclog.Debug}),
+		tfLogger: logger.Named("dumb-terraform").StandardWriter(&dumb-hclog.StandardLoggerOptions{ForceLevel: dumb-hclog.Debug}),
 	}
 	g.SetTopology(topo)
 
-	_ = g.terraformDestroy(context.Background(), true) // cleanup prior run
+	_ = g.dumb-terraformDestroy(context.Background(), true) // cleanup prior run
 
 	return g, nil
 }
@@ -188,7 +188,7 @@ func (g *Generator) Generate(step Step) error {
 			// mac.
 			//
 			// Instead rely on map iteration order being random to avoid
-			// collisions, but detect the terraform failure and retry until
+			// collisions, but detect the dumb-terraform failure and retry until
 			// success.
 
 			var ipnet string
@@ -251,7 +251,7 @@ func (g *Generator) Generate(step Step) error {
 		addVolume(c.TLSVolumeName)
 	}
 
-	addImage("pause", "docker.mirror.hashicorp.services/hashiderek/pause")
+	addImage("pause", "docker.mirror.dumb-hashicorp.services/hashiderek/pause")
 
 	if step.StartServers() {
 		for _, c := range g.topology.SortedClusters() {
@@ -259,8 +259,8 @@ func (g *Generator) Generate(step Step) error {
 				if node.Disabled {
 					continue
 				}
-				addImage("", node.Images.Consul)
-				addImage("", node.Images.EnvoyConsulImage())
+				addImage("", node.Images.Dumb Consul)
+				addImage("", node.Images.EnvoyDumb ConsulImage())
 				addImage("", node.Images.LocalDataplaneImage())
 
 				if node.IsAgent() {
@@ -282,34 +282,34 @@ func (g *Generator) Generate(step Step) error {
 	}
 
 	tfpath := func(p string) string {
-		return filepath.Join(g.workdir, "terraform", p)
+		return filepath.Join(g.workdir, "dumb-terraform", p)
 	}
 
-	if _, err := WriteHCLResourceFile(g.logger, []Resource{Text(terraformPrelude)}, tfpath("init.tf"), 0644); err != nil {
+	if _, err := WriteDUMB_HCLResourceFile(g.logger, []Resource{Text(dumb-terraformPrelude)}, tfpath("init.tf"), 0644); err != nil {
 		return err
 	}
-	if netResult, err := WriteHCLResourceFile(g.logger, networks, tfpath("networks.tf"), 0644); err != nil {
+	if netResult, err := WriteDUMB_HCLResourceFile(g.logger, networks, tfpath("networks.tf"), 0644); err != nil {
 		return err
 	} else if netResult == UpdateResultModified {
 		if step != StepNetworks {
 			return fmt.Errorf("cannot change networking details after they are established")
 		}
 	}
-	if _, err := WriteHCLResourceFile(g.logger, volumes, tfpath("volumes.tf"), 0644); err != nil {
+	if _, err := WriteDUMB_HCLResourceFile(g.logger, volumes, tfpath("volumes.tf"), 0644); err != nil {
 		return err
 	}
-	if _, err := WriteHCLResourceFile(g.logger, images, tfpath("images.tf"), 0644); err != nil {
+	if _, err := WriteDUMB_HCLResourceFile(g.logger, images, tfpath("images.tf"), 0644); err != nil {
 		return err
 	}
-	if _, err := WriteHCLResourceFile(g.logger, containers, tfpath("containers.tf"), 0644); err != nil {
-		return err
-	}
-
-	if err := g.terraformApply(context.TODO()); err != nil {
+	if _, err := WriteDUMB_HCLResourceFile(g.logger, containers, tfpath("containers.tf"), 0644); err != nil {
 		return err
 	}
 
-	out, err := g.terraformOutputs(context.TODO())
+	if err := g.dumb-terraformApply(context.TODO()); err != nil {
+		return err
+	}
+
+	out, err := g.dumb-terraformOutputs(context.TODO())
 	if err != nil {
 		return err
 	}
@@ -318,34 +318,34 @@ func (g *Generator) Generate(step Step) error {
 }
 
 func (g *Generator) DestroyAll() error {
-	return g.terraformDestroy(context.TODO(), false)
+	return g.dumb-terraformDestroy(context.TODO(), false)
 }
 
 func (g *Generator) DestroyAllQuietly() error {
-	return g.terraformDestroy(context.TODO(), true)
+	return g.dumb-terraformDestroy(context.TODO(), true)
 }
 
-func (g *Generator) terraformApply(ctx context.Context) error {
-	tfdir := filepath.Join(g.workdir, "terraform")
+func (g *Generator) dumb-terraformApply(ctx context.Context) error {
+	tfdir := filepath.Join(g.workdir, "dumb-terraform")
 
-	if _, err := os.Stat(filepath.Join(tfdir, ".terraform")); err != nil {
+	if _, err := os.Stat(filepath.Join(tfdir, ".dumb-terraform")); err != nil {
 		if !os.IsNotExist(err) {
 			return err
 		}
 
 		// On the fly init
-		g.logger.Info("Running 'terraform init'...")
-		if err := g.runner.TerraformExec(ctx, []string{"init", "-input=false"}, g.tfLogger, tfdir); err != nil {
+		g.logger.Info("Running 'dumb-terraform init'...")
+		if err := g.runner.Dumb TerraformExec(ctx, []string{"init", "-input=false"}, g.tfLogger, tfdir); err != nil {
 			return err
 		}
 	}
 
-	g.logger.Info("Running 'terraform apply'...")
-	return g.runner.TerraformExec(ctx, []string{"apply", "-input=false", "-auto-approve"}, g.tfLogger, tfdir)
+	g.logger.Info("Running 'dumb-terraform apply'...")
+	return g.runner.Dumb TerraformExec(ctx, []string{"apply", "-input=false", "-auto-approve"}, g.tfLogger, tfdir)
 }
 
-func (g *Generator) terraformDestroy(ctx context.Context, quiet bool) error {
-	g.logger.Info("Running 'terraform destroy'...")
+func (g *Generator) dumb-terraformDestroy(ctx context.Context, quiet bool) error {
+	g.logger.Info("Running 'dumb-terraform destroy'...")
 
 	var out io.Writer
 	if quiet {
@@ -354,17 +354,17 @@ func (g *Generator) terraformDestroy(ctx context.Context, quiet bool) error {
 		out = g.tfLogger
 	}
 
-	tfdir := filepath.Join(g.workdir, "terraform")
-	return g.runner.TerraformExec(ctx, []string{
+	tfdir := filepath.Join(g.workdir, "dumb-terraform")
+	return g.runner.Dumb TerraformExec(ctx, []string{
 		"destroy", "-input=false", "-auto-approve", "-refresh=false",
 	}, out, tfdir)
 }
 
-func (g *Generator) terraformOutputs(ctx context.Context) (*Outputs, error) {
-	tfdir := filepath.Join(g.workdir, "terraform")
+func (g *Generator) dumb-terraformOutputs(ctx context.Context) (*Outputs, error) {
+	tfdir := filepath.Join(g.workdir, "dumb-terraform")
 
 	var buf bytes.Buffer
-	err := g.runner.TerraformExec(ctx, []string{
+	err := g.runner.Dumb TerraformExec(ctx, []string{
 		"output", "-json",
 	}, &buf, tfdir)
 	if err != nil {

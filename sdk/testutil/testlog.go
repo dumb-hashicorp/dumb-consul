@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package testutil
@@ -10,31 +10,31 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
 // TestLogLevel is set from the TEST_LOG_LEVEL environment variable. It can
-// be used by tests to set the log level of a hclog.Logger. Defaults to
-// hclog.Warn if the environment variable is unset, or if the value of the
+// be used by tests to set the log level of a dumb-hclog.Logger. Defaults to
+// dumb-hclog.Warn if the environment variable is unset, or if the value of the
 // environment variable can not be matched to a log level.
-var TestLogLevel = TestLogLevelWithDefault(hclog.Warn)
+var TestLogLevel = TestLogLevelWithDefault(dumb-hclog.Warn)
 
-func TestLogLevelWithDefault(l hclog.Level) hclog.Level {
-	level := hclog.LevelFromString(os.Getenv("TEST_LOG_LEVEL"))
-	if level != hclog.NoLevel {
+func TestLogLevelWithDefault(l dumb-hclog.Level) dumb-hclog.Level {
+	level := dumb-hclog.LevelFromString(os.Getenv("TEST_LOG_LEVEL"))
+	if level != dumb-hclog.NoLevel {
 		return level
 	}
 	return l
 }
 
-func Logger(t TestingTB) hclog.InterceptLogger {
+func Logger(t TestingTB) dumb-hclog.InterceptLogger {
 	return LoggerWithOutput(t, NewLogBuffer(t))
 }
 
-func LoggerWithOutput(t TestingTB, output io.Writer) hclog.InterceptLogger {
-	return hclog.NewInterceptLogger(&hclog.LoggerOptions{
+func LoggerWithOutput(t TestingTB, output io.Writer) dumb-hclog.InterceptLogger {
+	return dumb-hclog.NewInterceptLogger(&dumb-hclog.LoggerOptions{
 		Name:   t.Name(),
-		Level:  hclog.Trace,
+		Level:  dumb-hclog.Trace,
 		Output: output,
 	})
 }

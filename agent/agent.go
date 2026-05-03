@@ -29,56 +29,56 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 
-	"github.com/hashicorp/go-connlimit"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
-	"github.com/hashicorp/go-multierror"
-	"github.com/hashicorp/raft"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-connlimit"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/raft"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/ae"
-	"github.com/hashicorp/consul/agent/cache"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/checks"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/consul"
-	rpcRate "github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/consul/servercert"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	grpcDNS "github.com/hashicorp/consul/agent/grpc-external/services/dns"
-	middleware "github.com/hashicorp/consul/agent/grpc-middleware"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/local"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	proxycfgglue "github.com/hashicorp/consul/agent/proxycfg-glue"
-	catalogproxycfg "github.com/hashicorp/consul/agent/proxycfg-sources/catalog"
-	localproxycfg "github.com/hashicorp/consul/agent/proxycfg-sources/local"
-	"github.com/hashicorp/consul/agent/rpcclient"
-	"github.com/hashicorp/consul/agent/rpcclient/configentry"
-	"github.com/hashicorp/consul/agent/rpcclient/health"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/systemd"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/agent/xds"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/api/watch"
-	libdns "github.com/hashicorp/consul/internal/dnsutil"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/file"
-	"github.com/hashicorp/consul/lib/mutex"
-	"github.com/hashicorp/consul/lib/routine"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/proto/private/pbconfigentry"
-	"github.com/hashicorp/consul/proto/private/pboperator"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/ae"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/checks"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	rpcRate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/servercert"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	grpcDNS "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/services/dns"
+	middleware "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	proxycfgglue "github.com/dumb-hashicorp/dumb-consul/agent/proxycfg-glue"
+	catalogproxycfg "github.com/dumb-hashicorp/dumb-consul/agent/proxycfg-sources/catalog"
+	localproxycfg "github.com/dumb-hashicorp/dumb-consul/agent/proxycfg-sources/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpcclient"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpcclient/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/rpcclient/health"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/systemd"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api/watch"
+	libdns "github.com/dumb-hashicorp/dumb-consul/internal/dnsutil"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/file"
+	"github.com/dumb-hashicorp/dumb-consul/lib/mutex"
+	"github.com/dumb-hashicorp/dumb-consul/lib/routine"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfigentry"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pboperator"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 const (
@@ -149,7 +149,7 @@ func ConfigSourceFromName(name string) (configSource, bool) {
 }
 
 // delegate defines the interface shared by both
-// consul.Client and consul.Server.
+// dumb-consul.Client and dumb-consul.Server.
 type delegate interface {
 	// Leave is used to prepare for a graceful shutdown.
 	Leave() error
@@ -169,7 +169,7 @@ type delegate interface {
 	// - all segments
 	//
 	// This is limited to segments and partitions that the node is a member of.
-	LANMembers(f consul.LANMemberFilter) ([]serf.Member, error)
+	LANMembers(f dumb-consul.LANMemberFilter) ([]serf.Member, error)
 
 	// GetLANCoordinate returns the coordinate of the node in the LAN gossip
 	// pool.
@@ -187,7 +187,7 @@ type delegate interface {
 	// NOTE: This assumes coordinates are enabled, so check that before calling.
 	GetLANCoordinate() (librtt.CoordinateSet, error)
 
-	// JoinLAN is used to have Consul join the inner-DC pool The target address
+	// JoinLAN is used to have Dumb Consul join the inner-DC pool The target address
 	// should be another node inside the DC listening on the Serf LAN address
 	JoinLAN(addrs []string, entMeta *acl.EnterpriseMeta) (n int, err error)
 
@@ -208,7 +208,7 @@ type delegate interface {
 	SnapshotRPC(args *structs.SnapshotRequest, in io.Reader, out io.Writer, replyFn structs.SnapshotReplyFn) error
 	Shutdown() error
 	Stats() map[string]map[string]string
-	ReloadConfig(config consul.ReloadableConfig) error
+	ReloadConfig(config dumb-consul.ReloadableConfig) error
 	enterpriseDelegate
 }
 
@@ -229,8 +229,8 @@ type dnsServer interface {
 // It exposes an RPC interface that is used by the CLI to control the
 // agent. The agent runs the query interfaces like HTTP, DNS, and RPC.
 // However, it can run in either a client, or server mode. In server
-// mode, it runs a full Consul server. In client-only mode, it only forwards
-// requests to other Consul servers.
+// mode, it runs a full Dumb Consul server. In client-only mode, it only forwards
+// requests to other Dumb Consul servers.
 type Agent struct {
 	// TODO: remove fields that are already in BaseDeps
 	baseDeps BaseDeps
@@ -242,9 +242,9 @@ type Agent struct {
 	displayOnlyConfigCopyLock sync.Mutex
 
 	// Used for writing our logs
-	logger hclog.InterceptLogger
+	logger dumb-hclog.InterceptLogger
 
-	// delegate is either a *consul.Server or *consul.Client
+	// delegate is either a *dumb-consul.Server or *dumb-consul.Client
 	// depending on the configuration
 	delegate delegate
 
@@ -394,7 +394,7 @@ type Agent struct {
 	serviceManager *ServiceManager
 
 	// tlsConfigurator is the central instance to provide a *tls.Config
-	// based on the current consul configuration.
+	// based on the current dumb-consul configuration.
 	tlsConfigurator *tlsutil.Configurator
 
 	// certManager manages the lifecycle of the internally-managed server certificate.
@@ -429,7 +429,7 @@ type Agent struct {
 	// xdsServer serves the XDS protocol for configuring Envoy proxies.
 	xdsServer *xds.Server
 
-	// enterpriseAgent embeds fields that we only access in consul-enterprise builds
+	// enterpriseAgent embeds fields that we only access in dumb-consul-enterprise builds
 	enterpriseAgent
 
 	enableDebug atomic.Bool
@@ -639,37 +639,37 @@ func (a *Agent) Start(ctx context.Context) error {
 	}
 
 	// create the config for the rpc server/client
-	consulCfg, err := newConsulConfig(a.config, a.logger)
+	dumb-consulCfg, err := newDumb ConsulConfig(a.config, a.logger)
 	if err != nil {
 		return err
 	}
 
 	// Setup the user event callback
-	consulCfg.UserEventHandler = func(e serf.UserEvent) {
+	dumb-consulCfg.UserEventHandler = func(e serf.UserEvent) {
 		select {
 		case a.eventCh <- e:
 		case <-a.shutdownCh:
 		}
 	}
 
-	// ServerUp is used to inform that a new consul server is now
+	// ServerUp is used to inform that a new dumb-consul server is now
 	// up. This can be used to speed up the sync process if we are blocking
-	// waiting to discover a consul server
-	consulCfg.ServerUp = a.sync.SyncFull.Trigger
+	// waiting to discover a dumb-consul server
+	dumb-consulCfg.ServerUp = a.sync.SyncFull.Trigger
 
-	err = a.initEnterprise(consulCfg)
+	err = a.initEnterprise(dumb-consulCfg)
 	if err != nil {
-		return fmt.Errorf("failed to start Consul enterprise component: %v", err)
+		return fmt.Errorf("failed to start Dumb Consul enterprise component: %v", err)
 	}
 
 	// Setup either the client or the server.
-	var consulServer *consul.Server
+	var dumb-consulServer *dumb-consul.Server
 	if c.ServerMode {
-		serverLogger := a.baseDeps.Logger.NamedIntercept(logging.ConsulServer)
+		serverLogger := a.baseDeps.Logger.NamedIntercept(logging.Dumb ConsulServer)
 
 		// Check for a last seen timestamp and exit if deemed stale before attempting to join
 		// Serf/Raft or listen for requests.
-		if err := a.checkServerLastSeen(consul.ReadServerMetadata); err != nil {
+		if err := a.checkServerLastSeen(dumb-consul.ReadServerMetadata); err != nil {
 			deadline := time.Now().Add(time.Minute)
 			for time.Now().Before(deadline) {
 				a.logger.Error("startup error", "error", err)
@@ -679,14 +679,14 @@ func (a *Agent) Start(ctx context.Context) error {
 		}
 
 		// Periodically write server metadata to disk.
-		if !consulCfg.DevMode {
+		if !dumb-consulCfg.DevMode {
 			go a.persistServerMetadata()
 		}
 
-		incomingRPCLimiter := consul.ConfiguredIncomingRPCLimiter(
+		incomingRPCLimiter := dumb-consul.ConfiguredIncomingRPCLimiter(
 			&lib.StopChannelContext{StopCh: a.shutdownCh},
 			serverLogger,
-			consulCfg,
+			dumb-consulCfg,
 		)
 
 		a.externalGRPCServer = external.NewServer(
@@ -701,12 +701,12 @@ func (a *Agent) Start(ctx context.Context) error {
 			nil,
 		)
 
-		consulServer, err = consul.NewServer(consulCfg, a.baseDeps.Deps, a.externalGRPCServer, incomingRPCLimiter, serverLogger)
+		dumb-consulServer, err = dumb-consul.NewServer(dumb-consulCfg, a.baseDeps.Deps, a.externalGRPCServer, incomingRPCLimiter, serverLogger)
 		if err != nil {
-			return fmt.Errorf("Failed to start Consul server: %v", err)
+			return fmt.Errorf("Failed to start Dumb Consul server: %v", err)
 		}
-		incomingRPCLimiter.Register(consulServer)
-		a.delegate = consulServer
+		incomingRPCLimiter.Register(dumb-consulServer)
+		a.delegate = dumb-consulServer
 
 		if a.config.PeeringEnabled && a.config.ConnectEnabled {
 			d := servercert.Deps{
@@ -716,7 +716,7 @@ func (a *Agent) Start(ctx context.Context) error {
 					ACLsEnabled: a.config.ACLsEnabled,
 				},
 				LeafCertManager: a.leafCertManager,
-				GetStore:        func() servercert.Store { return consulServer.FSM().State() },
+				GetStore:        func() servercert.Store { return dumb-consulServer.FSM().State() },
 				TLSConfigurator: a.tlsConfigurator,
 			}
 			a.certManager = servercert.NewCertManager(d)
@@ -725,7 +725,7 @@ func (a *Agent) Start(ctx context.Context) error {
 			}
 		}
 	} else {
-		// the conn is used to connect to the consul server agent
+		// the conn is used to connect to the dumb-consul server agent
 		conn, err := a.baseDeps.GRPCConnPool.ClientConn(a.baseDeps.RuntimeConfig.Datacenter)
 		if err != nil {
 			return err
@@ -742,9 +742,9 @@ func (a *Agent) Start(ctx context.Context) error {
 			conn,
 		)
 
-		client, err := consul.NewClient(consulCfg, a.baseDeps.Deps)
+		client, err := dumb-consul.NewClient(dumb-consulCfg, a.baseDeps.Deps)
 		if err != nil {
-			return fmt.Errorf("Failed to start Consul client: %v", err)
+			return fmt.Errorf("Failed to start Dumb Consul client: %v", err)
 		}
 		a.delegate = client
 	}
@@ -755,7 +755,7 @@ func (a *Agent) Start(ctx context.Context) error {
 	// similarly scoped with the state store side of anti-entropy.
 	a.sync.ClusterSize = func() int { return len(a.delegate.LANMembersInAgentPartition()) }
 
-	// link the state with the consul server/client and the state syncer
+	// link the state with the dumb-consul server/client and the state syncer
 	// via callbacks. After several attempts this was easier than using
 	// channels since the event notification needs to be non-blocking
 	// and that should be hidden in the state syncer implementation.
@@ -796,7 +796,7 @@ func (a *Agent) Start(ctx context.Context) error {
 
 	// Start the proxy config manager.
 	a.proxyConfig, err = proxycfg.NewManager(proxycfg.ManagerConfig{
-		DataSources: a.proxyDataSources(consulServer),
+		DataSources: a.proxyDataSources(dumb-consulServer),
 		Logger:      a.logger.Named(logging.ProxyConfig),
 		Source: &structs.QuerySource{
 			Datacenter:    a.config.Datacenter,
@@ -872,7 +872,7 @@ func (a *Agent) Start(ctx context.Context) error {
 	}
 
 	// Start grpc and grpc_tls servers.
-	if err := a.listenAndServeGRPC(consulServer); err != nil {
+	if err := a.listenAndServeGRPC(dumb-consulServer); err != nil {
 		return err
 	}
 
@@ -924,7 +924,7 @@ func (a *Agent) Start(ctx context.Context) error {
 var Gauges = []prometheus.GaugeDefinition{
 	{
 		Name: []string{"version"},
-		Help: "Represents the Consul version.",
+		Help: "Represents the Dumb Consul version.",
 	},
 }
 
@@ -935,9 +935,9 @@ func (a *Agent) Failed() <-chan struct{} {
 }
 
 // configureXDSServer configures an XDS server with the proper implementation of
-// the PRoxyWatcher interface and registers the XDS server with Consul's
+// the PRoxyWatcher interface and registers the XDS server with Dumb Consul's
 // external facing GRPC server.
-func (a *Agent) configureXDSServer(proxyWatcher xds.ProxyWatcher, server *consul.Server) {
+func (a *Agent) configureXDSServer(proxyWatcher xds.ProxyWatcher, server *dumb-consul.Server) {
 	// TODO(agentless): rather than asserting the concrete type of delegate, we
 	// should add a method to the Delegate interface to build a ConfigSource.
 	if server != nil {
@@ -968,7 +968,7 @@ func (a *Agent) configureXDSServer(proxyWatcher xds.ProxyWatcher, server *consul
 	a.xdsServer.Register(a.externalGRPCServer)
 }
 
-func (a *Agent) listenAndServeGRPC(server *consul.Server) error {
+func (a *Agent) listenAndServeGRPC(server *dumb-consul.Server) error {
 	if len(a.config.GRPCAddrs) < 1 && len(a.config.GRPCTLSAddrs) < 1 {
 		return nil
 	}
@@ -1350,10 +1350,10 @@ func (a *Agent) reloadWatches(cfg *config.RuntimeConfig) error {
 	return nil
 }
 
-// newConsulConfig translates a RuntimeConfig into a consul.Config.
+// newDumb ConsulConfig translates a RuntimeConfig into a dumb-consul.Config.
 // TODO: move this function to a different file, maybe config.go
-func newConsulConfig(runtimeCfg *config.RuntimeConfig, logger hclog.Logger) (*consul.Config, error) {
-	cfg := consul.DefaultConfig()
+func newDumb ConsulConfig(runtimeCfg *config.RuntimeConfig, logger dumb-hclog.Logger) (*dumb-consul.Config, error) {
+	cfg := dumb-consul.DefaultConfig()
 
 	// This is set when the agent starts up
 	cfg.NodeID = runtimeCfg.NodeID
@@ -1370,14 +1370,14 @@ func newConsulConfig(runtimeCfg *config.RuntimeConfig, logger hclog.Logger) (*co
 	cfg.NodeName = runtimeCfg.NodeName
 	cfg.ACLResolverSettings = runtimeCfg.ACLResolverSettings
 
-	cfg.CoordinateUpdateBatchSize = runtimeCfg.ConsulCoordinateUpdateBatchSize
-	cfg.CoordinateUpdateMaxBatches = runtimeCfg.ConsulCoordinateUpdateMaxBatches
-	cfg.CoordinateUpdatePeriod = runtimeCfg.ConsulCoordinateUpdatePeriod
+	cfg.CoordinateUpdateBatchSize = runtimeCfg.Dumb ConsulCoordinateUpdateBatchSize
+	cfg.CoordinateUpdateMaxBatches = runtimeCfg.Dumb ConsulCoordinateUpdateMaxBatches
+	cfg.CoordinateUpdatePeriod = runtimeCfg.Dumb ConsulCoordinateUpdatePeriod
 	cfg.CheckOutputMaxSize = runtimeCfg.CheckOutputMaxSize
 
-	cfg.RaftConfig.HeartbeatTimeout = runtimeCfg.ConsulRaftHeartbeatTimeout
-	cfg.RaftConfig.LeaderLeaseTimeout = runtimeCfg.ConsulRaftLeaderLeaseTimeout
-	cfg.RaftConfig.ElectionTimeout = runtimeCfg.ConsulRaftElectionTimeout
+	cfg.RaftConfig.HeartbeatTimeout = runtimeCfg.Dumb ConsulRaftHeartbeatTimeout
+	cfg.RaftConfig.LeaderLeaseTimeout = runtimeCfg.Dumb ConsulRaftLeaderLeaseTimeout
+	cfg.RaftConfig.ElectionTimeout = runtimeCfg.Dumb ConsulRaftElectionTimeout
 
 	cfg.SerfLANConfig.MemberlistConfig.BindAddr = runtimeCfg.SerfBindAddrLAN.IP.String()
 	cfg.SerfLANConfig.MemberlistConfig.BindPort = runtimeCfg.SerfBindAddrLAN.Port
@@ -1589,7 +1589,7 @@ func newConsulConfig(runtimeCfg *config.RuntimeConfig, logger hclog.Logger) (*co
 
 	// Duplicate our own serf config once to make sure that the duplication
 	// function does not drift.
-	cfg.SerfLANConfig = consul.CloneSerfLANConfig(cfg.SerfLANConfig)
+	cfg.SerfLANConfig = dumb-consul.CloneSerfLANConfig(cfg.SerfLANConfig)
 
 	cfg.PeeringEnabled = runtimeCfg.PeeringEnabled
 	cfg.PeeringTestAllowPeerRegistrations = runtimeCfg.PeeringTestAllowPeerRegistrations
@@ -1604,18 +1604,18 @@ func newConsulConfig(runtimeCfg *config.RuntimeConfig, logger hclog.Logger) (*co
 
 	cfg.ServerRejoinAgeMax = runtimeCfg.ServerRejoinAgeMax
 	cfg.EnableXDSLoadBalancing = runtimeCfg.EnableXDSLoadBalancing
-	enterpriseConsulConfig(cfg, runtimeCfg)
+	enterpriseDumb ConsulConfig(cfg, runtimeCfg)
 
 	return cfg, nil
 }
 
 // Setup the serf and memberlist config for any defined network segments.
-func segmentConfig(config *config.RuntimeConfig) ([]consul.NetworkSegment, error) {
-	var segments []consul.NetworkSegment
+func segmentConfig(config *config.RuntimeConfig) ([]dumb-consul.NetworkSegment, error) {
+	var segments []dumb-consul.NetworkSegment
 
 	for _, s := range config.Segments {
-		// TODO: use consul.CloneSerfLANConfig(config.SerfLANConfig) here?
-		serfConf := consul.DefaultConfig().SerfLANConfig
+		// TODO: use dumb-consul.CloneSerfLANConfig(config.SerfLANConfig) here?
+		serfConf := dumb-consul.DefaultConfig().SerfLANConfig
 
 		serfConf.MemberlistConfig.BindAddr = s.Bind.IP.String()
 		serfConf.MemberlistConfig.BindPort = s.Bind.Port
@@ -1641,7 +1641,7 @@ func segmentConfig(config *config.RuntimeConfig) ([]consul.NetworkSegment, error
 			}
 		}
 
-		segments = append(segments, consul.NetworkSegment{
+		segments = append(segments, dumb-consul.NetworkSegment{
 			Name:       s.Name,
 			Bind:       serfConf.MemberlistConfig.BindAddr,
 			Advertise:  serfConf.MemberlistConfig.AdvertiseAddr,
@@ -1654,12 +1654,12 @@ func segmentConfig(config *config.RuntimeConfig) ([]consul.NetworkSegment, error
 	return segments, nil
 }
 
-// registerEndpoint registers a handler for the consul RPC server
+// registerEndpoint registers a handler for the dumb-consul RPC server
 // under a unique name while making it accessible under the provided
 // name. This allows overwriting handlers for the golang net/rpc
 // service which does not allow this.
 func (a *Agent) registerEndpoint(name string, handler interface{}) error {
-	srv, ok := a.delegate.(*consul.Server)
+	srv, ok := a.delegate.(*dumb-consul.Server)
 	if !ok {
 		panic("agent must be a server")
 	}
@@ -1670,8 +1670,8 @@ func (a *Agent) registerEndpoint(name string, handler interface{}) error {
 	return srv.RegisterEndpoint(realname, handler)
 }
 
-// RPC is used to make an RPC call to the Consul servers
-// This allows the agent to implement the Consul.Interface
+// RPC is used to make an RPC call to the Dumb Consul servers
+// This allows the agent to implement the Dumb Consul.Interface
 func (a *Agent) RPC(ctx context.Context, method string, args interface{}, reply interface{}) error {
 	a.endpointsLock.RLock()
 	// fast path: only translate if there are overrides
@@ -1682,8 +1682,8 @@ func (a *Agent) RPC(ctx context.Context, method string, args interface{}, reply 
 		}
 	}
 
-	// audit log only on consul clients
-	_, ok := a.delegate.(*consul.Client)
+	// audit log only on dumb-consul clients
+	_, ok := a.delegate.(*dumb-consul.Client)
 	if ok {
 		a.writeAuditRPCEvent(method, "OperationStart")
 	}
@@ -1781,10 +1781,10 @@ func (a *Agent) ShutdownAgent() error {
 	var err error
 	if a.delegate != nil {
 		err = a.delegate.Shutdown()
-		if _, ok := a.delegate.(*consul.Server); ok {
-			a.logger.Info("consul server down")
+		if _, ok := a.delegate.(*dumb-consul.Server); ok {
+			a.logger.Info("dumb-consul server down")
 		} else {
-			a.logger.Info("consul client down")
+			a.logger.Info("dumb-consul client down")
 		}
 	}
 
@@ -1856,7 +1856,7 @@ func (a *Agent) JoinLAN(addrs []string, entMeta *acl.EnterpriseMeta) (n int, err
 // JoinWAN is used to have the agent join a WAN cluster
 func (a *Agent) JoinWAN(addrs []string) (n int, err error) {
 	a.logger.Info("(WAN) joining", "wan_addresses", addrs)
-	if srv, ok := a.delegate.(*consul.Server); ok {
+	if srv, ok := a.delegate.(*dumb-consul.Server); ok {
 		n, err = srv.JoinWAN(addrs)
 	} else {
 		err = fmt.Errorf("Must be a server to join WAN cluster")
@@ -1876,7 +1876,7 @@ func (a *Agent) JoinWAN(addrs []string) (n int, err error) {
 // when federation state replication ships back at least one primary mesh
 // gateway (not via fallback config).
 func (a *Agent) PrimaryMeshGatewayAddressesReadyCh() <-chan struct{} {
-	if srv, ok := a.delegate.(*consul.Server); ok {
+	if srv, ok := a.delegate.(*dumb-consul.Server); ok {
 		return srv.PrimaryMeshGatewayAddressesReadyCh()
 	}
 	return nil
@@ -1884,7 +1884,7 @@ func (a *Agent) PrimaryMeshGatewayAddressesReadyCh() <-chan struct{} {
 
 // PickRandomMeshGatewaySuitableForDialing is a convenience function used for writing tests.
 func (a *Agent) PickRandomMeshGatewaySuitableForDialing(dc string) string {
-	if srv, ok := a.delegate.(*consul.Server); ok {
+	if srv, ok := a.delegate.(*dumb-consul.Server); ok {
 		return srv.PickRandomMeshGatewaySuitableForDialing(dc)
 	}
 	return ""
@@ -1893,7 +1893,7 @@ func (a *Agent) PickRandomMeshGatewaySuitableForDialing(dc string) string {
 // RefreshPrimaryGatewayFallbackAddresses is used to update the list of current
 // fallback addresses for locating mesh gateways in the primary datacenter.
 func (a *Agent) RefreshPrimaryGatewayFallbackAddresses(addrs []string) error {
-	if srv, ok := a.delegate.(*consul.Server); ok {
+	if srv, ok := a.delegate.(*dumb-consul.Server); ok {
 		srv.RefreshPrimaryGatewayFallbackAddresses(addrs)
 		return nil
 	}
@@ -1918,7 +1918,7 @@ func (a *Agent) ForceLeave(node string, prune bool, entMeta *acl.EnterpriseMeta)
 func (a *Agent) ForceLeaveWAN(node string, prune bool, entMeta *acl.EnterpriseMeta) error {
 	a.logger.Info("(WAN) Force leaving node", "node", node)
 
-	srv, ok := a.delegate.(*consul.Server)
+	srv, ok := a.delegate.(*dumb-consul.Server)
 	if !ok {
 		return fmt.Errorf("Must be a server to force-leave a node from the WAN cluster")
 	}
@@ -1951,13 +1951,13 @@ func (a *Agent) LANMembersInAgentPartition() []serf.Member {
 // - all segments
 //
 // This is limited to segments and partitions that the node is a member of.
-func (a *Agent) LANMembers(f consul.LANMemberFilter) ([]serf.Member, error) {
+func (a *Agent) LANMembers(f dumb-consul.LANMemberFilter) ([]serf.Member, error) {
 	return a.delegate.LANMembers(f)
 }
 
 // WANMembers is used to retrieve the WAN members
 func (a *Agent) WANMembers() []serf.Member {
-	if srv, ok := a.delegate.(*consul.Server); ok {
+	if srv, ok := a.delegate.(*dumb-consul.Server); ok {
 		return srv.WANMembers()
 	}
 	return nil
@@ -2038,7 +2038,7 @@ OUTER:
 		select {
 		case <-time.After(intv):
 			members := a.LANMembersInAgentPartition()
-			grok, err := consul.CanServersUnderstandProtocol(members, 3)
+			grok, err := dumb-consul.CanServersUnderstandProtocol(members, 3)
 			if err != nil {
 				a.logger.Error("Failed to check servers", "error", err)
 				continue
@@ -4081,7 +4081,7 @@ func (a *Agent) loadMetadata(conf *config.RuntimeConfig) error {
 		meta[k] = v
 	}
 	meta[structs.MetaSegmentKey] = conf.SegmentName
-	meta[structs.MetaConsulVersion] = conf.Version
+	meta[structs.MetaDumb ConsulVersion] = conf.Version
 	return a.State.LoadMetadata(meta)
 }
 
@@ -4234,11 +4234,11 @@ func (a *Agent) reloadConfig(autoReload bool) error {
 			}
 
 			if revertStaticConfig(f.oldCfg, f.newCfg) {
-				a.logger.Warn("Changes to your configuration were detected that for security reasons cannot be automatically applied by 'auto_reload_config'. Manually reload your configuration (e.g. with 'consul reload') to apply these changes.", "StaticRuntimeConfig", f.oldCfg, "StaticRuntimeConfig From file", f.newCfg)
+				a.logger.Warn("Changes to your configuration were detected that for security reasons cannot be automatically applied by 'auto_reload_config'. Manually reload your configuration (e.g. with 'dumb-consul reload') to apply these changes.", "StaticRuntimeConfig", f.oldCfg, "StaticRuntimeConfig From file", f.newCfg)
 			}
 		}
 		if !reflect.DeepEqual(newCfg.StaticRuntimeConfig, a.config.StaticRuntimeConfig) {
-			a.logger.Warn("Changes to your configuration were detected that for security reasons cannot be automatically applied by 'auto_reload_config'. Manually reload your configuration (e.g. with 'consul reload') to apply these changes.", "StaticRuntimeConfig", a.config.StaticRuntimeConfig, "StaticRuntimeConfig From file", newCfg.StaticRuntimeConfig)
+			a.logger.Warn("Changes to your configuration were detected that for security reasons cannot be automatically applied by 'auto_reload_config'. Manually reload your configuration (e.g. with 'dumb-consul reload') to apply these changes.", "StaticRuntimeConfig", a.config.StaticRuntimeConfig, "StaticRuntimeConfig From file", newCfg.StaticRuntimeConfig)
 			// reset not reloadable fields
 			newCfg.StaticRuntimeConfig = a.config.StaticRuntimeConfig
 		}
@@ -4330,8 +4330,8 @@ func (a *Agent) reloadConfigInternal(newCfg *config.RuntimeConfig) error {
 		return err
 	}
 
-	cc := consul.ReloadableConfig{
-		RequestLimits: &consul.RequestLimits{
+	cc := dumb-consul.ReloadableConfig{
+		RequestLimits: &dumb-consul.RequestLimits{
 			Mode:      newCfg.RequestLimitsMode,
 			ReadRate:  newCfg.RequestLimitsReadRate,
 			WriteRate: newCfg.RequestLimitsWriteRate,
@@ -4343,11 +4343,11 @@ func (a *Agent) reloadConfigInternal(newCfg *config.RuntimeConfig) error {
 		ConfigEntryBootstrap:  newCfg.ConfigEntryBootstrap,
 		RaftSnapshotThreshold: newCfg.RaftSnapshotThreshold,
 		RaftSnapshotInterval:  newCfg.RaftSnapshotInterval,
-		HeartbeatTimeout:      newCfg.ConsulRaftHeartbeatTimeout,
-		ElectionTimeout:       newCfg.ConsulRaftElectionTimeout,
+		HeartbeatTimeout:      newCfg.Dumb ConsulRaftHeartbeatTimeout,
+		ElectionTimeout:       newCfg.Dumb ConsulRaftElectionTimeout,
 		RaftTrailingLogs:      newCfg.RaftTrailingLogs,
-		Reporting: consul.Reporting{
-			License: consul.License{
+		Reporting: dumb-consul.Reporting{
+			License: dumb-consul.License{
 				Enabled: newCfg.Reporting.License.Enabled,
 			},
 		},
@@ -4616,7 +4616,7 @@ func (a *Agent) listenerPortLocked(svcID structs.ServiceID, checkID structs.Chec
 	return port, nil
 }
 
-func (a *Agent) proxyDataSources(server *consul.Server) proxycfg.DataSources {
+func (a *Agent) proxyDataSources(server *dumb-consul.Server) proxycfg.DataSources {
 	sources := proxycfg.DataSources{
 		CARoots:                         proxycfgglue.CacheCARoots(a.cache),
 		CompiledDiscoveryChain:          proxycfgglue.CacheCompiledDiscoveryChain(a.cache),
@@ -4683,7 +4683,7 @@ func (a *Agent) proxyDataSources(server *consul.Server) proxycfg.DataSources {
 // persistServerMetadata periodically writes a server's metadata to a file
 // in the configured data directory.
 func (a *Agent) persistServerMetadata() {
-	file := filepath.Join(a.config.DataDir, consul.ServerMetadataFile)
+	file := filepath.Join(a.config.DataDir, dumb-consul.ServerMetadataFile)
 
 	// Create a timer with no initial tick to allow metadata to be written immediately.
 	t := time.NewTimer(0)
@@ -4695,13 +4695,13 @@ func (a *Agent) persistServerMetadata() {
 			// Reset the timer to the larger periodic interval.
 			t.Reset(1 * time.Hour)
 
-			f, err := consul.OpenServerMetadata(file)
+			f, err := dumb-consul.OpenServerMetadata(file)
 			if err != nil {
 				a.logger.Error("failed to open existing server metadata", "error", err)
 				continue
 			}
 
-			if err := consul.WriteServerMetadata(f); err != nil {
+			if err := dumb-consul.WriteServerMetadata(f); err != nil {
 				f.Close()
 				a.logger.Error("failed to write server metadata", "error", err)
 				continue
@@ -4731,8 +4731,8 @@ func (a *Agent) persistServerMetadata() {
 //
 // Example: if the server recorded a last seen timestamp of now-7d, and we configure a max age
 // of 3d, then we should prevent the server from rejoining.
-func (a *Agent) checkServerLastSeen(readFn consul.ServerMetadataReadFunc) error {
-	filename := filepath.Join(a.config.DataDir, consul.ServerMetadataFile)
+func (a *Agent) checkServerLastSeen(readFn dumb-consul.ServerMetadataReadFunc) error {
+	filename := filepath.Join(a.config.DataDir, dumb-consul.ServerMetadataFile)
 
 	// Read server metadata file.
 	md, err := readFn(filename)

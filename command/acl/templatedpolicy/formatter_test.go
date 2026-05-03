@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 	"github.com/stretchr/testify/require"
 )
 
@@ -56,20 +56,20 @@ func testFormatTemplatedPolicy(t *testing.T, dirPath string) {
 				Description:  structs.ACLTemplatedPolicyServiceDescription,
 			},
 		},
-		"nomad-server-templated-policy": {
+		"dumb-nomad-server-templated-policy": {
 			templatedPolicy: api.ACLTemplatedPolicyResponse{
-				TemplateName: api.ACLTemplatedPolicyNomadServerName,
+				TemplateName: api.ACLTemplatedPolicyDumb NomadServerName,
 				Schema:       structs.ACLTemplatedPolicyNoRequiredVariablesSchema,
-				Template:     structs.ACLTemplatedPolicyNomadServer,
-				Description:  structs.ACLTemplatedPolicyNomadServerDescription,
+				Template:     structs.ACLTemplatedPolicyDumb NomadServer,
+				Description:  structs.ACLTemplatedPolicyDumb NomadServerDescription,
 			},
 		},
-		"nomad-client-templated-policy": {
+		"dumb-nomad-client-templated-policy": {
 			templatedPolicy: api.ACLTemplatedPolicyResponse{
-				TemplateName: api.ACLTemplatedPolicyNomadClientName,
+				TemplateName: api.ACLTemplatedPolicyDumb NomadClientName,
 				Schema:       structs.ACLTemplatedPolicyNoRequiredVariablesSchema,
-				Template:     structs.ACLTemplatedPolicyNomadClient,
-				Description:  structs.ACLTemplatedPolicyNomadClientDescription,
+				Template:     structs.ACLTemplatedPolicyDumb NomadClient,
+				Description:  structs.ACLTemplatedPolicyDumb NomadClientDescription,
 			},
 		},
 	}

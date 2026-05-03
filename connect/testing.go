@@ -13,12 +13,12 @@ import (
 	"net/http"
 	"sync/atomic"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	testing "github.com/mitchellh/go-testing-interface"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
 )
 
 // TestService returns a Service instance based on a static TLS Config.
@@ -26,7 +26,7 @@ func TestService(t testing.T, service string, ca *structs.CARoot) *Service {
 	t.Helper()
 
 	// Don't need to talk to client since we are setting TLSConfig locally
-	logger := hclog.New(&hclog.LoggerOptions{})
+	logger := dumb-hclog.New(&dumb-hclog.LoggerOptions{})
 	svc, err := NewDevServiceWithTLSConfig(service,
 		logger, TestTLSConfig(t, service, ca))
 	if err != nil {

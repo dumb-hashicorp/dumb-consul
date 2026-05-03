@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent"
-	consulapi "github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	dumb-consulapi "github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -122,13 +122,13 @@ func (c *cmd) Run(args []string) int {
 	// All other operations will require a client connection
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
 	if c.listKeys {
 		c.UI.Info("Gathering installed encryption keys...")
-		responses, err := client.Operator().KeyringList(&consulapi.QueryOptions{RelayFactor: relayFactor, LocalOnly: c.local})
+		responses, err := client.Operator().KeyringList(&dumb-consulapi.QueryOptions{RelayFactor: relayFactor, LocalOnly: c.local})
 		if err != nil {
 			c.UI.Error(fmt.Sprintf("error: %s", err))
 			return 1
@@ -141,7 +141,7 @@ func (c *cmd) Run(args []string) int {
 
 	if c.listPrimaryKeys {
 		c.UI.Info("Gathering installed primary encryption keys...")
-		responses, err := client.Operator().KeyringList(&consulapi.QueryOptions{RelayFactor: relayFactor, LocalOnly: c.local})
+		responses, err := client.Operator().KeyringList(&dumb-consulapi.QueryOptions{RelayFactor: relayFactor, LocalOnly: c.local})
 		if err != nil {
 			c.UI.Error(fmt.Sprintf("error: %s", err))
 			return 1
@@ -152,7 +152,7 @@ func (c *cmd) Run(args []string) int {
 		return 0
 	}
 
-	opts := &consulapi.WriteOptions{RelayFactor: relayFactor}
+	opts := &dumb-consulapi.WriteOptions{RelayFactor: relayFactor}
 	if c.installKey != "" {
 		c.UI.Info("Installing new gossip encryption key...")
 		err := client.Operator().KeyringInstall(c.installKey, opts)
@@ -187,7 +187,7 @@ func (c *cmd) Run(args []string) int {
 	return 0
 }
 
-func formatResponse(response *consulapi.KeyringResponse, keys map[string]int) string {
+func formatResponse(response *dumb-consulapi.KeyringResponse, keys map[string]int) string {
 	b := new(strings.Builder)
 	b.WriteString("\n")
 	b.WriteString(poolName(response.Datacenter, response.WAN, response.Partition, response.Segment))
@@ -237,7 +237,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Manages gossip layer encryption keys"
 const help = `
-Usage: consul keyring [options]
+Usage: dumb-consul keyring [options]
 
   Manages encryption keys used for gossip messages. Gossip encryption is
   optional. When enabled, this command may be used to examine active encryption

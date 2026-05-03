@@ -9,11 +9,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func generateUUID() (ret string) {
@@ -898,21 +898,21 @@ func TestServiceIntentionsConfigEntry(t *testing.T) {
 						EnterpriseMeta: *defaultMeta,
 						Action:         IntentionActionAllow,
 						Precedence:     9,
-						Type:           IntentionSourceConsul,
+						Type:           IntentionSourceDumb Consul,
 					},
 					{
 						Name:           "bar",
 						EnterpriseMeta: *defaultMeta,
 						Action:         IntentionActionDeny,
 						Precedence:     9,
-						Type:           IntentionSourceConsul,
+						Type:           IntentionSourceDumb Consul,
 					},
 					{
 						Name:           WildcardSpecifier,
 						EnterpriseMeta: *defaultMeta,
 						Action:         IntentionActionDeny,
 						Precedence:     8,
-						Type:           IntentionSourceConsul,
+						Type:           IntentionSourceDumb Consul,
 					},
 				}, entry.Sources)
 				assert.Equal(t, map[string]string{
@@ -971,7 +971,7 @@ func TestServiceIntentionsConfigEntry(t *testing.T) {
 						EnterpriseMeta: *defaultMeta,
 						Action:         IntentionActionAllow,
 						Precedence:     9,
-						Type:           IntentionSourceConsul,
+						Type:           IntentionSourceDumb Consul,
 						LegacyMeta: map[string]string{
 							"key1": "val1",
 							"key2": "val2",
@@ -985,7 +985,7 @@ func TestServiceIntentionsConfigEntry(t *testing.T) {
 						EnterpriseMeta:   *defaultMeta,
 						Action:           IntentionActionDeny,
 						Precedence:       9,
-						Type:             IntentionSourceConsul,
+						Type:             IntentionSourceDumb Consul,
 						LegacyMeta:       map[string]string{},
 						LegacyCreateTime: entry.Sources[1].LegacyCreateTime,
 						LegacyUpdateTime: entry.Sources[1].LegacyUpdateTime,
@@ -996,7 +996,7 @@ func TestServiceIntentionsConfigEntry(t *testing.T) {
 						EnterpriseMeta:   *defaultMeta,
 						Action:           IntentionActionDeny,
 						Precedence:       8,
-						Type:             IntentionSourceConsul,
+						Type:             IntentionSourceDumb Consul,
 						LegacyMeta:       map[string]string{},
 						LegacyCreateTime: entry.Sources[2].LegacyCreateTime,
 						LegacyUpdateTime: entry.Sources[2].LegacyUpdateTime,
@@ -1055,7 +1055,7 @@ func TestServiceIntentionsConfigEntry(t *testing.T) {
 						Name:           "bar",
 						EnterpriseMeta: *defaultMeta,
 						Precedence:     9,
-						Type:           IntentionSourceConsul,
+						Type:           IntentionSourceDumb Consul,
 						Permissions: []*IntentionPermission{
 							{
 								Action: IntentionActionDeny,
@@ -1334,7 +1334,7 @@ func TestMigrateIntentions(t *testing.T) {
 					Description:     "desc",
 					SourceName:      "foo",
 					DestinationName: "bar",
-					SourceType:      IntentionSourceConsul,
+					SourceType:      IntentionSourceDumb Consul,
 					Action:          IntentionActionAllow,
 					Meta: map[string]string{
 						"key1": "val1",
@@ -1355,7 +1355,7 @@ func TestMigrateIntentions(t *testing.T) {
 							Description:    "desc",
 							Name:           "foo",
 							EnterpriseMeta: *entMeta,
-							Type:           IntentionSourceConsul,
+							Type:           IntentionSourceDumb Consul,
 							Action:         IntentionActionAllow,
 							LegacyMeta: map[string]string{
 								"key1": "val1",
@@ -1374,7 +1374,7 @@ func TestMigrateIntentions(t *testing.T) {
 					Description:     "desc",
 					SourceName:      "foo",
 					DestinationName: "bar",
-					SourceType:      IntentionSourceConsul,
+					SourceType:      IntentionSourceDumb Consul,
 					Action:          IntentionActionAllow,
 					Meta: map[string]string{
 						"key1": "val1",
@@ -1388,7 +1388,7 @@ func TestMigrateIntentions(t *testing.T) {
 					Description:     "desc2",
 					SourceName:      "*",
 					DestinationName: "bar",
-					SourceType:      IntentionSourceConsul,
+					SourceType:      IntentionSourceDumb Consul,
 					Action:          IntentionActionDeny,
 					Meta: map[string]string{
 						"key2": "val2",
@@ -1409,7 +1409,7 @@ func TestMigrateIntentions(t *testing.T) {
 							Description:    "desc",
 							Name:           "foo",
 							EnterpriseMeta: *entMeta,
-							Type:           IntentionSourceConsul,
+							Type:           IntentionSourceDumb Consul,
 							Action:         IntentionActionAllow,
 							LegacyMeta: map[string]string{
 								"key1": "val1",
@@ -1422,7 +1422,7 @@ func TestMigrateIntentions(t *testing.T) {
 							Description:    "desc2",
 							Name:           "*",
 							EnterpriseMeta: *entMeta,
-							Type:           IntentionSourceConsul,
+							Type:           IntentionSourceDumb Consul,
 							Action:         IntentionActionDeny,
 							LegacyMeta: map[string]string{
 								"key2": "val2",
@@ -1441,7 +1441,7 @@ func TestMigrateIntentions(t *testing.T) {
 					Description:     "desc",
 					SourceName:      "foo",
 					DestinationName: "bar",
-					SourceType:      IntentionSourceConsul,
+					SourceType:      IntentionSourceDumb Consul,
 					Action:          IntentionActionAllow,
 					Meta: map[string]string{
 						"key1": "val1",
@@ -1455,7 +1455,7 @@ func TestMigrateIntentions(t *testing.T) {
 					Description:     "desc2",
 					SourceName:      "*",
 					DestinationName: "bar2",
-					SourceType:      IntentionSourceConsul,
+					SourceType:      IntentionSourceDumb Consul,
 					Action:          IntentionActionDeny,
 					Meta: map[string]string{
 						"key2": "val2",
@@ -1476,7 +1476,7 @@ func TestMigrateIntentions(t *testing.T) {
 							Description:    "desc",
 							Name:           "foo",
 							EnterpriseMeta: *entMeta,
-							Type:           IntentionSourceConsul,
+							Type:           IntentionSourceDumb Consul,
 							Action:         IntentionActionAllow,
 							LegacyMeta: map[string]string{
 								"key1": "val1",
@@ -1496,7 +1496,7 @@ func TestMigrateIntentions(t *testing.T) {
 							Description:    "desc2",
 							Name:           "*",
 							EnterpriseMeta: *entMeta,
-							Type:           IntentionSourceConsul,
+							Type:           IntentionSourceDumb Consul,
 							Action:         IntentionActionDeny,
 							LegacyMeta: map[string]string{
 								"key2": "val2",

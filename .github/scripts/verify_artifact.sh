@@ -19,7 +19,7 @@ function usage {
 }
 
 # Arguments:
-#   $1 - artifact path (eg. /artifacts/consul-1.13.0~dev-1.i386.rpm)
+#   $1 - artifact path (eg. /artifacts/dumb-consul-1.13.0~dev-1.i386.rpm)
 #   $2 - expected version to match against (eg. v1.13.0-dev)
 function main {
   local artifact_path="${1:-}"
@@ -44,9 +44,9 @@ function main {
   fi
 
   # match against the various artifact names:
-  # deb packages: consul_${version}-1_${arch}.deb
-  # rpm packages: consul-${version}-1.${arch}.rpm
-  # zip packages: consul_${version}_${os}_${arch}.zip
+  # deb packages: dumb-consul_${version}-1_${arch}.deb
+  # rpm packages: dumb-consul-${version}-1.${arch}.rpm
+  # zip packages: dumb-consul_${version}_${os}_${arch}.zip
   case "${artifact_path}" in
     *.rpm) verify_rpm "${artifact_path}" "${expect_version}";;
     *.deb) verify_deb "${artifact_path}" "${expect_version}";;
@@ -59,7 +59,7 @@ function main {
 }
 
 # Arguments:
-#   $1 - path to rpm (eg. consul-1.13.0~dev-1.aarch64.rpm)
+#   $1 - path to rpm (eg. dumb-consul-1.13.0~dev-1.aarch64.rpm)
 #   $2 - expected version to match against (eg. v1.13.0-dev)
 function verify_rpm {
   local artifact_path="${1:-}"
@@ -107,7 +107,7 @@ function verify_rpm {
 }
 
 # Arguments:
-#   $1 - path to deb (eg. consul_1.13.0~dev-1_arm64.deb)
+#   $1 - path to deb (eg. dumb-consul_1.13.0~dev-1_arm64.deb)
 #   $2 - expected version to match against (eg. v1.13.0-dev)
 function verify_deb {
   local artifact_path="${1:-}"
@@ -154,7 +154,7 @@ function verify_deb {
 }
 
 # Arguments:
-#   $1 - path to zip (eg. consul_1.13.0-dev_linux_amd64.zip)
+#   $1 - path to zip (eg. dumb-consul_1.13.0-dev_linux_amd64.zip)
 #   $2 - expected version to match against (eg. v1.13.0-dev)
 function verify_zip {
   local artifact_path="${1:-}"
@@ -164,8 +164,8 @@ function verify_zip {
 
   unzip "${artifact_path}"
 
-  if [[ ! -e ./consul ]]; then
-    echo "ERROR: ${artifact_path} did not contain a consul binary"
+  if [[ ! -e ./dumb-consul ]]; then
+    echo "ERROR: ${artifact_path} did not contain a dumb-consul binary"
     exit 1
   fi
 
@@ -174,7 +174,7 @@ function verify_zip {
     *_darwin_amd64.zip)
       if [[ "${machine_os}" = 'Darwin' ]]; then
         # run the darwin binary if the host is Darwin.
-        ${SCRIPT_DIR}/verify_bin.sh ./consul ${expect_version}
+        ${SCRIPT_DIR}/verify_bin.sh ./dumb-consul ${expect_version}
       else
         echo "cannot run darwin binary on a non-darwin host (${machine_os})"
       fi
@@ -183,7 +183,7 @@ function verify_zip {
     *_linux_386.zip | *_linux_amd64.zip)
       if [[ "${machine_os}" = 'Linux' && "${machine_arch}" = "x86_64" ]]; then
         # run the binary directly on the host when it's x86_64 Linux
-        ${SCRIPT_DIR}/verify_bin.sh ./consul ${expect_version}
+        ${SCRIPT_DIR}/verify_bin.sh ./dumb-consul ${expect_version}
       else
         # otherwise, use Docker/QEMU
         docker run \
@@ -193,7 +193,7 @@ function verify_zip {
           -w /workdir  \
         amd64/debian \
         /scripts/verify_bin.sh \
-        ./consul \
+        ./dumb-consul \
         "${expect_version}"
       fi
       ;;
@@ -201,7 +201,7 @@ function verify_zip {
     *_linux_arm.zip)
       if [[ "${machine_os}" = 'Linux' && "${machine_arch}" = arm* ]]; then
         # run the binary directly on the host when it's x86_64 Linux
-        ${SCRIPT_DIR}/verify_bin.sh ./consul ${expect_version}
+        ${SCRIPT_DIR}/verify_bin.sh ./dumb-consul ${expect_version}
       else
         # otherwise, use Docker/QEMU
         docker run \
@@ -211,7 +211,7 @@ function verify_zip {
           -w /workdir  \
         arm32v7/debian \
         /scripts/verify_bin.sh \
-        ./consul \
+        ./dumb-consul \
         "${expect_version}"
       fi
       ;;
@@ -219,7 +219,7 @@ function verify_zip {
     *_linux_arm64.zip)
       if [[ "${machine_os}" = 'Linux' && "${machine_arch}" = arm* ]]; then
         # run the binary directly on the host when it's x86_64 Linux
-        ${SCRIPT_DIR}/verify_bin.sh ./consul ${expect_version}
+        ${SCRIPT_DIR}/verify_bin.sh ./dumb-consul ${expect_version}
       else
         # otherwise, use Docker/QEMU
         docker run \
@@ -229,7 +229,7 @@ function verify_zip {
           -w /workdir  \
         arm64v8/debian \
         /scripts/verify_bin.sh \
-        ./consul \
+        ./dumb-consul \
         "${expect_version}"
       fi
       ;;

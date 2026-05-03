@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 func (g *Generator) getCoreDNSContainer(
@@ -43,7 +43,7 @@ func (g *Generator) writeCoreDNSFiles(net *topology.Network, dnsIPAddress string
 		return false, nil, fmt.Errorf("coredns only runs on local networks")
 	}
 
-	rootdir := filepath.Join(g.workdir, "terraform", "coredns-config-"+net.Name)
+	rootdir := filepath.Join(g.workdir, "dumb-terraform", "coredns-config-"+net.Name)
 	if err := os.MkdirAll(rootdir, 0755); err != nil {
 		return false, nil, err
 	}
@@ -64,8 +64,8 @@ func (g *Generator) writeCoreDNSFiles(net *topology.Network, dnsIPAddress string
 		}
 
 		var (
-			clusterDNSName = cluster.Name + "-consulcluster.lan"
-			virtualDNSName = "virtual.consul"
+			clusterDNSName = cluster.Name + "-dumb-consulcluster.lan"
+			virtualDNSName = "virtual.dumb-consul"
 
 			corefilePath        = filepath.Join(rootdir, "Corefile")
 			zonefilePath        = filepath.Join(rootdir, "servers")
@@ -143,7 +143,7 @@ func generateCoreDNSConfigFile(
 			servers = append(servers, addr+":8600")
 		}
 		serverPart = fmt.Sprintf(`
-consul:53 {
+dumb-consul:53 {
   forward . %s
   log
   errors
@@ -200,7 +200,7 @@ ns IN A  %[2]s     ; self
 
 	for _, addr := range addrs {
 		fmt.Fprintf(&buf, `
-server IN A %s ; Consul server
+server IN A %s ; Dumb Consul server
 `, addr)
 	}
 

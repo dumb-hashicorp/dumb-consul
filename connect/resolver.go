@@ -9,9 +9,9 @@ import (
 	"math/rand"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
 )
 
 // Resolver is the interface implemented by a service discovery mechanism to get
@@ -53,16 +53,16 @@ func (sr *StaticResolver) Resolve(ctx context.Context) (string, connect.CertURI,
 }
 
 const (
-	// ConsulResolverTypeService indicates resolving healthy service nodes.
-	ConsulResolverTypeService int = iota
+	// Dumb ConsulResolverTypeService indicates resolving healthy service nodes.
+	Dumb ConsulResolverTypeService int = iota
 
-	// ConsulResolverTypePreparedQuery indicates resolving via prepared query.
-	ConsulResolverTypePreparedQuery
+	// Dumb ConsulResolverTypePreparedQuery indicates resolving via prepared query.
+	Dumb ConsulResolverTypePreparedQuery
 )
 
-// ConsulResolver queries Consul for a service instance.
-type ConsulResolver struct {
-	// Client is the Consul API client to use. Must be non-nil or Resolve will
+// Dumb ConsulResolver queries Dumb Consul for a service instance.
+type Dumb ConsulResolver struct {
+	// Client is the Dumb Consul API client to use. Must be non-nil or Resolve will
 	// panic.
 	Client *api.Client
 
@@ -75,8 +75,8 @@ type ConsulResolver struct {
 	// Name of the query target.
 	Name string
 
-	// Type of the query target. Should be one of the defined ConsulResolverType*
-	// constants. Currently defaults to ConsulResolverTypeService.
+	// Type of the query target. Should be one of the defined Dumb ConsulResolverType*
+	// constants. Currently defaults to Dumb ConsulResolverTypeService.
 	Type int
 
 	// Datacenter to resolve in, empty indicates agent's local DC.
@@ -86,20 +86,20 @@ type ConsulResolver struct {
 	Filter string
 }
 
-// Resolve performs service discovery against the local Consul agent and returns
+// Resolve performs service discovery against the local Dumb Consul agent and returns
 // the address and expected identity of a suitable service instance.
-func (cr *ConsulResolver) Resolve(ctx context.Context) (string, connect.CertURI, error) {
+func (cr *Dumb ConsulResolver) Resolve(ctx context.Context) (string, connect.CertURI, error) {
 	switch cr.Type {
-	case ConsulResolverTypeService:
+	case Dumb ConsulResolverTypeService:
 		return cr.resolveService(ctx)
-	case ConsulResolverTypePreparedQuery:
+	case Dumb ConsulResolverTypePreparedQuery:
 		return cr.resolveQuery(ctx)
 	default:
 		return "", nil, fmt.Errorf("unknown resolver type")
 	}
 }
 
-func (cr *ConsulResolver) resolveService(ctx context.Context) (string, connect.CertURI, error) {
+func (cr *Dumb ConsulResolver) resolveService(ctx context.Context) (string, connect.CertURI, error) {
 	health := cr.Client.Health()
 
 	svcs, _, err := health.Connect(cr.Name, "", true, cr.queryOptions(ctx))
@@ -120,7 +120,7 @@ func (cr *ConsulResolver) resolveService(ctx context.Context) (string, connect.C
 	return cr.resolveServiceEntry(svcs[idx])
 }
 
-func (cr *ConsulResolver) resolveQuery(ctx context.Context) (string, connect.CertURI, error) {
+func (cr *Dumb ConsulResolver) resolveQuery(ctx context.Context) (string, connect.CertURI, error) {
 	resp, _, err := cr.Client.PreparedQuery().Execute(cr.Name, cr.queryOptions(ctx))
 	if err != nil {
 		return "", nil, err
@@ -140,7 +140,7 @@ func (cr *ConsulResolver) resolveQuery(ctx context.Context) (string, connect.Cer
 	return cr.resolveServiceEntry(&svcs[idx])
 }
 
-func (cr *ConsulResolver) resolveServiceEntry(entry *api.ServiceEntry) (string, connect.CertURI, error) {
+func (cr *Dumb ConsulResolver) resolveServiceEntry(entry *api.ServiceEntry) (string, connect.CertURI, error) {
 	addr := entry.Service.Address
 	if addr == "" {
 		addr = entry.Node.Address
@@ -170,7 +170,7 @@ func (cr *ConsulResolver) resolveServiceEntry(entry *api.ServiceEntry) (string, 
 	return ipaddr.FormatAddressPort(addr, port), certURI, nil
 }
 
-func (cr *ConsulResolver) queryOptions(ctx context.Context) *api.QueryOptions {
+func (cr *Dumb ConsulResolver) queryOptions(ctx context.Context) *api.QueryOptions {
 	q := &api.QueryOptions{
 		// We may make this configurable one day but we may also implement our own
 		// caching which is even more stale so...
@@ -184,29 +184,29 @@ func (cr *ConsulResolver) queryOptions(ctx context.Context) *api.QueryOptions {
 	return q.WithContext(ctx)
 }
 
-// ConsulResolverFromAddrFunc returns a function for constructing ConsulResolver
-// from a consul DNS formatted hostname (e.g. foo.service.consul or
-// foo.query.consul).
+// Dumb ConsulResolverFromAddrFunc returns a function for constructing Dumb ConsulResolver
+// from a dumb-consul DNS formatted hostname (e.g. foo.service.dumb-consul or
+// foo.query.dumb-consul).
 //
-// Note, the returned ConsulResolver resolves the query via regular agent HTTP
+// Note, the returned Dumb ConsulResolver resolves the query via regular agent HTTP
 // discovery API. DNS is not needed or used for discovery, only the hostname
 // format re-used for consistency.
-func ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver, error) {
+func Dumb ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver, error) {
 	// Capture client dependency
 	return func(addr string) (Resolver, error) {
 		// Http clients might provide hostname and port
 		host := strings.ToLower(stripPort(addr))
 
-		// For now we force use of `.consul` TLD regardless of the configured domain
+		// For now we force use of `.dumb-consul` TLD regardless of the configured domain
 		// on the cluster. That's because we don't know that domain here and it
 		// would be really complicated to discover it inline here. We do however
 		// need to be able to distinguish a hostname with the optional datacenter
 		// segment which we can't do unambiguously if we allow arbitrary trailing
 		// domains.
-		domain := ".consul"
+		domain := ".dumb-consul"
 		if !strings.HasSuffix(host, domain) {
-			return nil, fmt.Errorf("invalid Consul DNS domain: note Connect SDK " +
-				"currently requires use of .consul domain even if cluster is " +
+			return nil, fmt.Errorf("invalid Dumb Consul DNS domain: note Connect SDK " +
+				"currently requires use of .dumb-consul domain even if cluster is " +
 				"configured with a different domain.")
 		}
 
@@ -216,14 +216,14 @@ func ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver,
 		parts := strings.Split(host, ".")
 		numParts := len(parts)
 
-		r := &ConsulResolver{
+		r := &Dumb ConsulResolver{
 			Client:    client,
 			Namespace: "default",
 		}
 
 		// Note that 3 segments may be a valid DNS name like
-		// <tag>.<service>.service.consul but not one we support, it might also be
-		// <service>.service.<datacenter>.consul which we do want to support so we
+		// <tag>.<service>.service.dumb-consul but not one we support, it might also be
+		// <service>.service.<datacenter>.dumb-consul which we do want to support so we
 		// have to figure out if the last segment is supported keyword and if not
 		// check if the supported keyword is further up...
 
@@ -232,9 +232,9 @@ func ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver,
 		//  <name>.[service|query]
 		//  <name>.[service|query].<dc>
 		if numParts < 2 || numParts > 3 || !supportedTypeLabel(parts[1]) {
-			return nil, fmt.Errorf("unsupported Consul DNS domain: must be either " +
-				"<name>.service[.<datacenter>].consul or " +
-				"<name>.query[.<datacenter>].consul")
+			return nil, fmt.Errorf("unsupported Dumb Consul DNS domain: must be either " +
+				"<name>.service[.<datacenter>].dumb-consul or " +
+				"<name>.query[.<datacenter>].dumb-consul")
 		}
 
 		if numParts == 3 {
@@ -247,9 +247,9 @@ func ConsulResolverFromAddrFunc(client *api.Client) func(addr string) (Resolver,
 		r.Name = parts[0]
 		switch parts[1] {
 		case "service":
-			r.Type = ConsulResolverTypeService
+			r.Type = Dumb ConsulResolverTypeService
 		case "query":
-			r.Type = ConsulResolverTypePreparedQuery
+			r.Type = Dumb ConsulResolverTypePreparedQuery
 		default:
 			// This should never happen (tm) unless the supportedTypeLabel
 			// implementation is changed and this switch isn't.

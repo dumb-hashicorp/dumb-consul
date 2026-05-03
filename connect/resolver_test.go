@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 	"github.com/stretchr/testify/require"
 )
 
@@ -43,14 +43,14 @@ func TestStaticResolver_Resolve(t *testing.T) {
 	}
 }
 
-func TestConsulResolver_Resolve(t *testing.T) {
+func TestDumb ConsulResolver_Resolve(t *testing.T) {
 	netutil.GetAgentBindAddrFunc = netutil.GetMockGetAgentBindAddrFunc("0.0.0.0")
 	if testing.Short() {
 		t.Skip("too slow for testing.Short")
 	}
 
 	// Setup a local test agent to query
-	agent := agent.StartTestAgent(t, agent.TestAgent{Name: "test-consul"})
+	agent := agent.StartTestAgent(t, agent.TestAgent{Name: "test-dumb-consul"})
 	defer agent.Shutdown()
 
 	cfg := api.DefaultConfig()
@@ -135,7 +135,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 			fields: fields{
 				Namespace: "default",
 				Name:      "web",
-				Type:      ConsulResolverTypeService,
+				Type:      Dumb ConsulResolverTypeService,
 			},
 			// Want empty host since we don't enforce trust domain outside of TLS and
 			// don't need to load the current one this way.
@@ -148,7 +148,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 			fields: fields{
 				Namespace: "default",
 				Name:      "db",
-				Type:      ConsulResolverTypeService,
+				Type:      Dumb ConsulResolverTypeService,
 			},
 			// Want empty host since we don't enforce trust domain outside of TLS and
 			// don't need to load the current one this way.
@@ -160,7 +160,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 			fields: fields{
 				Namespace: "default",
 				Name:      "web",
-				Type:      ConsulResolverTypeService,
+				Type:      Dumb ConsulResolverTypeService,
 				Filter:    "Service.Meta[`MetaKey`] == `MetaValue`",
 			},
 			// Want empty host since we don't enforce trust domain outside of TLS and
@@ -176,7 +176,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 			fields: fields{
 				Namespace: "default",
 				Name:      "web",
-				Type:      ConsulResolverTypeService,
+				Type:      Dumb ConsulResolverTypeService,
 				Filter:    "`AnotherMetaValue` in Service.Meta.MetaKey",
 			},
 			wantErr: true,
@@ -195,7 +195,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 			fields: fields{
 				Namespace: "default",
 				Name:      "foo",
-				Type:      ConsulResolverTypeService,
+				Type:      Dumb ConsulResolverTypeService,
 			},
 			wantErr: true,
 		},
@@ -204,7 +204,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 			fields: fields{
 				Namespace: "default",
 				Name:      "web",
-				Type:      ConsulResolverTypeService,
+				Type:      Dumb ConsulResolverTypeService,
 			},
 			timeout: 1 * time.Nanosecond,
 			wantErr: true,
@@ -213,7 +213,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 			name: "prepared query by id",
 			fields: fields{
 				Name: queryId,
-				Type: ConsulResolverTypePreparedQuery,
+				Type: Dumb ConsulResolverTypePreparedQuery,
 			},
 			// Want empty host since we don't enforce trust domain outside of TLS and
 			// don't need to load the current one this way.
@@ -225,7 +225,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 			name: "prepared query by name",
 			fields: fields{
 				Name: "test-query",
-				Type: ConsulResolverTypePreparedQuery,
+				Type: Dumb ConsulResolverTypePreparedQuery,
 			},
 			// Want empty host since we don't enforce trust domain outside of TLS and
 			// don't need to load the current one this way.
@@ -236,7 +236,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cr := &ConsulResolver{
+			cr := &Dumb ConsulResolver{
 				Client:     client,
 				Namespace:  tt.fields.Namespace,
 				Name:       tt.fields.Name,
@@ -266,7 +266,7 @@ func TestConsulResolver_Resolve(t *testing.T) {
 	}
 }
 
-func TestConsulResolverFromAddrFunc(t *testing.T) {
+func TestDumb ConsulResolverFromAddrFunc(t *testing.T) {
 	// Don't need an actual instance since we don't do the service discovery but
 	// we do want to assert the client is pass through correctly.
 	client, err := api.NewClient(api.DefaultConfig())
@@ -280,86 +280,86 @@ func TestConsulResolverFromAddrFunc(t *testing.T) {
 	}{
 		{
 			name: "service",
-			addr: "foo.service.consul",
-			want: &ConsulResolver{
+			addr: "foo.service.dumb-consul",
+			want: &Dumb ConsulResolver{
 				Client:    client,
 				Namespace: "default",
 				Name:      "foo",
-				Type:      ConsulResolverTypeService,
+				Type:      Dumb ConsulResolverTypeService,
 			},
 		},
 		{
 			name: "query",
-			addr: "foo.query.consul",
-			want: &ConsulResolver{
+			addr: "foo.query.dumb-consul",
+			want: &Dumb ConsulResolver{
 				Client:    client,
 				Namespace: "default",
 				Name:      "foo",
-				Type:      ConsulResolverTypePreparedQuery,
+				Type:      Dumb ConsulResolverTypePreparedQuery,
 			},
 		},
 		{
 			name: "service with dc",
-			addr: "foo.service.dc2.consul",
-			want: &ConsulResolver{
+			addr: "foo.service.dc2.dumb-consul",
+			want: &Dumb ConsulResolver{
 				Client:     client,
 				Datacenter: "dc2",
 				Namespace:  "default",
 				Name:       "foo",
-				Type:       ConsulResolverTypeService,
+				Type:       Dumb ConsulResolverTypeService,
 			},
 		},
 		{
 			name: "query with dc",
-			addr: "foo.query.dc2.consul",
-			want: &ConsulResolver{
+			addr: "foo.query.dc2.dumb-consul",
+			want: &Dumb ConsulResolver{
 				Client:     client,
 				Datacenter: "dc2",
 				Namespace:  "default",
 				Name:       "foo",
-				Type:       ConsulResolverTypePreparedQuery,
+				Type:       Dumb ConsulResolverTypePreparedQuery,
 			},
 		},
 		{
 			name:    "invalid host:port",
 			addr:    "%%%",
-			wantErr: "invalid Consul DNS domain",
+			wantErr: "invalid Dumb Consul DNS domain",
 		},
 		{
 			name:    "custom domain",
-			addr:    "foo.service.my-consul.com",
-			wantErr: "invalid Consul DNS domain",
+			addr:    "foo.service.my-dumb-consul.com",
+			wantErr: "invalid Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported query type",
-			addr:    "foo.connect.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "foo.connect.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported query type and datacenter",
-			addr:    "foo.connect.dc1.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "foo.connect.dc1.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported query type and datacenter",
-			addr:    "foo.connect.dc1.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "foo.connect.dc1.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported tag filter",
-			addr:    "tag1.foo.service.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "tag1.foo.service.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 		{
 			name:    "unsupported tag filter with DC",
-			addr:    "tag1.foo.service.dc1.consul",
-			wantErr: "unsupported Consul DNS domain",
+			addr:    "tag1.foo.service.dc1.dumb-consul",
+			wantErr: "unsupported Dumb Consul DNS domain",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			fn := ConsulResolverFromAddrFunc(client)
+			fn := Dumb ConsulResolverFromAddrFunc(client)
 			got, gotErr := fn(tt.addr)
 			if tt.wantErr != "" {
 				require.Error(t, gotErr)

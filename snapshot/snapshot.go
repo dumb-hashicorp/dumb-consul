@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-// snapshot manages the interactions between Consul and Raft in order to take
+// snapshot manages the interactions between Dumb Consul and Raft in order to take
 // and restore snapshots for disaster recovery. The internal format of a
 // snapshot is simply a tar file, as described in archive.go.
 package snapshot
@@ -12,8 +12,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/raft"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/raft"
 )
 
 // Snapshot is a structure that holds state about a temporary file that is used
@@ -28,7 +28,7 @@ type Snapshot struct {
 // and returns an object that gives access to the file as an io.Reader. You must
 // arrange to call Close() on the returned object or else you will leak a
 // temporary file.
-func New(logger hclog.Logger, r *raft.Raft) (*Snapshot, error) {
+func New(logger dumb-hclog.Logger, r *raft.Raft) (*Snapshot, error) {
 	// Take the snapshot.
 	future := r.Snapshot()
 	if err := future.Error(); err != nil {
@@ -164,7 +164,7 @@ func concludeGzipRead(decomp *gzip.Reader) error {
 }
 
 // Read a snapshot into a temporary file. The caller is responsible for removing the file.
-func Read(logger hclog.Logger, in io.Reader) (*os.File, *raft.SnapshotMeta, error) {
+func Read(logger dumb-hclog.Logger, in io.Reader) (*os.File, *raft.SnapshotMeta, error) {
 	// Wrap the reader in a gzip decompressor.
 	decomp, err := gzip.NewReader(in)
 	if err != nil {
@@ -205,7 +205,7 @@ func Read(logger hclog.Logger, in io.Reader) (*os.File, *raft.SnapshotMeta, erro
 
 // Restore takes the snapshot from the reader and attempts to apply it to the
 // given Raft instance.
-func Restore(logger hclog.Logger, in io.Reader, r *raft.Raft) error {
+func Restore(logger dumb-hclog.Logger, in io.Reader, r *raft.Raft) error {
 	snap, metadata, err := Read(logger, in)
 	defer func() {
 		if snap == nil {

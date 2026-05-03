@@ -10,14 +10,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/lib/retry"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto/private/pbautoconf"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbautoconf"
 )
 
 // AutoConfig is all the state necessary for being able to parse a configuration
@@ -26,7 +26,7 @@ type AutoConfig struct {
 	sync.Mutex
 
 	acConfig           Config
-	logger             hclog.Logger
+	logger             dumb-hclog.Logger
 	cache              Cache
 	waiter             *retry.Waiter
 	config             *config.RuntimeConfig
@@ -58,7 +58,7 @@ type AutoConfig struct {
 	tokenUpdates token.Notifier
 }
 
-// New creates a new AutoConfig object for providing automatic Consul configuration.
+// New creates a new AutoConfig object for providing automatic Dumb Consul configuration.
 func New(config Config) (*AutoConfig, error) {
 	switch {
 	case config.Loader == nil:
@@ -82,7 +82,7 @@ func New(config Config) (*AutoConfig, error) {
 
 	logger := config.Logger
 	if logger == nil {
-		logger = hclog.NewNullLogger()
+		logger = dumb-hclog.NewNullLogger()
 	} else {
 		logger = logger.Named(logging.AutoConfig)
 	}
@@ -182,7 +182,7 @@ func (ac *AutoConfig) InitialConfiguration(ctx context.Context) (*config.Runtime
 	}
 }
 
-// maybeLoadConfig will read the Consul configuration using the
+// maybeLoadConfig will read the Dumb Consul configuration using the
 // provided config loader if and only if the config field of
 // the struct is nil. When it does this it will fill in that
 // field. If the config field already is non-nil then this

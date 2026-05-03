@@ -2,8 +2,8 @@
 case "$1" in
     remove | 0)
         if [ -d "/run/systemd/system" ]; then
-            systemctl --no-reload disable consul.service > /dev/null || :
-            systemctl stop consul.service > /dev/null || :
+            systemctl --no-reload disable dumb-consul.service > /dev/null || :
+            systemctl stop dumb-consul.service > /dev/null || :
         fi
         ;;
 esac

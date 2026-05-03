@@ -12,10 +12,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/cacheshim"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cacheshim"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // Mock implementations for testing
@@ -50,14 +50,14 @@ func (m *mockCertSigner) SignCert(ctx context.Context, args *structs.CASignReque
 
 func TestLeafCertRenewalFailure_RateLimitLogging(t *testing.T) {
 	// Test that rate limit failures are logged with appropriate severity
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	rootsReader := &mockRootsReader{}
 	certSigner := &mockCertSigner{}
 
 	// Setup roots
 	roots := &structs.IndexedCARoots{
-		TrustDomain: "test.consul",
+		TrustDomain: "test.dumb-consul",
 		Roots: []*structs.CARoot{
 			{
 				ID:     "root-1",
@@ -89,13 +89,13 @@ func TestLeafCertRenewalFailure_RateLimitLogging(t *testing.T) {
 
 func TestLeafCertRenewalFailure_SigningErrorLogging(t *testing.T) {
 	// Test that signing errors are logged with appropriate severity
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	rootsReader := &mockRootsReader{}
 	certSigner := &mockCertSigner{}
 
 	roots := &structs.IndexedCARoots{
-		TrustDomain: "test.consul",
+		TrustDomain: "test.dumb-consul",
 		Roots: []*structs.CARoot{
 			{
 				ID:     "root-1",
@@ -136,13 +136,13 @@ func TestLeafCertManager_ThresholdConfiguration(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			logger := hclog.NewNullLogger()
+			logger := dumb-hclog.NewNullLogger()
 
 			rootsReader := &mockRootsReader{}
 			certSigner := &mockCertSigner{}
 
 			roots := &structs.IndexedCARoots{
-				TrustDomain: "test.consul",
+				TrustDomain: "test.dumb-consul",
 				Roots: []*structs.CARoot{
 					{
 						ID:     "root-1",

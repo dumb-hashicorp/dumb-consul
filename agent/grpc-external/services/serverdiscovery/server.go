@@ -6,12 +6,12 @@ package serverdiscovery
 import (
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/proto-public/pbserverdiscovery"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbserverdiscovery"
 )
 
 type Server struct {
@@ -20,7 +20,7 @@ type Server struct {
 
 type Config struct {
 	Publisher   EventPublisher
-	Logger      hclog.Logger
+	Logger      dumb-hclog.Logger
 	ACLResolver ACLResolver
 }
 

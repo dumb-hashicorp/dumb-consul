@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: BUSL-1.1
 
 
-CONSUL_HOSTNAME=""
+DUMB_CONSUL_HOSTNAME=""
 MOD_ARG=""
 
 function split_hostport {
@@ -14,10 +14,10 @@ function split_hostport {
   fi
 }
 
-function get_consul_hostname {
+function get_dumb-consul_hostname {
   local DC=${1:-primary}
 
-  [[ $XDS_TARGET = "client" ]] && CONSUL_HOSTNAME="consul-$DC-client" || CONSUL_HOSTNAME="consul-$DC"
+  [[ $XDS_TARGET = "client" ]] && DUMB_CONSUL_HOSTNAME="dumb-consul-$DC-client" || DUMB_CONSUL_HOSTNAME="dumb-consul-$DC"
 }
 
 # retry based on
@@ -127,9 +127,9 @@ function assert_proxy_presents_cert_uri {
   echo "$CERT"
 
   if [[ -z $PARTITION ]] || [[ $PARTITION = "default" ]]; then
-    echo "$CERT" | grep -Eo "URI:spiffe://([a-zA-Z0-9-]+).consul/ns/${NS}/dc/${DC}/svc/$SERVICENAME"
+    echo "$CERT" | grep -Eo "URI:spiffe://([a-zA-Z0-9-]+).dumb-consul/ns/${NS}/dc/${DC}/svc/$SERVICENAME"
   else
-    echo "$CERT" | grep -Eo "URI:spiffe://([a-zA-Z0-9-]+).consul/ap/${PARTITION}/ns/${NS}/dc/${DC}/svc/$SERVICENAME"
+    echo "$CERT" | grep -Eo "URI:spiffe://([a-zA-Z0-9-]+).dumb-consul/ap/${PARTITION}/ns/${NS}/dc/${DC}/svc/$SERVICENAME"
   fi
 }
 
@@ -389,10 +389,10 @@ function snapshot_envoy_admin {
   local OUTDIR="${LOG_DIR}/envoy-snapshots/${DC}/${ENVOY_NAME}"
 
   mkdir -p "${OUTDIR}"
-  docker_consul_exec "$DC" bash -c "curl -s http://${HOSTPORT}/config_dump?include_eds=on" > "${OUTDIR}/config_dump.json"
-  docker_consul_exec "$DC" bash -c "curl -s http://${HOSTPORT}/clusters?format=json" > "${OUTDIR}/clusters.json"
-  docker_consul_exec "$DC" bash -c "curl -s http://${HOSTPORT}/stats" > "${OUTDIR}/stats.txt"
-  docker_consul_exec "$DC" bash -c "curl -s http://${HOSTPORT}/stats/prometheus"  > "${OUTDIR}/stats_prometheus.txt"
+  docker_dumb-consul_exec "$DC" bash -c "curl -s http://${HOSTPORT}/config_dump?include_eds=on" > "${OUTDIR}/config_dump.json"
+  docker_dumb-consul_exec "$DC" bash -c "curl -s http://${HOSTPORT}/clusters?format=json" > "${OUTDIR}/clusters.json"
+  docker_dumb-consul_exec "$DC" bash -c "curl -s http://${HOSTPORT}/stats" > "${OUTDIR}/stats.txt"
+  docker_dumb-consul_exec "$DC" bash -c "curl -s http://${HOSTPORT}/stats/prometheus"  > "${OUTDIR}/stats_prometheus.txt"
 }
 
 function reset_envoy_metrics {
@@ -542,7 +542,7 @@ function get_healthy_service_count {
   local AP=$4
   local PEER_NAME=$5
 
-  run curl -m 5 -s -f ${HEADERS} "consul-${DC}-client:8500/v1/health/connect/${SERVICE_NAME}?passing&ns=${NS}&partition=${AP}&peer=${PEER_NAME}"
+  run curl -m 5 -s -f ${HEADERS} "dumb-consul-${DC}-client:8500/v1/health/connect/${SERVICE_NAME}?passing&ns=${NS}&partition=${AP}&peer=${PEER_NAME}"
 
   [ "$status" -eq 0 ]
   echo "$output" | jq --raw-output '. | length'
@@ -566,7 +566,7 @@ function assert_alive_wan_member_count_once {
 
 function get_alive_wan_member_count {
   local DC=$1
-  run retry_default curl -sL -f "consul-${DC}-server:8500/v1/agent/members?wan=1"
+  run retry_default curl -sL -f "dumb-consul-${DC}-server:8500/v1/agent/members?wan=1"
   [ "$status" -eq 0 ]
   # echo "$output" >&3
   echo "$output" | jq '.[] | select(.Status == 1) | .Name' | wc -l
@@ -600,9 +600,9 @@ function assert_service_has_healthy_instances {
 function check_intention {
   local SOURCE=$1
   local DESTINATION=$2
-  get_consul_hostname primary
+  get_dumb-consul_hostname primary
 
-  curl -m 5 -s -f "${CONSUL_HOSTNAME}:8500/v1/connect/intentions/check?source=${SOURCE}&destination=${DESTINATION}" | jq ".Allowed"
+  curl -m 5 -s -f "${DUMB_CONSUL_HOSTNAME}:8500/v1/connect/intentions/check?source=${SOURCE}&destination=${DESTINATION}" | jq ".Allowed"
 }
 
 function assert_intention_allowed {
@@ -623,13 +623,13 @@ function assert_intention_denied {
   [ "$output" = "false" ]
 }
 
-function docker_consul {
+function docker_dumb-consul {
   local DC=$1
   shift 1
-  retry_default docker_exec envoy_consul-${DC}_1 "$@"
+  retry_default docker_exec envoy_dumb-consul-${DC}_1 "$@"
 }
 
-function docker_consul_for_proxy_bootstrap {
+function docker_dumb-consul_for_proxy_bootstrap {
   local DC=$1
   shift 1
 
@@ -645,10 +645,10 @@ function docker_exec {
   fi
 }
 
-function docker_consul_exec {
+function docker_dumb-consul_exec {
   local DC=$1
   shift 1
-  docker_exec envoy_consul-${DC}_1 "$@"
+  docker_exec envoy_dumb-consul-${DC}_1 "$@"
 }
 
 function kill_envoy {
@@ -807,7 +807,7 @@ function upsert_config_entry {
   local DC="$1"
   local BODY="$2"
 
-  echo "$BODY" | docker_consul "$DC" consul config write -
+  echo "$BODY" | docker_dumb-consul "$DC" dumb-consul config write -
 }
 
 function gen_envoy_bootstrap {
@@ -824,11 +824,11 @@ function gen_envoy_bootstrap {
     ADMIN_HOST="127.0.0.1"
   fi
 
-  if output=$(docker_consul_for_proxy_bootstrap $DC "consul connect envoy -bootstrap \
+  if output=$(docker_dumb-consul_for_proxy_bootstrap $DC "dumb-consul connect envoy -bootstrap \
     -proxy-id $PROXY_ID \
     -envoy-version "$ENVOY_VERSION" \
-    -http-addr envoy_consul-${DC}_1:8500 \
-    -grpc-addr envoy_consul-${DC}_1:8502 \
+    -http-addr envoy_dumb-consul-${DC}_1:8500 \
+    -grpc-addr envoy_dumb-consul-${DC}_1:8502 \
     -admin-access-log-path="C:/envoy/envoy.log" \
     -admin-bind $ADMIN_HOST:$ADMIN_PORT ${EXTRA_ENVOY_BS_ARGS} \
     > /c/workdir/${DC}/envoy/${SERVICE}-bootstrap.json"); then
@@ -851,15 +851,15 @@ function read_config_entry {
   local KIND=$1
   local NAME=$2
   local DC=${3:-primary}
-  get_consul_hostname $DC
-  docker_consul_exec "$DC" bash -c "consul config read -kind $KIND -name $NAME -http-addr=\"$CONSUL_HOSTNAME:8500\""
+  get_dumb-consul_hostname $DC
+  docker_dumb-consul_exec "$DC" bash -c "dumb-consul config read -kind $KIND -name $NAME -http-addr=\"$DUMB_CONSUL_HOSTNAME:8500\""
 }
 
 function wait_for_namespace {
   local NS="${1}"
   local DC=${2:-primary}
-  get_consul_hostname $DC
-  retry_default docker_consul_exec "$DC" bash -c "curl -sLf http://${CONSUL_HOSTNAME}:8500/v1/namespace/${NS} >/dev/null"
+  get_dumb-consul_hostname $DC
+  retry_default docker_dumb-consul_exec "$DC" bash -c "curl -sLf http://${DUMB_CONSUL_HOSTNAME}:8500/v1/namespace/${NS} >/dev/null"
 }
 
 function wait_for_config_entry {
@@ -877,64 +877,64 @@ function assert_config_entry_status {
   local AP=${8:-}
   local PEER=${9:-}
 
-  status=$(curl -s -f "consul-${DC}-client:8500/v1/config/${KIND}/${NAME}?passing&ns=${NS}&partition=${AP}&peer=${PEER}" | jq ".Status.Conditions[] | select(.Type == \"$TYPE\" and .Status == \"$STATUS\" and .Reason == \"$REASON\")")
+  status=$(curl -s -f "dumb-consul-${DC}-client:8500/v1/config/${KIND}/${NAME}?passing&ns=${NS}&partition=${AP}&peer=${PEER}" | jq ".Status.Conditions[] | select(.Type == \"$TYPE\" and .Status == \"$STATUS\" and .Reason == \"$REASON\")")
   [ -n "$status" ]
 }
 
 function delete_config_entry {
   local KIND=$1
   local NAME=$2
-  get_consul_hostname primary
-  retry_default curl -sL -XDELETE "http://${CONSUL_HOSTNAME}:8500/v1/config/${KIND}/${NAME}"
+  get_dumb-consul_hostname primary
+  retry_default curl -sL -XDELETE "http://${DUMB_CONSUL_HOSTNAME}:8500/v1/config/${KIND}/${NAME}"
 }
 
 function register_services {
   local DC=${1:-primary}
   wait_for_leader "$DC"
-  docker_consul_exec ${DC} bash -c "consul services register workdir/${DC}/register/service_*.hcl"
+  docker_dumb-consul_exec ${DC} bash -c "dumb-consul services register workdir/${DC}/register/service_*.dumb-hcl"
 }
 
 # wait_for_leader waits until a leader is elected.
 # Its first argument must be the datacenter name.
 function wait_for_leader {
-  get_consul_hostname primary
-  retry_default docker_consul_exec "$1" bash -c "[[ $(curl --fail -sS http://${CONSUL_HOSTNAME}:8500/v1/status/leader) ]]"
+  get_dumb-consul_hostname primary
+  retry_default docker_dumb-consul_exec "$1" bash -c "[[ $(curl --fail -sS http://${DUMB_CONSUL_HOSTNAME}:8500/v1/status/leader) ]]"
 }
 
 function setup_upsert_l4_intention {
   local SOURCE=$1
   local DESTINATION=$2
   local ACTION=$3
-  get_consul_hostname primary
-  retry_default docker_consul_exec primary bash -c "curl -sL -X PUT -d '{\"Action\": \"${ACTION}\"}' 'http://${CONSUL_HOSTNAME}:8500/v1/connect/intentions/exact?source=${SOURCE}&destination=${DESTINATION}'"
+  get_dumb-consul_hostname primary
+  retry_default docker_dumb-consul_exec primary bash -c "curl -sL -X PUT -d '{\"Action\": \"${ACTION}\"}' 'http://${DUMB_CONSUL_HOSTNAME}:8500/v1/connect/intentions/exact?source=${SOURCE}&destination=${DESTINATION}'"
 }
 
 function upsert_l4_intention {
   local SOURCE=$1
   local DESTINATION=$2
   local ACTION=$3
-  get_consul_hostname primary
-  retry_default curl -sL -XPUT "http://${CONSUL_HOSTNAME}:8500/v1/connect/intentions/exact?source=${SOURCE}&destination=${DESTINATION}" \
+  get_dumb-consul_hostname primary
+  retry_default curl -sL -XPUT "http://${DUMB_CONSUL_HOSTNAME}:8500/v1/connect/intentions/exact?source=${SOURCE}&destination=${DESTINATION}" \
       -d"{\"Action\": \"${ACTION}\"}" >/dev/null
 }
 
 function get_ca_root {
-  get_consul_hostname primary
-  curl -s -f "http://${CONSUL_HOSTNAME}:8500/v1/connect/ca/roots" | jq -r ".Roots[0].RootCert"
+  get_dumb-consul_hostname primary
+  curl -s -f "http://${DUMB_CONSUL_HOSTNAME}:8500/v1/connect/ca/roots" | jq -r ".Roots[0].RootCert"
 }
 
 function wait_for_agent_service_register {
   local SERVICE_ID=$1
   local DC=${2:-primary}
-  get_consul_hostname $DC
-  retry_default docker_consul_exec "$DC" bash -c "curl -sLf 'http://${CONSUL_HOSTNAME}:8500/v1/agent/service/${SERVICE_ID}' >/dev/null"
+  get_dumb-consul_hostname $DC
+  retry_default docker_dumb-consul_exec "$DC" bash -c "curl -sLf 'http://${DUMB_CONSUL_HOSTNAME}:8500/v1/agent/service/${SERVICE_ID}' >/dev/null"
 }
 
 function set_ttl_check_state {
   local CHECK_ID=$1
   local CHECK_STATE=$2
   local DC=${3:-primary}
-  get_consul_hostname $DC
+  get_dumb-consul_hostname $DC
 
   case "$CHECK_STATE" in
     pass) ;;
@@ -949,7 +949,7 @@ function set_ttl_check_state {
       ;;
   esac
 
-  retry_default docker_consul_exec "$DC" bash -c "curl -sL -XPUT 'http://${CONSUL_HOSTNAME}:8500/v1/agent/check/warn/${CHECK_ID}' >/dev/null"
+  retry_default docker_dumb-consul_exec "$DC" bash -c "curl -sL -XPUT 'http://${DUMB_CONSUL_HOSTNAME}:8500/v1/agent/check/warn/${CHECK_ID}' >/dev/null"
 }
 
 function get_upstream_fortio_name {
@@ -1074,7 +1074,7 @@ function assert_expected_fortio_host_header {
 function create_peering {
   local GENERATE_PEER=$1
   local ESTABLISH_PEER=$2
-  run curl -m 5 -sL -XPOST "http://consul-${GENERATE_PEER}-client:8500/v1/peering/token" -d"{ \"PeerName\" : \"${GENERATE_PEER}-to-${ESTABLISH_PEER}\" }"
+  run curl -m 5 -sL -XPOST "http://dumb-consul-${GENERATE_PEER}-client:8500/v1/peering/token" -d"{ \"PeerName\" : \"${GENERATE_PEER}-to-${ESTABLISH_PEER}\" }"
   # echo "$output" >&3
   [ "$status" == 0 ]
 
@@ -1082,7 +1082,7 @@ function create_peering {
   token="$(echo "$output" | jq -r .PeeringToken)"
   [ -n "$token" ]
 
-  run curl -m 5 -sLv -XPOST "http://consul-${ESTABLISH_PEER}-client:8500/v1/peering/establish" -d"{ \"PeerName\" : \"${ESTABLISH_PEER}-to-${GENERATE_PEER}\", \"PeeringToken\" : \"${token}\" }"
+  run curl -m 5 -sLv -XPOST "http://dumb-consul-${ESTABLISH_PEER}-client:8500/v1/peering/establish" -d"{ \"PeerName\" : \"${ESTABLISH_PEER}-to-${GENERATE_PEER}\", \"PeeringToken\" : \"${token}\" }"
   # echo "$output" >&3
   [ "$status" == 0 ]
 }
@@ -1092,7 +1092,7 @@ function assert_service_has_imported {
   local SERVICE_NAME=$2
   local PEER_NAME=$3
 
-  run curl -s -f "http://consul-${DC}-client:8500/v1/peering/${PEER_NAME}"
+  run curl -s -f "http://dumb-consul-${DC}-client:8500/v1/peering/${PEER_NAME}"
   [ "$status" == 0 ]
 
   echo "$output" | jq --raw-output '.StreamStatus.ImportedServices' | grep -e "${SERVICE_NAME}"

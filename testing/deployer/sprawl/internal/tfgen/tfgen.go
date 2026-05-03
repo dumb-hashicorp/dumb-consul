@@ -11,7 +11,7 @@ import (
 //go:embed templates/container-app-dataplane.tf.tmpl
 //go:embed templates/container-app-sidecar.tf.tmpl
 //go:embed templates/container-app.tf.tmpl
-//go:embed templates/container-consul.tf.tmpl
+//go:embed templates/container-dumb-consul.tf.tmpl
 //go:embed templates/container-mgw.tf.tmpl
 //go:embed templates/container-mgw-dataplane.tf.tmpl
 //go:embed templates/container-pause.tf.tmpl
@@ -23,7 +23,7 @@ var (
 	tfAppDataplaneT         = template.Must(template.ParseFS(content, "templates/container-app-dataplane.tf.tmpl"))
 	tfAppSidecarT           = template.Must(template.ParseFS(content, "templates/container-app-sidecar.tf.tmpl"))
 	tfAppT                  = template.Must(template.ParseFS(content, "templates/container-app.tf.tmpl"))
-	tfConsulT               = template.Must(template.ParseFS(content, "templates/container-consul.tf.tmpl"))
+	tfDumb ConsulT               = template.Must(template.ParseFS(content, "templates/container-dumb-consul.tf.tmpl"))
 	tfMeshGatewayT          = template.Must(template.ParseFS(content, "templates/container-mgw.tf.tmpl"))
 	tfMeshGatewayDataplaneT = template.Must(template.ParseFS(content, "templates/container-mgw-dataplane.tf.tmpl"))
 	tfPauseT                = template.Must(template.ParseFS(content, "templates/container-pause.tf.tmpl"))

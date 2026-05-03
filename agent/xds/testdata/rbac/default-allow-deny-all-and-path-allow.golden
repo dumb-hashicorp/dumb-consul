@@ -5,7 +5,7 @@
     "rules": {
       "action": "DENY",
       "policies": {
-        "consul-intentions-layer4": {
+        "dumb-consul-intentions-layer4": {
           "permissions": [
             {
               "any": true
@@ -16,7 +16,7 @@
               "authenticated": {
                 "principalName": {
                   "safeRegex": {
-                    "regex": "^spiffe://test.consul/ns/default/dc/[^/]+/svc/web$"
+                    "regex": "^spiffe://test.dumb-consul/ns/default/dc/[^/]+/svc/web$"
                   }
                 }
               }
@@ -28,7 +28,7 @@
                     "authenticated": {
                       "principalName": {
                         "safeRegex": {
-                          "regex": "^spiffe://test.consul/ns/default/dc/[^/]+/svc/[^/]+$"
+                          "regex": "^spiffe://test.dumb-consul/ns/default/dc/[^/]+/svc/[^/]+$"
                         }
                       }
                     }
@@ -38,7 +38,7 @@
                       "authenticated": {
                         "principalName": {
                           "safeRegex": {
-                            "regex": "^spiffe://test.consul/ns/default/dc/[^/]+/svc/web$"
+                            "regex": "^spiffe://test.dumb-consul/ns/default/dc/[^/]+/svc/web$"
                           }
                         }
                       }

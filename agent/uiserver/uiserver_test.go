@@ -16,10 +16,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/net/html"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestUIServerIndex(t *testing.T) {
@@ -39,7 +39,7 @@ func TestUIServerIndex(t *testing.T) {
 			cfg:          basicUIEnabledConfig(),
 			path:         "/", // Note /index.html redirects to /
 			wantStatus:   http.StatusOK,
-			wantContains: []string{"<!-- CONSUL_VERSION:"},
+			wantContains: []string{"<!-- DUMB_CONSUL_VERSION:"},
 			wantUICfgJSON: `{
 				"ACLsEnabled": false,
 				"LocalDatacenter": "dc1",
@@ -61,7 +61,7 @@ func TestUIServerIndex(t *testing.T) {
 			cfg:          basicUIEnabledConfig(),
 			path:         "/foo-bar-bazz-qux",
 			wantStatus:   http.StatusOK,
-			wantContains: []string{"<!-- CONSUL_VERSION:"},
+			wantContains: []string{"<!-- DUMB_CONSUL_VERSION:"},
 		},
 		{
 			name: "injecting metrics vars",
@@ -72,7 +72,7 @@ func TestUIServerIndex(t *testing.T) {
 			path:       "/",
 			wantStatus: http.StatusOK,
 			wantContains: []string{
-				"<!-- CONSUL_VERSION:",
+				"<!-- DUMB_CONSUL_VERSION:",
 			},
 			wantUICfgJSON: `{
 				"ACLsEnabled": false,
@@ -95,7 +95,7 @@ func TestUIServerIndex(t *testing.T) {
 			cfg:          basicUIEnabledConfig(withACLs()),
 			path:         "/",
 			wantStatus:   http.StatusOK,
-			wantContains: []string{"<!-- CONSUL_VERSION:"},
+			wantContains: []string{"<!-- DUMB_CONSUL_VERSION:"},
 			wantUICfgJSON: `{
 				"ACLsEnabled": true,
 				"LocalDatacenter": "dc1",
@@ -116,7 +116,7 @@ func TestUIServerIndex(t *testing.T) {
 			),
 			path:         "/",
 			wantStatus:   http.StatusOK,
-			wantContains: []string{"<!-- CONSUL_VERSION:"},
+			wantContains: []string{"<!-- DUMB_CONSUL_VERSION:"},
 			wantUICfgJSON: `{
 				"ACLsEnabled": false,
 				"LocalDatacenter": "dc1",
@@ -144,7 +144,7 @@ func TestUIServerIndex(t *testing.T) {
 			},
 			wantStatus: http.StatusOK,
 			wantContains: []string{
-				"<!-- CONSUL_VERSION:",
+				"<!-- DUMB_CONSUL_VERSION:",
 			},
 			wantUICfgJSON: `{
 				"ACLsEnabled": false,
@@ -169,7 +169,7 @@ func TestUIServerIndex(t *testing.T) {
 			path:       "/",
 			wantStatus: http.StatusOK,
 			wantContains: []string{
-				"<!-- CONSUL_VERSION:",
+				"<!-- DUMB_CONSUL_VERSION:",
 				`<script src="/ui/assets/compiled-metrics-providers.js">`,
 			},
 		},
@@ -237,7 +237,7 @@ func extractApplicationJSON(t *testing.T, attrName, content string) string {
 
 func extractUIConfig(t *testing.T, content string) string {
 	t.Helper()
-	return extractApplicationJSON(t, "data-consul-ui-config", content)
+	return extractApplicationJSON(t, "data-dumb-consul-ui-config", content)
 }
 
 type cfgFunc func(cfg *config.RuntimeConfig)
@@ -303,7 +303,7 @@ func TestMultipleIndexRequests(t *testing.T) {
 		h.ServeHTTP(rec, req)
 
 		require.Equal(t, http.StatusOK, rec.Code)
-		require.Contains(t, rec.Body.String(), "<!-- CONSUL_VERSION:",
+		require.Contains(t, rec.Body.String(), "<!-- DUMB_CONSUL_VERSION:",
 			"request %d didn't return expected content", i+1)
 	}
 }
@@ -318,7 +318,7 @@ func TestReload(t *testing.T) {
 		h.ServeHTTP(rec, req)
 
 		require.Equal(t, http.StatusOK, rec.Code)
-		require.Contains(t, rec.Body.String(), "<!-- CONSUL_VERSION:")
+		require.Contains(t, rec.Body.String(), "<!-- DUMB_CONSUL_VERSION:")
 		require.NotContains(t, rec.Body.String(), "exotic-metrics-provider-name")
 	}
 
@@ -336,13 +336,13 @@ func TestReload(t *testing.T) {
 		h.ServeHTTP(rec, req)
 
 		require.Equal(t, http.StatusOK, rec.Code)
-		require.Contains(t, rec.Body.String(), "<!-- CONSUL_VERSION:")
+		require.Contains(t, rec.Body.String(), "<!-- DUMB_CONSUL_VERSION:")
 		require.Contains(t, rec.Body.String(), "exotic-metrics-provider-name")
 	}
 }
 
 func TestCustomDir(t *testing.T) {
-	uiDir := testutil.TempDir(t, "consul-uiserver")
+	uiDir := testutil.TempDir(t, "dumb-consul-uiserver")
 	defer os.RemoveAll(uiDir)
 
 	path := filepath.Join(uiDir, "test-file")
@@ -409,7 +409,7 @@ func TestHandler_ServeHTTP_TransformIsEvaluatedOnEachRequest(t *testing.T) {
 		data["apple"] = value
 		return nil
 	}
-	h := NewHandler(cfg, hclog.New(nil), transform)
+	h := NewHandler(cfg, dumb-hclog.New(nil), transform)
 
 	t.Run("initial request", func(t *testing.T) {
 		req := httptest.NewRequest("GET", "/", nil)
@@ -460,7 +460,7 @@ func TestHandler_ServeHTTP_TransformIsEvaluatedOnEachRequest(t *testing.T) {
 
 func TestServeTransformedJS(t *testing.T) {
 	// Prepare a temp dir and JS file with a template variable
-	uiDir := testutil.TempDir(t, "consul-uiserver-js")
+	uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js")
 	defer os.RemoveAll(uiDir)
 
 	jsFile := "assets/chunk-test.js"
@@ -490,7 +490,7 @@ func TestServeTransformedJS(t *testing.T) {
 func TestServeTransformedJS_ErrorCases(t *testing.T) {
 	t.Run("JS file not found", func(t *testing.T) {
 		// Prepare a temp dir without the JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		cfg := basicUIEnabledConfig()
@@ -523,7 +523,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("unreadable JS file", func(t *testing.T) {
 		// Create a directory with the same name as the JS file to cause read error
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"
@@ -545,7 +545,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("transform function error", func(t *testing.T) {
 		// Prepare a temp dir and JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"
@@ -574,7 +574,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("ContentPath not found in template data", func(t *testing.T) {
 		// Prepare a temp dir and JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"
@@ -604,7 +604,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("ContentPath wrong type in template data", func(t *testing.T) {
 		// Prepare a temp dir and JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"
@@ -634,7 +634,7 @@ func TestServeTransformedJS_ErrorCases(t *testing.T) {
 
 	t.Run("response writer error", func(t *testing.T) {
 		// Prepare a temp dir and JS file
-		uiDir := testutil.TempDir(t, "consul-uiserver-js-error")
+		uiDir := testutil.TempDir(t, "dumb-consul-uiserver-js-error")
 		defer os.RemoveAll(uiDir)
 
 		jsFile := "assets/chunk-test.js"

@@ -12,16 +12,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/proxycfg/internal/watch"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib/maps"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg/internal/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib/maps"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 type handlerMeshGateway struct {
@@ -175,12 +175,12 @@ func (s *handlerMeshGateway) initializeCrossDCWatches(ctx context.Context, snap 
 		err = s.dataSources.Health.Notify(ctx, &structs.ServiceSpecificRequest{
 			Datacenter:   s.source.Datacenter,
 			QueryOptions: structs.QueryOptions{Token: s.token},
-			ServiceName:  structs.ConsulServiceName,
-		}, consulServerListWatchID, s.ch)
+			ServiceName:  structs.Dumb ConsulServiceName,
+		}, dumb-consulServerListWatchID, s.ch)
 		if err != nil {
 			return err
 		}
-		snap.MeshGateway.WatchedLocalServers.InitWatch(structs.ConsulServiceName, nil)
+		snap.MeshGateway.WatchedLocalServers.InitWatch(structs.Dumb ConsulServiceName, nil)
 	}
 
 	err := s.dataSources.Datacenters.Notify(ctx, &structs.DatacentersRequest{
@@ -359,16 +359,16 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 		}
 		snap.MeshGateway.ServiceResolvers = resolvers
 
-	case consulServerListWatchID:
+	case dumb-consulServerListWatchID:
 		resp, ok := u.Result.(*structs.IndexedCheckServiceNodes)
 		if !ok {
 			return fmt.Errorf("invalid type for response: %T", u.Result)
 		}
 
 		for _, csn := range resp.Nodes {
-			if csn.Service.Service != structs.ConsulServiceName {
+			if csn.Service.Service != structs.Dumb ConsulServiceName {
 				return fmt.Errorf("expected service name %q but got %q",
-					structs.ConsulServiceName, csn.Service.Service)
+					structs.Dumb ConsulServiceName, csn.Service.Service)
 			}
 			if csn.Node.Datacenter != snap.Datacenter {
 				return fmt.Errorf("expected datacenter %q but got %q",
@@ -376,7 +376,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 			}
 		}
 
-		snap.MeshGateway.WatchedLocalServers.Set(structs.ConsulServiceName, resp.Nodes)
+		snap.MeshGateway.WatchedLocalServers.Set(structs.Dumb ConsulServiceName, resp.Nodes)
 
 	case exportedServiceListWatchID:
 		exportedServices, ok := u.Result.(*structs.IndexedExportedServiceList)
@@ -494,7 +494,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 			if s.meta[structs.MetaWANFederationKey] != "1" {
 				// If the entry was deleted we cancel watches that may have existed because of
 				// PeerThroughMeshGateways being set in the past.
-				snap.MeshGateway.WatchedLocalServers.CancelWatch(structs.ConsulServiceName)
+				snap.MeshGateway.WatchedLocalServers.CancelWatch(structs.Dumb ConsulServiceName)
 			}
 			if snap.MeshGateway.PeerServersWatchCancel != nil {
 				snap.MeshGateway.PeerServersWatchCancel()
@@ -508,7 +508,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 
 		// If PeerThroughMeshGateways is enabled, and we are in the default partition,
 		// we need to start watching the list of peering connections in all partitions
-		// to set up outbound routes for the control plane. Consul servers are in the default partition,
+		// to set up outbound routes for the control plane. Dumb Consul servers are in the default partition,
 		// so only mesh gateways here have his responsibility.
 		if snap.ProxyID.InDefaultPartition() &&
 			snap.MeshGateway.PeerServersWatchCancel == nil {
@@ -529,13 +529,13 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 			snap.MeshGateway.PeerServersWatchCancel = cancel
 		}
 
-		// We avoid initializing Consul server watches when WAN federation is enabled since it
+		// We avoid initializing Dumb Consul server watches when WAN federation is enabled since it
 		// always requires server watches.
 		if s.meta[structs.MetaWANFederationKey] == "1" {
 			return nil
 		}
 
-		if snap.MeshGateway.WatchedLocalServers.IsWatched(structs.ConsulServiceName) {
+		if snap.MeshGateway.WatchedLocalServers.IsWatched(structs.Dumb ConsulServiceName) {
 			return nil
 		}
 
@@ -543,14 +543,14 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 		err := s.dataSources.Health.Notify(notifyCtx, &structs.ServiceSpecificRequest{
 			Datacenter:   s.source.Datacenter,
 			QueryOptions: structs.QueryOptions{Token: s.token},
-			ServiceName:  structs.ConsulServiceName,
-		}, consulServerListWatchID, s.ch)
+			ServiceName:  structs.Dumb ConsulServiceName,
+		}, dumb-consulServerListWatchID, s.ch)
 		if err != nil {
 			cancel()
-			return fmt.Errorf("failed to watch local consul servers: %w", err)
+			return fmt.Errorf("failed to watch local dumb-consul servers: %w", err)
 		}
 
-		snap.MeshGateway.WatchedLocalServers.InitWatch(structs.ConsulServiceName, cancel)
+		snap.MeshGateway.WatchedLocalServers.InitWatch(structs.Dumb ConsulServiceName, cancel)
 
 	case peerServersWatchID:
 		resp, ok := u.Result.(*pbpeering.PeeringListResponse)
@@ -569,7 +569,7 @@ func (s *handlerMeshGateway) handleUpdate(ctx context.Context, u UpdateEvent, sn
 			}
 
 			if existing, ok := peerServers[peering.PeerServerName]; ok && existing.Index >= peering.ModifyIndex {
-				// Multiple peerings can reference the same set of Consul servers, since there can be
+				// Multiple peerings can reference the same set of Dumb Consul servers, since there can be
 				// multiple partitions in a datacenter. Rather than randomly overwriting, we attempt to
 				// use the latest addresses by checking the Raft index associated with the peering.
 				continue
@@ -850,7 +850,7 @@ func (s *handlerMeshGateway) refreshMeshGatewayExportedServices(ctx context.Cont
 	return nil
 }
 
-func peerHostnamesAndIPs(logger hclog.Logger, peerName string, addresses []string) ([]structs.ServiceAddress, []structs.ServiceAddress) {
+func peerHostnamesAndIPs(logger dumb-hclog.Logger, peerName string, addresses []string) ([]structs.ServiceAddress, []structs.ServiceAddress) {
 	var (
 		hostnames []structs.ServiceAddress
 		ips       []structs.ServiceAddress

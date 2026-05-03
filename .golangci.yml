@@ -21,7 +21,7 @@ linters:
         main:
           deny:
             - pkg: net/rpc
-              desc: only use forked copy in github.com/hashicorp/consul-net-rpc/net/rpc
+              desc: only use forked copy in github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc
             - pkg: github.com/golang/protobuf
               desc: only use google.golang.org/protobuf
     forbidigo:
@@ -33,12 +33,12 @@ linters:
     gomodguard:
       blocked:
         modules:
-          - github.com/hashicorp/net-rpc-msgpackrpc:
+          - github.com/dumb-hashicorp/net-rpc-msgpackrpc:
               recommendations:
-                - github.com/hashicorp/consul-net-rpc/net-rpc-msgpackrpc
-          - github.com/hashicorp/go-msgpack:
+                - github.com/dumb-hashicorp/dumb-consul-net-rpc/net-rpc-msgpackrpc
+          - github.com/dumb-hashicorp/go-msgpack:
               recommendations:
-                - github.com/hashicorp/consul-net-rpc/go-msgpack
+                - github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack
           - github.com/golang/protobuf:
               recommendations:
                 - google.golang.org/protobuf

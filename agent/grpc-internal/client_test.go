@@ -13,19 +13,19 @@ import (
 	"time"
 
 	"github.com/google/tcpproxy"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/grpc-internal/balancer"
-	"github.com/hashicorp/consul/agent/grpc-internal/resolver"
-	"github.com/hashicorp/consul/agent/grpc-middleware/testutil/testservice"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/tlsutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/balancer"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil/testservice"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // useTLSForDcAlwaysTrue tell GRPC to always return the TLS is enabled
@@ -156,7 +156,7 @@ func TestNewDialer_IntegrationWithTLSEnabledHandler(t *testing.T) {
 			KeyFile:        "../../test/hostname/Alice.key",
 			VerifyOutgoing: true,
 		},
-	}, hclog.New(nil))
+	}, dumb-hclog.New(nil))
 	require.NoError(t, err)
 
 	srv := newSimpleTestServer(t, "server-1", "dc1", tlsConf)
@@ -168,7 +168,7 @@ func TestNewDialer_IntegrationWithTLSEnabledHandler(t *testing.T) {
 	{
 		// Put a duplicate instance of this on the WAN that will
 		// fail if we accidentally use it.
-		srv := newPanicTestServer(t, hclog.Default(), "server-1", "dc1", nil)
+		srv := newPanicTestServer(t, dumb-hclog.Default(), "server-1", "dc1", nil)
 		res.AddServer(types.AreaWAN, srv.Metadata())
 		t.Cleanup(srv.shutdown)
 	}
@@ -213,9 +213,9 @@ func TestNewDialer_IntegrationWithTLSEnabledHandler_viaMeshGateway(t *testing.T)
 			VerifyOutgoing:       true,
 			VerifyServerHostname: true,
 		},
-		Domain:   "consul",
+		Domain:   "dumb-consul",
 		NodeName: "bob",
-	}, hclog.New(nil))
+	}, dumb-hclog.New(nil))
 	require.NoError(t, err)
 
 	srv := newSimpleTestServer(t, "bob", "dc1", tlsConf)
@@ -243,9 +243,9 @@ func TestNewDialer_IntegrationWithTLSEnabledHandler_viaMeshGateway(t *testing.T)
 			VerifyOutgoing:       true,
 			VerifyServerHostname: true,
 		},
-		Domain:   "consul",
+		Domain:   "dumb-consul",
 		NodeName: "betty",
-	}, hclog.New(nil))
+	}, dumb-hclog.New(nil))
 	require.NoError(t, err)
 
 	pool := NewClientConnPool(ClientConnPoolConfig{
@@ -296,7 +296,7 @@ func TestClientConnPool_IntegrationWithGRPCResolver_Failover(t *testing.T) {
 		{
 			// Put a duplicate instance of this on the WAN that will
 			// fail if we accidentally use it.
-			srv := newPanicTestServer(t, hclog.Default(), name, "dc1", nil)
+			srv := newPanicTestServer(t, dumb-hclog.Default(), name, "dc1", nil)
 			res.AddServer(types.AreaWAN, srv.Metadata())
 			t.Cleanup(srv.shutdown)
 		}
@@ -343,7 +343,7 @@ func TestClientConnPool_ForwardToLeader_Failover(t *testing.T) {
 		{
 			// Put a duplicate instance of this on the WAN that will
 			// fail if we accidentally use it.
-			srv := newPanicTestServer(t, hclog.Default(), name, "dc1", nil)
+			srv := newPanicTestServer(t, dumb-hclog.Default(), name, "dc1", nil)
 			res.AddServer(types.AreaWAN, srv.Metadata())
 			t.Cleanup(srv.shutdown)
 		}
@@ -405,7 +405,7 @@ func TestClientConnPool_IntegrationWithGRPCResolver_MultiDC(t *testing.T) {
 			res.AddServer(types.AreaLAN, srv.Metadata())
 			// Put a duplicate instance of this on the WAN that will
 			// fail if we accidentally use it.
-			srvBad := newPanicTestServer(t, hclog.Default(), name, dc, nil)
+			srvBad := newPanicTestServer(t, dumb-hclog.Default(), name, dc, nil)
 			res.AddServer(types.AreaWAN, srvBad.Metadata())
 			t.Cleanup(srvBad.shutdown)
 		} else {

@@ -6,19 +6,19 @@ package xds
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/agent/xds/configfetcher"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/configfetcher"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 
-	"github.com/hashicorp/consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
 )
 
 // ResourceGenerator is associated with a single gRPC stream and creates xDS
 // resources for a single client.
 type ResourceGenerator struct {
-	Logger         hclog.Logger
+	Logger         dumb-hclog.Logger
 	CfgFetcher     configfetcher.ConfigFetcher
 	IncrementalXDS bool
 
@@ -26,7 +26,7 @@ type ResourceGenerator struct {
 }
 
 func NewResourceGenerator(
-	logger hclog.Logger,
+	logger dumb-hclog.Logger,
 	cfgFetcher configfetcher.ConfigFetcher,
 	incrementalXDS bool,
 ) *ResourceGenerator {

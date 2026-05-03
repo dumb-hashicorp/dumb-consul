@@ -12,10 +12,10 @@ import (
 
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul-net-rpc/net/rpc"
-	rpcRate "github.com/hashicorp/consul/agent/consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/net/rpc"
+	rpcRate "github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
 )
 
 // RPCTypeInternal identifies the "RPC" request as coming from some internal
@@ -41,13 +41,13 @@ var OneTwelveRPCSummary = []prometheus.SummaryDefinition{
 }
 
 type RequestRecorder struct {
-	Logger         hclog.Logger
+	Logger         dumb-hclog.Logger
 	RecorderFunc   func(key []string, val float32, labels []metrics.Label)
 	serverIsLeader func() bool
 	localDC        string
 }
 
-func NewRequestRecorder(logger hclog.Logger, isLeader func() bool, localDC string) *RequestRecorder {
+func NewRequestRecorder(logger dumb-hclog.Logger, isLeader func() bool, localDC string) *RequestRecorder {
 	return &RequestRecorder{
 		Logger:         logger,
 		RecorderFunc:   metrics.AddSampleWithLabels,

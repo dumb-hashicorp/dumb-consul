@@ -9,10 +9,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestServerIntentionUpstreams(t *testing.T) {
@@ -50,7 +50,7 @@ func TestServerIntentionUpstreams(t *testing.T) {
 				{
 					Name:   serviceName,
 					Action: structs.IntentionActionAllow,
-					Type:   structs.IntentionSourceConsul,
+					Type:   structs.IntentionSourceDumb Consul,
 				},
 			},
 		})
@@ -134,8 +134,8 @@ func disableLegacyIntentions(t *testing.T, store *state.Store) {
 	}))
 }
 
-func policyAuthorizer(t *testing.T, policyHCL string) acl.Authorizer {
-	policy, err := acl.NewPolicyFromSource(policyHCL, nil, nil)
+func policyAuthorizer(t *testing.T, policyDUMB_HCL string) acl.Authorizer {
+	policy, err := acl.NewPolicyFromSource(policyDUMB_HCL, nil, nil)
 	require.NoError(t, err)
 
 	authz, err := acl.NewPolicyAuthorizerWithDefaults(acl.DenyAll(), []*acl.Policy{policy}, nil)

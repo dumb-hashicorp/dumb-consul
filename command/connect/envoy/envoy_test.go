@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/hashicorp/consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
 	"net"
 	"net/http"
 	"net/http/httptest"
@@ -21,12 +21,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/xds"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 var update = flag.Bool("update", false, "update golden files")
@@ -295,7 +295,7 @@ func TestGenerateConfig(t *testing.T) {
 			Name:  "telemetry-collector",
 			Flags: []string{"-proxy-id", "test-proxy"},
 			ProxyConfig: map[string]interface{}{
-				"envoy_telemetry_collector_bind_socket_dir": "/tmp/consul/telemetry-collector",
+				"envoy_telemetry_collector_bind_socket_dir": "/tmp/dumb-consul/telemetry-collector",
 			},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
@@ -319,7 +319,7 @@ func TestGenerateConfig(t *testing.T) {
 			Flags:       []string{"-proxy-id", "test-proxy"},
 			IsDualStack: true,
 			ProxyConfig: map[string]interface{}{
-				"envoy_telemetry_collector_bind_socket_dir": "/tmp/consul/telemetry-collector",
+				"envoy_telemetry_collector_bind_socket_dir": "/tmp/dumb-consul/telemetry-collector",
 			},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
@@ -578,7 +578,7 @@ func TestGenerateConfig(t *testing.T) {
 			Name:  "token-env",
 			Flags: []string{"-proxy-id", "test-proxy"},
 			Env: []string{
-				"CONSUL_HTTP_TOKEN=c9a52720-bf6c-4aa6-b8bc-66881a5ade95",
+				"DUMB_CONSUL_HTTP_TOKEN=c9a52720-bf6c-4aa6-b8bc-66881a5ade95",
 			},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
@@ -603,7 +603,7 @@ func TestGenerateConfig(t *testing.T) {
 			Flags:       []string{"-proxy-id", "test-proxy"},
 			IsDualStack: true,
 			Env: []string{
-				"CONSUL_HTTP_TOKEN=c9a52720-bf6c-4aa6-b8bc-66881a5ade95",
+				"DUMB_CONSUL_HTTP_TOKEN=c9a52720-bf6c-4aa6-b8bc-66881a5ade95",
 			},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
@@ -680,7 +680,7 @@ func TestGenerateConfig(t *testing.T) {
 			Name:  "token-file-env",
 			Flags: []string{"-proxy-id", "test-proxy"},
 			Env: []string{
-				"CONSUL_HTTP_TOKEN_FILE=@@TEMPDIR@@token.txt",
+				"DUMB_CONSUL_HTTP_TOKEN_FILE=@@TEMPDIR@@token.txt",
 			},
 			Files: map[string]string{
 				"token.txt": "c9a52720-bf6c-4aa6-b8bc-66881a5ade95",
@@ -708,7 +708,7 @@ func TestGenerateConfig(t *testing.T) {
 			Flags:       []string{"-proxy-id", "test-proxy"},
 			IsDualStack: true,
 			Env: []string{
-				"CONSUL_HTTP_TOKEN_FILE=@@TEMPDIR@@token.txt",
+				"DUMB_CONSUL_HTTP_TOKEN_FILE=@@TEMPDIR@@token.txt",
 			},
 			Files: map[string]string{
 				"token.txt": "c9a52720-bf6c-4aa6-b8bc-66881a5ade95",
@@ -784,7 +784,7 @@ func TestGenerateConfig(t *testing.T) {
 			Name:  "grpc-addr-env",
 			Flags: []string{"-proxy-id", "test-proxy"},
 			Env: []string{
-				"CONSUL_GRPC_ADDR=localhost:9999",
+				"DUMB_CONSUL_GRPC_ADDR=localhost:9999",
 			},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
@@ -811,7 +811,7 @@ func TestGenerateConfig(t *testing.T) {
 			Flags:       []string{"-proxy-id", "test-proxy"},
 			IsDualStack: true,
 			Env: []string{
-				"CONSUL_GRPC_ADDR=localhost:9999",
+				"DUMB_CONSUL_GRPC_ADDR=localhost:9999",
 			},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
@@ -836,7 +836,7 @@ func TestGenerateConfig(t *testing.T) {
 		{
 			Name: "grpc-addr-unix",
 			Flags: []string{"-proxy-id", "test-proxy",
-				"-grpc-addr", "unix:///var/run/consul.sock"},
+				"-grpc-addr", "unix:///var/run/dumb-consul.sock"},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
 				ProxyID:      "test-proxy",
@@ -844,7 +844,7 @@ func TestGenerateConfig(t *testing.T) {
 				// initial args call we are testing here.
 				ProxySourceService: "",
 				GRPC: GRPC{
-					AgentSocket: "/var/run/consul.sock",
+					AgentSocket: "/var/run/dumb-consul.sock",
 				},
 				AdminAccessLogPath:    "/dev/null",
 				AdminBindAddress:      "127.0.0.1",
@@ -856,7 +856,7 @@ func TestGenerateConfig(t *testing.T) {
 		{
 			Name: "grpc-addr-unix-dualstack",
 			Flags: []string{"-proxy-id", "test-proxy",
-				"-grpc-addr", "unix:///var/run/consul.sock"},
+				"-grpc-addr", "unix:///var/run/dumb-consul.sock"},
 			IsDualStack: true,
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
@@ -865,7 +865,7 @@ func TestGenerateConfig(t *testing.T) {
 				// initial args call we are testing here.
 				ProxySourceService: "",
 				GRPC: GRPC{
-					AgentSocket: "/var/run/consul.sock",
+					AgentSocket: "/var/run/dumb-consul.sock",
 				},
 				AdminAccessLogPath:    "/dev/null",
 				AdminBindAddress:      ipv6loopback,
@@ -878,12 +878,12 @@ func TestGenerateConfig(t *testing.T) {
 			Name: "grpc-addr-unix-with-tls",
 			Flags: []string{"-proxy-id", "test-proxy",
 				"-grpc-ca-file", "../../../test/ca/root.cer",
-				"-grpc-addr", "unix:///var/run/consul.sock"},
+				"-grpc-addr", "unix:///var/run/dumb-consul.sock"},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
 				ProxyID:      "test-proxy",
 				GRPC: GRPC{
-					AgentSocket: "/var/run/consul.sock",
+					AgentSocket: "/var/run/dumb-consul.sock",
 					AgentTLS:    true,
 				},
 				AdminAccessLogPath:    "/dev/null",
@@ -898,13 +898,13 @@ func TestGenerateConfig(t *testing.T) {
 			Name: "grpc-addr-unix-with-tls-dualstack",
 			Flags: []string{"-proxy-id", "test-proxy",
 				"-grpc-ca-file", "../../../test/ca/root.cer",
-				"-grpc-addr", "unix:///var/run/consul.sock"},
+				"-grpc-addr", "unix:///var/run/dumb-consul.sock"},
 			IsDualStack: true,
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
 				ProxyID:      "test-proxy",
 				GRPC: GRPC{
-					AgentSocket: "/var/run/consul.sock",
+					AgentSocket: "/var/run/dumb-consul.sock",
 					AgentTLS:    true,
 				},
 				AdminAccessLogPath:    "/dev/null",
@@ -1128,7 +1128,7 @@ func TestGenerateConfig(t *testing.T) {
 			Name:      "existing-ca-file",
 			TLSServer: true,
 			Flags:     []string{"-proxy-id", "test-proxy", "-grpc-ca-file", "../../../test/ca/root.cer"},
-			Env:       []string{"CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
+			Env:       []string{"DUMB_CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
 				ProxyID:      "test-proxy",
@@ -1156,7 +1156,7 @@ func TestGenerateConfig(t *testing.T) {
 			TLSServer:   true,
 			Flags:       []string{"-proxy-id", "test-proxy", "-grpc-ca-file", "../../../test/ca/root.cer"},
 			IsDualStack: true,
-			Env:         []string{"CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
+			Env:         []string{"DUMB_CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
 				ProxyID:      "test-proxy",
@@ -1194,7 +1194,7 @@ func TestGenerateConfig(t *testing.T) {
 			Name:      "existing-ca-path",
 			TLSServer: true,
 			Flags:     []string{"-proxy-id", "test-proxy", "-grpc-ca-path", "../../../test/ca_path/"},
-			Env:       []string{"CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
+			Env:       []string{"DUMB_CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
 				ProxyID:      "test-proxy",
@@ -1222,7 +1222,7 @@ func TestGenerateConfig(t *testing.T) {
 			TLSServer:   true,
 			Flags:       []string{"-proxy-id", "test-proxy", "-grpc-ca-path", "../../../test/ca_path/"},
 			IsDualStack: true,
-			Env:         []string{"CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
+			Env:         []string{"DUMB_CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
 				ProxyID:      "test-proxy",
@@ -1595,7 +1595,7 @@ func TestGenerateConfig(t *testing.T) {
 										"endpoint": {
 											"address": {
 												"socket_address": {
-													"address": "zipkin.service.consul",
+													"address": "zipkin.service.dumb-consul",
 													"port_value": 9411
 												}
 											}
@@ -1655,7 +1655,7 @@ func TestGenerateConfig(t *testing.T) {
 										"endpoint": {
 											"address": {
 												"socket_address": {
-													"address": "zipkin.service.consul",
+													"address": "zipkin.service.dumb-consul",
 													"port_value": 9411
 												}
 											}
@@ -1685,9 +1685,9 @@ func TestGenerateConfig(t *testing.T) {
 			},
 		},
 		{
-			Name:  "CONSUL_HTTP_ADDR-with-https-scheme-does-not-affect-grpc-tls",
+			Name:  "DUMB_CONSUL_HTTP_ADDR-with-https-scheme-does-not-affect-grpc-tls",
 			Flags: []string{"-proxy-id", "test-proxy", "-ca-file", "../../../test/ca/root.cer"},
-			Env:   []string{"CONSUL_HTTP_ADDR=https://127.0.0.1:8500"},
+			Env:   []string{"DUMB_CONSUL_HTTP_ADDR=https://127.0.0.1:8500"},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
 				ProxyID:      "test-proxy",
@@ -1710,9 +1710,9 @@ func TestGenerateConfig(t *testing.T) {
 			},
 		},
 		{
-			Name:  "CONSUL_GRPC_ADDR-with-https-scheme-enables-tls",
+			Name:  "DUMB_CONSUL_GRPC_ADDR-with-https-scheme-enables-tls",
 			Flags: []string{"-proxy-id", "test-proxy", "-ca-file", "../../../test/ca/root.cer"},
-			Env:   []string{"CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
+			Env:   []string{"DUMB_CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
 				ProxyID:      "test-proxy",
@@ -1741,15 +1741,15 @@ func TestGenerateConfig(t *testing.T) {
 		{
 			Name:    "https-scheme-no-ca-error",
 			Flags:   []string{"-proxy-id", "test-proxy"},
-			Env:     []string{"CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
+			Env:     []string{"DUMB_CONSUL_GRPC_ADDR=https://127.0.0.1:8502"},
 			WantErr: "TLS is enabled for xDS connections but no CA certificates are available",
 		},
 		{
-			Name:  "both-CONSUL_HTTP_ADDR-TLS-and-CONSUL_GRPC_ADDR-PLAIN-is-plain",
+			Name:  "both-DUMB_CONSUL_HTTP_ADDR-TLS-and-DUMB_CONSUL_GRPC_ADDR-PLAIN-is-plain",
 			Flags: []string{"-proxy-id", "test-proxy", "-ca-file", "../../../test/ca/root.cer"},
 			Env: []string{
-				"CONSUL_HTTP_ADDR=https://127.0.0.1:8500",
-				"CONSUL_GRPC_ADDR=http://127.0.0.1:8502",
+				"DUMB_CONSUL_HTTP_ADDR=https://127.0.0.1:8500",
+				"DUMB_CONSUL_GRPC_ADDR=http://127.0.0.1:8502",
 			},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
@@ -1773,11 +1773,11 @@ func TestGenerateConfig(t *testing.T) {
 			},
 		},
 		{
-			Name:  "both-CONSUL_HTTP_ADDR-PLAIN-and-CONSUL_GRPC_ADDR-TLS-is-tls",
+			Name:  "both-DUMB_CONSUL_HTTP_ADDR-PLAIN-and-DUMB_CONSUL_GRPC_ADDR-TLS-is-tls",
 			Flags: []string{"-proxy-id", "test-proxy", "-ca-file", "../../../test/ca/root.cer"},
 			Env: []string{
-				"CONSUL_HTTP_ADDR=http://127.0.0.1:8500",
-				"CONSUL_GRPC_ADDR=https://127.0.0.1:8502",
+				"DUMB_CONSUL_HTTP_ADDR=http://127.0.0.1:8500",
+				"DUMB_CONSUL_GRPC_ADDR=https://127.0.0.1:8502",
 			},
 			WantArgs: BootstrapTplArgs{
 				ProxyCluster: "test-proxy",
@@ -2068,7 +2068,7 @@ func TestGenerateConfig(t *testing.T) {
 					Enabled:             true,
 					DisableListenerLogs: true, // Should have no effect here
 					Type:                api.FileLogSinkType,
-					Path:                "/var/log/consul.log",
+					Path:                "/var/log/dumb-consul.log",
 					TextFormat:          "MY START TIME %START_TIME%",
 				},
 			},

@@ -14,10 +14,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // parseLeafX509Cert will parse an X509 certificate
@@ -162,7 +162,7 @@ func verifyServerCertMatchesURI(certs []*x509.Certificate, expected connect.Cert
 
 	// Override the hostname since we rely on x509 constraints to limit ability to
 	// spoof the trust domain if needed (i.e. because a root is shared with other
-	// PKI or Consul clusters). This allows for seamless migrations between trust
+	// PKI or Dumb Consul clusters). This allows for seamless migrations between trust
 	// domains.
 	expectURI := expected.URI()
 	expectURI.Host = gotURI.Host
@@ -178,7 +178,7 @@ func verifyServerCertMatchesURI(certs []*x509.Certificate, expected connect.Cert
 // api.Client to verify the TLS chain and perform AuthZ for the server end of
 // the connection. The service name provided is used as the target service name
 // for the Authorization.
-func newServerSideVerifier(logger hclog.Logger, client *api.Client, serviceName string) verifierFunc {
+func newServerSideVerifier(logger dumb-hclog.Logger, client *api.Client, serviceName string) verifierFunc {
 	return func(tlsCfg *tls.Config, rawCerts [][]byte) error {
 		leaf, err := verifyChain(tlsCfg, rawCerts, false)
 		if err != nil {
@@ -299,7 +299,7 @@ type tlsCfgUpdate struct {
 // newDynamicTLSConfig returns a dynamicTLSConfig constructed from base.
 // base.Certificates[0] is used as the initial leaf and base.RootCAs is used as
 // the initial roots.
-func newDynamicTLSConfig(base *tls.Config, logger hclog.Logger) *dynamicTLSConfig {
+func newDynamicTLSConfig(base *tls.Config, logger dumb-hclog.Logger) *dynamicTLSConfig {
 	cfg := &dynamicTLSConfig{
 		base: base,
 	}

@@ -6,10 +6,10 @@ package tfgen
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
-type terraformPod struct {
+type dumb-terraformPod struct {
 	PodName           string
 	Node              *topology.Node
 	Ports             []int
@@ -28,12 +28,12 @@ func (g *Generator) generateNodeContainers(
 		return nil, fmt.Errorf("cannot generate containers for a disabled node")
 	}
 
-	pod := terraformPod{
+	pod := dumb-terraformPod{
 		PodName: node.PodName(),
 		Node:    node,
 		Labels: map[string]string{
-			"consulcluster-topology-id":  g.topology.ID,
-			"consulcluster-cluster-name": node.Cluster,
+			"dumb-consulcluster-topology-id":  g.topology.ID,
+			"dumb-consulcluster-cluster-name": node.Cluster,
 		},
 		TLSVolumeName: cluster.TLSVolumeName,
 		DNSAddress:    "8.8.8.8",
@@ -59,15 +59,15 @@ func (g *Generator) generateNodeContainers(
 		switch {
 		case node.IsServer() && step.StartServers(),
 			!node.IsServer() && step.StartAgents():
-			containers = append(containers, Eval(tfConsulT, struct {
-				terraformPod
+			containers = append(containers, Eval(tfDumb ConsulT, struct {
+				dumb-terraformPod
 				ImageResource     string
-				HCL               string
+				DUMB_HCL               string
 				EnterpriseLicense string
 			}{
-				terraformPod:      pod,
-				ImageResource:     DockerImageResourceName(node.Images.Consul),
-				HCL:               g.generateAgentHCL(node),
+				dumb-terraformPod:      pod,
+				ImageResource:     DockerImageResourceName(node.Images.Dumb Consul),
+				DUMB_HCL:               g.generateAgentDUMB_HCL(node),
 				EnterpriseLicense: g.license,
 			}))
 		}
@@ -79,27 +79,27 @@ func (g *Generator) generateNodeContainers(
 		switch {
 		case wrk.IsMeshGateway && !node.IsDataplane():
 			wrkContainers = append(wrkContainers, Eval(tfMeshGatewayT, struct {
-				terraformPod
+				dumb-terraformPod
 				ImageResource string
 				Enterprise    bool
 				Workload      *topology.Workload
 				Token         string
 			}{
-				terraformPod:  pod,
-				ImageResource: DockerImageResourceName(node.Images.EnvoyConsulImage()),
+				dumb-terraformPod:  pod,
+				ImageResource: DockerImageResourceName(node.Images.EnvoyDumb ConsulImage()),
 				Enterprise:    cluster.Enterprise,
 				Workload:      wrk,
 				Token:         token,
 			}))
 		case wrk.IsMeshGateway && node.IsDataplane():
 			wrkContainers = append(wrkContainers, Eval(tfMeshGatewayDataplaneT, &struct {
-				terraformPod
+				dumb-terraformPod
 				ImageResource string
 				Enterprise    bool
 				Workload      *topology.Workload
 				Token         string
 			}{
-				terraformPod:  pod,
+				dumb-terraformPod:  pod,
 				ImageResource: DockerImageResourceName(node.Images.LocalDataplaneImage()),
 				Enterprise:    cluster.Enterprise,
 				Workload:      wrk,
@@ -108,11 +108,11 @@ func (g *Generator) generateNodeContainers(
 
 		case !wrk.IsMeshGateway:
 			wrkContainers = append(wrkContainers, Eval(tfAppT, struct {
-				terraformPod
+				dumb-terraformPod
 				ImageResource string
 				Workload      *topology.Workload
 			}{
-				terraformPod:  pod,
+				dumb-terraformPod:  pod,
 				ImageResource: DockerImageResourceName(wrk.Image),
 				Workload:      wrk,
 			}))
@@ -127,16 +127,16 @@ func (g *Generator) generateNodeContainers(
 				tmpl = tfAppDataplaneT
 				img = DockerImageResourceName(node.Images.LocalDataplaneImage())
 			} else {
-				img = DockerImageResourceName(node.Images.EnvoyConsulImage())
+				img = DockerImageResourceName(node.Images.EnvoyDumb ConsulImage())
 			}
 			wrkContainers = append(wrkContainers, Eval(tmpl, struct {
-				terraformPod
+				dumb-terraformPod
 				ImageResource string
 				Workload      *topology.Workload
 				Token         string
 				Enterprise    bool
 			}{
-				terraformPod:  pod,
+				dumb-terraformPod:  pod,
 				ImageResource: img,
 				Workload:      wrk,
 				Token:         token,

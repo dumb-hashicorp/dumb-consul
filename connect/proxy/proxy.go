@@ -6,11 +6,11 @@ package proxy
 import (
 	"crypto/x509"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/connect"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/connect"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 // Proxy implements the built-in connect proxy.
@@ -18,7 +18,7 @@ type Proxy struct {
 	client     *api.Client
 	cfgWatcher ConfigWatcher
 	stopChan   chan struct{}
-	logger     hclog.Logger
+	logger     dumb-hclog.Logger
 	service    *connect.Service
 }
 
@@ -26,7 +26,7 @@ type Proxy struct {
 //
 // The ConfigWatcher can be used to update the configuration of the proxy.
 // Whenever a new configuration is detected, the proxy will reconfigure itself.
-func New(client *api.Client, cw ConfigWatcher, logger hclog.Logger) (*Proxy, error) {
+func New(client *api.Client, cw ConfigWatcher, logger dumb-hclog.Logger) (*Proxy, error) {
 	return &Proxy{
 		client:     client,
 		cfgWatcher: cw,

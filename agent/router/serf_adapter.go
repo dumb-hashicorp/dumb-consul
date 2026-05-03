@@ -4,11 +4,11 @@
 package router
 
 import (
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // routerFn selects one of the router operations to map to incoming Serf events.
@@ -16,7 +16,7 @@ type routerFn func(types.AreaID, *metadata.Server) error
 
 // handleMemberEvents attempts to apply the given Serf member event to the given
 // router function.
-func handleMemberEvent(logger hclog.Logger, fn routerFn, areaID types.AreaID, e serf.Event) {
+func handleMemberEvent(logger dumb-hclog.Logger, fn routerFn, areaID types.AreaID, e serf.Event) {
 	me, ok := e.(serf.MemberEvent)
 	if !ok {
 		logger.Error("Bad event type", "event", e)
@@ -24,7 +24,7 @@ func handleMemberEvent(logger hclog.Logger, fn routerFn, areaID types.AreaID, e 
 	}
 
 	for _, m := range me.Members {
-		ok, parts := metadata.IsConsulServer(m)
+		ok, parts := metadata.IsDumb ConsulServer(m)
 		if !ok {
 			logger.Warn("Non-server in server-only area",
 				"non_server", m.Name,
@@ -59,7 +59,7 @@ func handleMemberEvent(logger hclog.Logger, fn routerFn, areaID types.AreaID, e 
 // with one consumer. That consumer will be notified when
 // Join/Leave/Failed/Update occur on this serf pool.
 func HandleSerfEvents(
-	logger hclog.Logger,
+	logger dumb-hclog.Logger,
 	router *Router,
 	areaID types.AreaID,
 	shutdownCh <-chan struct{},

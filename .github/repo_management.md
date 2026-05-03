@@ -1,4 +1,4 @@
-# Consul GitHub Configuration
+# Dumb Consul GitHub Configuration
 
 ## Overview
 

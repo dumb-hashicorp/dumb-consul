@@ -4,12 +4,12 @@
 package autoconf
 
 import (
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbautoconf"
-	"github.com/hashicorp/consul/proto/private/pbconfig"
-	"github.com/hashicorp/consul/proto/private/pbconnect"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbautoconf"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfig"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconnect"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // translateAgentConfig is meant to take in a proto/pbconfig.Config type
@@ -94,7 +94,7 @@ func translateConfig(c *pbconfig.Config) config.Config {
 		// removed, and possibly replaced with a versioning scheme for autoconfig
 		// or a proper integration with the deprecated config handling in
 		// agent/config/deprecated.go
-		if v, ok := types.DeprecatedConsulAgentTLSVersions[t.MinVersion]; ok {
+		if v, ok := types.DeprecatedDumb ConsulAgentTLSVersions[t.MinVersion]; ok {
 			result.TLS.Defaults.TLSMinVersion = stringPtrOrNil(v.String())
 		} else {
 			result.TLS.Defaults.TLSMinVersion = stringPtrOrNil(t.MinVersion)

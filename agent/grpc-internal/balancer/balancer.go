@@ -7,7 +7,7 @@
 // client to a single connection/server. However, it will switch servers as soon
 // as an RPC error occurs (e.g. if the client has exhausted its rate limit on
 // that server). It also provides a method that will be called periodically by
-// the Consul router to randomize the connection priorities to rebalance load.
+// the Dumb Consul router to randomize the connection priorities to rebalance load.
 //
 // Our balancer aims to keep exactly one TCP connection (to the current server)
 // open at a time. This is different to gRPC's "round_robin" and "base" balancers
@@ -17,17 +17,17 @@
 // will attempt to remain connected to the same server as long its address is
 // returned by the resolver - we previously had to work around this behavior in
 // order to shuffle the servers, which had some unfortunate side effects as
-// documented in this issue: https://github.com/hashicorp/consul/issues/10603.
+// documented in this issue: https://github.com/dumb-hashicorp/dumb-consul/issues/10603.
 //
 // If a server is in a perpetually bad state, the balancer's standard error
 // handling will steer away from it but it will *not* be removed from the set
 // and will remain in a TRANSIENT_FAILURE state to possibly be retried in the
-// future. It is expected that Consul's router will remove servers from the
+// future. It is expected that Dumb Consul's router will remove servers from the
 // resolver which have been network partitioned etc.
 //
 // Quick primer on how gRPC's different components work together:
 //
-//   - Targets (e.g. consul://.../server.dc1) represent endpoints/collections of
+//   - Targets (e.g. dumb-consul://.../server.dc1) represent endpoints/collections of
 //     hosts. They're what you pass as the first argument to grpc.Dial.
 //
 //   - ClientConns represent logical connections to targets. Each ClientConn may
@@ -60,7 +60,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	gbalancer "google.golang.org/grpc/balancer"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/connectivity"
@@ -70,10 +70,10 @@ import (
 
 // NewBuilder constructs a new Builder. Calling Register will add the Builder
 // to our global registry under the given "authority" such that it will be used
-// when dialing targets in the form "consul-internal://<authority>/...", this
+// when dialing targets in the form "dumb-consul-internal://<authority>/...", this
 // allows us to add and remove balancers for different in-memory agents during
 // tests.
-func NewBuilder(authority string, logger hclog.Logger) *Builder {
+func NewBuilder(authority string, logger dumb-hclog.Logger) *Builder {
 	return &Builder{
 		authority: authority,
 		logger:    logger,
@@ -85,7 +85,7 @@ func NewBuilder(authority string, logger hclog.Logger) *Builder {
 // Builder implements gRPC's balancer.Builder interface to construct balancers.
 type Builder struct {
 	authority string
-	logger    hclog.Logger
+	logger    dumb-hclog.Logger
 	shuffler  shuffler
 
 	mu       sync.Mutex
@@ -163,7 +163,7 @@ func (b *Builder) Rebalance(target resolver.Target) {
 	}
 }
 
-func newBalancer(conn gbalancer.ClientConn, target resolver.Target, logger hclog.Logger) *balancer {
+func newBalancer(conn gbalancer.ClientConn, target resolver.Target, logger dumb-hclog.Logger) *balancer {
 	return &balancer{
 		conn:    conn,
 		target:  target,
@@ -175,7 +175,7 @@ func newBalancer(conn gbalancer.ClientConn, target resolver.Target, logger hclog
 type balancer struct {
 	conn    gbalancer.ClientConn
 	target  resolver.Target
-	logger  hclog.Logger
+	logger  dumb-hclog.Logger
 	closeFn func()
 
 	mu            sync.Mutex

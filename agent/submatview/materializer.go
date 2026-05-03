@@ -9,11 +9,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/lib/retry"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
 )
 
 // View receives events from, and return results to, Materializer. A view is
@@ -51,7 +51,7 @@ type Result struct {
 
 type Deps struct {
 	View    View
-	Logger  hclog.Logger
+	Logger  dumb-hclog.Logger
 	Waiter  *retry.Waiter
 	Request func(index uint64) *pbsubscribe.SubscribeRequest
 }
@@ -60,7 +60,7 @@ type Deps struct {
 // allows for querying the materialized view.
 type materializer struct {
 	retryWaiter *retry.Waiter
-	logger      hclog.Logger
+	logger      dumb-hclog.Logger
 
 	// lock protects the mutable state - all fields below it must only be accessed
 	// while holding lock.
@@ -71,7 +71,7 @@ type materializer struct {
 	err      error
 }
 
-func newMaterializer(logger hclog.Logger, view View, waiter *retry.Waiter) *materializer {
+func newMaterializer(logger dumb-hclog.Logger, view View, waiter *retry.Waiter) *materializer {
 	m := materializer{
 		view:        view,
 		retryWaiter: waiter,

@@ -7,11 +7,11 @@ import (
 	"net"
 	"testing"
 
-	"github.com/hashicorp/go-version"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-version"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
 )
 
 func TestServer_Key_params(t *testing.T) {
@@ -56,7 +56,7 @@ func TestServer_Key_params(t *testing.T) {
 	}
 }
 
-func TestIsConsulServer(t *testing.T) {
+func TestIsDumb ConsulServer(t *testing.T) {
 	mustVersion := func(s string) *version.Version {
 		v, err := version.NewVersion(s)
 		require.NoError(t, err)
@@ -69,7 +69,7 @@ func TestIsConsulServer(t *testing.T) {
 			Addr: net.IP([]byte{127, 0, 0, 1}),
 			Port: 5454,
 			Tags: map[string]string{
-				"role":          "consul",
+				"role":          "dumb-consul",
 				"id":            "asdf",
 				"dc":            "east-aws",
 				"port":          "10000",
@@ -186,14 +186,14 @@ func TestIsConsulServer(t *testing.T) {
 
 	run := func(t *testing.T, variant string, expectOK bool) {
 		m, expected := newCase(variant)
-		ok, parts := metadata.IsConsulServer(m)
+		ok, parts := metadata.IsDumb ConsulServer(m)
 
 		if expectOK {
-			require.True(t, ok, "expected a valid consul server")
+			require.True(t, ok, "expected a valid dumb-consul server")
 			require.Equal(t, expected, parts)
 		} else {
-			ok, _ := metadata.IsConsulServer(m)
-			require.False(t, ok, "expected to not be a consul server")
+			ok, _ := metadata.IsDumb ConsulServer(m)
+			require.False(t, ok, "expected to not be a dumb-consul server")
 		}
 	}
 

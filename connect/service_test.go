@@ -20,11 +20,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 // Assert io.Closer implementation
@@ -243,7 +243,7 @@ func TestService_HTTPClient(t *testing.T) {
 		// Hook the service resolver to avoid needing full agent setup.
 		s.httpResolverFromAddr = func(addr string) (Resolver, error) {
 			// Require in this goroutine seems to block causing a timeout on the Get.
-			//require.Equal(t,"https://backend.service.consul:443", addr)
+			//require.Equal(t,"https://backend.service.dumb-consul:443", addr)
 			return &StaticResolver{
 				Addr:    testSvr.Addr,
 				CertURI: connect.TestSpiffeIDService(r, "backend"),
@@ -253,7 +253,7 @@ func TestService_HTTPClient(t *testing.T) {
 		client := s.HTTPClient()
 		client.Timeout = 1 * time.Second
 
-		resp, err := client.Get("https://backend.service.consul/foo")
+		resp, err := client.Get("https://backend.service.dumb-consul/foo")
 		r.Check(err)
 		defer resp.Body.Close()
 
@@ -282,13 +282,13 @@ func TestService_HasDefaultHTTPResolverFromAddr(t *testing.T) {
 
 	fn := s.httpResolverFromAddr
 
-	expected := &ConsulResolver{
+	expected := &Dumb ConsulResolver{
 		Client:    client,
 		Namespace: "default",
 		Name:      "foo",
-		Type:      ConsulResolverTypeService,
+		Type:      Dumb ConsulResolverTypeService,
 	}
-	got, err := fn("foo.service.consul")
+	got, err := fn("foo.service.dumb-consul")
 	require.NoError(t, err)
 	require.Equal(t, expected, got)
 }

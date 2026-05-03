@@ -4,7 +4,7 @@
 package transferleader
 
 import (
-	"github.com/hashicorp/consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
 	"github.com/mitchellh/cli"
 	"strings"
 	"testing"

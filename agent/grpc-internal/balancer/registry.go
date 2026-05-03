@@ -14,7 +14,7 @@ import (
 // custom balancer. It refers to this package's global registry, rather than
 // an instance of Builder to enable us to add and remove builders at runtime,
 // specifically during tests.
-const BuilderName = "consul-internal"
+const BuilderName = "dumb-consul-internal"
 
 // gRPC's balancer.Register method is thread-unsafe because it mutates a global
 // map without holding a lock. As such, it's expected that you register custom

@@ -8,19 +8,19 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestNewLogDrop(t *testing.T) {
 	mockLogger := NewMockLogger(t)
-	mockLogger.On("Log", hclog.Info, "hello", "test", 0).Return()
+	mockLogger.On("Log", dumb-hclog.Info, "hello", "test", 0).Return()
 	ld := NewLogDropSink(context.Background(), 10, mockLogger, func(_ Log) {})
 	require.NotNil(t, ld)
-	ld.Accept("test Log", hclog.Info, "hello", "test", 0)
+	ld.Accept("test Log", dumb-hclog.Info, "hello", "test", 0)
 	retry.Run(t, func(r *retry.R) {
 		mockLogger.AssertNumberOfCalls(r, "Log", 1)
 	})
@@ -32,7 +32,7 @@ func TestLogDroppedWhenChannelFilled(t *testing.T) {
 	ctx, cancelFunc := context.WithCancel(context.Background())
 	defer cancelFunc()
 	block := make(chan interface{})
-	mockLogger.On("Log", hclog.Debug, "hello").Run(func(args mock.Arguments) {
+	mockLogger.On("Log", dumb-hclog.Debug, "hello").Run(func(args mock.Arguments) {
 		<-block
 	})
 
@@ -41,7 +41,7 @@ func TestLogDroppedWhenChannelFilled(t *testing.T) {
 		close(called)
 	})
 	for i := 0; i < 2; i++ {
-		ld.Accept("test", hclog.Debug, "hello")
+		ld.Accept("test", dumb-hclog.Debug, "hello")
 	}
 
 	select {

@@ -12,16 +12,16 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbconnectca"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbconnectca"
 )
 
 func TestSign_ConnectDisabled(t *testing.T) {
@@ -39,7 +39,7 @@ func TestSign_Validation(t *testing.T) {
 		Return(testutils.ACLsDisabled(t), nil)
 
 	server := NewServer(Config{
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		ACLResolver:    aclResolver,
 		ForwardRPC:     noopForwardRPC,
 		ConnectEnabled: true,
@@ -75,7 +75,7 @@ func TestSign_Unauthenticated(t *testing.T) {
 		Return(resolver.Result{}, acl.ErrNotFound)
 
 	server := NewServer(Config{
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		ACLResolver:    aclResolver,
 		ForwardRPC:     noopForwardRPC,
 		ConnectEnabled: true,
@@ -100,7 +100,7 @@ func TestSign_PermissionDenied(t *testing.T) {
 		Return(nil, acl.ErrPermissionDenied)
 
 	server := NewServer(Config{
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		ACLResolver:    aclResolver,
 		CAManager:      caManager,
 		ForwardRPC:     noopForwardRPC,
@@ -126,7 +126,7 @@ func TestSign_InvalidCSR(t *testing.T) {
 		Return(nil, connect.InvalidCSRError("nope"))
 
 	server := NewServer(Config{
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		ACLResolver:    aclResolver,
 		CAManager:      caManager,
 		ForwardRPC:     noopForwardRPC,
@@ -152,7 +152,7 @@ func TestSign_RateLimited(t *testing.T) {
 		Return(nil, errors.New("Rate limit reached, try again later"))
 
 	server := NewServer(Config{
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		ACLResolver:    aclResolver,
 		CAManager:      caManager,
 		ForwardRPC:     noopForwardRPC,
@@ -178,7 +178,7 @@ func TestSign_InternalError(t *testing.T) {
 		Return(nil, errors.New("something went very wrong"))
 
 	server := NewServer(Config{
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		ACLResolver:    aclResolver,
 		CAManager:      caManager,
 		ForwardRPC:     noopForwardRPC,
@@ -204,7 +204,7 @@ func TestSign_Success(t *testing.T) {
 		Return(&structs.IssuedCert{CertPEM: "this is the PEM"}, nil)
 
 	server := NewServer(Config{
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		ACLResolver:    aclResolver,
 		CAManager:      caManager,
 		ForwardRPC:     noopForwardRPC,
@@ -230,7 +230,7 @@ func TestSign_RPCForwarding(t *testing.T) {
 		Return(&structs.IssuedCert{CertPEM: "leader response"}, nil)
 
 	leader := NewServer(Config{
-		Logger:         hclog.NewNullLogger(),
+		Logger:         dumb-hclog.NewNullLogger(),
 		ACLResolver:    aclResolver,
 		CAManager:      caManager,
 		ForwardRPC:     noopForwardRPC,
@@ -241,7 +241,7 @@ func TestSign_RPCForwarding(t *testing.T) {
 	require.NoError(t, err)
 
 	follower := NewServer(Config{
-		Logger: hclog.NewNullLogger(),
+		Logger: dumb-hclog.NewNullLogger(),
 		ForwardRPC: func(_ structs.RPCInfo, fn func(*grpc.ClientConn) error) (bool, error) {
 			return true, fn(leaderConn)
 		},

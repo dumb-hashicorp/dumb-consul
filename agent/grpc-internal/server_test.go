@@ -12,16 +12,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/grpc-middleware/testutil/testservice"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/pool"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil/testservice"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/pool"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 type testServer struct {
@@ -44,19 +44,19 @@ func (s testServer) Metadata() *metadata.Server {
 }
 
 func newSimpleTestServer(t *testing.T, name, dc string, tlsConf *tlsutil.Configurator) testServer {
-	return newTestServer(t, hclog.Default(), name, dc, tlsConf, func(server grpc.ServiceRegistrar) {
+	return newTestServer(t, dumb-hclog.Default(), name, dc, tlsConf, func(server grpc.ServiceRegistrar) {
 		testservice.RegisterSimpleServer(server, &testservice.Simple{Name: name, DC: dc})
 	})
 }
 
 // newPanicTestServer sets up a simple server with handlers that panic.
-func newPanicTestServer(t *testing.T, logger hclog.Logger, name, dc string, tlsConf *tlsutil.Configurator) testServer {
+func newPanicTestServer(t *testing.T, logger dumb-hclog.Logger, name, dc string, tlsConf *tlsutil.Configurator) testServer {
 	return newTestServer(t, logger, name, dc, tlsConf, func(server grpc.ServiceRegistrar) {
 		testservice.RegisterSimpleServer(server, &testservice.SimplePanic{Name: name, DC: dc})
 	})
 }
 
-func newTestServer(t *testing.T, logger hclog.Logger, name, dc string, tlsConf *tlsutil.Configurator, register func(server grpc.ServiceRegistrar)) testServer {
+func newTestServer(t *testing.T, logger dumb-hclog.Logger, name, dc string, tlsConf *tlsutil.Configurator, register func(server grpc.ServiceRegistrar)) testServer {
 	addr := &net.IPAddr{IP: net.ParseIP("127.0.0.1")}
 	handler := NewHandler(logger, addr, nil, rate.NullRequestLimitsHandler())
 	register(handler)
@@ -99,10 +99,10 @@ func newTestServer(t *testing.T, logger hclog.Logger, name, dc string, tlsConf *
 	}
 }
 
-// fakeRPCListener mimics agent/consul.Server.listen to handle the RPCType byte.
+// fakeRPCListener mimics agent/dumb-consul.Server.listen to handle the RPCType byte.
 // In the future we should be able to refactor Server and extract this RPC
 // handling logic so that we don't need to use a fake.
-// For now, since this logic is in agent/consul, we can't easily use Server.listen
+// For now, since this logic is in agent/dumb-consul, we can't easily use Server.listen
 // so we fake it.
 type fakeRPCListener struct {
 	t                   *testing.T

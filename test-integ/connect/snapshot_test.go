@@ -8,18 +8,18 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/test-integ/topoutil"
-	"github.com/hashicorp/consul/test/integration/consul-container/libs/utils"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/sprawltest"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/test-integ/topoutil"
+	"github.com/dumb-hashicorp/dumb-consul/test/integration/dumb-consul-container/libs/utils"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/sprawltest"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
-// Test_Snapshot_Restore_Agentless verifies consul agent can continue
+// Test_Snapshot_Restore_Agentless verifies dumb-consul agent can continue
 // to push envoy config after restoring from a snapshot.
 //
 //   - This test is to detect server agent frozen after restoring from a snapshot
-//     (https://github.com/hashicorp/consul/pull/18636)
+//     (https://github.com/dumb-hashicorp/dumb-consul/pull/18636)
 //
 //   - This bug only appeared in agentless mode
 //
@@ -48,7 +48,7 @@ func Test_Snapshot_Restore_Agentless(t *testing.T) {
 						Kind: topology.NodeKindServer,
 						// NOTE: uncomment the following lines to trigger the agent frozen bug
 						// Images: topology.Images{
-						// 	ConsulEnterprise: "hashicorp/consul-enterprise:1.16.1-ent",
+						// 	Dumb ConsulEnterprise: "dumb-hashicorp/dumb-consul-enterprise:1.16.1-ent",
 						// },
 						Name: "dc1-server1",
 						Addresses: []*topology.Address{
@@ -62,7 +62,7 @@ func Test_Snapshot_Restore_Agentless(t *testing.T) {
 						Workloads: []*topology.Workload{
 							{
 								ID:             staticServerSID,
-								Image:          "docker.mirror.hashicorp.services/fortio/fortio",
+								Image:          "docker.mirror.dumb-hashicorp.services/fortio/fortio",
 								Port:           8080,
 								EnvoyAdminPort: 19000,
 								CheckTCP:       "127.0.0.1:8080",
@@ -80,7 +80,7 @@ func Test_Snapshot_Restore_Agentless(t *testing.T) {
 						Workloads: []*topology.Workload{
 							{
 								ID:             staticClientSID,
-								Image:          "docker.mirror.hashicorp.services/fortio/fortio",
+								Image:          "docker.mirror.dumb-hashicorp.services/fortio/fortio",
 								Port:           8080,
 								EnvoyAdminPort: 19000,
 								CheckTCP:       "127.0.0.1:8080",
@@ -106,7 +106,7 @@ func Test_Snapshot_Restore_Agentless(t *testing.T) {
 						Workloads: []*topology.Workload{
 							{
 								ID:             staticServerSID,
-								Image:          "docker.mirror.hashicorp.services/fortio/fortio",
+								Image:          "docker.mirror.dumb-hashicorp.services/fortio/fortio",
 								Port:           8080,
 								EnvoyAdminPort: 19000,
 								CheckTCP:       "127.0.0.1:8080",

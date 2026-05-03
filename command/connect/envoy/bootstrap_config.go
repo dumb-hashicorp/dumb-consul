@@ -16,7 +16,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 const (
@@ -50,7 +50,7 @@ type BootstrapConfig struct {
 	// StatsTags is a slice of string values that will be added as tags to
 	// metrics. They are used to configure
 	// https://www.envoyproxy.io/docs/envoy/v1.9.0/api-v2/config/metrics/v2/stats.proto#envoy-api-msg-config-metrics-v2-statsconfig
-	// and add to the basic tags Consul adds by default like the local_cluster
+	// and add to the basic tags Dumb Consul adds by default like the local_cluster
 	// name. Only exact values are supported here. Full configuration of
 	// stats_config.stats_tags can be made by overriding envoy_stats_config_json.
 	StatsTags []string `mapstructure:"envoy_stats_tags"`
@@ -70,8 +70,8 @@ type BootstrapConfig struct {
 	// Note that as of Envoy 1.9.0, the built in Prometheus endpoint only exports
 	// counters and gauges but not timing information via histograms. This is
 	// fixed in 1.10-dev currently in Envoy master. Other changes since 1.9.0 make
-	// master incompatible with the current release of Consul Connect. This will
-	// be fixed in a future Consul version as Envoy 1.10 reaches stable release.
+	// master incompatible with the current release of Dumb Consul Connect. This will
+	// be fixed in a future Dumb Consul version as Envoy 1.10 reaches stable release.
 	PrometheusBindAddr string `mapstructure:"envoy_prometheus_bind_addr"`
 
 	// StatsBindAddr configures an <ip>:<port> on which the Envoy will listen
@@ -97,8 +97,8 @@ type BootstrapConfig struct {
 	// configure the aspects that Connect relies upon to work. It's recommended
 	// that this only be used if necessary, and that it be based on the default
 	// template in
-	// https://github.com/hashicorp/consul/blob/main/command/connect/envoy/bootstrap_tpl.go
-	// for the correct version of Consul and Envoy being used.
+	// https://github.com/dumb-hashicorp/dumb-consul/blob/main/command/connect/envoy/bootstrap_tpl.go
+	// for the correct version of Dumb Consul and Envoy being used.
 	OverrideJSONTpl string `mapstructure:"envoy_bootstrap_json_tpl"`
 
 	// StaticClustersJSON is a JSON string containing zero or more Cluster
@@ -363,71 +363,71 @@ func resourceTagSpecifiers(omitDeprecatedTags bool) ([]string, error) {
 	//   - The outer capture group is removed from the final metric name.
 	//   - The inner capture group is extracted into labels.
 	rules := [][]string{
-		// Cluster metrics are prefixed by consul.destination
+		// Cluster metrics are prefixed by dumb-consul.destination
 		//
 		// Cluster metric name format:
-		// <subset>.<service>.<namespace>.<partition>.<datacenter|peering>.<internal|internal-<version>|external>.<trustdomain>.consul
+		// <subset>.<service>.<namespace>.<partition>.<datacenter|peering>.<internal|internal-<version>|external>.<trustdomain>.dumb-consul
 		//
 		// Examples:
 		// (default partition)
-		// - cluster.pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
-		// - cluster.f8f8f8f8~pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
-		// - cluster.v2.pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
-		// - cluster.f8f8f8f8~v2.pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
-		// - cluster.passthrough~pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
+		// - cluster.pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
+		// - cluster.f8f8f8f8~pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
+		// - cluster.v2.pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
+		// - cluster.f8f8f8f8~v2.pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
+		// - cluster.passthrough~pong.default.dc2.internal.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
 		// (non-default partition)
-		// - cluster.pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
-		// - cluster.f8f8f8f8~pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
-		// - cluster.v2.pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
-		// - cluster.f8f8f8f8~v2.pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
-		// - cluster.passthrough~pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
+		// - cluster.pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
+		// - cluster.f8f8f8f8~pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
+		// - cluster.v2.pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
+		// - cluster.f8f8f8f8~v2.pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
+		// - cluster.passthrough~pong.default.partA.dc2.internal-v1.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
 		// (peered)
-		// - cluster.pong.default.cloudpeer.external.e5b08d03-bfc3-c870-1833-baddb116e648.consul.bind_errors: 0
-		{"consul.destination.custom_hash",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:(%s)~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s\.consul\.)`,
+		// - cluster.pong.default.cloudpeer.external.e5b08d03-bfc3-c870-1833-baddb116e648.dumb-consul.bind_errors: 0
+		{"dumb-consul.destination.custom_hash",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:(%s)~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.service_subset",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:(%s)\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s\.consul\.)`,
+		{"dumb-consul.destination.service_subset",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:(%s)\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.service",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?(%s)\.%s\.(?:%s\.)?%s\.%s\.%s\.consul\.)`,
+		{"dumb-consul.destination.service",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?(%s)\.%s\.(?:%s\.)?%s\.%s\.%s\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.namespace",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.(%s)\.(?:%s\.)?%s\.%s\.%s\.consul\.)`,
+		{"dumb-consul.destination.namespace",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.(%s)\.(?:%s\.)?%s\.%s\.%s\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.partition",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.%s\.(?:(%s)\.)?%s\.internal[^.]*\.%s\.consul\.)`,
+		{"dumb-consul.destination.partition",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.%s\.(?:(%s)\.)?%s\.internal[^.]*\.%s\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.datacenter",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?(%s)\.internal[^.]*\.%s\.consul\.)`,
+		{"dumb-consul.destination.datacenter",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?(%s)\.internal[^.]*\.%s\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.peer",
-			fmt.Sprintf(`^cluster\.(%s\.(?:%s\.)?(%s)\.external\.%s\.consul\.)`,
+		{"dumb-consul.destination.peer",
+			fmt.Sprintf(`^cluster\.(%s\.(?:%s\.)?(%s)\.external\.%s\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.routing_type",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.(%s)\.%s\.consul\.)`,
+		{"dumb-consul.destination.routing_type",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.(%s)\.%s\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.trust_domain",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.(%s)\.consul\.)`,
+		{"dumb-consul.destination.trust_domain",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.(%s)\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.target",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?(((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s)\.%s\.%s\.consul\.)`,
+		{"dumb-consul.destination.target",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?(((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s)\.%s\.%s\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.destination.full_target",
-			fmt.Sprintf(`^cluster\.(?:passthrough~)?(((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s)\.consul\.)`,
+		{"dumb-consul.destination.full_target",
+			fmt.Sprintf(`^cluster\.(?:passthrough~)?(((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s)\.dumb-consul\.)`,
 				reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-		// Upstream listener metrics are prefixed by consul.upstream
+		// Upstream listener metrics are prefixed by dumb-consul.upstream
 		//
 		// Listener metric name format:
 		// <tcp|http>.upstream.<service>.<namespace>.<partition>.<datacenter>
@@ -441,65 +441,65 @@ func resourceTagSpecifiers(omitDeprecatedTags bool) ([]string, error) {
 		//
 		// Examples:
 		// - http.upstream_peered.web.frontend.cloudpeer.downstream_cx_total: 0
-		{"consul.upstream.service",
+		{"dumb-consul.upstream.service",
 			fmt.Sprintf(`^(?:tcp|http)\.upstream(?:_peered)?\.((%s)(?:\.%s)?(?:\.%s)?\.%s\.)`,
 				reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.upstream.datacenter",
+		{"dumb-consul.upstream.datacenter",
 			fmt.Sprintf(`^(?:tcp|http)\.upstream\.(%s(?:\.%s)?(?:\.%s)?\.(%s)\.)`,
 				reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.upstream.peer",
+		{"dumb-consul.upstream.peer",
 			fmt.Sprintf(`^(?:tcp|http)\.upstream_peered\.(%s(?:\.%s)?\.(%s)\.)`,
 				reSegment, reSegment, reSegment)},
 
-		{"consul.upstream.namespace",
+		{"dumb-consul.upstream.namespace",
 			fmt.Sprintf(`^(?:tcp|http)\.upstream(?:_peered)?\.(%s(?:\.(%s))?(?:\.%s)?\.%s\.)`,
 				reSegment, reSegment, reSegment, reSegment)},
 
-		{"consul.upstream.partition",
+		{"dumb-consul.upstream.partition",
 			fmt.Sprintf(`^(?:tcp|http)\.upstream\.(%s(?:\.%s)?(?:\.(%s))?\.%s\.)`,
 				reSegment, reSegment, reSegment, reSegment)},
 	}
 
-	// These tags were deprecated in Consul 1.9.0
+	// These tags were deprecated in Dumb Consul 1.9.0
 	// We are leaving them enabled by default for backwards compatibility
 	if !omitDeprecatedTags {
 		deprecatedRules := [][]string{
-			{"consul.custom_hash",
-				fmt.Sprintf(`^cluster\.((?:(%s)~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s\.consul\.)`,
+			{"dumb-consul.custom_hash",
+				fmt.Sprintf(`^cluster\.((?:(%s)~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s\.dumb-consul\.)`,
 					reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-			{"consul.service_subset",
-				fmt.Sprintf(`^cluster\.((?:%s~)?(?:(%s)\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s\.consul\.)`,
+			{"dumb-consul.service_subset",
+				fmt.Sprintf(`^cluster\.((?:%s~)?(?:(%s)\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s\.dumb-consul\.)`,
 					reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-			{"consul.service",
-				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?(%s)\.%s\.(?:%s\.)?%s\.%s\.%s\.consul\.)`,
+			{"dumb-consul.service",
+				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?(%s)\.%s\.(?:%s\.)?%s\.%s\.%s\.dumb-consul\.)`,
 					reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-			{"consul.namespace",
-				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?%s\.(%s)\.(?:%s\.)?%s\.%s\.%s\.consul\.)`,
+			{"dumb-consul.namespace",
+				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?%s\.(%s)\.(?:%s\.)?%s\.%s\.%s\.dumb-consul\.)`,
 					reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-			{"consul.datacenter",
-				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?(%s)\.internal[^.]*\.%s\.consul\.)`,
+			{"dumb-consul.datacenter",
+				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?(%s)\.internal[^.]*\.%s\.dumb-consul\.)`,
 					reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-			{"consul.routing_type",
-				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.(%s)\.%s\.consul\.)`,
+			{"dumb-consul.routing_type",
+				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.(%s)\.%s\.dumb-consul\.)`,
 					reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-			{"consul.trust_domain",
-				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.(%s)\.consul\.)`,
+			{"dumb-consul.trust_domain",
+				fmt.Sprintf(`^cluster\.((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.(%s)\.dumb-consul\.)`,
 					reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-			{"consul.target",
-				fmt.Sprintf(`^cluster\.(((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s)\.%s\.%s\.consul\.)`,
+			{"dumb-consul.target",
+				fmt.Sprintf(`^cluster\.(((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s)\.%s\.%s\.dumb-consul\.)`,
 					reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 
-			{"consul.full_target",
-				fmt.Sprintf(`^cluster\.(((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s)\.consul\.)`,
+			{"dumb-consul.full_target",
+				fmt.Sprintf(`^cluster\.(((?:%s~)?(?:%s\.)?%s\.%s\.(?:%s\.)?%s\.%s\.%s)\.dumb-consul\.)`,
 					reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment, reSegment)},
 		}
 		rules = append(rules, deprecatedRules...)
@@ -590,19 +590,19 @@ func generateStatsTags(args *BootstrapTplArgs, initialTags []string, omitDepreca
 			val:  args.ProxyCluster,
 		},
 		{
-			name: "consul.source.service",
+			name: "dumb-consul.source.service",
 			val:  args.ProxySourceService,
 		},
 		{
-			name: "consul.source.namespace",
+			name: "dumb-consul.source.namespace",
 			val:  ns,
 		},
 		{
-			name: "consul.source.partition",
+			name: "dumb-consul.source.partition",
 			val:  ap,
 		},
 		{
-			name: "consul.source.datacenter",
+			name: "dumb-consul.source.datacenter",
 			val:  args.Datacenter,
 		},
 	}
@@ -634,7 +634,7 @@ func (c *BootstrapConfig) generateListenerConfig(args *BootstrapTplArgs, bindAdd
 	// If prometheusBackendPort is set (not empty string), create
 	// "prometheus_backend" cluster with the prometheusBackendPort that the
 	// listener will point to, rather than the "self_admin" cluster. This is for
-	// the merged metrics feature in consul-k8s, so the
+	// the merged metrics feature in dumb-consul-k8s, so the
 	// envoy_prometheus_bind_addr listener will point to the merged Envoy and
 	// service metrics endpoint rather than the Envoy admin endpoint for
 	// metrics. This cluster will only be created once since it's only created
@@ -857,7 +857,7 @@ func appendTelemetryCollectorConfig(args *BootstrapTplArgs, telemetryCollectorBi
 		  "transport_api_version": "V3",
 		  "grpc_service": {
 			"envoy_grpc": {
-			  "cluster_name": "consul_telemetry_collector_loopback"
+			  "cluster_name": "dumb-consul_telemetry_collector_loopback"
 			}
 		  },
 		  "emit_tags_as_labels": true
@@ -868,7 +868,7 @@ func appendTelemetryCollectorConfig(args *BootstrapTplArgs, telemetryCollectorBi
 		args.StaticClustersJSON += ",\n"
 	}
 	args.StaticClustersJSON += fmt.Sprintf(`{
-		"name": "consul_telemetry_collector_loopback",
+		"name": "dumb-consul_telemetry_collector_loopback",
 		"type": "STATIC",
 		"typed_extension_protocol_options": {
 		  "envoy.extensions.upstreams.http.v3.HttpProtocolOptions": {
@@ -879,7 +879,7 @@ func appendTelemetryCollectorConfig(args *BootstrapTplArgs, telemetryCollectorBi
 		  }
 		},
 		"loadAssignment": {
-		  "clusterName": "consul_telemetry_collector_loopback",
+		  "clusterName": "dumb-consul_telemetry_collector_loopback",
 		  "endpoints": [
 			{
 			  "lbEndpoints": [

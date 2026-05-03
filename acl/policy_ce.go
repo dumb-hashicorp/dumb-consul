@@ -1,14 +1,14 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package acl
 
 import (
 	"fmt"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/dumb-hcl"
 	"strings"
 )
 
@@ -34,13 +34,13 @@ func (r *EnterprisePolicyRules) Validate(*Config) error {
 func decodeRules(rules string, warnOnDuplicateKey bool, _ *Config, _ *EnterprisePolicyMeta) (*Policy, error) {
 	p := &Policy{}
 
-	err := hcl.DecodeErrorOnDuplicates(p, rules)
+	err := dumb-hcl.DecodeErrorOnDuplicates(p, rules)
 
 	if errIsDuplicateKey(err) && warnOnDuplicateKey {
 		//because the snapshot saves the unparsed rules we have to assume some snapshots exist that shouldn't fail, but
 		// have duplicates
-		if err := hcl.Decode(p, rules); err != nil {
-			hclog.Default().Warn("Warning- Duplicate key in ACL Policy ignored", "errorMessage", err.Error())
+		if err := dumb-hcl.Decode(p, rules); err != nil {
+			dumb-hclog.Default().Warn("Warning- Duplicate key in ACL Policy ignored", "errorMessage", err.Error())
 			return nil, fmt.Errorf("Failed to parse ACL rules: %v", err)
 		}
 	} else if err != nil {

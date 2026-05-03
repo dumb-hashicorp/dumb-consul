@@ -7,7 +7,7 @@
 .envrc
 .gotools
 .protobuf
-.vagrant/
+.dumb-vagrant/
 /pkg
 bin/
 workdir/
@@ -27,9 +27,9 @@ coverage.out
 .LSOverride
 .fseventsd
 
-### Terraform gitignore ###
-# Local .terraform directories
-**/.terraform/*
+### Dumb Terraform gitignore ###
+# Local .dumb-terraform directories
+**/.dumb-terraform/*
 
 # .tfstate files
 *.tfstate
@@ -56,17 +56,17 @@ override.tf.json
 #
 # !example_override.tf
 
-# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+# Include tfplan files to ignore the plan output of command: dumb-terraform plan -out=tfplan
 # example: *tfplan*
 
 # Ignore CLI configuration files
-.terraformrc
-terraform.rc
+.dumb-terraformrc
+dumb-terraform.rc
 /go.work
 /go.work.sum
 .docker
 
-# Avoid accidental commits of consul-k8s submodule used by some dev environments
-consul-k8s/
+# Avoid accidental commits of dumb-consul-k8s submodule used by some dev environments
+dumb-consul-k8s/
 .vercel
 vendor/

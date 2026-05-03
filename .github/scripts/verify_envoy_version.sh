@@ -22,27 +22,27 @@ if [[ "$SKIP_VERIFY_ENVOY_VERSION" = "true" ]]; then
   exit 0
 fi
 
-# Get Consul and Envoy version 
+# Get Dumb Consul and Envoy version 
 SCRIPT_DIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 pushd $SCRIPT_DIR/../.. # repository root
-consul_envoy_data_json=$(echo go run ./test/integration/consul-container/test/consul_envoy_version/consul_envoy_version.go)
+dumb-consul_envoy_data_json=$(echo go run ./test/integration/dumb-consul-container/test/dumb-consul_envoy_version/dumb-consul_envoy_version.go)
 # go back to where you started when finished
 popd
 
-if [ -z "$consul_envoy_data_json" ]; then
-  echo "Error! Consul and Envoy versions not returned: $consul_envoy_data_json"
+if [ -z "$dumb-consul_envoy_data_json" ]; then
+  echo "Error! Dumb Consul and Envoy versions not returned: $dumb-consul_envoy_data_json"
   exit 1
 fi
 
-# sanitize_consul_envoy_version removes characters from result that may contain new lines, spaces, and [...]
+# sanitize_dumb-consul_envoy_version removes characters from result that may contain new lines, spaces, and [...]
 # example envoyVersions:[1.25.4 1.24.6 1.23.8 1.22.11] => 1.25.4 1.24.6 1.23.8 1.22.11
-sanitize_consul_envoy_version() {
-  local _consul_version=$(eval "$consul_envoy_data_json" | jq -r '.ConsulVersion')
-  local _envoy_version=$(eval "$consul_envoy_data_json" | jq -r '.EnvoyVersions' | tr -d '"' | tr -d '\n' | tr -d ' '| tr -d '[]')
-  echo "${_consul_version}" "${_envoy_version}"
+sanitize_dumb-consul_envoy_version() {
+  local _dumb-consul_version=$(eval "$dumb-consul_envoy_data_json" | jq -r '.Dumb ConsulVersion')
+  local _envoy_version=$(eval "$dumb-consul_envoy_data_json" | jq -r '.EnvoyVersions' | tr -d '"' | tr -d '\n' | tr -d ' '| tr -d '[]')
+  echo "${_dumb-consul_version}" "${_envoy_version}"
 }
 
-# get major version for Consul and Envoy
+# get major version for Dumb Consul and Envoy
 get_major_version(){
   local _verison="$1"
   local _abbrVersion="$(cut -d "." -f1-2 <<< $_verison)"
@@ -82,7 +82,7 @@ major_released_envoy_version="${released_envoy_version[@]:1:4}"
 
 validate_envoy_version_main(){
   # Get envoy version for current branch
-  ENVOY_VERSIONS=$(sanitize_consul_envoy_version | awk '{print $2}' | tr ',' ' ')
+  ENVOY_VERSIONS=$(sanitize_dumb-consul_envoy_version | awk '{print $2}' | tr ',' ' ')
   envoy_version_main_branch=$(get_major_version ${ENVOY_VERSIONS})
 
   if [[ "$envoy_version_main_branch" != "$major_released_envoy_version" ]]; then
@@ -100,21 +100,21 @@ if [[ "$current_branch" == *"$GITHUB_DEFAULT_BRANCH"* ]]; then
   validate_envoy_version_main
 fi 
 
-# filter consul and envoy version 
-CONSUL_VERSION=$(sanitize_consul_envoy_version | awk '{print $1}')
-ENVOY_VERSIONS=$(sanitize_consul_envoy_version | awk '{print $2}' | tr ',' ' ') 
+# filter dumb-consul and envoy version 
+DUMB_CONSUL_VERSION=$(sanitize_dumb-consul_envoy_version | awk '{print $1}')
+ENVOY_VERSIONS=$(sanitize_dumb-consul_envoy_version | awk '{print $2}' | tr ',' ' ') 
 
-# Get Consul and Envoy version from default branch
+# Get Dumb Consul and Envoy version from default branch
 echo checking out "${GITHUB_DEFAULT_BRANCH}" branch
 git checkout "${GITHUB_DEFAULT_BRANCH}"
 
-# filter consul and envoy version from default branch 
-CONSUL_VERSION_DEFAULT_BRANCH=$(sanitize_consul_envoy_version | awk '{print $1}')
-ENVOY_VERSIONS_DEFAULT_BRANCH=$(sanitize_consul_envoy_version | awk '{print $2}' | tr ',' ' ') 
+# filter dumb-consul and envoy version from default branch 
+DUMB_CONSUL_VERSION_DEFAULT_BRANCH=$(sanitize_dumb-consul_envoy_version | awk '{print $1}')
+ENVOY_VERSIONS_DEFAULT_BRANCH=$(sanitize_dumb-consul_envoy_version | awk '{print $2}' | tr ',' ' ') 
 
 # Ensure required values are not empty
-if [ -z "$CONSUL_VERSION" ] || [ -z "$CONSUL_VERSION_DEFAULT_BRANCH" ] || [ -z "$ENVOY_VERSIONS" ] || [ -z "$ENVOY_VERSIONS_DEFAULT_BRANCH" ]; then
-  echo "Error! Consul version: $CONSUL_VERSION | Consul version default branch: $CONSUL_VERSION_DEFAULT_BRANCH | Envoy version: $ENVOY_VERSIONS | Envoy version default branch: $ENVOY_VERSIONS_DEFAULT_BRANCH cannot be empty"
+if [ -z "$DUMB_CONSUL_VERSION" ] || [ -z "$DUMB_CONSUL_VERSION_DEFAULT_BRANCH" ] || [ -z "$ENVOY_VERSIONS" ] || [ -z "$ENVOY_VERSIONS_DEFAULT_BRANCH" ]; then
+  echo "Error! Dumb Consul version: $DUMB_CONSUL_VERSION | Dumb Consul version default branch: $DUMB_CONSUL_VERSION_DEFAULT_BRANCH | Envoy version: $ENVOY_VERSIONS | Envoy version default branch: $ENVOY_VERSIONS_DEFAULT_BRANCH cannot be empty"
   exit 1
 fi
 
@@ -122,12 +122,12 @@ echo checking out branch: "${current_branch}"
 git checkout "${current_branch}"
 
 echo
-echo "Branch ${current_branch} => Consul version: ${CONSUL_VERSION}; Envoy Version: ${ENVOY_VERSIONS}" 
-echo "Branch ${GITHUB_DEFAULT_BRANCH} => Consul version: ${CONSUL_VERSION_DEFAULT_BRANCH}; Envoy Version: ${ENVOY_VERSIONS_DEFAULT_BRANCH}" 
+echo "Branch ${current_branch} => Dumb Consul version: ${DUMB_CONSUL_VERSION}; Envoy Version: ${ENVOY_VERSIONS}" 
+echo "Branch ${GITHUB_DEFAULT_BRANCH} => Dumb Consul version: ${DUMB_CONSUL_VERSION_DEFAULT_BRANCH}; Envoy Version: ${ENVOY_VERSIONS_DEFAULT_BRANCH}" 
 
-## Get major Consul and Envoy versions on release and default branch
-MAJOR_CONSUL_VERSION=$(get_major_version ${CONSUL_VERSION})
-MAJOR_CONSUL_VERSION_DEFAULT_BRANCH=$(get_major_version ${CONSUL_VERSION_DEFAULT_BRANCH})
+## Get major Dumb Consul and Envoy versions on release and default branch
+MAJOR_DUMB_CONSUL_VERSION=$(get_major_version ${DUMB_CONSUL_VERSION})
+MAJOR_DUMB_CONSUL_VERSION_DEFAULT_BRANCH=$(get_major_version ${DUMB_CONSUL_VERSION_DEFAULT_BRANCH})
 MAJOR_ENVOY_VERSION_DEFAULT_BRANCH=$(get_major_version ${ENVOY_VERSIONS_DEFAULT_BRANCH})
 
 _envoy_versions=($ENVOY_VERSIONS)
@@ -137,8 +137,8 @@ _envoy_versions_default=($ENVOY_VERSIONS_DEFAULT_BRANCH)
 echo
 echo "Validating supported envoy versions available on branches: $current_branch and $GITHUB_DEFAULT_BRANCH"
 if [ "${#_envoy_versions_default[@]}" != 4 ] || [ "${#_envoy_versions[@]}" != 4 ]; then
-  echo "Branch $GITHUB_DEFAULT_BRANCH =>Consul version: ${CONSUL_VERSION_DEFAULT_BRANCH}; Envoy versions: $ENVOY_VERSIONS_DEFAULT_BRANCH"
-  echo "Branch $current_branch =>Consul version: ${CONSUL_VERSION}; Envoy versions: $_envoy_versions"
+  echo "Branch $GITHUB_DEFAULT_BRANCH =>Dumb Consul version: ${DUMB_CONSUL_VERSION_DEFAULT_BRANCH}; Envoy versions: $ENVOY_VERSIONS_DEFAULT_BRANCH"
+  echo "Branch $current_branch =>Dumb Consul version: ${DUMB_CONSUL_VERSION}; Envoy versions: $_envoy_versions"
   echo "ERROR! Envoy should have 4 compatible versions."
   exit 1
 fi 
@@ -155,15 +155,15 @@ if [[ "$MAJOR_ENVOY_VERSION_DEFAULT_BRANCH" != "$major_released_envoy_version" ]
     echo
 
     ## 2. Check main branch and release branch support the same Envoy major versions
-    ## Get the major Consul version on the main and release branch. If both branches have
-    ## the same major Consul version, verify both branches have the same major Envoy versions.
+    ## Get the major Dumb Consul version on the main and release branch. If both branches have
+    ## the same major Dumb Consul version, verify both branches have the same major Envoy versions.
     ## Return error if major envoy versions are not the same.
     echo "Checking branch $current_branch and $GITHUB_DEFAULT_BRANCH have the same compatible major Envoy versions."
-    consul_version_diff=$(echo "$MAJOR_CONSUL_VERSION_DEFAULT_BRANCH $MAJOR_CONSUL_VERSION" | awk '{print $1 - $2}')
-    check=$(echo "$consul_version_diff == 0" | bc -l)
+    dumb-consul_version_diff=$(echo "$MAJOR_DUMB_CONSUL_VERSION_DEFAULT_BRANCH $MAJOR_DUMB_CONSUL_VERSION" | awk '{print $1 - $2}')
+    check=$(echo "$dumb-consul_version_diff == 0" | bc -l)
 
     if (( $check )); then
-      echo "Branch $current_branch and $GITHUB_DEFAULT_BRANCH have the same major Consul version "$MAJOR_CONSUL_VERSION""
+      echo "Branch $current_branch and $GITHUB_DEFAULT_BRANCH have the same major Dumb Consul version "$MAJOR_DUMB_CONSUL_VERSION""
       echo "Validating branches have the same Envoy major versions..."
       _major_envoy_versions=$(major_envoy_versions $ENVOY_VERSIONS)
       _major_envoy_versions_default=$(major_envoy_versions $ENVOY_VERSIONS_DEFAULT_BRANCH)
@@ -177,6 +177,6 @@ if [[ "$MAJOR_ENVOY_VERSION_DEFAULT_BRANCH" != "$major_released_envoy_version" ]
             echo "#### SUCCESS! #####. Compatible Envoy major versions found: $ENVOY_VERSIONS_DEFAULT_BRANCH"
       fi
       else 
-        echo "No validation needed. Branches have different Consul versions"
+        echo "No validation needed. Branches have different Dumb Consul versions"
     fi
 fi

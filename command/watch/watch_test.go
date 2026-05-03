@@ -9,9 +9,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 )
@@ -63,8 +63,8 @@ func TestWatchCommand_loadToken(t *testing.T) {
 	require.NoError(t, os.WriteFile(fullname, []byte(testToken), 0600))
 
 	resetEnv := func() {
-		os.Unsetenv("CONSUL_HTTP_TOKEN")
-		os.Unsetenv("CONSUL_HTTP_TOKEN_FILE")
+		os.Unsetenv("DUMB_CONSUL_HTTP_TOKEN")
+		os.Unsetenv("DUMB_CONSUL_HTTP_TOKEN_FILE")
 	}
 
 	t.Run("token arg", func(t *testing.T) {
@@ -96,7 +96,7 @@ func TestWatchCommand_loadToken(t *testing.T) {
 			"-http-addr=" + a.HTTPAddr(),
 			"-type=nodes",
 		}
-		os.Setenv("CONSUL_HTTP_TOKEN", testToken)
+		os.Setenv("DUMB_CONSUL_HTTP_TOKEN", testToken)
 
 		require.NoError(t, c.flags.Parse(args))
 
@@ -134,7 +134,7 @@ func TestWatchCommand_loadToken(t *testing.T) {
 			"-http-addr=" + a.HTTPAddr(),
 			"-type=nodes",
 		}
-		os.Setenv("CONSUL_HTTP_TOKEN_FILE", fullname)
+		os.Setenv("DUMB_CONSUL_HTTP_TOKEN_FILE", fullname)
 
 		require.NoError(t, c.flags.Parse(args))
 

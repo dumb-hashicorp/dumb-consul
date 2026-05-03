@@ -10,16 +10,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/stretchr/testify/require"
 )
 
 func TestNewNodeIDFromConfig(t *testing.T) {
-	logger := hclog.New(nil)
+	logger := dumb-hclog.New(nil)
 	tmpDir := testutil.TempDir(t, "")
 	cfg := &config.RuntimeConfig{
 		DataDir: tmpDir,
@@ -83,7 +83,7 @@ func TestNewNodeIDFromConfig(t *testing.T) {
 }
 
 func TestMakeNodeID(t *testing.T) {
-	logger := hclog.New(nil)
+	logger := dumb-hclog.New(nil)
 
 	var randomID string
 	t.Run("Random ID when HostNodeID is disabled", func(t *testing.T) {

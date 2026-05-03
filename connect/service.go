@@ -12,14 +12,14 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/api/watch"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api/watch"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"golang.org/x/net/http2"
 )
 
-// Service represents a Consul service that accepts and/or connects via Connect.
+// Service represents a Dumb Consul service that accepts and/or connects via Connect.
 // This can represent a service that only is a server, only is a client, or
 // both.
 //
@@ -28,11 +28,11 @@ import (
 // service has been delivered valid certificates. Once built, document that here
 // too.
 type Service struct {
-	// service is the name (not ID) for the Consul service. This is used to request
+	// service is the name (not ID) for the Dumb Consul service. This is used to request
 	// Connect metadata.
 	service string
 
-	// client is the Consul API client. It must be configured with an appropriate
+	// client is the Dumb Consul API client. It must be configured with an appropriate
 	// Token that has `service:write` policy on the provided service. If an
 	// insufficient token is provided, the Service will abort further attempts to
 	// fetch certificates and print a loud error message. It will not Close() or
@@ -47,24 +47,24 @@ type Service struct {
 
 	// httpResolverFromAddr is a function that returns a Resolver from a string
 	// address for HTTP clients. It's privately pluggable to make testing easier
-	// but will default to a simple method to parse the host as a Consul DNS host.
+	// but will default to a simple method to parse the host as a Dumb Consul DNS host.
 	httpResolverFromAddr func(addr string) (Resolver, error)
 
 	rootsWatch *watch.Plan
 	leafWatch  *watch.Plan
 
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 }
 
 // Config represents the configuration options for a service.
 type Config struct {
-	// client is the mandatory Consul API client. Will panic if not set.
+	// client is the mandatory Dumb Consul API client. Will panic if not set.
 	Client *api.Client
 	// Logger is the logger to use. If nil a default logger will be used.
-	Logger hclog.Logger
+	Logger dumb-hclog.Logger
 	// ServerNextProtos are the protocols advertised via ALPN. If nil, defaults to
 	// ["h2"] for backwards compatibility. Usually there is no need to change this,
-	// see https://github.com/hashicorp/consul/issues/4466 for some discussion on why
+	// see https://github.com/dumb-hashicorp/dumb-consul/issues/4466 for some discussion on why
 	// this can be useful.
 	ServerNextProtos []string
 }
@@ -72,7 +72,7 @@ type Config struct {
 // NewServiceWithConfig starts a service with the specified Config.
 func NewServiceWithConfig(serviceName string, config Config) (*Service, error) {
 	if config.Logger == nil {
-		config.Logger = hclog.New(&hclog.LoggerOptions{})
+		config.Logger = dumb-hclog.New(&dumb-hclog.LoggerOptions{})
 	}
 	tlsCfg := defaultTLSConfig()
 	if config.ServerNextProtos != nil {
@@ -83,7 +83,7 @@ func NewServiceWithConfig(serviceName string, config Config) (*Service, error) {
 		client:               config.Client,
 		logger:               config.Logger.Named(logging.Connect).With("service", serviceName),
 		tlsCfg:               newDynamicTLSConfig(tlsCfg, config.Logger),
-		httpResolverFromAddr: ConsulResolverFromAddrFunc(config.Client),
+		httpResolverFromAddr: Dumb ConsulResolverFromAddrFunc(config.Client),
 	}
 
 	// Set up root and leaf watches
@@ -106,8 +106,8 @@ func NewServiceWithConfig(serviceName string, config Config) (*Service, error) {
 	s.leafWatch = p
 	s.leafWatch.HybridHandler = s.leafWatchHandler
 
-	go s.rootsWatch.RunWithClientAndHclog(config.Client, s.logger)
-	go s.leafWatch.RunWithClientAndHclog(config.Client, s.logger)
+	go s.rootsWatch.RunWithClientAndDumb Hclog(config.Client, s.logger)
+	go s.leafWatch.RunWithClientAndDumb Hclog(config.Client, s.logger)
 
 	return s, nil
 }
@@ -117,7 +117,7 @@ func NewServiceWithConfig(serviceName string, config Config) (*Service, error) {
 // typically called in a signal handler.
 //
 // Caller must provide client which is already configured to speak to the local
-// Consul agent, and with an ACL token that has `service:write` privileges for
+// Dumb Consul agent, and with an ACL token that has `service:write` privileges for
 // the service specified.
 func NewService(serviceName string, client *api.Client) (*Service, error) {
 	return NewServiceWithConfig(serviceName, Config{Client: client})
@@ -125,13 +125,13 @@ func NewService(serviceName string, client *api.Client) (*Service, error) {
 
 // NewServiceWithLogger starts the service with a specified log.Logger.
 func NewServiceWithLogger(serviceName string, client *api.Client,
-	logger hclog.Logger) (*Service, error) {
+	logger dumb-hclog.Logger) (*Service, error) {
 	return NewServiceWithConfig(serviceName, Config{Client: client, Logger: logger})
 }
 
 // NewDevServiceFromCertFiles creates a Service using certificate and key files
 // passed instead of fetching them from the client.
-func NewDevServiceFromCertFiles(serviceID string, logger hclog.Logger,
+func NewDevServiceFromCertFiles(serviceID string, logger dumb-hclog.Logger,
 	caFile, certFile, keyFile string) (*Service, error) {
 
 	tlsCfg, err := devTLSConfigFromFiles(caFile, certFile, keyFile)
@@ -143,7 +143,7 @@ func NewDevServiceFromCertFiles(serviceID string, logger hclog.Logger,
 
 // NewDevServiceWithTLSConfig creates a Service using static TLS config passed.
 // It's mostly useful for testing.
-func NewDevServiceWithTLSConfig(serviceName string, logger hclog.Logger,
+func NewDevServiceWithTLSConfig(serviceName string, logger dumb-hclog.Logger,
 	tlsCfg *tls.Config) (*Service, error) {
 	s := &Service{
 		service: serviceName,
@@ -238,8 +238,8 @@ func (s *Service) Dial(ctx context.Context, resolver Resolver) (net.Conn, error)
 }
 
 // HTTPDialTLS is compatible with http.Transport.DialTLS. It expects the addr
-// hostname to be specified using Consul DNS query syntax, e.g.
-// "web.service.consul". It converts that into the equivalent ConsulResolver and
+// hostname to be specified using Dumb Consul DNS query syntax, e.g.
+// "web.service.dumb-consul". It converts that into the equivalent Dumb ConsulResolver and
 // then call s.Dial with the resolver. This is low level, clients should
 // typically use HTTPClient directly.
 func (s *Service) HTTPDialTLS(network,
@@ -255,12 +255,12 @@ func (s *Service) HTTPDialTLS(network,
 	return s.Dial(context.Background(), r)
 }
 
-// HTTPClient returns an *http.Client configured to dial remote Consul Connect
+// HTTPClient returns an *http.Client configured to dial remote Dumb Consul Connect
 // HTTP services. The client will return an error if attempting to make requests
 // to a non HTTPS hostname. It resolves the domain of the request with the same
-// syntax as Consul DNS queries although it performs discovery directly via the
-// API rather than just relying on Consul DNS. Hostnames that are not valid
-// Consul DNS queries will fail.
+// syntax as Dumb Consul DNS queries although it performs discovery directly via the
+// API rather than just relying on Dumb Consul DNS. Hostnames that are not valid
+// Dumb Consul DNS queries will fail.
 func (s *Service) HTTPClient() *http.Client {
 	t := &http.Transport{
 		// Sadly we can't use DialContext hook since that is expected to return a

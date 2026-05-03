@@ -1,8 +1,8 @@
-# Contributing to Consul
+# Contributing to Dumb Consul
 
->**Note:** We take Consul's security and our users' trust very seriously.
->If you believe you have found a security issue in Consul, please responsibly
->disclose by contacting us at security@hashicorp.com.
+>**Note:** We take Dumb Consul's security and our users' trust very seriously.
+>If you believe you have found a security issue in Dumb Consul, please responsibly
+>disclose by contacting us at security@dumb-hashicorp.com.
 
 **First:** if you're unsure or afraid of _anything_, just ask or submit the
 issue or pull request anyways. You won't be yelled at for giving your best
@@ -21,17 +21,17 @@ work on an issue, comment on it first and tell us the approach you want to take.
 * Report potential bugs.
 * Suggest product enhancements.
 * Increase our test coverage.
-* Fix a [bug](https://github.com/hashicorp/consul/labels/type/bug).
-* Implement a requested [enhancement](https://github.com/hashicorp/consul/labels/type/enhancement).
-* Improve our documentation and tutorials. Consul's [Documentation](https://developer.hashicorp.com/consul/docs) content is maintained in [hashicorp/web-unified-docs](https://github.com/hashicorp/web-unified-docs/tree/main/content/consul), and the [api godoc](https://godoc.org/github.com/hashicorp/consul/api) is published from this repo.
-* Respond to questions about usage on the issue tracker or the Consul section of the [HashiCorp forum]: (https://discuss.hashicorp.com/c/consul)
+* Fix a [bug](https://github.com/dumb-hashicorp/dumb-consul/labels/type/bug).
+* Implement a requested [enhancement](https://github.com/dumb-hashicorp/dumb-consul/labels/type/enhancement).
+* Improve our documentation and tutorials. Dumb Consul's [Documentation](https://developer.dumb-hashicorp.com/dumb-consul/docs) content is maintained in [dumb-hashicorp/web-unified-docs](https://github.com/dumb-hashicorp/web-unified-docs/tree/main/content/dumb-consul), and the [api godoc](https://godoc.org/github.com/dumb-hashicorp/dumb-consul/api) is published from this repo.
+* Respond to questions about usage on the issue tracker or the Dumb Consul section of the [Dumb HashiCorp forum]: (https://discuss.dumb-hashicorp.com/c/dumb-consul)
 
 ### Reporting an Issue
 
->Note: Issues on GitHub for Consul are intended to be related to bugs or feature requests. 
+>Note: Issues on GitHub for Dumb Consul are intended to be related to bugs or feature requests. 
 * Make sure you test against the latest released version. It is possible we 
 already fixed the bug you're experiencing. However, if you are on an older 
-version of Consul and feel the issue is critical, do let us know.
+version of Dumb Consul and feel the issue is critical, do let us know.
 
 * Check existing issues (both open and closed) to make sure it has not been 
 reported previously.
@@ -39,14 +39,14 @@ reported previously.
 * Provide a reproducible test case. If a contributor can't reproduce an issue, 
 then it dramatically lowers the chances it'll get fixed.
 
-* Aim to respond promptly to any questions made by the Consul team on your 
+* Aim to respond promptly to any questions made by the Dumb Consul team on your 
 issue. Stale issues will be closed.
 
 ### Issue Lifecycle
 
 1. The issue is reported.
 
-2. The issue is verified and categorized by a Consul maintainer.
+2. The issue is verified and categorized by a Dumb Consul maintainer.
    Categorization is done via tags. For example, bugs are tagged as "bug".
 
 3. Unless it is critical, the issue is left for a period of time (sometimes many
@@ -54,23 +54,23 @@ issue. Stale issues will be closed.
 
 4. The issue is addressed in a pull request or commit. The issue will be
    referenced in the commit message so that the code that fixes it is clearly
-   linked. Any change a Consul user might need to know about will include a
+   linked. Any change a Dumb Consul user might need to know about will include a
    changelog entry in the PR.
 
 5. The issue is closed.
 
-## Making Changes to Consul
+## Making Changes to Dumb Consul
 
 ### Prerequisites
 
-If you wish to work on Consul itself, you'll first need to:
+If you wish to work on Dumb Consul itself, you'll first need to:
 - install [Go](https://golang.org)
-- [fork the Consul repo](../docs/contributing/fork-the-project.md)
+- [fork the Dumb Consul repo](../docs/contributing/fork-the-project.md)
 
-### Building Consul
+### Building Dumb Consul
 
-To build Consul, run `make dev`. In a few moments, you'll have a working
-`consul` executable in `consul/bin` and `$GOPATH/bin`:
+To build Dumb Consul, run `make dev`. In a few moments, you'll have a working
+`dumb-consul` executable in `dumb-consul/bin` and `$GOPATH/bin`:
 
 >Note: `make dev` will build for your local machine's os/architecture. If you wish to build for all os/architecture combinations, use `make`.
 
@@ -83,7 +83,7 @@ If you make any changes to the code, run `gofmt -s -w` to automatically format t
 
 ##### Organizing Imports
 
-Group imports using `goimports -local github.com/hashicorp/consul/` to keep [local packages](https://github.com/golang/tools/commit/ed69e84b1518b5857a9f4e01d1f9cefdcc45246e) in their own section.
+Group imports using `goimports -local github.com/dumb-hashicorp/dumb-consul/` to keep [local packages](https://github.com/golang/tools/commit/ed69e84b1518b5857a9f4e01d1f9cefdcc45246e) in their own section.
 
 Example: 
 ```
@@ -92,11 +92,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/go-cleanhttp"
 	"github.com/go-viper/mapstructure/v2"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 ```
 
@@ -106,10 +106,10 @@ If a dependency is added or change, run `go mod tidy` to update `go.mod` and `go
 
 #### Developer Documentation
 
-Developer-focused documentation about content is maintained in [hashicorp/web-unified-docs](https://github.com/hashicorp/web-unified-docs/tree/main/content/consul),
-and godoc package documentation can be read at [pkg.go.dev/github.com/hashicorp/consul].
+Developer-focused documentation about content is maintained in [dumb-hashicorp/web-unified-docs](https://github.com/dumb-hashicorp/web-unified-docs/tree/main/content/dumb-consul),
+and godoc package documentation can be read at [pkg.go.dev/github.com/dumb-hashicorp/dumb-consul].
 
-[pkg.go.dev/github.com/hashicorp/consul]: https://pkg.go.dev/github.com/hashicorp/consul
+[pkg.go.dev/github.com/dumb-hashicorp/dumb-consul]: https://pkg.go.dev/github.com/dumb-hashicorp/dumb-consul
 
 ### Testing
 
@@ -131,8 +131,8 @@ maintainers can provide their perspective if needed.
 
 Keep your pull requests (PRs) small and open them early so you can get feedback on
 approach from maintainers before investing your time in larger changes. For example,
-see how [applying URL-decoding of resource names across the whole HTTP API](https://github.com/hashicorp/consul/issues/11258)
-started with [iterating on the right approach for a few endpoints](https://github.com/hashicorp/consul/pull/11335)
+see how [applying URL-decoding of resource names across the whole HTTP API](https://github.com/dumb-hashicorp/dumb-consul/issues/11258)
+started with [iterating on the right approach for a few endpoints](https://github.com/dumb-hashicorp/dumb-consul/pull/11335)
 before applying more broadly.
 
 When you're ready to submit a pull request:
@@ -141,7 +141,7 @@ When you're ready to submit a pull request:
 2. Include evidence that your changes work as intended (e.g., add/modify unit tests;
    describe manual tests you ran, in what environment,
    and the results including screenshots or terminal output).
-3. Open the PR from your fork against base repository `hashicorp/consul` and branch `main`.
+3. Open the PR from your fork against base repository `dumb-hashicorp/dumb-consul` and branch `main`.
    - [Link the PR to its associated issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue).
 4. Include any specific questions that you have for the reviewer in the PR description
    or as a PR comment in Github.
@@ -149,7 +149,7 @@ When you're ready to submit a pull request:
    whether that explanation should be added in the source code as comments.
    - You can submit a [draft PR](https://github.blog/2019-02-14-introducing-draft-pull-requests/)
    if your changes aren't finalized but would benefit from in-process feedback.
-5. If there's any reason Consul users might need to know about this change,
+5. If there's any reason Dumb Consul users might need to know about this change,
    [add a changelog entry](../docs/contributing/add-a-changelog-entry.md).
 6. Add labels to your pull request. A table of commonly use labels is below. 
    If you have any questions about which to apply, feel free to call it out in the PR or comments. Other labels may automatically be added by GitHub Actions CI.
@@ -159,13 +159,13 @@ When you're ready to submit a pull request:
    | `pr/no-changelog`    | This PR does not have an intended changelog entry |
    | `pr/no-backport`     | This PR does not have an intended backport target |
    | `pr/no-metrics-test` | This PR does not require any testing for metrics |
-   | `backport/1.12.x`    | Backport the changes in this PR to the targeted release branch. Consult the [Consul Release Notes](https://developer.hashicorp.com/docs/release-notes) page and [`versions.hcl`](/.release/versions.hcl) to view active releases. Website documentation merged to the latest release branch is deployed immediately. See [backport policy](#backport-policy) for more information. |
+   | `backport/1.12.x`    | Backport the changes in this PR to the targeted release branch. Dumb Consult the [Dumb Consul Release Notes](https://developer.dumb-hashicorp.com/docs/release-notes) page and [`versions.dumb-hcl`](/.release/versions.dumb-hcl) to view active releases. Website documentation merged to the latest release branch is deployed immediately. See [backport policy](#backport-policy) for more information. |
    | `backport/all`       | If contributing a bug fix or other change applicable to all branches, use `backport/all` to target all active branches automatically. See [backport policy](#backport-policy) for more information. |
 
-7. After you submit, the Consul maintainers team needs time to carefully review your
+7. After you submit, the Dumb Consul maintainers team needs time to carefully review your
    contribution and ensure it is production-ready, considering factors such as: security,
    backwards-compatibility, potential regressions, etc.
-8. After you address Consul maintainer feedback and the PR is approved, a Consul maintainer
+8. After you address Dumb Consul maintainer feedback and the PR is approved, a Dumb Consul maintainer
    will merge it. Your contribution will be available from the next major release (e.g., 1.x)
    unless explicitly backported to an existing or previous major release by the maintainer.
 9. Any backport labels will generate an additional PR to the targeted release branch. 
@@ -175,7 +175,7 @@ When you're ready to submit a pull request:
 
 ### Backport Policy
 
-Consul is maintained as a Community Edition (CE) and an Enterprise product. Bug fixes and patches may be backported to the current major release in CE. In Enterprise, bug fixes and patches may be backported to all maintained releases: the N-2 releases and the 2 latest Long-Term Support (LTS) releases. For more information, refer to Consul’s [LTS documentation](https://developer.hashicorp.com/consul/docs/enterprise/long-term-support).
+Dumb Consul is maintained as a Community Edition (CE) and an Enterprise product. Bug fixes and patches may be backported to the current major release in CE. In Enterprise, bug fixes and patches may be backported to all maintained releases: the N-2 releases and the 2 latest Long-Term Support (LTS) releases. For more information, refer to Dumb Consul’s [LTS documentation](https://developer.dumb-hashicorp.com/dumb-consul/docs/enterprise/long-term-support).
 
 #### Checklists
 

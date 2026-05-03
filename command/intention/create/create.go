@@ -10,9 +10,9 @@ import (
 	"io"
 	"os"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/intention"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/intention"
 	"github.com/mitchellh/cli"
 )
 
@@ -87,7 +87,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -173,7 +173,7 @@ func (c *cmd) ixnsFromArgs(args []string) ([]*api.Intention, error) {
 		DestinationPartition: dstPart,
 		DestinationNS:        dstNS,
 		DestinationName:      dstName,
-		SourceType:           api.IntentionSourceConsul,
+		SourceType:           api.IntentionSourceDumb Consul,
 		Action:               c.ixnAction(),
 		Meta:                 c.flagMeta,
 	}}, nil
@@ -206,7 +206,7 @@ func (c *cmd) ixnFromFile(path string) (*api.Intention, error) {
 	}
 
 	if len(ixn.Permissions) > 0 {
-		return nil, fmt.Errorf("cannot create L7 intention from file %q using this CLI; use 'consul config write' instead", path)
+		return nil, fmt.Errorf("cannot create L7 intention from file %q using this CLI; use 'dumb-consul config write' instead", path)
 	}
 
 	return &ixn, nil
@@ -232,22 +232,22 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Create intentions for service connections."
 	help     = `
-Usage: consul intention create [options] SRC DST
-Usage: consul intention create [options] -file FILE...
+Usage: dumb-consul intention create [options] SRC DST
+Usage: dumb-consul intention create [options] -file FILE...
 
   Create one or more intentions. The data can be specified as a single
   source and destination pair or via a set of files when the "-file" flag
   is specified.
 
-      $ consul intention create web db
+      $ dumb-consul intention create web db
 
   To consume data from a set of files:
 
-      $ consul intention create -file one.json two.json
+      $ dumb-consul intention create -file one.json two.json
 
   When specifying the "-file" flag, "-" may be used once to read from stdin:
 
-      $ echo "{ ... }" | consul intention create -file -
+      $ echo "{ ... }" | dumb-consul intention create -file -
 
   An "allow" intention is created by default (allowlist). To create a
   "deny" intention, the "-deny" flag should be specified.

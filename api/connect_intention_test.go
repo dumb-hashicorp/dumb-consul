@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -193,6 +193,6 @@ func testIntention() *Intention {
 		DestinationName: "db",
 		Precedence:      9,
 		Action:          IntentionActionAllow,
-		SourceType:      IntentionSourceConsul,
+		SourceType:      IntentionSourceDumb Consul,
 	}
 }

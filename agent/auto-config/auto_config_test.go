@@ -17,19 +17,19 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/cache"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
-	"github.com/hashicorp/consul/lib/retry"
-	"github.com/hashicorp/consul/proto/private/pbautoconf"
-	"github.com/hashicorp/consul/proto/private/pbconfig"
-	"github.com/hashicorp/consul/sdk/testutil"
-	testretry "github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/lib/retry"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbautoconf"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbconfig"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	testretry "github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 type configLoader struct {
@@ -42,8 +42,8 @@ func (c *configLoader) Load(source config.Source) (config.LoadResult, error) {
 	return config.Load(opts)
 }
 
-func (c *configLoader) addConfigHCL(cfg string) {
-	c.opts.HCL = append(c.opts.HCL, cfg)
+func (c *configLoader) addConfigDUMB_HCL(cfg string) {
+	c.opts.DUMB_HCL = append(c.opts.DUMB_HCL, cfg)
 }
 
 func requireChanNotReady(t *testing.T, ch <-chan struct{}) {
@@ -219,7 +219,7 @@ func setupRuntimeConfig(t *testing.T) *configLoader {
 
 func TestInitialConfiguration_disabled(t *testing.T) {
 	mcfg := newMockedConfig(t)
-	mcfg.loader.addConfigHCL(`
+	mcfg.loader.addConfigDUMB_HCL(`
 		primary_datacenter = "primary"
 		auto_config = {
 			enabled = false
@@ -245,7 +245,7 @@ func TestInitialConfiguration_cancelled(t *testing.T) {
 	mcfg := newMockedConfig(t)
 
 	loader := setupRuntimeConfig(t)
-	loader.addConfigHCL(`
+	loader.addConfigDUMB_HCL(`
 		primary_datacenter = "primary"
 		auto_config = {
 			enabled = true
@@ -281,7 +281,7 @@ func TestInitialConfiguration_restored(t *testing.T) {
 	mcfg := newMockedConfig(t)
 
 	loader := setupRuntimeConfig(t)
-	loader.addConfigHCL(`
+	loader.addConfigDUMB_HCL(`
 		auto_config = {
 			enabled = true
 			intro_token ="blarg"
@@ -336,7 +336,7 @@ func TestInitialConfiguration_restored(t *testing.T) {
 func TestInitialConfiguration_success(t *testing.T) {
 	mcfg := newMockedConfig(t)
 	loader := setupRuntimeConfig(t)
-	loader.addConfigHCL(`
+	loader.addConfigDUMB_HCL(`
 		auto_config = {
 			enabled = true
 			intro_token ="blarg"
@@ -410,7 +410,7 @@ func TestInitialConfiguration_success(t *testing.T) {
 func TestInitialConfiguration_retries(t *testing.T) {
 	mcfg := newMockedConfig(t)
 	loader := setupRuntimeConfig(t)
-	loader.addConfigHCL(`
+	loader.addConfigDUMB_HCL(`
 		auto_config = {
 			enabled = true
 			intro_token ="blarg"
@@ -527,7 +527,7 @@ func TestInitialConfiguration_retries(t *testing.T) {
 func TestGoRoutineManagement(t *testing.T) {
 	mcfg := newMockedConfig(t)
 	loader := setupRuntimeConfig(t)
-	loader.addConfigHCL(`
+	loader.addConfigDUMB_HCL(`
 		auto_config = {
 			enabled = true
 			intro_token ="blarg"
@@ -660,7 +660,7 @@ func startedAutoConfig(t *testing.T, autoEncrypt bool) testAutoConfig {
 	mcfg := newMockedConfig(t)
 	loader := setupRuntimeConfig(t)
 	if !autoEncrypt {
-		loader.addConfigHCL(`
+		loader.addConfigDUMB_HCL(`
 			auto_config = {
 				enabled = true
 				intro_token ="blarg"
@@ -669,7 +669,7 @@ func startedAutoConfig(t *testing.T, autoEncrypt bool) testAutoConfig {
 			verify_outgoing = true
 		`)
 	} else {
-		loader.addConfigHCL(`
+		loader.addConfigDUMB_HCL(`
 			auto_encrypt {
 				tls = true
 			}

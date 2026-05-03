@@ -15,7 +15,7 @@ func TestIntention(t testing.T) *Intention {
 		DestinationNS:   IntentionDefaultNamespace,
 		DestinationName: "db",
 		Action:          IntentionActionAllow,
-		SourceType:      IntentionSourceConsul,
+		SourceType:      IntentionSourceDumb Consul,
 		Meta:            map[string]string{},
 	}
 	ixn.FillPartitionAndNamespace(nil, true)

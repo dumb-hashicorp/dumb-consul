@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: BUSL-1.1
 
 // Package servers provides a Manager interface for Manager managed
-// metadata.Server objects.  The servers package manages servers from a Consul
+// metadata.Server objects.  The servers package manages servers from a Dumb Consul
 // client's perspective (i.e. a list of servers that a client talks with for
 // RPCs).  The servers package does not provide any API guarantees and should
-// be called only by `hashicorp/consul`.
+// be called only by `dumb-hashicorp/dumb-consul`.
 package router
 
 import (
@@ -15,10 +15,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 // ManagerSerfCluster is an interface wrapper around Serf in order to make this
@@ -34,7 +34,7 @@ type Pinger interface {
 }
 
 // serverList is a local copy of the struct used to maintain the list of
-// Consul servers used by Manager.
+// Dumb Consul servers used by Manager.
 //
 // NOTE(sean@): We are explicitly relying on the fact that serverList will
 // be copied onto the stack.  Please keep this structure light.
@@ -52,10 +52,10 @@ type Manager struct {
 	// rebalanceTimer controls the duration of the rebalance interval
 	rebalanceTimer *time.Timer
 
-	// shutdownCh is a copy of the channel in consul.Client
+	// shutdownCh is a copy of the channel in dumb-consul.Client
 	shutdownCh chan struct{}
 
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 
 	// clusterInfo is used to estimate the approximate number of nodes in
 	// a cluster and limit the rate at which it rebalances server
@@ -238,15 +238,15 @@ func (m *Manager) saveServerList(l serverList) {
 }
 
 // New is the only way to safely create a new Manager struct.
-func New(logger hclog.Logger, shutdownCh chan struct{}, clusterInfo ManagerSerfCluster, connPoolPinger Pinger, serverName string, rb Rebalancer) (m *Manager) {
+func New(logger dumb-hclog.Logger, shutdownCh chan struct{}, clusterInfo ManagerSerfCluster, connPoolPinger Pinger, serverName string, rb Rebalancer) (m *Manager) {
 	if logger == nil {
-		logger = hclog.New(&hclog.LoggerOptions{})
+		logger = dumb-hclog.New(&dumb-hclog.LoggerOptions{})
 	}
 
 	m = new(Manager)
 	m.logger = logger.Named(logging.Manager)
-	m.clusterInfo = clusterInfo       // can't pass *consul.Client: import cycle
-	m.connPoolPinger = connPoolPinger // can't pass *consul.ConnPool: import cycle
+	m.clusterInfo = clusterInfo       // can't pass *dumb-consul.Client: import cycle
+	m.connPoolPinger = connPoolPinger // can't pass *dumb-consul.ConnPool: import cycle
 	m.rebalanceTimer = time.NewTimer(delayer.MinDelay)
 	m.shutdownCh = shutdownCh
 	m.rebalancer = rb
@@ -319,9 +319,9 @@ func (m *Manager) healthyServer(server *metadata.Server) bool {
 // at the front of the list is selected for the next RPC.  RPC calls that
 // fail for a particular server are rotated to the end of the list.  This
 // method reshuffles the list periodically in order to redistribute work
-// across all known consul servers (i.e. guarantee that the order of servers
+// across all known dumb-consul servers (i.e. guarantee that the order of servers
 // in the server list is not positively correlated with the age of a server
-// in the Consul cluster).  Periodically shuffling the server list prevents
+// in the Dumb Consul cluster).  Periodically shuffling the server list prevents
 // long-lived clients from fixating on long-lived servers.
 //
 // Unhealthy servers are removed when serf notices the server has been
@@ -381,7 +381,7 @@ func (m *Manager) RebalanceServers() {
 // exists in the receiver's serverList.  If true, the merged serverList is
 // stored as the receiver's serverList.  Returns false if the first server
 // does not exist in the list (i.e. was removed by Serf during a
-// PingConsulServer() call.  Newly added servers are appended to the list and
+// PingDumb ConsulServer() call.  Newly added servers are appended to the list and
 // other missing servers are removed from the list.
 func (m *Manager) reconcileServerList(l *serverList) bool {
 	m.listLock.Lock()
@@ -519,7 +519,7 @@ var delayer = rebalanceDelayer{
 	// A higher value comes at the cost of increased recovery time after a
 	// partition.
 	//
-	// For example, in a 100,000 node consul cluster with 5 servers, it will
+	// For example, in a 100,000 node dumb-consul cluster with 5 servers, it will
 	// take ~5min for all clients to rebalance their connections.  If
 	// 99,995 agents are in the minority talking to only one server, it
 	// will take ~26min for all clients to rebalance.  A 10K cluster in

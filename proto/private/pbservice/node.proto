@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.service;
+package dumb-hashicorp.dumb-consul.internal.service;
 
 import "private/pbcommon/common.proto";
 import "private/pbservice/healthcheck.proto";
@@ -27,7 +27,7 @@ message CheckServiceNode {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.Node
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.Node
 // output=node.gen.go
 // name=Structs
 message Node {
@@ -53,7 +53,7 @@ message Node {
 //
 // mog annotation:
 //
-// target=github.com/hashicorp/consul/agent/structs.NodeService
+// target=github.com/dumb-hashicorp/dumb-consul/agent/structs.NodeService
 // output=node.gen.go
 // name=Structs
 message NodeService {
@@ -101,7 +101,7 @@ message NodeService {
   // parent service is deregistered. Relying only on ID would cause us to
   // deregister regular services if they happen to be registered using the same
   // ID scheme as our sidecars do by default. We could use meta but that gets
-  // unpleasant because we can't use the consul- prefix from an agent (reserved
+  // unpleasant because we can't use the dumb-consul- prefix from an agent (reserved
   // for use internally but in practice that means within the state store or in
   // responses only), and it leaks the detail publicly which people might rely
   // on which is a bit unpleasant for something that is meant to be config-file

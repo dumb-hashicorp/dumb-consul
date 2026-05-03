@@ -1,23 +1,23 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package proxycfg
 
 import (
 	"context"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func (s *handlerMeshGateway) initializeEntWatches(_ context.Context) error {
 	return nil
 }
 
-func (s *handlerMeshGateway) handleEntUpdate(_ hclog.Logger, _ context.Context, _ UpdateEvent, _ *ConfigSnapshot) error {
+func (s *handlerMeshGateway) handleEntUpdate(_ dumb-hclog.Logger, _ context.Context, _ UpdateEvent, _ *ConfigSnapshot) error {
 	return nil
 }
 

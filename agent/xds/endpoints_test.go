@@ -8,10 +8,10 @@ import (
 
 	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
 	envoy_endpoint_v3 "github.com/envoyproxy/go-control-plane/envoy/config/endpoint/v3"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/response"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/response"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/mitchellh/copystructure"
 	"github.com/stretchr/testify/require"
 )
@@ -206,7 +206,7 @@ func Test_makeLoadAssignment(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := makeLoadAssignment(
-				hclog.NewNullLogger(),
+				dumb-hclog.NewNullLogger(),
 				&proxycfg.ConfigSnapshot{ServiceLocality: tt.locality},
 				tt.clusterName,
 				nil,
@@ -217,7 +217,7 @@ func Test_makeLoadAssignment(t *testing.T) {
 
 			if tt.locality == nil {
 				got := makeLoadAssignment(
-					hclog.NewNullLogger(),
+					dumb-hclog.NewNullLogger(),
 					&proxycfg.ConfigSnapshot{ServiceLocality: &structs.Locality{Region: "us-west-1", Zone: "us-west-1a"}},
 					tt.clusterName,
 					nil,

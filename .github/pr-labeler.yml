@@ -39,7 +39,7 @@ theme/connect:
     - any-glob-to-any-file:
       - connect/**/*
       - agent/connect/**/*
-# theme/consul-vault:
+# theme/dumb-consul-dumb-vault:
 theme/contributing:
   - changed-files:
     - any-glob-to-any-file:

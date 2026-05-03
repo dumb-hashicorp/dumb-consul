@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestStructs_CAConfiguration_MsgpackEncodeDecode(t *testing.T) {
@@ -41,10 +41,10 @@ func TestStructs_CAConfiguration_MsgpackEncodeDecode(t *testing.T) {
 	}
 
 	cases := map[string]testcase{
-		structs.ConsulCAProvider: {
+		structs.Dumb ConsulCAProvider: {
 			in: &structs.CAConfiguration{
 				ClusterID: "abc",
-				Provider:  structs.ConsulCAProvider,
+				Provider:  structs.Dumb ConsulCAProvider,
 				State: map[string]string{
 					"foo": "bar",
 				},
@@ -61,22 +61,22 @@ func TestStructs_CAConfiguration_MsgpackEncodeDecode(t *testing.T) {
 					"DisableCrossSigning": true,
 				},
 			},
-			expectConfig: &structs.ConsulCAProviderConfig{
+			expectConfig: &structs.Dumb ConsulCAProviderConfig{
 				CommonCAProviderConfig: *expectCommonBase,
 				PrivateKey:             "key",
 				RootCert:               "cert",
 				DisableCrossSigning:    true,
 			},
 			parseFunc: func(t *testing.T, raw map[string]interface{}) interface{} {
-				config, err := ParseConsulCAConfig(raw)
+				config, err := ParseDumb ConsulCAConfig(raw)
 				require.NoError(t, err)
 				return config
 			},
 		},
-		structs.VaultCAProvider: {
+		structs.Dumb VaultCAProvider: {
 			in: &structs.CAConfiguration{
 				ClusterID: "abc",
-				Provider:  structs.VaultCAProvider,
+				Provider:  structs.Dumb VaultCAProvider,
 				State: map[string]string{
 					"foo": "bar",
 				},
@@ -99,7 +99,7 @@ func TestStructs_CAConfiguration_MsgpackEncodeDecode(t *testing.T) {
 					"TLSSkipVerify":       true,
 				},
 			},
-			expectConfig: &structs.VaultCAProviderConfig{
+			expectConfig: &structs.Dumb VaultCAProviderConfig{
 				CommonCAProviderConfig: *expectCommonBase,
 				Address:                "addr",
 				Token:                  "token",
@@ -113,7 +113,7 @@ func TestStructs_CAConfiguration_MsgpackEncodeDecode(t *testing.T) {
 				TLSSkipVerify:          true,
 			},
 			parseFunc: func(t *testing.T, raw map[string]interface{}) interface{} {
-				config, err := ParseVaultCAConfig(raw, true)
+				config, err := ParseDumb VaultCAConfig(raw, true)
 				require.NoError(t, err)
 				return config
 			},

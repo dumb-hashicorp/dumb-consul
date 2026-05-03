@@ -54,7 +54,7 @@ func TestLoadGRPCConfig(t *testing.T) {
 
 		// Load and expect an error
 		config, err := LoadGRPCConfig(nil)
-		assert.Error(t, err, "failed to parse CONSUL_GRPC_TLS: strconv.ParseBool: parsing \"invalid_boolean_value\": invalid syntax")
+		assert.Error(t, err, "failed to parse DUMB_CONSUL_GRPC_TLS: strconv.ParseBool: parsing \"invalid_boolean_value\": invalid syntax")
 		assert.Nil(t, config)
 	})
 }

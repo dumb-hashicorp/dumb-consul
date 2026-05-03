@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package watch
@@ -137,7 +137,7 @@ func TestRunWithClientAndLogger_NilLogger(t *testing.T) {
 
 	errCh := make(chan error, 1)
 	go func() {
-		errCh <- plan.RunWithClientAndHclog(nil, nil)
+		errCh <- plan.RunWithClientAndDumb Hclog(nil, nil)
 	}()
 
 	plan.Stop()

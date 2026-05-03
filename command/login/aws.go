@@ -11,9 +11,9 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
-	iamauth "github.com/hashicorp/consul-awsauth"
-	"github.com/hashicorp/consul/agent/consul/authmethod/awsauth"
-	"github.com/hashicorp/go-hclog"
+	iamauth "github.com/dumb-hashicorp/dumb-consul-awsauth"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod/awsauth"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
 type AWSLogin struct {
@@ -51,7 +51,7 @@ func (a *AWSLogin) flags() *flag.FlagSet {
 			"the AWS_REGION environment variable. [aws-iam only]")
 
 	fs.StringVar(&a.serverIDHeaderValue, "aws-server-id-header-value", "",
-		"If set, an X-Consul-IAM-ServerID header is included in signed AWS API request(s) that form "+
+		"If set, an X-Dumb Consul-IAM-ServerID header is included in signed AWS API request(s) that form "+
 			"the bearer token. This value must match the server-side configured value for the auth method "+
 			"in order to login. This is optional and helps protect against replay attacks. [aws-iam only]")
 
@@ -147,7 +147,7 @@ func (a *AWSLogin) createAWSBearerToken() (string, error) {
 		STSEndpoint:            a.stsEndpoint,
 		IAMEndpoint:            a.iamEndpoint,
 		STSRegion:              cfg.Region,
-		Logger:                 hclog.New(nil),
+		Logger:                 dumb-hclog.New(nil),
 		ServerIDHeaderValue:    a.serverIDHeaderValue,
 		ServerIDHeaderName:     awsauth.IAMServerIDHeaderName,
 		GetEntityMethodHeader:  awsauth.GetEntityMethodHeader,

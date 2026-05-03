@@ -13,8 +13,8 @@
 package pbstorage
 
 import (
-	_ "github.com/hashicorp/consul/proto-public/annotations/ratelimit"
-	pbresource "github.com/hashicorp/consul/proto-public/pbresource"
+	_ "github.com/dumb-hashicorp/dumb-consul/proto-public/annotations/ratelimit"
+	pbresource "github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -83,7 +83,7 @@ func (LogType) EnumDescriptor() ([]byte, []int) {
 // Log is protobuf-encoded and written to the Raft log.
 type Log struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	Type  LogType                `protobuf:"varint,1,opt,name=type,proto3,enum=hashicorp.consul.internal.storage.raft.LogType" json:"type,omitempty"`
+	Type  LogType                `protobuf:"varint,1,opt,name=type,proto3,enum=dumb-hashicorp.dumb-consul.internal.storage.raft.LogType" json:"type,omitempty"`
 	// Types that are valid to be assigned to Request:
 	//
 	//	*Log_Write
@@ -651,48 +651,48 @@ var File_private_pbstorage_raft_proto protoreflect.FileDescriptor
 
 const file_private_pbstorage_raft_proto_rawDesc = "" +
 	"\n" +
-	"\x1cprivate/pbstorage/raft.proto\x12&hashicorp.consul.internal.storage.raft\x1a%annotations/ratelimit/ratelimit.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x19pbresource/resource.proto\"\xf4\x01\n" +
+	"\x1cprivate/pbstorage/raft.proto\x12&dumb-hashicorp.dumb-consul.internal.storage.raft\x1a%annotations/ratelimit/ratelimit.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x19pbresource/resource.proto\"\xf4\x01\n" +
 	"\x03Log\x12C\n" +
-	"\x04type\x18\x01 \x01(\x0e2/.hashicorp.consul.internal.storage.raft.LogTypeR\x04type\x12L\n" +
-	"\x05write\x18\x02 \x01(\v24.hashicorp.consul.internal.storage.raft.WriteRequestH\x00R\x05write\x12O\n" +
-	"\x06delete\x18\x03 \x01(\v25.hashicorp.consul.internal.storage.raft.DeleteRequestH\x00R\x06deleteB\t\n" +
+	"\x04type\x18\x01 \x01(\x0e2/.dumb-hashicorp.dumb-consul.internal.storage.raft.LogTypeR\x04type\x12L\n" +
+	"\x05write\x18\x02 \x01(\v24.dumb-hashicorp.dumb-consul.internal.storage.raft.WriteRequestH\x00R\x05write\x12O\n" +
+	"\x06delete\x18\x03 \x01(\v25.dumb-hashicorp.dumb-consul.internal.storage.raft.DeleteRequestH\x00R\x06deleteB\t\n" +
 	"\arequest\"\x9a\x01\n" +
 	"\vLogResponse\x12M\n" +
-	"\x05write\x18\x01 \x01(\v25.hashicorp.consul.internal.storage.raft.WriteResponseH\x00R\x05write\x120\n" +
+	"\x05write\x18\x01 \x01(\v25.dumb-hashicorp.dumb-consul.internal.storage.raft.WriteResponseH\x00R\x05write\x120\n" +
 	"\x06delete\x18\x02 \x01(\v2\x16.google.protobuf.EmptyH\x00R\x06deleteB\n" +
 	"\n" +
 	"\bresponse\"O\n" +
 	"\fWriteRequest\x12?\n" +
-	"\bresource\x18\x01 \x01(\v2#.hashicorp.consul.resource.ResourceR\bresource\"P\n" +
+	"\bresource\x18\x01 \x01(\v2#.dumb-hashicorp.dumb-consul.resource.ResourceR\bresource\"P\n" +
 	"\rWriteResponse\x12?\n" +
-	"\bresource\x18\x01 \x01(\v2#.hashicorp.consul.resource.ResourceR\bresource\"X\n" +
+	"\bresource\x18\x01 \x01(\v2#.dumb-hashicorp.dumb-consul.resource.ResourceR\bresource\"X\n" +
 	"\rDeleteRequest\x12-\n" +
-	"\x02id\x18\x01 \x01(\v2\x1d.hashicorp.consul.resource.IDR\x02id\x12\x18\n" +
+	"\x02id\x18\x01 \x01(\v2\x1d.dumb-hashicorp.dumb-consul.resource.IDR\x02id\x12\x18\n" +
 	"\aversion\x18\x02 \x01(\tR\aversion\"<\n" +
 	"\vReadRequest\x12-\n" +
-	"\x02id\x18\x01 \x01(\v2\x1d.hashicorp.consul.resource.IDR\x02id\"O\n" +
+	"\x02id\x18\x01 \x01(\v2\x1d.dumb-hashicorp.dumb-consul.resource.IDR\x02id\"O\n" +
 	"\fReadResponse\x12?\n" +
-	"\bresource\x18\x01 \x01(\v2#.hashicorp.consul.resource.ResourceR\bresource\"\xa1\x01\n" +
+	"\bresource\x18\x01 \x01(\v2#.dumb-hashicorp.dumb-consul.resource.ResourceR\bresource\"\xa1\x01\n" +
 	"\vListRequest\x123\n" +
-	"\x04type\x18\x01 \x01(\v2\x1f.hashicorp.consul.resource.TypeR\x04type\x12<\n" +
-	"\atenancy\x18\x02 \x01(\v2\".hashicorp.consul.resource.TenancyR\atenancy\x12\x1f\n" +
+	"\x04type\x18\x01 \x01(\v2\x1f.dumb-hashicorp.dumb-consul.resource.TypeR\x04type\x12<\n" +
+	"\atenancy\x18\x02 \x01(\v2\".dumb-hashicorp.dumb-consul.resource.TenancyR\atenancy\x12\x1f\n" +
 	"\vname_prefix\x18\x03 \x01(\tR\n" +
 	"namePrefix\"Q\n" +
 	"\fListResponse\x12A\n" +
-	"\tresources\x18\x01 \x03(\v2#.hashicorp.consul.resource.ResourceR\tresources\"\xa7\x01\n" +
+	"\tresources\x18\x01 \x03(\v2#.dumb-hashicorp.dumb-consul.resource.ResourceR\tresources\"\xa7\x01\n" +
 	" GroupVersionMismatchErrorDetails\x12F\n" +
-	"\x0erequested_type\x18\x01 \x01(\v2\x1f.hashicorp.consul.resource.TypeR\rrequestedType\x12;\n" +
-	"\x06stored\x18\x02 \x01(\v2#.hashicorp.consul.resource.ResourceR\x06stored*L\n" +
+	"\x0erequested_type\x18\x01 \x01(\v2\x1f.dumb-hashicorp.dumb-consul.resource.TypeR\rrequestedType\x12;\n" +
+	"\x06stored\x18\x02 \x01(\v2#.dumb-hashicorp.dumb-consul.resource.ResourceR\x06stored*L\n" +
 	"\aLogType\x12\x18\n" +
 	"\x14LOG_TYPE_UNSPECIFIED\x10\x00\x12\x12\n" +
 	"\x0eLOG_TYPE_WRITE\x10\x01\x12\x13\n" +
 	"\x0fLOG_TYPE_DELETE\x10\x022\xf0\x03\n" +
 	"\x11ForwardingService\x12~\n" +
-	"\x05Write\x124.hashicorp.consul.internal.storage.raft.WriteRequest\x1a5.hashicorp.consul.internal.storage.raft.WriteResponse\"\b\xe2\x86\x04\x04\b\x01\x10\v\x12a\n" +
-	"\x06Delete\x125.hashicorp.consul.internal.storage.raft.DeleteRequest\x1a\x16.google.protobuf.Empty\"\b\xe2\x86\x04\x04\b\x01\x10\v\x12{\n" +
-	"\x04Read\x123.hashicorp.consul.internal.storage.raft.ReadRequest\x1a4.hashicorp.consul.internal.storage.raft.ReadResponse\"\b\xe2\x86\x04\x04\b\x01\x10\v\x12{\n" +
-	"\x04List\x123.hashicorp.consul.internal.storage.raft.ListRequest\x1a4.hashicorp.consul.internal.storage.raft.ListResponse\"\b\xe2\x86\x04\x04\b\x01\x10\vB\xaa\x02\n" +
-	"*com.hashicorp.consul.internal.storage.raftB\tRaftProtoP\x01Z3github.com/hashicorp/consul/proto/private/pbstorage\xa2\x02\x05HCISR\xaa\x02&Hashicorp.Consul.Internal.Storage.Raft\xca\x02&Hashicorp\\Consul\\Internal\\Storage\\Raft\xe2\x022Hashicorp\\Consul\\Internal\\Storage\\Raft\\GPBMetadata\xea\x02*Hashicorp::Consul::Internal::Storage::Raftb\x06proto3"
+	"\x05Write\x124.dumb-hashicorp.dumb-consul.internal.storage.raft.WriteRequest\x1a5.dumb-hashicorp.dumb-consul.internal.storage.raft.WriteResponse\"\b\xe2\x86\x04\x04\b\x01\x10\v\x12a\n" +
+	"\x06Delete\x125.dumb-hashicorp.dumb-consul.internal.storage.raft.DeleteRequest\x1a\x16.google.protobuf.Empty\"\b\xe2\x86\x04\x04\b\x01\x10\v\x12{\n" +
+	"\x04Read\x123.dumb-hashicorp.dumb-consul.internal.storage.raft.ReadRequest\x1a4.dumb-hashicorp.dumb-consul.internal.storage.raft.ReadResponse\"\b\xe2\x86\x04\x04\b\x01\x10\v\x12{\n" +
+	"\x04List\x123.dumb-hashicorp.dumb-consul.internal.storage.raft.ListRequest\x1a4.dumb-hashicorp.dumb-consul.internal.storage.raft.ListResponse\"\b\xe2\x86\x04\x04\b\x01\x10\vB\xaa\x02\n" +
+	"*com.dumb-hashicorp.dumb-consul.internal.storage.raftB\tRaftProtoP\x01Z3github.com/dumb-hashicorp/dumb-consul/proto/private/pbstorage\xa2\x02\x05HCISR\xaa\x02&Hashicorp.Dumb Consul.Internal.Storage.Raft\xca\x02&Hashicorp\\Dumb Consul\\Internal\\Storage\\Raft\xe2\x022Hashicorp\\Dumb Consul\\Internal\\Storage\\Raft\\GPBMetadata\xea\x02*Hashicorp::Dumb Consul::Internal::Storage::Raftb\x06proto3"
 
 var (
 	file_private_pbstorage_raft_proto_rawDescOnce sync.Once
@@ -709,47 +709,47 @@ func file_private_pbstorage_raft_proto_rawDescGZIP() []byte {
 var file_private_pbstorage_raft_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_private_pbstorage_raft_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_private_pbstorage_raft_proto_goTypes = []any{
-	(LogType)(0),                             // 0: hashicorp.consul.internal.storage.raft.LogType
-	(*Log)(nil),                              // 1: hashicorp.consul.internal.storage.raft.Log
-	(*LogResponse)(nil),                      // 2: hashicorp.consul.internal.storage.raft.LogResponse
-	(*WriteRequest)(nil),                     // 3: hashicorp.consul.internal.storage.raft.WriteRequest
-	(*WriteResponse)(nil),                    // 4: hashicorp.consul.internal.storage.raft.WriteResponse
-	(*DeleteRequest)(nil),                    // 5: hashicorp.consul.internal.storage.raft.DeleteRequest
-	(*ReadRequest)(nil),                      // 6: hashicorp.consul.internal.storage.raft.ReadRequest
-	(*ReadResponse)(nil),                     // 7: hashicorp.consul.internal.storage.raft.ReadResponse
-	(*ListRequest)(nil),                      // 8: hashicorp.consul.internal.storage.raft.ListRequest
-	(*ListResponse)(nil),                     // 9: hashicorp.consul.internal.storage.raft.ListResponse
-	(*GroupVersionMismatchErrorDetails)(nil), // 10: hashicorp.consul.internal.storage.raft.GroupVersionMismatchErrorDetails
+	(LogType)(0),                             // 0: dumb-hashicorp.dumb-consul.internal.storage.raft.LogType
+	(*Log)(nil),                              // 1: dumb-hashicorp.dumb-consul.internal.storage.raft.Log
+	(*LogResponse)(nil),                      // 2: dumb-hashicorp.dumb-consul.internal.storage.raft.LogResponse
+	(*WriteRequest)(nil),                     // 3: dumb-hashicorp.dumb-consul.internal.storage.raft.WriteRequest
+	(*WriteResponse)(nil),                    // 4: dumb-hashicorp.dumb-consul.internal.storage.raft.WriteResponse
+	(*DeleteRequest)(nil),                    // 5: dumb-hashicorp.dumb-consul.internal.storage.raft.DeleteRequest
+	(*ReadRequest)(nil),                      // 6: dumb-hashicorp.dumb-consul.internal.storage.raft.ReadRequest
+	(*ReadResponse)(nil),                     // 7: dumb-hashicorp.dumb-consul.internal.storage.raft.ReadResponse
+	(*ListRequest)(nil),                      // 8: dumb-hashicorp.dumb-consul.internal.storage.raft.ListRequest
+	(*ListResponse)(nil),                     // 9: dumb-hashicorp.dumb-consul.internal.storage.raft.ListResponse
+	(*GroupVersionMismatchErrorDetails)(nil), // 10: dumb-hashicorp.dumb-consul.internal.storage.raft.GroupVersionMismatchErrorDetails
 	(*emptypb.Empty)(nil),                    // 11: google.protobuf.Empty
-	(*pbresource.Resource)(nil),              // 12: hashicorp.consul.resource.Resource
-	(*pbresource.ID)(nil),                    // 13: hashicorp.consul.resource.ID
-	(*pbresource.Type)(nil),                  // 14: hashicorp.consul.resource.Type
-	(*pbresource.Tenancy)(nil),               // 15: hashicorp.consul.resource.Tenancy
+	(*pbresource.Resource)(nil),              // 12: dumb-hashicorp.dumb-consul.resource.Resource
+	(*pbresource.ID)(nil),                    // 13: dumb-hashicorp.dumb-consul.resource.ID
+	(*pbresource.Type)(nil),                  // 14: dumb-hashicorp.dumb-consul.resource.Type
+	(*pbresource.Tenancy)(nil),               // 15: dumb-hashicorp.dumb-consul.resource.Tenancy
 }
 var file_private_pbstorage_raft_proto_depIdxs = []int32{
-	0,  // 0: hashicorp.consul.internal.storage.raft.Log.type:type_name -> hashicorp.consul.internal.storage.raft.LogType
-	3,  // 1: hashicorp.consul.internal.storage.raft.Log.write:type_name -> hashicorp.consul.internal.storage.raft.WriteRequest
-	5,  // 2: hashicorp.consul.internal.storage.raft.Log.delete:type_name -> hashicorp.consul.internal.storage.raft.DeleteRequest
-	4,  // 3: hashicorp.consul.internal.storage.raft.LogResponse.write:type_name -> hashicorp.consul.internal.storage.raft.WriteResponse
-	11, // 4: hashicorp.consul.internal.storage.raft.LogResponse.delete:type_name -> google.protobuf.Empty
-	12, // 5: hashicorp.consul.internal.storage.raft.WriteRequest.resource:type_name -> hashicorp.consul.resource.Resource
-	12, // 6: hashicorp.consul.internal.storage.raft.WriteResponse.resource:type_name -> hashicorp.consul.resource.Resource
-	13, // 7: hashicorp.consul.internal.storage.raft.DeleteRequest.id:type_name -> hashicorp.consul.resource.ID
-	13, // 8: hashicorp.consul.internal.storage.raft.ReadRequest.id:type_name -> hashicorp.consul.resource.ID
-	12, // 9: hashicorp.consul.internal.storage.raft.ReadResponse.resource:type_name -> hashicorp.consul.resource.Resource
-	14, // 10: hashicorp.consul.internal.storage.raft.ListRequest.type:type_name -> hashicorp.consul.resource.Type
-	15, // 11: hashicorp.consul.internal.storage.raft.ListRequest.tenancy:type_name -> hashicorp.consul.resource.Tenancy
-	12, // 12: hashicorp.consul.internal.storage.raft.ListResponse.resources:type_name -> hashicorp.consul.resource.Resource
-	14, // 13: hashicorp.consul.internal.storage.raft.GroupVersionMismatchErrorDetails.requested_type:type_name -> hashicorp.consul.resource.Type
-	12, // 14: hashicorp.consul.internal.storage.raft.GroupVersionMismatchErrorDetails.stored:type_name -> hashicorp.consul.resource.Resource
-	3,  // 15: hashicorp.consul.internal.storage.raft.ForwardingService.Write:input_type -> hashicorp.consul.internal.storage.raft.WriteRequest
-	5,  // 16: hashicorp.consul.internal.storage.raft.ForwardingService.Delete:input_type -> hashicorp.consul.internal.storage.raft.DeleteRequest
-	6,  // 17: hashicorp.consul.internal.storage.raft.ForwardingService.Read:input_type -> hashicorp.consul.internal.storage.raft.ReadRequest
-	8,  // 18: hashicorp.consul.internal.storage.raft.ForwardingService.List:input_type -> hashicorp.consul.internal.storage.raft.ListRequest
-	4,  // 19: hashicorp.consul.internal.storage.raft.ForwardingService.Write:output_type -> hashicorp.consul.internal.storage.raft.WriteResponse
-	11, // 20: hashicorp.consul.internal.storage.raft.ForwardingService.Delete:output_type -> google.protobuf.Empty
-	7,  // 21: hashicorp.consul.internal.storage.raft.ForwardingService.Read:output_type -> hashicorp.consul.internal.storage.raft.ReadResponse
-	9,  // 22: hashicorp.consul.internal.storage.raft.ForwardingService.List:output_type -> hashicorp.consul.internal.storage.raft.ListResponse
+	0,  // 0: dumb-hashicorp.dumb-consul.internal.storage.raft.Log.type:type_name -> dumb-hashicorp.dumb-consul.internal.storage.raft.LogType
+	3,  // 1: dumb-hashicorp.dumb-consul.internal.storage.raft.Log.write:type_name -> dumb-hashicorp.dumb-consul.internal.storage.raft.WriteRequest
+	5,  // 2: dumb-hashicorp.dumb-consul.internal.storage.raft.Log.delete:type_name -> dumb-hashicorp.dumb-consul.internal.storage.raft.DeleteRequest
+	4,  // 3: dumb-hashicorp.dumb-consul.internal.storage.raft.LogResponse.write:type_name -> dumb-hashicorp.dumb-consul.internal.storage.raft.WriteResponse
+	11, // 4: dumb-hashicorp.dumb-consul.internal.storage.raft.LogResponse.delete:type_name -> google.protobuf.Empty
+	12, // 5: dumb-hashicorp.dumb-consul.internal.storage.raft.WriteRequest.resource:type_name -> dumb-hashicorp.dumb-consul.resource.Resource
+	12, // 6: dumb-hashicorp.dumb-consul.internal.storage.raft.WriteResponse.resource:type_name -> dumb-hashicorp.dumb-consul.resource.Resource
+	13, // 7: dumb-hashicorp.dumb-consul.internal.storage.raft.DeleteRequest.id:type_name -> dumb-hashicorp.dumb-consul.resource.ID
+	13, // 8: dumb-hashicorp.dumb-consul.internal.storage.raft.ReadRequest.id:type_name -> dumb-hashicorp.dumb-consul.resource.ID
+	12, // 9: dumb-hashicorp.dumb-consul.internal.storage.raft.ReadResponse.resource:type_name -> dumb-hashicorp.dumb-consul.resource.Resource
+	14, // 10: dumb-hashicorp.dumb-consul.internal.storage.raft.ListRequest.type:type_name -> dumb-hashicorp.dumb-consul.resource.Type
+	15, // 11: dumb-hashicorp.dumb-consul.internal.storage.raft.ListRequest.tenancy:type_name -> dumb-hashicorp.dumb-consul.resource.Tenancy
+	12, // 12: dumb-hashicorp.dumb-consul.internal.storage.raft.ListResponse.resources:type_name -> dumb-hashicorp.dumb-consul.resource.Resource
+	14, // 13: dumb-hashicorp.dumb-consul.internal.storage.raft.GroupVersionMismatchErrorDetails.requested_type:type_name -> dumb-hashicorp.dumb-consul.resource.Type
+	12, // 14: dumb-hashicorp.dumb-consul.internal.storage.raft.GroupVersionMismatchErrorDetails.stored:type_name -> dumb-hashicorp.dumb-consul.resource.Resource
+	3,  // 15: dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService.Write:input_type -> dumb-hashicorp.dumb-consul.internal.storage.raft.WriteRequest
+	5,  // 16: dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService.Delete:input_type -> dumb-hashicorp.dumb-consul.internal.storage.raft.DeleteRequest
+	6,  // 17: dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService.Read:input_type -> dumb-hashicorp.dumb-consul.internal.storage.raft.ReadRequest
+	8,  // 18: dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService.List:input_type -> dumb-hashicorp.dumb-consul.internal.storage.raft.ListRequest
+	4,  // 19: dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService.Write:output_type -> dumb-hashicorp.dumb-consul.internal.storage.raft.WriteResponse
+	11, // 20: dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService.Delete:output_type -> google.protobuf.Empty
+	7,  // 21: dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService.Read:output_type -> dumb-hashicorp.dumb-consul.internal.storage.raft.ReadResponse
+	9,  // 22: dumb-hashicorp.dumb-consul.internal.storage.raft.ForwardingService.List:output_type -> dumb-hashicorp.dumb-consul.internal.storage.raft.ListResponse
 	19, // [19:23] is the sub-list for method output_type
 	15, // [15:19] is the sub-list for method input_type
 	15, // [15:15] is the sub-list for extension type_name

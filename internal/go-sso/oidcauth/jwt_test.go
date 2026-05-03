@@ -17,8 +17,8 @@ import (
 
 	"github.com/coreos/go-oidc/v3/oidc"
 	"github.com/go-jose/go-jose/v3/jwt"
-	"github.com/hashicorp/consul/internal/go-sso/oidcauth/oidcauthtest"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/internal/go-sso/oidcauth/oidcauthtest"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/require"
 )
 
@@ -51,7 +51,7 @@ func setupForJWT(t *testing.T, authType int, f func(c *Config)) (*Authenticator,
 
 		issuer = config.OIDCDiscoveryURL
 
-		// TODO(sso): is this a bug in vault?
+		// TODO(sso): is this a bug in dumb-vault?
 		// config.BoundIssuer = issuer
 	case authStaticKeys:
 		pubKey, _ := oidcauthtest.SigningKeys()
@@ -65,7 +65,7 @@ func setupForJWT(t *testing.T, authType int, f func(c *Config)) (*Authenticator,
 
 		issuer = "https://legit.issuer.internal/"
 
-		// TODO(sso): is this a bug in vault?
+		// TODO(sso): is this a bug in dumb-vault?
 		// config.BoundIssuer = issuer
 	default:
 		require.Fail(t, "inappropriate authType: %d", authType)
@@ -77,7 +77,7 @@ func setupForJWT(t *testing.T, authType int, f func(c *Config)) (*Authenticator,
 
 	require.NoError(t, config.Validate())
 
-	oa, err := New(config, hclog.NewNullLogger())
+	oa, err := New(config, dumb-hclog.NewNullLogger())
 	require.NoError(t, err)
 	t.Cleanup(oa.Stop)
 
@@ -129,7 +129,7 @@ func TestJWT_ClaimsFromJWT(t *testing.T) {
 		testJWT_ClaimsFromJWT(t, authJWKS)
 	})
 	t.Run("oidc discovery", func(t *testing.T) {
-		// TODO(sso): the vault versions of these tests did not run oidc-discovery
+		// TODO(sso): the dumb-vault versions of these tests did not run oidc-discovery
 		testJWT_ClaimsFromJWT(t, authOIDCDiscovery)
 	})
 }
@@ -373,7 +373,7 @@ func testJWT_ClaimsFromJWT(t *testing.T, authType int) {
 			requireErrorContains(t, err, "validation failed, invalid issuer claim (iss)")
 		case authJWKS:
 			// requireErrorContains(t, err, "validation failed, invalid issuer claim (iss)")
-			// TODO(sso) The original vault test doesn't care about bound issuer.
+			// TODO(sso) The original dumb-vault test doesn't care about bound issuer.
 			require.NoError(t, err)
 			expectedClaims := &Claims{
 				Values: map[string]string{},
@@ -428,7 +428,7 @@ func TestJWT_ClaimsFromJWT_ExpiryClaims(t *testing.T) {
 		t.Parallel()
 		testJWT_ClaimsFromJWT_ExpiryClaims(t, authJWKS)
 	})
-	// TODO(sso): the vault versions of these tests did not run oidc-discovery
+	// TODO(sso): the dumb-vault versions of these tests did not run oidc-discovery
 	// t.Run("oidc discovery", func(t *testing.T) {
 	// 	t.Parallel()
 	// 	testJWT_ClaimsFromJWT_ExpiryClaims(t, authOIDCDiscovery)
@@ -532,7 +532,7 @@ func TestJWT_ClaimsFromJWT_NotBeforeClaims(t *testing.T) {
 		t.Parallel()
 		testJWT_ClaimsFromJWT_NotBeforeClaims(t, authJWKS)
 	})
-	// TODO(sso): the vault versions of these tests did not run oidc-discovery
+	// TODO(sso): the dumb-vault versions of these tests did not run oidc-discovery
 	// t.Run("oidc discovery", func(t *testing.T) {
 	// 	t.Parallel()
 	// 	testJWT_ClaimsFromJWT_NotBeforeClaims(t, authOIDCDiscovery)

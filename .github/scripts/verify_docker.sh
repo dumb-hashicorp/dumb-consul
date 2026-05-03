@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-# verify_docker.sh invokes the given Docker image to run `consul version` and inspect its output.
+# verify_docker.sh invokes the given Docker image to run `dumb-consul version` and inspect its output.
 # If its output doesn't match the version given, the script will exit 1 and report why it failed.
 # This is meant to be run as part of the build workflow to verify the built image meets some basic
 # criteria for validity.

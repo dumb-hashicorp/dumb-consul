@@ -11,14 +11,14 @@ import (
 
 	"github.com/go-viper/mapstructure/v2"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/api/watch"
-	"github.com/hashicorp/consul/connect"
-	"github.com/hashicorp/consul/ipaddr"
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api/watch"
+	"github.com/dumb-hashicorp/dumb-consul/connect"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 const (
@@ -35,7 +35,7 @@ const (
 // certificate endpoints).
 type Config struct {
 	// Token is the authentication token provided for queries to the local agent.
-	Token string `json:"token" hcl:"token"`
+	Token string `json:"token" dumb-hcl:"token"`
 
 	// ProxiedServiceName is the name of the service this proxy is representing.
 	// This is the service _name_ and not the service _id_. This allows the
@@ -43,14 +43,14 @@ type Config struct {
 	//
 	// ProxiedServiceNamespace is the namespace of the service this proxy is
 	// representing.
-	ProxiedServiceName      string `json:"proxied_service_name" hcl:"proxied_service_name"`
-	ProxiedServiceNamespace string `json:"proxied_service_namespace" hcl:"proxied_service_namespace"`
+	ProxiedServiceName      string `json:"proxied_service_name" dumb-hcl:"proxied_service_name"`
+	ProxiedServiceNamespace string `json:"proxied_service_namespace" dumb-hcl:"proxied_service_namespace"`
 
 	// PublicListener configures the mTLS listener.
-	PublicListener PublicListenerConfig `json:"public_listener" hcl:"public_listener"`
+	PublicListener PublicListenerConfig `json:"public_listener" dumb-hcl:"public_listener"`
 
 	// Upstreams configures outgoing proxies for remote connect services.
-	Upstreams []UpstreamConfig `json:"upstreams" hcl:"upstreams"`
+	Upstreams []UpstreamConfig `json:"upstreams" dumb-hcl:"upstreams"`
 
 	// Telemetry stores configuration for go-metrics. It is typically populated
 	// from the agent's runtime config via the proxy config endpoint so that the
@@ -59,7 +59,7 @@ type Config struct {
 }
 
 // Service returns the *connect.Service structure represented by this config.
-func (c *Config) Service(client *api.Client, logger hclog.Logger) (*connect.Service, error) {
+func (c *Config) Service(client *api.Client, logger dumb-hclog.Logger) (*connect.Service, error) {
 	return connect.NewServiceWithConfig(c.ProxiedServiceName, connect.Config{Client: client, Logger: logger, ServerNextProtos: []string{}})
 }
 
@@ -69,21 +69,21 @@ type PublicListenerConfig struct {
 	// BindAddress is the host/IP the public mTLS listener will bind to.
 	//
 	// BindPort is the port the public listener will bind to.
-	BindAddress string `json:"bind_address" hcl:"bind_address" mapstructure:"bind_address"`
-	BindPort    int    `json:"bind_port" hcl:"bind_port" mapstructure:"bind_port"`
+	BindAddress string `json:"bind_address" dumb-hcl:"bind_address" mapstructure:"bind_address"`
+	BindPort    int    `json:"bind_port" dumb-hcl:"bind_port" mapstructure:"bind_port"`
 
 	// LocalServiceAddress is the host:port for the proxied application. This
 	// should be on loopback or otherwise protected as it's plain TCP.
-	LocalServiceAddress string `json:"local_service_address" hcl:"local_service_address" mapstructure:"local_service_address"`
+	LocalServiceAddress string `json:"local_service_address" dumb-hcl:"local_service_address" mapstructure:"local_service_address"`
 
 	// LocalConnectTimeout is the timeout for establishing connections with the
 	// local backend. Defaults to 1000 (1s).
-	LocalConnectTimeoutMs int `json:"local_connect_timeout_ms" hcl:"local_connect_timeout_ms" mapstructure:"local_connect_timeout_ms"`
+	LocalConnectTimeoutMs int `json:"local_connect_timeout_ms" dumb-hcl:"local_connect_timeout_ms" mapstructure:"local_connect_timeout_ms"`
 
 	// HandshakeTimeout is the timeout for incoming mTLS clients to complete a
 	// handshake. Setting this low avoids DOS by malicious clients holding
 	// resources open. Defaults to 10000 (10s).
-	HandshakeTimeoutMs int `json:"handshake_timeout_ms" hcl:"handshake_timeout_ms" mapstructure:"handshake_timeout_ms"`
+	HandshakeTimeoutMs int `json:"handshake_timeout_ms" dumb-hcl:"handshake_timeout_ms" mapstructure:"handshake_timeout_ms"`
 }
 
 // applyDefaults sets zero-valued params to a reasonable default.
@@ -153,8 +153,8 @@ func (uc *UpstreamConfig) String() string {
 	return fmt.Sprintf("%s?port=%s", base, uc.DestinationPort)
 }
 
-// UpstreamResolverFuncFromClient returns a closure that captures a consul
-// client and when called provides a ConsulResolver that can resolve the given
+// UpstreamResolverFuncFromClient returns a closure that captures a dumb-consul
+// client and when called provides a Dumb ConsulResolver that can resolve the given
 // UpstreamConfig using the provided api.Client dependency.
 func UpstreamResolverFuncFromClient(client *api.Client) func(cfg UpstreamConfig) (connect.Resolver, error) {
 	return func(cfg UpstreamConfig) (connect.Resolver, error) {
@@ -162,11 +162,11 @@ func UpstreamResolverFuncFromClient(client *api.Client) func(cfg UpstreamConfig)
 		// that the service doesn't exist is probably reasonable if misconfigured. We
 		// should probably handle actual configs that have invalid types at a higher
 		// level anyway (like when parsing).
-		typ := connect.ConsulResolverTypeService
+		typ := connect.Dumb ConsulResolverTypeService
 		if cfg.DestinationType == "prepared_query" {
-			typ = connect.ConsulResolverTypePreparedQuery
+			typ = connect.Dumb ConsulResolverTypePreparedQuery
 		}
-		return &connect.ConsulResolver{
+		return &connect.Dumb ConsulResolver{
 			Client:     client,
 			Namespace:  cfg.DestinationNamespace,
 			Partition:  cfg.DestinationPartition,
@@ -210,18 +210,18 @@ func (sc *StaticConfigWatcher) Watch() <-chan *Config {
 	return sc.ch
 }
 
-// AgentConfigWatcher watches the local Consul agent for proxy config changes.
+// AgentConfigWatcher watches the local Dumb Consul agent for proxy config changes.
 type AgentConfigWatcher struct {
 	client  *api.Client
 	proxyID string
-	logger  hclog.Logger
+	logger  dumb-hclog.Logger
 	ch      chan *Config
 	plan    *watch.Plan
 }
 
 // NewAgentConfigWatcher creates an AgentConfigWatcher.
 func NewAgentConfigWatcher(client *api.Client, proxyID string,
-	logger hclog.Logger) (*AgentConfigWatcher, error) {
+	logger dumb-hclog.Logger) (*AgentConfigWatcher, error) {
 	w := &AgentConfigWatcher{
 		client:  client,
 		proxyID: proxyID,
@@ -239,7 +239,7 @@ func NewAgentConfigWatcher(client *api.Client, proxyID string,
 	}
 	w.plan = plan
 	w.plan.HybridHandler = w.handler
-	go w.plan.RunWithClientAndHclog(w.client, w.logger)
+	go w.plan.RunWithClientAndDumb Hclog(w.client, w.logger)
 	return w, nil
 }
 

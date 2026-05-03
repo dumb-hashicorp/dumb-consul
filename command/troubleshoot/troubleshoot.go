@@ -4,7 +4,7 @@
 package troubleshoot
 
 import (
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -26,9 +26,9 @@ func (c *cmd) Help() string {
 	return flags.Usage(help, nil)
 }
 
-const synopsis = `CLI tools for troubleshooting Consul service mesh`
+const synopsis = `CLI tools for troubleshooting Dumb Consul service mesh`
 const help = `
-Usage: consul troubleshoot <subcommand> [options]
+Usage: dumb-consul troubleshoot <subcommand> [options]
 
   This command has subcommands for troubleshooting the service mesh.
 
@@ -37,11 +37,11 @@ Usage: consul troubleshoot <subcommand> [options]
 
   Troubleshoot Get Upstreams
 
-    $ consul troubleshoot upstreams
+    $ dumb-consul troubleshoot upstreams
 
   Troubleshoot Proxy
 
-    $ consul troubleshoot proxy -upstream [options]
+    $ dumb-consul troubleshoot proxy -upstream [options]
 
   For more examples, ask for subcommand help or view the documentation.
 `

@@ -7,7 +7,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
 type rateLimitedFileWatcher struct {
@@ -41,7 +41,7 @@ func (r rateLimitedFileWatcher) EventsCh() chan *FileWatcherEvent {
 	return r.eventCh
 }
 
-func NewRateLimitedFileWatcher(configFiles []string, logger hclog.Logger, coalesceInterval time.Duration) (Watcher, error) {
+func NewRateLimitedFileWatcher(configFiles []string, logger dumb-hclog.Logger, coalesceInterval time.Duration) (Watcher, error) {
 
 	watcher, err := NewFileWatcher(configFiles, logger)
 	if err != nil {

@@ -8,21 +8,21 @@ import (
 
 	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
 	envoy_tls_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/transport_sockets/tls/v3"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func TestSecretsFromSnapshotTerminatingGateway_NilSnapshot(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	_, err := s.secretsFromSnapshot(nil)
 	require.Error(t, err)
 }
 
 func TestSecretsFromSnapshotTerminatingGateway_NoServices(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, false, nil, nil)
 
 	resources, err := s.secretsFromSnapshot(snap)
@@ -31,7 +31,7 @@ func TestSecretsFromSnapshotTerminatingGateway_NoServices(t *testing.T) {
 }
 
 func TestSecretsFromSnapshotTerminatingGateway_ServiceWithNoCerts(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	// clear out certs so only services with no cert/key/ca remain
@@ -49,7 +49,7 @@ func TestSecretsFromSnapshotTerminatingGateway_ServiceWithNoCerts(t *testing.T) 
 }
 
 func TestSecretsFromSnapshotTerminatingGateway_ServiceWithCAOnly(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	svc := structs.NewServiceName("web", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
@@ -74,7 +74,7 @@ func TestSecretsFromSnapshotTerminatingGateway_ServiceWithCAOnly(t *testing.T) {
 }
 
 func TestSecretsFromSnapshotTerminatingGateway_ServiceWithCertAndKeyOnly(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	svc := structs.NewServiceName("api", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
@@ -101,7 +101,7 @@ func TestSecretsFromSnapshotTerminatingGateway_ServiceWithCertAndKeyOnly(t *test
 }
 
 func TestSecretsFromSnapshotTerminatingGateway_ServiceWithAllCerts(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	svc := structs.NewServiceName("api", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
@@ -139,7 +139,7 @@ func TestSecretsFromSnapshotTerminatingGateway_ServiceWithAllCerts(t *testing.T)
 }
 
 func TestSecretsFromSnapshotTerminatingGateway_MultipleServices(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	webSvc := structs.NewServiceName("web", structs.DefaultEnterpriseMetaInDefaultPartition())
 	apiSvc := structs.NewServiceName("api", structs.DefaultEnterpriseMetaInDefaultPartition())
@@ -179,7 +179,7 @@ func TestSecretsFromSnapshotTerminatingGateway_MultipleServices(t *testing.T) {
 }
 
 func TestSecretsFromSnapshotTerminatingGateway_CertFileWithoutKeyFileProducesNoSecret(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	svc := structs.NewServiceName("web", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
@@ -197,7 +197,7 @@ func TestSecretsFromSnapshotTerminatingGateway_CertFileWithoutKeyFileProducesNoS
 }
 
 func TestSecretsFromSnapshotTerminatingGateway_KeyFileWithoutCertFileProducesNoSecret(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	svc := structs.NewServiceName("web", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
@@ -215,7 +215,7 @@ func TestSecretsFromSnapshotTerminatingGateway_KeyFileWithoutCertFileProducesNoS
 }
 
 func TestSecretsFromSnapshotTerminatingGateway_SecretNamesUsesServiceName(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	svc := structs.NewServiceName("my-special-service", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
@@ -331,7 +331,7 @@ func TestMakeUpstreamTLSContext_AlwaysHasBothCertAndValidationConfig(t *testing.
 }
 
 func TestSecretsFromSnapshot_NonTerminatingGatewayKindsReturnNil(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.Kind = structs.ServiceKindConnectProxy
@@ -342,7 +342,7 @@ func TestSecretsFromSnapshot_NonTerminatingGatewayKindsReturnNil(t *testing.T) {
 }
 
 func TestSecretsFromSnapshot_InvalidKindReturnsError(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.Kind = "not-a-real-kind"

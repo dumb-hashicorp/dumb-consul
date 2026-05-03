@@ -13,13 +13,13 @@ import (
 	envoy_cluster_v3 "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
 	envoy_core_v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
 	envoy_tls_v3 "github.com/envoyproxy/go-control-plane/envoy/extensions/transport_sockets/tls/v3"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	testinf "github.com/mitchellh/go-testing-interface"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 type mockCfgFetcher struct {
@@ -649,7 +649,7 @@ func TestMakeJWTCertValidationContext(t *testing.T) {
 }
 
 func TestInjectGatewayServiceAddons_TerminatingGateway_NoCAFile(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("web", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.GatewayServices = map[structs.ServiceName]structs.GatewayService{
@@ -664,7 +664,7 @@ func TestInjectGatewayServiceAddons_TerminatingGateway_NoCAFile(t *testing.T) {
 }
 
 func TestInjectGatewayServiceAddons_TerminatingGateway_WithCAFile(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("web", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.GatewayServices = map[structs.ServiceName]structs.GatewayService{
@@ -680,7 +680,7 @@ func TestInjectGatewayServiceAddons_TerminatingGateway_WithCAFile(t *testing.T) 
 }
 
 func TestInjectGatewayServiceAddons_TerminatingGateway_WithCAFileAndSNI_UsesCombinedValidationContext(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("web", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.GatewayServices = map[structs.ServiceName]structs.GatewayService{
@@ -705,7 +705,7 @@ func TestInjectGatewayServiceAddons_TerminatingGateway_WithCAFileAndSNI_UsesComb
 }
 
 func TestInjectGatewayServiceAddons_TerminatingGateway_SNIWithSDSContextUsesCombinedValidationContext(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("api", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.GatewayServices = map[structs.ServiceName]structs.GatewayService{
@@ -730,7 +730,7 @@ func TestInjectGatewayServiceAddons_TerminatingGateway_SNIWithSDSContextUsesComb
 }
 
 func TestInjectGatewayServiceAddons_TerminatingGateway_NoSNINoSANMatchers(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("db", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.GatewayServices = map[structs.ServiceName]structs.GatewayService{
@@ -752,7 +752,7 @@ func TestInjectGatewayServiceAddons_TerminatingGateway_NoSNINoSANMatchers(t *tes
 }
 
 func TestInjectGatewayServiceAddons_TerminatingGateway_TLSContextUsesSDS(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("payments", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.GatewayServices = map[structs.ServiceName]structs.GatewayService{
@@ -776,7 +776,7 @@ func TestInjectGatewayServiceAddons_TerminatingGateway_TLSContextUsesSDS(t *test
 }
 
 func TestInjectGatewayServiceAddons_TerminatingGateway_ServiceNotInMap(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("unknown", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.GatewayServices = map[structs.ServiceName]structs.GatewayService{}
@@ -789,7 +789,7 @@ func TestInjectGatewayServiceAddons_TerminatingGateway_ServiceNotInMap(t *testin
 }
 
 func TestInjectGatewayServiceAddons_MeshGateway_DoesNotSetTransportSocket(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("web", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.Kind = structs.ServiceKindMeshGateway
@@ -802,7 +802,7 @@ func TestInjectGatewayServiceAddons_MeshGateway_DoesNotSetTransportSocket(t *tes
 }
 
 func TestInjectGatewayDestinationAddons_TerminatingGateway_NoCAFile(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("db", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.DestinationServices = map[structs.ServiceName]structs.GatewayService{
@@ -817,7 +817,7 @@ func TestInjectGatewayDestinationAddons_TerminatingGateway_NoCAFile(t *testing.T
 }
 
 func TestInjectGatewayDestinationAddons_TerminatingGateway_WithCAFile(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("db", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.DestinationServices = map[structs.ServiceName]structs.GatewayService{
@@ -833,7 +833,7 @@ func TestInjectGatewayDestinationAddons_TerminatingGateway_WithCAFile(t *testing
 }
 
 func TestInjectGatewayDestinationAddons_TerminatingGateway_WithCAFileAndSNI_UsesCombinedValidationContext(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("db", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.DestinationServices = map[structs.ServiceName]structs.GatewayService{
@@ -858,7 +858,7 @@ func TestInjectGatewayDestinationAddons_TerminatingGateway_WithCAFileAndSNI_Uses
 }
 
 func TestInjectGatewayDestinationAddons_TerminatingGateway_SNIWithSDSContextUsesCombinedValidationContext(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("cache", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.DestinationServices = map[structs.ServiceName]structs.GatewayService{
@@ -883,7 +883,7 @@ func TestInjectGatewayDestinationAddons_TerminatingGateway_SNIWithSDSContextUses
 }
 
 func TestInjectGatewayDestinationAddons_TerminatingGateway_TLSContextUsesSDS(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("cache", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.DestinationServices = map[structs.ServiceName]structs.GatewayService{
@@ -913,7 +913,7 @@ func TestInjectGatewayDestinationAddons_TerminatingGateway_TLSContextUsesSDS(t *
 }
 
 func TestInjectGatewayDestinationAddons_TerminatingGateway_DestinationNotInMap(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("missing", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.TerminatingGateway.DestinationServices = map[structs.ServiceName]structs.GatewayService{}
@@ -926,7 +926,7 @@ func TestInjectGatewayDestinationAddons_TerminatingGateway_DestinationNotInMap(t
 }
 
 func TestInjectGatewayDestinationAddons_NonTerminatingGatewayKindDoesNothing(t *testing.T) {
-	s := &ResourceGenerator{Logger: hclog.NewNullLogger()}
+	s := &ResourceGenerator{Logger: dumb-hclog.NewNullLogger()}
 	svc := structs.NewServiceName("web", structs.DefaultEnterpriseMetaInDefaultPartition())
 	snap := proxycfg.TestConfigSnapshotTerminatingGateway(t, true, nil, nil)
 	snap.Kind = structs.ServiceKindMeshGateway

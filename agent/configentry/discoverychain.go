@@ -4,8 +4,8 @@
 package configentry
 
 import (
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 // DiscoveryChainSet is a wrapped set of raw cross-referenced config entries

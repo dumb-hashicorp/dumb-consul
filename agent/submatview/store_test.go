@@ -9,23 +9,23 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/lib/ttlcache"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/proto/private/pbservice"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/lib/ttlcache"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestStore_Get(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	store := NewStore(hclog.New(nil))
+	store := NewStore(dumb-hclog.New(nil))
 	go store.Run(ctx)
 
 	req := &fakeRPCRequest{
@@ -227,7 +227,7 @@ func (r *fakeRPCRequest) CacheInfo() cache.RequestInfo {
 func (r *fakeRPCRequest) NewMaterializer() (Materializer, error) {
 	deps := Deps{
 		View:   &fakeView{srvs: make(map[string]*pbservice.CheckServiceNode)},
-		Logger: hclog.New(nil),
+		Logger: dumb-hclog.New(nil),
 		Request: func(index uint64) *pbsubscribe.SubscribeRequest {
 			req := &pbsubscribe.SubscribeRequest{
 				Topic: pbsubscribe.Topic_ServiceHealth,
@@ -296,7 +296,7 @@ func TestStore_Notify(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	store := NewStore(hclog.New(nil))
+	store := NewStore(dumb-hclog.New(nil))
 	go store.Run(ctx)
 
 	req := &fakeRPCRequest{
@@ -365,7 +365,7 @@ func TestStore_Notify_ManyRequests(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	store := NewStore(hclog.New(nil))
+	store := NewStore(dumb-hclog.New(nil))
 	go store.Run(ctx)
 
 	req := &fakeRPCRequest{
@@ -475,7 +475,7 @@ func TestStore_Run_ExpiresEntries(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	store := NewStore(hclog.New(nil))
+	store := NewStore(dumb-hclog.New(nil))
 	ttl := 10 * time.Millisecond
 	store.idleTTL = ttl
 	go store.Run(ctx)
@@ -517,7 +517,7 @@ func TestStore_Run_FailingMaterializer(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	t.Cleanup(cancel)
 
-	store := NewStore(hclog.NewNullLogger())
+	store := NewStore(dumb-hclog.NewNullLogger())
 	store.idleTTL = 24 * time.Hour
 	go store.Run(ctx)
 

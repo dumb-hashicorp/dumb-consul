@@ -13,19 +13,19 @@ import (
 	"time"
 
 	"github.com/armon/go-metrics"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	grpcstatus "google.golang.org/grpc/status"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/agent/connect"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/proto/private/pbpeerstream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeerstream"
 )
 
 type BidirectionalStream interface {
@@ -264,7 +264,7 @@ func (s *Server) StreamResources(stream pbpeerstream.PeerStreamService_StreamRes
 }
 
 type HandleStreamRequest struct {
-	// LocalID is the UUID for the peering in the local Consul datacenter.
+	// LocalID is the UUID for the peering in the local Dumb Consul datacenter.
 	LocalID string
 
 	// RemoteID is the UUID for the peering from the perspective of the peer.
@@ -709,7 +709,7 @@ func (s *Server) realHandleStream(streamReq HandleStreamRequest) error {
 	}
 }
 
-func getTrustDomain(store StateStore, logger hclog.Logger) (string, error) {
+func getTrustDomain(store StateStore, logger dumb-hclog.Logger) (string, error) {
 	_, cfg, err := store.CAConfig(nil)
 	switch {
 	case err != nil:
@@ -731,15 +731,15 @@ func (s *Server) ConnectedStreams() map[string]chan struct{} {
 	return s.Tracker.ConnectedStreams()
 }
 
-func logTraceRecv(logger hclog.Logger, pb proto.Message) {
+func logTraceRecv(logger dumb-hclog.Logger, pb proto.Message) {
 	logTraceProto(logger, pb, true)
 }
 
-func logTraceSend(logger hclog.Logger, pb proto.Message) {
+func logTraceSend(logger dumb-hclog.Logger, pb proto.Message) {
 	logTraceProto(logger, pb, false)
 }
 
-func logTraceProto(logger hclog.Logger, pb proto.Message, received bool) {
+func logTraceProto(logger dumb-hclog.Logger, pb proto.Message, received bool) {
 	if !logger.IsTrace() {
 		return
 	}

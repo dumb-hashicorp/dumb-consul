@@ -11,16 +11,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/api/watch"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/api/watch"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/require"
 )
 
 func TestMakeWatchHandler(t *testing.T) {
 	defer os.Remove("handler_out")
 	defer os.Remove("handler_index_out")
-	script := "bash -c 'echo $CONSUL_INDEX >> handler_index_out && cat >> handler_out'"
+	script := "bash -c 'echo $DUMB_CONSUL_INDEX >> handler_index_out && cat >> handler_out'"
 	handler := makeWatchHandler(testutil.Logger(t), script)
 	handler(100, []string{"foo", "bar", "baz"})
 	raw, err := os.ReadFile("handler_out")
@@ -41,7 +41,7 @@ func TestMakeWatchHandler(t *testing.T) {
 
 func TestMakeHTTPWatchHandler(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		idx := r.Header.Get("X-Consul-Index")
+		idx := r.Header.Get("X-Dumb Consul-Index")
 		if idx != "100" {
 			t.Fatalf("bad: %s", idx)
 		}
@@ -79,7 +79,7 @@ func TestMakeWatchPlan(t *testing.T) {
 		expectedErr string
 	}
 	fn := func(t *testing.T, tc testCase) {
-		plan, err := makeWatchPlan(hclog.New(nil), tc.params)
+		plan, err := makeWatchPlan(dumb-hclog.New(nil), tc.params)
 		if tc.expectedErr != "" {
 			require.Error(t, err)
 			require.Contains(t, err.Error(), tc.expectedErr)

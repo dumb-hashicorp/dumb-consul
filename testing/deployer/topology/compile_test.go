@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/testing/protocmp"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestCompile_CE(t *testing.T) {
@@ -23,7 +23,7 @@ func TestCompile_CE(t *testing.T) {
 		expectErr string
 	}
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	const clusterID = "87c82bd03dc89d4d"
 
@@ -55,11 +55,11 @@ func TestCompile_CE(t *testing.T) {
 			in:        nil,
 			expectErr: `config is required`,
 		},
-		"consul image cannot be set at the top level": {
+		"dumb-consul image cannot be set at the top level": {
 			in: &Config{
-				Images: DefaultImages().ChooseConsul(true),
+				Images: DefaultImages().ChooseDumb Consul(true),
 			},
-			expectErr: `topology.images.consul cannot be set at this level`,
+			expectErr: `topology.images.dumb-consul cannot be set at this level`,
 		},
 		"no networks": {
 			in:        &Config{},
@@ -139,12 +139,12 @@ func TestCompile_CE(t *testing.T) {
 						Name:        "foo2",
 						NetworkName: "foo2",
 						Datacenter:  "foo2",
-						Images:      DefaultImages().ChooseConsul(false),
+						Images:      DefaultImages().ChooseDumb Consul(false),
 						Nodes: []*Node{{
 							Kind:      NodeKindServer,
 							Partition: "default",
 							Name:      "node1",
-							Images:    DefaultImages().ChooseConsul(false).ChooseNode(NodeKindServer),
+							Images:    DefaultImages().ChooseDumb Consul(false).ChooseNode(NodeKindServer),
 							Addresses: []*Address{
 								{Network: "foo2", Type: "lan", DockerNetworkName: "cslc-foo2-" + clusterID},
 								{Network: "foo3", Type: "wan", DockerNetworkName: "cslc-foo3-" + clusterID},
@@ -305,13 +305,13 @@ func TestCompile_CE(t *testing.T) {
 						NetworkName: "foo",
 						Datacenter:  "foo",
 						Enterprise:  true,
-						Images:      DefaultImages().ChooseConsul(true),
+						Images:      DefaultImages().ChooseDumb Consul(true),
 						Nodes: []*Node{
 							{
 								Kind:      NodeKindServer,
 								Name:      "server1",
 								Partition: "default",
-								Images:    DefaultImages().ChooseConsul(true).ChooseNode(NodeKindServer),
+								Images:    DefaultImages().ChooseDumb Consul(true).ChooseNode(NodeKindServer),
 								Addresses: []*Address{
 									{Network: "foo", Type: "lan", DockerNetworkName: "cslc-foo-" + clusterID},
 								},
@@ -322,7 +322,7 @@ func TestCompile_CE(t *testing.T) {
 								Kind:      NodeKindClient,
 								Name:      "mesh1",
 								Partition: "ap1",
-								Images:    DefaultImages().ChooseConsul(true).ChooseNode(NodeKindClient),
+								Images:    DefaultImages().ChooseDumb Consul(true).ChooseNode(NodeKindClient),
 								Addresses: []*Address{
 									{Network: "foo", Type: "lan", DockerNetworkName: "cslc-foo-" + clusterID},
 								},
@@ -818,13 +818,13 @@ func TestCompile_CE(t *testing.T) {
 						Name:        "foo",
 						NetworkName: "foo",
 						Datacenter:  "foo",
-						Images:      DefaultImages().ChooseConsul(false),
+						Images:      DefaultImages().ChooseDumb Consul(false),
 						Nodes: []*Node{
 							{
 								Kind:      NodeKindServer,
 								Partition: "default",
 								Name:      "server1",
-								Images:    DefaultImages().ChooseConsul(false).ChooseNode(NodeKindServer),
+								Images:    DefaultImages().ChooseDumb Consul(false).ChooseNode(NodeKindServer),
 								Addresses: []*Address{
 									{Network: "foo", Type: "lan", DockerNetworkName: "cslc-foo-" + clusterID},
 								},
@@ -835,7 +835,7 @@ func TestCompile_CE(t *testing.T) {
 								Kind:      NodeKindDataplane,
 								Partition: "default",
 								Name:      "mesh1",
-								Images:    DefaultImages().ChooseConsul(false).ChooseNode(NodeKindDataplane),
+								Images:    DefaultImages().ChooseDumb Consul(false).ChooseNode(NodeKindDataplane),
 								Addresses: []*Address{
 									{Network: "foo", Type: "lan", DockerNetworkName: "cslc-foo-" + clusterID},
 								},
@@ -966,13 +966,13 @@ func TestCompile_CE(t *testing.T) {
 						Name:        "foo",
 						NetworkName: "foo",
 						Datacenter:  "foo",
-						Images:      DefaultImages().ChooseConsul(false),
+						Images:      DefaultImages().ChooseDumb Consul(false),
 						Nodes: []*Node{
 							{
 								Kind:      NodeKindServer,
 								Partition: "default",
 								Name:      "server1",
-								Images:    DefaultImages().ChooseConsul(false).ChooseNode(NodeKindServer),
+								Images:    DefaultImages().ChooseDumb Consul(false).ChooseNode(NodeKindServer),
 								Addresses: []*Address{
 									{Network: "foo", Type: "lan", DockerNetworkName: "cslc-foo-" + clusterID},
 								},
@@ -983,7 +983,7 @@ func TestCompile_CE(t *testing.T) {
 								Kind:      NodeKindClient,
 								Partition: "default",
 								Name:      "mesh1",
-								Images:    DefaultImages().ChooseConsul(false).ChooseNode(NodeKindClient),
+								Images:    DefaultImages().ChooseDumb Consul(false).ChooseNode(NodeKindClient),
 								Addresses: []*Address{
 									{Network: "foo", Type: "lan", DockerNetworkName: "cslc-foo-" + clusterID},
 								},

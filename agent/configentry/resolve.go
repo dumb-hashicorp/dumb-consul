@@ -6,17 +6,17 @@ package configentry
 import (
 	"fmt"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/imdario/mergo"
 	"github.com/mitchellh/copystructure"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 func ComputeResolvedServiceConfig(
 	args *structs.ServiceConfigRequest,
 	entries *ResolvedServiceConfigSet,
-	logger hclog.Logger,
+	logger dumb-hclog.Logger,
 ) (*structs.ServiceConfigResponse, error) {
 	var thisReply structs.ServiceConfigResponse
 

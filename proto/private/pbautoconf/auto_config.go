@@ -18,11 +18,11 @@ func (req *AutoConfigRequest) AllowStaleRead() bool {
 }
 
 func (req *AutoConfigRequest) TokenSecret() string {
-	return req.ConsulToken
+	return req.Dumb ConsulToken
 }
 
 func (req *AutoConfigRequest) SetTokenSecret(token string) {
-	req.ConsulToken = token
+	req.Dumb ConsulToken = token
 }
 
 func (req *AutoConfigRequest) HasTimedOut(start time.Time, rpcHoldTimeout, _, _ time.Duration) (bool, error) {

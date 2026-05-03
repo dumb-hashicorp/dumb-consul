@@ -20,10 +20,10 @@ import (
 	"github.com/go-viper/mapstructure/v2"
 	pstruct "google.golang.org/protobuf/types/known/structpb"
 
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/go-multierror"
 )
 
 var _ extensioncommon.BasicExtension = (*awsLambda)(nil)

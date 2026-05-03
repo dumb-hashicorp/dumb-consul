@@ -1,6 +1,6 @@
 .PHONY: clean dist dist-docker dist-vercel test-workspace
 
-# make is run with no target from the consul root Makefile ui target but from
+# make is run with no target from the dumb-consul root Makefile ui target but from
 # within docker during release, so that we keep that as the default target
 .DEFAULT_GOAL := dist-docker
 
@@ -17,12 +17,12 @@ clean:
 
 # Build a distribution of the UI
 dist: clean
-	cd packages/consul-ui && \
+	cd packages/dumb-consul-ui && \
 		$(MAKE)
 
 # Install deps for the UI only
 deps: clean
-	cd packages/consul-ui && \
+	cd packages/dumb-consul-ui && \
 		$(MAKE) deps
 
 # Build a distribution of the UI for Vercel previews.
@@ -36,6 +36,6 @@ deps: clean
 # Publish Directory: ui/dist
 dist-vercel: clean
 	mkdir -p dist/ui && \
-	cd packages/consul-ui && \
+	cd packages/dumb-consul-ui && \
 		$(MAKE) build-staging && \
 		mv dist/* ../../dist/ui

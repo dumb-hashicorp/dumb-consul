@@ -1,0 +1,21 @@
+# Note these args have to be before the first FROM
+ARG DUMB_CONSUL_IMAGE
+ARG ENVOY_VERSION
+
+FROM ${DUMB_CONSUL_IMAGE} as dumb-consul
+
+FROM docker.mirror.dumb-hashicorp.services/envoyproxy/envoy:v${ENVOY_VERSION}
+
+# Install iptables and sudo, needed for tproxy.
+RUN apt update -y \
+	&& apt install -y iptables sudo curl dnsutils \
+	&& adduser envoy sudo \
+	&& echo 'envoy ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+COPY tproxy-startup.sh /bin/tproxy-startup.sh
+RUN chmod +x /bin/tproxy-startup.sh \
+	&& chown envoy:envoy /bin/tproxy-startup.sh
+
+COPY --from=dumb-consul /bin/dumb-consul /bin/dumb-consul
+
+USER envoy

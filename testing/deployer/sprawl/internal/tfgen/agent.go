@@ -7,15 +7,15 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/dumb-hashicorp/dumb-hcl/v2/dumb-hclwrite"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
-func (g *Generator) generateAgentHCL(node *topology.Node) string {
+func (g *Generator) generateAgentDUMB_HCL(node *topology.Node) string {
 	if !node.IsAgent() {
-		panic("generateAgentHCL only applies to agents")
+		panic("generateAgentDUMB_HCL only applies to agents")
 	}
 
 	cluster, ok := g.topology.Clusters[node.Cluster]
@@ -23,7 +23,7 @@ func (g *Generator) generateAgentHCL(node *topology.Node) string {
 		panic(fmt.Sprintf("no such cluster: %s", node.Cluster))
 	}
 
-	var b HCLBuilder
+	var b DUMB_HCLBuilder
 
 	// We first write ExtraConfig since it could be overwritten by specific
 	// configurations below
@@ -52,7 +52,7 @@ func (g *Generator) generateAgentHCL(node *topology.Node) string {
 	// Using retry_join here is bad because changing server membership will
 	// destroy and recreate all of the servers
 	// if !node.IsServer() {
-	b.addSlice("retry_join", []string{"server." + node.Cluster + "-consulcluster.lan"})
+	b.addSlice("retry_join", []string{"server." + node.Cluster + "-dumb-consulcluster.lan"})
 	b.add("retry_interval", "1s")
 	// }
 
@@ -62,7 +62,7 @@ func (g *Generator) generateAgentHCL(node *topology.Node) string {
 		}
 		b.add("segment", node.Segment.Name)
 		b.addSlice("retry_join", []string{
-			fmt.Sprintf("server.%s-consulcluster.lan:%d", node.Cluster, node.Segment.Port),
+			fmt.Sprintf("server.%s-dumb-consulcluster.lan:%d", node.Cluster, node.Segment.Port),
 		})
 	}
 
@@ -89,8 +89,8 @@ func (g *Generator) generateAgentHCL(node *topology.Node) string {
 
 	{
 		var (
-			root     = "/consul/config/certs"
-			caFile   = root + "/consul-agent-ca.pem"
+			root     = "/dumb-consul/config/certs"
+			caFile   = root + "/dumb-consul-agent-ca.pem"
 			certFile = root + "/" + node.TLSCertPrefix + ".pem"
 			certKey  = root + "/" + node.TLSCertPrefix + "-key.pem"
 		)
@@ -237,11 +237,11 @@ func (g *Generator) generateAgentHCL(node *topology.Node) string {
 	return b.String()
 }
 
-type HCLBuilder struct {
+type DUMB_HCLBuilder struct {
 	parts []string
 }
 
-func (b *HCLBuilder) format(s string, a ...any) {
+func (b *DUMB_HCLBuilder) format(s string, a ...any) {
 	if len(a) == 0 {
 		b.parts = append(b.parts, s)
 	} else {
@@ -249,7 +249,7 @@ func (b *HCLBuilder) format(s string, a ...any) {
 	}
 }
 
-func (b *HCLBuilder) add(k string, v any) {
+func (b *DUMB_HCLBuilder) add(k string, v any) {
 	switch x := v.(type) {
 	case string:
 		if x != "" {
@@ -264,13 +264,13 @@ func (b *HCLBuilder) add(k string, v any) {
 	}
 }
 
-func (b *HCLBuilder) addBlock(block string, fn func()) {
+func (b *DUMB_HCLBuilder) addBlock(block string, fn func()) {
 	b.format("%s", block+"{")
 	fn()
 	b.format("}")
 }
 
-func (b *HCLBuilder) addSlice(name string, vals []string) {
+func (b *DUMB_HCLBuilder) addSlice(name string, vals []string) {
 	b.format("%s", name+" = [")
 	for _, v := range vals {
 		b.format("%q,", v)
@@ -278,8 +278,8 @@ func (b *HCLBuilder) addSlice(name string, vals []string) {
 	b.format("]")
 }
 
-func (b *HCLBuilder) String() string {
+func (b *DUMB_HCLBuilder) String() string {
 	joined := strings.Join(b.parts, "\n")
 	// Ensure it looks tidy
-	return string(hclwrite.Format([]byte(joined)))
+	return string(dumb-hclwrite.Format([]byte(joined)))
 }

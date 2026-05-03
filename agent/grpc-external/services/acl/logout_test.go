@@ -14,13 +14,13 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/auth"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbacl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/auth"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbacl"
 )
 
 func TestServer_Logout_Success(t *testing.T) {
@@ -34,7 +34,7 @@ func TestServer_Logout_Success(t *testing.T) {
 		InPrimaryDatacenter: true,
 		ForwardRPC:          noopForwardRPC,
 		LocalTokensEnabled:  noopLocalTokensEnabled,
-		Logger:              hclog.NewNullLogger(),
+		Logger:              dumb-hclog.NewNullLogger(),
 		NewTokenWriter:      func() TokenWriter { return tokenWriter },
 	})
 
@@ -47,7 +47,7 @@ func TestServer_Logout_Success(t *testing.T) {
 func TestServer_Logout_EmptyToken(t *testing.T) {
 	server := NewServer(Config{
 		ACLsEnabled: true,
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 	})
 
 	_, err := server.Logout(context.Background(), &pbacl.LogoutRequest{
@@ -61,7 +61,7 @@ func TestServer_Logout_EmptyToken(t *testing.T) {
 func TestServer_Logout_ACLsDisabled(t *testing.T) {
 	server := NewServer(Config{
 		ACLsEnabled:               false,
-		Logger:                    hclog.NewNullLogger(),
+		Logger:                    dumb-hclog.NewNullLogger(),
 		ValidateEnterpriseRequest: noopValidateEnterpriseRequest,
 		ForwardRPC:                noopForwardRPC,
 		LocalTokensEnabled:        noopLocalTokensEnabled,
@@ -77,7 +77,7 @@ func TestServer_Logout_ACLsDisabled(t *testing.T) {
 func TestServer_Logout_LocalTokensDisabled(t *testing.T) {
 	server := NewServer(Config{
 		ACLsEnabled:        true,
-		Logger:             hclog.NewNullLogger(),
+		Logger:             dumb-hclog.NewNullLogger(),
 		ForwardRPC:         noopForwardRPC,
 		LocalTokensEnabled: func() bool { return false },
 	})
@@ -96,7 +96,7 @@ func TestServer_Logout_NoSuchToken(t *testing.T) {
 
 	server := NewServer(Config{
 		ACLsEnabled:        true,
-		Logger:             hclog.NewNullLogger(),
+		Logger:             dumb-hclog.NewNullLogger(),
 		ForwardRPC:         noopForwardRPC,
 		LocalTokensEnabled: noopLocalTokensEnabled,
 		NewTokenWriter:     func() TokenWriter { return tokenWriter },
@@ -117,7 +117,7 @@ func TestServer_Logout_PermissionDenied(t *testing.T) {
 		InPrimaryDatacenter: true,
 		ForwardRPC:          noopForwardRPC,
 		LocalTokensEnabled:  noopLocalTokensEnabled,
-		Logger:              hclog.NewNullLogger(),
+		Logger:              dumb-hclog.NewNullLogger(),
 		NewTokenWriter:      func() TokenWriter { return tokenWriter },
 	})
 
@@ -134,7 +134,7 @@ func TestServer_Logout_RPCForwarding(t *testing.T) {
 
 	dc1 := NewServer(Config{
 		ACLsEnabled:        true,
-		Logger:             hclog.NewNullLogger(),
+		Logger:             dumb-hclog.NewNullLogger(),
 		NewTokenWriter:     func() TokenWriter { return tokenWriter },
 		ForwardRPC:         noopForwardRPC,
 		LocalTokensEnabled: func() bool { return true },
@@ -149,7 +149,7 @@ func TestServer_Logout_RPCForwarding(t *testing.T) {
 
 	dc2 := NewServer(Config{
 		ACLsEnabled: true,
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		ForwardRPC: func(rpcInfo structs.RPCInfo, fn func(*grpc.ClientConn) error) (bool, error) {
 			return true, fn(dc1Conn)
 		},
@@ -181,7 +181,7 @@ func TestServer_Logout_GlobalWritesForwardedToPrimaryDC(t *testing.T) {
 		ACLsEnabled:         true,
 		InPrimaryDatacenter: true,
 		LocalTokensEnabled:  noopLocalTokensEnabled,
-		Logger:              hclog.NewNullLogger(),
+		Logger:              dumb-hclog.NewNullLogger(),
 		NewTokenWriter:      func() TokenWriter { return tokenWriter },
 		ForwardRPC: func(info structs.RPCInfo, _ func(*grpc.ClientConn) error) (bool, error) {
 			forwardedRequestDatacenter = info.RequestDatacenter()
@@ -200,7 +200,7 @@ func TestServer_Logout_GlobalWritesForwardedToPrimaryDC(t *testing.T) {
 		ACLsEnabled:         true,
 		InPrimaryDatacenter: false,
 		LocalTokensEnabled:  noopLocalTokensEnabled,
-		Logger:              hclog.NewNullLogger(),
+		Logger:              dumb-hclog.NewNullLogger(),
 		PrimaryDatacenter:   "primary",
 		ForwardRPC: func(info structs.RPCInfo, fn func(*grpc.ClientConn) error) (bool, error) {
 			dc := info.RequestDatacenter()

@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package watch
@@ -7,7 +7,7 @@ import (
 	"context"
 	"fmt"
 
-	consulapi "github.com/hashicorp/consul/api"
+	dumb-consulapi "github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // watchFactory is a function that can create a new WatchFunc
@@ -217,8 +217,8 @@ func checksWatch(params map[string]interface{}) (WatcherFunc, error) {
 		health := p.client.Health()
 		opts := makeQueryOptionsWithContext(p, stale)
 		defer p.cancelFunc()
-		var checks []*consulapi.HealthCheck
-		var meta *consulapi.QueryMeta
+		var checks []*dumb-consulapi.HealthCheck
+		var meta *dumb-consulapi.QueryMeta
 		var err error
 		if filter != "" {
 			opts.Filter = filter
@@ -337,10 +337,10 @@ func agentServiceWatch(params map[string]interface{}) (WatcherFunc, error) {
 	return fn, nil
 }
 
-func makeQueryOptionsWithContext(p *Plan, stale bool) consulapi.QueryOptions {
+func makeQueryOptionsWithContext(p *Plan, stale bool) dumb-consulapi.QueryOptions {
 	ctx, cancel := context.WithCancel(context.Background())
 	p.setCancelFunc(cancel)
-	opts := consulapi.QueryOptions{AllowStale: stale}
+	opts := dumb-consulapi.QueryOptions{AllowStale: stale}
 	switch param := p.lastParamVal.(type) {
 	case WaitIndexVal:
 		opts.WaitIndex = uint64(param)

@@ -10,12 +10,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/require"
 )
 
 func TestAPIServers_WithServiceRunError(t *testing.T) {
-	servers := NewAPIServers(hclog.New(nil))
+	servers := NewAPIServers(dumb-hclog.New(nil))
 
 	server1, chErr1 := newAPIServerStub()
 	server2, _ := newAPIServerStub()

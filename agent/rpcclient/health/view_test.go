@@ -12,20 +12,20 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/submatview"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/proto/private/pbservice"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/submatview"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestSortCheckServiceNodes_OrderIsConsistentWithRPCResponse(t *testing.T) {
@@ -95,7 +95,7 @@ func testHealthView_IntegrationWithStore_WithEmptySnapshot(t *testing.T, peerNam
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	store := submatview.NewStore(hclog.New(nil))
+	store := submatview.NewStore(dumb-hclog.New(nil))
 	go store.Run(ctx)
 
 	// Initially there are no services registered. Server should send an
@@ -302,7 +302,7 @@ func testHealthView_IntegrationWithStore_WithFullSnapshot(t *testing.T, peerName
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	store := submatview.NewStore(hclog.New(nil))
+	store := submatview.NewStore(dumb-hclog.New(nil))
 
 	// Create an initial snapshot of 3 instances on different nodes
 	registerServiceWeb := func(index uint64, nodeNum int) *pbsubscribe.Event {
@@ -462,7 +462,7 @@ func testHealthView_IntegrationWithStore_EventBatches(t *testing.T, peerName str
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	store := submatview.NewStore(hclog.New(nil))
+	store := submatview.NewStore(dumb-hclog.New(nil))
 
 	// Create an initial snapshot of 3 instances but in a single event batch
 	batchEv := newEventBatchWithEvents(
@@ -538,7 +538,7 @@ func testHealthView_IntegrationWithStore_Filtering(t *testing.T, peerName string
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	store := submatview.NewStore(hclog.New(nil))
+	store := submatview.NewStore(dumb-hclog.New(nil))
 	go store.Run(ctx)
 
 	req := serviceRequestStub{
@@ -611,7 +611,7 @@ func (r serviceRequestStub) NewMaterializer() (submatview.Materializer, error) {
 	}
 	deps := submatview.Deps{
 		View:    view,
-		Logger:  hclog.New(nil),
+		Logger:  dumb-hclog.New(nil),
 		Request: NewMaterializerRequest(r.ServiceSpecificRequest),
 	}
 	return submatview.NewRPCMaterializer(r.streamClient, deps), nil

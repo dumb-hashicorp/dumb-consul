@@ -14,11 +14,11 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	grpcinternal "github.com/hashicorp/consul/agent/grpc-internal"
-	"github.com/hashicorp/consul/internal/storage"
-	pbstorage "github.com/hashicorp/consul/proto/private/pbstorage"
+	grpcinternal "github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	pbstorage "github.com/dumb-hashicorp/dumb-consul/proto/private/pbstorage"
 )
 
 // forwardingServer implements the gRPC forwarding service.
@@ -114,13 +114,13 @@ func (s *forwardingServer) run(ctx context.Context) error {
 // forwardingClient is used to forward operations to the leader.
 type forwardingClient struct {
 	handle Handle
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 
 	mu   sync.RWMutex
 	conn *grpc.ClientConn
 }
 
-func newForwardingClient(h Handle, l hclog.Logger) *forwardingClient {
+func newForwardingClient(h Handle, l dumb-hclog.Logger) *forwardingClient {
 	return &forwardingClient{
 		handle: h,
 		logger: l,

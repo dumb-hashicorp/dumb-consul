@@ -8,16 +8,16 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pboperator"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pboperator"
 )
 
 type MockBackend struct {
@@ -41,7 +41,7 @@ func (m *MockBackend) ResolveTokenAndDefaultMeta(token string, entMeta *acl.Ente
 func TestLeaderTransfer_ACL_Deny(t *testing.T) {
 	authorizer := acl.MockAuthorizer{}
 	authorizer.On("OperatorWrite", mock.Anything).Return(acl.Deny)
-	server := NewServer(Config{Datacenter: "dc1", Backend: &MockBackend{authorizer: &authorizer}, Logger: hclog.New(nil), ForwardRPC: doForwardRPC})
+	server := NewServer(Config{Datacenter: "dc1", Backend: &MockBackend{authorizer: &authorizer}, Logger: dumb-hclog.New(nil), ForwardRPC: doForwardRPC})
 
 	_, err := server.TransferLeader(context.Background(), &pboperator.TransferLeaderRequest{})
 	require.Error(t, err)
@@ -54,7 +54,7 @@ func TestLeaderTransfer_ACL_Allowed(t *testing.T) {
 
 	backend := &MockBackend{authorizer: authorizer}
 	backend.On("TransferLeader", mock.Anything, mock.Anything).Return(nil, nil)
-	server := NewServer(Config{Datacenter: "dc1", Backend: backend, Logger: hclog.New(nil), ForwardRPC: doForwardRPC})
+	server := NewServer(Config{Datacenter: "dc1", Backend: backend, Logger: dumb-hclog.New(nil), ForwardRPC: doForwardRPC})
 
 	_, err := server.TransferLeader(context.Background(), &pboperator.TransferLeaderRequest{})
 	require.NoError(t, err)
@@ -66,7 +66,7 @@ func TestLeaderTransfer_LeaderTransfer_Fail(t *testing.T) {
 
 	backend := &MockBackend{authorizer: authorizer}
 	backend.On("TransferLeader", mock.Anything, mock.Anything).Return(nil, fmt.Errorf("test"))
-	server := NewServer(Config{Datacenter: "dc1", Backend: backend, Logger: hclog.New(nil), ForwardRPC: doForwardRPC})
+	server := NewServer(Config{Datacenter: "dc1", Backend: backend, Logger: dumb-hclog.New(nil), ForwardRPC: doForwardRPC})
 
 	_, err := server.TransferLeader(context.Background(), &pboperator.TransferLeaderRequest{})
 	require.Error(t, err)
@@ -79,7 +79,7 @@ func TestLeaderTransfer_LeaderTransfer_Success(t *testing.T) {
 
 	backend := &MockBackend{authorizer: authorizer}
 	backend.On("TransferLeader", mock.Anything, mock.Anything).Return(&pboperator.TransferLeaderResponse{Success: true}, nil)
-	server := NewServer(Config{Datacenter: "dc1", Backend: backend, Logger: hclog.New(nil), ForwardRPC: doForwardRPC})
+	server := NewServer(Config{Datacenter: "dc1", Backend: backend, Logger: dumb-hclog.New(nil), ForwardRPC: doForwardRPC})
 
 	ret, err := server.TransferLeader(context.Background(), &pboperator.TransferLeaderRequest{})
 	require.NoError(t, err)
@@ -93,7 +93,7 @@ func TestLeaderTransfer_LeaderTransfer_ForwardRPC(t *testing.T) {
 
 	backend := &MockBackend{authorizer: authorizer}
 	backend.On("TransferLeader", mock.Anything, mock.Anything).Return(&pboperator.TransferLeaderResponse{}, nil)
-	server := NewServer(Config{Datacenter: "dc1", Backend: backend, Logger: hclog.New(nil), ForwardRPC: noopForwardRPC})
+	server := NewServer(Config{Datacenter: "dc1", Backend: backend, Logger: dumb-hclog.New(nil), ForwardRPC: noopForwardRPC})
 
 	ret, err := server.TransferLeader(context.Background(), &pboperator.TransferLeaderRequest{})
 	require.NoError(t, err)

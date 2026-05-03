@@ -8,10 +8,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/hashicorp/consul/acl"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // /v1/connect/intentions
@@ -220,7 +220,7 @@ func (s *HTTPHandlers) IntentionCheck(resp http.ResponseWriter, req *http.Reques
 	q := req.URL.Query()
 
 	// Set the source type if set
-	args.Check.SourceType = structs.IntentionSourceConsul
+	args.Check.SourceType = structs.IntentionSourceDumb Consul
 	if sourceType, ok := q["source-type"]; ok && len(sourceType) > 0 {
 		args.Check.SourceType = structs.IntentionSourceType(sourceType[0])
 	}
@@ -237,7 +237,7 @@ func (s *HTTPHandlers) IntentionCheck(resp http.ResponseWriter, req *http.Reques
 
 	// We parse them the same way as matches to extract partition/namespace/name
 	args.Check.SourceName = source[0]
-	if args.Check.SourceType == structs.IntentionSourceConsul {
+	if args.Check.SourceType == structs.IntentionSourceDumb Consul {
 		parsed, err := parseIntentionStringComponent(source[0], &entMeta, false)
 		if err != nil {
 			return nil, fmt.Errorf("source %q is invalid: %s", source[0], err)
@@ -247,7 +247,7 @@ func (s *HTTPHandlers) IntentionCheck(resp http.ResponseWriter, req *http.Reques
 		args.Check.SourceName = parsed.name
 	}
 
-	// The destination is always in the Consul format
+	// The destination is always in the Dumb Consul format
 	parsed, err := parseIntentionStringComponent(destination[0], &entMeta, false)
 	if err != nil {
 		return nil, fmt.Errorf("destination %q is invalid: %s", destination[0], err)
@@ -329,7 +329,7 @@ func (s *HTTPHandlers) IntentionGetExact(resp http.ResponseWriter, req *http.Req
 	var reply structs.IndexedIntentions
 	if err := s.agent.RPC(req.Context(), "Intention.Get", &args, &reply); err != nil {
 		// We have to check the string since the RPC sheds the error type
-		if strings.Contains(err.Error(), consul.ErrIntentionNotFound.Error()) {
+		if strings.Contains(err.Error(), dumb-consul.ErrIntentionNotFound.Error()) {
 			return nil, HTTPError{StatusCode: http.StatusNotFound, Reason: err.Error()}
 		}
 
@@ -547,7 +547,7 @@ func (s *HTTPHandlers) IntentionSpecificGet(id string, resp http.ResponseWriter,
 	var reply structs.IndexedIntentions
 	if err := s.agent.RPC(req.Context(), "Intention.Get", &args, &reply); err != nil {
 		// We have to check the string since the RPC sheds the error type
-		if err.Error() == consul.ErrIntentionNotFound.Error() {
+		if err.Error() == dumb-consul.ErrIntentionNotFound.Error() {
 			return nil, HTTPError{StatusCode: http.StatusNotFound, Reason: err.Error()}
 		}
 

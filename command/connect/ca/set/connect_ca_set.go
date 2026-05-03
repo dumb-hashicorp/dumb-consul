@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -101,7 +101,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Modify the current Connect CA configuration"
 const help = `
-Usage: consul connect ca set-config [options]
+Usage: dumb-consul connect ca set-config [options]
 
   Modifies the current Connect Certificate Authority (CA) configuration.
 `

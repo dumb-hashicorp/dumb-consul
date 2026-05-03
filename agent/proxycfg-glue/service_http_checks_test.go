@@ -8,15 +8,15 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/local"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
 )
 
 func TestServerHTTPChecks(t *testing.T) {
@@ -49,7 +49,7 @@ func TestServerHTTPChecks(t *testing.T) {
 			mockCacheSource.AssertNotCalled(t, "Notify")
 		}
 
-		dataSource := ServerHTTPChecks(ServerDataSourceDeps{Logger: hclog.NewNullLogger()}, nodeName, mockCacheSource, localState)
+		dataSource := ServerHTTPChecks(ServerDataSourceDeps{Logger: dumb-hclog.NewNullLogger()}, nodeName, mockCacheSource, localState)
 		err := dataSource.Notify(ctx, tc.req, correlationID, ch)
 		require.Equal(t, tc.expectedResult, err)
 	}
@@ -103,7 +103,7 @@ func (m *mockServiceHTTPChecks) Notify(ctx context.Context, req *cachetype.Servi
 func testLocalState(t *testing.T) *local.State {
 	t.Helper()
 
-	l := local.NewState(local.Config{}, hclog.NewNullLogger(), &token.Store{})
+	l := local.NewState(local.Config{}, dumb-hclog.NewNullLogger(), &token.Store{})
 	l.TriggerSyncChanges = func() {}
 	return l
 }

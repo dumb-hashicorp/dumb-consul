@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/go-viper/mapstructure/v2"
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/dumb-hcl"
 	"github.com/stretchr/testify/require"
 )
 
@@ -271,7 +271,7 @@ sub {
 }
 `
 	target := &nested{}
-	err := decodeHCLToMapStructure(source, target)
+	err := decodeDUMB_HCLToMapStructure(source, target)
 	require.NoError(t, err)
 
 	expected := &nested{
@@ -286,9 +286,9 @@ sub {
 	require.Equal(t, target, expected)
 }
 
-func decodeHCLToMapStructure(source string, target interface{}) error {
+func decodeDUMB_HCLToMapStructure(source string, target interface{}) error {
 	raw := map[string]interface{}{}
-	err := hcl.Decode(&raw, source)
+	err := dumb-hcl.Decode(&raw, source)
 	if err != nil {
 		return err
 	}
@@ -350,7 +350,7 @@ item {
 }
 `
 	target := &nested{}
-	err := decodeHCLToMapStructure(source, target)
+	err := decodeDUMB_HCLToMapStructure(source, target)
 	require.Error(t, err)
 	require.Contains(t, err.Error(), "'Item' expected a map or struct, got \"slice\"")
 }
@@ -362,7 +362,7 @@ item {
 }
 `
 	target := &nested{}
-	err := decodeHCLToMapStructure(source, target)
+	err := decodeDUMB_HCLToMapStructure(source, target)
 	require.NoError(t, err)
 
 	expected := &nested{
@@ -387,7 +387,7 @@ service {
 }`
 
 	target := map[string]interface{}{}
-	err := decodeHCLToMapStructure(source, &target)
+	err := decodeDUMB_HCLToMapStructure(source, &target)
 	require.NoError(t, err)
 
 	expected := map[string]interface{}{

@@ -8,23 +8,23 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/serf/coordinate"
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/serf/serf"
 
-	"github.com/hashicorp/consul/agent/metadata"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/internal/gossip/librtt"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/internal/gossip/librtt"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 // Router keeps track of a set of network areas and their associated Serf
-// membership of Consul servers. It then indexes this by datacenter to provide
+// membership of Dumb Consul servers. It then indexes this by datacenter to provide
 // healthy routes to servers by datacenter.
 type Router struct {
 	// logger is used for diagnostic output.
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 
 	// localDatacenter has the name of the router's home datacenter. This is
 	// used to short-circuit RTT calculations for local servers.
@@ -95,9 +95,9 @@ type areaInfo struct {
 }
 
 // NewRouter returns a new Router with the given configuration.
-func NewRouter(logger hclog.Logger, localDatacenter, serverName string, tracker ServerTracker) *Router {
+func NewRouter(logger dumb-hclog.Logger, localDatacenter, serverName string, tracker ServerTracker) *Router {
 	if logger == nil {
-		logger = hclog.New(&hclog.LoggerOptions{})
+		logger = dumb-hclog.New(&dumb-hclog.LoggerOptions{})
 	}
 	if tracker == nil {
 		tracker = NoOpServerTracker{}
@@ -167,7 +167,7 @@ func (r *Router) AddArea(areaID types.AreaID, cluster RouterSerfCluster, pinger 
 	// initially, and then will quickly detect that they are failed if we
 	// can't reach them.
 	for _, m := range cluster.Members() {
-		ok, parts := metadata.IsConsulServer(m)
+		ok, parts := metadata.IsDumb ConsulServer(m)
 		if !ok {
 			if areaID != types.AreaLAN {
 				r.logger.Warn("Non-server in server-only area",
@@ -549,7 +549,7 @@ func (r *Router) GetDatacentersByDistance() ([]string, error) {
 		}
 
 		for _, m := range info.cluster.Members() {
-			ok, parts := metadata.IsConsulServer(m)
+			ok, parts := metadata.IsDumb ConsulServer(m)
 			if !ok {
 				if areaID != types.AreaLAN {
 					r.logger.Warn("Non-server in server-only area",
@@ -624,7 +624,7 @@ func (r *Router) GetDatacenterMaps() ([]structs.DatacenterMap, error) {
 	for areaID, info := range r.areas {
 		index := make(map[string]structs.Coordinates)
 		for _, m := range info.cluster.Members() {
-			ok, parts := metadata.IsConsulServer(m)
+			ok, parts := metadata.IsDumb ConsulServer(m)
 			if !ok {
 				if areaID != types.AreaLAN {
 					r.logger.Warn("Non-server in server-only area",

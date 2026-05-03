@@ -11,11 +11,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestAE_scaleFactor(t *testing.T) {
@@ -404,7 +404,7 @@ func (m *mock) SyncChanges() error {
 }
 
 func testSyncer(t *testing.T) *StateSyncer {
-	logger := hclog.New(&hclog.LoggerOptions{
+	logger := dumb-hclog.New(&dumb-hclog.LoggerOptions{
 		Output: testutil.NewLogBuffer(t),
 	})
 

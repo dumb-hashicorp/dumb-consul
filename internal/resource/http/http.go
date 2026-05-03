@@ -17,15 +17,15 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 const (
-	HeaderConsulToken     = "x-consul-token"
-	HeaderConsistencyMode = "x-consul-consistency-mode"
+	HeaderDumb ConsulToken     = "x-dumb-consul-token"
+	HeaderConsistencyMode = "x-dumb-consul-consistency-mode"
 )
 
 // NewHandler creates a new HTTP handler for the resource service.
@@ -33,13 +33,13 @@ const (
 // end without a trailing "/".
 // client is the gRPC client to be used to communicate with the resource service.
 // registry is the resource registry to be used to determine the resource types.
-// parseToken is a function that will be called to parse the Consul token from the request.
+// parseToken is a function that will be called to parse the Dumb Consul token from the request.
 func NewHandler(
 	httpPathPrefix string,
 	client pbresource.ResourceServiceClient,
 	registry resource.Registry,
 	parseToken func(req *http.Request, token *string),
-	logger hclog.Logger) http.Handler {
+	logger dumb-hclog.Logger) http.Handler {
 	mux := http.NewServeMux()
 	for _, t := range registry.Types() {
 		// List Endpoint
@@ -65,13 +65,13 @@ type resourceHandler struct {
 	reg        resource.Registration
 	client     pbresource.ResourceServiceClient
 	parseToken func(req *http.Request, token *string)
-	logger     hclog.Logger
+	logger     dumb-hclog.Logger
 }
 
 func (h *resourceHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var token string
 	h.parseToken(r, &token)
-	ctx := metadata.AppendToOutgoingContext(r.Context(), HeaderConsulToken, token)
+	ctx := metadata.AppendToOutgoingContext(r.Context(), HeaderDumb ConsulToken, token)
 	switch r.Method {
 	case http.MethodPut:
 		h.handleWrite(w, r, ctx)
@@ -142,7 +142,7 @@ func (h *resourceHandler) handleWrite(w http.ResponseWriter, r *http.Request, ct
 func (h *resourceHandler) handleRead(w http.ResponseWriter, r *http.Request, ctx context.Context) {
 	tenancyInfo, params := parseParams(r)
 	if params["consistent"] != "" {
-		ctx = metadata.AppendToOutgoingContext(ctx, "x-consul-consistency-mode", "consistent")
+		ctx = metadata.AppendToOutgoingContext(ctx, "x-dumb-consul-consistency-mode", "consistent")
 	}
 
 	rsp, err := h.client.Read(ctx, &pbresource.ReadRequest{
@@ -233,7 +233,7 @@ func jsonMarshal(res *pbresource.Resource) ([]byte, error) {
 	return json.MarshalIndent(stuff, "", "  ")
 }
 
-func handleResponseError(err error, w http.ResponseWriter, logger hclog.Logger) {
+func handleResponseError(err error, w http.ResponseWriter, logger dumb-hclog.Logger) {
 	if e, ok := status.FromError(err); ok {
 		switch e.Code() {
 		case codes.InvalidArgument:
@@ -263,7 +263,7 @@ type listHandler struct {
 	reg        resource.Registration
 	client     pbresource.ResourceServiceClient
 	parseToken func(req *http.Request, token *string)
-	logger     hclog.Logger
+	logger     dumb-hclog.Logger
 }
 
 func (h *listHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -274,7 +274,7 @@ func (h *listHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	var token string
 	h.parseToken(r, &token)
-	ctx := metadata.AppendToOutgoingContext(r.Context(), HeaderConsulToken, token)
+	ctx := metadata.AppendToOutgoingContext(r.Context(), HeaderDumb ConsulToken, token)
 
 	tenancyInfo, params := parseParams(r)
 	if params["consistent"] == "true" {

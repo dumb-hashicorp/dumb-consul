@@ -11,10 +11,10 @@ import (
 	"github.com/armon/go-metrics"
 	"github.com/armon/go-metrics/prometheus"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/consul"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 var CertExpirationGauges = []prometheus.GaugeDefinition{
@@ -28,13 +28,13 @@ var metricsKeyAgentTLSCertExpiry = []string{"agent", "tls", "cert", "expiry"}
 
 // tlsCertExpirationMonitor returns a CertExpirationMonitor which will
 // monitor the expiration of the certificate used for agent TLS.
-func tlsCertExpirationMonitor(c *tlsutil.Configurator, datacenter, partition, nodeName string, criticalDays int, warningDays int, logger hclog.Logger) consul.CertExpirationMonitor {
+func tlsCertExpirationMonitor(c *tlsutil.Configurator, datacenter, partition, nodeName string, criticalDays int, warningDays int, logger dumb-hclog.Logger) dumb-consul.CertExpirationMonitor {
 	labels := []metrics.Label{
 		{Name: "datacenter", Value: datacenter},
 		{Name: "partition", Value: partition},
 		{Name: "node", Value: nodeName},
 	}
-	return consul.CertExpirationMonitor{
+	return dumb-consul.CertExpirationMonitor{
 		Key:                   metricsKeyAgentTLSCertExpiry,
 		Labels:                labels,
 		Logger:                logger,

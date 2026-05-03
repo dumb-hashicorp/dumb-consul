@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 func (s *Sprawl) ensureLicense() error {
@@ -29,11 +29,11 @@ func (s *Sprawl) ensureLicense() error {
 }
 
 func readLicense() (string, error) {
-	if license := os.Getenv("CONSUL_LICENSE"); license != "" {
+	if license := os.Getenv("DUMB_CONSUL_LICENSE"); license != "" {
 		return license, nil
 	}
 
-	licensePath := os.Getenv("CONSUL_LICENSE_PATH")
+	licensePath := os.Getenv("DUMB_CONSUL_LICENSE_PATH")
 	if licensePath == "" {
 		return "", nil
 	}

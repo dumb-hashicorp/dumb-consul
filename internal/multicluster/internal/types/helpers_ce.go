@@ -1,17 +1,17 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package types
 
 import (
 	"fmt"
 
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/internal/resource"
-	pbmulticluster "github.com/hashicorp/consul/proto-public/pbmulticluster/v2"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	pbmulticluster "github.com/dumb-hashicorp/dumb-consul/proto-public/pbmulticluster/v2"
 )
 
 func validateExportedServicesConsumer(consumer *pbmulticluster.ExportedServicesConsumer, indx int) error {

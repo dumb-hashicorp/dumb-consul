@@ -8,7 +8,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
 type Routine func(ctx context.Context) error
@@ -40,14 +40,14 @@ func (r *routineTracker) wait() {
 
 type Manager struct {
 	lock   sync.RWMutex
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 
 	routines map[string]*routineTracker
 }
 
-func NewManager(logger hclog.Logger) *Manager {
+func NewManager(logger dumb-hclog.Logger) *Manager {
 	if logger == nil {
-		logger = hclog.New(&hclog.LoggerOptions{
+		logger = dumb-hclog.New(&dumb-hclog.LoggerOptions{
 			Output: os.Stderr,
 		})
 	}

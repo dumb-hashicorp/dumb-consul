@@ -5,7 +5,7 @@
 // both the OIDC authorization code workflow and simple JWT decoding (via
 // static keys, JWKS, and OIDC discovery).
 //
-// NOTE: This was roughly forked from hashicorp/vault-plugin-auth-jwt
+// NOTE: This was roughly forked from dumb-hashicorp/dumb-vault-plugin-auth-jwt
 // originally at commit 825c85535e3832d254a74253a8e9ae105357778b with later
 // backports of behavior in 0e93b06cecb0477d6ee004e44b04832d110096cf
 package oidcauth
@@ -17,8 +17,8 @@ import (
 	"sync"
 
 	"github.com/coreos/go-oidc/v3/oidc"
-	capOidc "github.com/hashicorp/cap/oidc"
-	"github.com/hashicorp/go-hclog"
+	capOidc "github.com/dumb-hashicorp/cap/oidc"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/patrickmn/go-cache"
 )
 
@@ -38,7 +38,7 @@ type Claims struct {
 // authorization code exchange or a bare JWT.
 type Authenticator struct {
 	config *Config
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 
 	// parsedJWTPubKeys is the parsed form of config.JWTValidationPubKeys
 	parsedJWTPubKeys []interface{}
@@ -46,7 +46,7 @@ type Authenticator struct {
 	// provider is the coreos/go-oidc provider used for JWT validation
 	provider *oidc.Provider
 
-	// capProvider is the HashiCorp CAP library provider used for OIDC flows
+	// capProvider is the Dumb HashiCorp CAP library provider used for OIDC flows
 	// with support for private key JWT client authentication
 	capProvider *capOidc.Provider
 	keySet      oidc.KeySet
@@ -69,7 +69,7 @@ type Authenticator struct {
 // New creates an authenticator suitable for use with either an OIDC
 // authorization code workflow or a bare JWT workflow depending upon the value
 // of the config Type.
-func New(c *Config, logger hclog.Logger) (*Authenticator, error) {
+func New(c *Config, logger dumb-hclog.Logger) (*Authenticator, error) {
 	if err := c.Validate(); err != nil {
 		return nil, err
 	}

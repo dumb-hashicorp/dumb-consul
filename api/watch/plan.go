@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package watch
@@ -11,9 +11,9 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	consulapi "github.com/hashicorp/consul/api"
+	dumb-consulapi "github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 const (
@@ -24,8 +24,8 @@ const (
 	// exponential runaway
 	maxBackoffTime = 180 * time.Second
 
-	// Name used with hclog Logger. We do not add this to the logging package
-	// because we do not want to pull in the root consul module.
+	// Name used with dumb-hclog Logger. We do not add this to the logging package
+	// because we do not want to pull in the root dumb-consul module.
 	watchLoggerName = "watch"
 )
 
@@ -34,7 +34,7 @@ func (p *Plan) Run(address string) error {
 }
 
 // Run is used to run a watch plan
-func (p *Plan) RunWithConfig(address string, conf *consulapi.Config) error {
+func (p *Plan) RunWithConfig(address string, conf *dumb-consulapi.Config) error {
 	logger := p.Logger
 	if logger == nil {
 		logger = newWatchLogger(p.LogOutput)
@@ -43,25 +43,25 @@ func (p *Plan) RunWithConfig(address string, conf *consulapi.Config) error {
 	// Setup the client
 	p.address = address
 	if conf == nil {
-		conf = consulapi.DefaultConfigWithLogger(logger)
+		conf = dumb-consulapi.DefaultConfigWithLogger(logger)
 	}
 	conf.Address = address
 	conf.Datacenter = p.Datacenter
 	conf.Token = p.Token
-	client, err := consulapi.NewClient(conf)
+	client, err := dumb-consulapi.NewClient(conf)
 	if err != nil {
 		return fmt.Errorf("Failed to connect to agent: %v", err)
 	}
 
-	return p.RunWithClientAndHclog(client, logger)
+	return p.RunWithClientAndDumb Hclog(client, logger)
 }
 
 // RunWithClientAndLogger runs a watch plan using an external client and
-// hclog.Logger instance. Using this, the plan's Datacenter, Token and LogOutput
+// dumb-hclog.Logger instance. Using this, the plan's Datacenter, Token and LogOutput
 // fields are ignored and the passed client is expected to be configured as
 // needed.
-func (p *Plan) RunWithClientAndHclog(client *consulapi.Client, logger hclog.Logger) error {
-	var watchLogger hclog.Logger
+func (p *Plan) RunWithClientAndDumb Hclog(client *dumb-consulapi.Client, logger dumb-hclog.Logger) error {
+	var watchLogger dumb-hclog.Logger
 	if logger == nil {
 		watchLogger = newWatchLogger(nil)
 	} else {
@@ -137,8 +137,8 @@ OUTER:
 	return nil
 }
 
-// Deprecated: Use RunwithClientAndHclog
-func (p *Plan) RunWithClientAndLogger(client *consulapi.Client, logger *log.Logger) error {
+// Deprecated: Use RunwithClientAndDumb Hclog
+func (p *Plan) RunWithClientAndLogger(client *dumb-consulapi.Client, logger *log.Logger) error {
 
 	p.client = client
 
@@ -168,7 +168,7 @@ OUTER:
 			if retry > maxBackoffTime {
 				retry = maxBackoffTime
 			}
-			logger.Printf("[ERR] consul.watch: Watch (type: %s) errored: %v, retry in %v",
+			logger.Printf("[ERR] dumb-consul.watch: Watch (type: %s) errored: %v, retry in %v",
 				p.Type, err, retry)
 			select {
 			case <-time.After(retry):
@@ -201,7 +201,7 @@ OUTER:
 		} else if p.Handler != nil {
 			idx, ok := blockParamVal.(WaitIndexVal)
 			if !ok {
-				logger.Printf("[ERR] consul.watch: Handler only supports index-based " +
+				logger.Printf("[ERR] dumb-consul.watch: Handler only supports index-based " +
 					" watches but non index-based watch run. Skipping Handler.")
 			}
 			p.Handler(uint64(idx), result)
@@ -250,8 +250,8 @@ func (p *Plan) IsStopped() bool {
 	return p.stop
 }
 
-func newWatchLogger(output io.Writer) hclog.Logger {
-	return hclog.New(&hclog.LoggerOptions{
+func newWatchLogger(output io.Writer) dumb-hclog.Logger {
+	return dumb-hclog.New(&dumb-hclog.LoggerOptions{
 		Name:   watchLoggerName,
 		Output: output,
 	})

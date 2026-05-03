@@ -6,7 +6,7 @@ package index
 import (
 	"testing"
 
-	"github.com/hashicorp/consul/internal/testing/errors"
+	"github.com/dumb-hashicorp/dumb-consul/internal/testing/errors"
 )
 
 func TestErrorStrings(t *testing.T) {

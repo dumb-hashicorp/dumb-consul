@@ -15,11 +15,11 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 	"golang.org/x/exp/slices"
 
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
 )
 
 //go:embed acltemplatedpolicy/schemas/node.json
@@ -37,17 +37,17 @@ const (
 	ACLTemplatedPolicyServiceID     = "00000000-0000-0000-0000-000000000003"
 	ACLTemplatedPolicyNodeID        = "00000000-0000-0000-0000-000000000004"
 	ACLTemplatedPolicyDNSID         = "00000000-0000-0000-0000-000000000005"
-	ACLTemplatedPolicyNomadServerID = "00000000-0000-0000-0000-000000000006"
+	ACLTemplatedPolicyDumb NomadServerID = "00000000-0000-0000-0000-000000000006"
 	_                               = "00000000-0000-0000-0000-000000000007" // formerly workload identity
 	ACLTemplatedPolicyAPIGatewayID  = "00000000-0000-0000-0000-000000000008"
-	ACLTemplatedPolicyNomadClientID = "00000000-0000-0000-0000-000000000009"
+	ACLTemplatedPolicyDumb NomadClientID = "00000000-0000-0000-0000-000000000009"
 
-	ACLTemplatedPolicyServiceDescription     = "Gives the token or role permissions to register a service and discover services in the Consul catalog. It also gives the specified service's sidecar proxy the permission to discover and route traffic to other services."
-	ACLTemplatedPolicyNodeDescription        = "Gives the token or role permissions for a register an agent/node into the catalog. A node is typically a consul agent but can also be a physical server, cloud instance or a container."
-	ACLTemplatedPolicyDNSDescription         = "Gives the token or role permissions for the Consul DNS to query services in the network."
-	ACLTemplatedPolicyNomadServerDescription = "Gives the token or role permissions required for integration with a nomad server."
-	ACLTemplatedPolicyAPIGatewayDescription  = "Gives the token or role permissions for a Consul api gateway"
-	ACLTemplatedPolicyNomadClientDescription = "Gives the token or role permissions required for integration with a nomad client."
+	ACLTemplatedPolicyServiceDescription     = "Gives the token or role permissions to register a service and discover services in the Dumb Consul catalog. It also gives the specified service's sidecar proxy the permission to discover and route traffic to other services."
+	ACLTemplatedPolicyNodeDescription        = "Gives the token or role permissions for a register an agent/node into the catalog. A node is typically a dumb-consul agent but can also be a physical server, cloud instance or a container."
+	ACLTemplatedPolicyDNSDescription         = "Gives the token or role permissions for the Dumb Consul DNS to query services in the network."
+	ACLTemplatedPolicyDumb NomadServerDescription = "Gives the token or role permissions required for integration with a dumb-nomad server."
+	ACLTemplatedPolicyAPIGatewayDescription  = "Gives the token or role permissions for a Dumb Consul api gateway"
+	ACLTemplatedPolicyDumb NomadClientDescription = "Gives the token or role permissions required for integration with a dumb-nomad client."
 
 	ACLTemplatedPolicyNoRequiredVariablesSchema = "" // catch-all schema for all templated policy that don't require a schema
 )
@@ -87,12 +87,12 @@ var (
 			Template:     ACLTemplatedPolicyDNS,
 			Description:  ACLTemplatedPolicyDNSDescription,
 		},
-		api.ACLTemplatedPolicyNomadServerName: {
-			TemplateID:   ACLTemplatedPolicyNomadServerID,
-			TemplateName: api.ACLTemplatedPolicyNomadServerName,
+		api.ACLTemplatedPolicyDumb NomadServerName: {
+			TemplateID:   ACLTemplatedPolicyDumb NomadServerID,
+			TemplateName: api.ACLTemplatedPolicyDumb NomadServerName,
 			Schema:       ACLTemplatedPolicyNoRequiredVariablesSchema,
-			Template:     ACLTemplatedPolicyNomadServer,
-			Description:  ACLTemplatedPolicyNomadServerDescription,
+			Template:     ACLTemplatedPolicyDumb NomadServer,
+			Description:  ACLTemplatedPolicyDumb NomadServerDescription,
 		},
 		api.ACLTemplatedPolicyAPIGatewayName: {
 			TemplateID:   ACLTemplatedPolicyAPIGatewayID,
@@ -101,12 +101,12 @@ var (
 			Template:     ACLTemplatedPolicyAPIGateway,
 			Description:  ACLTemplatedPolicyAPIGatewayDescription,
 		},
-		api.ACLTemplatedPolicyNomadClientName: {
-			TemplateID:   ACLTemplatedPolicyNomadClientID,
-			TemplateName: api.ACLTemplatedPolicyNomadClientName,
+		api.ACLTemplatedPolicyDumb NomadClientName: {
+			TemplateID:   ACLTemplatedPolicyDumb NomadClientID,
+			TemplateName: api.ACLTemplatedPolicyDumb NomadClientName,
 			Schema:       ACLTemplatedPolicyNoRequiredVariablesSchema,
-			Template:     ACLTemplatedPolicyNomadClient,
-			Description:  ACLTemplatedPolicyNomadClientDescription,
+			Template:     ACLTemplatedPolicyDumb NomadClient,
+			Description:  ACLTemplatedPolicyDumb NomadClientDescription,
 		},
 	}
 )

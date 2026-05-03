@@ -6,20 +6,20 @@ package logdrop
 import (
 	"context"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
-// Logger mimic the interface from hclog.Logger
+// Logger mimic the interface from dumb-hclog.Logger
 //
 //go:generate mockery --name Logger --inpackage
 type Logger interface {
-	Log(level hclog.Level, msg string, args ...interface{})
+	Log(level dumb-hclog.Level, msg string, args ...interface{})
 }
 
 type Log struct {
 	s string
 	i []interface{}
-	l hclog.Level
+	l dumb-hclog.Level
 }
 
 type logDropSink struct {
@@ -30,7 +30,7 @@ type logDropSink struct {
 
 // Accept consume a log and push it into a channel,
 // if the channel is filled it will call dropFn
-func (r *logDropSink) Accept(_ string, level hclog.Level, msg string, args ...interface{}) {
+func (r *logDropSink) Accept(_ string, level dumb-hclog.Level, msg string, args ...interface{}) {
 	r.pushLog(Log{l: level, s: msg, i: args})
 }
 
@@ -56,7 +56,7 @@ func (r *logDropSink) logConsumer(ctx context.Context) {
 // NewLogDropSink create a log Logger that wrap another Logger
 // It also create a go routine for consuming logs, the given context need to be canceled
 // to properly deallocate the Logger.
-func NewLogDropSink(ctx context.Context, depth int, logger Logger, dropFn func(l Log)) hclog.SinkAdapter {
+func NewLogDropSink(ctx context.Context, depth int, logger Logger, dropFn func(l Log)) dumb-hclog.SinkAdapter {
 	r := &logDropSink{
 		logger: logger,
 		logCh:  make(chan Log, depth),

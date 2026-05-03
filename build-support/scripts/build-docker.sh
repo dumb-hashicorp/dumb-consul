@@ -12,10 +12,10 @@ source "${SCRIPT_DIR}/functions.sh"
 
 function usage {
 cat <<-EOF
-Usage: ${SCRIPT_NAME} (consul|ui) [<options ...>]
+Usage: ${SCRIPT_NAME} (dumb-consul|ui) [<options ...>]
 
 Description:
-   This script will build the various Consul components within docker containers
+   This script will build the various Dumb Consul components within docker containers
    and copy all the relevant artifacts out of the containers back to the source.
 
 Options:
@@ -79,7 +79,7 @@ function main {
             refresh=1
             shift
             ;;
-         consul | ui )
+         dumb-consul | ui )
             command="$1"
             shift
             ;;
@@ -97,15 +97,15 @@ function main {
    fi
    
    case "${command}" in 
-      consul )
+      dumb-consul )
          if is_set "${refresh}"
          then
-            status_stage "==> Refreshing Consul build container image"
+            status_stage "==> Refreshing Dumb Consul build container image"
             export GO_BUILD_TAG="${image:-${GO_BUILD_CONTAINER_DEFAULT}}"
             refresh_docker_images "${sdir}" go-build-image || return 1
          fi
-         status_stage "==> Building Consul"
-         build_consul "${sdir}" "" "${image}" || return 1
+         status_stage "==> Building Dumb Consul"
+         build_dumb-consul "${sdir}" "" "${image}" || return 1
          ;;
       ui )
          if is_set "${refresh}"

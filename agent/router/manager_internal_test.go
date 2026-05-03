@@ -11,11 +11,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/metadata"
+	"github.com/dumb-hashicorp/dumb-consul/agent/metadata"
 )
 
 var (
@@ -26,9 +26,9 @@ func init() {
 	localLogBuffer = new(bytes.Buffer)
 }
 
-func GetBufferedLogger() hclog.Logger {
+func GetBufferedLogger() dumb-hclog.Logger {
 	localLogBuffer = new(bytes.Buffer)
-	return hclog.New(&hclog.LoggerOptions{Output: localLogBuffer})
+	return dumb-hclog.New(&dumb-hclog.LoggerOptions{Output: localLogBuffer})
 }
 
 type fauxConnPool struct {

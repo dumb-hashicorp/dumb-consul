@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/consul/command/acl/authmethod"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -60,7 +60,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -99,10 +99,10 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Lists ACL auth methods"
 	help     = `
-Usage: consul acl auth-method list [options]
+Usage: dumb-consul acl auth-method list [options]
 
   List all auth methods:
 
-    $ consul acl auth-method list
+    $ dumb-consul acl auth-method list
 `
 )

@@ -13,13 +13,13 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/netutil"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/netutil"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func Test_verifyServerCertMatchesURI(t *testing.T) {
@@ -42,7 +42,7 @@ func Test_verifyServerCertMatchesURI(t *testing.T) {
 			// validity is enforced with x509 name constraints where needed.
 			name:     "different trust-domain allowed",
 			certs:    TestPeerCertificates(t, "web", ca1),
-			expected: connect.TestSpiffeIDServiceWithHost(t, "web", "other.consul"),
+			expected: connect.TestSpiffeIDServiceWithHost(t, "web", "other.dumb-consul"),
 			wantErr:  false,
 		},
 		{
@@ -163,7 +163,7 @@ func TestServerSideVerifier(t *testing.T) {
 	apiCA2 := testCertPEMBlock(t, apiCA2PEM)
 
 	// Setup a local test agent to query
-	agent := agent.StartTestAgent(t, agent.TestAgent{Name: "test-consul"})
+	agent := agent.StartTestAgent(t, agent.TestAgent{Name: "test-dumb-consul"})
 	defer agent.Shutdown()
 	testrpc.WaitForTestAgent(t, agent.RPC, "dc1")
 
@@ -181,7 +181,7 @@ func TestServerSideVerifier(t *testing.T) {
 		DestinationNS:   "default",
 		DestinationName: "db",
 		Action:          api.IntentionActionDeny,
-		SourceType:      api.IntentionSourceConsul,
+		SourceType:      api.IntentionSourceDumb Consul,
 		Meta:            map[string]string{},
 	}
 	//nolint:staticcheck
@@ -195,7 +195,7 @@ func TestServerSideVerifier(t *testing.T) {
 		DestinationNS:   "default",
 		DestinationName: "db",
 		Action:          api.IntentionActionAllow,
-		SourceType:      api.IntentionSourceConsul,
+		SourceType:      api.IntentionSourceDumb Consul,
 		Meta:            map[string]string{},
 	}
 	//nolint:staticcheck
@@ -358,7 +358,7 @@ func TestDynamicTLSConfig(t *testing.T) {
 	requireEqualTLSConfig(t, baseCfg, gotBefore)
 	requireCorrectVerifier(t, baseCfg, gotBefore, v1Ch)
 
-	// Now change the roots as if we just loaded new roots from Consul
+	// Now change the roots as if we just loaded new roots from Dumb Consul
 	err := c.SetRoots(newCfg.RootCAs)
 	require.Nil(t, err)
 

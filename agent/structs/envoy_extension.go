@@ -4,7 +4,7 @@
 package structs
 
 import (
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // EnvoyExtension has configuration for an extension that patches Envoy resources.
@@ -12,7 +12,7 @@ type EnvoyExtension struct {
 	Name          string
 	Required      bool
 	Arguments     map[string]interface{} `bexpr:"-"`
-	ConsulVersion string
+	Dumb ConsulVersion string
 	EnvoyVersion  string
 }
 
@@ -23,7 +23,7 @@ func (c *EnvoyExtension) getHash() uint64 {
 func (c *EnvoyExtension) appendHash(h *customHasher) {
 	h.addString(c.Name).
 		addBool(c.Required).
-		addString(c.ConsulVersion).
+		addString(c.Dumb ConsulVersion).
 		addString(c.EnvoyVersion).
 		addJSONValue(c.Arguments)
 }
@@ -38,7 +38,7 @@ func (es EnvoyExtensions) ToAPI() []api.EnvoyExtension {
 			Required:      e.Required,
 			Arguments:     e.Arguments,
 			EnvoyVersion:  e.EnvoyVersion,
-			ConsulVersion: e.ConsulVersion,
+			Dumb ConsulVersion: e.Dumb ConsulVersion,
 		}
 	}
 	return extensions

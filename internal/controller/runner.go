@@ -14,20 +14,20 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/consul/controller/queue"
-	"github.com/hashicorp/consul/internal/controller/cache"
-	"github.com/hashicorp/consul/internal/protoutil"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/internal/storage"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/controller/queue"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache"
+	"github.com/dumb-hashicorp/dumb-consul/internal/protoutil"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/storage"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // Runtime contains the dependencies required by reconcilers.
 type Runtime struct {
 	Client pbresource.ResourceServiceClient
-	Logger hclog.Logger
+	Logger dumb-hclog.Logger
 	Cache  cache.ReadOnlyCache
 }
 
@@ -52,11 +52,11 @@ type controllerRunner struct {
 	// be immutable as it is shared with the controllers cache as well as the
 	// resource service itself.
 	runtimeClient pbresource.ResourceServiceClient
-	logger        hclog.Logger
+	logger        dumb-hclog.Logger
 	cache         cache.Cache
 }
 
-func newControllerRunner(c *Controller, client pbresource.ResourceServiceClient, defaultLogger hclog.Logger) *controllerRunner {
+func newControllerRunner(c *Controller, client pbresource.ResourceServiceClient, defaultLogger dumb-hclog.Logger) *controllerRunner {
 	return &controllerRunner{
 		ctrl:          c,
 		watchClient:   client,
@@ -214,7 +214,7 @@ func (cr *controllerRunner) primeCache(ctx context.Context, typ *pbresource.Type
 			// This concludes the initial snapshot. The cache is primed.
 			return nil
 		default:
-			cr.logger.Warn("skipping unexpected event type", "type", hclog.Fmt("%T", event.GetEvent()))
+			cr.logger.Warn("skipping unexpected event type", "type", dumb-hclog.Fmt("%T", event.GetEvent()))
 			continue
 		}
 	}
@@ -257,7 +257,7 @@ func (cr *controllerRunner) watch(ctx context.Context, typ *pbresource.Type, add
 		case event.GetEndOfSnapshot() != nil:
 			continue // ignore
 		default:
-			cr.logger.Warn("skipping unexpected event type", "type", hclog.Fmt("%T", event.GetEvent()))
+			cr.logger.Warn("skipping unexpected event type", "type", dumb-hclog.Fmt("%T", event.GetEvent()))
 			continue
 		}
 
@@ -325,7 +325,7 @@ func (cr *controllerRunner) runCustomMapper(
 	}
 }
 
-func (cr *controllerRunner) doMap(ctx context.Context, mapper func(ctx context.Context, runtime Runtime, itemType queue.ItemType) ([]Request, error), to queue.WorkQueue[Request], item queue.ItemType, logger hclog.Logger) error {
+func (cr *controllerRunner) doMap(ctx context.Context, mapper func(ctx context.Context, runtime Runtime, itemType queue.ItemType) ([]Request, error), to queue.WorkQueue[Request], item queue.ItemType, logger dumb-hclog.Logger) error {
 	var reqs []Request
 	if err := cr.handlePanic(func() error {
 		var err error
@@ -415,7 +415,7 @@ func (cr *controllerRunner) runReconciler(ctx context.Context, queue queue.WorkQ
 func (cr *controllerRunner) handlePanic(fn func() error) (err error) {
 	defer func() {
 		if r := recover(); r != nil {
-			stack := hclog.Stacktrace()
+			stack := dumb-hclog.Stacktrace()
 			cr.logger.Error("controller panic",
 				"panic", r,
 				"stack", stack,
@@ -428,7 +428,7 @@ func (cr *controllerRunner) handlePanic(fn func() error) (err error) {
 	return fn()
 }
 
-func (cr *controllerRunner) runtime(logger hclog.Logger) Runtime {
+func (cr *controllerRunner) runtime(logger dumb-hclog.Logger) Runtime {
 	return Runtime{
 		// dependency mappers and controllers are always given the cloning client
 		// so that they do not have to care about mutating values that they read

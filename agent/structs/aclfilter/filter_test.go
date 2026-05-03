@@ -7,22 +7,22 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
-	"github.com/hashicorp/serf/coordinate"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/serf/coordinate"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestACL_filterImported_IndexedHealthChecks(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	type testCase struct {
 		policyRules string
@@ -92,7 +92,7 @@ service "foo" { policy = "read" } node "node1" { policy = "read" }`,
 func TestACL_filterImported_IndexedNodes(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	type testCase struct {
 		policyRules string
@@ -165,7 +165,7 @@ node "node1" { policy = "read" }`,
 func TestACL_filterImported_IndexedNodeServices(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	type testCase struct {
 		policyRules string
@@ -246,7 +246,7 @@ service "foo" { policy = "read" } node "node1" { policy = "read" }`,
 func TestACL_filterImported_IndexedNodeServiceList(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	type testCase struct {
 		policyRules string
@@ -326,7 +326,7 @@ service "foo" { policy = "read" } node "node1" { policy = "read" }`,
 func TestACL_filterImported_IndexedServiceNodes(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	type testCase struct {
 		policyRules string
@@ -395,7 +395,7 @@ service "foo" { policy = "read" } node "node1" { policy = "read" }`,
 func TestACL_filterImported_CheckServiceNode(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	type testCase struct {
 		policyRules string
@@ -488,7 +488,7 @@ service "foo" { policy = "read" } node "node1" { policy = "read" }`,
 func TestACL_filterHealthChecks(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedHealthChecks {
 		return &structs.IndexedHealthChecks{
@@ -587,7 +587,7 @@ func TestACL_filterHealthChecks(t *testing.T) {
 func TestACL_filterIntentions(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedIntentions {
 		return &structs.IndexedIntentions{
@@ -652,7 +652,7 @@ func TestACL_filterServices(t *testing.T) {
 	services := structs.Services{
 		"service1": []string{},
 		"service2": []string{},
-		"consul":   []string{},
+		"dumb-consul":   []string{},
 	}
 
 	// Try permissive filtering.
@@ -671,7 +671,7 @@ func TestACL_filterServices(t *testing.T) {
 func TestACL_filterServiceNodes(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedServiceNodes {
 		return &structs.IndexedServiceNodes{
@@ -738,7 +738,7 @@ func TestACL_filterServiceNodes(t *testing.T) {
 func TestACL_filterNodeServices(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedNodeServices {
 		return &structs.IndexedNodeServices{
@@ -840,7 +840,7 @@ func TestACL_filterNodeServices(t *testing.T) {
 func TestACL_filterNodeServiceList(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedNodeServiceList {
 		return &structs.IndexedNodeServiceList{
@@ -938,7 +938,7 @@ func TestACL_filterNodeServiceList(t *testing.T) {
 func TestACL_filterGatewayServices(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedGatewayServices {
 		return &structs.IndexedGatewayServices{
@@ -980,7 +980,7 @@ func TestACL_filterGatewayServices(t *testing.T) {
 func TestACL_filterCheckServiceNodes(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedCheckServiceNodes {
 		return &structs.IndexedCheckServiceNodes{
@@ -1078,7 +1078,7 @@ func TestACL_filterCheckServiceNodes(t *testing.T) {
 func TestACL_filterPreparedQueryExecuteResponse(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.PreparedQueryExecuteResponse {
 		return &structs.PreparedQueryExecuteResponse{
@@ -1336,7 +1336,7 @@ service "bar" {
 func TestACL_filterCoordinates(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedCoordinates {
 		return &structs.IndexedCoordinates{
@@ -1388,7 +1388,7 @@ func TestACL_filterCoordinates(t *testing.T) {
 func TestACL_filterSessions(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedSessions {
 		return &structs.IndexedSessions{
@@ -1440,7 +1440,7 @@ func TestACL_filterSessions(t *testing.T) {
 func TestACL_filterNodeDump(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedNodeDump {
 		return &structs.IndexedNodeDump{
@@ -1760,7 +1760,7 @@ func TestACL_filterNodes(t *testing.T) {
 func TestACL_filterIndexedNodesWithGateways(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedNodesWithGateways {
 		return &structs.IndexedNodesWithGateways{
@@ -2009,7 +2009,7 @@ func TestACL_filterIndexedNodesWithGateways(t *testing.T) {
 func TestACL_filterIndexedServiceDump(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedServiceDump {
 		return &structs.IndexedServiceDump{
@@ -2133,7 +2133,7 @@ func TestACL_filterIndexedServiceDump(t *testing.T) {
 func TestACL_filterDatacenterCheckServiceNodes(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.DatacenterIndexedCheckServiceNodes {
 		t.Helper()
@@ -2327,7 +2327,7 @@ func TestFilterACL_redactTokenSecrets(t *testing.T) {
 func TestACL_filterPreparedQueries(t *testing.T) {
 	t.Parallel()
 
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedPreparedQueries {
 		return &structs.IndexedPreparedQueries{
@@ -2416,7 +2416,7 @@ func TestACL_filterPreparedQueries(t *testing.T) {
 }
 
 func TestACL_filterServiceList(t *testing.T) {
-	logger := hclog.NewNullLogger()
+	logger := dumb-hclog.NewNullLogger()
 
 	makeList := func() *structs.IndexedServiceList {
 		return &structs.IndexedServiceList{
@@ -2456,10 +2456,10 @@ func TestACL_unhandledFilterType(t *testing.T) {
 	})
 }
 
-func policy(t *testing.T, hcl string) acl.Authorizer {
+func policy(t *testing.T, dumb-hcl string) acl.Authorizer {
 	t.Helper()
 
-	policy, err := acl.NewPolicyFromSource(hcl, nil, nil)
+	policy, err := acl.NewPolicyFromSource(dumb-hcl, nil, nil)
 	require.NoError(t, err)
 
 	authz, err := acl.NewPolicyAuthorizerWithDefaults(acl.DenyAll(), []*acl.Policy{policy}, nil)

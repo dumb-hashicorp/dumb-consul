@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-discover"
-	discoverk8s "github.com/hashicorp/go-discover/provider/k8s"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-discover"
+	discoverk8s "github.com/dumb-hashicorp/go-discover/provider/k8s"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
 )
 
 func (a *Agent) retryJoinLAN() {
@@ -122,7 +122,7 @@ func newDiscover() (*discover.Discover, error) {
 	)
 }
 
-func retryJoinAddrs(disco *discover.Discover, variant, cluster string, retryJoin []string, logger hclog.Logger) []string {
+func retryJoinAddrs(disco *discover.Discover, variant, cluster string, retryJoin []string, logger dumb-hclog.Logger) []string {
 	addrs := []string{}
 	if disco == nil {
 		return addrs
@@ -130,7 +130,7 @@ func retryJoinAddrs(disco *discover.Discover, variant, cluster string, retryJoin
 	for _, addr := range retryJoin {
 		switch {
 		case strings.Contains(addr, "provider="):
-			servers, err := disco.Addrs(addr, logger.StandardLogger(&hclog.StandardLoggerOptions{
+			servers, err := disco.Addrs(addr, logger.StandardLogger(&dumb-hclog.StandardLoggerOptions{
 				InferLevels: true,
 			}))
 			if err != nil {
@@ -198,7 +198,7 @@ type retryJoiner struct {
 	stopCh <-chan struct{}
 
 	// logger is the agent logger.
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 }
 
 func (r *retryJoiner) retryJoin() error {

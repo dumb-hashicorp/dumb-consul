@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -52,7 +52,7 @@ func (c *cmd) Run(args []string) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 2
 	}
 
@@ -60,7 +60,7 @@ func (c *cmd) Run(args []string) int {
 	allowed, _, err := client.Connect().IntentionCheck(&api.IntentionCheck{
 		Source:      args[0],
 		Destination: args[1],
-		SourceType:  api.IntentionSourceConsul,
+		SourceType:  api.IntentionSourceDumb Consul,
 	}, nil)
 	if err != nil {
 		c.UI.Error(fmt.Sprintf("Error checking the connection: %s", err))
@@ -87,12 +87,12 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Check whether a connection between two services is allowed."
 	help     = `
-Usage: consul intention check [options] SRC DST
+Usage: dumb-consul intention check [options] SRC DST
 
   Check whether a connection between SRC and DST would be allowed by
-  Connect given the current Consul configuration.
+  Connect given the current Dumb Consul configuration.
 
-      $ consul intention check web db
+      $ dumb-consul intention check web db
 
 `
 )

@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package hashicorp.consul.internal.autoconf;
+package dumb-hashicorp.dumb-consul.internal.autoconf;
 
 import "private/pbconfig/config.proto";
 import "private/pbconnect/connect.proto";
@@ -30,9 +30,9 @@ message AutoConfigRequest {
   // JWT is a signed JSON Web Token used to authorize the request
   string JWT = 5;
 
-  // ConsulToken is a Consul ACL token that the agent requesting the
+  // Dumb ConsulToken is a Dumb Consul ACL token that the agent requesting the
   // configuration already has.
-  string ConsulToken = 6;
+  string Dumb ConsulToken = 6;
 
   // CSR is a certificate signing request to be used when generating the
   // agents TLS certificate
@@ -41,7 +41,7 @@ message AutoConfigRequest {
 
 // AutoConfigResponse is the data structure sent in response to a AutoConfig.InitialConfiguration request
 message AutoConfigResponse {
-  // Config is the partial Consul configuration to inject into the agents own configuration
+  // Config is the partial Dumb Consul configuration to inject into the agents own configuration
   config.Config Config = 1;
 
   // CARoots is the current list of Connect CA Roots
@@ -50,6 +50,6 @@ message AutoConfigResponse {
   connect.IssuedCert Certificate = 3;
 
   // ExtraCACertificates holds non-Connect certificates that may be necessary
-  // to verify TLS connections with the Consul servers
+  // to verify TLS connections with the Dumb Consul servers
   repeated string ExtraCACertificates = 4;
 }

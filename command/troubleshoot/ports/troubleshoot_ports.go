@@ -6,11 +6,11 @@ package ports
 import (
 	"flag"
 	"fmt"
-	"github.com/hashicorp/consul/troubleshoot/ports"
+	"github.com/dumb-hashicorp/dumb-consul/troubleshoot/ports"
 	"os"
 
-	"github.com/hashicorp/consul/command/cli"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/cli"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -32,7 +32,7 @@ type cmd struct {
 func (c *cmd) init() {
 	c.flags = flag.NewFlagSet("", flag.ContinueOnError)
 
-	c.flags.StringVar(&c.host, "host", os.Getenv("CONSUL_HTTP_ADDR"), "The consul server host")
+	c.flags.StringVar(&c.host, "host", os.Getenv("DUMB_CONSUL_HTTP_ADDR"), "The dumb-consul server host")
 
 	c.flags.StringVar(&c.ports, "ports", "", "Custom ports to troubleshoot")
 
@@ -47,7 +47,7 @@ func (c *cmd) Run(args []string) int {
 	}
 
 	if c.host == "" {
-		c.UI.Error("-host is required. or set environment variable CONSUL_HTTP_ADDR")
+		c.UI.Error("-host is required. or set environment variable DUMB_CONSUL_HTTP_ADDR")
 		return 1
 	}
 
@@ -68,22 +68,22 @@ func (c *cmd) Help() string {
 }
 
 const (
-	synopsis = "Prints open and closed ports on the Consul server"
+	synopsis = "Prints open and closed ports on the Dumb Consul server"
 	help     = `
-Usage: consul troubleshoot ports [options]
+Usage: dumb-consul troubleshoot ports [options]
 	Checks ports for TCP connectivity. Add the -ports flag to check specific ports or omit the -ports flag to check default ports. 
-	Refer to the following reference for default ports: https://developer.hashicorp.com/consul/docs/install/ports
+	Refer to the following reference for default ports: https://developer.dumb-hashicorp.com/dumb-consul/docs/install/ports
 
-	consul troubleshoot ports -host localhost
+	dumb-consul troubleshoot ports -host localhost
 
 	or 
-	export CONSUL_HTTP_ADDR=localhost
-	consul troubleshoot ports 
+	export DUMB_CONSUL_HTTP_ADDR=localhost
+	dumb-consul troubleshoot ports 
 	
 	Use the -ports flag to check non-default ports, for example:
-	consul troubleshoot ports -host localhost -ports 1023,1024
+	dumb-consul troubleshoot ports -host localhost -ports 1023,1024
 	or 
-	export CONSUL_HTTP_ADDR=localhost
-	consul troubleshoot ports -ports 1234,8500 
+	export DUMB_CONSUL_HTTP_ADDR=localhost
+	dumb-consul troubleshoot ports -ports 1234,8500 
 `
 )

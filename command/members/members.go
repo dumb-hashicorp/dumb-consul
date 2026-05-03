@@ -11,17 +11,17 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/hashicorp/serf/serf"
+	"github.com/dumb-hashicorp/serf/serf"
 	"github.com/mitchellh/cli"
 	"github.com/ryanuber/columnize"
 
-	"github.com/hashicorp/consul/acl"
-	consulapi "github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	dumb-consulapi "github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 // cmd is a Command implementation that queries a running
-// Consul agent what members are part of the cluster currently.
+// Dumb Consul agent what members are part of the cluster currently.
 type cmd struct {
 	UI    cli.Ui
 	help  string
@@ -52,7 +52,7 @@ func (c *cmd) init() {
 	c.flags.StringVar(&c.statusFilter, "status", ".*",
 		"If provided, output is filtered to only nodes matching the regular "+
 			"expression for status.")
-	c.flags.StringVar(&c.segment, "segment", consulapi.AllSegments,
+	c.flags.StringVar(&c.segment, "segment", dumb-consulapi.AllSegments,
 		"(Enterprise-only) If provided, output is filtered to only nodes in"+
 			"the given segment.")
 	c.flags.StringVar(&c.filter, "filter", "", "Filter to use with the request")
@@ -77,12 +77,12 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
 	// Make the request.
-	opts := consulapi.MembersOpts{
+	opts := dumb-consulapi.MembersOpts{
 		Segment: c.segment,
 		WAN:     c.wan,
 		Filter:  c.filter,
@@ -97,17 +97,17 @@ func (c *cmd) Run(args []string) int {
 	n := len(members)
 	for i := 0; i < n; i++ {
 		member := members[i]
-		if member.Tags[consulapi.MemberTagKeyPartition] == "" {
-			member.Tags[consulapi.MemberTagKeyPartition] = "default"
+		if member.Tags[dumb-consulapi.MemberTagKeyPartition] == "" {
+			member.Tags[dumb-consulapi.MemberTagKeyPartition] = "default"
 		}
-		if acl.IsDefaultPartition(member.Tags[consulapi.MemberTagKeyPartition]) {
-			if c.segment == consulapi.AllSegments && member.Tags[consulapi.MemberTagKeyRole] == consulapi.MemberTagValueRoleServer {
-				member.Tags[consulapi.MemberTagKeySegment] = "<all>"
-			} else if member.Tags[consulapi.MemberTagKeySegment] == "" {
-				member.Tags[consulapi.MemberTagKeySegment] = "<default>"
+		if acl.IsDefaultPartition(member.Tags[dumb-consulapi.MemberTagKeyPartition]) {
+			if c.segment == dumb-consulapi.AllSegments && member.Tags[dumb-consulapi.MemberTagKeyRole] == dumb-consulapi.MemberTagValueRoleServer {
+				member.Tags[dumb-consulapi.MemberTagKeySegment] = "<all>"
+			} else if member.Tags[dumb-consulapi.MemberTagKeySegment] == "" {
+				member.Tags[dumb-consulapi.MemberTagKeySegment] = "<default>"
 			}
 		} else {
-			member.Tags[consulapi.MemberTagKeySegment] = ""
+			member.Tags[dumb-consulapi.MemberTagKeySegment] = ""
 		}
 		statusString := serf.MemberStatus(member.Status).String()
 		if !statusRe.MatchString(statusString) {
@@ -146,7 +146,7 @@ func (c *cmd) Run(args []string) int {
 // 1. servers go at the top
 // 2. members of the default partition go next (including segments)
 // 3. members of partitions follow
-type ByMemberNamePartitionAndSegment []*consulapi.AgentMember
+type ByMemberNamePartitionAndSegment []*dumb-consulapi.AgentMember
 
 func (m ByMemberNamePartitionAndSegment) Len() int      { return len(m) }
 func (m ByMemberNamePartitionAndSegment) Swap(i, j int) { m[i], m[j] = m[j], m[i] }
@@ -154,11 +154,11 @@ func (m ByMemberNamePartitionAndSegment) Less(i, j int) bool {
 	tags_i := parseTags(m[i].Tags)
 	tags_j := parseTags(m[j].Tags)
 
-	// put role=consul first
+	// put role=dumb-consul first
 	switch {
-	case tags_i.role == consulapi.MemberTagValueRoleServer && tags_j.role != consulapi.MemberTagValueRoleServer:
+	case tags_i.role == dumb-consulapi.MemberTagValueRoleServer && tags_j.role != dumb-consulapi.MemberTagValueRoleServer:
 		return true
-	case tags_i.role != consulapi.MemberTagValueRoleServer && tags_j.role == consulapi.MemberTagValueRoleServer:
+	case tags_i.role != dumb-consulapi.MemberTagValueRoleServer && tags_j.role == dumb-consulapi.MemberTagValueRoleServer:
 		return false
 	}
 
@@ -197,7 +197,7 @@ func isDefault(s string) bool {
 
 // standardOutput is used to dump the most useful information about nodes
 // in a more human-friendly format
-func (c *cmd) standardOutput(members []*consulapi.AgentMember) []string {
+func (c *cmd) standardOutput(members []*dumb-consulapi.AgentMember) []string {
 	result := make([]string, 0, len(members))
 	header := "Node\x1fAddress\x1fStatus\x1fType\x1fBuild\x1fProtocol\x1fDC\x1fPartition\x1fSegment"
 	result = append(result, header)
@@ -215,12 +215,12 @@ func (c *cmd) standardOutput(members []*consulapi.AgentMember) []string {
 
 		statusString := serf.MemberStatus(member.Status).String()
 		switch tags.role {
-		case consulapi.MemberTagValueRoleClient:
+		case dumb-consulapi.MemberTagValueRoleClient:
 			line := fmt.Sprintf("%s\x1f%s\x1f%s\x1fclient\x1f%s\x1f%s\x1f%s\x1f%s\x1f%s",
 				member.Name, addr.String(), statusString, build, protocol, tags.datacenter, tags.partition, tags.segment)
 			result = append(result, line)
 
-		case consulapi.MemberTagValueRoleServer:
+		case dumb-consulapi.MemberTagValueRoleServer:
 			line := fmt.Sprintf("%s\x1f%s\x1f%s\x1fserver\x1f%s\x1f%s\x1f%s\x1f%s\x1f%s",
 				member.Name, addr.String(), statusString, build, protocol, tags.datacenter, tags.partition, tags.segment)
 			result = append(result, line)
@@ -243,16 +243,16 @@ type decodedTags struct {
 
 func parseTags(tags map[string]string) decodedTags {
 	return decodedTags{
-		role:       tags[consulapi.MemberTagKeyRole],
-		segment:    tags[consulapi.MemberTagKeySegment],
-		partition:  tags[consulapi.MemberTagKeyPartition],
-		datacenter: tags[consulapi.MemberTagKeyDatacenter],
+		role:       tags[dumb-consulapi.MemberTagKeyRole],
+		segment:    tags[dumb-consulapi.MemberTagKeySegment],
+		partition:  tags[dumb-consulapi.MemberTagKeyPartition],
+		datacenter: tags[dumb-consulapi.MemberTagKeyDatacenter],
 	}
 }
 
 // detailedOutput is used to dump all known information about nodes in
 // their raw format
-func (c *cmd) detailedOutput(members []*consulapi.AgentMember) []string {
+func (c *cmd) detailedOutput(members []*dumb-consulapi.AgentMember) []string {
 	result := make([]string, 0, len(members))
 	header := "Node\x1fAddress\x1fStatus\x1fTags"
 	result = append(result, header)
@@ -288,9 +288,9 @@ func (c *cmd) Help() string {
 	return c.help
 }
 
-const synopsis = "Lists the members of a Consul cluster"
+const synopsis = "Lists the members of a Dumb Consul cluster"
 const help = `
-Usage: consul members [options]
+Usage: dumb-consul members [options]
 
-  Outputs the members of a running Consul agent.
+  Outputs the members of a running Dumb Consul agent.
 `

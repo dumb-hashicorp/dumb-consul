@@ -1,17 +1,17 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package agent
 
 import (
 	"fmt"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/config"
-	agentdns "github.com/hashicorp/consul/agent/dns"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	agentdns "github.com/dumb-hashicorp/dumb-consul/agent/dns"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 // NOTE: these functions have also been copied to agent/dns package for dns v2.

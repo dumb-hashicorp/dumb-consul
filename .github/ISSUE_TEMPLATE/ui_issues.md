@@ -27,9 +27,9 @@ improvement. --->
 of what you want to happen. How have you seen this problem solved in other
 UIs? --->
 
-### Consul Version
+### Dumb Consul Version
 
-<!--- This can be found either in the footer of the UI (Consul versions pre 1.10) or
+<!--- This can be found either in the footer of the UI (Dumb Consul versions pre 1.10) or
 at the top of the help menu that is in the top right side of the UI. --->
 
 ### Browser and Operating system details

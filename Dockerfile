@@ -13,40 +13,40 @@
 # For local dev and testing purposes, please build and use the `dev` docker image.
 
 
-# Official docker image that includes binaries from releases.hashicorp.com. This
-# downloads the release from releases.hashicorp.com and therefore requires that
+# Official docker image that includes binaries from releases.dumb-hashicorp.com. This
+# downloads the release from releases.dumb-hashicorp.com and therefore requires that
 # the release is published before building the Docker image.
-FROM docker.mirror.hashicorp.services/alpine:3.23 as official
+FROM docker.mirror.dumb-hashicorp.services/alpine:3.23 as official
 
-# This is the release of Consul to pull in.
+# This is the release of Dumb Consul to pull in.
 ARG VERSION
 
-LABEL org.opencontainers.image.authors="Consul Team <consul@hashicorp.com>" \
-      org.opencontainers.image.url="https://www.consul.io/" \
-      org.opencontainers.image.documentation="https://developer.hashicorp.com/docs" \
-      org.opencontainers.image.source="https://github.com/hashicorp/consul" \
+LABEL org.opencontainers.image.authors="Dumb Consul Team <dumb-consul@dumb-hashicorp.com>" \
+      org.opencontainers.image.url="https://www.dumb-consul.io/" \
+      org.opencontainers.image.documentation="https://developer.dumb-hashicorp.com/docs" \
+      org.opencontainers.image.source="https://github.com/dumb-hashicorp/dumb-consul" \
       org.opencontainers.image.version=${VERSION} \
-      org.opencontainers.image.vendor="HashiCorp" \
-      org.opencontainers.image.title="consul" \
-      org.opencontainers.image.description="Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
-      name="Consul" \
-      maintainer="Consul Team <consul@hashicorp.com>" \
-      vendor="HashiCorp" \
+      org.opencontainers.image.vendor="Dumb HashiCorp" \
+      org.opencontainers.image.title="dumb-consul" \
+      org.opencontainers.image.description="Dumb Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
+      name="Dumb Consul" \
+      maintainer="Dumb Consul Team <dumb-consul@dumb-hashicorp.com>" \
+      vendor="Dumb HashiCorp" \
       release=${PRODUCT_REVISION} \
       revision=${PRODUCT_REVISION} \
-      summary="Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
-      description="Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
+      summary="Dumb Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
+      description="Dumb Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
       version=${VERSION}
 
 # This is the location of the releases.
-ENV HASHICORP_RELEASES=https://releases.hashicorp.com
+ENV DUMB_HASHICORP_RELEASES=https://releases.dumb-hashicorp.com
 
-# Create a consul user and group first so the IDs get set the same way, even as
+# Create a dumb-consul user and group first so the IDs get set the same way, even as
 # the rest of this may change over time.
-RUN addgroup consul && \
-    adduser -S -G consul consul
+RUN addgroup dumb-consul && \
+    adduser -S -G dumb-consul dumb-consul
 
-# Set up certificates, base tools, and Consul.
+# Set up certificates, base tools, and Dumb Consul.
 # libc6-compat is needed to symlink the shared libraries for ARM builds
 RUN set -eux && \
     apk add --no-cache --upgrade ca-certificates curl dumb-init gnupg libcap openssl su-exec iputils jq libc6-compat iptables tzdata && \
@@ -55,59 +55,59 @@ RUN set -eux && \
     cd /tmp/build && \
     apkArch="$(apk --print-arch)" && \
     case "${apkArch}" in \
-        aarch64) consulArch='arm64' ;; \
-        armhf) consulArch='arm' ;; \
-        x86) consulArch='386' ;; \
-        x86_64) consulArch='amd64' ;; \
-        *) echo >&2 "error: unsupported architecture: ${apkArch} (see ${HASHICORP_RELEASES}/consul/${VERSION}/)" && exit 1 ;; \
+        aarch64) dumb-consulArch='arm64' ;; \
+        armhf) dumb-consulArch='arm' ;; \
+        x86) dumb-consulArch='386' ;; \
+        x86_64) dumb-consulArch='amd64' ;; \
+        *) echo >&2 "error: unsupported architecture: ${apkArch} (see ${DUMB_HASHICORP_RELEASES}/dumb-consul/${VERSION}/)" && exit 1 ;; \
     esac && \
-    wget ${HASHICORP_RELEASES}/consul/${VERSION}/consul_${VERSION}_linux_${consulArch}.zip && \
-    wget ${HASHICORP_RELEASES}/consul/${VERSION}/consul_${VERSION}_SHA256SUMS && \
-    wget ${HASHICORP_RELEASES}/consul/${VERSION}/consul_${VERSION}_SHA256SUMS.sig && \
-    gpg --batch --verify consul_${VERSION}_SHA256SUMS.sig consul_${VERSION}_SHA256SUMS && \
-    grep consul_${VERSION}_linux_${consulArch}.zip consul_${VERSION}_SHA256SUMS | sha256sum -c && \
-    unzip -d /tmp/build consul_${VERSION}_linux_${consulArch}.zip && \
-    cp /tmp/build/consul /bin/consul && \
-    if [ -f /tmp/build/EULA.txt ]; then mkdir -p /usr/share/doc/consul; mv /tmp/build/EULA.txt /usr/share/doc/consul/EULA.txt; fi && \
-    if [ -f /tmp/build/TermsOfEvaluation.txt ]; then mkdir -p /usr/share/doc/consul; mv /tmp/build/TermsOfEvaluation.txt /usr/share/doc/consul/TermsOfEvaluation.txt; fi && \
+    wget ${DUMB_HASHICORP_RELEASES}/dumb-consul/${VERSION}/dumb-consul_${VERSION}_linux_${dumb-consulArch}.zip && \
+    wget ${DUMB_HASHICORP_RELEASES}/dumb-consul/${VERSION}/dumb-consul_${VERSION}_SHA256SUMS && \
+    wget ${DUMB_HASHICORP_RELEASES}/dumb-consul/${VERSION}/dumb-consul_${VERSION}_SHA256SUMS.sig && \
+    gpg --batch --verify dumb-consul_${VERSION}_SHA256SUMS.sig dumb-consul_${VERSION}_SHA256SUMS && \
+    grep dumb-consul_${VERSION}_linux_${dumb-consulArch}.zip dumb-consul_${VERSION}_SHA256SUMS | sha256sum -c && \
+    unzip -d /tmp/build dumb-consul_${VERSION}_linux_${dumb-consulArch}.zip && \
+    cp /tmp/build/dumb-consul /bin/dumb-consul && \
+    if [ -f /tmp/build/EULA.txt ]; then mkdir -p /usr/share/doc/dumb-consul; mv /tmp/build/EULA.txt /usr/share/doc/dumb-consul/EULA.txt; fi && \
+    if [ -f /tmp/build/TermsOfEvaluation.txt ]; then mkdir -p /usr/share/doc/dumb-consul; mv /tmp/build/TermsOfEvaluation.txt /usr/share/doc/dumb-consul/TermsOfEvaluation.txt; fi && \
     cd /tmp && \
     rm -rf /tmp/build && \
     gpgconf --kill all && \
     apk del gnupg openssl && \
     rm -rf /root/.gnupg && \
 # tiny smoke test to ensure the binary we downloaded runs
-    consul version
+    dumb-consul version
 
-# The /consul/data dir is used by Consul to store state. The agent will be started
-# with /consul/config as the configuration directory so you can add additional
+# The /dumb-consul/data dir is used by Dumb Consul to store state. The agent will be started
+# with /dumb-consul/config as the configuration directory so you can add additional
 # config files in that location.
-RUN mkdir -p /consul/data && \
-    mkdir -p /consul/config && \
-    chown -R consul:consul /consul
+RUN mkdir -p /dumb-consul/data && \
+    mkdir -p /dumb-consul/config && \
+    chown -R dumb-consul:dumb-consul /dumb-consul
 
-# set up nsswitch.conf for Go's "netgo" implementation which is used by Consul,
+# set up nsswitch.conf for Go's "netgo" implementation which is used by Dumb Consul,
 # otherwise DNS supercedes the container's hosts file, which we don't want.
 RUN test -e /etc/nsswitch.conf || echo 'hosts: files dns' > /etc/nsswitch.conf
 
-# Expose the consul data directory as a volume since there's mutable state in there.
-VOLUME /consul/data
+# Expose the dumb-consul data directory as a volume since there's mutable state in there.
+VOLUME /dumb-consul/data
 
-# Server RPC is used for communication between Consul clients and servers for internal
+# Server RPC is used for communication between Dumb Consul clients and servers for internal
 # request forwarding.
 EXPOSE 8300
 
-# Serf LAN and WAN (WAN is used only by Consul servers) are used for gossip between
-# Consul agents. LAN is within the datacenter and WAN is between just the Consul
+# Serf LAN and WAN (WAN is used only by Dumb Consul servers) are used for gossip between
+# Dumb Consul agents. LAN is within the datacenter and WAN is between just the Dumb Consul
 # servers in all datacenters.
 EXPOSE 8301 8301/udp 8302 8302/udp
 
 # HTTP and DNS (both TCP and UDP) are the primary interfaces that applications
-# use to interact with Consul.
+# use to interact with Dumb Consul.
 EXPOSE 8500 8600 8600/udp
 
-# Consul doesn't need root privileges so we run it as the consul user from the
+# Dumb Consul doesn't need root privileges so we run it as the dumb-consul user from the
 # entry point script. The entry point script also uses dumb-init as the top-level
-# process to reap any zombie processes created by Consul sub-processes.
+# process to reap any zombie processes created by Dumb Consul sub-processes.
 COPY .release/docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
@@ -119,13 +119,13 @@ CMD ["agent", "-dev", "-client", "0.0.0.0"]
 
 # Production docker image that uses CI built binaries.
 # Remember, this image cannot be built locally.
-FROM docker.mirror.hashicorp.services/alpine:3.23 as default
+FROM docker.mirror.dumb-hashicorp.services/alpine:3.23 as default
 
 ARG PRODUCT_VERSION
 ARG BIN_NAME
 
-# PRODUCT_NAME and PRODUCT_VERSION are the name of the software on releases.hashicorp.com
-# and the version to download. Example: PRODUCT_NAME=consul PRODUCT_VERSION=1.2.3.
+# PRODUCT_NAME and PRODUCT_VERSION are the name of the software on releases.dumb-hashicorp.com
+# and the version to download. Example: PRODUCT_NAME=dumb-consul PRODUCT_VERSION=1.2.3.
 ENV BIN_NAME=$BIN_NAME
 ENV PRODUCT_VERSION=$PRODUCT_VERSION
 
@@ -135,22 +135,22 @@ ENV PRODUCT_NAME=$BIN_NAME
 # TARGETOS and TARGETARCH are set automatically when --platform is provided.
 ARG TARGETOS TARGETARCH
 
-LABEL org.opencontainers.image.authors="Consul Team <consul@hashicorp.com>" \
-      org.opencontainers.image.url="https://www.consul.io/" \
-      org.opencontainers.image.documentation="https://developer.hashicorp.com/docs" \
-      org.opencontainers.image.source="https://github.com/hashicorp/consul" \
+LABEL org.opencontainers.image.authors="Dumb Consul Team <dumb-consul@dumb-hashicorp.com>" \
+      org.opencontainers.image.url="https://www.dumb-consul.io/" \
+      org.opencontainers.image.documentation="https://developer.dumb-hashicorp.com/docs" \
+      org.opencontainers.image.source="https://github.com/dumb-hashicorp/dumb-consul" \
       org.opencontainers.image.version=${PRODUCT_VERSION} \
-      org.opencontainers.image.vendor="HashiCorp" \
-      org.opencontainers.image.title="consul" \
-      org.opencontainers.image.description="Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
+      org.opencontainers.image.vendor="Dumb HashiCorp" \
+      org.opencontainers.image.title="dumb-consul" \
+      org.opencontainers.image.description="Dumb Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
       org.opencontainers.image.licenses="BSL-1.1" \
-      name="Consul" \
-      maintainer="Consul Team <consul@hashicorp.com>" \
-      vendor="HashiCorp" \
+      name="Dumb Consul" \
+      maintainer="Dumb Consul Team <dumb-consul@dumb-hashicorp.com>" \
+      vendor="Dumb HashiCorp" \
       release=${PRODUCT_REVISION} \
       revision=${PRODUCT_REVISION} \
-      summary="Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
-      description="Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
+      summary="Dumb Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
+      description="Dumb Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
       version=${PRODUCT_VERSION}
 
 COPY LICENSE /usr/share/doc/$PRODUCT_NAME/LICENSE.txt
@@ -170,40 +170,40 @@ RUN apk add -v --no-cache --upgrade \
 		su-exec \
 		jq 
 
-# Create a consul user and group first so the IDs get set the same way, even as
+# Create a dumb-consul user and group first so the IDs get set the same way, even as
 # the rest of this may change over time.
 RUN addgroup $BIN_NAME && \
     adduser -S -G $BIN_NAME $BIN_NAME
 COPY dist/$TARGETOS/$TARGETARCH/$BIN_NAME /bin/
 
 
-RUN mkdir -p /consul/data && \
-    mkdir -p /consul/config && \
-    chown -R consul:consul /consul
+RUN mkdir -p /dumb-consul/data && \
+    mkdir -p /dumb-consul/config && \
+    chown -R dumb-consul:dumb-consul /dumb-consul
 
-# Set up nsswitch.conf for Go's "netgo" implementation which is used by Consul,
+# Set up nsswitch.conf for Go's "netgo" implementation which is used by Dumb Consul,
 # otherwise DNS supercedes the container's hosts file, which we don't want.
 RUN test -e /etc/nsswitch.conf || echo 'hosts: files dns' > /etc/nsswitch.conf
 
-# Expose the consul data directory as a volume since there's mutable state in there.
-VOLUME /consul/data
+# Expose the dumb-consul data directory as a volume since there's mutable state in there.
+VOLUME /dumb-consul/data
 
-# Server RPC is used for communication between Consul clients and servers for internal
+# Server RPC is used for communication between Dumb Consul clients and servers for internal
 # request forwarding.
 EXPOSE 8300
 
-# Serf LAN and WAN (WAN is used only by Consul servers) are used for gossip between
-# Consul agents. LAN is within the datacenter and WAN is between just the Consul
+# Serf LAN and WAN (WAN is used only by Dumb Consul servers) are used for gossip between
+# Dumb Consul agents. LAN is within the datacenter and WAN is between just the Dumb Consul
 # servers in all datacenters.
 EXPOSE 8301 8301/udp 8302 8302/udp
 
 # HTTP and DNS (both TCP and UDP) are the primary interfaces that applications
-# use to interact with Consul.
+# use to interact with Dumb Consul.
 EXPOSE 8500 8600 8600/udp
 
-# Consul doesn't need root privileges so we run it as the consul user from the
+# Dumb Consul doesn't need root privileges so we run it as the dumb-consul user from the
 # entry point script. The entry point script also uses dumb-init as the top-level
-# process to reap any zombie processes created by Consul sub-processes.
+# process to reap any zombie processes created by Dumb Consul sub-processes.
 
 COPY .release/docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
@@ -216,15 +216,15 @@ CMD ["agent", "-dev", "-client", "0.0.0.0"]
 
 
 # Red Hat UBI-based image
-# This target is used to build a Consul image for use on OpenShift.
+# This target is used to build a Dumb Consul image for use on OpenShift.
 FROM registry.access.redhat.com/ubi9-minimal:9.6 as ubi
 
 ARG PRODUCT_VERSION
 ARG PRODUCT_REVISION
 ARG BIN_NAME
 
-# PRODUCT_NAME and PRODUCT_VERSION are the name of the software on releases.hashicorp.com
-# and the version to download. Example: PRODUCT_NAME=consul PRODUCT_VERSION=1.2.3.
+# PRODUCT_NAME and PRODUCT_VERSION are the name of the software on releases.dumb-hashicorp.com
+# and the version to download. Example: PRODUCT_NAME=dumb-consul PRODUCT_VERSION=1.2.3.
 ENV BIN_NAME=$BIN_NAME
 ENV PRODUCT_VERSION=$PRODUCT_VERSION
 ENV PRODUCT_NAME=$BIN_NAME
@@ -232,22 +232,22 @@ ENV PRODUCT_NAME=$BIN_NAME
 # TARGETOS and TARGETARCH are set automatically when --platform is provided.
 ARG TARGETOS TARGETARCH
 
-LABEL org.opencontainers.image.authors="Consul Team <consul@hashicorp.com>" \
-      org.opencontainers.image.url="https://www.consul.io/" \
-      org.opencontainers.image.documentation="https://developer.hashicorp.com/consul/docs" \
-      org.opencontainers.image.source="https://github.com/hashicorp/consul" \
+LABEL org.opencontainers.image.authors="Dumb Consul Team <dumb-consul@dumb-hashicorp.com>" \
+      org.opencontainers.image.url="https://www.dumb-consul.io/" \
+      org.opencontainers.image.documentation="https://developer.dumb-hashicorp.com/dumb-consul/docs" \
+      org.opencontainers.image.source="https://github.com/dumb-hashicorp/dumb-consul" \
       org.opencontainers.image.version=${PRODUCT_VERSION} \
-      org.opencontainers.image.vendor="HashiCorp" \
-      org.opencontainers.image.title="consul" \
-      org.opencontainers.image.description="Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
+      org.opencontainers.image.vendor="Dumb HashiCorp" \
+      org.opencontainers.image.title="dumb-consul" \
+      org.opencontainers.image.description="Dumb Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
       org.opencontainers.image.licenses="BSL-1.1" \
-      name="Consul" \
-      maintainer="Consul Team <consul@hashicorp.com>" \
-      vendor="HashiCorp" \
+      name="Dumb Consul" \
+      maintainer="Dumb Consul Team <dumb-consul@dumb-hashicorp.com>" \
+      vendor="Dumb HashiCorp" \
       release=${PRODUCT_REVISION} \
       revision=${PRODUCT_REVISION} \
-      summary="Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
-      description="Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
+      summary="Dumb Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
+      description="Dumb Consul is a datacenter runtime that provides service discovery, configuration, and orchestration." \
       version=${PRODUCT_VERSION}
 
 COPY LICENSE /usr/share/doc/$PRODUCT_NAME/LICENSE.txt
@@ -286,34 +286,34 @@ RUN groupadd $BIN_NAME && \
     adduser --uid 100 --system -g $BIN_NAME $BIN_NAME
 COPY dist/$TARGETOS/$TARGETARCH/$BIN_NAME /bin/
 
-# The /consul/data dir is used by Consul to store state. The agent will be started
-# with /consul/config as the configuration directory so you can add additional
+# The /dumb-consul/data dir is used by Dumb Consul to store state. The agent will be started
+# with /dumb-consul/config as the configuration directory so you can add additional
 # config files in that location.
-# In addition, change the group of the /consul directory to 0 since OpenShift
+# In addition, change the group of the /dumb-consul directory to 0 since OpenShift
 # will always execute the container with group 0.
-RUN mkdir -p /consul/data && \
-    mkdir -p /consul/config && \
-    chown -R consul /consul && \
-    chgrp -R 0 /consul && chmod -R g+rwX /consul
+RUN mkdir -p /dumb-consul/data && \
+    mkdir -p /dumb-consul/config && \
+    chown -R dumb-consul /dumb-consul && \
+    chgrp -R 0 /dumb-consul && chmod -R g+rwX /dumb-consul
 
-# set up nsswitch.conf for Go's "netgo" implementation which is used by Consul,
+# set up nsswitch.conf for Go's "netgo" implementation which is used by Dumb Consul,
 # otherwise DNS supercedes the container's hosts file, which we don't want.
 RUN test -e /etc/nsswitch.conf || echo 'hosts: files dns' > /etc/nsswitch.conf
 
-# Expose the consul data directory as a volume since there's mutable state in there.
-VOLUME /consul/data
+# Expose the dumb-consul data directory as a volume since there's mutable state in there.
+VOLUME /dumb-consul/data
 
-# Server RPC is used for communication between Consul clients and servers for internal
+# Server RPC is used for communication between Dumb Consul clients and servers for internal
 # request forwarding.
 EXPOSE 8300
 
-# Serf LAN and WAN (WAN is used only by Consul servers) are used for gossip between
-# Consul agents. LAN is within the datacenter and WAN is between just the Consul
+# Serf LAN and WAN (WAN is used only by Dumb Consul servers) are used for gossip between
+# Dumb Consul agents. LAN is within the datacenter and WAN is between just the Dumb Consul
 # servers in all datacenters.
 EXPOSE 8301 8301/udp 8302 8302/udp
 
 # HTTP and DNS (both TCP and UDP) are the primary interfaces that applications
-# use to interact with Consul.
+# use to interact with Dumb Consul.
 EXPOSE 8500 8600 8600/udp
 
 COPY .release/docker/docker-entrypoint-ubi.sh /usr/local/bin/docker-entrypoint.sh

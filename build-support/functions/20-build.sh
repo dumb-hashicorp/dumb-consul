@@ -21,7 +21,7 @@ function supported_osarch {
 
 function refresh_docker_images {
    # Arguments:
-   #   $1 - Path to top level Consul source
+   #   $1 - Path to top level Dumb Consul source
    #   $2 - Which make target to invoke (optional)
    #
    # Return:
@@ -45,7 +45,7 @@ function refresh_docker_images {
 
 function build_ui {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - The docker image to run the build within (optional)
    #   $3 - Version override
    #
@@ -93,7 +93,7 @@ function build_ui {
    fi
 
    # TODO(spatel): CE refactor
-   local logo_type="${CONSUL_BINARY_TYPE}"
+   local logo_type="${DUMB_CONSUL_BINARY_TYPE}"
    if test "$logo_type" != "oss"
    then
      logo_type="enterprise"
@@ -103,16 +103,16 @@ function build_ui {
    pushd ${ui_dir} > /dev/null
 
    status "Creating the UI Build Container with image: ${image_name} and version '${version}'"
-   local container_id=$(docker create -it -e "CONSUL_GIT_SHA=${commit_hash}" -e "CONSUL_COPYRIGHT_YEAR=${commit_year}" -e "CONSUL_VERSION=${version}" -e "CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}" ${image_name})
+   local container_id=$(docker create -it -e "DUMB_CONSUL_GIT_SHA=${commit_hash}" -e "DUMB_CONSUL_COPYRIGHT_YEAR=${commit_year}" -e "DUMB_CONSUL_VERSION=${version}" -e "DUMB_CONSUL_BINARY_TYPE=${DUMB_CONSUL_BINARY_TYPE}" ${image_name})
    local ret=$?
    if test $ret -eq 0
    then
-      status "Copying the source from '${ui_dir}' to /consul-src within the container"
+      status "Copying the source from '${ui_dir}' to /dumb-consul-src within the container"
       (
-         tar -c $(ls -A | grep -v "^(node_modules\|dist\|tmp)") | docker cp - ${container_id}:/consul-src &&
+         tar -c $(ls -A | grep -v "^(node_modules\|dist\|tmp)") | docker cp - ${container_id}:/dumb-consul-src &&
          status "Running build in container" && docker start -i ${container_id} &&
          rm -rf ${1}/ui/dist &&
-         status "Copying back artifacts" && docker cp ${container_id}:/consul-src/packages/consul-ui/dist ${1}/ui/dist
+         status "Copying back artifacts" && docker cp ${container_id}:/dumb-consul-src/packages/dumb-consul-ui/dist ${1}/ui/dist
       )
       ret=$?
       docker rm ${container_id} > /dev/null
@@ -151,9 +151,9 @@ function build_ui {
    return $ret
 }
 
-function build_consul_post {
+function build_dumb-consul_post {
    # Arguments
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Subdirectory under pkg/bin (Optional)
    #
    # Returns:
@@ -167,7 +167,7 @@ function build_consul_post {
 
    if ! test -d "$1"
    then
-      err "ERROR: '$1' is not a directory. build_consul_post must be called with the path to the top level source as the first argument'"
+      err "ERROR: '$1' is not a directory. build_dumb-consul_post must be called with the path to the top level source as the first argument'"
       return 1
    fi
 
@@ -207,9 +207,9 @@ function build_consul_post {
    return 0
 }
 
-function build_consul {
+function build_dumb-consul {
    # Arguments:
-   #   $1 - Path to the top level Consul source
+   #   $1 - Path to the top level Dumb Consul source
    #   $2 - Subdirectory to put binaries in under pkg/bin (optional - must specify if needing to specify the docker image)
    #   $3 - The docker image to run the build within (optional)
    #
@@ -219,13 +219,13 @@ function build_consul {
    #
    # Note:
    #   The GOLDFLAGS and GOTAGS environment variables will be used if set
-   #   If the CONSUL_DEV environment var is truthy only the local platform/architecture is built.
+   #   If the DUMB_CONSUL_DEV environment var is truthy only the local platform/architecture is built.
    #   If the XC_OS or the XC_ARCH environment vars are present then only those platforms/architectures
    #   will be built. Otherwise all supported platform/architectures are built
 
    if ! test -d "$1"
    then
-      err "ERROR: '$1' is not a directory. build_consul must be called with the path to the top level source as the first argument'"
+      err "ERROR: '$1' is not a directory. build_dumb-consul must be called with the path to the top level source as the first argument'"
       return 1
    fi
 
@@ -239,7 +239,7 @@ function build_consul {
    fi
 
    pushd ${sdir} > /dev/null
-   if is_set "${CONSUL_DEV}"
+   if is_set "${DUMB_CONSUL_DEV}"
    then
       if test -z "${XC_OS}"
       then
@@ -290,20 +290,20 @@ function build_consul {
 
    if test $ret -eq 0
    then
-      status "Copying the source from '${sdir}' to /consul"
+      status "Copying the source from '${sdir}' to /dumb-consul"
       (
-         tar -c $(ls | grep -v "^(ui\|website\|bin\|pkg\|.git)") | docker cp - ${container_id}:/consul &&
+         tar -c $(ls | grep -v "^(ui\|website\|bin\|pkg\|.git)") | docker cp - ${container_id}:/dumb-consul &&
          status "Running build in container" &&
          docker start -i ${container_id} &&
          status "Copying back artifacts" &&
-         docker cp ${container_id}:/consul/pkg/bin pkg.bin.new
+         docker cp ${container_id}:/dumb-consul/pkg/bin pkg.bin.new
       )
       ret=$?
       docker rm ${container_id} > /dev/null
 
       if test $ret -eq 0
       then
-         build_consul_post "${sdir}" "${extra_dir_name}"
+         build_dumb-consul_post "${sdir}" "${extra_dir_name}"
          ret=$?
       else
          rm -r pkg.bin.new 2> /dev/null

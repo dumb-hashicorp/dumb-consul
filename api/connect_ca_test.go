@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -9,8 +9,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestAPI_ConnectCARoots_empty(t *testing.T) {
@@ -52,7 +52,7 @@ func TestAPI_ConnectCARoots_list(t *testing.T) {
 			r.Fatalf("expected 1 root, got %d", v)
 		}
 		// connect.TestClusterID causes import cycle so hard code it
-		if list.TrustDomain != "11111111-2222-3333-4444-555555555555.consul" {
+		if list.TrustDomain != "11111111-2222-3333-4444-555555555555.dumb-consul" {
 			r.Fatalf("expected fixed trust domain got '%s'", list.TrustDomain)
 		}
 	})
@@ -66,7 +66,7 @@ func TestAPI_ConnectCAConfig_get_set(t *testing.T) {
 	defer s.Stop()
 
 	s.WaitForSerfCheck(t)
-	expected := &ConsulCAProviderConfig{
+	expected := &Dumb ConsulCAProviderConfig{
 		IntermediateCertTTL: 365 * 24 * time.Hour,
 	}
 	expected.LeafCertTTL = 72 * time.Hour
@@ -79,10 +79,10 @@ func TestAPI_ConnectCAConfig_get_set(t *testing.T) {
 
 		conf, _, err := connect.CAGetConfig(nil)
 		r.Check(err)
-		if conf.Provider != "consul" {
+		if conf.Provider != "dumb-consul" {
 			r.Fatalf("expected default provider, got %q", conf.Provider)
 		}
-		parsed, err := ParseConsulCAConfig(conf.Config)
+		parsed, err := ParseDumb ConsulCAConfig(conf.Config)
 		r.Check(err)
 		require.Equal(r, expected, parsed)
 
@@ -102,7 +102,7 @@ func TestAPI_ConnectCAConfig_get_set(t *testing.T) {
 		r.Check(err)
 		expected.IntermediateCertTTL = 300 * 24 * time.Hour
 		expected.RootCertTTL = 11 * 365 * 24 * time.Hour
-		parsed, err = ParseConsulCAConfig(updated.Config)
+		parsed, err = ParseDumb ConsulCAConfig(updated.Config)
 		r.Check(err)
 		require.Equal(r, expected, parsed)
 		require.Equal(r, "bar", updated.State["foo"])

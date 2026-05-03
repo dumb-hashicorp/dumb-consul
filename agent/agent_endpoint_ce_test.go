@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package agent
 
@@ -12,7 +12,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestAgent_Self_VersionLacksEnt(t *testing.T) {
@@ -23,18 +23,18 @@ func TestAgent_Self_VersionLacksEnt(t *testing.T) {
 	t.Parallel()
 
 	cases := map[string]struct {
-		hcl       string
+		dumb-hcl       string
 		expectXDS bool
 	}{
 		"normal": {
-			hcl: "primary_datacenter = \"dc1\"",
+			dumb-hcl: "primary_datacenter = \"dc1\"",
 		},
 	}
 
 	for name, tc := range cases {
 		tc := tc
 		t.Run(name, func(t *testing.T) {
-			a := NewTestAgent(t, tc.hcl)
+			a := NewTestAgent(t, tc.dumb-hcl)
 			defer a.Shutdown()
 
 			testrpc.WaitForTestAgent(t, a.RPC, "dc1")

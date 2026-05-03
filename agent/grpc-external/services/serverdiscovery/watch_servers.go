@@ -8,15 +8,15 @@ import (
 	"errors"
 	"math/rand"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/agent/consul/autopilotevents"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbserverdiscovery"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/autopilotevents"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbserverdiscovery"
 )
 
 // WatchServers provides a stream on which you can receive the list of servers
@@ -48,7 +48,7 @@ func (s *Server) WatchServers(req *pbserverdiscovery.WatchServersRequest, server
 	}
 }
 
-func (s *Server) serveReadyServers(token string, index uint64, req *pbserverdiscovery.WatchServersRequest, serverStream pbserverdiscovery.ServerDiscoveryService_WatchServersServer, logger hclog.Logger) (uint64, error) {
+func (s *Server) serveReadyServers(token string, index uint64, req *pbserverdiscovery.WatchServersRequest, serverStream pbserverdiscovery.ServerDiscoveryService_WatchServersServer, logger dumb-hclog.Logger) (uint64, error) {
 	if err := external.RequireAnyValidACLToken(s.ACLResolver, token); err != nil {
 		return 0, err
 	}
@@ -131,7 +131,7 @@ func eventToResponse(req *pbserverdiscovery.WatchServersRequest, event stream.Ev
 		})
 	}
 
-	// Shuffle servers so that consul-dataplane doesn't consistently choose the same connections on startup.
+	// Shuffle servers so that dumb-consul-dataplane doesn't consistently choose the same connections on startup.
 	rand.Shuffle(len(servers), func(i, j int) {
 		servers[i], servers[j] = servers[j], servers[i]
 	})

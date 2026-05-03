@@ -14,8 +14,8 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	consulapi "github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	dumb-consulapi "github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 // TODO(partitions): split these tests
@@ -210,13 +210,13 @@ func zip(t *testing.T, k, v []string) map[string]string {
 func TestSortByMemberNamePartitionAndSegment(t *testing.T) {
 	// For the test data we'll give them names that would sort them backwards
 	// if we only sorted by name.
-	newData := func() []*consulapi.AgentMember {
+	newData := func() []*dumb-consulapi.AgentMember {
 		// NOTE: This should be sorted for assertions.
-		return []*consulapi.AgentMember{
+		return []*dumb-consulapi.AgentMember{
 			// servers
-			{Name: "p-betty", Tags: map[string]string{"role": "consul"}},
-			{Name: "q-bob", Tags: map[string]string{"role": "consul"}},
-			{Name: "r-bonnie", Tags: map[string]string{"role": "consul"}},
+			{Name: "p-betty", Tags: map[string]string{"role": "dumb-consul"}},
+			{Name: "q-bob", Tags: map[string]string{"role": "dumb-consul"}},
+			{Name: "r-bonnie", Tags: map[string]string{"role": "dumb-consul"}},
 			// default clients
 			{Name: "m-betty", Tags: map[string]string{}},
 			{Name: "n-bob", Tags: map[string]string{}},
@@ -240,7 +240,7 @@ func TestSortByMemberNamePartitionAndSegment(t *testing.T) {
 		}
 	}
 
-	stringify := func(data []*consulapi.AgentMember) []string {
+	stringify := func(data []*dumb-consulapi.AgentMember) []string {
 		var out []string
 		for _, m := range data {
 			out = append(out, fmt.Sprintf("<%s, %s, %s, %s>",

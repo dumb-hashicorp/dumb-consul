@@ -10,12 +10,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbservice"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
 )
 
 // subscriptionState is a collection of working state tied to a peerID subscription.
@@ -60,7 +60,7 @@ func newSubscriptionState(peerName, partition string) *subscriptionState {
 
 func (s *subscriptionState) sendPendingEvents(
 	ctx context.Context,
-	logger hclog.Logger,
+	logger dumb-hclog.Logger,
 	pending *pendingPayload,
 ) {
 	for _, pendingEvt := range pending.Events {
@@ -88,7 +88,7 @@ func (s *subscriptionState) sendPendingEvents(
 	}
 }
 
-func (s *subscriptionState) cleanupEventVersions(logger hclog.Logger) {
+func (s *subscriptionState) cleanupEventVersions(logger dumb-hclog.Logger) {
 	for id := range s.eventVersions {
 		keep := false
 		switch {

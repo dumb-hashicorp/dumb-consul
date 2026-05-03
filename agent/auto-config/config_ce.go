@@ -1,11 +1,11 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package autoconf
 
-// EnterpriseConfig stub - only populated in Consul Enterprise
+// EnterpriseConfig stub - only populated in Dumb Consul Enterprise
 type EnterpriseConfig struct{}
 
 // finalize is a noop for CE

@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package structs
 
@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
 )
 
 func (e *ProxyConfigEntry) validateEnterpriseMeta() error {
@@ -28,9 +28,9 @@ func validateUnusedKeys(unused []string) error {
 			// The kind field is used to determine the target, but doesn't need
 			// to exist on the target.
 		case strings.HasSuffix(strings.ToLower(k), "namespace"):
-			err = multierror.Append(err, fmt.Errorf("invalid config key %q, namespaces are a consul enterprise feature", k))
+			err = multierror.Append(err, fmt.Errorf("invalid config key %q, namespaces are a dumb-consul enterprise feature", k))
 		case strings.Contains(strings.ToLower(k), "jwt"):
-			err = multierror.Append(err, fmt.Errorf("invalid config key %q, api-gateway jwt validation is a consul enterprise feature", k))
+			err = multierror.Append(err, fmt.Errorf("invalid config key %q, api-gateway jwt validation is a dumb-consul enterprise feature", k))
 		default:
 			err = multierror.Append(err, fmt.Errorf("invalid config key %q", k))
 		}
@@ -55,7 +55,7 @@ func makeEnterpriseConfigEntry(kind, name string) ConfigEntry {
 
 func validateRatelimit(rl *RateLimits) error {
 	if rl != nil {
-		return fmt.Errorf("invalid rate_limits config. Rate limiting is a consul enterprise feature")
+		return fmt.Errorf("invalid rate_limits config. Rate limiting is a dumb-consul enterprise feature")
 	}
 	return nil
 }

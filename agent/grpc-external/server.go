@@ -12,7 +12,7 @@ import (
 	middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/hashi-derek/grpc-proxy/proxy"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
@@ -20,12 +20,12 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/agent/consul/rate"
-	agentmiddleware "github.com/hashicorp/consul/agent/grpc-middleware"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	agentmiddleware "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
-const FORWARD_SERVICE_NAME_PREFIX = "/hashicorp.consul."
+const FORWARD_SERVICE_NAME_PREFIX = "/dumb-hashicorp.dumb-consul."
 
 var (
 	metricsLabels = []metrics.Label{{
@@ -37,7 +37,7 @@ var (
 // NewServer constructs a gRPC server for the external gRPC port, to which
 // handlers can be registered.
 func NewServer(
-	logger hclog.Logger,
+	logger dumb-hclog.Logger,
 	metricsObj *metrics.Metrics,
 	tls *tlsutil.Configurator,
 	limiter rate.RequestLimitsHandler,
@@ -96,7 +96,7 @@ func NewServer(
 	return grpc.NewServer(opts...)
 }
 
-func makeDirector(serverConn *grpc.ClientConn, logger hclog.Logger) func(ctx context.Context, fullMethodName string) (context.Context, *grpc.ClientConn, error) {
+func makeDirector(serverConn *grpc.ClientConn, logger dumb-hclog.Logger) func(ctx context.Context, fullMethodName string) (context.Context, *grpc.ClientConn, error) {
 	return func(ctx context.Context, fullMethodName string) (context.Context, *grpc.ClientConn, error) {
 		var mdCopy metadata.MD
 		md, ok := metadata.FromIncomingContext(ctx)
@@ -107,7 +107,7 @@ func makeDirector(serverConn *grpc.ClientConn, logger hclog.Logger) func(ctx con
 		}
 		outCtx := metadata.NewOutgoingContext(ctx, mdCopy)
 
-		logger.Debug("forwarding the request to the consul server", "method", fullMethodName)
+		logger.Debug("forwarding the request to the dumb-consul server", "method", fullMethodName)
 		// throw unimplemented error if the method is not meant to be forwarded
 		if !strings.HasPrefix(fullMethodName, FORWARD_SERVICE_NAME_PREFIX) {
 			return outCtx, nil, status.Errorf(codes.Unimplemented, "Unknown method %s", fullMethodName)

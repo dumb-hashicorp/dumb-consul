@@ -9,16 +9,16 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/leafcert"
-	"github.com/hashicorp/consul/agent/proxycfg/internal/watch"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/leafcert"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg/internal/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 const testSource ProxySource = "test"
@@ -63,7 +63,7 @@ func TestManager_BasicLifecycle(t *testing.T) {
 			Kind: structs.ServiceResolver,
 			Name: "db",
 		})
-		return discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", connect.TestClusterID+".consul", func(req *discoverychain.CompileRequest) {
+		return discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", connect.TestClusterID+".dumb-consul", func(req *discoverychain.CompileRequest) {
 			// This is because structs.TestUpstreams uses an opaque config
 			// to override connect timeouts.
 			req.OverrideConnectTimeout = 1 * time.Second
@@ -97,7 +97,7 @@ func TestManager_BasicLifecycle(t *testing.T) {
 				{Weight: 40, ServiceSubset: "v2"},
 			},
 		})
-		return discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", "trustdomain.consul", func(req *discoverychain.CompileRequest) {
+		return discoverychain.TestCompileConfigEntries(t, "db", "default", "default", "dc1", "trustdomain.dumb-consul", func(req *discoverychain.CompileRequest) {
 			// This is because structs.TestUpstreams uses an opaque config
 			// to override connect timeouts.
 			req.OverrideConnectTimeout = 1 * time.Second

@@ -10,10 +10,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
-	"github.com/hashicorp/consul/command/intention"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/command/intention"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -207,7 +207,7 @@ func (c *cmd) Run(args []string) int {
 		DestinationName:      svc,
 		DestinationNS:        svcNS,
 		DestinationPartition: svcPart,
-		SourceType:           api.IntentionSourceConsul,
+		SourceType:           api.IntentionSourceDumb Consul,
 		Action:               api.IntentionActionAllow,
 	}
 	if _, err = client.Connect().IntentionUpsert(ixn, nil); err != nil {
@@ -246,7 +246,7 @@ func (c *cmd) Help() string {
 
 const synopsis = "Expose a Connect-enabled service through an Ingress gateway"
 const help = `
-Usage: consul connect expose [options]
+Usage: dumb-consul connect expose [options]
 
   Exposes a Connect-enabled service through the given ingress gateway, using the
   given protocol and port.

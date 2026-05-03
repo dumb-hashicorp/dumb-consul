@@ -13,15 +13,15 @@ import (
 	envoy_endpoint_v3 "github.com/envoyproxy/go-control-plane/envoy/config/endpoint/v3"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/hashicorp/go-bexpr"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/response"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/response"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 )
 
 const (
@@ -268,7 +268,7 @@ func (s *ResourceGenerator) endpointsFromSnapshotMeshGateway(cfgSnap *proxycfg.C
 		cfgSnap.ServerSNIFn != nil {
 		var allServersLbEndpoints []*envoy_endpoint_v3.LbEndpoint
 
-		servers, _ := cfgSnap.MeshGateway.WatchedLocalServers.Get(structs.ConsulServiceName)
+		servers, _ := cfgSnap.MeshGateway.WatchedLocalServers.Get(structs.Dumb ConsulServiceName)
 		for _, srv := range servers {
 			clusterName := cfgSnap.ServerSNIFn(cfgSnap.Datacenter, srv.Node.Node)
 
@@ -309,7 +309,7 @@ func (s *ResourceGenerator) endpointsFromSnapshotMeshGateway(cfgSnap *proxycfg.C
 	if cfg := cfgSnap.MeshConfig(); cfg.PeerThroughMeshGateways() {
 		var serverEndpoints []*envoy_endpoint_v3.LbEndpoint
 
-		servers, _ := cfgSnap.MeshGateway.WatchedLocalServers.Get(structs.ConsulServiceName)
+		servers, _ := cfgSnap.MeshGateway.WatchedLocalServers.Get(structs.Dumb ConsulServiceName)
 		for _, srv := range servers {
 			if isReplica := srv.Service.Meta["read_replica"]; isReplica == "true" {
 				// Peering control-plane traffic can only ever be handled by the local leader.
@@ -888,7 +888,7 @@ func (s *ResourceGenerator) makeExportedUpstreamEndpointsForMeshGateway(cfgSnap 
 		chainEndpoints := make(map[string]structs.CheckServiceNodes)
 		for _, target := range chain.Targets {
 			if !cfgSnap.Locality.Matches(target.Datacenter, target.Partition) || target.Peer != "" {
-				s.Logger.Warn("ignoring discovery chain target that crosses a datacenter, peer, or partition boundary in a mesh gateway",
+				s.Logger.Warn("ignoring discovery chain target that crosses a datacenter, peer, or partition dumb-boundary in a mesh gateway",
 					"target", target,
 					"gatewayLocality", cfgSnap.Locality,
 				)
@@ -967,7 +967,7 @@ func namedPortForEndpoint(ep structs.CheckServiceNode, name string) (int, bool) 
 	return 0, false
 }
 
-func makeLoadAssignment(logger hclog.Logger, cfgSnap *proxycfg.ConfigSnapshot, clusterName string, policy *structs.DiscoveryPrioritizeByLocality, endpointGroups []loadAssignmentEndpointGroup, localKey proxycfg.GatewayKey) *envoy_endpoint_v3.ClusterLoadAssignment {
+func makeLoadAssignment(logger dumb-hclog.Logger, cfgSnap *proxycfg.ConfigSnapshot, clusterName string, policy *structs.DiscoveryPrioritizeByLocality, endpointGroups []loadAssignmentEndpointGroup, localKey proxycfg.GatewayKey) *envoy_endpoint_v3.ClusterLoadAssignment {
 	cla := &envoy_endpoint_v3.ClusterLoadAssignment{
 		ClusterName: clusterName,
 		Endpoints:   make([]*envoy_endpoint_v3.LocalityLbEndpoints, 0, len(endpointGroups)),

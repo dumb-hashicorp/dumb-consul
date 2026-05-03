@@ -11,10 +11,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/acl"
-	"github.com/hashicorp/consul/command/acl/token"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl"
+	"github.com/dumb-hashicorp/dumb-consul/command/acl/token"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 )
 
 func New(ui cli.Ui) *cmd {
@@ -117,7 +117,7 @@ func (c *cmd) Run(args []string) int {
 
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -217,7 +217,7 @@ func (c *cmd) Help() string {
 const (
 	synopsis = "Create an ACL token"
 	help     = `
-Usage: consul acl token create [options]
+Usage: dumb-consul acl token create [options]
 
   When creating a new token policies may be linked using either the -policy-id
   or the -policy-name options. When specifying policies by IDs you may use a
@@ -225,7 +225,7 @@ Usage: consul acl token create [options]
 
   Create a new token:
 
-          $ consul acl token create -description "Replication token" \
+          $ dumb-consul acl token create -description "Replication token" \
                                     -policy-id b52fc3de-5 \
                                     -policy-name "acl-replication" \
                                     -role-id c630d4ef-6 \

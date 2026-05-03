@@ -17,10 +17,10 @@ import (
 	"sync/atomic"
 	"text/template"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
 )
 
 const (
@@ -30,7 +30,7 @@ const (
 //go:embed dist
 var dist embed.FS
 
-// Handler is the http.Handler that serves the Consul UI. It may serve from the
+// Handler is the http.Handler that serves the Dumb Consul UI. It may serve from the
 // embedded fs.FS or from an external directory. It provides a few important
 // transformations on the index.html file and includes a proxy for metrics
 // backends.
@@ -39,7 +39,7 @@ type Handler struct {
 	// it safe to reload at run time. Each call to ServeHTTP will see the latest
 	// version of the state without internal locking needed.
 	runtimeConfig atomic.Value
-	logger        hclog.Logger
+	logger        dumb-hclog.Logger
 	transform     UIDataTransform
 }
 
@@ -56,7 +56,7 @@ type UIDataTransform func(data map[string]interface{}) error
 // NewHandler returns a Handler that can be used to serve UI http requests. It
 // accepts a full agent config since properties like ACLs being enabled affect
 // the UI so we need more than just UIConfig parts.
-func NewHandler(runtimeCfg *config.RuntimeConfig, logger hclog.Logger, transform UIDataTransform) *Handler {
+func NewHandler(runtimeCfg *config.RuntimeConfig, logger dumb-hclog.Logger, transform UIDataTransform) *Handler {
 	h := &Handler{
 		logger:    logger.Named(logging.UIServer),
 		transform: transform,

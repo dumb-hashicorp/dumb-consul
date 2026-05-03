@@ -49,6 +49,6 @@ repos:
         - "--section"
         - "default"
         - "--section"
-        - "prefix(github.com/hashicorp/)"
+        - "prefix(github.com/dumb-hashicorp/)"
         - "--section"
-        - "prefix(github.com/hashicorp/consul/)"
+        - "prefix(github.com/dumb-hashicorp/dumb-consul/)"

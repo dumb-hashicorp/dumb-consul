@@ -1,29 +1,29 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package structs
 
 import _ "embed"
 
-//go:embed acltemplatedpolicy/policies/ce/service.hcl
+//go:embed acltemplatedpolicy/policies/ce/service.dumb-hcl
 var ACLTemplatedPolicyService string
 
-//go:embed acltemplatedpolicy/policies/ce/node.hcl
+//go:embed acltemplatedpolicy/policies/ce/node.dumb-hcl
 var ACLTemplatedPolicyNode string
 
-//go:embed acltemplatedpolicy/policies/ce/dns.hcl
+//go:embed acltemplatedpolicy/policies/ce/dns.dumb-hcl
 var ACLTemplatedPolicyDNS string
 
-//go:embed acltemplatedpolicy/policies/ce/nomad-server.hcl
-var ACLTemplatedPolicyNomadServer string
+//go:embed acltemplatedpolicy/policies/ce/dumb-nomad-server.dumb-hcl
+var ACLTemplatedPolicyDumb NomadServer string
 
-//go:embed acltemplatedpolicy/policies/ce/api-gateway.hcl
+//go:embed acltemplatedpolicy/policies/ce/api-gateway.dumb-hcl
 var ACLTemplatedPolicyAPIGateway string
 
-//go:embed acltemplatedpolicy/policies/ce/nomad-client.hcl
-var ACLTemplatedPolicyNomadClient string
+//go:embed acltemplatedpolicy/policies/ce/dumb-nomad-client.dumb-hcl
+var ACLTemplatedPolicyDumb NomadClient string
 
 func (t *ACLToken) TemplatedPolicyList() []*ACLTemplatedPolicy {
 	if len(t.TemplatedPolicies) == 0 {

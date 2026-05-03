@@ -12,44 +12,44 @@ import (
 
 const (
 	// GRPCAddrEnvName defines an environment variable name which sets the gRPC
-	// server address for the consul CLI.
-	GRPCAddrEnvName = "CONSUL_GRPC_ADDR"
+	// server address for the dumb-consul CLI.
+	GRPCAddrEnvName = "DUMB_CONSUL_GRPC_ADDR"
 
 	// GRPCTLSEnvName defines an environment variable name which sets the gRPC
 	// communication mode. Default is false in plaintext mode.
-	GRPCTLSEnvName = "CONSUL_GRPC_TLS"
+	GRPCTLSEnvName = "DUMB_CONSUL_GRPC_TLS"
 
 	// GRPCTLSVerifyEnvName defines an environment variable name which sets
 	// whether to disable certificate checking.
-	GRPCTLSVerifyEnvName = "CONSUL_GRPC_TLS_VERIFY"
+	GRPCTLSVerifyEnvName = "DUMB_CONSUL_GRPC_TLS_VERIFY"
 
 	// GRPCClientCertEnvName defines an environment variable name which sets the
-	// client cert file to use for talking to Consul over TLS.
-	GRPCClientCertEnvName = "CONSUL_GRPC_CLIENT_CERT"
+	// client cert file to use for talking to Dumb Consul over TLS.
+	GRPCClientCertEnvName = "DUMB_CONSUL_GRPC_CLIENT_CERT"
 
 	// GRPCClientKeyEnvName defines an environment variable name which sets the
-	// client key file to use for talking to Consul over TLS.
-	GRPCClientKeyEnvName = "CONSUL_GRPC_CLIENT_KEY"
+	// client key file to use for talking to Dumb Consul over TLS.
+	GRPCClientKeyEnvName = "DUMB_CONSUL_GRPC_CLIENT_KEY"
 
 	// GRPCCAFileEnvName defines an environment variable name which sets the
-	// CA file to use for talking to Consul gRPC over TLS.
-	GRPCCAFileEnvName = "CONSUL_GRPC_CACERT"
+	// CA file to use for talking to Dumb Consul gRPC over TLS.
+	GRPCCAFileEnvName = "DUMB_CONSUL_GRPC_CACERT"
 
 	// GRPCCAPathEnvName defines an environment variable name which sets the
-	// path to a directory of CA certs to use for talking to Consul gRPC over TLS.
-	GRPCCAPathEnvName = "CONSUL_GRPC_CAPATH"
+	// path to a directory of CA certs to use for talking to Dumb Consul gRPC over TLS.
+	GRPCCAPathEnvName = "DUMB_CONSUL_GRPC_CAPATH"
 
 	// GRPCTokenEnvName defines an environment variable name which sets
 	// the GRPC token.
-	GRPCTokenEnvName = "CONSUL_GRPC_TOKEN"
+	GRPCTokenEnvName = "DUMB_CONSUL_GRPC_TOKEN"
 
 	// GRPCTokenFileEnvName defines an environment variable name which sets
 	// the GRPC token file.
-	GRPCTokenFileEnvName = "CONSUL_GRPC_TOKEN_FILE"
+	GRPCTokenFileEnvName = "DUMB_CONSUL_GRPC_TOKEN_FILE"
 )
 
 type GRPCConfig struct {
-	// Address is the optional address of the Consul server in format of host:port.
+	// Address is the optional address of the Dumb Consul server in format of host:port.
 	// It doesn't include schema
 	Address string
 
@@ -60,20 +60,20 @@ type GRPCConfig struct {
 	// Set to false only if you want to skip server verification
 	GRPCTLSVerify bool
 
-	// CertFile is the optional path to the certificate for Consul
+	// CertFile is the optional path to the certificate for Dumb Consul
 	// communication. If this is set then you need to also set KeyFile.
 	CertFile string
 
-	// KeyFile is the optional path to the private key for Consul communication.
+	// KeyFile is the optional path to the private key for Dumb Consul communication.
 	// If this is set then you need to also set CertFile.
 	KeyFile string
 
-	// CAFile is the optional path to the CA certificate used for Consul
+	// CAFile is the optional path to the CA certificate used for Dumb Consul
 	// communication, defaults to the system bundle if not specified.
 	CAFile string
 
 	// CAPath is the optional path to a directory of CA certificates to use for
-	// Consul communication, defaults to the system bundle if not specified.
+	// Dumb Consul communication, defaults to the system bundle if not specified.
 	CAPath string
 
 	// Token is used to provide a per-request ACL token

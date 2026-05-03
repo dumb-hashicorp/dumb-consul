@@ -9,14 +9,14 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 const (
-	consulUID     = "100"
-	consulGID     = "1000"
-	consulUserArg = consulUID + ":" + consulGID
+	dumb-consulUID     = "100"
+	dumb-consulGID     = "1000"
+	dumb-consulUserArg = dumb-consulUID + ":" + dumb-consulGID
 )
 
 func tlsPrefixFromNode(node *topology.Node) string {
@@ -32,9 +32,9 @@ func tlsPrefixFromNode(node *topology.Node) string {
 
 func tlsCertCreateCommand(node *topology.Node) string {
 	if node.IsServer() {
-		return fmt.Sprintf(`consul tls cert create -server -dc=%s -node=%s`, node.Datacenter, node.PodName())
+		return fmt.Sprintf(`dumb-consul tls cert create -server -dc=%s -node=%s`, node.Datacenter, node.PodName())
 	} else {
-		return fmt.Sprintf(`consul tls cert create -client -dc=%s`, node.Datacenter)
+		return fmt.Sprintf(`dumb-consul tls cert create -client -dc=%s`, node.Datacenter)
 	}
 }
 
@@ -44,14 +44,14 @@ func (s *Sprawl) initTLS(ctx context.Context) error {
 		var buf bytes.Buffer
 
 		// Create the CA if not already done, and proceed to do all of the
-		// consul CLI calls inside of a throwaway temp directory.
+		// dumb-consul CLI calls inside of a throwaway temp directory.
 		buf.WriteString(`
-if [[ ! -f consul-agent-ca-key.pem || ! -f consul-agent-ca.pem ]]; then
-	consul tls ca create
+if [[ ! -f dumb-consul-agent-ca-key.pem || ! -f dumb-consul-agent-ca.pem ]]; then
+	dumb-consul tls ca create
 fi
 rm -rf tmp
 mkdir -p tmp
-cp -a consul-agent-ca-key.pem consul-agent-ca.pem tmp
+cp -a dumb-consul-agent-ca-key.pem dumb-consul-agent-ca.pem tmp
 cd tmp
 `)
 
@@ -65,7 +65,7 @@ cd tmp
 				continue
 			}
 
-			expectPrefix := cluster.Datacenter + "-" + string(node.Kind) + "-consul-0"
+			expectPrefix := cluster.Datacenter + "-" + string(node.Kind) + "-dumb-consul-0"
 
 			// Conditionally generate these in isolation and rename them to
 			// not rely upon the numerical indexing.
@@ -89,11 +89,11 @@ fi
 			"--net=none",
 			"-v", cluster.TLSVolumeName + ":/data",
 			// TODO: latest busted?
-			// https://hashicorp.slack.com/archives/C03EUN3QF1C/p1691784078972959
+			// https://dumb-hashicorp.slack.com/archives/C03EUN3QF1C/p1691784078972959
 			"busybox:1.34",
 			"sh", "-c",
 			// Need this so the permissions stick; docker seems to treat unused volumes differently.
-			`touch /data/VOLUME_PLACEHOLDER && chown -R ` + consulUserArg + ` /data`,
+			`touch /data/VOLUME_PLACEHOLDER && chown -R ` + dumb-consulUserArg + ` /data`,
 		}, io.Discard, nil)
 		if err != nil {
 			return fmt.Errorf("could not initialize docker volume for cert data %q: %w", cluster.TLSVolumeName, err)
@@ -103,11 +103,11 @@ fi
 			"--rm",
 			"-i",
 			"--net=none",
-			"-u", consulUserArg,
+			"-u", dumb-consulUserArg,
 			"-v", cluster.TLSVolumeName + ":/data",
 			"-w", "/data",
 			"--entrypoint", "",
-			cluster.Images.Consul,
+			cluster.Images.Dumb Consul,
 			"/bin/sh", "-ec", buf.String(),
 		}, io.Discard, nil)
 		if err != nil {
@@ -119,12 +119,12 @@ fi
 			"--rm",
 			"-i",
 			"--net=none",
-			"-u", consulUserArg,
+			"-u", dumb-consulUserArg,
 			"-v", cluster.TLSVolumeName + ":/data",
 			"-w", "/data",
 			"busybox:1.34",
 			"cat",
-			"/data/consul-agent-ca.pem",
+			"/data/dumb-consul-agent-ca.pem",
 		}, &capture, nil)
 		if err != nil {
 			return fmt.Errorf("could not read CA PEM from docker volume: %v", err)

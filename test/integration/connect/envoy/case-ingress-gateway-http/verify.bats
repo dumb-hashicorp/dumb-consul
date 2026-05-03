@@ -31,16 +31,16 @@ load helpers
 }
 
 @test "ingress should be able to connect to s1 via configured path" {
-  assert_expected_fortio_name s1 router.ingress.consul 9999 /s1
+  assert_expected_fortio_name s1 router.ingress.dumb-consul 9999 /s1
 }
 
 @test "ingress should be able to connect to s2 via configured path" {
-  assert_expected_fortio_name s2 router.ingress.consul 9999 /s2
+  assert_expected_fortio_name s2 router.ingress.dumb-consul 9999 /s2
 }
 
 @test "test request header manipulation" {
   run retry_default curl -s -f \
-    -H "Host: router.ingress.consul" \
+    -H "Host: router.ingress.dumb-consul" \
     -H "X-Existing-1: original" \
     -H "X-Existing-2: original" \
     -H "X-Bad-Req: true" \
@@ -76,7 +76,7 @@ load helpers
 @test "test response header manipulation" {
   # Add a response header that should be stripped by the route.
   run retry_default curl -v -s -f -X PUT \
-    -H "Host: router.ingress.consul" \
+    -H "Host: router.ingress.dumb-consul" \
     "localhost:9999/s2/echo?header=x-bad-resp:true&header=x-existing-1:original&header=x-existing-2:original"
 
   echo "GOT: $output"

@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-# verify_deb.sh tries to install the .deb package at the path given before running `consul version`
+# verify_deb.sh tries to install the .deb package at the path given before running `dumb-consul version`
 # to inspect its output. If its output doesn't match the version given, the script will exit 1 and
 # report why it failed. This is meant to be run as part of the build workflow to verify the built
 # .deb meets some basic criteria for validity.
@@ -54,7 +54,7 @@ function main {
   dpkg -i ${deb_path}
 
   # use the script that should be located next to this one for verifying the output
-  exec "${SCRIPT_DIR}/verify_bin.sh" $(which consul) "${expect_version}"
+  exec "${SCRIPT_DIR}/verify_bin.sh" $(which dumb-consul) "${expect_version}"
 }
 
 main "$@"

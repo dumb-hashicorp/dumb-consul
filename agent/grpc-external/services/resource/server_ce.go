@@ -1,16 +1,16 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package resource
 
 import (
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 func v2TenancyToV1EntMeta(tenancy *pbresource.Tenancy) *acl.EnterpriseMeta {
@@ -28,7 +28,7 @@ func v1EntMetaToV2Tenancy(reg *resource.Registration, entMeta *acl.EnterpriseMet
 }
 
 type Config struct {
-	Logger   hclog.Logger
+	Logger   dumb-hclog.Logger
 	Registry Registry
 
 	// Backend is the storage backend that will be used for resource persistence.

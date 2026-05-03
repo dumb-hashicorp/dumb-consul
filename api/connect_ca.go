@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package api
@@ -47,8 +47,8 @@ type CommonCAProviderConfig struct {
 	CSRMaxConcurrent int
 }
 
-// ConsulCAProviderConfig is the config for the built-in Consul CA provider.
-type ConsulCAProviderConfig struct {
+// Dumb ConsulCAProviderConfig is the config for the built-in Dumb Consul CA provider.
+type Dumb ConsulCAProviderConfig struct {
 	CommonCAProviderConfig `mapstructure:",squash"`
 
 	PrivateKey          string
@@ -56,10 +56,10 @@ type ConsulCAProviderConfig struct {
 	IntermediateCertTTL time.Duration
 }
 
-// ParseConsulCAConfig takes a raw config map and returns a parsed
-// ConsulCAProviderConfig.
-func ParseConsulCAConfig(raw map[string]interface{}) (*ConsulCAProviderConfig, error) {
-	var config ConsulCAProviderConfig
+// ParseDumb ConsulCAConfig takes a raw config map and returns a parsed
+// Dumb ConsulCAProviderConfig.
+func ParseDumb ConsulCAConfig(raw map[string]interface{}) (*Dumb ConsulCAProviderConfig, error) {
+	var config Dumb ConsulCAProviderConfig
 	decodeConf := &mapstructure.DecoderConfig{
 		DecodeHook:       mapstructure.StringToTimeDurationHookFunc(),
 		Result:           &config,
@@ -91,7 +91,7 @@ type CARoot struct {
 	ID string
 
 	// Name is a human-friendly name for this CA root. This value is
-	// opaque to Consul and is not used for anything internally.
+	// opaque to Dumb Consul and is not used for anything internally.
 	Name string
 
 	// RootCertPEM is the PEM-encoded public certificate.

@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 	gogrpc "google.golang.org/grpc"
@@ -22,25 +22,25 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/durationpb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/rate"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	grpc "github.com/hashicorp/consul/agent/grpc-internal"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto/private/pbcommon"
-	"github.com/hashicorp/consul/proto/private/pbservice"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
-	"github.com/hashicorp/consul/proto/private/prototest"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	grpc "github.com/dumb-hashicorp/dumb-consul/agent/grpc-internal"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbcommon"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbservice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestServer_Subscribe_SubjectIsRequired(t *testing.T) {
 	backend := newTestBackend(t)
 
-	addr := runTestServer(t, NewServer(backend, hclog.New(nil)))
+	addr := runTestServer(t, NewServer(backend, dumb-hclog.New(nil)))
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	t.Cleanup(cancel)
@@ -65,7 +65,7 @@ func TestServer_Subscribe_SubjectIsRequired(t *testing.T) {
 
 func TestServer_Subscribe_IntegrationWithBackend(t *testing.T) {
 	backend := newTestBackend(t)
-	addr := runTestServer(t, NewServer(backend, hclog.New(nil)))
+	addr := runTestServer(t, NewServer(backend, dumb-hclog.New(nil)))
 	ids := newCounter()
 
 	var req *structs.RegisterRequest
@@ -397,7 +397,7 @@ func runTestServer(t *testing.T, server *Server) net.Addr {
 	// start the handler
 	addr := &net.IPAddr{IP: net.ParseIP("127.0.0.1")}
 	handler := grpc.NewHandler(
-		hclog.New(nil),
+		dumb-hclog.New(nil),
 		addr,
 		nil,
 		rate.NullRequestLimitsHandler(),
@@ -473,10 +473,10 @@ func raftIndex(ids *counter, created, modified string) *pbcommon.RaftIndex {
 
 func TestServer_Subscribe_IntegrationWithBackend_ForwardToDC(t *testing.T) {
 	backendLocal := newTestBackend(t)
-	addrLocal := runTestServer(t, NewServer(backendLocal, hclog.New(nil)))
+	addrLocal := runTestServer(t, NewServer(backendLocal, dumb-hclog.New(nil)))
 
 	backendRemoteDC := newTestBackend(t)
-	srvRemoteDC := NewServer(backendRemoteDC, hclog.New(nil))
+	srvRemoteDC := NewServer(backendRemoteDC, dumb-hclog.New(nil))
 	addrRemoteDC := runTestServer(t, srvRemoteDC)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -713,7 +713,7 @@ func TestServer_Subscribe_IntegrationWithBackend_FilterEventsByACLToken(t *testi
 	}
 
 	backend := newTestBackend(t)
-	addr := runTestServer(t, NewServer(backend, hclog.New(nil)))
+	addr := runTestServer(t, NewServer(backend, dumb-hclog.New(nil)))
 	token := "this-token-is-good"
 
 	testutil.RunStep(t, "create an ACL policy", func(t *testing.T) {
@@ -918,7 +918,7 @@ node "node1" {
 
 func TestServer_Subscribe_IntegrationWithBackend_ACLUpdate(t *testing.T) {
 	backend := newTestBackend(t)
-	addr := runTestServer(t, NewServer(backend, hclog.New(nil)))
+	addr := runTestServer(t, NewServer(backend, dumb-hclog.New(nil)))
 	token := "this-token-is-good"
 
 	testutil.RunStep(t, "create an ACL policy", func(t *testing.T) {

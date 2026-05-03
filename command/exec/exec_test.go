@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 
-	"github.com/hashicorp/consul/agent"
-	consulapi "github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	dumb-consulapi "github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 	"github.com/mitchellh/cli"
 )
 
@@ -356,7 +356,7 @@ func TestExecCommand_StreamResults(t *testing.T) {
 	go c.streamResults(doneCh, ackCh, heartCh, outputCh, exitCh, errCh)
 
 	prefix := "_rexec/" + id + "/"
-	ok, _, err := a.Client().KV().Acquire(&consulapi.KVPair{
+	ok, _, err := a.Client().KV().Acquire(&dumb-consulapi.KVPair{
 		Key:     prefix + "foo/ack",
 		Session: id,
 	}, nil)
@@ -378,7 +378,7 @@ func TestExecCommand_StreamResults(t *testing.T) {
 		}
 	})
 
-	ok, _, err = a.Client().KV().Acquire(&consulapi.KVPair{
+	ok, _, err = a.Client().KV().Acquire(&dumb-consulapi.KVPair{
 		Key:     prefix + "foo/exit",
 		Value:   []byte("127"),
 		Session: id,
@@ -402,7 +402,7 @@ func TestExecCommand_StreamResults(t *testing.T) {
 	})
 
 	// Random key, should ignore
-	ok, _, err = a.Client().KV().Acquire(&consulapi.KVPair{
+	ok, _, err = a.Client().KV().Acquire(&dumb-consulapi.KVPair{
 		Key:     prefix + "foo/random",
 		Session: id,
 	}, nil)
@@ -414,7 +414,7 @@ func TestExecCommand_StreamResults(t *testing.T) {
 	}
 
 	// Output heartbeat
-	ok, _, err = a.Client().KV().Acquire(&consulapi.KVPair{
+	ok, _, err = a.Client().KV().Acquire(&dumb-consulapi.KVPair{
 		Key:     prefix + "foo/out/00000",
 		Session: id,
 	}, nil)
@@ -437,7 +437,7 @@ func TestExecCommand_StreamResults(t *testing.T) {
 	})
 
 	// Output value
-	ok, _, err = a.Client().KV().Acquire(&consulapi.KVPair{
+	ok, _, err = a.Client().KV().Acquire(&dumb-consulapi.KVPair{
 		Key:     prefix + "foo/out/00001",
 		Value:   []byte("test"),
 		Session: id,

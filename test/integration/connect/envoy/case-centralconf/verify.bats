@@ -42,7 +42,7 @@ load helpers
   # Should be labelling with local_cluster.
   retry_default \
     must_match_in_prometheus_response localhost:1234 \
-    '[\{,]consul_source_service="s1"[,}] '
+    '[\{,]dumb-consul_source_service="s1"[,}] '
 
   # Ensure we have http metrics for public listener
   retry_default \
@@ -52,5 +52,5 @@ load helpers
   # Ensure we have http metrics for s2 upstream
   retry_default \
     must_match_in_prometheus_response localhost:1234 \
-    '[\{,]consul_upstream_service="s2"[,}]'
+    '[\{,]dumb-consul_upstream_service="s2"[,}]'
 }

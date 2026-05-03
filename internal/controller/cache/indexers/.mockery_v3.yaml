@@ -11,4 +11,4 @@ template: testify
 template-data:
   unroll-variadic: true
 packages:
-  github.com/hashicorp/consul/internal/controller/cache/indexers: {}
+  github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/indexers: {}

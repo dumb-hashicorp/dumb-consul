@@ -16,19 +16,19 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/consul/rate"
-	grpcmiddleware "github.com/hashicorp/consul/agent/grpc-middleware"
-	"github.com/hashicorp/consul/agent/grpc-middleware/testutil"
-	"github.com/hashicorp/consul/agent/grpc-middleware/testutil/testservice"
-	"github.com/hashicorp/consul/proto/private/prototest"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/rate"
+	grpcmiddleware "github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-middleware/testutil/testservice"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/prototest"
 )
 
 func TestServer_EmitsStats(t *testing.T) {
 	sink, metricsObj := testutil.NewFakeSink(t)
 
-	srv := NewServer(hclog.Default(), metricsObj, nil, rate.NullRequestLimitsHandler(), keepalive.ServerParameters{}, nil)
+	srv := NewServer(dumb-hclog.Default(), metricsObj, nil, rate.NullRequestLimitsHandler(), keepalive.ServerParameters{}, nil)
 
 	testservice.RegisterSimpleServer(srv, &testservice.Simple{})
 

@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/envoyextensions/extensioncommon"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/extensioncommon"
 	"github.com/stretchr/testify/require"
 )
 
@@ -48,16 +48,16 @@ func TestValidateExtensions(t *testing.T) {
 				"missing Script value",
 			},
 		},
-		"invalid consul version constraint": {
+		"invalid dumb-consul version constraint": {
 			input: []api.EnvoyExtension{{
 				Name: "builtin/aws/lambda",
 				Arguments: map[string]interface{}{
 					"ARN": "arn:aws:lambda:us-east-1:111111111111:function:lambda-1234",
 				},
-				ConsulVersion: "bad",
+				Dumb ConsulVersion: "bad",
 			}},
 			expectErrs: []string{
-				"invalid EnvoyExtensions[0].ConsulVersion: Malformed constraint: bad",
+				"invalid EnvoyExtensions[0].Dumb ConsulVersion: Malformed constraint: bad",
 			},
 		},
 		"invalid envoy version constraint": {

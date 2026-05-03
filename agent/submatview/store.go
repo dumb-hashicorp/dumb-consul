@@ -10,10 +10,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/lib/ttlcache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/lib/ttlcache"
 )
 
 // Store of Materializers. Store implements an interface similar to
@@ -23,7 +23,7 @@ import (
 // backend there is no longer any need to run a background goroutine to refresh
 // stored values.
 type Store struct {
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 	lock   sync.RWMutex
 	byKey  map[string]entry
 
@@ -57,7 +57,7 @@ type entry struct {
 
 // NewStore creates and returns a Store that is ready for use. The caller must
 // call Store.Run (likely in a separate goroutine) to start the expiration loop.
-func NewStore(logger hclog.Logger) *Store {
+func NewStore(logger dumb-hclog.Logger) *Store {
 	return &Store{
 		logger:     logger,
 		byKey:      make(map[string]entry),

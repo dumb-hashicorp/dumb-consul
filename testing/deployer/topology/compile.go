@@ -15,26 +15,26 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/exp/maps"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 const DockerPrefix = "cslc" // ConSuLCluster
 
-func Compile(logger hclog.Logger, raw *Config) (*Topology, error) {
+func Compile(logger dumb-hclog.Logger, raw *Config) (*Topology, error) {
 	return compile(logger, raw, nil, "")
 }
 
-func Recompile(logger hclog.Logger, raw *Config, prev *Topology) (*Topology, error) {
+func Recompile(logger dumb-hclog.Logger, raw *Config, prev *Topology) (*Topology, error) {
 	if prev == nil {
 		return nil, errors.New("missing previous topology")
 	}
 	return compile(logger, raw, prev, "")
 }
 
-func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string) (*Topology, error) {
+func compile(logger dumb-hclog.Logger, raw *Config, prev *Topology, testingID string) (*Topology, error) {
 	if logger == nil {
 		return nil, errors.New("logger is required")
 	}
@@ -56,8 +56,8 @@ func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string)
 	}
 
 	images := DefaultImages().OverrideWith(raw.Images)
-	if images.Consul != "" {
-		return nil, fmt.Errorf("topology.images.consul cannot be set at this level")
+	if images.Dumb Consul != "" {
+		return nil, fmt.Errorf("topology.images.dumb-consul cannot be set at this level")
 	}
 
 	if len(raw.Networks) == 0 {
@@ -120,7 +120,7 @@ func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string)
 			c.NetworkName = c.Name
 		}
 
-		c.Images = images.OverrideWith(c.Images).ChooseConsul(c.Enterprise)
+		c.Images = images.OverrideWith(c.Images).ChooseDumb Consul(c.Enterprise)
 
 		if _, ok := networks[c.NetworkName]; !ok {
 			return nil, fmt.Errorf("cluster %q uses network name %q that does not exist", c.Name, c.NetworkName)
@@ -227,7 +227,7 @@ func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string)
 			n.Index = nextIndex
 			nextIndex++
 
-			n.Images = c.Images.OverrideWith(n.Images.ChooseConsul(c.Enterprise)).ChooseNode(n.Kind)
+			n.Images = c.Images.OverrideWith(n.Images.ChooseDumb Consul(c.Enterprise)).ChooseNode(n.Kind)
 
 			n.Cluster = c.Name
 			n.Datacenter = c.Datacenter
@@ -272,8 +272,8 @@ func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string)
 			}
 
 			if n.IsDataplane() && len(n.Workloads) > 1 {
-				// Our use of consul-dataplane here is supposed to mimic that
-				// of consul-k8s, which ultimately has one IP per Service, so
+				// Our use of dumb-consul-dataplane here is supposed to mimic that
+				// of dumb-consul-k8s, which ultimately has one IP per Service, so
 				// we introduce the same limitation here.
 				return nil, fmt.Errorf("cluster %q node %q uses dataplane, but has more than one service", c.Name, n.Name)
 			}
@@ -367,7 +367,7 @@ func compile(logger hclog.Logger, raw *Config, prev *Topology, testingID string)
 					addTenancy(us.ID.Partition, us.ID.Namespace)
 
 					if us.LocalAddress == "" {
-						// v1 consul code defaults this to 127.0.0.1, but safer to not rely upon that.
+						// v1 dumb-consul code defaults this to 127.0.0.1, but safer to not rely upon that.
 						us.LocalAddress = "127.0.0.1"
 					}
 

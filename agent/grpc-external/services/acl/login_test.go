@@ -15,13 +15,13 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/authmethod"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbacl"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/authmethod"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbacl"
 )
 
 const bearerToken = "bearer-token"
@@ -45,7 +45,7 @@ func TestServer_Login_Success(t *testing.T) {
 
 	server := NewServer(Config{
 		ACLsEnabled: true,
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		LoadAuthMethod: func(methodName string, entMeta *acl.EnterpriseMeta) (*structs.ACLAuthMethod, Validator, error) {
 			return authMethod, validator, nil
 		},
@@ -82,7 +82,7 @@ func TestServer_Login_LoadAuthMethodErrors(t *testing.T) {
 		t.Run(desc, func(t *testing.T) {
 			server := NewServer(Config{
 				ACLsEnabled: true,
-				Logger:      hclog.NewNullLogger(),
+				Logger:      dumb-hclog.NewNullLogger(),
 				LoadAuthMethod: func(methodName string, entMeta *acl.EnterpriseMeta) (*structs.ACLAuthMethod, Validator, error) {
 					return nil, nil, tc.error
 				},
@@ -102,7 +102,7 @@ func TestServer_Login_LoadAuthMethodErrors(t *testing.T) {
 func TestServer_Login_ValidateEnterpriseRequest(t *testing.T) {
 	server := NewServer(Config{
 		ACLsEnabled:               true,
-		Logger:                    hclog.NewNullLogger(),
+		Logger:                    dumb-hclog.NewNullLogger(),
 		ValidateEnterpriseRequest: func(*acl.EnterpriseMeta, bool) error { return errors.New("BOOM") },
 		ForwardRPC:                noopForwardRPC,
 	})
@@ -117,7 +117,7 @@ func TestServer_Login_ValidateEnterpriseRequest(t *testing.T) {
 func TestServer_Login_ACLsDisabled(t *testing.T) {
 	server := NewServer(Config{
 		ACLsEnabled:               false,
-		Logger:                    hclog.NewNullLogger(),
+		Logger:                    dumb-hclog.NewNullLogger(),
 		ValidateEnterpriseRequest: noopValidateEnterpriseRequest,
 		ForwardRPC:                noopForwardRPC,
 		LocalTokensEnabled:        noopLocalTokensEnabled,
@@ -133,7 +133,7 @@ func TestServer_Login_ACLsDisabled(t *testing.T) {
 func TestServer_Login_LocalTokensDisabled(t *testing.T) {
 	server := NewServer(Config{
 		ACLsEnabled:               true,
-		Logger:                    hclog.NewNullLogger(),
+		Logger:                    dumb-hclog.NewNullLogger(),
 		ValidateEnterpriseRequest: noopValidateEnterpriseRequest,
 		ForwardRPC:                noopForwardRPC,
 		LocalTokensEnabled:        func() bool { return false },
@@ -153,7 +153,7 @@ func TestServer_Login_ValidateLoginError(t *testing.T) {
 
 	server := NewServer(Config{
 		ACLsEnabled: true,
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		LoadAuthMethod: func(methodName string, entMeta *acl.EnterpriseMeta) (*structs.ACLAuthMethod, Validator, error) {
 			return &structs.ACLAuthMethod{}, validator, nil
 		},
@@ -195,7 +195,7 @@ func TestServer_Login_TokenForVerifiedIdentityErrors(t *testing.T) {
 
 			server := NewServer(Config{
 				ACLsEnabled: true,
-				Logger:      hclog.NewNullLogger(),
+				Logger:      dumb-hclog.NewNullLogger(),
 				LoadAuthMethod: func(methodName string, entMeta *acl.EnterpriseMeta) (*structs.ACLAuthMethod, Validator, error) {
 					return &structs.ACLAuthMethod{}, validator, nil
 				},
@@ -225,7 +225,7 @@ func TestServer_Login_RPCForwarding(t *testing.T) {
 
 	dc2 := NewServer(Config{
 		ACLsEnabled: true,
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		LoadAuthMethod: func(methodName string, entMeta *acl.EnterpriseMeta) (*structs.ACLAuthMethod, Validator, error) {
 			return &structs.ACLAuthMethod{}, validator, nil
 		},
@@ -241,7 +241,7 @@ func TestServer_Login_RPCForwarding(t *testing.T) {
 
 	dc1 := NewServer(Config{
 		ACLsEnabled: true,
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		ForwardRPC: func(info structs.RPCInfo, fn func(*grpc.ClientConn) error) (bool, error) {
 			if dc := info.RequestDatacenter(); dc != "dc2" {
 				return false, fmt.Errorf("unexpected target datacenter: %s", dc)

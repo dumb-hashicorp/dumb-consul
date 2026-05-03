@@ -16,15 +16,15 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/grpc-external/limiter"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/configfetcher"
-	"github.com/hashicorp/consul/envoyextensions/xdscommon"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/limiter"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/configfetcher"
+	"github.com/dumb-hashicorp/dumb-consul/envoyextensions/xdscommon"
 )
 
 var (
@@ -94,7 +94,7 @@ type ProxyWatcher interface {
 // https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol
 type Server struct {
 	NodeName     string
-	Logger       hclog.Logger
+	Logger       dumb-hclog.Logger
 	ProxyWatcher ProxyWatcher
 	ResolveToken ACLResolverFunc
 	CfgFetcher   configfetcher.ConfigFetcher
@@ -145,7 +145,7 @@ func (c *activeStreamCounters) Increment(ctx context.Context) func() {
 
 func NewServer(
 	nodeName string,
-	logger hclog.Logger,
+	logger dumb-hclog.Logger,
 	proxyWatcher ProxyWatcher,
 	resolveTokenSecret ACLResolverFunc,
 	cfgFetcher configfetcher.ConfigFetcher,

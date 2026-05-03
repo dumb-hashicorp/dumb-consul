@@ -6,7 +6,7 @@ package logging
 import (
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
 var (
@@ -31,9 +31,9 @@ func ValidateLogLevel(minLevel string) bool {
 }
 
 // Backwards compatibility with former ERR log level
-func LevelFromString(level string) hclog.Level {
+func LevelFromString(level string) dumb-hclog.Level {
 	if strings.ToUpper(level) == "ERR" {
 		level = "ERROR"
 	}
-	return hclog.LevelFromString(level)
+	return dumb-hclog.LevelFromString(level)
 }

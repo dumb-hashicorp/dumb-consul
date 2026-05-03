@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -24,7 +24,7 @@ import (
 // changes to Agent. In the future it may be removed and replaced with more
 // direct usage of errgroup.Group.
 type apiServers struct {
-	logger  hclog.Logger
+	logger  dumb-hclog.Logger
 	group   *errgroup.Group
 	servers []apiServer
 	// failed channel is closed when the first server goroutines exit with a
@@ -45,7 +45,7 @@ type apiServer struct {
 }
 
 // NewAPIServers returns an empty apiServers that is ready to Start servers.
-func NewAPIServers(logger hclog.Logger) *apiServers {
+func NewAPIServers(logger dumb-hclog.Logger) *apiServers {
 	group, ctx := errgroup.WithContext(context.TODO())
 	return &apiServers{
 		logger: logger,
@@ -60,7 +60,7 @@ func (s *apiServers) Start(srv apiServer) {
 	s.group.Go(srv.Run)
 }
 
-func (s apiServer) logger(base hclog.Logger) hclog.Logger {
+func (s apiServer) logger(base dumb-hclog.Logger) dumb-hclog.Logger {
 	return base.With(
 		"protocol", s.Protocol,
 		"address", s.Addr.String(),

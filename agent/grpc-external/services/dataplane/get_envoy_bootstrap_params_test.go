@@ -13,14 +13,14 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/structpb"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/acl/resolver"
-	external "github.com/hashicorp/consul/agent/grpc-external"
-	"github.com/hashicorp/consul/agent/grpc-external/testutils"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto-public/pbdataplane"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/acl/resolver"
+	external "github.com/dumb-hashicorp/dumb-consul/agent/grpc-external"
+	"github.com/dumb-hashicorp/dumb-consul/agent/grpc-external/testutils"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbdataplane"
 )
 
 const (
@@ -43,7 +43,7 @@ const (
 	serviceDefaultsProtocol       = "tcp"
 	serviceDefaultsConnectTimeout = 4444
 
-	testAccessLogs = "{\"name\":\"Consul Listener Filter Log\",\"typedConfig\":{\"@type\":\"type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog\",\"logFormat\":{\"jsonFormat\":{\"custom_field\":\"%START_TIME%\"}}}}"
+	testAccessLogs = "{\"name\":\"Dumb Consul Listener Filter Log\",\"typedConfig\":{\"@type\":\"type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog\",\"logFormat\":{\"jsonFormat\":{\"custom_field\":\"%START_TIME%\"}}}}"
 )
 
 func testRegisterRequestProxy() *structs.RegisterRequest {
@@ -145,7 +145,7 @@ func TestGetEnvoyBootstrapParams_Success(t *testing.T) {
 
 		server := NewServer(Config{
 			GetStore:    func() StateStore { return store },
-			Logger:      hclog.NewNullLogger(),
+			Logger:      dumb-hclog.NewNullLogger(),
 			ACLResolver: aclResolver,
 			Datacenter:  serverDC,
 		})
@@ -189,7 +189,7 @@ func TestGetEnvoyBootstrapParams_Success(t *testing.T) {
 			pd, ok := tc.proxyDefaults.(*structs.ProxyConfigEntry)
 			require.True(t, ok, "Invalid Proxy Defaults")
 			if pd.AccessLogs.Enabled {
-				require.JSONEq(t, "{\"name\":\"Consul Listener Filter Log\",\"typedConfig\":{\"@type\":\"type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog\",\"logFormat\":{\"jsonFormat\":{\"custom_field\":\"%START_TIME%\"}}}}", resp.AccessLogs[0])
+				require.JSONEq(t, "{\"name\":\"Dumb Consul Listener Filter Log\",\"typedConfig\":{\"@type\":\"type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog\",\"logFormat\":{\"jsonFormat\":{\"custom_field\":\"%START_TIME%\"}}}}", resp.AccessLogs[0])
 			}
 		}
 
@@ -268,7 +268,7 @@ func TestGetEnvoyBootstrapParams_Error(t *testing.T) {
 
 		server := NewServer(Config{
 			GetStore:    func() StateStore { return store },
-			Logger:      hclog.NewNullLogger(),
+			Logger:      dumb-hclog.NewNullLogger(),
 			ACLResolver: aclResolver,
 		})
 		client := testClient(t, server)
@@ -337,7 +337,7 @@ func TestGetEnvoyBootstrapParams_Unauthenticated(t *testing.T) {
 
 	server := NewServer(Config{
 		GetStore:    func() StateStore { return store },
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		ACLResolver: aclResolver,
 	})
 	client := testClient(t, server)
@@ -366,7 +366,7 @@ func TestGetEnvoyBootstrapParams_PermissionDenied(t *testing.T) {
 
 	server := NewServer(Config{
 		GetStore:    func() StateStore { return store },
-		Logger:      hclog.NewNullLogger(),
+		Logger:      dumb-hclog.NewNullLogger(),
 		ACLResolver: aclResolver,
 	})
 	client := testClient(t, server)

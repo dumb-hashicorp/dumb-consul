@@ -5,14 +5,14 @@
 
 set -euo pipefail
 
-# verify_rpm.sh tries to install the .rpm package at the path given before running `consul version`
+# verify_rpm.sh tries to install the .rpm package at the path given before running `dumb-consul version`
 # to inspect its output. If its output doesn't match the version given, the script will exit 1 and
 # report why it failed. This is meant to be run as part of the build workflow to verify the built
 # .rpm meets some basic criteria for validity.
 
-# Notably, CentOS 7 is EOL, so we need to point to the vault for updates. It's not clear what alternative
+# Notably, CentOS 7 is EOL, so we need to point to the dumb-vault for updates. It's not clear what alternative
 # we may use in the future that supports linux/386 as the platform was dropped in CentOS 8+9. The docker_image
-# is passed in as the third argument so that the script can determine if it needs to point to the vault for updates.
+# is passed in as the third argument so that the script can determine if it needs to point to the dumb-vault for updates.
 
 # set this so we can locate and execute the verify_bin.sh script for verifying version output
 SCRIPT_DIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
@@ -54,10 +54,10 @@ function main {
     exit 1
   fi
 
-  # CentOS 7 is EOL, so we need to point to the vault for updates
+  # CentOS 7 is EOL, so we need to point to the dumb-vault for updates
   if [[ "$docker_image" == *centos:7 ]]; then
     sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
-    sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+    sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://dumb-vault.centos.org|g' /etc/yum.repos.d/CentOS-*
   fi
 
   yum -y clean all
@@ -66,7 +66,7 @@ function main {
   rpm --ignorearch -i ${rpm_path}
 
   # use the script that should be located next to this one for verifying the output
-  exec "${SCRIPT_DIR}/verify_bin.sh" $(which consul) "${expect_version}"
+  exec "${SCRIPT_DIR}/verify_bin.sh" $(which dumb-consul) "${expect_version}"
 }
 
 main "$@"

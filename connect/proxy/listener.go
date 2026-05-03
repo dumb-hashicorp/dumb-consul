@@ -13,11 +13,11 @@ import (
 	"time"
 
 	metrics "github.com/armon/go-metrics"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/connect"
-	"github.com/hashicorp/consul/ipaddr"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/connect"
+	"github.com/dumb-hashicorp/dumb-consul/ipaddr"
 )
 
 const (
@@ -53,7 +53,7 @@ type Listener struct {
 	listenerLock sync.Mutex
 	listener     net.Listener
 
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 
 	// Gauge to track current open connections
 	activeConns  int32
@@ -65,7 +65,7 @@ type Listener struct {
 // NewPublicListener returns a Listener setup to listen for public mTLS
 // connections and proxy them to the configured local application over TCP.
 func NewPublicListener(svc *connect.Service, cfg PublicListenerConfig,
-	logger hclog.Logger) *Listener {
+	logger dumb-hclog.Logger) *Listener {
 	bindAddr := ipaddr.FormatAddressPort(cfg.BindAddress, cfg.BindPort)
 	return &Listener{
 		Service: svc,
@@ -96,14 +96,14 @@ func NewPublicListener(svc *connect.Service, cfg PublicListenerConfig,
 // NewUpstreamListener returns a Listener setup to listen locally for TCP
 // connections that are proxied to a discovered Connect service instance.
 func NewUpstreamListener(svc *connect.Service, client *api.Client,
-	cfg UpstreamConfig, logger hclog.Logger) *Listener {
+	cfg UpstreamConfig, logger dumb-hclog.Logger) *Listener {
 	return newUpstreamListenerWithResolver(svc, cfg,
 		UpstreamResolverFuncFromClient(client), logger)
 }
 
 func newUpstreamListenerWithResolver(svc *connect.Service, cfg UpstreamConfig,
 	resolverFunc func(UpstreamConfig) (connect.Resolver, error),
-	logger hclog.Logger) *Listener {
+	logger dumb-hclog.Logger) *Listener {
 	bindAddr := ipaddr.FormatAddressPort(cfg.LocalBindAddress, cfg.LocalBindPort)
 	return &Listener{
 		Service: svc,

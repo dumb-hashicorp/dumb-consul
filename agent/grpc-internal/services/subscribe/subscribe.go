@@ -6,16 +6,16 @@ package subscribe
 import (
 	"errors"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/proto/private/pbsubscribe"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbsubscribe"
 )
 
 // Server implements a StateChangeSubscriptionServer for accepting SubscribeRequests,
@@ -31,7 +31,7 @@ func NewServer(backend Backend, logger Logger) *Server {
 
 type Logger interface {
 	Trace(msg string, args ...interface{})
-	With(args ...interface{}) hclog.Logger
+	With(args ...interface{}) dumb-hclog.Logger
 }
 
 var _ pbsubscribe.StateChangeSubscriptionServer = (*Server)(nil)

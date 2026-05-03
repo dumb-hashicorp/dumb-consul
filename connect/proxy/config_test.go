@@ -10,18 +10,18 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/connect"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/connect"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 func TestUpstreamResolverFuncFromClient(t *testing.T) {
 	tests := []struct {
 		name string
 		cfg  UpstreamConfig
-		want *connect.ConsulResolver
+		want *connect.Dumb ConsulResolver
 	}{
 		{
 			name: "service",
@@ -32,12 +32,12 @@ func TestUpstreamResolverFuncFromClient(t *testing.T) {
 				Datacenter:           "ny1",
 				DestinationType:      "service",
 			},
-			want: &connect.ConsulResolver{
+			want: &connect.Dumb ConsulResolver{
 				Namespace:  "foo",
 				Partition:  "default",
 				Name:       "web",
 				Datacenter: "ny1",
-				Type:       connect.ConsulResolverTypeService,
+				Type:       connect.Dumb ConsulResolverTypeService,
 			},
 		},
 		{
@@ -49,12 +49,12 @@ func TestUpstreamResolverFuncFromClient(t *testing.T) {
 				Datacenter:           "ny1",
 				DestinationType:      "prepared_query",
 			},
-			want: &connect.ConsulResolver{
+			want: &connect.Dumb ConsulResolver{
 				Namespace:  "foo",
 				Name:       "web",
 				Partition:  "default",
 				Datacenter: "ny1",
-				Type:       connect.ConsulResolverTypePreparedQuery,
+				Type:       connect.Dumb ConsulResolverTypePreparedQuery,
 			},
 		},
 		{
@@ -66,12 +66,12 @@ func TestUpstreamResolverFuncFromClient(t *testing.T) {
 				Datacenter:           "ny1",
 				DestinationType:      "junk",
 			},
-			want: &connect.ConsulResolver{
+			want: &connect.Dumb ConsulResolver{
 				Partition:  "default",
 				Namespace:  "foo",
 				Name:       "web",
 				Datacenter: "ny1",
-				Type:       connect.ConsulResolverTypeService,
+				Type:       connect.Dumb ConsulResolverTypeService,
 			},
 		},
 	}

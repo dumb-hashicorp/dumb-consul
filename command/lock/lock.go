@@ -14,10 +14,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/exec"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/command/flags"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/exec"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/command/flags"
 	"github.com/mitchellh/cli"
 )
 
@@ -81,7 +81,7 @@ func (c *cmd) init() {
 			"implementation switches from a lock to a semaphore when the value is "+
 			"greater than 1. The default value is 1.")
 	c.flags.IntVar(&c.monitorRetry, "monitor-retry", defaultMonitorRetry,
-		"Number of times to retry if Consul returns a 500 error while monitoring "+
+		"Number of times to retry if Dumb Consul returns a 500 error while monitoring "+
 			"the lock. This allows riding out brief periods of unavailability "+
 			"without causing leader elections, but increases the amount of time "+
 			"required to detect a lost lock in some cases. The default value is 3, "+
@@ -142,7 +142,7 @@ func (c *cmd) run(args []string, lu **LockUnlock) int {
 
 	// Calculate a session name if none provided
 	if c.name == "" {
-		c.name = fmt.Sprintf("Consul lock for '%s' at '%s'", strings.Join(extra[1:], " "), prefix)
+		c.name = fmt.Sprintf("Dumb Consul lock for '%s' at '%s'", strings.Join(extra[1:], " "), prefix)
 	}
 
 	// Calculate oneshot
@@ -157,12 +157,12 @@ func (c *cmd) run(args []string, lu **LockUnlock) int {
 	// Create and test the HTTP client
 	client, err := c.http.APIClient()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Dumb Consul agent: %s", err))
 		return 1
 	}
 	_, err = client.Agent().NodeName()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Error querying Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error querying Dumb Consul agent: %s", err))
 		return 1
 	}
 
@@ -359,7 +359,7 @@ func (c *cmd) startChild(args []string, passStdin, shell bool) error {
 
 	// Setup the command streams
 	cmd.Env = append(os.Environ(),
-		"CONSUL_LOCK_HELD=true",
+		"DUMB_CONSUL_LOCK_HELD=true",
 	)
 	if passStdin {
 		if c.verbose {
@@ -469,7 +469,7 @@ type LockUnlock struct {
 
 const synopsis = "Execute a command holding a lock"
 const help = `
-Usage: consul lock [options] prefix child...
+Usage: dumb-consul lock [options] prefix child...
 
   Acquires a lock or semaphore at a given path, and invokes a child process
   when successful. The child process can assume the lock is held while it
@@ -477,7 +477,7 @@ Usage: consul lock [options] prefix child...
   process will be sent a SIGTERM signal and given time to gracefully exit.
   After the grace period expires the process will be hard terminated.
 
-  For Consul agents on Windows, the child process is always hard terminated
+  For Dumb Consul agents on Windows, the child process is always hard terminated
   with a SIGKILL, since Windows has no POSIX compatible notion for SIGTERM.
 
   When -n=1, only a single lock holder or leader exists providing mutual

@@ -13,10 +13,10 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/hashicorp/consul/agent"
-	"github.com/hashicorp/consul/agent/connect/ca"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/testrpc"
+	"github.com/dumb-hashicorp/dumb-consul/agent"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect/ca"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/testrpc"
 )
 
 func TestConnectCASetConfigCommand_noTabs(t *testing.T) {
@@ -53,9 +53,9 @@ func TestConnectCASetConfigCommand(t *testing.T) {
 	}
 	var reply structs.CAConfiguration
 	require.NoError(t, a.RPC(context.Background(), "ConnectCA.ConfigurationGet", &req, &reply))
-	require.Equal(t, "consul", reply.Provider)
+	require.Equal(t, "dumb-consul", reply.Provider)
 
-	parsed, err := ca.ParseConsulCAConfig(reply.Config)
+	parsed, err := ca.ParseDumb ConsulCAConfig(reply.Config)
 	require.NoError(t, err)
 	require.Equal(t, 288*time.Hour, parsed.IntermediateCertTTL)
 }

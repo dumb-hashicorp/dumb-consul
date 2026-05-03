@@ -9,16 +9,16 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/connect"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/proxycfg/internal/watch"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/xds/config"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/connect"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg/internal/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/xds/config"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 // TODO(ingress): Can we think of a better for this bag of data?
@@ -443,7 +443,7 @@ type configSnapshotMeshGateway struct {
 	// datacenter.
 	FedStateGateways map[string]structs.CheckServiceNodes
 
-	// WatchedLocalServers is a map of (structs.ConsulServiceName -> structs.CheckServiceNodes)`
+	// WatchedLocalServers is a map of (structs.Dumb ConsulServiceName -> structs.CheckServiceNodes)`
 	// Mesh gateways can spin up watches for local servers both for
 	// WAN federation and for peering. This map ensures we only have one
 	// watch at a time.
@@ -1236,7 +1236,7 @@ func (u *ConfigSnapshotUpstreams) PeeredUpstreamIDs() []UpstreamID {
 // Subsequent calls to this function will return the temporary cached value to reduce
 // cost of parsing. This function always returns a non-nil pointer to a config.
 // Any errors will be output to the logger during the initial parse time only.
-func (s *ConfigSnapshot) GetXDSCommonConfig(logger hclog.Logger) *config.XDSCommonConfig {
+func (s *ConfigSnapshot) GetXDSCommonConfig(logger dumb-hclog.Logger) *config.XDSCommonConfig {
 	if s.computedFields.xdsCommonConfig == nil {
 		cfg, err := config.ParseXDSCommonConfig(s.Proxy.Config)
 		s.computedFields.xdsCommonConfig = &cfg
@@ -1253,7 +1253,7 @@ func (s *ConfigSnapshot) GetXDSCommonConfig(logger hclog.Logger) *config.XDSComm
 // Subsequent calls to this function will return the temporary cached value to reduce
 // cost of parsing. This function always returns a non-nil pointer to a config.
 // Any errors will be output to the logger during the initial parse time only.
-func (s *ConfigSnapshot) GetProxyConfig(logger hclog.Logger) *config.ProxyConfig {
+func (s *ConfigSnapshot) GetProxyConfig(logger dumb-hclog.Logger) *config.ProxyConfig {
 	if s.computedFields.proxyConfig == nil {
 		cfg, err := config.ParseProxyConfig(s.Proxy.Config)
 		s.computedFields.proxyConfig = &cfg
@@ -1270,7 +1270,7 @@ func (s *ConfigSnapshot) GetProxyConfig(logger hclog.Logger) *config.ProxyConfig
 // Subsequent calls to this function will return the temporary cached value to reduce
 // cost of parsing. This function always returns a non-nil pointer to a config.
 // Any errors will be output to the logger during the initial parse time only.
-func (s *ConfigSnapshot) GetGatewayConfig(logger hclog.Logger) *config.GatewayConfig {
+func (s *ConfigSnapshot) GetGatewayConfig(logger dumb-hclog.Logger) *config.GatewayConfig {
 	if s.computedFields.gatewayConfig == nil {
 		cfg, err := config.ParseGatewayConfig(s.Proxy.Config)
 		s.computedFields.gatewayConfig = &cfg

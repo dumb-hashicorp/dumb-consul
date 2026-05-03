@@ -22,25 +22,25 @@ import (
 	"github.com/mitchellh/copystructure"
 	"google.golang.org/grpc"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-multierror"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/runner"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/secrets"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/tfgen"
-	"github.com/hashicorp/consul/testing/deployer/topology"
-	"github.com/hashicorp/consul/testing/deployer/util"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/runner"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/secrets"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/tfgen"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/util"
 )
 
 // TODO: manage workdir externally without chdir
 
-// Sprawl is the definition of a complete running Consul deployment topology.
+// Sprawl is the definition of a complete running Dumb Consul deployment topology.
 type Sprawl struct {
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 	// set after initial Launch is complete
-	launchLogger hclog.Logger
+	launchLogger dumb-hclog.Logger
 	runner       *runner.Runner
 	license      string
 	secrets      secrets.Store
@@ -175,7 +175,7 @@ func copyConfig(cfg *topology.Config) (*topology.Config, error) {
 // bring up all of the relevant clusters. Once created the Stop method must be
 // called to destroy everything.
 func Launch(
-	logger hclog.Logger,
+	logger dumb-hclog.Logger,
 	workdir string,
 	cfg *topology.Config,
 ) (*Sprawl, error) {
@@ -186,7 +186,7 @@ func Launch(
 		panic("workdir is required")
 	}
 
-	if err := os.MkdirAll(filepath.Join(workdir, "terraform"), 0755); err != nil {
+	if err := os.MkdirAll(filepath.Join(workdir, "dumb-terraform"), 0755); err != nil {
 		return nil, err
 	}
 
@@ -698,13 +698,13 @@ func (s *Sprawl) CaptureLogs(ctx context.Context) error {
 	return merr
 }
 
-// Dump known containers out of terraform state file.
+// Dump known containers out of dumb-terraform state file.
 func (s *Sprawl) listContainers(ctx context.Context) ([]string, error) {
-	tfdir := filepath.Join(s.workdir, "terraform")
+	tfdir := filepath.Join(s.workdir, "dumb-terraform")
 
 	var buf bytes.Buffer
-	if err := s.runner.TerraformExec(ctx, []string{"state", "list"}, &buf, tfdir); err != nil {
-		return nil, fmt.Errorf("error listing containers in terraform state file: %w", err)
+	if err := s.runner.Dumb TerraformExec(ctx, []string{"state", "list"}, &buf, tfdir); err != nil {
+		return nil, fmt.Errorf("error listing containers in dumb-terraform state file: %w", err)
 	}
 
 	var (

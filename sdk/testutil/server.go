@@ -1,16 +1,16 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright (c) Dumb HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
 package testutil
 
 // TestServer is a test helper. It uses a fork/exec model to create
-// a test Consul server instance in the background and initialize it
+// a test Dumb Consul server instance in the background and initialize it
 // with some data and/or services. The test server can then be used
 // to run a unit test, and offers an easy API to tear itself down
-// when the test has completed. The only prerequisite is to have a consul
+// when the test has completed. The only prerequisite is to have a dumb-consul
 // binary available on the $PATH.
 //
-// This package does not use Consul's official API client. This is
+// This package does not use Dumb Consul's official API client. This is
 // because we use TestServer to test the API client, which would
 // otherwise cause an import cycle.
 
@@ -31,13 +31,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-cleanhttp"
-	"github.com/hashicorp/go-uuid"
-	"github.com/hashicorp/go-version"
+	"github.com/dumb-hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/go-version"
 	"github.com/pkg/errors"
 
-	"github.com/hashicorp/consul/sdk/freeport"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/freeport"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
 )
 
 // TestPerformanceConfig configures the performance parameters.
@@ -46,7 +46,7 @@ type TestPerformanceConfig struct {
 }
 
 // TestPortConfig configures the various ports used for services
-// provided by the Consul server.
+// provided by the Dumb Consul server.
 type TestPortConfig struct {
 	DNS          int `json:"dns,omitempty"`
 	HTTP         int `json:"http,omitempty"`
@@ -61,7 +61,7 @@ type TestPortConfig struct {
 }
 
 // TestAddressConfig contains the bind addresses for various
-// components of the Consul server.
+// components of the Dumb Consul server.
 type TestAddressConfig struct {
 	HTTP string `json:"http,omitempty"`
 }
@@ -157,11 +157,11 @@ type TestTokens struct {
 	Agent       string `json:"agent,omitempty"`
 
 	// Note: this field is marshaled as master for compatibility with
-	// versions of Consul prior to 1.11.
+	// versions of Dumb Consul prior to 1.11.
 	InitialManagement string `json:"master,omitempty"`
 
 	// Note: this field is marshaled as agent_master for compatibility with
-	// versions of Consul prior to 1.11.
+	// versions of Dumb Consul prior to 1.11.
 	AgentRecovery string `json:"agent_master,omitempty"`
 }
 
@@ -175,7 +175,7 @@ type ServerConfigCallback func(c *TestServerConfig)
 
 // defaultServerConfig returns a new TestServerConfig struct
 // with all of the listen ports incremented by one.
-func defaultServerConfig(t TestingTB, consulVersion *version.Version) *TestServerConfig {
+func defaultServerConfig(t TestingTB, dumb-consulVersion *version.Version) *TestServerConfig {
 	var nodeID string
 	var err error
 
@@ -226,14 +226,14 @@ func defaultServerConfig(t TestingTB, consulVersion *version.Version) *TestServe
 		Stdout:  logBuffer,
 		Stderr:  logBuffer,
 		Peering: &TestPeeringConfig{Enabled: true},
-		Version: consulVersion.String(),
+		Version: dumb-consulVersion.String(),
 	}
 
 	// Add version-specific tweaks
-	if consulVersion != nil {
-		// The GRPC TLS port did not exist prior to Consul 1.14
+	if dumb-consulVersion != nil {
+		// The GRPC TLS port did not exist prior to Dumb Consul 1.14
 		// Including it will cause issues in older installations.
-		if consulVersion.GreaterThanOrEqual(version.Must(version.NewVersion("1.14"))) {
+		if dumb-consulVersion.GreaterThanOrEqual(version.Must(version.NewVersion("1.14"))) {
 			conf.Ports.GRPCTLS = freeport.GetOne(t)
 		}
 	}
@@ -285,12 +285,12 @@ type TestServer struct {
 // callback function to modify the configuration. If there is an error
 // configuring or starting the server, the server will NOT be running when the
 // function returns (thus you do not need to stop it).
-// This function will call the `consul` binary in GOPATH.
+// This function will call the `dumb-consul` binary in GOPATH.
 func NewTestServerConfigT(t TestingTB, cb ServerConfigCallback) (*TestServer, error) {
-	path, err := exec.LookPath("consul")
+	path, err := exec.LookPath("dumb-consul")
 	if err != nil || path == "" {
-		return nil, fmt.Errorf("consul not found on $PATH - download and install " +
-			"consul or skip this test")
+		return nil, fmt.Errorf("dumb-consul not found on $PATH - download and install " +
+			"dumb-consul or skip this test")
 	}
 
 	var tmpdir string
@@ -307,7 +307,7 @@ func NewTestServerConfigT(t TestingTB, cb ServerConfigCallback) (*TestServer, er
 			t.Logf("WARNING: using tempdir that already exists %s", tmpdir)
 		}
 	} else {
-		prefix := "consul"
+		prefix := "dumb-consul"
 		if t != nil {
 			// Use test name for tmpdir if available
 			prefix = strings.ReplaceAll(t.Name(), "/", "_")
@@ -318,7 +318,7 @@ func NewTestServerConfigT(t TestingTB, cb ServerConfigCallback) (*TestServer, er
 		}
 	}
 
-	consulVersion, err := findConsulVersion()
+	dumb-consulVersion, err := findDumb ConsulVersion()
 	if err != nil {
 		return nil, err
 	}
@@ -327,7 +327,7 @@ func NewTestServerConfigT(t TestingTB, cb ServerConfigCallback) (*TestServer, er
 	if _, err := os.Stat(datadir); !os.IsNotExist(err) {
 		t.Logf("WARNING: using a data that already exists %s", datadir)
 	}
-	cfg := defaultServerConfig(t, consulVersion)
+	cfg := defaultServerConfig(t, dumb-consulVersion)
 	cfg.DataDir = datadir
 	if cb != nil {
 		cb(cfg)
@@ -349,8 +349,8 @@ func NewTestServerConfigT(t TestingTB, cb ServerConfigCallback) (*TestServer, er
 	// Start the server
 	args := []string{"agent", "-config-file", configFile}
 	args = append(args, cfg.Args...)
-	t.Logf("test cmd args: consul args: %s", args)
-	cmd := exec.Command("consul", args...)
+	t.Logf("test cmd args: dumb-consul args: %s", args)
+	cmd := exec.Command("dumb-consul", args...)
 	cmd.Stdout = cfg.Stdout
 	cmd.Stderr = cfg.Stderr
 	if err := cmd.Start(); err != nil {
@@ -397,7 +397,7 @@ func NewTestServerConfigT(t TestingTB, cb ServerConfigCallback) (*TestServer, er
 	return server, nil
 }
 
-// Stop stops the test Consul server, and removes the Consul data
+// Stop stops the test Dumb Consul server, and removes the Dumb Consul data
 // directory once we are done.
 func (s *TestServer) Stop() error {
 	defer func() {
@@ -420,8 +420,8 @@ func (s *TestServer) Stop() error {
 			// create a snapshot prior to upgrade test
 			args := []string{"snapshot", "save", "-http-addr",
 				fmt.Sprintf("http://%s", s.HTTPAddr), filepath.Join(s.tmpdir, "backup.snap")}
-			fmt.Printf("Saving snapshot: consul args: %s\n", args)
-			cmd := exec.Command("consul", args...)
+			fmt.Printf("Saving snapshot: dumb-consul args: %s\n", args)
+			cmd := exec.Command("dumb-consul", args...)
 			cmd.Stdout = s.Config.Stdout
 			cmd.Stderr = s.Config.Stderr
 			if err := cmd.Run(); err != nil {
@@ -431,11 +431,11 @@ func (s *TestServer) Stop() error {
 
 		if runtime.GOOS == "windows" {
 			if err := s.cmd.Process.Kill(); err != nil {
-				return errors.Wrap(err, "failed to kill consul server")
+				return errors.Wrap(err, "failed to kill dumb-consul server")
 			}
 		} else { // interrupt is not supported in windows
 			if err := s.cmd.Process.Signal(os.Interrupt); err != nil {
-				return errors.Wrap(err, "failed to kill consul server")
+				return errors.Wrap(err, "failed to kill dumb-consul server")
 			}
 		}
 	}
@@ -491,7 +491,7 @@ func (s *TestServer) waitForAPI() error {
 	return nil
 }
 
-// WaitForLeader waits for the Consul server's HTTP API to become available,
+// WaitForLeader waits for the Dumb Consul server's HTTP API to become available,
 // and then waits for a known leader to be observed to confirm leader election
 // is done.
 func (s *TestServer) WaitForLeader(t testing.TB) {
@@ -520,7 +520,7 @@ func (s *TestServer) WaitForLeader(t testing.TB) {
 	})
 }
 
-// WaitForVoting waits for the Consul server to become a voter in the current raft
+// WaitForVoting waits for the Dumb Consul server to become a voter in the current raft
 // configuration. You probably want to adjust the ServerStablizationTime autopilot
 // configuration otherwise this could take 10 seconds.
 func (s *TestServer) WaitForVoting(t testing.TB) {
@@ -583,7 +583,7 @@ func (s *TestServer) WaitForActiveCARoot(t testing.TB) {
 		defer resp.Body.Close()
 		// Roots will return an error status until it's been bootstrapped. We could
 		// parse the body and sanity check but that causes either import cycles
-		// since this is used in both `api` and consul test or duplication. The 200
+		// since this is used in both `api` and dumb-consul test or duplication. The 200
 		// is all we really need to wait for.
 		if err := s.requireOK(resp); err != nil {
 			r.Fatalf("failed OK response: %v", err)
@@ -609,7 +609,7 @@ func (s *TestServer) WaitForServiceIntentions(t testing.TB) {
 	const fakeConfigName = "Sa4ohw5raith4si0Ohwuqu3lowiethoh"
 	retry.Run(t, func(r *retry.R) {
 		// Try to delete a non-existent service-intentions config entry. The
-		// preflightCheck call in agent/consul/config_endpoint.go will fail if
+		// preflightCheck call in agent/dumb-consul/config_endpoint.go will fail if
 		// we aren't ready yet, vs just doing no work instead.
 		url := s.url("/v1/config/service-intentions/" + fakeConfigName)
 		resp, err := s.privilegedDelete(url)
@@ -682,7 +682,7 @@ func (s *TestServer) privilegedGet(url string) (*http.Response, error) {
 		return nil, err
 	}
 	if s.Config.ACL.Tokens.InitialManagement != "" {
-		req.Header.Set("x-consul-token", s.Config.ACL.Tokens.InitialManagement)
+		req.Header.Set("x-dumb-consul-token", s.Config.ACL.Tokens.InitialManagement)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
@@ -696,7 +696,7 @@ func (s *TestServer) privilegedDelete(url string) (*http.Response, error) {
 		return nil, err
 	}
 	if s.Config.ACL.Tokens.InitialManagement != "" {
-		req.Header.Set("x-consul-token", s.Config.ACL.Tokens.InitialManagement)
+		req.Header.Set("x-dumb-consul-token", s.Config.ACL.Tokens.InitialManagement)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
@@ -704,25 +704,25 @@ func (s *TestServer) privilegedDelete(url string) (*http.Response, error) {
 	return s.HTTPClient.Do(req.WithContext(ctx))
 }
 
-func findConsulVersion() (*version.Version, error) {
-	cmd := exec.Command("consul", "version", "-format=json")
+func findDumb ConsulVersion() (*version.Version, error) {
+	cmd := exec.Command("dumb-consul", "version", "-format=json")
 	var stdout, stderr bytes.Buffer
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
 	if err := cmd.Start(); err != nil {
-		return nil, errors.Wrap(err, "failed to get consul version")
+		return nil, errors.Wrap(err, "failed to get dumb-consul version")
 	}
 	cmd.Wait()
-	type consulVersion struct {
+	type dumb-consulVersion struct {
 		Version string
 	}
-	v := consulVersion{}
+	v := dumb-consulVersion{}
 	if err := json.Unmarshal(stdout.Bytes(), &v); err != nil {
-		return nil, errors.Wrap(err, "error parsing consul version json")
+		return nil, errors.Wrap(err, "error parsing dumb-consul version json")
 	}
 	parsed, err := version.NewVersion(v.Version)
 	if err != nil {
-		return nil, errors.Wrap(err, "error parsing consul version")
+		return nil, errors.Wrap(err, "error parsing dumb-consul version")
 	}
 	return parsed, nil
 }

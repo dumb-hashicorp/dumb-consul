@@ -6,10 +6,10 @@ package aclfilter
 import (
 	"fmt"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 )
 
 const (
@@ -21,13 +21,13 @@ const (
 // Filter is used to filter results based on ACL rules.
 type Filter struct {
 	authorizer acl.Authorizer
-	logger     hclog.Logger
+	logger     dumb-hclog.Logger
 }
 
 // New constructs a Filter with the given authorizer.
-func New(authorizer acl.Authorizer, logger hclog.Logger) *Filter {
+func New(authorizer acl.Authorizer, logger dumb-hclog.Logger) *Filter {
 	if logger == nil {
-		logger = hclog.NewNullLogger()
+		logger = dumb-hclog.NewNullLogger()
 	}
 	return &Filter{authorizer, logger}
 }
@@ -574,7 +574,7 @@ func (f *Filter) filterNodes(nodes *structs.Nodes) bool {
 
 // redactPreparedQueryTokens will redact any tokens unless the client has a
 // management token. This eases the transition to delegated authority over
-// prepared queries, since it was easy to capture management tokens in Consul
+// prepared queries, since it was easy to capture management tokens in Dumb Consul
 // 0.6.3 and earlier, and we don't want to willy-nilly show those. This does
 // have the limitation of preventing delegated non-management users from seeing
 // captured tokens, but they can at least see whether or not a token is set.

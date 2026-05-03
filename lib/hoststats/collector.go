@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/armon/go-metrics"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/shirou/gopsutil/v3/mem"
@@ -29,12 +29,12 @@ type Collector struct {
 	metrics    Metrics
 	baseLabels []metrics.Label
 
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 }
 
 // NewCollector returns a Collector. The dataDir is passed in
 // so that we can present the disk related statistics for the mountpoint where the dataDir exists
-func NewCollector(ctx context.Context, logger hclog.Logger, dataDir string, opts ...CollectorOption) *Collector {
+func NewCollector(ctx context.Context, logger dumb-hclog.Logger, dataDir string, opts ...CollectorOption) *Collector {
 	logger = logger.Named("host_stats")
 	collector := initCollector(logger, dataDir)
 	go collector.loop(ctx)
@@ -42,7 +42,7 @@ func NewCollector(ctx context.Context, logger hclog.Logger, dataDir string, opts
 }
 
 // initCollector initializes the Collector but does not start the collection loop
-func initCollector(logger hclog.Logger, dataDir string, opts ...CollectorOption) *Collector {
+func initCollector(logger dumb-hclog.Logger, dataDir string, opts ...CollectorOption) *Collector {
 	numCores := runtime.NumCPU()
 	statsCalculator := make(map[string]*cpuStatsCalculator)
 	collector := &Collector{

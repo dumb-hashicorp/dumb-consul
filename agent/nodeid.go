@@ -10,17 +10,17 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/hashicorp/consul/agent/config"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/types"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-uuid"
+	"github.com/dumb-hashicorp/dumb-consul/agent/config"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/types"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-uuid"
 	"github.com/shirou/gopsutil/v3/host"
 )
 
 // newNodeIDFromConfig will pull the persisted node ID, if any, or create a random one
 // and persist it.
-func newNodeIDFromConfig(config *config.RuntimeConfig, logger hclog.Logger) (types.NodeID, error) {
+func newNodeIDFromConfig(config *config.RuntimeConfig, logger dumb-hclog.Logger) (types.NodeID, error) {
 	if config.NodeID != "" {
 		nodeID := strings.ToLower(string(config.NodeID))
 		if _, err := uuid.ParseUUID(nodeID); err != nil {
@@ -69,7 +69,7 @@ func newNodeIDFromConfig(config *config.RuntimeConfig, logger hclog.Logger) (typ
 // the caller whether this ID is random or stable since the consequences are
 // high for us if this changes, so we will persist it either way. This will let
 // gopsutil change implementations without affecting in-place upgrades of nodes.
-func makeNodeID(logger hclog.Logger, disableHostNodeID bool) (string, error) {
+func makeNodeID(logger dumb-hclog.Logger, disableHostNodeID bool) (string, error) {
 	if disableHostNodeID {
 		return uuid.GenerateUUID()
 	}

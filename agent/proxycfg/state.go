@@ -15,13 +15,13 @@ import (
 
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/proxycfg/internal/watch"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/logging"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg/internal/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/logging"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 const (
@@ -34,7 +34,7 @@ const (
 	serviceListWatchID                 = "service-list"
 	peeringServiceListWatchID          = "peering-service-list:"
 	federationStateListGatewaysWatchID = "federation-state-list-mesh-gateways"
-	consulServerListWatchID            = "consul-server-list"
+	dumb-consulServerListWatchID            = "dumb-consul-server-list"
 	datacentersWatchID                 = "datacenters"
 	serviceResolversWatchID            = "service-resolvers"
 	serviceDefaultsWatchID             = "service-defaults"
@@ -66,7 +66,7 @@ const (
 )
 
 type stateConfig struct {
-	logger                hclog.Logger
+	logger                dumb-hclog.Logger
 	source                *structs.QuerySource
 	dataSources           DataSources
 	dnsConfig             DNSConfig
@@ -79,7 +79,7 @@ type stateConfig struct {
 // is discarded and a new one created.
 type state struct {
 	source          ProxySource
-	logger          hclog.Logger
+	logger          dumb-hclog.Logger
 	serviceInstance serviceInstance
 	handler         kindHandler
 
@@ -507,7 +507,7 @@ func (s *state) Changed(ns *structs.NodeService, token string) bool {
 // Envoy cannot resolve hostnames provided through EDS, so we exclusively use CDS for these clusters.
 // If there is a mix of hostnames and addresses we exclusively use the hostnames, since clusters cannot discover
 // services with both EDS and DNS.
-func hostnameEndpoints(logger hclog.Logger, localKey GatewayKey, nodes structs.CheckServiceNodes) structs.CheckServiceNodes {
+func hostnameEndpoints(logger dumb-hclog.Logger, localKey GatewayKey, nodes structs.CheckServiceNodes) structs.CheckServiceNodes {
 	var (
 		hasIP       bool
 		hasHostname bool

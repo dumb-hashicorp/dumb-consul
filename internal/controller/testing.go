@@ -6,10 +6,10 @@ package controller
 import (
 	"context"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/internal/controller/cache"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // TestController is most useful when writing unit tests for a controller where
@@ -25,7 +25,7 @@ type TestController struct {
 	c      *Controller
 	cache  cache.Cache
 	client pbresource.ResourceServiceClient
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 }
 
 // NewTestController will create a new TestController from the provided Controller
@@ -39,11 +39,11 @@ func NewTestController(ctl *Controller, client pbresource.ResourceServiceClient)
 		c:      ctl,
 		cache:  ctlCache,
 		client: cache.NewCachedClient(ctlCache, client),
-		logger: ctl.buildLogger(hclog.NewNullLogger()),
+		logger: ctl.buildLogger(dumb-hclog.NewNullLogger()),
 	}
 }
 
-func (tc *TestController) WithLogger(logger hclog.Logger) *TestController {
+func (tc *TestController) WithLogger(logger dumb-hclog.Logger) *TestController {
 	tc.logger = tc.c.buildLogger(logger)
 	return tc
 }

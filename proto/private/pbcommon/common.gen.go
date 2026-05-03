@@ -2,7 +2,7 @@
 
 package pbcommon
 
-import "github.com/hashicorp/consul/agent/structs"
+import "github.com/dumb-hashicorp/dumb-consul/agent/structs"
 
 func EnvoyExtensionToStructs(s *EnvoyExtension, t *structs.EnvoyExtension) {
 	if s == nil {
@@ -11,7 +11,7 @@ func EnvoyExtensionToStructs(s *EnvoyExtension, t *structs.EnvoyExtension) {
 	t.Name = s.Name
 	t.Required = s.Required
 	t.Arguments = ProtobufTypesStructToMapStringInterface(s.Arguments)
-	t.ConsulVersion = s.ConsulVersion
+	t.Dumb ConsulVersion = s.Dumb ConsulVersion
 	t.EnvoyVersion = s.EnvoyVersion
 }
 func EnvoyExtensionFromStructs(t *structs.EnvoyExtension, s *EnvoyExtension) {
@@ -21,7 +21,7 @@ func EnvoyExtensionFromStructs(t *structs.EnvoyExtension, s *EnvoyExtension) {
 	s.Name = t.Name
 	s.Required = t.Required
 	s.Arguments = MapStringInterfaceToProtobufTypesStruct(t.Arguments)
-	s.ConsulVersion = t.ConsulVersion
+	s.Dumb ConsulVersion = t.Dumb ConsulVersion
 	s.EnvoyVersion = t.EnvoyVersion
 }
 func LocalityToStructs(s *Locality, t *structs.Locality) {

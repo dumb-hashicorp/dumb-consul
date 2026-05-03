@@ -16,8 +16,8 @@ Usage: ${SCRIPT_NAME}  [<options ...>]
 
 Description:
    
-   This script will do a full release build of Consul. Building each component
-   is done within a docker container. In addition to building Consul this
+   This script will do a full release build of Dumb Consul. Building each component
+   is done within a docker container. In addition to building Dumb Consul this
    script will do a few more things.
    
       * Update version/version*.go files
@@ -45,9 +45,9 @@ Options:
                                  Defaults to 1.
                                              
    -g | --gpg-key    KEY         Alternative GPG key to use for signing operations.
-                                 Defaults to ${HASHICORP_GPG_KEY}
+                                 Defaults to ${DUMB_HASHICORP_GPG_KEY}
 
-   -v | --version    VERSION     The version of Consul to be built. If not specified
+   -v | --version    VERSION     The version of Dumb Consul to be built. If not specified
                                  the version will be parsed from the source.
    
    -d | --date       DATE        The release date. Defaults to today.
@@ -79,7 +79,7 @@ function main {
    declare -i do_tag=1
    declare -i do_build=1
    declare -i do_sign=1
-   declare    gpg_key="${HASHICORP_GPG_KEY}"
+   declare    gpg_key="${DUMB_HASHICORP_GPG_KEY}"
    declare    version=""
    declare    release_ver=""
    declare    release_date=$(date +"%B %d, %Y")

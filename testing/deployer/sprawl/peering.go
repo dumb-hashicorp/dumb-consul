@@ -12,14 +12,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 // TODO: this is definitely a grpc resolver/balancer issue to look into
-const grpcWeirdError = `transport: Error while dialing failed to find Consul server for global address`
+const grpcWeirdError = `transport: Error while dialing failed to find Dumb Consul server for global address`
 
 func isWeirdGRPCError(err error) bool {
 	if err == nil {
@@ -149,7 +149,7 @@ func (s *Sprawl) waitForPeeringEstablishment() error {
 	return nil
 }
 
-func (s *Sprawl) checkPeeringDirection(logger hclog.Logger, client *api.Client, pc topology.PeerCluster, enterprise bool) {
+func (s *Sprawl) checkPeeringDirection(logger dumb-hclog.Logger, client *api.Client, pc topology.PeerCluster, enterprise bool) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 

@@ -14,11 +14,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/consul/agent/mock"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil/retry"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/mock"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil/retry"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
@@ -111,7 +111,7 @@ func TestGRPC_Proxied(t *testing.T) {
 	t.Parallel()
 
 	notif := mock.NewNotify()
-	logger := hclog.New(&hclog.LoggerOptions{
+	logger := dumb-hclog.New(&dumb-hclog.LoggerOptions{
 		Name:   uniqueID(),
 		Output: io.Discard,
 	})
@@ -145,7 +145,7 @@ func TestGRPC_NotProxied(t *testing.T) {
 	t.Parallel()
 
 	notif := mock.NewNotify()
-	logger := hclog.New(&hclog.LoggerOptions{
+	logger := dumb-hclog.New(&dumb-hclog.LoggerOptions{
 		Name:   uniqueID(),
 		Output: io.Discard,
 	})

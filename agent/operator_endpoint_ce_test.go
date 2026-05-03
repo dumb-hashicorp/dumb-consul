@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package agent
 
@@ -11,7 +11,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 	"github.com/stretchr/testify/require"
 )
 
@@ -62,7 +62,7 @@ func TestOperator_Usage(t *testing.T) {
 				"mesh-gateway":        0,
 				"terminating-gateway": 0,
 			},
-			// 4 = 6 total service instances - 1 connect proxy - 1 consul service
+			// 4 = 6 total service instances - 1 connect proxy - 1 dumb-consul service
 			BillableServiceInstances: 4,
 			Nodes:                    2,
 		},

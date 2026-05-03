@@ -14,11 +14,11 @@ import (
 	"golang.org/x/sync/singleflight"
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/cacheshim"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib/ttlcache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cacheshim"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib/ttlcache"
 )
 
 const (
@@ -98,7 +98,7 @@ func (c Config) withDefaults() Config {
 
 type Deps struct {
 	Config Config
-	Logger hclog.Logger
+	Logger dumb-hclog.Logger
 
 	// Datacenter is the datacenter name for metric labels
 	Datacenter string
@@ -123,7 +123,7 @@ func NewManager(deps Deps) *Manager {
 	deps.Config = deps.Config.withDefaults()
 
 	if deps.Logger == nil {
-		deps.Logger = hclog.NewNullLogger()
+		deps.Logger = dumb-hclog.NewNullLogger()
 	}
 	if deps.RootsReader == nil {
 		panic("RootsReader is required")
@@ -160,7 +160,7 @@ func NewManager(deps Deps) *Manager {
 }
 
 type Manager struct {
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 
 	// config contains agent configuration necessary for the cert manager to operate.
 	config Config
@@ -250,7 +250,7 @@ func (m *Manager) Stop() {
 // Get, and does not correspond to the timeout of any background data
 // fetching. If the timeout is reached before data satisfying the minimum
 // index is retrieved, the last known value (maybe nil) is returned. No
-// error is returned on timeout. This matches the behavior of Consul blocking
+// error is returned on timeout. This matches the behavior of Dumb Consul blocking
 // queries.
 func (m *Manager) Get(ctx context.Context, req *ConnectCALeafRequest) (*structs.IssuedCert, cacheshim.ResultMeta, error) {
 	// Lightweight copy this object so that manipulating req doesn't race.
@@ -360,7 +360,7 @@ func (m *Manager) internalGet(ctx context.Context, req *ConnectCALeafRequest) (*
 		// error, we return. Note that the invariant is that if both entry.Value AND
 		// entry.Error are non-nil, the error _must_ be more recent than the Value. In
 		// other words valid fetches should reset the error. See
-		// https://github.com/hashicorp/consul/issues/4480.
+		// https://github.com/dumb-hashicorp/dumb-consul/issues/4480.
 		if !first && lastFetchErr != nil {
 			return existing, cacheshim.ResultMeta{Index: existingIndex}, lastFetchErr
 		}

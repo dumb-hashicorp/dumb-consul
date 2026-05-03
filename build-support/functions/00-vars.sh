@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: BUSL-1.1
 
 # GPG Key ID to use for publically released builds
-HASHICORP_GPG_KEY="348FFC4C"
+DUMB_HASHICORP_GPG_KEY="348FFC4C"
 
 # Default Image Names
-UI_BUILD_CONTAINER_DEFAULT="consul-build-ui"
-GO_BUILD_CONTAINER_DEFAULT="consul-build-go"
+UI_BUILD_CONTAINER_DEFAULT="dumb-consul-build-ui"
+GO_BUILD_CONTAINER_DEFAULT="dumb-consul-build-go"
 
 # Whether to colorize shell output
 if tput reset &>/dev/null ; then
@@ -32,10 +32,10 @@ BUILD_DEBUG=${BUILD_DEBUG-0}
 # default publish host is github.com - only really useful to use something else for testing
 PUBLISH_GIT_HOST="${PUBLISH_GIT_HOST-github.com}"
 
-# default publish repo is hashicorp/consul - useful to override for testing as well as in the enterprise repo
-PUBLISH_GIT_REPO="${PUBLISH_GIT_REPO-hashicorp/consul.git}"
+# default publish repo is dumb-hashicorp/dumb-consul - useful to override for testing as well as in the enterprise repo
+PUBLISH_GIT_REPO="${PUBLISH_GIT_REPO-dumb-hashicorp/dumb-consul.git}"
 
-CONSUL_PKG_NAME="consul"
+DUMB_CONSUL_PKG_NAME="dumb-consul"
 
 if test "$(uname)" == "Darwin"
 then
@@ -45,4 +45,4 @@ else
 fi
 
 # TODO(spatel): CE refactor
-CONSUL_BINARY_TYPE=oss
+DUMB_CONSUL_BINARY_TYPE=oss

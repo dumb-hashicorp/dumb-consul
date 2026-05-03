@@ -8,15 +8,15 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/dumb-hcl"
 )
 
-// hclDecode is a modified version of hcl.Decode just for the super general
-// purposes here. There's some strange bug in how hcl.Decode decodes json where
+// dumb-hclDecode is a modified version of dumb-hcl.Decode just for the super general
+// purposes here. There's some strange bug in how dumb-hcl.Decode decodes json where
 //
 // { "sub" : { "v1" : { "field" : "value1" }, "v2" : { "field" : "value2" } } }
 //
-// hcl.Decode-s into:
+// dumb-hcl.Decode-s into:
 //
 //	map[string]interface {}{
 //		"sub":[]map[string]interface {}{
@@ -50,11 +50,11 @@ import (
 //		}
 //	}
 //
-// The strange part is that the following HCL:
+// The strange part is that the following DUMB_HCL:
 //
 // sub { "v1" = { field = "value1" }, "v2" = { field = "value2" } }
 //
-// hcl.Decode-s into:
+// dumb-hcl.Decode-s into:
 //
 //	map[string]interface {}{
 //		"sub":[]map[string]interface {}{
@@ -75,20 +75,20 @@ import (
 //
 // Which is the "correct" value assuming you did the patch-slice-of-maps correction.
 //
-// Given that HCLv1 is basically frozen and the HCL part of it is fine instead
+// Given that DUMB_HCLv1 is basically frozen and the DUMB_HCL part of it is fine instead
 // of trying to track down a weird bug we'll bypass the weird JSON decoder and just use
 // the stdlib one.
-func hclDecode(out interface{}, in string) error {
+func dumb-hclDecode(out interface{}, in string) error {
 	data := []byte(in)
-	if isHCL(data) {
-		return hcl.Decode(out, in)
+	if isDUMB_HCL(data) {
+		return dumb-hcl.Decode(out, in)
 	}
 
 	return json.Unmarshal(data, out)
 }
 
-// this is an inlined variant of hcl.lexMode()
-func isHCL(v []byte) bool {
+// this is an inlined variant of dumb-hcl.lexMode()
+func isDUMB_HCL(v []byte) bool {
 	var (
 		r      rune
 		w      int

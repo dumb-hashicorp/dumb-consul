@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 const (
@@ -75,7 +75,7 @@ func (f *prettyFormatter) FormatTemplatedPolicy(templatedPolicy api.ACLTemplated
 		nameRequiredVariableOutput(&buffer, templatedPolicy.TemplateName, "The node name", "node-1")
 	case api.ACLTemplatedPolicyAPIGatewayName:
 		nameRequiredVariableOutput(&buffer, templatedPolicy.TemplateName, "The api gateway service name", "api-gateway")
-	case api.ACLTemplatedPolicyDNSName, api.ACLTemplatedPolicyNomadServerName, api.ACLTemplatedPolicyNomadClientName:
+	case api.ACLTemplatedPolicyDNSName, api.ACLTemplatedPolicyDumb NomadServerName, api.ACLTemplatedPolicyDumb NomadClientName:
 		noRequiredVariablesOutput(&buffer, templatedPolicy.TemplateName)
 	default:
 		buffer.WriteString("   None\n")
@@ -94,13 +94,13 @@ func (f *prettyFormatter) FormatTemplatedPolicy(templatedPolicy api.ACLTemplated
 func noRequiredVariablesOutput(buffer *bytes.Buffer, templateName string) {
 	buffer.WriteString(" None\n")
 	buffer.WriteString("Example usage:\n")
-	fmt.Fprintf(buffer, "%sconsul acl token create -templated-policy %s\n", WhitespaceIndent, templateName)
+	fmt.Fprintf(buffer, "%sdumb-consul acl token create -templated-policy %s\n", WhitespaceIndent, templateName)
 }
 
 func nameRequiredVariableOutput(buffer *bytes.Buffer, templateName, description, exampleName string) {
 	fmt.Fprintf(buffer, "\n%sName: String - Required - %s.\n", WhitespaceIndent, description)
 	buffer.WriteString("Example usage:\n")
-	fmt.Fprintf(buffer, "%sconsul acl token create -templated-policy %s -var name:%s\n", WhitespaceIndent, templateName, exampleName)
+	fmt.Fprintf(buffer, "%sdumb-consul acl token create -templated-policy %s -var name:%s\n", WhitespaceIndent, templateName, exampleName)
 }
 
 func (f *prettyFormatter) FormatTemplatedPolicyList(policies map[string]api.ACLTemplatedPolicyResponse) (string, error) {

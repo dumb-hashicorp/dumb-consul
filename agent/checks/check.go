@@ -21,14 +21,14 @@ import (
 
 	http2 "golang.org/x/net/http2"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
 	"github.com/armon/circbuf"
-	"github.com/hashicorp/consul/agent/exec"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/go-cleanhttp"
+	"github.com/dumb-hashicorp/dumb-consul/agent/exec"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/go-cleanhttp"
 )
 
 const (
@@ -44,7 +44,7 @@ const (
 
 	// UserAgent is the value of the User-Agent header
 	// for HTTP health checks.
-	UserAgent = "Consul Health Check"
+	UserAgent = "Dumb Consul Health Check"
 )
 
 // RPC is an interface that an RPC client must implement. This is a helper
@@ -75,7 +75,7 @@ type CheckMonitor struct {
 	ScriptArgs    []string
 	Interval      time.Duration
 	Timeout       time.Duration
-	Logger        hclog.Logger
+	Logger        dumb-hclog.Logger
 	OutputMaxSize int
 	StatusHandler *StatusHandler
 
@@ -240,7 +240,7 @@ type CheckTTL struct {
 	CheckID   structs.CheckID
 	ServiceID structs.ServiceID
 	TTL       time.Duration
-	Logger    hclog.Logger
+	Logger    dumb-hclog.Logger
 
 	timer *time.Timer
 
@@ -346,7 +346,7 @@ type CheckHTTP struct {
 	Body             string
 	Interval         time.Duration
 	Timeout          time.Duration
-	Logger           hclog.Logger
+	Logger           dumb-hclog.Logger
 	TLSClientConfig  *tls.Config
 	OutputMaxSize    int
 	StatusHandler    *StatusHandler
@@ -523,7 +523,7 @@ type CheckH2PING struct {
 	H2PING          string
 	Interval        time.Duration
 	Timeout         time.Duration
-	Logger          hclog.Logger
+	Logger          dumb-hclog.Logger
 	TLSClientConfig *tls.Config
 	StatusHandler   *StatusHandler
 
@@ -533,7 +533,7 @@ type CheckH2PING struct {
 	stopWg   sync.WaitGroup
 }
 
-func shutdownHTTP2ClientConn(clientConn *http2.ClientConn, timeout time.Duration, checkIDString string, logger hclog.Logger) {
+func shutdownHTTP2ClientConn(clientConn *http2.ClientConn, timeout time.Duration, checkIDString string, logger dumb-hclog.Logger) {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout/2)
 	defer cancel()
 	err := clientConn.Shutdown(ctx)
@@ -636,7 +636,7 @@ type CheckTCP struct {
 	TCP             string
 	Interval        time.Duration
 	Timeout         time.Duration
-	Logger          hclog.Logger
+	Logger          dumb-hclog.Logger
 	TLSClientConfig *tls.Config
 	StatusHandler   *StatusHandler
 
@@ -733,7 +733,7 @@ type CheckUDP struct {
 	Message       string
 	Interval      time.Duration
 	Timeout       time.Duration
-	Logger        hclog.Logger
+	Logger        dumb-hclog.Logger
 	StatusHandler *StatusHandler
 
 	dialer   *net.Dialer
@@ -863,7 +863,7 @@ type CheckDocker struct {
 	DockerContainerID string
 	Shell             string
 	Interval          time.Duration
-	Logger            hclog.Logger
+	Logger            dumb-hclog.Logger
 	Client            *DockerClient
 	StatusHandler     *StatusHandler
 
@@ -876,7 +876,7 @@ func (c *CheckDocker) Start() {
 	}
 
 	if c.Logger == nil {
-		c.Logger = hclog.New(&hclog.LoggerOptions{Output: io.Discard})
+		c.Logger = dumb-hclog.New(&dumb-hclog.LoggerOptions{Output: io.Discard})
 	}
 
 	if c.Shell == "" {
@@ -990,7 +990,7 @@ type CheckGRPC struct {
 	Interval        time.Duration
 	Timeout         time.Duration
 	TLSClientConfig *tls.Config
-	Logger          hclog.Logger
+	Logger          dumb-hclog.Logger
 	StatusHandler   *StatusHandler
 
 	probe    *GrpcHealthProbe
@@ -1070,7 +1070,7 @@ type CheckOSService struct {
 	OSService     string
 	Interval      time.Duration
 	Timeout       time.Duration
-	Logger        hclog.Logger
+	Logger        dumb-hclog.Logger
 	StatusHandler *StatusHandler
 	Client        *OSServiceClient
 
@@ -1188,7 +1188,7 @@ func (c *CheckOSService) check() {
 // reaches the given threshold.
 type StatusHandler struct {
 	inner                  CheckNotifier
-	logger                 hclog.Logger
+	logger                 dumb-hclog.Logger
 	successBeforePassing   int
 	successCounter         int
 	failuresBeforeWarning  int
@@ -1197,7 +1197,7 @@ type StatusHandler struct {
 }
 
 // NewStatusHandler set counters values to threshold in order to immediatly update status after first check.
-func NewStatusHandler(inner CheckNotifier, logger hclog.Logger, successBeforePassing, failuresBeforeWarning, failuresBeforeCritical int) *StatusHandler {
+func NewStatusHandler(inner CheckNotifier, logger dumb-hclog.Logger, successBeforePassing, failuresBeforeWarning, failuresBeforeCritical int) *StatusHandler {
 	return &StatusHandler{
 		logger:                 logger,
 		inner:                  inner,

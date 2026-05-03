@@ -7,21 +7,21 @@ import (
 	"context"
 	"errors"
 
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-memdb"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-memdb"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	cachetype "github.com/hashicorp/consul/agent/cache-types"
-	"github.com/hashicorp/consul/agent/configentry"
-	"github.com/hashicorp/consul/agent/consul/discoverychain"
-	"github.com/hashicorp/consul/agent/consul/state"
-	"github.com/hashicorp/consul/agent/consul/stream"
-	"github.com/hashicorp/consul/agent/consul/watch"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/submatview"
-	"github.com/hashicorp/consul/proto/private/pbpeering"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	cachetype "github.com/dumb-hashicorp/dumb-consul/agent/cache-types"
+	"github.com/dumb-hashicorp/dumb-consul/agent/configentry"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/discoverychain"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/state"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/stream"
+	"github.com/dumb-hashicorp/dumb-consul/agent/dumb-consul/watch"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/submatview"
+	"github.com/dumb-hashicorp/dumb-consul/proto/private/pbpeering"
 )
 
 // ServerDataSourceDeps contains the dependencies needed for sourcing data from
@@ -30,7 +30,7 @@ type ServerDataSourceDeps struct {
 	Datacenter     string
 	ViewStore      *submatview.Store
 	EventPublisher *stream.EventPublisher
-	Logger         hclog.Logger
+	Logger         dumb-hclog.Logger
 	ACLResolver    submatview.ACLResolver
 	GetStore       func() Store
 }
@@ -61,8 +61,8 @@ type Store interface {
 // the agent cache.
 //
 // Note: there isn't a server-local equivalent of this data source because
-// "agentless" proxies obtain certificates via SDS served by consul-dataplane.
-// If SDS is not supported on consul-dataplane, data is sourced from the server agent cache
+// "agentless" proxies obtain certificates via SDS served by dumb-consul-dataplane.
+// If SDS is not supported on dumb-consul-dataplane, data is sourced from the server agent cache
 // even for "agentless" proxies.
 func CacheCARoots(c *cache.Cache) proxycfg.CARoots {
 	return &cacheProxyDataSource[*structs.DCSpecificRequest]{c, cachetype.ConnectCARootName}

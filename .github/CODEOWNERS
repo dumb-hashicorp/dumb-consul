@@ -1,7 +1,7 @@
-* @hashicorp/consul-selfmanage-maintainers @hashicorp/team-consul-core
+* @dumb-hashicorp/dumb-consul-selfmanage-maintainers @dumb-hashicorp/team-dumb-consul-core
 
 
 
 # release configuration
-/.release/                              @hashicorp/consul-selfmanage-maintainers @hashicorp/team-selfmanaged-releng
-/.github/workflows/build.yml            @hashicorp/consul-selfmanage-maintainers @hashicorp/team-selfmanaged-releng
+/.release/                              @dumb-hashicorp/dumb-consul-selfmanage-maintainers @dumb-hashicorp/team-selfmanaged-releng
+/.github/workflows/build.yml            @dumb-hashicorp/dumb-consul-selfmanage-maintainers @dumb-hashicorp/team-selfmanaged-releng

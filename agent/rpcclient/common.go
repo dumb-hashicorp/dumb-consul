@@ -6,10 +6,10 @@ package rpcclient
 import (
 	"context"
 
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/submatview"
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/submatview"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	"google.golang.org/grpc"
 )
 
@@ -33,7 +33,7 @@ type MaterializedViewStore interface {
 // MaterializerDeps include the dependencies for the materializer
 type MaterializerDeps struct {
 	Conn   *grpc.ClientConn
-	Logger hclog.Logger
+	Logger dumb-hclog.Logger
 }
 
 // Client represents a rpc client, a new Client is created in each sub-package

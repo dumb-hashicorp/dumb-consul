@@ -1,12 +1,12 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package structs
 
-func IsConsulServiceID(id ServiceID) bool {
-	return id.ID == ConsulServiceID
+func IsDumb ConsulServiceID(id ServiceID) bool {
+	return id.ID == Dumb ConsulServiceID
 }
 
 func IsSerfCheckID(id CheckID) bool {

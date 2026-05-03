@@ -16,9 +16,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/go-bexpr"
+	"github.com/dumb-hashicorp/go-bexpr"
 
-	"github.com/hashicorp/consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/api"
 )
 
 var dumpFieldConfig = flag.Bool("dump-field-config", false, "generate field config dump file")
@@ -198,8 +198,8 @@ var expectedFieldConfigEnvoyExtensions bexpr.FieldConfigurations = bexpr.FieldCo
 		CoerceFn:            bexpr.CoerceBool,
 		SupportedOperations: []bexpr.MatchOperator{bexpr.MatchEqual, bexpr.MatchNotEqual},
 	},
-	"ConsulVersion": &bexpr.FieldConfiguration{
-		StructFieldName:     "ConsulVersion",
+	"Dumb ConsulVersion": &bexpr.FieldConfiguration{
+		StructFieldName:     "Dumb ConsulVersion",
 		CoerceFn:            bexpr.CoerceString,
 		SupportedOperations: []bexpr.MatchOperator{bexpr.MatchEqual, bexpr.MatchNotEqual, bexpr.MatchIn, bexpr.MatchNotIn, bexpr.MatchMatches, bexpr.MatchNotMatches},
 	},

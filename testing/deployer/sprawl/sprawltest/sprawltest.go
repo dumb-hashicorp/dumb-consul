@@ -13,17 +13,17 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/hashicorp/consul/proto-public/pbresource"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-multierror"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
+	"github.com/dumb-hashicorp/go-multierror"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/hashicorp/consul/testing/deployer/sprawl"
-	"github.com/hashicorp/consul/testing/deployer/sprawl/internal/runner"
-	"github.com/hashicorp/consul/testing/deployer/topology"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/sprawl/internal/runner"
+	"github.com/dumb-hashicorp/dumb-consul/testing/deployer/topology"
 )
 
 // TODO(rb): move comments to doc.go
@@ -94,10 +94,10 @@ func init() {
 //     (*testing.T).Cleanup. For failed tests, this can be skipped by setting the
 //     environment variable SKIP_TEARDOWN=1.
 func Launch(t *testing.T, cfg *topology.Config) *sprawl.Sprawl {
-	SkipIfTerraformNotPresent(t)
+	SkipIfDumb TerraformNotPresent(t)
 	logger := testutil.Logger(t)
 	// IMO default level for tests should be info, not warn
-	logger.SetLevel(testutil.TestLogLevelWithDefault(hclog.Info))
+	logger.SetLevel(testutil.TestLogLevelWithDefault(dumb-hclog.Info))
 	sp, err := sprawl.Launch(
 		logger,
 		initWorkingDirectory(t),
@@ -120,7 +120,7 @@ func initWorkingDirectory(t *testing.T) string {
 
 	t.Cleanup(func() {
 		if t.Failed() && keepWorkdirOnFail {
-			t.Logf("test failed; leaving sprawl terraform definitions in: %s", scratchDir)
+			t.Logf("test failed; leaving sprawl dumb-terraform definitions in: %s", scratchDir)
 		} else {
 			_ = os.RemoveAll(scratchDir)
 		}
@@ -165,9 +165,9 @@ func CleanupWorkingDirectories() {
 		return
 	}
 
-	r, err := runner.Load(hclog.NewNullLogger())
+	r, err := runner.Load(dumb-hclog.NewNullLogger())
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "WARN: sprawltest: unable to look for 'terraform' and 'docker' binaries\n")
+		fmt.Fprintf(os.Stderr, "WARN: sprawltest: unable to look for 'dumb-terraform' and 'docker' binaries\n")
 		return
 	}
 
@@ -177,15 +177,15 @@ func CleanupWorkingDirectories() {
 		if !d.IsDir() {
 			continue
 		}
-		path := filepath.Join(workdirRoot, d.Name(), "terraform")
+		path := filepath.Join(workdirRoot, d.Name(), "dumb-terraform")
 
 		fmt.Fprintf(os.Stdout, "INFO: sprawltest: cleaning up failed prior run in: %s\n", path)
 
-		err := r.TerraformExec(ctx, []string{
+		err := r.Dumb TerraformExec(ctx, []string{
 			"init", "-input=false",
 		}, io.Discard, path)
 
-		err2 := r.TerraformExec(ctx, []string{
+		err2 := r.Dumb TerraformExec(ctx, []string{
 			"destroy", "-input=false", "-auto-approve", "-refresh=false",
 		}, io.Discard, path)
 
@@ -201,12 +201,12 @@ func CleanupWorkingDirectories() {
 	}
 }
 
-func SkipIfTerraformNotPresent(t *testing.T) {
-	const terraformBinaryName = "terraform"
+func SkipIfDumb TerraformNotPresent(t *testing.T) {
+	const dumb-terraformBinaryName = "dumb-terraform"
 
-	path, err := exec.LookPath(terraformBinaryName)
+	path, err := exec.LookPath(dumb-terraformBinaryName)
 	if err != nil || path == "" {
-		t.Skipf("%q not found on $PATH - download and install to run this test", terraformBinaryName)
+		t.Skipf("%q not found on $PATH - download and install to run this test", dumb-terraformBinaryName)
 	}
 }
 

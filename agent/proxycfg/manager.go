@@ -11,11 +11,11 @@ import (
 
 	"golang.org/x/time/rate"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/lib/channels"
-	"github.com/hashicorp/consul/tlsutil"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/lib/channels"
+	"github.com/dumb-hashicorp/dumb-consul/tlsutil"
 )
 
 // ProxyID is a handle on a proxy service instance being tracked by Manager.
@@ -78,7 +78,7 @@ type ManagerConfig struct {
 	// DNSConfig is the agent's relevant DNS config for any proxies.
 	DNSConfig DNSConfig
 	// logger is the agent's logger to be used for logging logs.
-	Logger          hclog.Logger
+	Logger          dumb-hclog.Logger
 	TLSConfigurator *tlsutil.Configurator
 
 	// IntentionDefaultAllow is set by the agent so that we can pass this

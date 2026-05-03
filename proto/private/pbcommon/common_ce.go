@@ -1,11 +1,11 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package pbcommon
 
-import "github.com/hashicorp/consul/acl"
+import "github.com/dumb-hashicorp/dumb-consul/acl"
 
 var DefaultEnterpriseMeta = &EnterpriseMeta{}
 

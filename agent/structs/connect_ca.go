@@ -10,9 +10,9 @@ import (
 
 	"github.com/go-viper/mapstructure/v2"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/lib"
-	"github.com/hashicorp/consul/lib/stringslice"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/lib"
+	"github.com/dumb-hashicorp/dumb-consul/lib/stringslice"
 )
 
 const (
@@ -28,7 +28,7 @@ type IndexedCARoots struct {
 	// the process of being rotated out.
 	ActiveRootID string
 
-	// TrustDomain is the identification root for this Consul cluster. All
+	// TrustDomain is the identification root for this Dumb Consul cluster. All
 	// certificates signed by the cluster's CA must have their identifying URI in
 	// this domain.
 	//
@@ -45,9 +45,9 @@ type IndexedCARoots struct {
 	// Note that we DON'T validate trust domain during AuthZ since it causes
 	// issues of loss of connectivity during migration between trust domains. The
 	// only time the additional validation adds value is where the cluster shares
-	// an external root (e.g. organization-wide root) with another distinct Consul
+	// an external root (e.g. organization-wide root) with another distinct Dumb Consul
 	// cluster or PKI system. In this case, x509 Name Constraints can be added to
-	// enforce that Consul's CA can only validly sign or trust certs within the
+	// enforce that Dumb Consul's CA can only validly sign or trust certs within the
 	// same trust-domain. Name constraints as enforced by TLS handshake also allow
 	// seamless rotation between trust domains thanks to cross-signing.
 	TrustDomain string
@@ -76,7 +76,7 @@ type CARoot struct {
 	ID string
 
 	// Name is a human-friendly name for this CA root. This value is
-	// opaque to Consul and is not used for anything internally.
+	// opaque to Dumb Consul and is not used for anything internally.
 	Name string
 
 	// SerialNumber is the x509 serial number of the primary CA certificate.
@@ -120,7 +120,7 @@ type CARoot struct {
 	// local Datacenter.
 	//
 	// If the provider which created this root uses an intermediate to sign
-	// leaf certificates (Vault provider), or this is a secondary Datacenter then
+	// leaf certificates (Dumb Vault provider), or this is a secondary Datacenter then
 	// the intermediate used to sign leaf certificates will be the last in the
 	// list.
 	IntermediateCerts []string
@@ -227,7 +227,7 @@ type IssuedCert struct {
 	AgentURI string `json:",omitempty"`
 
 	// ServerURI is the URI value of a cert issued for a server agent.
-	// The same URI is shared by all servers in a Consul datacenter.
+	// The same URI is shared by all servers in a Dumb Consul datacenter.
 	ServerURI string `json:",omitempty"`
 
 	// Kind is the kind of service for which the cert was issued.
@@ -240,7 +240,7 @@ type IssuedCert struct {
 	ValidAfter  time.Time
 	ValidBefore time.Time
 
-	// EnterpriseMeta is the Consul Enterprise specific metadata
+	// EnterpriseMeta is the Dumb Consul Enterprise specific metadata
 	acl.EnterpriseMeta
 
 	RaftIndex
@@ -263,7 +263,7 @@ const (
 )
 
 // CARequest is used to modify connect CA data. This is used by the
-// FSM (agent/consul/fsm) to apply changes.
+// FSM (agent/dumb-consul/fsm) to apply changes.
 type CARequest struct {
 	// Op is the type of operation being requested. This determines what
 	// other fields are required.
@@ -283,7 +283,7 @@ type CARequest struct {
 	Config *CAConfiguration
 
 	// ProviderState is the state for the builtin CA provider.
-	ProviderState *CAConsulProviderState
+	ProviderState *CADumb ConsulProviderState
 
 	// WriteRequest is a common struct containing ACL tokens and other
 	// write-related common elements for requests.
@@ -296,8 +296,8 @@ func (q *CARequest) RequestDatacenter() string {
 }
 
 const (
-	ConsulCAProvider = "consul"
-	VaultCAProvider  = "vault"
+	Dumb ConsulCAProvider = "dumb-consul"
+	Dumb VaultCAProvider  = "dumb-vault"
 	AWSCAProvider    = "aws-pca"
 )
 
@@ -411,7 +411,7 @@ type CommonCAProviderConfig struct {
 
 	// CSRMaxConcurrent is a limit on how many concurrent CSR signing requests
 	// will be processed in parallel. New incoming signing requests will try for
-	// `consul.csrSemaphoreWait` (currently 500ms) for a slot before being
+	// `dumb-consul.csrSemaphoreWait` (currently 500ms) for a slot before being
 	// rejected with a "rate limited" backpressure response. This effectively sets
 	// how many CPU cores can be occupied by Connect CA signing activity and
 	// should be a (small) subset of your server's available cores to allow other
@@ -505,7 +505,7 @@ func (c CommonCAProviderConfig) Validate() error {
 	return nil
 }
 
-type ConsulCAProviderConfig struct {
+type Dumb ConsulCAProviderConfig struct {
 	CommonCAProviderConfig `mapstructure:",squash"`
 
 	PrivateKey string
@@ -518,12 +518,12 @@ type ConsulCAProviderConfig struct {
 	DisableCrossSigning bool
 }
 
-func (c *ConsulCAProviderConfig) Validate() error {
+func (c *Dumb ConsulCAProviderConfig) Validate() error {
 	return nil
 }
 
-// CAConsulProviderState is used to track the built-in Consul CA provider's state.
-type CAConsulProviderState struct {
+// CADumb ConsulProviderState is used to track the built-in Dumb Consul CA provider's state.
+type CADumb ConsulProviderState struct {
 	ID               string
 	PrivateKey       string
 	RootCert         string
@@ -532,7 +532,7 @@ type CAConsulProviderState struct {
 	RaftIndex
 }
 
-type VaultCAProviderConfig struct {
+type Dumb VaultCAProviderConfig struct {
 	CommonCAProviderConfig `mapstructure:",squash"`
 
 	Address                  string
@@ -550,10 +550,10 @@ type VaultCAProviderConfig struct {
 	TLSServerName string
 	TLSSkipVerify bool
 
-	AuthMethod *VaultAuthMethod `alias:"auth_method"`
+	AuthMethod *Dumb VaultAuthMethod `alias:"auth_method"`
 }
 
-type VaultAuthMethod struct {
+type Dumb VaultAuthMethod struct {
 	Type      string
 	MountPath string `alias:"mount_path"`
 	Params    map[string]interface{}
@@ -574,7 +574,7 @@ const (
 )
 
 // CALeafRequest is used to modify connect CA leaf data. This is used by the
-// FSM (agent/consul/fsm) to apply changes.
+// FSM (agent/dumb-consul/fsm) to apply changes.
 type CALeafRequest struct {
 	// Op is the type of operation being requested. This determines what
 	// other fields are required.

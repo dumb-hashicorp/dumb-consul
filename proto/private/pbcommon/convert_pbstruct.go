@@ -4,7 +4,7 @@
 package pbcommon
 
 import (
-	"github.com/hashicorp/consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
@@ -49,7 +49,7 @@ func EnvoyExtensionsToStructs(args []*EnvoyExtension) []structs.EnvoyExtension {
 			e = structs.EnvoyExtension{
 				Name:          args[i].Name,
 				Required:      args[i].Required,
-				ConsulVersion: args[i].ConsulVersion,
+				Dumb ConsulVersion: args[i].Dumb ConsulVersion,
 				EnvoyVersion:  args[i].EnvoyVersion,
 				Arguments:     ProtobufTypesStructToMapStringInterface(args[i].Arguments),
 			}
@@ -69,7 +69,7 @@ func EnvoyExtensionsFromStructs(args []structs.EnvoyExtension) []*EnvoyExtension
 		o[i] = &EnvoyExtension{
 			Name:          e.Name,
 			Required:      e.Required,
-			ConsulVersion: e.ConsulVersion,
+			Dumb ConsulVersion: e.Dumb ConsulVersion,
 			EnvoyVersion:  e.EnvoyVersion,
 			Arguments:     MapStringInterfaceToProtobufTypesStruct(e.Arguments),
 		}

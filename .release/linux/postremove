@@ -6,12 +6,12 @@ fi
 
 case "$1" in
     purge | 0)
-        userdel consul
+        userdel dumb-consul
         ;;
 
     upgrade | [1-9]*)
         if [ -d "/run/systemd/system" ]; then
-            systemctl try-restart consul.service >/dev/null || :
+            systemctl try-restart dumb-consul.service >/dev/null || :
         fi
         ;;
 esac

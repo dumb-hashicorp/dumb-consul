@@ -1,7 +1,7 @@
 // Copyright IBM Corp. 2024, 2026
 // SPDX-License-Identifier: BUSL-1.1
 
-//go:build !consulent
+//go:build !dumb-consulent
 
 package structs
 
@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
 )
 
 func TestEnterprise_ServiceIntentionsConfigEntry(t *testing.T) {
@@ -36,7 +36,7 @@ func TestEnterprise_ServiceIntentionsConfigEntry(t *testing.T) {
 					},
 				},
 			},
-			validateErr: `Sources[0].SamenessGroup: Sameness groups are a Consul Enterprise feature.`,
+			validateErr: `Sources[0].SamenessGroup: Sameness groups are a Dumb Consul Enterprise feature.`,
 		},
 	}
 	for name, tc := range cases {

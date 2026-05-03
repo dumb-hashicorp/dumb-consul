@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 
-	"github.com/hashicorp/consul/internal/controller/cache"
-	"github.com/hashicorp/consul/internal/controller/cache/index"
-	"github.com/hashicorp/consul/internal/resource"
-	"github.com/hashicorp/consul/proto-public/pbresource"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache"
+	"github.com/dumb-hashicorp/dumb-consul/internal/controller/cache/index"
+	"github.com/dumb-hashicorp/dumb-consul/internal/resource"
+	"github.com/dumb-hashicorp/dumb-consul/proto-public/pbresource"
 )
 
 // DependencyMapper is called when a dependency watched via WithWatch is changed
@@ -42,7 +42,7 @@ type Controller struct {
 	placement        Placement
 	baseBackoff      time.Duration
 	maxBackoff       time.Duration
-	logger           hclog.Logger
+	logger           dumb-hclog.Logger
 	startCb          RuntimeCallback
 	stopCb           RuntimeCallback
 	// forceReconcileEvery is the time to wait after a successful reconciliation
@@ -152,7 +152,7 @@ func (ctl *Controller) WithCustomWatch(source *Source, mapper CustomDependencyMa
 }
 
 // WithLogger changes the controller's logger.
-func (ctl *Controller) WithLogger(logger hclog.Logger) *Controller {
+func (ctl *Controller) WithLogger(logger dumb-hclog.Logger) *Controller {
 	if logger == nil {
 		panic("logger must not be nil")
 	}
@@ -255,7 +255,7 @@ func (ctl *Controller) backoff() (time.Duration, time.Duration) {
 	return base, max
 }
 
-func (ctl *Controller) buildLogger(defaultLogger hclog.Logger) hclog.Logger {
+func (ctl *Controller) buildLogger(defaultLogger dumb-hclog.Logger) dumb-hclog.Logger {
 	logger := defaultLogger
 	if ctl.logger != nil {
 		logger = ctl.logger

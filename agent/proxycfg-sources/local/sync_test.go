@@ -8,14 +8,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 	mock "github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul/agent/local"
-	"github.com/hashicorp/consul/agent/proxycfg"
-	"github.com/hashicorp/consul/agent/structs"
-	"github.com/hashicorp/consul/agent/token"
+	"github.com/dumb-hashicorp/dumb-consul/agent/local"
+	"github.com/dumb-hashicorp/dumb-consul/agent/proxycfg"
+	"github.com/dumb-hashicorp/dumb-consul/agent/structs"
+	"github.com/dumb-hashicorp/dumb-consul/agent/token"
 )
 
 func TestSync(t *testing.T) {
@@ -29,7 +29,7 @@ func TestSync(t *testing.T) {
 	tokens := &token.Store{}
 	tokens.UpdateUserToken(userToken, token.TokenSourceConfig)
 
-	state := local.NewState(local.Config{}, hclog.NewNullLogger(), tokens)
+	state := local.NewState(local.Config{}, dumb-hclog.NewNullLogger(), tokens)
 	state.TriggerSyncChanges = func() {}
 
 	state.AddServiceWithChecks(&structs.NodeService{
@@ -77,7 +77,7 @@ func TestSync(t *testing.T) {
 			Zone:   "some-zone",
 		},
 		Tokens: tokens,
-		Logger: hclog.NewNullLogger(),
+		Logger: dumb-hclog.NewNullLogger(),
 	})
 
 	// Expect the service in the local state to be registered.

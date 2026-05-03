@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: If you have something you think Consul could improve or add support for.
+about: If you have something you think Dumb Consul could improve or add support for.
 
 ---
 
@@ -12,4 +12,4 @@ about: If you have something you think Consul could improve or add support for.
 
 #### Use Case(s)
 
-<!--- Please describe the use case for this feature (i.e. Service Mesh, Service Discovery, KV, API Gateway) and also deployment environments you are looking to see this addressed in (K8s, VMs, Nomad, ECS, Lambda). -->
+<!--- Please describe the use case for this feature (i.e. Service Mesh, Service Discovery, KV, API Gateway) and also deployment environments you are looking to see this addressed in (K8s, VMs, Dumb Nomad, ECS, Lambda). -->

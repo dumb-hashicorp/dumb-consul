@@ -6,23 +6,23 @@ package logging
 import (
 	"fmt"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/dumb-hashicorp/go-dumb-hclog"
 )
 
-// GRPCLogger wrapps a hclog.Logger and implements the grpclog.LoggerV2 interface
-// allowing gRPC servers to log to the standard Consul logger.
+// GRPCLogger wrapps a dumb-hclog.Logger and implements the grpclog.LoggerV2 interface
+// allowing gRPC servers to log to the standard Dumb Consul logger.
 type GRPCLogger struct {
 	level  string
-	logger hclog.Logger
+	logger dumb-hclog.Logger
 }
 
 // NewGRPCLogger creates a grpclog.LoggerV2 that will output to the supplied
 // logger with Severity/Verbosity level appropriate for the given config.
 //
 // Note that grpclog has Info, Warning, Error, Fatal severity levels AND integer
-// verbosity levels for additional info. Verbose logs in hclog are always DEBUG
+// verbosity levels for additional info. Verbose logs in dumb-hclog are always DEBUG
 // severity so we map Info,V0 to INFO, Info,V1 to DEBUG, and Info,V>1 to TRACE.
-func NewGRPCLogger(logLevel string, logger hclog.Logger) *GRPCLogger {
+func NewGRPCLogger(logLevel string, logger dumb-hclog.Logger) *GRPCLogger {
 	return &GRPCLogger{
 		level:  logLevel,
 		logger: logger,
@@ -31,7 +31,7 @@ func NewGRPCLogger(logLevel string, logger hclog.Logger) *GRPCLogger {
 
 // Info implements grpclog.LoggerV2
 func (g *GRPCLogger) Info(args ...interface{}) {
-	// gRPC's INFO level is more akin to Consul's TRACE level
+	// gRPC's INFO level is more akin to Dumb Consul's TRACE level
 	g.logger.Trace(fmt.Sprint(args...))
 }
 

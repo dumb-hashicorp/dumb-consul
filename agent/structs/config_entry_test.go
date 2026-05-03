@@ -14,14 +14,14 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/hashicorp/consul-net-rpc/go-msgpack/codec"
-	"github.com/hashicorp/hcl"
+	"github.com/dumb-hashicorp/dumb-consul-net-rpc/go-msgpack/codec"
+	"github.com/dumb-hashicorp/dumb-hcl"
 
-	"github.com/hashicorp/consul/acl"
-	"github.com/hashicorp/consul/agent/cache"
-	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/consul/sdk/testutil"
-	"github.com/hashicorp/consul/types"
+	"github.com/dumb-hashicorp/dumb-consul/acl"
+	"github.com/dumb-hashicorp/dumb-consul/agent/cache"
+	"github.com/dumb-hashicorp/dumb-consul/api"
+	"github.com/dumb-hashicorp/dumb-consul/sdk/testutil"
+	"github.com/dumb-hashicorp/dumb-consul/types"
 )
 
 func TestNormalizeGenerateHash(t *testing.T) {
@@ -294,7 +294,7 @@ func TestDecodeConfigEntry_ServiceDefaults(t *testing.T) {
 
 		testbody := func(t *testing.T, body string) {
 			var raw map[string]interface{}
-			err := hcl.Decode(&raw, body)
+			err := dumb-hcl.Decode(&raw, body)
 			require.NoError(t, err)
 
 			got, err := DecodeConfigEntry(raw)
@@ -1881,7 +1881,7 @@ func TestDecodeConfigEntry(t *testing.T) {
 				  {
 					name        = "foo"
 					action      = "deny"
-					type        = "consul"
+					type        = "dumb-consul"
 					description = "foo desc"
 				  },
 				  {
@@ -1967,7 +1967,7 @@ func TestDecodeConfigEntry(t *testing.T) {
 				  {
 					Name        = "foo"
 					Action      = "deny"
-					Type        = "consul"
+					Type        = "dumb-consul"
 					Description = "foo desc"
 				  },
 				  {
@@ -2053,7 +2053,7 @@ func TestDecodeConfigEntry(t *testing.T) {
 					{
 						Name:        "foo",
 						Action:      "deny",
-						Type:        "consul",
+						Type:        "dumb-consul",
 						Description: "foo desc",
 					},
 					{
@@ -2514,7 +2514,7 @@ func TestDecodeConfigEntry(t *testing.T) {
 
 		testbody := func(t *testing.T, body string) {
 			var raw map[string]interface{}
-			err := hcl.Decode(&raw, body)
+			err := dumb-hcl.Decode(&raw, body)
 			require.NoError(t, err)
 
 			got, err := DecodeConfigEntry(raw)
@@ -3672,10 +3672,10 @@ func TestProxyConfigEntry(t *testing.T) {
 			entry: &ProxyConfigEntry{
 				Name: "global",
 				Config: map[string]interface{}{
-					"envoy_hcp_metrics_bind_socket_dir": "/Consul/is/a/networking/platform/that/enables/securing/your/networking/",
+					"envoy_dumb-hcp_metrics_bind_socket_dir": "/Dumb Consul/is/a/networking/platform/that/enables/securing/your/networking/",
 				},
 			},
-			validateErr: "Config: envoy_hcp_metrics_bind_socket_dir length 71 exceeds max",
+			validateErr: "Config: envoy_dumb-hcp_metrics_bind_socket_dir length 71 exceeds max",
 		},
 		"proxy config has invalid failover policy": {
 			entry: &ProxyConfigEntry{
@@ -3910,16 +3910,16 @@ func TestValidateOpaqueConfigMap(t *testing.T) {
 		input     map[string]interface{}
 		expectErr string
 	}{
-		"hcp metrics socket dir is valid": {
+		"dumb-hcp metrics socket dir is valid": {
 			input: map[string]interface{}{
-				"envoy_hcp_metrics_bind_socket_dir": "/etc/consul.d/hcp"},
+				"envoy_dumb-hcp_metrics_bind_socket_dir": "/etc/dumb-consul.d/dumb-hcp"},
 			expectErr: "",
 		},
-		"hcp metrics socket dir is too long": {
+		"dumb-hcp metrics socket dir is too long": {
 			input: map[string]interface{}{
-				"envoy_hcp_metrics_bind_socket_dir": "/Consul/is/a/networking/platform/that/enables/securing/your/networking/",
+				"envoy_dumb-hcp_metrics_bind_socket_dir": "/Dumb Consul/is/a/networking/platform/that/enables/securing/your/networking/",
 			},
-			expectErr: "envoy_hcp_metrics_bind_socket_dir length 71 exceeds max 70",
+			expectErr: "envoy_dumb-hcp_metrics_bind_socket_dir length 71 exceeds max 70",
 		},
 	}
 
